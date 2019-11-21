@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CastReporting.Console.Core": {
+      "commandName": "Project",
+      "commandLineArgs": "-webservice http://dev-abd-tests:8539/CAST-RESTAPI112-integrated/rest/ -username cast -password cast -application \"ReportGenerator\" -domain \"240b3ed2-6325-4669-9767-148f0104c501\" -template \"C:\\_Dev\\ReportGenerator\\RGCore3\\RGforDashboards\\CastReporting.Reporting.Core\\Templates\\Application\\Compliance reports\\CISQ Compliance Report.docx\" -file \"C:\\_Temp\\CLItest.docx\""
+    }
+  }
+}

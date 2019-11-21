@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CastReporting.BLL.Computing.Core\CastReporting.BLL.Computing.Core.csproj" />
+    <ProjectReference Include="..\CastReporting.Domain.Core\CastReporting.Domain.Core.csproj" />
+    <ProjectReference Include="..\CastReporting.Mediation.Core\CastReporting.Mediation.Core.csproj" />
+    <ProjectReference Include="..\CastReporting.Mediation.Interfaces.Core\CastReporting.Mediation.Interfaces.Core.csproj" />
+    <ProjectReference Include="..\CastReporting.Repositories.Core\CastReporting.Repositories.Core.csproj" />
+    <ProjectReference Include="..\CastReporting.Repositories.Interfaces.Core\CastReporting.Repositories.Interfaces.Core.csproj" />
+  </ItemGroup>
+
+</Project>
