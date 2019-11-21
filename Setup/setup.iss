@@ -6,13 +6,13 @@
 #define MyAppExeName "CastReporting.UI.WPF.Core.exe"
 #define MyAppExe "../CastReporting.UI.WPF.V2/bin/Release/netcoreapp3.0/"+MyAppExeName
 #define MyAppCopyright GetFileCopyright(MyAppExe)
-#define App1120Id "{{592235D1-DB95-48A6-AEC0-1288F47EF18F}"
+#define App1130Id "{{3E2CA564-8AC6-4AE9-BA54-C44C7FE1A6E6}"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{592235D1-DB95-48A6-AEC0-1288F47EF18F}
+AppId={{3E2CA564-8AC6-4AE9-BA54-C44C7FE1A6E6}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppVerName={#MyAppName} {#MyAppVersion}
@@ -229,7 +229,7 @@ begin
     result := false;
     MsgBox('{#MyAppName} requires Microsoft .NET Core 3.0.'#13#13
         'Please make sure it is installed before using {#MyAppName}.', mbInformation, MB_OK);
-    result := UninstallOldVersion('{#App1120Id}', '1.12.0');
+    result := UninstallOldVersion('{#App1130Id}', '1.13.0');
 end;
 
 procedure InitializeWizard;

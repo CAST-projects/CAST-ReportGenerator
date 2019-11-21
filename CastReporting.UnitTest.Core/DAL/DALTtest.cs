@@ -292,6 +292,7 @@ namespace CastReporting.UnitTest.Repositories
         }
 
 
+        [Ignore]
         [TestMethod()]
         public void GetConfQualityRuleChinese()
         {
