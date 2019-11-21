@@ -18,6 +18,7 @@ using CastReporting.BLL;
 using CastReporting.Domain;
 using Cast.Util;
 using CastReporting.UI.WPF.Core.Common;
+using Cast.Util.Log;
 
 namespace CastReporting.UI.WPF.Core.ViewModel
 {
@@ -53,6 +54,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// <param name="ex"></param>
         protected static void WorkerThreadException(CastReportingException ex)
         {
+            LogHelper.LogFatal(ex.Message);
             throw ex;
         }
     }
