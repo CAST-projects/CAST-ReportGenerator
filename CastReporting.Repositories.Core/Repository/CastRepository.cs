@@ -260,7 +260,7 @@ namespace CastReporting.Repositories
         {
             var requestUrl = string.Format(_query_components, snapshotHref, businessCriteria, count);
 
-            return CallWS<IEnumerable<Component>>(requestUrl, RequestComplexity.Standard);
+            return CallWS<IEnumerable<Component>>(requestUrl, RequestComplexity.Long);
         }
 
         IEnumerable<ComponentWithProperties> ICastRepsitory.GetComponentsWithProperties(string snapshothref, int bcId, string prop1 , string prop2, string order1, string order2, int count)
@@ -270,21 +270,21 @@ namespace CastReporting.Repositories
             string order = order1.ToLower() + "(" + prop1 + ")," + order2.ToLower() + "(" + prop2 + ")"; 
             var requestUrl = string.Format(_query_components_with_properties, snapshothref, bcId, prop1, prop2, order, count);
 
-            return CallWS<IEnumerable<ComponentWithProperties>>(requestUrl, RequestComplexity.Standard);
+            return CallWS<IEnumerable<ComponentWithProperties>>(requestUrl, RequestComplexity.Long);
         }
 
         IEnumerable<Component> ICastRepsitory.GetComponentsByModule(string domainId, int moduleId, int snapshotId, string businessCriteria, int count)
         {
             var requestUrl = string.Format(_query_components_by_modules, domainId, moduleId, snapshotId, businessCriteria, count);
             
-            return CallWS<IEnumerable<Component>>(requestUrl, RequestComplexity.Standard);
+            return CallWS<IEnumerable<Component>>(requestUrl, RequestComplexity.Long);
         }
 
         IEnumerable<Transaction> ICastRepsitory.GetTransactions(string snapshotHref, string businessCriteria, int count)
         {
             var requestUrl = string.Format(_query_transactions, snapshotHref, businessCriteria, count);
 
-            return CallWS<IEnumerable<Transaction>>(requestUrl, RequestComplexity.Standard);
+            return CallWS<IEnumerable<Transaction>>(requestUrl, RequestComplexity.Long);
         }
 
         IEnumerable<CommonCategories> ICastRepsitory.GetCommonCategories()
@@ -422,7 +422,7 @@ namespace CastReporting.Repositories
 
             var requestUrl = string.Format(_query_result_rules_violations, snapshotHRef, criticity, businessCriteria);
             
-            return CallWS<IEnumerable<Result>>(requestUrl, RequestComplexity.Standard);
+            return CallWS<IEnumerable<Result>>(requestUrl, RequestComplexity.Long);
         }
 
         public IEnumerable<Violation> GetRemovedViolations(string snapshotHRef, string businessCriteria, int count, string criticity)
@@ -483,13 +483,13 @@ namespace CastReporting.Repositories
             
             try
             {
-                return CallWS<IEnumerable<ActionPlan>>(requestUrl, RequestComplexity.Standard);
+                return CallWS<IEnumerable<ActionPlan>>(requestUrl, RequestComplexity.Long);
             }
             catch (WebException webEx)
             {
                 LogHelper.LogInfo(webEx.Message);
                 // url for action plan has changed in API, and some old versions does not support the 2 format of the url
-                return CallWS<IEnumerable<ActionPlan>>(requestUrl2, RequestComplexity.Standard);
+                return CallWS<IEnumerable<ActionPlan>>(requestUrl2, RequestComplexity.Long);
             }
         }
         #endregion ActionPlan
@@ -531,7 +531,7 @@ namespace CastReporting.Repositories
             // in case of technology, levelHRef should be application HRef
             var requestUrl = string.Format(query, levelHRef, snapshotId, previousSnapshotId, status, technology);
 
-            return CallWS<IEnumerable<DeltaComponent>>(requestUrl, RequestComplexity.Standard);
+            return CallWS<IEnumerable<DeltaComponent>>(requestUrl, RequestComplexity.Long);
 
         }
 
@@ -545,7 +545,7 @@ namespace CastReporting.Repositories
         {
             string relativeUrl = string.Format(_query_result_quality_distribution_complexity, snapshotHRef, qualityDistribution);
 
-            return CallWS<IEnumerable<Result>>(relativeUrl, RequestComplexity.Standard);
+            return CallWS<IEnumerable<Result>>(relativeUrl, RequestComplexity.Long);
         }
 
         /// <summary>
@@ -566,7 +566,7 @@ namespace CastReporting.Repositories
 
             string relativeURL = string.Format(query, hRef, qiParam, snapshotsParam, modulesParam, technologiesParam);
 
-            return CallWS<IEnumerable<Result>>(relativeURL, RequestComplexity.Standard);
+            return CallWS<IEnumerable<Result>>(relativeURL, RequestComplexity.Long);
         }
 
         /// <summary>
@@ -588,7 +588,7 @@ namespace CastReporting.Repositories
 
             string relativeURL = string.Format(query, hRef, stgTagParam, modulesParam, technologiesParam);
 
-            return CallWS<IEnumerable<Result>>(relativeURL, RequestComplexity.Standard);
+            return CallWS<IEnumerable<Result>>(relativeURL, RequestComplexity.Long);
         }
         
         /// <summary>
@@ -601,7 +601,7 @@ namespace CastReporting.Repositories
 
             string relativeURL = string.Format(query, hRef, stgTagParam);
 
-            return CallWS<IEnumerable<Result>>(relativeURL, RequestComplexity.Standard);
+            return CallWS<IEnumerable<Result>>(relativeURL, RequestComplexity.Long);
         }
 
         /// <summary>
@@ -614,7 +614,7 @@ namespace CastReporting.Repositories
 
             string relativeURL = string.Format(query, hRef);
 
-            return CallWS<IEnumerable<StandardTag>>(relativeURL, RequestComplexity.Standard);
+            return CallWS<IEnumerable<StandardTag>>(relativeURL, RequestComplexity.Long);
         }
 
         /// <summary>
@@ -627,7 +627,7 @@ namespace CastReporting.Repositories
 
             string relativeURL = string.Format(query, domain, category);
 
-            return CallWS<IEnumerable<StandardTag>>(relativeURL, RequestComplexity.Standard);
+            return CallWS<IEnumerable<StandardTag>>(relativeURL, RequestComplexity.Long);
         }
 
         /// <summary>
@@ -649,7 +649,7 @@ namespace CastReporting.Repositories
 
             string relativeURL = string.Format(query, hRef, param, snapshotsParam, technologiesParam, moduleParam);
 
-            return CallWS<IEnumerable<Result>>(relativeURL, RequestComplexity.Standard);
+            return CallWS<IEnumerable<Result>>(relativeURL, RequestComplexity.Long);
         }
 
         IEnumerable<Result> ICastRepsitory.GetResultsBackgroundFacts(string hRef, string param, string snapshotsParam, string technologiesParam, string moduleParam)
@@ -667,7 +667,7 @@ namespace CastReporting.Repositories
 
             string relativeURL = string.Format(query, hRef, param, snapshotsParam, technologiesParam, moduleParam);
 
-            return CallWS<IEnumerable<Result>>(relativeURL, RequestComplexity.Standard);
+            return CallWS<IEnumerable<Result>>(relativeURL, RequestComplexity.Long);
         }
 
         #endregion Result
