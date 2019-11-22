@@ -7,6 +7,7 @@ using System.Linq;
 using Cast.Util.Log;
 using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
+using System.Dynamic;
 
 namespace CastReporting.Reporting.Helper
 {
@@ -827,12 +828,20 @@ namespace CastReporting.Reporting.Helper
             return CalculateExpression(expr, true);
         }
 
+        // for sending in parameters to the script
+        public class Globals
+        {
+            public dynamic data;
+        }
+
         private static string CreateExpression(ReportData reportData, Dictionary<string, string> options, string[] lstParams, Snapshot snapshot, string expr, Module module, string technology)
         {
+            dynamic expando = new ExpandoObject();
             for (int i = 0; i < lstParams.Length; i += 2)
             {
                 string param = lstParams[i + 1];
                 string _id = options.GetOption(lstParams[i + 1], "0");
+                
                 if (string.IsNullOrEmpty(_id))
                     return expr;
                 double? _value = GetMetricNameAndResult(reportData, snapshot, _id, module, technology, true)?.result;
@@ -897,5 +906,6 @@ namespace CastReporting.Reporting.Helper
                 return null;
             }
         }
+
     }
 }

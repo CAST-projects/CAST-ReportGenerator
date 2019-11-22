@@ -1,7 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Dynamic;
+using System.Reflection;
 using CastReporting.Domain;
 using CastReporting.Reporting.Block.Text;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Scripting;
+using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CastReporting.UnitTest.Reporting.Text
@@ -180,7 +185,6 @@ namespace CastReporting.UnitTest.Reporting.Text
             Assert.AreEqual("No data found", str);
         }
 
-        [Ignore]
         [TestMethod]
         [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
         [DeploymentItem(@".\Data\BusinessValue.json", "Data")]
@@ -205,58 +209,38 @@ namespace CastReporting.UnitTest.Reporting.Text
             Initialize();
         }
 
-        /*
- * 
- * using System.Dynamic;
-    using System.Globalization;
-    using System.Reflection;
-    using Microsoft.CodeAnalysis;
-    using Microsoft.CodeAnalysis.CSharp.Scripting;
-    using Microsoft.CodeAnalysis.Scripting;
-    using Microsoft.VisualStudio.TestTools.UnitTesting; 
+        // for sending in parameters to the script
+        public class Globals
+        {
+            public dynamic data;
+        }
 
-// https://github.com/dotnet/roslyn/wiki/Scripting-API-Samples
+        [TestMethod]
+        public void TestFrenchEvaluateAsync()
+        {
+            TestUtility.SetCulture("FR-fr");
+            // Script that will use dynamic
+            var scriptContent = "(data.a + data.b + data.c)/3";
+            // data to be sent into the script
+            dynamic expando = new ExpandoObject();
+            expando.a = 1.1;
+            expando.b = 3.3;
+            expando.c = 2.2;
 
-// good solution that works for my cases in compute expression:
-// https://github.com/dotnet/roslyn/issues/3194#issuecomment-326196486
-// with nugget package Microsoft.CodeAnalysis.CSharp.Scripting
-// better to update to latest core and framework to get latest version of this package
-// if not, take the 2.10 version that is also ok to resolve my issue
+            // setup references needed
+            var refs = new List<MetadataReference>();
+            refs.Add(MetadataReference.CreateFromFile(typeof(Microsoft.CSharp.RuntimeBinder.RuntimeBinderException).GetTypeInfo().Assembly.Location));
+            refs.Add(MetadataReference.CreateFromFile(typeof(System.Runtime.CompilerServices.DynamicAttribute).GetTypeInfo().Assembly.Location));
+            var script = CSharpScript.Create(scriptContent, options: ScriptOptions.Default.AddReferences(refs), globalsType: typeof(Globals));
+            script.Compile();
 
-// for sending in parameters to the script
-public class Globals
-{
-    public dynamic data;
-}
+            // create new global that will contain the data we want to send into the script
+            var g = new Globals() { data = expando };
 
-[TestMethod]
-public void TestFrenchEvaluateAsync()
-{
-    SetCulture("FR-fr");
-    // Script that will use dynamic
-    var scriptContent = "(data.a + data.b + data.c)/3";
-    // data to be sent into the script
-    dynamic expando = new ExpandoObject();
-    expando.a = 1.1;
-    expando.b = 3.3;
-    expando.c = 2.2;
-
-    // setup references needed
-    var refs = new List<MetadataReference>();
-    refs.Add(MetadataReference.CreateFromFile(typeof(Microsoft.CSharp.RuntimeBinder.RuntimeBinderException).GetTypeInfo().Assembly.Location));
-    refs.Add(MetadataReference.CreateFromFile(typeof(System.Runtime.CompilerServices.DynamicAttribute).GetTypeInfo().Assembly.Location));
-    var script = CSharpScript.Create(scriptContent, options: ScriptOptions.Default.AddReferences(refs), globalsType: typeof(Globals));
-    script.Compile();
-
-    // create new global that will contain the data we want to send into the script
-    var g = new Globals() { data = expando };
-
-    //Execute and display result
-    var r = script.RunAsync(g).Result;
-    Assert.AreEqual("2,2", r.ReturnValue.ToString());
-}
-
- */
+            //Execute and display result
+            var r = script.RunAsync(g).Result;
+            Assert.AreEqual("2,2", r.ReturnValue.ToString());
+        }
 
     }
 }
