@@ -370,6 +370,7 @@ namespace CastReporting.Console
 
                             if (tmpReportFile.Contains(".xlsx"))
                             {
+                                File.Delete(tmpReportFile);
                                 tmpReportFile = tmpReportFileFlexi;
                             }
                             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -543,6 +544,7 @@ namespace CastReporting.Console
 
                     if (tmpReportFile.Contains(".xlsx"))
                     {
+                        File.Delete(tmpReportFile);
                         tmpReportFile = tmpReportFileFlexi;
                     }
                     if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
