@@ -185,6 +185,7 @@ namespace CastReporting.UnitTest.Reporting.Text
             Assert.AreEqual("No data found", str);
         }
 
+        [Ignore]
         [TestMethod]
         [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
         [DeploymentItem(@".\Data\BusinessValue.json", "Data")]
@@ -215,6 +216,7 @@ namespace CastReporting.UnitTest.Reporting.Text
             public dynamic data;
         }
 
+        [Ignore]
         [TestMethod]
         public void TestFrenchEvaluateAsync()
         {
