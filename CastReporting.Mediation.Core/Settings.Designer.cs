@@ -25,7 +25,7 @@ namespace CastReporting.Mediation.Core {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("120000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("180000")]
         public int TimeoutQuick {
             get {
                 return ((int)(this["TimeoutQuick"]));
@@ -34,7 +34,7 @@ namespace CastReporting.Mediation.Core {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("180000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("320000")]
         public int TimeoutStandard {
             get {
                 return ((int)(this["TimeoutStandard"]));
@@ -43,7 +43,7 @@ namespace CastReporting.Mediation.Core {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("320000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("560000")]
         public int TimoutLong {
             get {
                 return ((int)(this["TimoutLong"]));
