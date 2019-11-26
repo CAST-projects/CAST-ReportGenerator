@@ -826,6 +826,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
 
                 if (tmpReportFile.Contains(".xlsx"))
                 {
+                    File.Delete(tmpReportFile);
                     tmpReportFile = tmpReportFileFlexi;
                 }
 
@@ -954,6 +955,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
 
                 if (tmpReportFile.Contains(".xlsx"))
                 {
+                    File.Delete(tmpReportFile);
                     tmpReportFile = tmpReportFileFlexi;
                 }
 

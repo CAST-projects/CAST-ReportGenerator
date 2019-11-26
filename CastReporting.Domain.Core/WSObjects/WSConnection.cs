@@ -78,6 +78,7 @@ namespace CastReporting.Domain
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         public byte[] CryptedLogin
         {
             get;
@@ -111,11 +112,12 @@ namespace CastReporting.Domain
         /// <summary>
         /// Get/Set the connection name
         /// </summary>       
-        
+
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         public byte[] CryptedPassword
         {
             get;
@@ -152,8 +154,10 @@ namespace CastReporting.Domain
         /// </summary>       
         public bool IsActive { get; set; }
 
+        [XmlIgnore] 
         public bool ApiKey { get; set; }
 
+        [XmlIgnore] 
         public bool ServerCertificateValidation { get; set; }
         /// <summary>
         /// 
