@@ -48,12 +48,17 @@ namespace CastReporting.Domain
         [DataMember(Name = "key")]
         public int Key {get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        [DataMember(Name = "critical")]
+        public string Critical { get; set; }
 
-       /// <summary>
-       /// 
-       /// </summary>
-       /// <param name="obj"></param>
-       /// <returns></returns>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             if (!(obj is ResultReference)) return false;

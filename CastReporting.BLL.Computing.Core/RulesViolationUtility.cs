@@ -148,7 +148,7 @@ namespace CastReporting.BLL.Computing
 
             return query?.Select(_ => new RuleViolationResultDTO
                 {
-                    Rule = new RuleDetailsDTO { Name = _.Reference.Name, Key = _.Reference.Key },
+                    Rule = new RuleDetailsDTO { Name = _.Reference.Name, Key = _.Reference.Key, Critical = _.Reference.Critical.Equals("true") },
                     TotalChecks = _.DetailResult.ViolationRatio.TotalChecks,
                     TotalFailed = _.DetailResult.ViolationRatio.FailedChecks,
                     Grade = _.DetailResult.Grade

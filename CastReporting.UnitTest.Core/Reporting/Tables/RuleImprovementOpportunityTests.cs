@@ -41,11 +41,11 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
 
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> { "Rule Name", "Current Violations", "Previous Violations", "Evolution", "Grade", "Grade Evolution"});
-            expectedData.AddRange(new List<string> { "Avoid unreferenced Tables","209", "128", "+63.3 %", "1.69", "+26.7 %" });
-            expectedData.AddRange(new List<string> { "Avoid hiding static Methods", "63", "3", "+2,000 %", "1.56", "-52 %" });
-            expectedData.AddRange(new List<string> { "Suspicious similar method names or signatures in an inheritance tree", "13", "0", "n/a", "4.00", "0 %" });
-            TestUtility.AssertTableContent(table, expectedData, 6, 4);
+            expectedData.AddRange(new List<string> { "Rule Name", "Critical", "Current Violations", "Previous Violations", "Evolution", "Grade", "Grade Evolution"});
+            expectedData.AddRange(new List<string> { "Avoid unreferenced Tables", "N", "209", "128", "+63.3 %", "1.69", "+26.7 %" });
+            expectedData.AddRange(new List<string> { "Avoid hiding static Methods", "Y", "63", "3", "+2,000 %", "1.56", "-52 %" });
+            expectedData.AddRange(new List<string> { "Suspicious similar method names or signatures in an inheritance tree", "Y", "13", "0", "n/a", "4.00", "0 %" });
+            TestUtility.AssertTableContent(table, expectedData, 7, 4);
         }
 
 
@@ -76,11 +76,11 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
 
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> { "Rule Name", "Current Violations", "Previous Violations", "Evolution", "Grade", "Grade Evolution" });
-            expectedData.AddRange(new List<string> { "Avoid unreferenced Tables", "209", "128", "+63.3 %", "1.69", "+26.7 %" });
-            expectedData.AddRange(new List<string> { "Suspicious similar method names or signatures in an inheritance tree", "13", "0", "n/a", "4.00", "0 %" });
-            expectedData.AddRange(new List<string> { "Avoid using untyped DataSet", "4", "6", "-33.3 %", "1.00", "0 %" });
-            TestUtility.AssertTableContent(table, expectedData, 6, 4);
+            expectedData.AddRange(new List<string> { "Rule Name", "Critical", "Current Violations", "Previous Violations", "Evolution", "Grade", "Grade Evolution" });
+            expectedData.AddRange(new List<string> { "Avoid unreferenced Tables", "N", "209", "128", "+63.3 %", "1.69", "+26.7 %" });
+            expectedData.AddRange(new List<string> { "Suspicious similar method names or signatures in an inheritance tree", "Y", "13", "0", "n/a", "4.00", "0 %" });
+            expectedData.AddRange(new List<string> { "Avoid using untyped DataSet", "Y", "4", "6", "-33.3 %", "1.00", "0 %" });
+            TestUtility.AssertTableContent(table, expectedData, 7, 4);
         }
 
         [TestMethod]
@@ -110,9 +110,9 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
 
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> { "Rule Name", "Current Violations", "Previous Violations", "Evolution", "Grade", "Grade Evolution" });
-            expectedData.AddRange(new List<string> { "Avoid hiding static Methods", "63", "3", "+2,000 %", "1.56", "-52 %" });
-            TestUtility.AssertTableContent(table, expectedData, 6, 2);
+            expectedData.AddRange(new List<string> { "Rule Name", "Critical", "Current Violations", "Previous Violations", "Evolution", "Grade", "Grade Evolution" });
+            expectedData.AddRange(new List<string> { "Avoid hiding static Methods", "Y", "63", "3", "+2,000 %", "1.56", "-52 %" });
+            TestUtility.AssertTableContent(table, expectedData, 7, 2);
         }
 
     }
