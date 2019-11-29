@@ -35,6 +35,9 @@ namespace CastReporting.Reporting.Block.Table
             string standard = options.GetOption("STD");
             bool detail = options.GetOption("MORE", "false").ToLower().Equals("true");
             bool vulnerability = options.GetOption("LBL", "vulnerabilities").ToLower().Equals("vulnerabilities");
+            string displayAddedRemoved = reportData.PreviousSnapshot != null ? "true" : "false";
+            bool displayEvolution = options.GetOption("EVOLUTION", displayAddedRemoved).ToLower().Equals("true");
+
             string lbltotal = vulnerability ? Labels.TotalVulnerabilities : Labels.TotalViolations;
             string lbladded = vulnerability ? Labels.AddedVulnerabilities : Labels.AddedViolations;
             string lblremoved = vulnerability ? Labels.RemovedVulnerabilities : Labels.RemovedViolations;
@@ -48,10 +51,14 @@ namespace CastReporting.Reporting.Block.Table
             cellidx++;
             headers.Append(lbltotal);
             cellidx++;
-            headers.Append(lbladded);
-            cellidx++;
-            headers.Append(lblremoved);
-            cellidx++;
+            if (displayEvolution)
+            {
+                headers.Append(lbladded);
+                cellidx++;
+                headers.Append(lblremoved);
+                cellidx++;
+            }
+
             var data = new List<string>();
 
             if (!VersionUtil.Is111Compatible(reportData.ServerVersion) && detail)
@@ -60,8 +67,11 @@ namespace CastReporting.Reporting.Block.Table
                 var dataRow = headers.CreateDataRow();
                 dataRow.Set(standard, Labels.NoData);
                 dataRow.Set(lbltotal, string.Empty);
-                dataRow.Set(lbladded, string.Empty);
-                dataRow.Set(lblremoved, string.Empty);
+                if (reportData.PreviousSnapshot != null)
+                {
+                    dataRow.Set(lbladded, string.Empty);
+                    dataRow.Set(lblremoved, string.Empty);
+                }
                 data.AddRange(dataRow);
                 data.InsertRange(0, headers.Labels);
                 return new TableDefinition
@@ -69,7 +79,7 @@ namespace CastReporting.Reporting.Block.Table
                     HasRowHeaders = false,
                     HasColumnHeaders = true,
                     NbRows = 2,
-                    NbColumns = 4,
+                    NbColumns = headers.Count,
                     Data = data
                 };
             }
@@ -92,12 +102,15 @@ namespace CastReporting.Reporting.Block.Table
                     dataRow.Set(lbltotal, detailResult.EvolutionSummary?.TotalViolations.NAIfEmpty("N0"));
                     FormatHelper.AddGrayOrBold(detail, cellProps, cellidx, nbViolations);
                     cellidx++;
-                    dataRow.Set(lbladded, detailResult.EvolutionSummary?.AddedViolations.NAIfEmpty("N0"));
-                    FormatHelper.AddGrayOrBold(detail, cellProps, cellidx, nbViolations);
-                    cellidx++;
-                    dataRow.Set(lblremoved, detailResult.EvolutionSummary?.RemovedViolations.NAIfEmpty("N0"));
-                    FormatHelper.AddGrayOrBold(detail, cellProps, cellidx, nbViolations);
-                    cellidx++;
+                    if (displayEvolution)
+                    {
+                        dataRow.Set(lbladded, detailResult.EvolutionSummary?.AddedViolations.NAIfEmpty("N0"));
+                        FormatHelper.AddGrayOrBold(detail, cellProps, cellidx, nbViolations);
+                        cellidx++;
+                        dataRow.Set(lblremoved, detailResult.EvolutionSummary?.RemovedViolations.NAIfEmpty("N0"));
+                        FormatHelper.AddGrayOrBold(detail, cellProps, cellidx, nbViolations);
+                        cellidx++;
+                    }
                     data.AddRange(dataRow);
 
                     // add lines for all sub tags if detail version
@@ -119,12 +132,15 @@ namespace CastReporting.Reporting.Block.Table
                             stddataRow.Set(lbltotal, detailStdResult.EvolutionSummary?.TotalViolations.NAIfEmpty("N0"));
                             FormatHelper.AddGrayOrBold(false, cellProps, cellidx, nbStdViolations);
                             cellidx++;
-                            stddataRow.Set(lbladded, detailStdResult.EvolutionSummary?.AddedViolations.NAIfEmpty("N0"));
-                            FormatHelper.AddGrayOrBold(false, cellProps, cellidx, nbStdViolations);
-                            cellidx++;
-                            stddataRow.Set(lblremoved, detailStdResult.EvolutionSummary?.RemovedViolations.NAIfEmpty("N0"));
-                            FormatHelper.AddGrayOrBold(false, cellProps, cellidx, nbStdViolations);
-                            cellidx++;
+                            if (displayEvolution)
+                            {
+                                stddataRow.Set(lbladded, detailStdResult.EvolutionSummary?.AddedViolations.NAIfEmpty("N0"));
+                                FormatHelper.AddGrayOrBold(false, cellProps, cellidx, nbStdViolations);
+                                cellidx++;
+                                stddataRow.Set(lblremoved, detailStdResult.EvolutionSummary?.RemovedViolations.NAIfEmpty("N0"));
+                                FormatHelper.AddGrayOrBold(false, cellProps, cellidx, nbStdViolations);
+                                cellidx++;
+                            }
                             data.AddRange(stddataRow);
                         }
                     }
@@ -136,8 +152,11 @@ namespace CastReporting.Reporting.Block.Table
                 var dataRow = headers.CreateDataRow();
                 dataRow.Set(standard, Labels.NoRules);
                 dataRow.Set(lbltotal, string.Empty);
-                dataRow.Set(lbladded, string.Empty);
-                dataRow.Set(lblremoved, string.Empty);
+                if (displayEvolution)
+                {
+                    dataRow.Set(lbladded, string.Empty);
+                    dataRow.Set(lblremoved, string.Empty);
+                }
                 data.AddRange(dataRow);
             }
 
