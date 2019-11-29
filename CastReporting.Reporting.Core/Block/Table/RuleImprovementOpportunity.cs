@@ -40,6 +40,7 @@ namespace CastReporting.Reporting.Block.Table
 
             rowData.AddRange(new[] {
 				Labels.RuleName,
+                Labels.Critical,
 				Labels.ViolationsCurrent,
 				Labels.ViolationsPrevious,
 				Labels.Evolution,
@@ -82,7 +83,7 @@ namespace CastReporting.Reporting.Block.Table
                         double? variationGrade = item.Grade.HasValue && previousGrade.HasValue ? item.Grade.Value - previousGrade.Value : (double?)null;
 
                         variationRules.Add(new RuleVariationResultDTO {
-                                                Rule = new RuleDetailsDTO { Name = item.Rule.Name, Key = item.Rule.Key },
+                                                Rule = new RuleDetailsDTO { Name = item.Rule.Name, Key = item.Rule.Key, Critical = item.Rule.Critical },
                                                 CurrentNbViolations = item.TotalFailed ?? -1,
                                                 PreviousNbViolations = previousitem?.TotalFailed ?? -1,
                                                 Evolution = variationVal.HasValue && previousVal > 0 ? variationVal / previousVal : double.NaN,
@@ -113,6 +114,7 @@ namespace CastReporting.Reporting.Block.Table
                         rowData.AddRange(new[] 
                                 { 
                                       varRule.Rule.Name
+                                    , varRule.Rule.Critical ? "Y" : "N"
                                     , varRule.CurrentNbViolations.HasValue && varRule.CurrentNbViolations.Value != -1? varRule.CurrentNbViolations.Value.ToString("N0"): Constants.No_Value
                                     , varRule.PreviousNbViolations.HasValue && varRule.PreviousNbViolations.Value != -1? varRule.PreviousNbViolations.Value.ToString("N0"): Constants.No_Value
                                     , varRule.Evolution.HasValue && !double.IsNaN(varRule.Evolution.Value) ? FormatPercent(varRule.Evolution.Value) : Constants.No_Value
@@ -126,7 +128,8 @@ namespace CastReporting.Reporting.Block.Table
 					rowData.AddRange(new[] {
 						Labels.NoItem,
 						string.Empty,
-						string.Empty,
+                        string.Empty,
+                        string.Empty,
 						string.Empty,
 						string.Empty
 					});
@@ -138,7 +141,7 @@ namespace CastReporting.Reporting.Block.Table
                 HasRowHeaders = false,
                 HasColumnHeaders = true,
                 NbRows = rowCount + 1,
-                NbColumns = 6,
+                NbColumns = 7,
                 Data = rowData
             };
             return resultTable;
