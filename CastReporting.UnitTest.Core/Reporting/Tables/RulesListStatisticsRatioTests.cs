@@ -53,7 +53,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
         [TestMethod]
         [DeploymentItem(@".\Data\CurrentBCTC.json", "Data")]
-        public void TestCriticalTCMetrics()
+        public void TestCriticalTCMetricsWithoutPrevious()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
@@ -80,6 +80,44 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
             var expectedData = new List<string>
             {
+                "CAST Rules","Total Vulnerabilities",
+                "Action Mappings should have few forwards (7132)","77"
+            };
+
+            TestUtility.AssertTableContent(table, expectedData, 2, 2);
+
+        }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\CurrentBCTC.json", "Data")]
+        public void TestCriticalTCMetricsWithEvolution()
+        {
+            CastDate currentDate = new CastDate { Time = 1484953200000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+                null, @".\Data\CurrentBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, null, null, null, null, null);
+            WSConnection connection = new WSConnection
+            {
+                Url = "http://tests/CAST-RESTAPI/rest/",
+                Login = "admin",
+                Password = "cast",
+                IsActive = true,
+                Name = "Default"
+            };
+            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
+            reportData.RuleExplorer = new RuleBLLStub();
+
+            var component = new CastReporting.Reporting.Block.Table.RulesListStatisticsRatio();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"METRICS","66070" },
+                {"CRITICAL","true" },
+                {"EVOLUTION","true" }
+            };
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>
+            {
                 "CAST Rules","Total Vulnerabilities","Added Vulnerabilities","Removed Vulnerabilities",
                 "Action Mappings should have few forwards (7132)","77","8","2"
             };
@@ -90,12 +128,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
         [TestMethod]
         [DeploymentItem(@".\Data\CurrentBCTC.json", "Data")]
+        [DeploymentItem(@".\Data\PreviousBCTC.json", "Data")]
         public void TestNonCriticalTCMetrics()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
+            CastDate previousDate = new CastDate { Time = 1484866800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                 null, @".\Data\CurrentBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
-                null, null, null, null, null, null);
+                null, @".\Data\PreviousBCTC.json", "AED/applications/3/snapshots/5", "PreVersion 1.5.0 sprint 2 shot 1", "V-1.5.0_Sprint 2_1", previousDate);
             WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
@@ -191,7 +231,8 @@ namespace CastReporting.UnitTest.Reporting.Tables
             {
                 {"METRICS","CISQ" },
                 {"COMPLIANCE", "true" },
-                {"SORTED","TOTAL" }
+                {"SORTED","TOTAL" },
+                {"EVOLUTION", "true" }
             };
             var table = component.Content(reportData, config);
 
@@ -269,7 +310,8 @@ namespace CastReporting.UnitTest.Reporting.Tables
             Dictionary<string, string> config = new Dictionary<string, string>
             {
                 {"METRICS","60011" },
-                {"CRITICAL","true" }
+                {"CRITICAL","true" },
+                {"EVOLUTION", "true" }
             };
             var table = component.Content(reportData, config);
 
@@ -307,7 +349,8 @@ namespace CastReporting.UnitTest.Reporting.Tables
             {
                 {"METRICS","66070" },
                 {"CRITICAL","false" },
-                {"LBL","violations" }
+                {"LBL","violations" },
+                {"EVOLUTION", "true" }
             };
             var table = component.Content(reportData, config);
 
@@ -391,11 +434,11 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
             var expectedData = new List<string>
             {
-                "CAST Rules","Total Vulnerabilities","Added Vulnerabilities","Removed Vulnerabilities",
-                "No applicable rules for given application","","",""
+                "CAST Rules","Total Vulnerabilities",
+                "No applicable rules for given application",""
             };
 
-            TestUtility.AssertTableContent(table, expectedData, 4, 2);
+            TestUtility.AssertTableContent(table, expectedData, 2, 2);
 
         }
 

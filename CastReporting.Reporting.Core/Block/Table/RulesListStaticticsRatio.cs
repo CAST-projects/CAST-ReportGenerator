@@ -44,7 +44,9 @@ namespace CastReporting.Reporting.Block.Table
             }
             bool displayCompliance = options.GetBoolOption("COMPLIANCE");
             bool sortedByCompliance = displayCompliance && options.GetOption("SORTED", "TOTAL").Equals("COMPLIANCE");
-            bool displayEvolution = options.GetOption("EVOLUTION", "true").ToLower().Equals("true");
+
+            string displayAddedRemoved = reportData.PreviousSnapshot != null ? "true" : "false";
+            bool displayEvolution = options.GetOption("EVOLUTION", displayAddedRemoved).ToLower().Equals("true");
 
             bool vulnerability = options.GetOption("LBL", "vulnerabilities").ToLower().Equals("vulnerabilities");
             string lbltotal = vulnerability ? Labels.TotalVulnerabilities : Labels.TotalViolations;
