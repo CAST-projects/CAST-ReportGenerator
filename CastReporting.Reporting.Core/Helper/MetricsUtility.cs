@@ -8,6 +8,11 @@ using Cast.Util.Log;
 using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
 using System.Dynamic;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Scripting;
+using System.Reflection;
+using Microsoft.CodeAnalysis.Scripting;
+using Module = CastReporting.Domain.Module;
 
 namespace CastReporting.Reporting.Helper
 {
@@ -809,46 +814,84 @@ namespace CastReporting.Reporting.Helper
             }
         }
 
-        public static string CustomExpressionEvaluationAggregated(ReportData reportData, Dictionary<string, string> options, string[] lstParams, List<Snapshot> snapshots, string expr, string metricFormat, Module module, string technology, string aggregator)
-        {
-            List<double?> results = snapshots.Select(snapshot => CustomExpressionEvaluationIn(reportData, options, lstParams, snapshot, expr, metricFormat, module, technology, true)).ToList();
-            double? res = AggregateValues(aggregator, results);
-            return res?.ToString(metricFormat) ?? Labels.NoData;
-        }
-
-        public static string CustomExpressionEvaluation(ReportData reportData, Dictionary<string, string> options, string[] lstParams, Snapshot snapshot, string expr, string metricFormat, Module module, string technology, bool portfolio=false)
-        {
-            expr = CreateExpression(reportData, options, lstParams, snapshot, expr, module, technology);
-            return ComputeExpression(expr, metricFormat, portfolio);
-        }
-
-        public static double? CustomExpressionEvaluationIn(ReportData reportData, Dictionary<string, string> options, string[] lstParams, Snapshot snapshot, string expr, string metricFormat, Module module, string technology, bool portfolio = false)
-        {
-            expr = CreateExpression(reportData, options, lstParams, snapshot, expr, module, technology);
-            return CalculateExpression(expr, true);
-        }
 
         // for sending in parameters to the script
         public class Globals
         {
-            public dynamic data;
+            // improbable name to avoid conflicts when replacing parameters
+            public dynamic _;
         }
 
-        private static string CreateExpression(ReportData reportData, Dictionary<string, string> options, string[] lstParams, Snapshot snapshot, string expr, Module module, string technology)
+        public static ScriptState<object> ExecuteScript(ReportData reportData, Dictionary<string, string> options, string[] lstParams, Snapshot snapshot, string expr, Module module, string technology)
         {
             dynamic expando = new ExpandoObject();
+            var dictionary = (IDictionary<string, object>)expando;
+
             for (int i = 0; i < lstParams.Length; i += 2)
             {
                 string param = lstParams[i + 1];
+                expr = expr.Replace(param, "_." + param);
+
                 string _id = options.GetOption(lstParams[i + 1], "0");
-                
                 if (string.IsNullOrEmpty(_id))
-                    return expr;
+                    continue;
+
                 double? _value = GetMetricNameAndResult(reportData, snapshot, _id, module, technology, true)?.result;
-                if (_value == null) return expr;
-                expr = expr.Replace(param, _value.ToString());
+                if (_value == null) continue;
+
+                dictionary.Add(param, _value);
+
             }
-            return expr;
+
+            // setup references needed
+            var refs = new List<MetadataReference>();
+            refs.Add(MetadataReference.CreateFromFile(typeof(Microsoft.CSharp.RuntimeBinder.RuntimeBinderException).GetTypeInfo().Assembly.Location));
+            refs.Add(MetadataReference.CreateFromFile(typeof(System.Runtime.CompilerServices.DynamicAttribute).GetTypeInfo().Assembly.Location));
+            var script = CSharpScript.Create(expr, options: ScriptOptions.Default.AddReferences(refs), globalsType: typeof(Globals));
+            script.Compile();
+
+            // create new global that will contain the data we want to send into the script
+            var g = new Globals() { _ = expando };
+
+            //Execute and return
+            return script.RunAsync(g).Result;
+        }
+
+        public static string CustomExpressionEvaluation(ReportData reportData, Dictionary<string, string> options, string[] lstParams, Snapshot snapshot, string expr, string metricFormat, Module module, string technology, bool portfolio = false)
+        {
+            try
+            {
+                var r = ExecuteScript(reportData, options, lstParams, snapshot, expr, module, technology);
+                double? res = (double) r.ReturnValue;
+                return res.Value.Equals(double.NaN) ? Labels.NoData : res.Value.ToString(metricFormat);
+            }
+            catch (Exception ex) when (ex is CompilationErrorException || ex is ArgumentException || ex is AggregateException)
+            {
+                if (portfolio) return null;
+                LogHelper.LogError("Expression cannot be evaluate : " + ex.Message);
+                return Labels.NoData;
+            }
+        }
+
+        public static double? CustomExpressionDoubleEvaluation(ReportData reportData, Dictionary<string, string> options, string[] lstParams, Snapshot snapshot, string expr, Module module, string technology)
+        {
+            try
+            {
+                var r = ExecuteScript(reportData, options, lstParams, snapshot, expr, module, technology);
+                return (double)r.ReturnValue;
+            }
+            catch (Exception ex) when (ex is CompilationErrorException || ex is ArgumentException || ex is AggregateException)
+            {
+                LogHelper.LogError("Expression cannot be evaluate : " + ex.Message);
+                return null;
+            }
+        }
+
+        public static string CustomExpressionEvaluationAggregated(ReportData reportData, Dictionary<string, string> options, string[] lstParams, List<Snapshot> snapshots, string expr, string metricFormat, Module module, string technology, string aggregator)
+        {
+            List<double?> results = snapshots.Select(snapshot => CustomExpressionDoubleEvaluation(reportData, options, lstParams, snapshot, expr, module, technology)).ToList();
+            double? res = AggregateValues(aggregator, results);
+            return res?.ToString(metricFormat) ?? Labels.NoData;
         }
 
         public static double? AggregateValues(string aggregator, List<double?> values)
@@ -874,37 +917,6 @@ namespace CastReporting.Reporting.Helper
             }
 
             return res;
-        }
-
-        public static string ComputeExpression(string expr, string metricFormat, bool portfolioComponent)
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                double? res = double.Parse(dt.Compute(expr, "").ToString(), System.Globalization.CultureInfo.CurrentCulture);
-                return res.Value.Equals(double.NaN) ? Labels.NoData : res.Value.ToString(metricFormat);
-            }
-            catch (EvaluateException e)
-            {
-                if (portfolioComponent) return null;
-                LogHelper.LogError("Expression cannot be evaluate : " + e.Message);
-                return Labels.NoData;
-            }
-        }
-
-        public static double? CalculateExpression(string expr, bool portfolioComponent)
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                return double.Parse(dt.Compute(expr, "").ToString(), System.Globalization.CultureInfo.CurrentCulture);
-            }
-            catch (EvaluateException e)
-            {
-                if (portfolioComponent) return null;
-                LogHelper.LogError("Expression cannot be evaluate : " + e.Message);
-                return null;
-            }
         }
 
     }
