@@ -414,17 +414,18 @@ namespace CastReporting.Reporting.Helper
                                     results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), prevValueP);
                                     break;
                                 case "EVOL":
-                                    string curValueE = MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, _metricFormat, null, string.Empty);
-                                    string prevValueE = reportData.PreviousSnapshot != null ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, null, string.Empty) : Labels.NoData;
+                                    double? curValueE = MetricsUtility.CustomExpressionDoubleEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, null, string.Empty);
+                                    double? prevValueE = reportData.PreviousSnapshot != null ? MetricsUtility.CustomExpressionDoubleEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, null, string.Empty) : 0;
                                     if (positionSnapshots != -1) _posResults[positionSnapshots] = Labels.Evolution;
-                                    string evolValue = MetricsUtility.ComputeExpression(curValueE + " - " + prevValueE, _metricFormat, false);
+                                    double? evE = curValueE - prevValueE;
+                                    string evolValue = evE.Value.ToString(_metricFormat);
                                     results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), evolValue);
                                     break;
                                 case "EVOL_PERCENT":
-                                    string curValue = MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, _metricFormat, null, string.Empty);
-                                    string prevValue = reportData.PreviousSnapshot != null ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, null, string.Empty) : Labels.NoData;
+                                    double? curValue = MetricsUtility.CustomExpressionDoubleEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, null, string.Empty);
+                                    double? prevValue = reportData.PreviousSnapshot != null ? MetricsUtility.CustomExpressionDoubleEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, null, string.Empty) : 0;
                                     if (positionSnapshots != -1) _posResults[positionSnapshots] = Labels.EvolutionPercent;
-                                    string evolPercentValue = FormatHelper.FormatPercent(double.Parse(MetricsUtility.ComputeExpression(curValue + " - " + prevValue, _metricFormat, false), System.Globalization.CultureInfo.CurrentCulture));
+                                    string evolPercentValue = FormatHelper.FormatPercent(curValue - prevValue);
                                     results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), evolPercentValue);
                                     break;
                                 default:
@@ -624,17 +625,18 @@ namespace CastReporting.Reporting.Helper
                                         results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), prevValueP);
                                         break;
                                     case "EVOL":
-                                        string curValueE = MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, _metricFormat, module, string.Empty);
-                                        string prevValueE = reportData.PreviousSnapshot != null ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, module, string.Empty) : Labels.NoData;
+                                        double? curValueE = MetricsUtility.CustomExpressionDoubleEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, module, string.Empty);
+                                        double? prevValueE = reportData.PreviousSnapshot != null ? MetricsUtility.CustomExpressionDoubleEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, module, string.Empty) : 0;
                                         if (positionSnapshots != -1) _posResults[positionSnapshots] = Labels.Evolution;
-                                        string evolValue = MetricsUtility.ComputeExpression(curValueE + " - " + prevValueE, _metricFormat, false);
+                                        double? evE = curValueE - prevValueE;
+                                        string evolValue = evE.Value.ToString(_metricFormat);
                                         results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), evolValue);
                                         break;
                                     case "EVOL_PERCENT":
-                                        string curValue = MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, _metricFormat, module, string.Empty);
-                                        string prevValue = reportData.PreviousSnapshot != null ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, module, string.Empty) : Labels.NoData;
+                                        double? curValue = MetricsUtility.CustomExpressionDoubleEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, module, string.Empty);
+                                        double? prevValue = reportData.PreviousSnapshot != null ? MetricsUtility.CustomExpressionDoubleEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, module, string.Empty) : 0;
                                         if (positionSnapshots != -1) _posResults[positionSnapshots] = Labels.EvolutionPercent;
-                                        string evolPercentValue = FormatHelper.FormatPercent(double.Parse(MetricsUtility.ComputeExpression(curValue + " - " + prevValue, _metricFormat, false), System.Globalization.CultureInfo.CurrentCulture));
+                                        string evolPercentValue = FormatHelper.FormatPercent(curValue - prevValue);
                                         results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), evolPercentValue);
                                         break;
                                     default:
@@ -846,17 +848,18 @@ namespace CastReporting.Reporting.Helper
                                         results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), prevValueP);
                                         break;
                                     case "EVOL":
-                                        string curValueE = MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, _metricFormat, null, techno);
-                                        string prevValueE = reportData.PreviousSnapshot != null ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, null, techno) : Labels.NoData;
+                                        double? curValueE = MetricsUtility.CustomExpressionDoubleEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, null, techno);
+                                        double? prevValueE = reportData.PreviousSnapshot != null ? MetricsUtility.CustomExpressionDoubleEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, null, techno) : 0;
                                         if (positionSnapshots != -1) _posResults[positionSnapshots] = Labels.Evolution;
-                                        string evolValue = MetricsUtility.ComputeExpression(curValueE + " - " + prevValueE, _metricFormat, false);
+                                        double? evE = curValueE - prevValueE;
+                                        string evolValue = evE.Value.ToString(_metricFormat);
                                         results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), evolValue);
                                         break;
                                     case "EVOL_PERCENT":
-                                        string curValue = MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, _metricFormat, null, techno);
-                                        string prevValue = reportData.PreviousSnapshot != null ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, null, techno) : Labels.NoData;
+                                        double? curValue = MetricsUtility.CustomExpressionDoubleEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, null, techno);
+                                        double? prevValue = reportData.PreviousSnapshot != null ? MetricsUtility.CustomExpressionDoubleEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, null, techno) : 0;
                                         if (positionSnapshots != -1) _posResults[positionSnapshots] = Labels.EvolutionPercent;
-                                        string evolPercentValue = FormatHelper.FormatPercent(double.Parse(MetricsUtility.ComputeExpression(curValue + " - " + prevValue, _metricFormat, false), System.Globalization.CultureInfo.CurrentCulture));
+                                        string evolPercentValue = FormatHelper.FormatPercent(curValue - prevValue);
                                         results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), evolPercentValue);
                                         break;
                                     default:
@@ -1076,17 +1079,18 @@ namespace CastReporting.Reporting.Helper
                                             results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), prevValueP);
                                             break;
                                         case "EVOL":
-                                            string curValueE = MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, _metricFormat, module, techno);
-                                            string prevValueE = reportData.PreviousSnapshot != null ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, module, techno) : Labels.NoData;
+                                            double? curValueE = MetricsUtility.CustomExpressionDoubleEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, module, techno);
+                                            double? prevValueE = reportData.PreviousSnapshot != null ? MetricsUtility.CustomExpressionDoubleEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, module, techno) : 0;
                                             if (positionSnapshots != -1) _posResults[positionSnapshots] = Labels.Evolution;
-                                            string evolValue = MetricsUtility.ComputeExpression(curValueE + " - " + prevValueE, _metricFormat, false);
+                                            double? evE = curValueE - prevValueE;
+                                            string evolValue = evE.Value.ToString(_metricFormat);
                                             results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), evolValue);
                                             break;
                                         case "EVOL_PERCENT":
-                                            string curValue = MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, _metricFormat, module, techno);
-                                            string prevValue = reportData.PreviousSnapshot != null ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, module, techno) : Labels.NoData;
+                                            double? curValue = MetricsUtility.CustomExpressionDoubleEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, module, techno);
+                                            double? prevValue = reportData.PreviousSnapshot != null ? MetricsUtility.CustomExpressionDoubleEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, module, techno) : 0;
                                             if (positionSnapshots != -1) _posResults[positionSnapshots] = Labels.EvolutionPercent;
-                                            string evolPercentValue = FormatHelper.FormatPercent(double.Parse(MetricsUtility.ComputeExpression(curValue + " - " + prevValue, _metricFormat, false), System.Globalization.CultureInfo.CurrentCulture));
+                                            string evolPercentValue = FormatHelper.FormatPercent(curValue - prevValue);
                                             results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), evolPercentValue);
                                             break;
                                         default:
