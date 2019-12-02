@@ -79,7 +79,7 @@ namespace CastReporting.Domain.Interfaces
         AssociatedValueObject GetAssociatedValueObject(string domainId, string componentId, string snapshotId, string metricId);
 
 
-        List<Tuple<string, Dictionary<int, string>>> GetSourceCode(string domainId, string componentId, string snapshotId, int offset);
+        List<Tuple<string, Dictionary<int, string>>> GetSourceCode(string domainId, string componentId, string snapshotId, int offset, bool withCodeLines);
 
         Dictionary<int, string> GetSourceCodeBookmark(string domainId, CodeBookmark bookmark, int offset);
 

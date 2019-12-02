@@ -38,7 +38,7 @@ namespace CastReporting.Reporting.Block.Table
                 {
                     MetricsUtility.ViolationsBookmarksProperties violationsBookmarksProperties = 
                         new MetricsUtility.ViolationsBookmarksProperties(_violations, 0, rowData, ruleName, hasPreviousSnapshot, reportData.CurrentSnapshot.DomainId, reportData.CurrentSnapshot.Id.ToString(), ruleId);
-                    MetricsUtility.PopulateViolationsBookmarks(reportData, violationsBookmarksProperties, cellidx, cellProps);
+                    MetricsUtility.PopulateViolationsBookmarks(reportData, violationsBookmarksProperties, cellidx, cellProps, true);
                 }
                 else
                 {

@@ -858,7 +858,7 @@ namespace CastReporting.BLL
             }
         }
 
-        public List<Tuple<string, Dictionary<int, string>>> GetSourceCode(string domainId,string snapshotId, string componentId, int offset)
+        public List<Tuple<string, Dictionary<int, string>>> GetSourceCode(string domainId,string snapshotId, string componentId, int offset, bool withCodeLines)
         {
             List<Tuple<string, Dictionary<int,string>>> codesAndPath = new List<Tuple<string, Dictionary<int, string>>>();
             try
@@ -871,24 +871,31 @@ namespace CastReporting.BLL
 
                     foreach (CodeFragment _fragment in fragments)
                     {
-                        string siteId = _fragment.CodeFile.GetSiteId();
-                        string fileId = _fragment.CodeFile.GetFileId();
-                        int startLine = _fragment.StartLine;
-                        int endLine = _fragment.EndLine;
-                        int idx = (startLine < 0) ? 1 : startLine;
-                        int endIdx = (endLine < 0) ? idx + offset
-                            : endLine - idx < offset ? endLine : idx + offset;
-                        
-                        Dictionary<int, string> codeLines = new Dictionary<int, string>();
-
-                        List<string> lines = castRepository.GetFileContent(domainId, siteId, fileId, idx, endIdx);
-                        foreach (string _line in lines)
+                        if (withCodeLines)
                         {
-                            string line = _line.Replace("\u001a", "");
-                            codeLines.Add(idx, line);
-                            idx++;
+                            string siteId = _fragment.CodeFile.GetSiteId();
+                            string fileId = _fragment.CodeFile.GetFileId();
+                            int startLine = _fragment.StartLine;
+                            int endLine = _fragment.EndLine;
+                            int idx = (startLine < 0) ? 1 : startLine;
+                            int endIdx = (endLine < 0) ? idx + offset
+                                : endLine - idx < offset ? endLine : idx + offset;
+
+                            Dictionary<int, string> codeLines = new Dictionary<int, string>();
+
+                            List<string> lines = castRepository.GetFileContent(domainId, siteId, fileId, idx, endIdx);
+                            foreach (string _line in lines)
+                            {
+                                string line = _line.Replace("\u001a", "");
+                                codeLines.Add(idx, line);
+                                idx++;
+                            }
+                            codesAndPath.Add(new Tuple<string, Dictionary<int, string>>(_fragment.CodeFile.Name, codeLines));
                         }
-                        codesAndPath.Add(new Tuple<string, Dictionary<int, string>>(_fragment.CodeFile.Name, codeLines));
+                        else
+                        {
+                            codesAndPath.Add(new Tuple<string, Dictionary<int, string>>(_fragment.CodeFile.Name, new Dictionary<int, string>()));
+                        }
                     }
                     return codesAndPath;
                 }

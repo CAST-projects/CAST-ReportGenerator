@@ -62,6 +62,7 @@ namespace CastReporting.Reporting.Block.Table
                 const string bcId = "60017";
                 int nbLimitTop = options.GetIntOption("COUNT", 5);
                 bool hasPreviousSnapshot = reportData.PreviousSnapshot != null;
+                bool displaySourceCode = options.GetOption("WITHCODELINES", "Y").Equals("Y");
 
                 foreach (string _metric in qualityRules)
                 {
@@ -116,7 +117,7 @@ namespace CastReporting.Reporting.Block.Table
 
                     MetricsUtility.ViolationsBookmarksProperties violationsBookmarksProperties =
                         new MetricsUtility.ViolationsBookmarksProperties(_violations, 0, rowData, ruleName, hasPreviousSnapshot, reportData.CurrentSnapshot.DomainId, reportData.CurrentSnapshot.Id.ToString(), _metric);
-                    cellidx = MetricsUtility.PopulateViolationsBookmarks(reportData, violationsBookmarksProperties, cellidx, cellProps);
+                    cellidx = MetricsUtility.PopulateViolationsBookmarks(reportData, violationsBookmarksProperties, cellidx, cellProps, displaySourceCode);
 
                     // Add empty lines for readability
                     for (int i = 1; i < 5; i++)
