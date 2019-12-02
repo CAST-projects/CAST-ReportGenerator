@@ -172,20 +172,27 @@ namespace CastReporting.UnitTest.Reporting
             return TestUtility.GetSampleResult<AssociatedValueObject>(@".\Data\findings_objects.json").ToArray()[0];
         }
 
-        public List<Tuple<string, Dictionary<int, string>>> GetSourceCode(string domainId, string componentId, string snapshotId, int offset)
+        public List<Tuple<string, Dictionary<int, string>>> GetSourceCode(string domainId, string componentId, string snapshotId, int offset, bool withCodeLines)
         {
             List<Tuple<string, Dictionary<int, string>>> res = new List<Tuple<string, Dictionary<int, string>>>();
-            Dictionary<int, string> sources = new Dictionary<int, string>
+            if (withCodeLines)
             {
-                {4904, "     m_bGridModified = FALSE;"},
-                {4905, " }"},
-                {4906, ""},
-                {4907, " void CMetricTreePageDet::Validate()"},
-                {4908, " {"},
-                {4909, "     int i, index, nAggregate, nAggregateCentral, nType, nLastLine;"}
-            };
+                Dictionary<int, string> sources = new Dictionary<int, string>
+                {
+                    {4904, "     m_bGridModified = FALSE;"},
+                    {4905, " }"},
+                    {4906, ""},
+                    {4907, " void CMetricTreePageDet::Validate()"},
+                    {4908, " {"},
+                    {4909, "     int i, index, nAggregate, nAggregateCentral, nType, nLastLine;"}
+                };
 
-            res.Add(new Tuple<string, Dictionary<int, string>>("C:\\jenkins6_slave\\workspace\\CAIP_8.3.3_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Dream Team\\DssAdmin\\DssAdmin\\MetricTree.cpp", sources));
+                res.Add(new Tuple<string, Dictionary<int, string>>("C:\\jenkins6_slave\\workspace\\CAIP_8.3.3_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Dream Team\\DssAdmin\\DssAdmin\\MetricTree.cpp", sources));
+            }
+            else
+            {
+                res.Add(new Tuple<string, Dictionary<int, string>>("C:\\jenkins6_slave\\workspace\\CAIP_8.3.3_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Dream Team\\DssAdmin\\DssAdmin\\MetricTree.cpp", new Dictionary<int, string>()));
+            }
 
             return res;
         }

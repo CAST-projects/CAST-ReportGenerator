@@ -783,4 +783,10 @@
   <data name="Standards" xml:space="preserve">
     <value>标准</value>
   </data>
+  <data name="EndLine" xml:space="preserve">
+    <value>结束行</value>
+  </data>
+  <data name="StartLine" xml:space="preserve">
+    <value>起点线</value>
+  </data>
 </root>

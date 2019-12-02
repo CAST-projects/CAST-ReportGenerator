@@ -173,6 +173,50 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
+        [DeploymentItem(@".\Data\Violations7846_60016.json", "Data")]
+        [DeploymentItem(@".\Data\CurrentBCTC.json", "Data")]
+        [DeploymentItem(@".\Data\RulePattern7846.json", "Data")]
+        [DeploymentItem(@".\Data\findings_percentage.json", "Data")]
+        public void TestNoCodeLines()
+        {
+            CastDate currentDate = new CastDate { Time = 1484953200000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+                null, @".\Data\CurrentBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, null, null, null, null, null);
+            WSConnection connection = new WSConnection
+            {
+                Url = "http://tests/CAST-RESTAPI/rest/",
+                Login = "admin",
+                Password = "cast",
+                IsActive = true,
+                Name = "Default"
+            };
+            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
+            reportData.RuleExplorer = new RuleBLLStub();
+
+            var component = new CastReporting.Reporting.Block.Table.RulesListViolationsBookmarks();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"METRICS","7846" },
+                {"WITHCODELINES", "N" }
+            };
+            var table = component.Content(reportData, config);
+
+            Assert.AreEqual(1, table.NbColumns);
+            Assert.AreEqual(39, table.NbRows);
+            Assert.AreEqual("Violations", table.Data.ElementAt(0));
+            Assert.AreEqual("Objects in violation for rule Avoid Methods with a very low comment/code ratio", table.Data.ElementAt(2));
+            Assert.AreEqual("# Violations: 128", table.Data.ElementAt(3));
+            Assert.AreEqual("Violation #5    Avoid Methods with a very low comment/code ratio", table.Data.ElementAt(31));
+            Assert.AreEqual("Object Name: com.castsoftware.aed.common.AedCommandLine.getFormattedMsg", table.Data.ElementAt(32));
+            Assert.AreEqual("Object Type: MyObjType", table.Data.ElementAt(33));
+            Assert.AreEqual("File path: C:\\jenkins6_slave\\workspace\\CAIP_8.3.3_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Dream Team\\DssAdmin\\DssAdmin\\MetricTree.cpp", table.Data.ElementAt(34));
+
+            var cellsProperties = table.CellsAttributes;
+            Assert.AreEqual(28, cellsProperties.Count);
+        }
+
+        [TestMethod]
         [DeploymentItem(@".\Data\Violations7424_60017.json", "Data")]
         [DeploymentItem(@".\Data\CurrentBCTC.json", "Data")]
         [DeploymentItem(@".\Data\RulePattern7424.json", "Data")]

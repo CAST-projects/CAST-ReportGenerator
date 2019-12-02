@@ -595,7 +595,7 @@ namespace CastReporting.Reporting.Helper
             }
         }
 
-        public static int PopulateViolationsBookmarks(ReportData reportData, ViolationsBookmarksProperties violationsBookmarksProperties, int cellidx, List<CellAttributes> cellProps)
+        public static int PopulateViolationsBookmarks(ReportData reportData, ViolationsBookmarksProperties violationsBookmarksProperties, int cellidx, List<CellAttributes> cellProps, bool withCodeLines)
         {
             Violation[] violations = violationsBookmarksProperties.Violations;
             int violationCounter = violationsBookmarksProperties.ViolationCounter;
@@ -644,7 +644,7 @@ namespace CastReporting.Reporting.Helper
                     IEnumerable<IEnumerable<CodeBookmark>> bookmarks = associatedValue.Bookmarks;
                     if (bookmarks == null || !bookmarks.Any())
                     {
-                        cellidx = AddSourceCode(reportData, rowData, cellidx, cellProps, domainId, snapshotId, _violation);
+                        cellidx = AddSourceCode(reportData, rowData, cellidx, cellProps, domainId, snapshotId, _violation, withCodeLines);
                     }
                     else
                     {
@@ -656,14 +656,24 @@ namespace CastReporting.Reporting.Helper
                                 rowData.Add($"{Labels.FilePath}: {_bookmark.CodeFragment.CodeFile.Name}");
                                 cellProps.Add(new CellAttributes(cellidx, ColorLavander));
                                 cellidx++;
-                                Dictionary<int, string> codeLines = reportData.SnapshotExplorer.GetSourceCodeBookmark(domainId, _bookmark, 3);
-                                if (codeLines == null) continue;
-                                foreach (KeyValuePair<int, string> codeLine in codeLines)
+                                if (withCodeLines)
                                 {
-                                    rowData.Add($"{codeLine.Key} : {codeLine.Value}");
-                                    cellProps.Add(codeLine.Key >= _bookmark.CodeFragment.StartLine && codeLine.Key <= _bookmark.CodeFragment.EndLine
-                                        ? new CellAttributes(cellidx, ColorLightYellow)
-                                        : new CellAttributes(cellidx, ColorWhite));
+                                    Dictionary<int, string> codeLines = reportData.SnapshotExplorer.GetSourceCodeBookmark(domainId, _bookmark, 3);
+                                    if (codeLines == null) continue;
+                                    foreach (KeyValuePair<int, string> codeLine in codeLines)
+                                    {
+                                        rowData.Add($"{codeLine.Key} : {codeLine.Value}");
+                                        cellProps.Add(codeLine.Key >= _bookmark.CodeFragment.StartLine && codeLine.Key <= _bookmark.CodeFragment.EndLine
+                                            ? new CellAttributes(cellidx, ColorLightYellow)
+                                            : new CellAttributes(cellidx, ColorWhite));
+                                        cellidx++;
+                                    }
+                                }
+                                else
+                                {
+                                    rowData.Add($"{Labels.StartLine} : {_bookmark.CodeFragment.StartLine}");
+                                    cellidx++;
+                                    rowData.Add($"{Labels.EndLine} : {_bookmark.CodeFragment.EndLine}");
                                     cellidx++;
                                 }
                             }
@@ -678,7 +688,7 @@ namespace CastReporting.Reporting.Helper
                     IEnumerable<IEnumerable<CodeBookmark>> values = associatedValueEx?.Values;
                     if (values == null || !values.Any())
                     {
-                        cellidx = AddSourceCode(reportData, rowData, cellidx, cellProps, domainId, snapshotId, _violation);
+                        cellidx = AddSourceCode(reportData, rowData, cellidx, cellProps, domainId, snapshotId, _violation, withCodeLines);
                     }
                     else
                     {
@@ -701,15 +711,19 @@ namespace CastReporting.Reporting.Helper
                                     cellidx++;
                                 }
 
-                                Dictionary<int, string> codeLines = reportData.SnapshotExplorer.GetSourceCodeBookmark(domainId, _bookval, 0);
-
-                                foreach (KeyValuePair<int, string> codeLine in codeLines)
+                                if (withCodeLines)
                                 {
-                                    rowData.Add($"{codeLine.Key} : {codeLine.Value}");
-                                    cellProps.Add(codeLine.Key == _bookval.CodeFragment.StartLine
-                                        ? new CellAttributes(cellidx, ColorLightYellow)
-                                        : new CellAttributes(cellidx, ColorWhite));
-                                    cellidx++;
+                                    Dictionary<int, string> codeLines = reportData.SnapshotExplorer.GetSourceCodeBookmark(domainId, _bookval, 0);
+
+                                    foreach (KeyValuePair<int, string> codeLine in codeLines)
+                                    {
+                                        rowData.Add($"{codeLine.Key} : {codeLine.Value}");
+                                        cellProps.Add(codeLine.Key == _bookval.CodeFragment.StartLine
+                                            ? new CellAttributes(cellidx, ColorLightYellow)
+                                            : new CellAttributes(cellidx, ColorWhite));
+                                        cellidx++;
+                                    }
+
                                 }
                             }
                             rowData.Add("");
@@ -724,7 +738,7 @@ namespace CastReporting.Reporting.Helper
                     IEnumerable<IEnumerable<CodeBookmark>> values = associatedValueEx?.Values;
                     if (values == null || !values.Any())
                     {
-                        cellidx = AddSourceCode(reportData, rowData, cellidx, cellProps, domainId, snapshotId, _violation);
+                        cellidx = AddSourceCode(reportData, rowData, cellidx, cellProps, domainId, snapshotId, _violation, withCodeLines);
                     }
                     else
                     {
@@ -744,16 +758,16 @@ namespace CastReporting.Reporting.Helper
                 if (associatedValue.Type != null && (associatedValue.Type.Equals("object") || associatedValue.Type.Equals("text") || associatedValue.Type.Equals("percentage")))
                 {
                     // manage case when type="object", "text" or "percentage"
-                    cellidx = AddSourceCode(reportData, rowData, cellidx, cellProps, domainId, snapshotId, _violation);
+                    cellidx = AddSourceCode(reportData, rowData, cellidx, cellProps, domainId, snapshotId, _violation, withCodeLines);
                 }
 
             }
             return cellidx;
         }
 
-        private static int AddSourceCode(ReportData reportData, List<string> rowData, int cellidx, List<CellAttributes> cellProps, string domainId, string snapshotId, Violation violation)
+        private static int AddSourceCode(ReportData reportData, List<string> rowData, int cellidx, List<CellAttributes> cellProps, string domainId, string snapshotId, Violation violation, bool withCodeLines)
         {
-            List<Tuple<string, Dictionary<int, string>>> codes = reportData.SnapshotExplorer.GetSourceCode(domainId, snapshotId, violation.Component.GetComponentId(), 6);
+            List<Tuple<string, Dictionary<int, string>>> codes = reportData.SnapshotExplorer.GetSourceCode(domainId, snapshotId, violation.Component.GetComponentId(), 6, withCodeLines);
             if (codes == null) return cellidx;
 
             foreach (Tuple<string, Dictionary<int, string>> _code in codes)

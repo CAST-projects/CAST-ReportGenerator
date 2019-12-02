@@ -783,4 +783,10 @@
   <data name="Standards" xml:space="preserve">
     <value>Standards</value>
   </data>
+  <data name="EndLine" xml:space="preserve">
+    <value>Zeilenende</value>
+  </data>
+  <data name="StartLine" xml:space="preserve">
+    <value>Startzeile</value>
+  </data>
 </root>
