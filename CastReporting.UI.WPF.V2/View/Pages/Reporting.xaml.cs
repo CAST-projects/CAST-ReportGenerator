@@ -151,7 +151,7 @@ namespace CastReporting.UI.WPF.Core.View
                     string.Format("*{0}, *.pdf|*{0};*.pdf", _reportingVm.SelectedTemplateFile.Extension)
                     : string.Format("*{0}|*{0}", _reportingVm.SelectedTemplateFile.Extension),
                 DefaultExt = _reportingVm.SelectedTemplateFile.Extension,
-                FileName = _reportingVm.SelectedTemplateFile.Name.Replace('-',' ')
+                FileName = _reportingVm.SelectedTemplateFile.Name.Replace('-', ' ').Replace(_reportingVm.SelectedTemplateFile.Extension, $"_{DateTime.Now:MM-dd_HH-mm-ss}{_reportingVm.SelectedTemplateFile.Extension}")
             };
 
 
