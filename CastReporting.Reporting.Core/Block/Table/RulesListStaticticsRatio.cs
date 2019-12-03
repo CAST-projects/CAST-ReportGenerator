@@ -33,15 +33,8 @@ namespace CastReporting.Reporting.Block.Table
         public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             List<string> metrics = options.GetOption("METRICS").Trim().Split('|').ToList();
-            bool critical;
-            if (options == null || !options.ContainsKey("CRITICAL"))
-            {
-                critical = false;
-            }
-            else
-            {
-                critical = options.GetOption("CRITICAL").Equals("true");
-            }
+
+            bool critical = options.GetOption("CRITICAL", "false").Equals("true");
             bool displayCompliance = options.GetBoolOption("COMPLIANCE");
             bool sortedByCompliance = displayCompliance && options.GetOption("SORTED", "TOTAL").Equals("COMPLIANCE");
 
@@ -52,6 +45,8 @@ namespace CastReporting.Reporting.Block.Table
             string lbltotal = vulnerability ? Labels.TotalVulnerabilities : Labels.TotalViolations;
             string lbladded = vulnerability ? Labels.AddedVulnerabilities : Labels.AddedViolations;
             string lblremoved = vulnerability ? Labels.RemovedVulnerabilities : Labels.RemovedViolations;
+
+            bool showDescription = options.GetOption("DESC", "false").Equals("true");
 
             // cellProps will contains the properties of the cell (background color) linked to the data by position in the list stored with cellidx.
             List<CellAttributes> cellProps = new List<CellAttributes>();
@@ -91,6 +86,15 @@ namespace CastReporting.Reporting.Block.Table
             headers.Append(Labels.ComplianceScorePercent, displayCompliance);
             if (displayCompliance) cellidx++;
 
+            headers.Append(Labels.Rationale, showDescription);
+            headers.Append(Labels.Description, showDescription);
+            headers.Append(Labels.Remediation, showDescription);
+            if (showDescription)
+            {
+                cellidx++; // for Rationale
+                cellidx++; // for Description
+                cellidx++; // for Remediation
+            }
             var dataRow = headers.CreateDataRow();
             var data = new List<string>();
 
@@ -144,6 +148,53 @@ namespace CastReporting.Reporting.Block.Table
                         }
                         cellidx++;
                     }
+                    if (showDescription)
+                    {
+                        RuleDescription rule = reportData.RuleExplorer.GetSpecificRule(reportData.Application.DomainId, result.Reference.Key.ToString());
+                        // Rationale
+                        if (!string.IsNullOrWhiteSpace(rule.Rationale))
+                        {
+                            dataRow.Set(Labels.Rationale, rule.Rationale);
+                        } 
+                        else
+                        {
+                            dataRow.Set(Labels.Rationale, string.Empty);
+                        }
+                        if (nbViolations > 0)
+                        {
+                            cellProps.Add(new CellAttributes(cellidx, colorBeige));
+                        }
+                        cellidx++;
+                        // Description
+                        if (!string.IsNullOrWhiteSpace(rule.Description))
+                        {
+                            dataRow.Set(Labels.Description, rule.Description);
+                        }
+                        else
+                        {
+                            dataRow.Set(Labels.Description, string.Empty);
+                        }
+                        if (nbViolations > 0)
+                        {
+                            cellProps.Add(new CellAttributes(cellidx, colorBeige));
+                        }
+                        cellidx++;
+                        // Remediation
+                        if (!string.IsNullOrWhiteSpace(rule.Remediation))
+                        {
+                            dataRow.Set(Labels.Remediation, rule.Remediation);
+                        }
+                        else
+                        {
+                            dataRow.Set(Labels.Remediation, string.Empty);
+                        }
+                        if (nbViolations > 0)
+                        {
+                            cellProps.Add(new CellAttributes(cellidx, colorBeige));
+                        }
+                        cellidx++;
+                    }
+
                     data.AddRange(dataRow);
                 }
             }

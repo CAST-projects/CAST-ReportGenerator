@@ -329,6 +329,49 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
         [TestMethod]
         [DeploymentItem(@".\Data\CurrentBCTC.json", "Data")]
+        [DeploymentItem(@".\Data\BaseQI60011.json", "Data")]
+        [DeploymentItem(@".\Data\RulePatterns.json", "Data")]
+        public void TestCriticalBCMetricsWithDescription()
+        {
+            CastDate currentDate = new CastDate { Time = 1484953200000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+                null, @".\Data\CurrentBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, null, null, null, null, null);
+            WSConnection connection = new WSConnection
+            {
+                Url = "http://tests/CAST-RESTAPI/rest/",
+                Login = "admin",
+                Password = "cast",
+                IsActive = true,
+                Name = "Default"
+            };
+            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
+            reportData.RuleExplorer = new RuleBLLStub();
+
+            var component = new CastReporting.Reporting.Block.Table.RulesListStatisticsRatio();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"METRICS","60011" },
+                {"CRITICAL","true" },
+                {"EVOLUTION", "true" },
+                {"DESC", "true" }
+            };
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>
+            {
+                "CAST Rules","Total Vulnerabilities","Added Vulnerabilities","Removed Vulnerabilities","Rationale","Description","Remediation",
+                "Action Mappings should have few forwards (7132)","77","8","2",
+                "Action Mappings should have few forwards to avoid managing too complex behaviors in the Action class. A forward contains the request URI path to which control is passed when the mapping is invoked.",
+                "All Action Mappings with more than 5 forward will be listed.",""
+            };
+
+            TestUtility.AssertTableContent(table, expectedData, 7, 2);
+
+        }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\CurrentBCTC.json", "Data")]
         public void TestSpecificHeaders()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
