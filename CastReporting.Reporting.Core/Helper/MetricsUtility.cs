@@ -1046,17 +1046,17 @@ namespace CastReporting.Reporting.Helper
                         }
                         else
                         {
-                            int pathCounter = 0;
                             foreach (IEnumerable<CodeBookmark> _value in values)
                             {
-                                _value.ToList().ForEach(_bookval =>
+                                List<CodeBookmark> bookList = _value.ToList();
+                                bookList.ForEach(_bookval =>
                                 {
                                     var _row = headers.CreateDataRow();
                                     _row.Set(Labels.RuleName, ruleName);
                                     _row.Set(Labels.ObjectName, _violation.Component.Name);
                                     _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
                                     _row.Set(Labels.Status, status);
-                                    _row.Set(Labels.AssociatedValue, string.Empty);
+                                    _row.Set(Labels.AssociatedValue, $"path #{bookList.IndexOf(_bookval)}");
                                     _row.Set(Labels.FilePath, _bookval.CodeFragment.CodeFile.Name);
                                     _row.Set(Labels.StartLine, _bookval.CodeFragment.StartLine.ToString());
                                     _row.Set(Labels.EndLine, _bookval.CodeFragment.EndLine.ToString());
@@ -1106,9 +1106,9 @@ namespace CastReporting.Reporting.Helper
                             }
                         }
                     }
-                    if (associatedValue.Type != null && (associatedValue.Type.Equals("object") || associatedValue.Type.Equals("text") || associatedValue.Type.Equals("percentage")))
+                    if (associatedValue.Type != null && (associatedValue.Type.Equals("object") || associatedValue.Type.Equals("text")))
                     {
-                        // manage case when type="object", "text" or "percentage"
+                        // manage case when type="object", "text"
                         List<Tuple<string, int, int>> paths = reportData.SnapshotExplorer.GetComponentFilePath(domainId, _violation.Component.GetComponentId(), snapshotId);
                         paths.ForEach(_ =>
                         {
@@ -1117,7 +1117,26 @@ namespace CastReporting.Reporting.Helper
                             _row.Set(Labels.ObjectName, _violation.Component.Name);
                             _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
                             _row.Set(Labels.Status, status);
-                            _row.Set(Labels.AssociatedValue, string.Empty);
+                            _row.Set(Labels.AssociatedValue, string.Join(',',associatedValue.Values));
+                            _row.Set(Labels.FilePath, _.Item1);
+                            _row.Set(Labels.StartLine, _.Item2.ToString());
+                            _row.Set(Labels.EndLine, _.Item3.ToString());
+                            rowData.AddRange(_row);
+                        });
+                    }
+                    if (associatedValue.Type != null && associatedValue.Type.Equals("percentage"))
+                    {
+                        decimal? value = (decimal)associatedValue.Values.FirstOrDefault();
+                        // manage case when type= "percentage"
+                        List<Tuple<string, int, int>> paths = reportData.SnapshotExplorer.GetComponentFilePath(domainId, _violation.Component.GetComponentId(), snapshotId);
+                        paths.ForEach(_ =>
+                        {
+                            var _row = headers.CreateDataRow();
+                            _row.Set(Labels.RuleName, ruleName);
+                            _row.Set(Labels.ObjectName, _violation.Component.Name);
+                            _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
+                            _row.Set(Labels.Status, status);
+                            _row.Set(Labels.AssociatedValue, value.Value.ToString("N2"));
                             _row.Set(Labels.FilePath, _.Item1);
                             _row.Set(Labels.StartLine, _.Item2.ToString());
                             _row.Set(Labels.EndLine, _.Item3.ToString());
