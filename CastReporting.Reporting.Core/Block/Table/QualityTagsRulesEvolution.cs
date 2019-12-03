@@ -38,6 +38,8 @@ namespace CastReporting.Reporting.Block.Table
             string lbladded = vulnerability ? Labels.AddedVulnerabilities : Labels.AddedViolations;
             string lblremoved = vulnerability ? Labels.RemovedVulnerabilities : Labels.RemovedViolations;
 
+            bool showDescription = options.GetOption("DESC", "false").Equals("true");
+
             // cellProps will contains the properties of the cell (background color) linked to the data by position in the list stored with cellidx.
             List<CellAttributes> cellProps = new List<CellAttributes>();
             int cellidx = 0;
@@ -45,13 +47,6 @@ namespace CastReporting.Reporting.Block.Table
             var headers = new HeaderDefinition();
             headers.Append(standard);
             cellidx++;
-            headers.Append(lbltotal);
-            cellidx++;
-            headers.Append(lbladded);
-            cellidx++;
-            headers.Append(lblremoved);
-            cellidx++;
-
             var data = new List<string>();
 
             if (!VersionUtil.Is111Compatible(reportData.ServerVersion))
@@ -59,9 +54,6 @@ namespace CastReporting.Reporting.Block.Table
                 LogHelper.LogError("Bad version of RestAPI. Should be 1.11 at least for component QUALITY_TAGS_RULES_EVOLUTION");
                 var dataRow = headers.CreateDataRow();
                 dataRow.Set(standard, Labels.NoData);
-                dataRow.Set(lbltotal, string.Empty);
-                dataRow.Set(lbladded, string.Empty);
-                dataRow.Set(lblremoved, string.Empty);
                 data.AddRange(dataRow);
                 data.InsertRange(0, headers.Labels);
                 return new TableDefinition
@@ -69,9 +61,26 @@ namespace CastReporting.Reporting.Block.Table
                     HasRowHeaders = false,
                     HasColumnHeaders = true,
                     NbRows = 2,
-                    NbColumns = 4,
+                    NbColumns = 1,
                     Data = data
                 };
+            }
+
+            headers.Append(lbltotal);
+            cellidx++;
+            headers.Append(lbladded);
+            cellidx++;
+            headers.Append(lblremoved);
+            cellidx++;
+
+            headers.Append(Labels.Rationale, showDescription);
+            headers.Append(Labels.Description, showDescription);
+            headers.Append(Labels.Remediation, showDescription);
+            if (showDescription)
+            {
+                cellidx++; // for Rationale
+                cellidx++; // for Description
+                cellidx++; // for Remediation
             }
 
             List<ApplicationResult> results = reportData.SnapshotExplorer.GetQualityStandardsTagsResults(reportData.CurrentSnapshot.Href, standard)?.FirstOrDefault()?.ApplicationResults?.ToList();
@@ -98,6 +107,16 @@ namespace CastReporting.Reporting.Block.Table
                     dataRow.Set(lblremoved, detailResult.EvolutionSummary?.RemovedViolations.NAIfEmpty("N0"));
                     FormatHelper.AddGrayOrBold(true, cellProps, cellidx, _nbTagViolations);
                     cellidx++;
+                    if (showDescription)
+                    {
+                        dataRow.Set(Labels.Rationale, string.Empty);
+                        cellidx++;
+                        dataRow.Set(Labels.Description, string.Empty);
+                        cellidx++;
+                        dataRow.Set(Labels.Remediation, string.Empty);
+                        cellidx++;
+                    }
+
                     data.AddRange(dataRow);
 
                     // for each tag of the category add lines for all cast rules associated to this tag
@@ -124,6 +143,38 @@ namespace CastReporting.Reporting.Block.Table
                             _ruleDr.Set(lblremoved, _resultDetail.EvolutionSummary?.RemovedViolations.NAIfEmpty("N0"));
                             FormatHelper.AddGrayOrBold(false, cellProps, cellidx, _nbViolations);
                             cellidx++;
+                            if (showDescription)
+                            {
+                                RuleDescription desc = reportData.RuleExplorer.GetSpecificRule(reportData.Application.DomainId, ruleresult.Reference.Key.ToString());
+                                if (!string.IsNullOrWhiteSpace(desc.Rationale))
+                                {
+                                    _ruleDr.Set(Labels.Rationale, desc.Rationale);
+                                }
+                                else
+                                {
+                                    _ruleDr.Set(Labels.Rationale, string.Empty);
+                                }
+                                cellidx++;
+                                if (!string.IsNullOrWhiteSpace(desc.Rationale))
+                                {
+                                    _ruleDr.Set(Labels.Description, desc.Description);
+                                }
+                                else
+                                {
+                                    _ruleDr.Set(Labels.Description, string.Empty);
+                                }
+                                cellidx++;
+                                if (!string.IsNullOrWhiteSpace(desc.Rationale))
+                                {
+                                    _ruleDr.Set(Labels.Remediation, desc.Remediation);
+                                }
+                                else
+                                {
+                                    _ruleDr.Set(Labels.Remediation, string.Empty);
+                                }
+                                cellidx++;
+                            }
+
                             data.AddRange(_ruleDr);
                         }
                     }
@@ -134,6 +185,12 @@ namespace CastReporting.Reporting.Block.Table
                         _ruleDr.Set(lbltotal, string.Empty);
                         _ruleDr.Set(lbladded, string.Empty);
                         _ruleDr.Set(lblremoved, string.Empty);
+                        if (showDescription)
+                        {
+                            _ruleDr.Set(Labels.Rationale, string.Empty);
+                            _ruleDr.Set(Labels.Description, string.Empty);
+                            _ruleDr.Set(Labels.Remediation, string.Empty);
+                        }
                         cellidx++;
                         data.AddRange(_ruleDr);
                     }
@@ -143,10 +200,7 @@ namespace CastReporting.Reporting.Block.Table
             if (data.Count == 0)
             {
                 var dataRow = headers.CreateDataRow();
-                dataRow.Set(standard, Labels.NoRules);
-                dataRow.Set(lbltotal, string.Empty);
-                dataRow.Set(lbladded, string.Empty);
-                dataRow.Set(lblremoved, string.Empty);
+                dataRow.Set(0, Labels.NoRules);
                 data.AddRange(dataRow);
             }
 
