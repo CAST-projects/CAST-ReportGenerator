@@ -386,5 +386,9 @@ namespace CastReporting.UnitTest.Reporting
             return res;
         }
 
+        public List<Tuple<string, int, int>> GetComponentFilePath(string domainId, string componentId, string snapshotId)
+        {
+            return new List<Tuple<string, int, int>>() { new Tuple<string, int, int>("C:\\jenkins6_slave\\workspace\\CAIP_8.3.3_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Dream Team\\DssAdmin\\DssAdmin\\MetricTree.cpp", 2, 6) };
+        }
     }
 }

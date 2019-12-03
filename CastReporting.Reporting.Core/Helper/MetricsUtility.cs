@@ -725,6 +725,13 @@ namespace CastReporting.Reporting.Helper
                                     }
 
                                 }
+                                else
+                                {
+                                    rowData.Add($"{Labels.StartLine} : {_bookval.CodeFragment.StartLine}");
+                                    cellidx++;
+                                    rowData.Add($"{Labels.EndLine} : {_bookval.CodeFragment.EndLine}");
+                                    cellidx++;
+                                }
                             }
                             rowData.Add("");
                             cellidx++;
@@ -933,5 +940,195 @@ namespace CastReporting.Reporting.Helper
             return res;
         }
 
+        public static List<string> PopulateViolationsBookmarksRow(ReportData reportData, List<Violation> results, HeaderDefinition headers, string metric)
+        {
+            List<string> rowData = new List<string>();
+            string ruleName = results.FirstOrDefault().RulePattern.Name;
+            if (ruleName == null) return rowData;
+
+            bool hasPreviousSnapshot = reportData.PreviousSnapshot != null;
+            string domainId = reportData.CurrentSnapshot.DomainId;
+            string snapshotId = reportData.CurrentSnapshot.Id.ToString();
+            string status = string.Empty;
+            string assoValue = string.Empty;
+            foreach (Violation _violation in results)
+            {
+                TypedComponent objectComponent = reportData.SnapshotExplorer.GetTypedComponent(reportData.CurrentSnapshot.DomainId, _violation.Component.GetComponentId(), reportData.CurrentSnapshot.GetId());
+                
+                if (hasPreviousSnapshot)
+                {
+                    status = _violation.Diagnosis.Status;
+                }
+
+                AssociatedValue associatedValue = reportData.SnapshotExplorer.GetAssociatedValue(domainId, _violation.Component.GetComponentId(), snapshotId, metric);
+                if (associatedValue == null)
+                {
+                    var _row = headers.CreateDataRow();
+                    _row.Set(Labels.RuleName, ruleName);
+                    _row.Set(Labels.ObjectName, _violation.Component.Name);
+                    _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
+                    _row.Set(Labels.Status, status);
+                    _row.Set(Labels.AssociatedValue, assoValue);
+                    _row.Set(Labels.FilePath, string.Empty);
+                    _row.Set(Labels.StartLine, string.Empty);
+                    _row.Set(Labels.EndLine, string.Empty);
+                    rowData.AddRange(_row);
+                }
+                else
+                {
+                    if (associatedValue.Type == null || associatedValue.Type.Equals("integer"))
+                    {
+                        if (associatedValue.Values != null && associatedValue.Values.Length > 0)
+                        {
+                            assoValue = associatedValue.Values[0].ToString();
+                        }
+
+                        IEnumerable<IEnumerable<CodeBookmark>> bookmarks = associatedValue.Bookmarks;
+                        if (bookmarks == null || !bookmarks.Any())
+                        {
+                            List<Tuple<string, int, int>> paths = reportData.SnapshotExplorer.GetComponentFilePath(domainId, _violation.Component.GetComponentId(), snapshotId);
+                            paths.ForEach(_path =>
+                            {
+                                var _row = headers.CreateDataRow();
+                                _row.Set(Labels.RuleName, ruleName);
+                                _row.Set(Labels.ObjectName, _violation.Component.Name);
+                                _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
+                                _row.Set(Labels.Status, status);
+                                _row.Set(Labels.AssociatedValue, assoValue);
+                                _row.Set(Labels.FilePath, _path.Item1);
+                                _row.Set(Labels.StartLine, _path.Item2.ToString());
+                                _row.Set(Labels.EndLine, _path.Item3.ToString());
+                                rowData.AddRange(_row);
+                            });
+                        }
+                        else
+                        {
+                            foreach (IEnumerable<CodeBookmark> _codeBookmarks in bookmarks)
+                            {
+                                _codeBookmarks.ToList().ForEach(_ =>
+                                {
+                                    var _row = headers.CreateDataRow();
+                                    _row.Set(Labels.RuleName, ruleName);
+                                    _row.Set(Labels.ObjectName, _violation.Component.Name);
+                                    _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
+                                    _row.Set(Labels.Status, status);
+                                    _row.Set(Labels.AssociatedValue, assoValue);
+                                    _row.Set(Labels.FilePath, _.CodeFragment.CodeFile.Name);
+                                    _row.Set(Labels.StartLine, _.CodeFragment.StartLine.ToString());
+                                    _row.Set(Labels.EndLine, _.CodeFragment.EndLine.ToString());
+                                    rowData.AddRange(_row);
+                                });
+                            }
+                        }
+                    }
+
+                    if (associatedValue.Type != null && associatedValue.Type.Equals("path"))
+                    {
+                        // manage case when type="path" and values contains the different path
+                        AssociatedValuePath associatedValueEx = reportData.SnapshotExplorer.GetAssociatedValuePath(domainId, _violation.Component.GetComponentId(), snapshotId, metric);
+                        IEnumerable<IEnumerable<CodeBookmark>> values = associatedValueEx?.Values;
+                        if (values == null || !values.Any())
+                        {
+                            List<Tuple<string, int, int>> paths = reportData.SnapshotExplorer.GetComponentFilePath(domainId, _violation.Component.GetComponentId(), snapshotId);
+                            paths.ForEach(_path =>
+                            {
+                                var _row = headers.CreateDataRow();
+                                _row.Set(Labels.RuleName, ruleName);
+                                _row.Set(Labels.ObjectName, _violation.Component.Name);
+                                _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
+                                _row.Set(Labels.Status, status);
+                                _row.Set(Labels.AssociatedValue, string.Empty);
+                                _row.Set(Labels.FilePath, _path.Item1);
+                                _row.Set(Labels.StartLine, _path.Item2.ToString());
+                                _row.Set(Labels.EndLine, _path.Item3.ToString());
+                                rowData.AddRange(_row);
+                            });
+                        }
+                        else
+                        {
+                            int pathCounter = 0;
+                            foreach (IEnumerable<CodeBookmark> _value in values)
+                            {
+                                _value.ToList().ForEach(_bookval =>
+                                {
+                                    var _row = headers.CreateDataRow();
+                                    _row.Set(Labels.RuleName, ruleName);
+                                    _row.Set(Labels.ObjectName, _violation.Component.Name);
+                                    _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
+                                    _row.Set(Labels.Status, status);
+                                    _row.Set(Labels.AssociatedValue, string.Empty);
+                                    _row.Set(Labels.FilePath, _bookval.CodeFragment.CodeFile.Name);
+                                    _row.Set(Labels.StartLine, _bookval.CodeFragment.StartLine.ToString());
+                                    _row.Set(Labels.EndLine, _bookval.CodeFragment.EndLine.ToString());
+                                    rowData.AddRange(_row);
+                                });
+                            }
+                        }
+                    }
+                    if (associatedValue.Type != null && associatedValue.Type.Equals("group"))
+                    {
+                        // manage case when type="group" and values contains an array of array of components
+                        AssociatedValueGroup associatedValueEx = reportData.SnapshotExplorer.GetAssociatedValueGroup(domainId, _violation.Component.GetComponentId(), snapshotId, metric);
+                        IEnumerable<IEnumerable<CodeBookmark>> values = associatedValueEx?.Values;
+                        if (values == null || !values.Any())
+                        {
+                            List<Tuple<string, int, int>> paths = reportData.SnapshotExplorer.GetComponentFilePath(domainId, _violation.Component.GetComponentId(), snapshotId);
+                            paths.ForEach(_ =>
+                            {
+                                var _row = headers.CreateDataRow();
+                                _row.Set(Labels.RuleName, ruleName);
+                                _row.Set(Labels.ObjectName, _violation.Component.Name);
+                                _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
+                                _row.Set(Labels.Status, status);
+                                _row.Set(Labels.AssociatedValue, string.Empty);
+                                _row.Set(Labels.FilePath, _.Item1);
+                                _row.Set(Labels.StartLine, _.Item2.ToString());
+                                _row.Set(Labels.EndLine, _.Item3.ToString());
+                                rowData.AddRange(_row);
+                            });
+                        }
+                        else
+                        {
+                            foreach (IEnumerable<CodeBookmark> components in values)
+                            {
+                                components.ToList().ForEach(_component =>
+                                {
+                                    var _row = headers.CreateDataRow();
+                                    _row.Set(Labels.RuleName, ruleName);
+                                    _row.Set(Labels.ObjectName, _violation.Component.Name);
+                                    _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
+                                    _row.Set(Labels.Status, status);
+                                    _row.Set(Labels.AssociatedValue, _component.Component.Name);
+                                    _row.Set(Labels.FilePath, _component.CodeFragment.CodeFile.Name);
+                                    _row.Set(Labels.StartLine, _component.CodeFragment.StartLine.ToString());
+                                    _row.Set(Labels.EndLine, _component.CodeFragment.EndLine.ToString());
+                                });
+                            }
+                        }
+                    }
+                    if (associatedValue.Type != null && (associatedValue.Type.Equals("object") || associatedValue.Type.Equals("text") || associatedValue.Type.Equals("percentage")))
+                    {
+                        // manage case when type="object", "text" or "percentage"
+                        List<Tuple<string, int, int>> paths = reportData.SnapshotExplorer.GetComponentFilePath(domainId, _violation.Component.GetComponentId(), snapshotId);
+                        paths.ForEach(_ =>
+                        {
+                            var _row = headers.CreateDataRow();
+                            _row.Set(Labels.RuleName, ruleName);
+                            _row.Set(Labels.ObjectName, _violation.Component.Name);
+                            _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
+                            _row.Set(Labels.Status, status);
+                            _row.Set(Labels.AssociatedValue, string.Empty);
+                            _row.Set(Labels.FilePath, _.Item1);
+                            _row.Set(Labels.StartLine, _.Item2.ToString());
+                            _row.Set(Labels.EndLine, _.Item3.ToString());
+                            rowData.AddRange(_row);
+                        });
+                    }
+                }
+            }
+            return rowData;
+        }
+
     }
+
 }

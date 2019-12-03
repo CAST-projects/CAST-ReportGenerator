@@ -84,5 +84,7 @@ namespace CastReporting.Domain.Interfaces
         Dictionary<int, string> GetSourceCodeBookmark(string domainId, CodeBookmark bookmark, int offset);
 
         TypedComponent GetTypedComponent(string domainId, string componentId, string snapshotId);
+
+        List<Tuple<string, int, int>> GetComponentFilePath(string domainId, string componentId, string snapshotId);
     }
 }

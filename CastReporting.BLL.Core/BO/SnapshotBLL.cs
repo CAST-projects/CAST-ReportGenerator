@@ -907,5 +907,32 @@ namespace CastReporting.BLL
             }
         }
 
+        public List<Tuple<string, int, int>> GetComponentFilePath(string domainId, string componentId, string snapshotId)
+        {
+            List<Tuple<string, int, int>> codesAndLineProps = new List<Tuple<string, int, int>>();
+            try
+            {
+                using (var castRepository = GetRepository())
+                {
+                    List<CodeFragment> fragments = castRepository.GetSourceCode(domainId, snapshotId, componentId).ToList();
+
+                    if (!fragments.Any()) return codesAndLineProps;
+
+                    foreach (CodeFragment _fragment in fragments)
+                    {
+                        codesAndLineProps.Add(new Tuple<string, int, int>(_fragment.CodeFile.Name, _fragment.StartLine, _fragment.EndLine));
+                    }
+                    return codesAndLineProps;
+                }
+            }
+            catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException || ex is ArgumentException)
+            {
+                LogHelper.LogInfo(ex.Message);
+                return codesAndLineProps;
+            }
+
+            
+        }
+
     }
 }
