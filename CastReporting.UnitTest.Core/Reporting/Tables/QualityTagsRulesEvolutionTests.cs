@@ -46,11 +46,11 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
             var expectedData = new List<string>
             {
-                "CWE-2011-Top25","Total Vulnerabilities","Added Vulnerabilities","Removed Vulnerabilities",
-                "No data found","","",""
+                "CWE-2011-Top25",
+                "No data found"
             };
 
-            TestUtility.AssertTableContent(table, expectedData, 4, 2);
+            TestUtility.AssertTableContent(table, expectedData, 1, 2);
 
         }
 
@@ -107,7 +107,8 @@ namespace CastReporting.UnitTest.Reporting.Tables
         [DeploymentItem(@".\Data\Snapshot_StdTagResultsSTIGv4R8CAT1.json", "Data")]
         [DeploymentItem(@".\Data\Snapshot_StdTagsOWASPresults1.json", "Data")]
         [DeploymentItem(@".\Data\StandardTagsSTIG.json", "Data")]
-        public void TestStgTagDetailSTIG()
+        [DeploymentItem(@".\Data\RulePatterns.json", "Data")]
+        public void TestStgTagDetailSTIGWithDescription()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
@@ -123,26 +124,38 @@ namespace CastReporting.UnitTest.Reporting.Tables
                 Name = "Default"
             };
             reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
+            reportData.RuleExplorer = new RuleBLLStub();
 
             var component = new CastReporting.Reporting.Block.Table.QualityTagsRulesEvolution();
             Dictionary<string, string> config = new Dictionary<string, string>
             {
-                {"STD","STIG-V4R8-CAT1" }
+                {"STD","STIG-V4R8-CAT1" },
+                {"DESC","true" }
             };
             var table = component.Content(reportData, config);
 
             var expectedData = new List<string>
             {
-                "STIG-V4R8-CAT1", "Total Vulnerabilities","Added Vulnerabilities","Removed Vulnerabilities",
-                "STIG-V-70245 The application must protect the confidentiality and integrity of transmitted information.","0","0","0",
+                "STIG-V4R8-CAT1", "Total Vulnerabilities","Added Vulnerabilities","Removed Vulnerabilities","Rationale","Description","Remediation",
+                "STIG-V-70245 The application must protect the confidentiality and integrity of transmitted information.","0","0","0","","","",
                 "    Avoid using 'java.lang.Runtime.exec()'","5","2","1",
+                    "For portability reasons, 'java.lang.Runtime.exec()' should not be used since it means being dependant on the environment where the application is deployed.\nFor security reasons, 'java.lang.Runtime.exec()' can lead to malicious file execution resulting in devastating attacks such as total server compromise.\n\nThere are uses correct uses of Runtime.exec for example when the method call is platform neutral.\n\nSuch examples of the correct use of Runtime.exec are:\n- Invocation of a Java compiler, with the name of the compiler specified as a\nuser-settable Property.\n- Execution of a command the user typed in (a \"shell\").\n- Invocation of a browser, configured as part of the installation of the\nprogram, when the user presses a \"Help\" button.",
+                    "Java artifacts should not use 'java.lang.Runtime.exec()'","",
                 "    Avoid OS command injection vulnerabilities","0","0","0",
-                "STIG-V-70261 The application must protect from command injection.","0","0","0",
+                    "The software constructs all or part of an OS command using externally-influenced input from an upstream component, but it does not neutralize or incorrectly neutralizes special elements that could modify the intended OS command when it is sent to a downstream component.\nThis could allow attackers to execute unexpected, dangerous commands directly on the operating system. This weakness can lead to a vulnerability in environments in which the attacker does not have direct access to the operating system, such as in web applications.",
+                    "The software constructs all or part of an OS command using externally-influenced input from an upstream component, but it does not neutralize or incorrectly neutralizes special elements that could modify the intended OS command when it is sent to a downstream component.\n\nUsing CAST data-flow engine, this metric detects paths from user input methods down to system call API methods, paths which are open vulnerabilities to operating system injection flaws.",
+                    "Assume all input is malicious. \nAvoid using inputs. If it is not possible, use an \"accept known good\" input validation strategy, i.e., use stringent white-lists that limit the character set based on the expected value of the parameter in the request. This will indirectly limit the scope of an attack.",
+                "STIG-V-70261 The application must protect from command injection.","0","0","0","","","",
                 "    Avoid using 'java.lang.Runtime.exec()'","5","2","1",
-                "    Avoid OS command injection vulnerabilities","0","0","0"
+                    "For portability reasons, 'java.lang.Runtime.exec()' should not be used since it means being dependant on the environment where the application is deployed.\nFor security reasons, 'java.lang.Runtime.exec()' can lead to malicious file execution resulting in devastating attacks such as total server compromise.\n\nThere are uses correct uses of Runtime.exec for example when the method call is platform neutral.\n\nSuch examples of the correct use of Runtime.exec are:\n- Invocation of a Java compiler, with the name of the compiler specified as a\nuser-settable Property.\n- Execution of a command the user typed in (a \"shell\").\n- Invocation of a browser, configured as part of the installation of the\nprogram, when the user presses a \"Help\" button.",
+                    "Java artifacts should not use 'java.lang.Runtime.exec()'","",
+                "    Avoid OS command injection vulnerabilities","0","0","0",
+                    "The software constructs all or part of an OS command using externally-influenced input from an upstream component, but it does not neutralize or incorrectly neutralizes special elements that could modify the intended OS command when it is sent to a downstream component.\nThis could allow attackers to execute unexpected, dangerous commands directly on the operating system. This weakness can lead to a vulnerability in environments in which the attacker does not have direct access to the operating system, such as in web applications.",
+                    "The software constructs all or part of an OS command using externally-influenced input from an upstream component, but it does not neutralize or incorrectly neutralizes special elements that could modify the intended OS command when it is sent to a downstream component.\n\nUsing CAST data-flow engine, this metric detects paths from user input methods down to system call API methods, paths which are open vulnerabilities to operating system injection flaws.",
+                    "Assume all input is malicious. \nAvoid using inputs. If it is not possible, use an \"accept known good\" input validation strategy, i.e., use stringent white-lists that limit the character set based on the expected value of the parameter in the request. This will indirectly limit the scope of an attack."
             };
 
-            TestUtility.AssertTableContent(table, expectedData, 4, 7);
+            TestUtility.AssertTableContent(table, expectedData, 7, 7);
 
         }
 
