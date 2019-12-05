@@ -92,7 +92,7 @@ namespace CastReporting.Reporting.Block.Table
             _row.Set(Labels.Violations, reason);
             var _data = new List<string>();
             _data.AddRange(_row);
-            _data.InsertRange(0, emptyHeaders.Labels);
+            if (displayHeader) _data.InsertRange(0, emptyHeaders.Labels);
             return new TableDefinition
             {
                 HasRowHeaders = false,
