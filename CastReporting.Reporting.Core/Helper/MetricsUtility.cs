@@ -1013,9 +1013,9 @@ namespace CastReporting.Reporting.Helper
                                     _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
                                     _row.Set(Labels.Status, status);
                                     _row.Set(Labels.AssociatedValue, assoValue);
-                                    _row.Set(Labels.FilePath, _.CodeFragment.CodeFile.Name);
-                                    _row.Set(Labels.StartLine, _.CodeFragment.StartLine.ToString());
-                                    _row.Set(Labels.EndLine, _.CodeFragment.EndLine.ToString());
+                                    _row.Set(Labels.FilePath, _.CodeFragment?.CodeFile.Name);
+                                    _row.Set(Labels.StartLine, _.CodeFragment?.StartLine.ToString());
+                                    _row.Set(Labels.EndLine, _.CodeFragment?.EndLine.ToString());
                                     rowData.AddRange(_row);
                                 });
                             }
@@ -1057,9 +1057,9 @@ namespace CastReporting.Reporting.Helper
                                     _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
                                     _row.Set(Labels.Status, status);
                                     _row.Set(Labels.AssociatedValue, $"path #{bookList.IndexOf(_bookval)}");
-                                    _row.Set(Labels.FilePath, _bookval.CodeFragment.CodeFile.Name);
-                                    _row.Set(Labels.StartLine, _bookval.CodeFragment.StartLine.ToString());
-                                    _row.Set(Labels.EndLine, _bookval.CodeFragment.EndLine.ToString());
+                                    _row.Set(Labels.FilePath, _bookval.CodeFragment?.CodeFile.Name);
+                                    _row.Set(Labels.StartLine, _bookval.CodeFragment?.StartLine.ToString());
+                                    _row.Set(Labels.EndLine, _bookval.CodeFragment?.EndLine.ToString());
                                     rowData.AddRange(_row);
                                 });
                             }
@@ -1099,9 +1099,9 @@ namespace CastReporting.Reporting.Helper
                                     _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
                                     _row.Set(Labels.Status, status);
                                     _row.Set(Labels.AssociatedValue, _component.Component.Name);
-                                    _row.Set(Labels.FilePath, _component.CodeFragment.CodeFile.Name);
-                                    _row.Set(Labels.StartLine, _component.CodeFragment.StartLine.ToString());
-                                    _row.Set(Labels.EndLine, _component.CodeFragment.EndLine.ToString());
+                                    _row.Set(Labels.FilePath, _component.CodeFragment?.CodeFile.Name);
+                                    _row.Set(Labels.StartLine, _component.CodeFragment?.StartLine.ToString());
+                                    _row.Set(Labels.EndLine, _component.CodeFragment?.EndLine.ToString());
                                 });
                             }
                         }
