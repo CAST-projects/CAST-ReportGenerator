@@ -143,15 +143,26 @@ namespace CastReporting.UI.WPF.Core.View
         private void GenerateButtonClicked(object sender, RoutedEventArgs e)
         {
             ReportingVM _reportingVm = DataContext as ReportingVM;
-
+            string name;
             if (_reportingVm == null) return;
+            switch (_reportingVm.SelectedTab)
+            {
+                case 0:
+                    name = _reportingVm.SelectedApplication.Application.Name;
+                    break;
+                case 1:
+                    name = _reportingVm.SelectedTag;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
             SaveFileDialog dialog = new SaveFileDialog
             {
                 Filter = _reportingVm.SelectedTemplateFile.Extension != ".xlsx" ?
                     string.Format("*{0}, *.pdf|*{0};*.pdf", _reportingVm.SelectedTemplateFile.Extension)
                     : string.Format("*{0}|*{0}", _reportingVm.SelectedTemplateFile.Extension),
                 DefaultExt = _reportingVm.SelectedTemplateFile.Extension,
-                FileName = _reportingVm.SelectedTemplateFile.Name.Replace('-', ' ').Replace(_reportingVm.SelectedTemplateFile.Extension, $"_{DateTime.Now:MM-dd_HH-mm-ss}{_reportingVm.SelectedTemplateFile.Extension}")
+                FileName = _reportingVm.SelectedTemplateFile.Name.Replace('-', '_').Replace(_reportingVm.SelectedTemplateFile.Extension, $"_{name}_{DateTime.Now:MM-dd_HH-mm-ss}{_reportingVm.SelectedTemplateFile.Extension}")
             };
 
 
