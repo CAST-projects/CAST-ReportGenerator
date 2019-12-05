@@ -60,7 +60,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
                 "Avoid using SQL queries inside a loop", "aedtst_exclusions_central.adg_central_grades_std", "MyObjType", "added","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
                 "Avoid using SQL queries inside a loop", "aedtst_exclusions_central.adg_central_grades_std", "MyObjType", "added","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
                 "Avoid using SQL queries inside a loop", "aedtst_exclusions_central.adg_central_grades_std", "MyObjType", "added","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
-                "Avoid Methods with a very low comment/code ratio", "com.castsoftware.aad.common.AadCommandLine.dumpStack","MyObjType","added","", "C:\\jenkins6_slave\\workspace\\CAIP_8.3.3_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Dream Team\\DssAdmin\\DssAdmin\\MetricTree.cpp","2","6"
+                "Avoid Methods with a very low comment/code ratio", "com.castsoftware.aad.common.AadCommandLine.dumpStack","MyObjType","added","2.99", "C:\\jenkins6_slave\\workspace\\CAIP_8.3.3_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Dream Team\\DssAdmin\\DssAdmin\\MetricTree.cpp","2","6"
             };
 
             TestUtility.AssertTableContent(table, expectedData, 8, 5);
@@ -97,11 +97,11 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
             var expectedData = new List<string>
             { "Rule Name","Object Name","Object Type","Status","Associated Value","File path","Start Line","End Line",
-                "Avoid Methods with a very low comment/code ratio","com.castsoftware.aad.common.AadCommandLine.dumpStack","MyObjType","","","C:\\jenkins6_slave\\workspace\\CAIP_8.3.3_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Dream Team\\DssAdmin\\DssAdmin\\MetricTree.cpp","2","6",
-                "Avoid Methods with a very low comment/code ratio","com.castsoftware.aed.common.AedCommandLine.dumpStack","MyObjType","","","C:\\jenkins6_slave\\workspace\\CAIP_8.3.3_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Dream Team\\DssAdmin\\DssAdmin\\MetricTree.cpp","2","6",
-                "Avoid Methods with a very low comment/code ratio","com.castsoftware.aad.common.AadCommandLine.logInBase","MyObjType","","","C:\\jenkins6_slave\\workspace\\CAIP_8.3.3_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Dream Team\\DssAdmin\\DssAdmin\\MetricTree.cpp","2","6",
-                "Avoid Methods with a very low comment/code ratio","com.castsoftware.aed.common.AedCommandLine.logInBase","MyObjType","","","C:\\jenkins6_slave\\workspace\\CAIP_8.3.3_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Dream Team\\DssAdmin\\DssAdmin\\MetricTree.cpp","2","6",
-                "Avoid Methods with a very low comment/code ratio","com.castsoftware.aed.common.AedCommandLine.getFormattedMsg","MyObjType","","","C:\\jenkins6_slave\\workspace\\CAIP_8.3.3_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Dream Team\\DssAdmin\\DssAdmin\\MetricTree.cpp","2","6"
+                "Avoid Methods with a very low comment/code ratio","com.castsoftware.aad.common.AadCommandLine.dumpStack","MyObjType","","2.99","C:\\jenkins6_slave\\workspace\\CAIP_8.3.3_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Dream Team\\DssAdmin\\DssAdmin\\MetricTree.cpp","2","6",
+                "Avoid Methods with a very low comment/code ratio","com.castsoftware.aed.common.AedCommandLine.dumpStack","MyObjType","","2.99","C:\\jenkins6_slave\\workspace\\CAIP_8.3.3_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Dream Team\\DssAdmin\\DssAdmin\\MetricTree.cpp","2","6",
+                "Avoid Methods with a very low comment/code ratio","com.castsoftware.aad.common.AadCommandLine.logInBase","MyObjType","","2.99","C:\\jenkins6_slave\\workspace\\CAIP_8.3.3_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Dream Team\\DssAdmin\\DssAdmin\\MetricTree.cpp","2","6",
+                "Avoid Methods with a very low comment/code ratio","com.castsoftware.aed.common.AedCommandLine.logInBase","MyObjType","","2.99","C:\\jenkins6_slave\\workspace\\CAIP_8.3.3_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Dream Team\\DssAdmin\\DssAdmin\\MetricTree.cpp","2","6",
+                "Avoid Methods with a very low comment/code ratio","com.castsoftware.aed.common.AedCommandLine.getFormattedMsg","MyObjType","","2.99","C:\\jenkins6_slave\\workspace\\CAIP_8.3.3_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Dream Team\\DssAdmin\\DssAdmin\\MetricTree.cpp","2","6"
             };
             TestUtility.AssertTableContent(table, expectedData, 8, 6);
         }
