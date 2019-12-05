@@ -877,8 +877,8 @@ namespace CastReporting.BLL
                             string fileId = _fragment.CodeFile.GetFileId();
                             int startLine = _fragment.StartLine;
                             int endLine = _fragment.EndLine;
-                            int idx = (startLine < 0) ? 1 : startLine;
-                            int endIdx = (endLine < 0) ? idx + offset
+                            int idx = (startLine < 1) ? 1 : startLine;
+                            int endIdx = (endLine < 1) ? idx + offset
                                 : endLine - idx < offset ? endLine : idx + offset;
 
                             Dictionary<int, string> codeLines = new Dictionary<int, string>();
