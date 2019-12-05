@@ -241,6 +241,48 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
         [TestMethod]
         [DeploymentItem(@".\Data\CurrentBCTC.json", "Data")]
+        [DeploymentItem(@".\Data\PreviousBCTC.json", "Data")]
+        [DeploymentItem(@".\Data\Snapshot_StdTagResultsCWE.json", "Data")]
+        [DeploymentItem(@".\Data\StandardTags.json", "Data")]
+        public void TestStgTagCWENoHeaders()
+        {
+            CastDate currentDate = new CastDate { Time = 1484953200000 };
+            CastDate previousDate = new CastDate { Time = 1484866800000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+                null, @".\Data\CurrentBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @".\Data\PreviousBCTC.json", "AED/applications/3/snapshots/5", "PreVersion 1.5.0 sprint 2 shot 1", "V-1.5.0_Sprint 2_1", previousDate);
+            reportData = TestUtility.AddStandardTags(reportData, @".\Data\StandardTags.json");
+            WSConnection connection = new WSConnection
+            {
+                Url = "http://tests/CAST-RESTAPI/rest/",
+                Login = "admin",
+                Password = "cast",
+                IsActive = true,
+                Name = "Default"
+            };
+            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
+
+            var component = new CastReporting.Reporting.Block.Table.QualityStandardsEvolution();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"STD","CWE-2011-Top25" },
+                {"HEADER","no" }
+            };
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>
+            {
+                "CWE-22 Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')","0","0","0",
+                "CWE-78 Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')","7","7","5",
+                "CWE-79 Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')","7","7","2"
+            };
+
+            TestUtility.AssertTableContent(table, expectedData, 4, 3);
+
+        }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\CurrentBCTC.json", "Data")]
         [DeploymentItem(@".\Data\Snapshot_StdTagResultsSTIGv4R8.json", "Data")]
         [DeploymentItem(@".\Data\Snapshot_StdTagResultsSTIGv4R8CAT1.json", "Data")]
         [DeploymentItem(@".\Data\Snapshot_StdTagResultsSTIGv4R8CAT3.json", "Data")]

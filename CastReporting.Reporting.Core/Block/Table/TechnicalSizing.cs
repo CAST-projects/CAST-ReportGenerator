@@ -39,17 +39,27 @@ namespace CastReporting.Reporting.Block.Table
 
             const string noData = Constants.No_Value;
             const string metricFormat = "N0";
-            var rowData = new List<string>{ Labels.Name, Labels.Value
-                , Labels.kLoC, (codeLineNumber / 1000)?.ToString(metricFormat) ?? noData
+
+            var rowData = new List<string>();
+
+            bool displayHeader = options == null || !options.ContainsKey("HEADER") || "NO" != options["HEADER"].ToUpper();
+            if (displayHeader)
+            {
+                rowData.AddRange(new[] { Labels.Name, Labels.Value });
+            }
+            rowData.AddRange(new[]
+            {
+                Labels.kLoC, (codeLineNumber / 1000)?.ToString(metricFormat) ?? noData
                 , "  " + Labels.Files, fileNumber?.ToString(metricFormat) ?? noData
                 , "  " + Labels.Classes, classNumber?.ToString(metricFormat) ?? noData
                 , Labels.ArtifactsSQL, sqlArtifactNumber?.ToString(metricFormat) ?? noData
                 , "  " + Labels.Tables, tableNumber?.ToString(metricFormat) ?? noData
-            };
+            });
+
             var resultTable = new TableDefinition {
                 HasRowHeaders = false,
-                HasColumnHeaders = true,
-                NbRows = 6,
+                HasColumnHeaders = displayHeader,
+                NbRows = displayHeader ? 6 : 5,
                 NbColumns = 2,
                 Data = rowData
             };

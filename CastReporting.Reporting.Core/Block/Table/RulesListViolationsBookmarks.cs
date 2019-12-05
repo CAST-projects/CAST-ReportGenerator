@@ -36,17 +36,18 @@ namespace CastReporting.Reporting.Block.Table
             {
                 critical = options.GetOption("CRITICAL").Equals("true");
             }
+            bool displayHeader = !options.GetOption("HEADER", "YES").ToUpper().Equals("NO");
 
             if (!VersionUtil.Is111Compatible(reportData.ServerVersion))
             {
                 LogHelper.LogError("Bad version of RestAPI. Should be 1.11 at least for component LIST_RULES_VIOLATIONS_BOOKMARKS");
-                rowData.Add(Labels.Violations);
+                if (displayHeader) rowData.Add(Labels.Violations);
                 rowData.Add(Labels.NoData);
                 return new TableDefinition
                 {
                     HasRowHeaders = false,
-                    HasColumnHeaders = true,
-                    NbRows = 2,
+                    HasColumnHeaders = displayHeader,
+                    NbRows = displayHeader ? 2 : 1,
                     NbColumns = 1,
                     Data = rowData
                 };
@@ -54,8 +55,11 @@ namespace CastReporting.Reporting.Block.Table
 
             List<string> qualityRules = MetricsUtility.BuildRulesList(reportData, metrics,critical);
 
-            rowData.Add(Labels.Violations);
-            cellidx++;
+            if (displayHeader)
+            {
+                rowData.Add(Labels.Violations);
+                cellidx++;
+            }
 
             if (qualityRules.Count > 0)
             {
@@ -142,7 +146,7 @@ namespace CastReporting.Reporting.Block.Table
             var table = new TableDefinition
             {
                 HasRowHeaders = false,
-                HasColumnHeaders = true,
+                HasColumnHeaders = displayHeader,
                 NbRows = rowData.Count,
                 NbColumns = 1,
                 Data = rowData,

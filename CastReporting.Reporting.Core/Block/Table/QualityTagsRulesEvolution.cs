@@ -37,7 +37,7 @@ namespace CastReporting.Reporting.Block.Table
             string lbltotal = vulnerability ? Labels.TotalVulnerabilities : Labels.TotalViolations;
             string lbladded = vulnerability ? Labels.AddedVulnerabilities : Labels.AddedViolations;
             string lblremoved = vulnerability ? Labels.RemovedVulnerabilities : Labels.RemovedViolations;
-
+            bool displayHeader = !options.GetOption("HEADER", "YES").ToUpper().Equals("NO");
             bool showDescription = options.GetOption("DESC", "false").Equals("true");
 
             // cellProps will contains the properties of the cell (background color) linked to the data by position in the list stored with cellidx.
@@ -55,12 +55,12 @@ namespace CastReporting.Reporting.Block.Table
                 var dataRow = headers.CreateDataRow();
                 dataRow.Set(standard, Labels.NoData);
                 data.AddRange(dataRow);
-                data.InsertRange(0, headers.Labels);
+                if (displayHeader) data.InsertRange(0, headers.Labels);
                 return new TableDefinition
                 {
                     HasRowHeaders = false,
-                    HasColumnHeaders = true,
-                    NbRows = 2,
+                    HasColumnHeaders = displayHeader,
+                    NbRows = displayHeader ? 2 : 1,
                     NbColumns = 1,
                     Data = data
                 };
@@ -204,12 +204,12 @@ namespace CastReporting.Reporting.Block.Table
                 data.AddRange(dataRow);
             }
 
-            data.InsertRange(0, headers.Labels);
+            if (displayHeader) data.InsertRange(0, headers.Labels);
 
             return new TableDefinition
             {
                 Data = data,
-                HasColumnHeaders = true,
+                HasColumnHeaders = displayHeader,
                 HasRowHeaders = false,
                 NbColumns = headers.Count,
                 NbRows = data.Count / headers.Count,

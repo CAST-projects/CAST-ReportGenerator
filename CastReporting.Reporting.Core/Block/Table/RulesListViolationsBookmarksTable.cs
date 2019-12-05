@@ -30,11 +30,12 @@ namespace CastReporting.Reporting.Block.Table
             {
                 critical = options.GetOption("CRITICAL").Equals("true");
             }
+            bool displayHeader = !options.GetOption("HEADER", "YES").ToUpper().Equals("NO");
 
             if (!VersionUtil.Is111Compatible(reportData.ServerVersion))
             {
                 LogHelper.LogError("Bad version of RestAPI. Should be 1.11 at least for component LIST_RULES_VIOLATIONS_BOOKMARKS");
-                return emptyTable(Labels.NoData);
+                return emptyTable(Labels.NoData, displayHeader);
             }
 
             headers.Append(Labels.RuleName);
@@ -62,19 +63,19 @@ namespace CastReporting.Reporting.Block.Table
 
                 if (rowData.Count <= 1)
                 {
-                    return emptyTable(Labels.NoViolation);
+                    return emptyTable(Labels.NoViolation, displayHeader);
                 }
             }
             else
             {
-                return emptyTable(Labels.NoItem);
+                return emptyTable(Labels.NoItem, displayHeader);
             }
 
-            rowData.InsertRange(0, headers.Labels);
+            if (displayHeader) rowData.InsertRange(0, headers.Labels);
             var table = new TableDefinition
             {
                 HasRowHeaders = false,
-                HasColumnHeaders = true,
+                HasColumnHeaders = displayHeader,
                 NbColumns = headers.Count,
                 NbRows = rowData.Count / headers.Count,
                 Data = rowData,
@@ -83,7 +84,7 @@ namespace CastReporting.Reporting.Block.Table
             return table;
         }
 
-        private static TableDefinition emptyTable(string reason)
+        private static TableDefinition emptyTable(string reason, bool displayHeader)
         {
             var emptyHeaders = new HeaderDefinition();
             emptyHeaders.Append(Labels.Violations);
@@ -95,8 +96,8 @@ namespace CastReporting.Reporting.Block.Table
             return new TableDefinition
             {
                 HasRowHeaders = false,
-                HasColumnHeaders = true,
-                NbRows = 2,
+                HasColumnHeaders = displayHeader,
+                NbRows = displayHeader ? 2 : 1,
                 NbColumns = 1,
                 Data = _data
             };
