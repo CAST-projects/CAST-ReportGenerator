@@ -47,6 +47,7 @@ namespace CastReporting.Reporting.Block.Table
             string lblremoved = vulnerability ? Labels.RemovedVulnerabilities : Labels.RemovedViolations;
 
             bool showDescription = options.GetOption("DESC", "false").Equals("true");
+            bool displayHeader = !options.GetOption("HEADER", "YES").ToUpper().Equals("NO");
 
             // cellProps will contains the properties of the cell (background color) linked to the data by position in the list stored with cellidx.
             List<CellAttributes> cellProps = new List<CellAttributes>();
@@ -63,12 +64,12 @@ namespace CastReporting.Reporting.Block.Table
                 var _data = new List<string>();
                 _row.Set(Labels.CASTRules, Labels.NoData);
                 _data.AddRange(_row);
-                _data.InsertRange(0, headers.Labels);
+                if (displayHeader) _data.InsertRange(0, headers.Labels);
                 return new TableDefinition
                 {
                     HasRowHeaders = false,
-                    HasColumnHeaders = true,
-                    NbRows = 2,
+                    HasColumnHeaders = displayHeader,
+                    NbRows = displayHeader ? 2 : 1,
                     NbColumns = 1,
                     Data = _data
                 };
@@ -206,12 +207,12 @@ namespace CastReporting.Reporting.Block.Table
                 data.AddRange(dataRow);
             }
 
-            data.InsertRange(0, headers.Labels);
+            if (displayHeader) data.InsertRange(0, headers.Labels);
 
             return new TableDefinition
             {
                 Data = data,
-                HasColumnHeaders = true,
+                HasColumnHeaders = displayHeader,
                 HasRowHeaders = false,
                 NbColumns = headers.Count,
                 NbRows = data.Count / headers.Count,

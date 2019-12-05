@@ -44,8 +44,13 @@ namespace CastReporting.Reporting.Block.Table
             }
 
             List<string> rowData = new List<string>();
+            bool displayHeader = options == null || !options.ContainsKey("HEADER") || "NO" != options["HEADER"].ToUpper();
 
-            rowData.AddRange(_intLocFlag == 1 ? new[] {Labels.Name} : new[] {Labels.Name, Labels.LoC});
+            if (displayHeader)
+            {
+                rowData.AddRange(_intLocFlag == 1 ? new[] { Labels.Name } : new[] { Labels.Name, Labels.LoC });
+            }
+            
             if (reportData.CurrentSnapshot?.Technologies != null)
             {
                 var technologyInfos = MeasureUtility.GetTechnoLoc(reportData.CurrentSnapshot, nbResult);
@@ -57,28 +62,14 @@ namespace CastReporting.Reporting.Block.Table
                 nbTot = technologyInfos.Count;
             }
             TableDefinition resultTable;
-            if (_intLocFlag == 1)
+            resultTable = new TableDefinition
             {
-                resultTable = new TableDefinition
-                {
-                    HasRowHeaders = false,
-                    HasColumnHeaders = true,
-                    NbRows = nbTot + 1,
-                    NbColumns = 1,
-                    Data = rowData
-                };
-            }
-            else
-            {
-                resultTable = new TableDefinition
-                {
-                    HasRowHeaders = false,
-                    HasColumnHeaders = true,
-                    NbRows = nbTot + 1,
-                    NbColumns = 2,
-                    Data = rowData
-                };
-            }
+                HasRowHeaders = false,
+                HasColumnHeaders = displayHeader,
+                NbRows = displayHeader ? nbTot + 1 : nbTot,
+                NbColumns = _intLocFlag == 1 ? 1 : 2,
+                Data = rowData
+            };
             return resultTable;
         }
             #endregion METHODS

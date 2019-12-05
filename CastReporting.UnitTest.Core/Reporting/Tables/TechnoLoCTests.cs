@@ -89,5 +89,30 @@ namespace CastReporting.UnitTest.Reporting.Tables
             Assert.IsTrue(table.HasColumnHeaders);
         }
 
+        [TestMethod]
+        [DeploymentItem(@".\Data\CurrentTechSizeResultsModTechno.json", "Data")]
+        public void TestNoHeader()
+        {
+            CastDate currentDate = new CastDate { Time = 1492984800000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+                null, @".\Data\CurrentTechSizeResultsModTechno.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+               null, null, null, null, null, null);
+            reportData.CurrentSnapshot.Technologies = new[] { ".NET", "JEE", "SQL Analyzer" };
+
+            var component = new TechnoLoC();
+            Dictionary<string, string> config = new Dictionary<string, string>()
+            {
+                {"HEADER", "NO" }
+            };
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>();
+            expectedData.AddRange(new List<string> { "SQL Analyzer", "24,670" });
+            expectedData.AddRange(new List<string> { ".NET", "24,446" });
+            expectedData.AddRange(new List<string> { "JEE", "13,311" });
+            TestUtility.AssertTableContent(table, expectedData, 2, 3);
+            Assert.IsFalse(table.HasColumnHeaders);
+        }
+
     }
 }

@@ -165,6 +165,64 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
         [TestMethod]
         [DeploymentItem(@".\Data\Violations7424_60017.json", "Data")]
+        [DeploymentItem(@".\Data\CurrentBCTC.json", "Data")]
+        [DeploymentItem(@".\Data\RulePattern7424.json", "Data")]
+        [DeploymentItem(@".\Data\findings7392.json", "Data")]
+        public void TestMetricsStdTagNoHeader()
+        {
+            CastDate currentDate = new CastDate { Time = 1484953200000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+                null, @".\Data\CurrentBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, null, null, null, null, null);
+            WSConnection connection = new WSConnection
+            {
+                Url = "http://tests/CAST-RESTAPI/rest/",
+                Login = "admin",
+                Password = "cast",
+                IsActive = true,
+                Name = "Default"
+            };
+            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
+            reportData.RuleExplorer = new RuleBLLStub();
+
+            var component = new CastReporting.Reporting.Block.Table.RulesListViolationsBookmarksTable();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"METRICS","CWE" },
+                {"COUNT", "-1" },
+                {"HEADER","NO" }
+            };
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>
+            { 
+                "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adg_central_grades_std","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
+                "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adg_central_grades_std","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adg_central_grades_std","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adg_central_startup_init","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
+                "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adg_central_startup_init","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adg_central_startup_init","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adg_init_techno_children","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
+                "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adg_init_techno_children","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adg_init_techno_children","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adg_m_central_grades_std","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
+                "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adg_m_central_grades_std","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adg_m_central_grades_std","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adg_m_central_startup_init","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
+                "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adg_m_central_startup_init","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adg_m_central_startup_init","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adgc_delta_debt_added","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
+                "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adgc_delta_debt_added","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adgc_delta_debt_added","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adgc_delta_debt_removed","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
+                "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adgc_delta_debt_removed","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adgc_delta_debt_removed","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201"
+            };
+            TestUtility.AssertTableContent(table, expectedData, 8, 21);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\Violations7424_60017.json", "Data")]
         [DeploymentItem(@".\Data\BaseQI60011.json", "Data")]
         [DeploymentItem(@".\Data\CurrentBCTC.json", "Data")]
         [DeploymentItem(@".\Data\PreviousBCTC.json", "Data")]

@@ -652,10 +652,8 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                         {
                             try
                             {
-                                using (CastDomainBLL castDomainBLL = new CastDomainBLL(ActiveConnection))
-                                {
-                                    Snapshots = castDomainBLL.GetAllSnapshots(N_SelectedApps);
-                                }
+                                using CastDomainBLL castDomainBLL = new CastDomainBLL(ActiveConnection);
+                                Snapshots = castDomainBLL.GetAllSnapshots(N_SelectedApps);
                             }
                             catch (Exception ex)
                             {

@@ -37,6 +37,7 @@ namespace CastReporting.Reporting.Block.Table
             bool vulnerability = options.GetOption("LBL", "vulnerabilities").ToLower().Equals("vulnerabilities");
             string displayAddedRemoved = reportData.PreviousSnapshot != null ? "true" : "false";
             bool displayEvolution = options.GetOption("EVOLUTION", displayAddedRemoved).ToLower().Equals("true");
+            bool displayHeader = !options.GetOption("HEADER","YES").ToUpper().Equals("NO");
 
             string lbltotal = vulnerability ? Labels.TotalVulnerabilities : Labels.TotalViolations;
             string lbladded = vulnerability ? Labels.AddedVulnerabilities : Labels.AddedViolations;
@@ -73,12 +74,12 @@ namespace CastReporting.Reporting.Block.Table
                     dataRow.Set(lblremoved, string.Empty);
                 }
                 data.AddRange(dataRow);
-                data.InsertRange(0, headers.Labels);
+                if (displayHeader) data.InsertRange(0, headers.Labels);
                 return new TableDefinition
                 {
                     HasRowHeaders = false,
-                    HasColumnHeaders = true,
-                    NbRows = 2,
+                    HasColumnHeaders = displayHeader,
+                    NbRows = displayHeader ? 2 : 1,
                     NbColumns = headers.Count,
                     Data = data
                 };
@@ -160,12 +161,12 @@ namespace CastReporting.Reporting.Block.Table
                 data.AddRange(dataRow);
             }
 
-            data.InsertRange(0, headers.Labels);
+            if (displayHeader) data.InsertRange(0, headers.Labels);
 
             return new TableDefinition
             {
                 Data = data,
-                HasColumnHeaders = true,
+                HasColumnHeaders = displayHeader,
                 HasRowHeaders = false,
                 NbColumns = headers.Count,
                 NbRows = data.Count / headers.Count,
