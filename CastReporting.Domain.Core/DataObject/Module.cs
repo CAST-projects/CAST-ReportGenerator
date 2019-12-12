@@ -28,6 +28,6 @@ namespace CastReporting.Domain
         /// <summary>
         /// 
         /// </summary>
-        public int Id => int.Parse(Href.Split('/').ElementAt(2));
+        public int Id => int.TryParse(Href.Split('/').ElementAt(2), out int id) ? id : 0;
     }
 }

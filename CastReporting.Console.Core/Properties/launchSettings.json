@@ -2,7 +2,7 @@
   "profiles": {
     "CastReporting.Console.Core": {
       "commandName": "Project",
-      "commandLineArgs": "-webservice http://aed-centos-tests:8080/CAST-HE-12/rest/ -username cast -password cast -application \"GazDeFrance\" -domain \"gdf\" -template \"C:\\_Dev\\ReportGenerator\\CAST-ReportGenerator\\CastReporting.Reporting.Core\\Templates\\Application\\Compliance reports\\OWASP-2013 Compliance Report.docx\" -file \"C:\\_Temp\\CLItest.docx\""
+      "commandLineArgs": "-reporttype portfolio -username cast -password cast -webservice http://aed-tests-perf:8538/CAST-RESTAPI-integrated/rest/ -template \"C:\\_Dev\\ReportGenerator\\CAST-ReportGenerator\\CastReporting.Reporting.Core\\Templates\\Portfolio\\Portfolio component library\\1- Portfolio-Powerpoint-components-library.pptx\" -file \"C:\\_Temp\\CLIPortfolioReport.pptx\""
     }
   }
 }

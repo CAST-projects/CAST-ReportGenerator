@@ -111,8 +111,7 @@ namespace CastReporting.Domain
             return $"{Name} - {(Annotation != null ? Annotation.Version : string.Empty)}";
         }
 
-        // ReSharper disable once AssignNullToNotNullAttribute
-        public long Id => long.Parse(Href.Split('/').LastOrDefault());
+        public long Id => long.TryParse(Href.Split('/').LastOrDefault(), out long id) ? id : 0;
 
         public string GetId()
         {
