@@ -208,6 +208,8 @@ namespace CastReporting.Repositories
         #region Snapshots
         List<string> ICastRepsitory.GetFileContent(string domainHRef, string siteId, string fileId, int startLine, int endLine)
         {
+            if (startLine < 1) startLine = 1;
+            if (endLine < 1) endLine = 1;
             var requestUrl = string.Format(_query_file_content, domainHRef, siteId, fileId, startLine, endLine);
 
             return CallStringWS(requestUrl, RequestComplexity.Standard).Split('\n').ToList();
