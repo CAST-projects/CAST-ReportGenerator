@@ -33,6 +33,7 @@ SolidCompression=yes
 AlwaysShowDirOnReadyPage=true
 ;DirExistsWarning=No
 UninstallDisplayIcon={app}\{#MyAppExeName}
+InfoBeforeFile=readme.txt
 
 
 [Languages]
@@ -179,7 +180,7 @@ begin
   S := S + MemoDirInfo + NewLine;
   S := S + NewLine + MemoGroupInfo + NewLine;
   S := S + NewLine + 'Templates Destination location :' + NewLine;
-  S := S + Space + GetTempPath(S1) + NewLine + NewLine;
+  S := S + Space + GetTempPath(S1) + NewLine;
   S := S + NewLine + MemoTasksInfo + NewLine;
   Result := S;
 end;
@@ -227,8 +228,6 @@ end;
 function InitializeSetup(): Boolean;
 begin
     result := false;
-    MsgBox('{#MyAppName} requires Microsoft .NET Core 3.0.'#13#13
-        'Please make sure it is installed before using {#MyAppName}.', mbInformation, MB_OK);
     result := UninstallOldVersion('{#App1130Id}', '1.13.0');
 end;
 
