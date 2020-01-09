@@ -180,6 +180,12 @@ namespace CastReporting.BLL
                 taskStandardTags.Wait();
             }
 
+            using (CastDomainBLL castDomainBll = new CastDomainBLL(connection))
+            {
+                CastDomain domain = castDomainBll.GetDomains().FirstOrDefault(_=>_.DomainId.Equals(application.DomainId));
+                application.DomainType = domain?.DBType;
+            }
+
         }
        
     }

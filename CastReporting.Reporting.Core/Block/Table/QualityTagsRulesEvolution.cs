@@ -13,6 +13,8 @@
  * limitations under the License.
  *
  */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cast.Util.Log;
@@ -201,6 +203,10 @@ namespace CastReporting.Reporting.Block.Table
             {
                 var dataRow = headers.CreateDataRow();
                 dataRow.Set(0, Labels.NoRules);
+                for (int i=1; i < headers.Count; i++)
+                {
+                    dataRow.Set(i, string.Empty);
+                }
                 data.AddRange(dataRow);
             }
 

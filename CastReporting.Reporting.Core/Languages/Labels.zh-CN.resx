@@ -789,4 +789,7 @@
   <data name="StartLine" xml:space="preserve">
     <value>起点线</value>
   </data>
+  <data name="BadDomain" xml:space="preserve">
+    <value>应用程序从 AAD 域加载，因此没有可用的信息</value>
+  </data>
 </root>

@@ -39,6 +39,20 @@ namespace CastReporting.Reporting.Block.Table
             }
 
             headers.Append(Labels.RuleName);
+
+            if (reportData.Application.DomainType.Equals("AAD"))
+            {
+                rowData.Add(Labels.BadDomain);
+                return new TableDefinition
+                {
+                    HasRowHeaders = false,
+                    HasColumnHeaders = displayHeader,
+                    NbRows = rowData.Count,
+                    NbColumns = 1,
+                    Data = rowData
+                };
+            }
+
             headers.Append(Labels.ObjectName);
             headers.Append(Labels.IFPUG_ObjectType);
             headers.Append(Labels.Status);
