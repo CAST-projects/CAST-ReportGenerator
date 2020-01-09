@@ -40,7 +40,7 @@ namespace CastReporting.Reporting.Block.Table
 
             headers.Append(Labels.RuleName);
 
-            if (reportData.Application.DomainType.Equals("AAD"))
+            if (reportData.Application.DomainType != null && reportData.Application.DomainType.Equals("AAD"))
             {
                 rowData.Add(Labels.BadDomain);
                 return new TableDefinition
