@@ -212,7 +212,8 @@ namespace CastReporting.UnitTest.Reporting
                 Href = currentHref,
                 AdgDatabase = "my_central",
                 AdgWebSite = "my_adg_website",
-                Version = "8.2.4"
+                Version = "8.2.4",
+                DomainType = "ADG"
             };
 
             reportData.CurrentSnapshot.Annotation.Date = currentDate;
