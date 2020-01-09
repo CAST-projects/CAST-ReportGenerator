@@ -31,7 +31,7 @@ namespace CastReporting.Reporting.Block.Table
             rowData.Add(Labels.ObjectsInViolationForRule + " " + ruleName);
             cellidx++;
 
-            if (reportData.Application.DomainType.Equals("AAD"))
+            if (reportData.Application.DomainType != null && reportData.Application.DomainType.Equals("AAD"))
             {
                 rowData.Add(Labels.BadDomain);
                 return new TableDefinition
