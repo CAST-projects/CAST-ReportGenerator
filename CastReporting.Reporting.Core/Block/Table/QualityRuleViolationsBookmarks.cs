@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CastReporting.BLL;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.ReportingModel;
@@ -29,6 +30,19 @@ namespace CastReporting.Reporting.Block.Table
 
             rowData.Add(Labels.ObjectsInViolationForRule + " " + ruleName);
             cellidx++;
+
+            if (reportData.Application.DomainType != null && reportData.Application.DomainType.Equals("AAD"))
+            {
+                rowData.Add(Labels.BadDomain);
+                return new TableDefinition
+                {
+                    HasRowHeaders = false,
+                    HasColumnHeaders = true,
+                    NbRows = rowData.Count,
+                    NbColumns = 1,
+                    Data = rowData
+                };
+            }
 
             IEnumerable<Violation> results = reportData.SnapshotExplorer.GetViolationsListIDbyBC(reportData.CurrentSnapshot.Href, ruleId, bcId, nbLimitTop, "$all");
             if (results != null)

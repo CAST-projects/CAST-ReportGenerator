@@ -277,6 +277,15 @@ namespace CastReporting.Reporting.Core.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Application is loaded from an AAD domain, so no information is available..
+        /// </summary>
+        public static string BadDomain {
+            get {
+                return ResourceManager.GetString("BadDomain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Business criterion name.
         /// </summary>
         public static string BusinessCriterionName {

@@ -29,6 +29,20 @@ namespace CastReporting.Reporting.Block.Table
 
             int nbCol = 1;
             rowData.Add(Labels.ObjectsInViolationForRule + " " + ruleName);
+
+            if (reportData.Application.DomainType != null && reportData.Application.DomainType.Equals("AAD"))
+            {
+                rowData.Add(Labels.BadDomain);
+                return new TableDefinition
+                {
+                    HasRowHeaders = false,
+                    HasColumnHeaders = true,
+                    NbRows = rowData.Count,
+                    NbColumns = 1,
+                    Data = rowData
+                };
+            }
+
             if (hasPri)
             {
                 nbCol++;

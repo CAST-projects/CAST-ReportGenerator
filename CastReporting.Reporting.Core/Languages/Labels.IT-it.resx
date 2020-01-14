@@ -789,4 +789,7 @@
   <data name="StartLine" xml:space="preserve">
     <value>Linea di partenza</value>
   </data>
+  <data name="BadDomain" xml:space="preserve">
+    <value>L'applicazione viene caricata da un dominio AAD, quindi non sono disponibili informazioni.</value>
+  </data>
 </root>

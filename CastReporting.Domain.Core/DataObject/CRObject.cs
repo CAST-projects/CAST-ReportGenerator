@@ -57,6 +57,8 @@ namespace CastReporting.Domain
 
         public string DomainId => Href.Split('/').FirstOrDefault();
 
+        public string DomainType { get; set; }
+
         #region METHODS
         public override string ToString()
         {

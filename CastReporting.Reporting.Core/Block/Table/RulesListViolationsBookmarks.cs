@@ -61,6 +61,19 @@ namespace CastReporting.Reporting.Block.Table
                 cellidx++;
             }
 
+            if (reportData.Application.DomainType != null && reportData.Application.DomainType.Equals("AAD"))
+            {
+                rowData.Add(Labels.BadDomain);
+                return new TableDefinition
+                {
+                    HasRowHeaders = false,
+                    HasColumnHeaders = displayHeader,
+                    NbRows = rowData.Count,
+                    NbColumns = 1,
+                    Data = rowData
+                };
+            }
+
             if (qualityRules.Count > 0)
             {
                 const string bcId = "60017";
