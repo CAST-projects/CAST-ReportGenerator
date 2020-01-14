@@ -222,7 +222,7 @@ namespace CastReporting.Mediation
                         );
                
             }
-            catch(Exception ex)
+            catch(Exception ex) when (ex is ArgumentNullException || ex is WebException || ex is NotSupportedException || ex is InvalidOperationException || ex is ArgumentOutOfRangeException)
             {
                  LogHelper.LogErrorFormat
                         ("Request URL '{0}' - Error execution :  {1}"

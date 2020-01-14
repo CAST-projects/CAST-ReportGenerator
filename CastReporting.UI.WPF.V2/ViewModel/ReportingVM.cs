@@ -184,7 +184,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         private CastDomain _SelectedDomain;
         public CastDomain SelectedDomain
         {
-            get { return _SelectedDomain; }
+            get => _SelectedDomain;
             set
             {
                 if (Equals(value, _SelectedDomain))
@@ -652,8 +652,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                         {
                             try
                             {
-                                using CastDomainBLL castDomainBLL = new CastDomainBLL(ActiveConnection);
-                                Snapshots = castDomainBLL.GetAllSnapshots(N_SelectedApps);
+                                Snapshots = CastDomainBLL.GetAllSnapshots(N_SelectedApps);
                             }
                             catch (Exception ex)
                             {
@@ -985,21 +984,11 @@ namespace CastReporting.UI.WPF.Core.ViewModel
             if (_ActiveConnection?.Password == null || _ActiveConnection?.Login == null) return;
             try
             {
-                using (CastDomainBLL castDomainBLL = new CastDomainBLL(ActiveConnection))
-                {
-                    Applications = castDomainBLL.GetApplications()?.Select(app => new ApplicationItem(app));
-                    List<CastDomain> domains = castDomainBLL.GetDomains()?.ToList();
-                    foreach (CastDomain domain in domains)
-                    {
-                        if (domain.DBType.Equals("AAD")) Categories = castDomainBLL.GetCategories();
-                    }
-                    if (Categories == null)
-                    {
-                        Categories = new List<string>();
-                    }
-
-                    SelectedTab = 0;
-                }
+                using CastDomainBLL castDomainBLL = new CastDomainBLL(ActiveConnection);
+                Applications = castDomainBLL.GetApplications()?.Select(app => new ApplicationItem(app));
+                List<CastDomain> domains = castDomainBLL.GetDomains().Where(domain => domain.DBType.Equals("AAD")).ToList();
+                Categories = domains.Count > 0 ? castDomainBLL.GetCategories() : new List<string>();
+                SelectedTab = 0;
             }
             catch(Exception ex)
             {

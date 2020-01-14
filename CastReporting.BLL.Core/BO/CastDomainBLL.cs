@@ -69,21 +69,17 @@ namespace CastReporting.BLL
             {
                 foreach (var domain in domains)
                 {
-					var domainApps = castRepsitory.GetApplicationsByDomain(domain.Href)?.ToList();
-
+					List<Application> domainApps = castRepsitory.GetApplicationsByDomain(domain.Href)?.ToList();
                     if (domainApps == null) continue;
-                    foreach (var app in domainApps)
+                    foreach (Application application in domainApps.Where(_=>string.IsNullOrEmpty(_.Version)))
                     {
-                        if (string.IsNullOrEmpty(app.Version)) {
-                            app.Version = domain.Version;
-                        }
+                        application.Version = domain.Version;
                     }
-					
-                    applications.AddRange(domainApps);
+				    applications.AddRange(domainApps);
                 }
             }
 
-           return applications.OrderBy(_ => _.Name).ToList();
+            return applications.OrderBy(_ => _.Name).ToList();
         }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
@@ -108,7 +104,7 @@ namespace CastReporting.BLL
             public string label { get; set; }
         }
 
-        public List<Snapshot> GetAllSnapshots(Application[] applications)
+        public static List<Snapshot> GetAllSnapshots(Application[] applications)
         {
             List<Snapshot> _snapshots = new List<Snapshot>();
             foreach (Application _appl in applications)
@@ -217,7 +213,7 @@ namespace CastReporting.BLL
 
                 return _categories;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
             {
                 LogHelper.LogInfo(ex.Message);
                 List<string> _categories = new List<string>();

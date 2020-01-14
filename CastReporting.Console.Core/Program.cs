@@ -196,7 +196,7 @@ namespace CastReporting.Console
                     LogHelper.LogInfo("Applications in the portfolio found successfully");
                     string[] _appsToIgnorePortfolioResult = PortfolioBLL.BuildPortfolioResult(connection, _selectedApps);
                     LogHelper.LogInfo("Build result for the portfolio");
-                    List<Application> _n_apps = new List<Application>();
+                    List<Application> n_apps = new List<Application>();
                     //Remove from Array the Ignored Apps
                     foreach (Application app in _selectedApps)
                     {
@@ -213,34 +213,22 @@ namespace CastReporting.Console
 
                         if (intAppYes == 0)
                         {
-                            _n_apps.Add(app);
+                            n_apps.Add(app);
                         }
                     }
-                    Application[] _n_selectedApps = _n_apps.ToArray();
+                    Application[] n_selectedApps = n_apps.ToArray();
 
-                    List<Snapshot> _snapshots = new List<Snapshot>();
-
-                    try
-                    {
-                        using (CastDomainBLL castDomainBLL = new CastDomainBLL(connection))
-                        {
-                            _snapshots = castDomainBLL.GetAllSnapshots(_n_selectedApps);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        LogHelper.LogInfo("Error occured while trying get snapshots of applications for the portfolio : " + ex.Message);
-                    }
+                    List<Snapshot> _snapshots = CastDomainBLL.GetAllSnapshots(n_selectedApps);
                     LogHelper.LogInfo("Snapshots in the portfolio found successfully");
-                    List<Snapshot> _n_snaps = new List<Snapshot>();
+                    List<Snapshot> n_snaps = new List<Snapshot>();
                     if (_snapshots == null) return reportPath;
 
                     {
-                        Snapshot[] _selectedApps_snapshots = _snapshots.ToArray<Snapshot>();
-                        var _snapsToIgnore = PortfolioSnapshotsBLL.BuildSnapshotResult(connection, _selectedApps_snapshots, true);
+                        Snapshot[] selectedApps_snapshots = _snapshots.ToArray<Snapshot>();
+                        var _snapsToIgnore = PortfolioSnapshotsBLL.BuildSnapshotResult(connection, selectedApps_snapshots, true);
                         LogHelper.LogInfo("Build result for snapshots in portfolio");
 
-                        foreach (Snapshot snap in _selectedApps_snapshots)
+                        foreach (Snapshot snap in selectedApps_snapshots)
                         {
                             int intRemoveYes = 0;
                             foreach (string s in _snapsToIgnore)
@@ -254,11 +242,11 @@ namespace CastReporting.Console
                             }
                             if (intRemoveYes == 0)
                             {
-                                _n_snaps.Add(snap);
+                                n_snaps.Add(snap);
                             }
                         }
 
-                        Snapshot[] _n_selectedApps_snapshots = _n_snaps.ToArray();
+                        Snapshot[] n_selectedApps_snapshots = n_snaps.ToArray();
 
                         string tmpReportFileFlexi = string.Empty;
 
@@ -285,10 +273,10 @@ namespace CastReporting.Console
                                     RuleExplorer = new RuleBLL(connection),
                                     CurrencySymbol = "$",
                                     ServerVersion = CommonBLL.GetServiceVersion(connection),
-                                    Applications = _n_selectedApps,
+                                    Applications = n_selectedApps,
                                     Category = arguments.Category.Name,
                                     Tag = arguments.Tag.Name,
-                                    Snapshots = _n_selectedApps_snapshots,
+                                    Snapshots = n_selectedApps_snapshots,
                                     IgnoresApplications = _appsToIgnorePortfolioResult,
                                     IgnoresSnapshots = _snapsToIgnore,
                                     Parameter = settings.ReportingParameter
@@ -305,10 +293,10 @@ namespace CastReporting.Console
                                     RuleExplorer = new RuleBLL(connection),
                                     CurrencySymbol = "$",
                                     ServerVersion = CommonBLL.GetServiceVersion(connection),
-                                    Applications = _n_selectedApps,
+                                    Applications = n_selectedApps,
                                     Category = arguments.Category.Name,
                                     Tag = null,
-                                    Snapshots = _n_selectedApps_snapshots,
+                                    Snapshots = n_selectedApps_snapshots,
                                     IgnoresApplications = _appsToIgnorePortfolioResult,
                                     IgnoresSnapshots = _snapsToIgnore,
                                     Parameter = settings.ReportingParameter
@@ -325,10 +313,10 @@ namespace CastReporting.Console
                                     RuleExplorer = new RuleBLL(connection),
                                     CurrencySymbol = "$",
                                     ServerVersion = CommonBLL.GetServiceVersion(connection),
-                                    Applications = _n_selectedApps,
+                                    Applications = n_selectedApps,
                                     Category = null,
                                     Tag = arguments.Tag.Name,
-                                    Snapshots = _n_selectedApps_snapshots,
+                                    Snapshots = n_selectedApps_snapshots,
                                     IgnoresApplications = _appsToIgnorePortfolioResult,
                                     IgnoresSnapshots = _snapsToIgnore,
                                     Parameter = settings.ReportingParameter
@@ -345,10 +333,10 @@ namespace CastReporting.Console
                                     RuleExplorer = new RuleBLL(connection),
                                     CurrencySymbol = "$",
                                     ServerVersion = CommonBLL.GetServiceVersion(connection),
-                                    Applications = _n_selectedApps,
+                                    Applications = n_selectedApps,
                                     Category = null,
                                     Tag = null,
-                                    Snapshots = _n_selectedApps_snapshots,
+                                    Snapshots = n_selectedApps_snapshots,
                                     IgnoresApplications = _appsToIgnorePortfolioResult,
                                     IgnoresSnapshots = _snapsToIgnore,
                                     Parameter = settings.ReportingParameter

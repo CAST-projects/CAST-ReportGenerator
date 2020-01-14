@@ -2,7 +2,6 @@
 using CastReporting.Domain;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using Cast.Util.Log;
 using CastReporting.Reporting.ReportingModel;
@@ -267,7 +266,7 @@ namespace CastReporting.Reporting.Helper
             if (!evol && (curResult?.result != null || prevResult?.result != null))
             {
                 string name = curResult?.name ?? prevResult?.name ?? Constants.No_Value;
-                MetricType type = curResult?.type ?? prevResult?.type ?? MetricType.NotKnown;
+                MetricType type = curResult?.type ?? prevResult.type;
                 string curRes = format ? Constants.No_Value : "0";
                 string prevRes = format ? Constants.No_Value : "0";
                 switch (type)
@@ -523,9 +522,8 @@ namespace CastReporting.Reporting.Helper
 
             foreach (string _metric in metrics)
             {
-                int idx;
                 // If metric can not be parsed as integer, this is potentially a string containing a standard tag for quality rule selection
-                if (!int.TryParse(_metric, out idx))
+                if (!int.TryParse(_metric, out int _))
                 {
                     List<string> stdTagMetrics = reportData.SnapshotExplorer.GetQualityStandardsRulesList(reportData.CurrentSnapshot.Href, _metric);
                     if (stdTagMetrics != null) qualityRules.AddRange(stdTagMetrics);
@@ -836,14 +834,14 @@ namespace CastReporting.Reporting.Helper
         }
 
 
-        // for sending in parameters to the script
+        // for sending in parameters to the script. It is mandatory for that class to be public. If private all tests failed and script cannot be executed.
         public class Globals
         {
             // improbable name to avoid conflicts when replacing parameters
-            public dynamic _;
+            public dynamic _ { get; set; }
         }
 
-        public static ScriptState<object> ExecuteScript(ReportData reportData, Dictionary<string, string> options, string[] lstParams, Snapshot snapshot, string expr, Module module, string technology)
+        private static ScriptState<object> ExecuteScript(ReportData reportData, Dictionary<string, string> options, string[] lstParams, Snapshot snapshot, string expr, Module module, string technology)
         {
             dynamic expando = new ExpandoObject();
             var dictionary = (IDictionary<string, object>)expando;
@@ -865,9 +863,11 @@ namespace CastReporting.Reporting.Helper
             }
 
             // setup references needed
-            var refs = new List<MetadataReference>();
-            refs.Add(MetadataReference.CreateFromFile(typeof(Microsoft.CSharp.RuntimeBinder.RuntimeBinderException).GetTypeInfo().Assembly.Location));
-            refs.Add(MetadataReference.CreateFromFile(typeof(System.Runtime.CompilerServices.DynamicAttribute).GetTypeInfo().Assembly.Location));
+            var refs = new List<MetadataReference>
+            {
+                MetadataReference.CreateFromFile(typeof(Microsoft.CSharp.RuntimeBinder.RuntimeBinderException).GetTypeInfo().Assembly.Location),
+                MetadataReference.CreateFromFile(typeof(System.Runtime.CompilerServices.DynamicAttribute).GetTypeInfo().Assembly.Location)
+            };
             var script = CSharpScript.Create(expr, options: ScriptOptions.Default.AddReferences(refs), globalsType: typeof(Globals));
             script.Compile();
 
@@ -943,7 +943,7 @@ namespace CastReporting.Reporting.Helper
         public static List<string> PopulateViolationsBookmarksRow(ReportData reportData, List<Violation> results, HeaderDefinition headers, string metric)
         {
             List<string> rowData = new List<string>();
-            string ruleName = results.FirstOrDefault().RulePattern.Name;
+            string ruleName = results.FirstOrDefault()?.RulePattern.Name;
             if (ruleName == null) return rowData;
 
             bool hasPreviousSnapshot = reportData.PreviousSnapshot != null;
@@ -976,12 +976,16 @@ namespace CastReporting.Reporting.Helper
                 }
                 else
                 {
+                    string st = status;
+
                     if (associatedValue.Type == null || associatedValue.Type.Equals("integer"))
                     {
                         if (associatedValue.Values != null && associatedValue.Values.Length > 0)
                         {
                             assoValue = associatedValue.Values[0].ToString();
                         }
+
+                        string av = assoValue;
 
                         IEnumerable<IEnumerable<CodeBookmark>> bookmarks = associatedValue.Bookmarks;
                         if (bookmarks == null || !bookmarks.Any())
@@ -993,8 +997,8 @@ namespace CastReporting.Reporting.Helper
                                 _row.Set(Labels.RuleName, ruleName);
                                 _row.Set(Labels.ObjectName, _violation.Component.Name);
                                 _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
-                                _row.Set(Labels.Status, status);
-                                _row.Set(Labels.AssociatedValue, assoValue);
+                                _row.Set(Labels.Status, st);
+                                _row.Set(Labels.AssociatedValue, av);
                                 _row.Set(Labels.FilePath, _path.Item1);
                                 _row.Set(Labels.StartLine, _path.Item2.ToString());
                                 _row.Set(Labels.EndLine, _path.Item3.ToString());
@@ -1011,8 +1015,8 @@ namespace CastReporting.Reporting.Helper
                                     _row.Set(Labels.RuleName, ruleName);
                                     _row.Set(Labels.ObjectName, _violation.Component.Name);
                                     _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
-                                    _row.Set(Labels.Status, status);
-                                    _row.Set(Labels.AssociatedValue, assoValue);
+                                    _row.Set(Labels.Status, st);
+                                    _row.Set(Labels.AssociatedValue, av);
                                     _row.Set(Labels.FilePath, _.CodeFragment?.CodeFile.Name);
                                     _row.Set(Labels.StartLine, _.CodeFragment?.StartLine.ToString());
                                     _row.Set(Labels.EndLine, _.CodeFragment?.EndLine.ToString());
@@ -1027,6 +1031,7 @@ namespace CastReporting.Reporting.Helper
                         // manage case when type="path" and values contains the different path
                         AssociatedValuePath associatedValueEx = reportData.SnapshotExplorer.GetAssociatedValuePath(domainId, _violation.Component.GetComponentId(), snapshotId, metric);
                         IEnumerable<IEnumerable<CodeBookmark>> values = associatedValueEx?.Values;
+
                         if (values == null || !values.Any())
                         {
                             List<Tuple<string, int, int>> paths = reportData.SnapshotExplorer.GetComponentFilePath(domainId, _violation.Component.GetComponentId(), snapshotId);
@@ -1036,7 +1041,7 @@ namespace CastReporting.Reporting.Helper
                                 _row.Set(Labels.RuleName, ruleName);
                                 _row.Set(Labels.ObjectName, _violation.Component.Name);
                                 _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
-                                _row.Set(Labels.Status, status);
+                                _row.Set(Labels.Status, st);
                                 _row.Set(Labels.AssociatedValue, string.Empty);
                                 _row.Set(Labels.FilePath, _path.Item1);
                                 _row.Set(Labels.StartLine, _path.Item2.ToString());
@@ -1055,7 +1060,7 @@ namespace CastReporting.Reporting.Helper
                                     _row.Set(Labels.RuleName, ruleName);
                                     _row.Set(Labels.ObjectName, _violation.Component.Name);
                                     _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
-                                    _row.Set(Labels.Status, status);
+                                    _row.Set(Labels.Status, st);
                                     _row.Set(Labels.AssociatedValue, $"path #{bookList.IndexOf(_bookval)}");
                                     _row.Set(Labels.FilePath, _bookval.CodeFragment?.CodeFile.Name);
                                     _row.Set(Labels.StartLine, _bookval.CodeFragment?.StartLine.ToString());
@@ -1079,7 +1084,7 @@ namespace CastReporting.Reporting.Helper
                                 _row.Set(Labels.RuleName, ruleName);
                                 _row.Set(Labels.ObjectName, _violation.Component.Name);
                                 _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
-                                _row.Set(Labels.Status, status);
+                                _row.Set(Labels.Status, st);
                                 _row.Set(Labels.AssociatedValue, string.Empty);
                                 _row.Set(Labels.FilePath, _.Item1);
                                 _row.Set(Labels.StartLine, _.Item2.ToString());
@@ -1097,7 +1102,7 @@ namespace CastReporting.Reporting.Helper
                                     _row.Set(Labels.RuleName, ruleName);
                                     _row.Set(Labels.ObjectName, _violation.Component.Name);
                                     _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
-                                    _row.Set(Labels.Status, status);
+                                    _row.Set(Labels.Status, st);
                                     _row.Set(Labels.AssociatedValue, _component.Component.Name);
                                     _row.Set(Labels.FilePath, _component.CodeFragment?.CodeFile.Name);
                                     _row.Set(Labels.StartLine, _component.CodeFragment?.StartLine.ToString());
@@ -1116,7 +1121,7 @@ namespace CastReporting.Reporting.Helper
                             _row.Set(Labels.RuleName, ruleName);
                             _row.Set(Labels.ObjectName, _violation.Component.Name);
                             _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
-                            _row.Set(Labels.Status, status);
+                            _row.Set(Labels.Status, st);
                             _row.Set(Labels.AssociatedValue, string.Join(',',associatedValue.Values));
                             _row.Set(Labels.FilePath, _.Item1);
                             _row.Set(Labels.StartLine, _.Item2.ToString());
@@ -1126,7 +1131,7 @@ namespace CastReporting.Reporting.Helper
                     }
                     if (associatedValue.Type != null && associatedValue.Type.Equals("percentage"))
                     {
-                        decimal? value = (decimal)associatedValue.Values.FirstOrDefault();
+                        decimal? value = (decimal?) associatedValue.Values?.GetValue(0);
                         // manage case when type= "percentage"
                         List<Tuple<string, int, int>> paths = reportData.SnapshotExplorer.GetComponentFilePath(domainId, _violation.Component.GetComponentId(), snapshotId);
                         paths.ForEach(_ =>
@@ -1135,8 +1140,8 @@ namespace CastReporting.Reporting.Helper
                             _row.Set(Labels.RuleName, ruleName);
                             _row.Set(Labels.ObjectName, _violation.Component.Name);
                             _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
-                            _row.Set(Labels.Status, status);
-                            _row.Set(Labels.AssociatedValue, value.Value.ToString("N2"));
+                            _row.Set(Labels.Status, st);
+                            _row.Set(Labels.AssociatedValue, value?.ToString("N2"));
                             _row.Set(Labels.FilePath, _.Item1);
                             _row.Set(Labels.StartLine, _.Item2.ToString());
                             _row.Set(Labels.EndLine, _.Item3.ToString());

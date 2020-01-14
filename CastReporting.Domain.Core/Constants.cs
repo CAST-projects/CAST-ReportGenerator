@@ -205,7 +205,7 @@ namespace CastReporting.Domain
 
         #region ATTRIBUTES
         private static readonly object _lock = new object();
-        private static Constants _instance;
+        private static volatile Constants _instance;
         #endregion ATTRIBUTES
 
         #region CONSTRUCTORS
@@ -224,7 +224,6 @@ namespace CastReporting.Domain
                 {
                     if (null == _instance)
                     {
-                        // ReSharper disable once PossibleMultipleWriteAccessInDoubleCheckLocking
                         _instance = new Constants();
                     }
                 }
