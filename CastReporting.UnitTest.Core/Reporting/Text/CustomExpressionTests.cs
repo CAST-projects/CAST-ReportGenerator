@@ -209,39 +209,5 @@ namespace CastReporting.UnitTest.Reporting.Text
             Initialize();
         }
 
-        // for sending in parameters to the script
-        public class Globals
-        {
-            public dynamic data;
-        }
-
-        [Ignore]
-        [TestMethod]
-        public void TestFrenchEvaluateAsync()
-        {
-            TestUtility.SetCulture("FR-fr");
-            // Script that will use dynamic
-            var scriptContent = "(data.a + data.b + data.c)/3";
-            // data to be sent into the script
-            dynamic expando = new ExpandoObject();
-            expando.a = 1.1;
-            expando.b = 3.3;
-            expando.c = 2.2;
-
-            // setup references needed
-            var refs = new List<MetadataReference>();
-            refs.Add(MetadataReference.CreateFromFile(typeof(Microsoft.CSharp.RuntimeBinder.RuntimeBinderException).GetTypeInfo().Assembly.Location));
-            refs.Add(MetadataReference.CreateFromFile(typeof(System.Runtime.CompilerServices.DynamicAttribute).GetTypeInfo().Assembly.Location));
-            var script = CSharpScript.Create(scriptContent, options: ScriptOptions.Default.AddReferences(refs), globalsType: typeof(Globals));
-            script.Compile();
-
-            // create new global that will contain the data we want to send into the script
-            var g = new Globals() { data = expando };
-
-            //Execute and display result
-            var r = script.RunAsync(g).Result;
-            Assert.AreEqual("2,2", r.ReturnValue.ToString());
-        }
-
     }
 }
