@@ -56,14 +56,15 @@ Source: "../packages/repositories.config"; DestDir: "{app}"; Flags: ignoreversio
 ; NOTE:CastReporting.UI.WPF.V2/Images
 Source: "../CastReporting.UI.WPF.V2/Resources/Images/*"; DestDir: "{app}\Resources\Images"; Flags: ignoreversion
 ; NOTE: Value from CastReporting.UI.WPF\bin\Release
+source: "../CastReporting.Console.Core/bin/Release/netcoreapp3.0/*.exe";DestDir: "{app}"; Flags: ignoreversion
+source: "../CastReporting.Console.Core/bin/Release/netcoreapp3.0/*.dll";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+source: "../CastReporting.Console.Core/bin/Release/netcoreapp3.0/CastReporting.Console.Core.runtimeconfig.json";DestDir: "{app}"; Flags: ignoreversion
+source: "../CastReporting.Console.Core/bin/Release/netcoreapp3.0/CastReporting.Console.Core.deps.json";DestDir: "{app}"; Flags: ignoreversion
 source: "../CastReporting.UI.WPF.V2/bin/Release/netcoreapp3.0/*.dll";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
 source: "../CastReporting.UI.WPF.V2/bin/Release/netcoreapp3.0/*.exe";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
 source: "../CastReporting.UI.WPF.V2/bin/Release/netcoreapp3.0/*.config";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
 source: "../CastReporting.UI.WPF.V2/bin/Release/netcoreapp3.0/CastReporting.UI.WPF.Core.runtimeconfig.json";DestDir: "{app}"; Flags: ignoreversion
 source: "../CastReporting.UI.WPF.V2/bin/Release/netcoreapp3.0/CastReporting.UI.WPF.Core.deps.json";DestDir: "{app}"; Flags: ignoreversion
-source: "../CastReporting.Console.Core/bin/Release/netcoreapp3.0/CastReporting.Console.Core.exe";DestDir: "{app}"; Flags: ignoreversion
-source: "../CastReporting.Console.Core/bin/Release/netcoreapp3.0/CastReporting.Console.Core.runtimeconfig.json";DestDir: "{app}"; Flags: ignoreversion
-source: "../CastReporting.Console.Core/bin/Release/netcoreapp3.0/CastReporting.Console.Core.deps.json";DestDir: "{app}"; Flags: ignoreversion
 source: "../CastReporting.Console.Core/bin/Release/netcoreapp3.0/Parameters/*.xml";DestDir: "{app}"; Flags: ignoreversion
 Source: "../CastReporting.Reporting.Core/Templates/*"; DestDir: "{code:GetTempPath}\Templates"; Flags: ignoreversion recursesubdirs
 source: "../CastReporting.Repositories.Core/CastReportingSetting.xml"; DestDir: "{code:GetSettingsPath}"; Flags: ignoreversion; AfterInstall:SaveSettings()
