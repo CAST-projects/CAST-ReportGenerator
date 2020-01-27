@@ -46,17 +46,17 @@ namespace CastReporting.UnitTest.Reporting
         public static IEnumerable<T> GetSampleResult<T>(string sampleFile) where T : class
         {
             var jsonString = File.ReadAllText(sampleFile);
-
             var serializer = new DataContractJsonSerializer(typeof(IEnumerable<T>));
-            MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(jsonString));
-            try
-            {
-                IEnumerable<T> res = serializer.ReadObject(ms) as IEnumerable<T>;
-                return res;
-            }
-            finally
-            {
-                ms.Close();
+            using (MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(jsonString)))
+            { 
+                try {
+                    IEnumerable<T> res = serializer.ReadObject(ms) as IEnumerable<T>;
+                    return res;
+                }
+                finally
+                {
+                    ms.Close();
+                }
             }
         }
 
