@@ -48,15 +48,9 @@ namespace CastReporting.UnitTest.Reporting
             var jsonString = File.ReadAllText(sampleFile);
             var serializer = new DataContractJsonSerializer(typeof(IEnumerable<T>));
             using (MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(jsonString)))
-            { 
-                try {
-                    IEnumerable<T> res = serializer.ReadObject(ms) as IEnumerable<T>;
-                    return res;
-                }
-                finally
-                {
-                    ms.Close();
-                }
+            {
+                IEnumerable<T> res = serializer.ReadObject(ms) as IEnumerable<T>;
+                return res;
             }
         }
 
