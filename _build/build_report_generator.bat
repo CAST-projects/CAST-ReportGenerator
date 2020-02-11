@@ -73,8 +73,8 @@ echo.
 echo Current version is %VERSION%
 echo Current short version is %SHORT_VERSION%
 
-set TEMPLATES_VERSION = 1.0.0
-set TEMPLATES_ID = com.castsoftware.aip.reportgeneratortemplates
+set TEMPLATES_VERSION=1.0.0
+set TEMPLATES_ID=com.castsoftware.aip.reportgeneratortemplates
 for /f "delims=. tokens=1,2" %%a in ('echo %TEMPLATES_VERSION%') do set SHORT_TEMPLATES_VERSION=%%a.%%b
 echo.
 echo Current version for templates is %TEMPLATES_VERSION%
@@ -418,7 +418,7 @@ if errorlevel 1 (
 )
 
 :: ========================================================================================
-:: Nuget checking ReportGenerator
+:: Nuget checking ReportGeneratorTemplates
 :: ========================================================================================
 set CMD=%GROOVYEXE% %BUILDDIR%\nuget_package_verification.groovy --packpath=%PACKPATHTEMPLATES%
 echo Executing command:
