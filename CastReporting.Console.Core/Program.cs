@@ -12,6 +12,8 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
+using CastReporting.Repositories.Core.Repository;
+using CastReporting.Repositories.Interfaces;
 using Microsoft.Office.Interop.PowerPoint;
 using Microsoft.Office.Interop.Word;
 using Application = CastReporting.Domain.Application;
@@ -142,6 +144,27 @@ namespace CastReporting.Console
         /// <returns></returns>
         private static string GenerateReport(XmlCastReport arguments, out string help)
         {
+            if (arguments.ExtendPackId != null)
+            {
+                try
+                {
+                    using (IExtendRepository extrepo = new ExtendRepository(arguments.ExtendUrl.Name, arguments.ExtendKey.Name))
+                    {
+                        var settings = SettingsBLL.GetSetting();
+                        extrepo.GetPackageTemplate(arguments.ExtendPackId.Name,
+                            settings.ReportingParameter.TemplatePath,
+                            arguments.ExtendVersionId != null ? arguments.ExtendVersionId.Name : string.Empty);
+                    }
+
+                    help = $"Extension {arguments.ExtendPackId.Name} downloaded from {arguments.ExtendUrl.Name} and installed.";
+                    return string.Empty;
+                }
+                catch (Exception ex)
+                {
+                    help = $"An exception occured : {ex}";
+                    return string.Empty;
+                }
+            }
             if (arguments.ReportType != null)
             {
 

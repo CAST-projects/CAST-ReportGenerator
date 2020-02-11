@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using System.Xml.Serialization;
@@ -14,6 +15,30 @@ namespace CastReporting.Console.Argument
     {
         #region Properties
 
+        /// <summary>
+        /// ExtendPackId
+        /// </summary>
+        [XmlElement("extendpackid")]
+        public XmlTagName ExtendPackId { get; set; }
+
+        /// <summary>
+        /// ExtendVersionId
+        /// </summary>
+        [XmlElement("extendversionid")]
+        public XmlTagName ExtendVersionId { get; set; }
+
+        /// <summary>
+        /// ExtendUrl
+        /// </summary>
+        [XmlElement("extendurl")]
+        public XmlTagName ExtendUrl { get; set; }
+
+        /// <summary>
+        /// ExtendKey
+        /// </summary>
+        [XmlElement("extendkey")]
+        public XmlTagName ExtendKey { get; set; }
+        
         /// <summary>
         /// ReportType
         /// </summary>
@@ -141,15 +166,22 @@ namespace CastReporting.Console.Argument
         /// Check 
         /// </summary>
         /// <returns></returns>
+        [SuppressMessage("ReSharper", "ConvertIfStatementToReturnStatement")]
         public bool Check()
         {
+            if (!string.IsNullOrEmpty(ExtendPackId?.Name))
+            {
+                if (string.IsNullOrEmpty(ExtendUrl?.Name)) return false;
+                if (string.IsNullOrEmpty(ExtendKey?.Name)) return false;
+                return true;
+            }
+
             if (string.IsNullOrEmpty(Webservice?.Name))
                 return false;
             if (string.IsNullOrEmpty(Template?.Name))
                 return false;
             if (string.IsNullOrEmpty(Username?.Name))
                 return false;
-            // ReSharper disable once ConvertIfStatementToReturnStatement
             if (string.IsNullOrEmpty(Password?.Name))
                 return false;
             return true;
