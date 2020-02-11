@@ -415,6 +415,9 @@
     <None Update="Data\TechSizeModTechnoPrevious.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\Templates.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\topArtefacts3576.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
