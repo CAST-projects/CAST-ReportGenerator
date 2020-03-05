@@ -211,8 +211,8 @@ namespace CastReporting.Repositories
             if (startLine < 1) startLine = 1;
             if (endLine < 1) endLine = 1;
             var requestUrl = string.Format(_query_file_content, domainHRef, siteId, fileId, startLine, endLine);
-
-            return CallStringWS(requestUrl, RequestComplexity.Standard).Split('\n').ToList();
+            string res = CallStringWS(requestUrl, RequestComplexity.Standard);
+            return string.IsNullOrEmpty(res) ? new List<string>() : res.Split('\n').ToList();
         }
 
         AssociatedValue ICastRepsitory.GetAssociatedValue(string domainHRef, string snapshotId, string objectId, string metricId)
@@ -802,7 +802,7 @@ namespace CastReporting.Repositories
 
             try
             {
-                return _Client.DownloadPlainText(requestUrl, pComplexity);
+                return _Client.DownloadText(requestUrl, pComplexity);
             }
             catch (WebException e)
             {

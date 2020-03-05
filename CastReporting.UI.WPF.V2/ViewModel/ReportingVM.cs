@@ -561,9 +561,26 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                     System.Windows.Application.Current.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<string, TimeSpan>(MessageManager.OnReportGenerated), ReportFileName, stopWatchGlobal.Elapsed);
                     System.Windows.Application.Current.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<bool>(MessageManager.SetBusyMode), false);
                 }
+                catch (System.Net.WebException webEx)
+                {
+                    LogHelper.LogErrorFormat
+                    ("Request URL '{0}' - Error execution :  {1}"
+                        , ""
+                        , webEx.Message
+                    );
+
+                    System.Windows.Application.Current.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep,
+                        Messages.msgErrorGeneratingReport + " - " + webEx.Message + " - " + Messages.msgReportErrorNoRestAPI, stopWatchStep.Elapsed);
+                    stopWatchGlobal.Stop();
+                    System.Windows.Application.Current.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<bool>(MessageManager.SetBusyMode), false);
+                    System.Windows.Application.Current.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<CastReportingException>(WorkerThreadException), new CastReportingException(webEx.Message, webEx.InnerException));
+                }
                 catch (Exception ex)
                 {
-                    System.Windows.Application.Current.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<CastReportingException>(WorkerThreadException), new CastReportingException(ex.Message, ex.InnerException));
+                    System.Windows.Application.Current.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep,
+                        Messages.msgErrorGeneratingReport + " - " + ex.Message, stopWatchStep.Elapsed);
+                    stopWatchGlobal.Stop();
+                    System.Windows.Application.Current.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<bool>(MessageManager.SetBusyMode), false);
                 }
             }
             else
@@ -776,7 +793,10 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                 }
                 catch (Exception ex)
                 {
-                    System.Windows.Application.Current.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<CastReportingException>(WorkerThreadException), new CastReportingException(ex.Message, ex.InnerException));
+                    System.Windows.Application.Current.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep,
+                        Messages.msgErrorGeneratingReport + " - " + ex.Message, stopWatchStep.Elapsed);
+                    stopWatchGlobal.Stop();
+                    System.Windows.Application.Current.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<bool>(MessageManager.SetBusyMode), false);
                 }
             }
         }
@@ -832,7 +852,6 @@ namespace CastReporting.UI.WPF.Core.ViewModel
             catch (Exception)
             {
                 ReportFileName = string.Empty;
-
                 throw;
             }
             finally

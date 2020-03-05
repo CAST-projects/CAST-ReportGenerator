@@ -248,9 +248,17 @@ namespace CastReporting.Mediation
         	return DownloadContent(pUrl, "application/json", pComplexity);
         }
 
-        public string DownloadPlainText(string pUrl, RequestComplexity pComplexity)
+        public string DownloadText(string pUrl, RequestComplexity pComplexity)
         {
-            return DownloadContent(pUrl, "text/plain", pComplexity);
+            try
+            {
+                return DownloadContent(pUrl, "text/plain", pComplexity);
+            }
+            catch (WebException webEx)
+            {
+                LogHelper.LogInfo(webEx.Message);
+                return null;
+            }
         }
 
 
