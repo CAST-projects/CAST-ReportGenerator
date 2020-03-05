@@ -12,7 +12,7 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{123D703E-4446-45C0-934F-14E3AC4D169F}
+AppId={{552D10CE-5A09-4305-BC1A-7CF59ECCA10B}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppVerName={#MyAppName} {#MyAppVersion}
@@ -229,7 +229,7 @@ end;
 function InitializeSetup(): Boolean;
 begin
     result := false;
-    result := UninstallOldVersion('{#App1150Id}', '1.15.0');
+    result := UninstallOldVersion('{#App1150Id}', '{#MyAppVersion}');
 end;
 
 procedure InitializeWizard;
