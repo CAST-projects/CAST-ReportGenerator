@@ -848,7 +848,7 @@ namespace CastReporting.BLL
                         codeLines.Add(idx, line);
                         idx++;
                     }
-                    return codeLines;
+                    return (codeLines.Count == 0) ? null : codeLines;
                 }
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException || ex is ArgumentException)
@@ -897,7 +897,7 @@ namespace CastReporting.BLL
                             codesAndPath.Add(new Tuple<string, Dictionary<int, string>>(_fragment.CodeFile.Name, new Dictionary<int, string>()));
                         }
                     }
-                    return codesAndPath;
+                    return codesAndPath.Count == 0 ? null : codesAndPath;
                 }
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException || ex is ArgumentException)
