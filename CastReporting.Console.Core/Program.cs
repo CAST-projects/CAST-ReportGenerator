@@ -672,7 +672,7 @@ namespace CastReporting.Console
 
             using (CastDomainBLL castDomainBLL = new CastDomainBLL(connection))
             {
-                applications = castDomainBLL.GetApplications();
+                applications = castDomainBLL.GetAdgApplications();
             }
 
             if (arguments.Database != null && arguments.Domain == null)

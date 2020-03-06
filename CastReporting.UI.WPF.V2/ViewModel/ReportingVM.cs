@@ -1004,7 +1004,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
             try
             {
                 using CastDomainBLL castDomainBLL = new CastDomainBLL(ActiveConnection);
-                Applications = castDomainBLL.GetApplications()?.Select(app => new ApplicationItem(app));
+                Applications = castDomainBLL.GetAdgApplications()?.Select(app => new ApplicationItem(app));
                 List<CastDomain> domains = castDomainBLL.GetDomains().Where(domain => domain.DBType.Equals("AAD")).ToList();
                 Categories = domains.Count > 0 ? castDomainBLL.GetCategories() : new List<string>();
                 SelectedTab = 0;
