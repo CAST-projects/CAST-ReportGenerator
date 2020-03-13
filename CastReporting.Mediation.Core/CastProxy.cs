@@ -203,6 +203,10 @@ namespace CastReporting.Mediation
                 Headers.Remove(HttpRequestHeader.AcceptLanguage);
                 Headers.Add(HttpRequestHeader.AcceptLanguage, culture.Name.Equals("zh-CN") ? "zh" : "en");
 
+                // For RestAPI audit trail 
+                Headers.Remove("X-Client");
+                Headers.Add("X-Client", "CAST-ReportGenerator");
+                
                 Encoding = Encoding.UTF8;
 
                 RequestComplexity previousComplexity = _currentComplexity;
