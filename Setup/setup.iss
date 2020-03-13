@@ -70,6 +70,7 @@ Source: "../CastReporting.Reporting.Core/Templates/*"; DestDir: "{code:GetTempPa
 source: "../CastReporting.Repositories.Core/CastReportingSetting.xml"; DestDir: "{code:GetSettingsPath}"; Flags: ignoreversion; AfterInstall:SaveSettings()
 ; NOTE:License
 Source: "../Setup/License.rtf"; DestDir: "{app}"; Flags: ignoreversion
+Source: "../Setup/install_dotnet_core.bat"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{#MyAppShortName} {#MyAppVersion}"; Filename: "{app}\{#MyAppExeName}"
@@ -80,6 +81,7 @@ Name: "{commondesktop}\{#MyAppShortName} {#MyAppVersion}"; Filename: "{app}\{#My
 Name: "{code:GetSettingsPath}"; Permissions: users-full
 
 [Run]
+Filename: "{app}\install_dotnet_core.bat"; Description: "Install dotnet core sdk 3.1.102 (mandatory for running CAST-ReportGenerator)"; Flags: postinstall
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppShortName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 
 [Code]
