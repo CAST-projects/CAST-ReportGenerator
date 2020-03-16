@@ -12,7 +12,7 @@ namespace CastReporting.UnitTest.Reporting.Text
         [TestInitialize()]
         public void Initialize()
         {
-            TestUtility.SetCulture("en-US");
+            TestUtility.SetCulture("invariant");
         }
 
 
@@ -37,7 +37,7 @@ namespace CastReporting.UnitTest.Reporting.Text
                 {"FORMAT", "PERCENT"}
             };
             var str = component.Content(reportData, config);
-            Assert.AreEqual("-0.65%", str);
+            Assert.AreEqual("-0.65 %", str);
         }
 
         [TestMethod]
@@ -84,7 +84,7 @@ namespace CastReporting.UnitTest.Reporting.Text
                 {"ID", "7254"}
             };
             var str = component.Content(reportData, config);
-            Assert.AreEqual("+0.26%", str);
+            Assert.AreEqual("+0.26 %", str);
         }
 
         [TestMethod]
@@ -108,7 +108,7 @@ namespace CastReporting.UnitTest.Reporting.Text
                 {"MODULE", "sm-central/AppliAEPtran/Shopizer_src content" }
             };
             var str = component.Content(reportData, config);
-            Assert.AreEqual("+0.60%", str);
+            Assert.AreEqual("+0.60 %", str);
         }
 
         [TestMethod]
@@ -133,7 +133,7 @@ namespace CastReporting.UnitTest.Reporting.Text
                 {"TECHNO", "JEE" }
             };
             var str = component.Content(reportData, config);
-            Assert.AreEqual("+0.24%", str);
+            Assert.AreEqual("+0.24 %", str);
         }
 
         [TestMethod]
@@ -159,7 +159,7 @@ namespace CastReporting.UnitTest.Reporting.Text
                 {"TECHNO", "JEE" }
             };
             var str = component.Content(reportData, config);
-            Assert.AreEqual("-0.04%", str);
+            Assert.AreEqual("-0.04 %", str);
         }
 
 
@@ -183,7 +183,7 @@ namespace CastReporting.UnitTest.Reporting.Text
                 {"ID", "10151"}
             };
             var str = component.Content(reportData, config);
-            Assert.AreEqual("+13.0%", str);
+            Assert.AreEqual("+13.0 %", str);
         }
 
         [TestMethod]
@@ -243,7 +243,7 @@ namespace CastReporting.UnitTest.Reporting.Text
                 {"ID", "66061"}
             };
             var str = component.Content(reportData, config);
-            Assert.AreEqual("+50%", str);
+            Assert.AreEqual("+50 %", str);
         }
 
         [TestMethod]
