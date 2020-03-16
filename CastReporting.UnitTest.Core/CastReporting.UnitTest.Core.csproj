@@ -112,6 +112,9 @@
     <None Update="Data\ActionPlanViolations1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\BackFactsPrevious.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\BackFacts.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

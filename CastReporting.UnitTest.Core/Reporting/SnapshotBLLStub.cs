@@ -20,10 +20,14 @@ namespace CastReporting.UnitTest.Reporting
             _Snapshot = snapshot;
         }
         [DeploymentItem(@".\Data\BackFacts.json", "Data")]
+        [DeploymentItem(@".\Data\BackFactsPrevious.json", "Data")]
         public IEnumerable<Result> GetBackgroundFacts(string snapshotHref, string backgroundFacts)
         {
-            IEnumerable<Result> res = TestUtility.GetSampleResult<Result>(@".\Data\BackFacts.json").ToList();
-            return res;
+            if (snapshotHref.Equals("AED3/applications/7/snapshots/3") && backgroundFacts.Equals("66061"))
+            {
+                return TestUtility.GetSampleResult<Result>(@".\Data\BackFactsPrevious.json").ToList();
+            }
+            else return TestUtility.GetSampleResult<Result>(@".\Data\BackFacts.json").ToList();
         }
 
         [DeploymentItem(@".\Data\BusinessValue.json", "Data")]
