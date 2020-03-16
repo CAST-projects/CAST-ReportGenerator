@@ -62,6 +62,22 @@
 				"technologyResults": [],
 				"moduleResults": [],
 				"transactionResults": []
+			},
+			{
+			"type": "business-criteria",
+			"reference": {
+				"href": "AED/quality-indicators/60017/snapshots/6",
+				"name": "CustomMillion",
+				"shortName": "Million",
+				"key": "11203569",
+				"critical": "N/A"
+			},
+			"result": {
+				"grade": 2.01
+			},
+			"technologyResults": [],
+			"moduleResults": [],
+			"transactionResults": []
 			}
 		]
 	}
