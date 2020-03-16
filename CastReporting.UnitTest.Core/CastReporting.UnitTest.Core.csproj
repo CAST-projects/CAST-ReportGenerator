@@ -127,6 +127,9 @@
     <None Update="Data\BaseQI60017.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\BusinessValuePrevious.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\BusinessValue.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -88,6 +88,82 @@ namespace CastReporting.UnitTest.Reporting.Text
         }
 
         [TestMethod]
+        [DeploymentItem(@".\Data\Snapshot_QIresults1.json", "Data")]
+        [DeploymentItem(@".\Data\Snapshot_QIresults2.json", "Data")]
+        public void TestQRModule()
+        {
+            /*
+             * Configuration : TEXT;APPLICATION_METRIC;SNAPSHOT=CURRENT,ID=7254,FORMAT=N2
+             * @".\Data\Snapshot_QIresults1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/4/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
+             * @".\Data\Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
+             */
+            ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
+                @".\Data\Modules1.json", @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
+                @".\Data\Modules1.json", @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
+
+            var component = new MetricEvolution();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"ID", "4656"},
+                {"MODULE", "sm-central/AppliAEPtran/Shopizer_src content" }
+            };
+            var str = component.Content(reportData, config);
+            Assert.AreEqual("+0.60%", str);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\Snapshot_QIresults1.json", "Data")]
+        [DeploymentItem(@".\Data\Snapshot_QIresults2.json", "Data")]
+        public void TestQRTechno()
+        {
+            /*
+             * Configuration : TEXT;APPLICATION_METRIC;SNAPSHOT=CURRENT,ID=7254,FORMAT=N2
+             * @".\Data\Snapshot_QIresults1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/4/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
+             * @".\Data\Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
+             */
+            ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
+                null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
+                null, @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
+            reportData.CurrentSnapshot.Technologies = new[] { "JEE", "PL/SQL" };
+            reportData.PreviousSnapshot.Technologies = new[] { "JEE", "PL/SQL" };
+            var component = new MetricEvolution();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"ID", "4656"},
+                {"TECHNO", "JEE" }
+            };
+            var str = component.Content(reportData, config);
+            Assert.AreEqual("+0.24%", str);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\Snapshot_QIresults1.json", "Data")]
+        [DeploymentItem(@".\Data\Snapshot_QIresults2.json", "Data")]
+        public void TestBCModuleTechno()
+        {
+            /*
+             * Configuration : TEXT;APPLICATION_METRIC;SNAPSHOT=CURRENT,ID=7254,FORMAT=N2
+             * @".\Data\Snapshot_QIresults1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/4/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
+             * @".\Data\Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
+             */
+            ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
+                @".\Data\Modules1.json", @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
+                @".\Data\Modules1.json", @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
+            reportData.CurrentSnapshot.Technologies = new[] { "JEE", "PL/SQL" };
+            reportData.PreviousSnapshot.Technologies = new[] { "JEE", "PL/SQL" };
+            var component = new MetricEvolution();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"ID", "60012"},
+                {"MODULE", "sm-core/AppliAEPtran/Shopizer_src content" },
+                {"TECHNO", "JEE" }
+            };
+            var str = component.Content(reportData, config);
+            Assert.AreEqual("-0.04%", str);
+        }
+
+
+        [TestMethod]
         [DeploymentItem(@".\Data\DreamTeamSnap4Sample12.json", "Data")]
         [DeploymentItem(@".\Data\DreamTeamSnap1Sample12.json", "Data")]
         public void TestSizing()
@@ -104,7 +180,7 @@ namespace CastReporting.UnitTest.Reporting.Text
             var component = new MetricEvolution();
             Dictionary<string, string> config = new Dictionary<string, string>
             {
-                {"SZID", "10151"}
+                {"ID", "10151"}
             };
             var str = component.Content(reportData, config);
             Assert.AreEqual("+13.0%", str);
@@ -127,7 +203,7 @@ namespace CastReporting.UnitTest.Reporting.Text
             var component = new MetricEvolution();
             Dictionary<string, string> config = new Dictionary<string, string>
             {
-                {"SZID", "10154"},
+                {"ID", "10154"},
                 {"FORMAT", "ABSOLUTE"}
             };
             var str = component.Content(reportData, config);
@@ -138,6 +214,7 @@ namespace CastReporting.UnitTest.Reporting.Text
         [DeploymentItem(@".\Data\DreamTeamSnap4Sample12.json", "Data")]
         [DeploymentItem(@".\Data\DreamTeamSnap1Sample12.json", "Data")]
         [DeploymentItem(@".\Data\BackFacts.json", "Data")]
+        [DeploymentItem(@".\Data\BackFactsPrevious.json", "Data")]
         public void TestBackFact()
         {
             /*
@@ -163,10 +240,10 @@ namespace CastReporting.UnitTest.Reporting.Text
             var component = new MetricEvolution();
             Dictionary<string, string> config = new Dictionary<string, string>
             {
-                {"BFID", "66061"}
+                {"ID", "66061"}
             };
             var str = component.Content(reportData, config);
-            Assert.AreEqual("-33.3%", str);
+            Assert.AreEqual("+50%", str);
         }
 
         [TestMethod]

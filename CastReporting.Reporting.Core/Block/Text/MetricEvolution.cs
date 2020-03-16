@@ -14,7 +14,7 @@
  *
  */
 using System.Collections.Generic;
-using System.Linq;
+using CastReporting.BLL.Computing.DTO;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.ReportingModel;
@@ -32,50 +32,28 @@ namespace CastReporting.Reporting.Block.Text
         public override string Content(ReportData reportData, Dictionary<string, string> options)
         {
           
-            int metricId = options.GetIntOption("ID");
-            int metricSzId = options.GetIntOption("SZID");
-            int metricBfId = options.GetIntOption("BFID");
+            string metricId = options.GetOption("ID", "60017");
             string _format = options.GetOption("FORMAT", "PERCENT");
+            string moduleName = options.GetOption("MODULE", null);
+            string techno = options.GetOption("TECHNO", null);
 
             if (reportData?.CurrentSnapshot == null || reportData?.PreviousSnapshot == null) return Constants.No_Value;
 
-            if (metricId != 0)
+            Module module = null;
+            if (moduleName != null)
             {
-                double? curResult = BusinessCriteriaUtility.GetMetricValue(reportData.CurrentSnapshot, metricId);
-                double? prevResult = BusinessCriteriaUtility.GetMetricValue(reportData.PreviousSnapshot, metricId);
-                if (prevResult == null || curResult == null) return Constants.No_Value;
-                double? variation = _format.ToUpper().Equals("PERCENT") ? (curResult - prevResult) / prevResult
-                    : curResult - prevResult;
-
-                return _format.ToUpper().Equals("ABSOLUTE") ? variation.Value.ToString("N2") : FormatHelper.FormatPercent(variation);
+                foreach (Module snapModule in reportData.CurrentSnapshot.Modules)
+                {
+                    if (snapModule.Name.Equals(moduleName))
+                    {
+                        module = snapModule;
+                    }
+                }
             }
 
-            if (metricSzId != 0)
-            {
-                double? curSize = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, metricSzId);
-                double? prevSize = MeasureUtility.GetSizingMeasure(reportData.PreviousSnapshot, metricSzId);
-                if (prevSize == null || curSize == null) return Constants.No_Value;
-                double? varSize = _format.ToUpper().Equals("PERCENT") ? (curSize - prevSize) / prevSize
-                    : curSize - prevSize;
-                return _format.ToUpper().Equals("ABSOLUTE") ? varSize.Value.ToString("N0") : FormatHelper.FormatPercent(varSize);
-            }
-
-            if (metricBfId != 0)
-            {
-                Result curBf = reportData.SnapshotExplorer.GetBackgroundFacts(reportData.CurrentSnapshot.Href, metricBfId.ToString()).FirstOrDefault();
-                Result prevBf = reportData.SnapshotExplorer.GetBackgroundFacts(reportData.PreviousSnapshot.Href, metricBfId.ToString()).FirstOrDefault();
-                if (prevBf == null || !prevBf.ApplicationResults.Any() || curBf == null || !curBf.ApplicationResults.Any())
-                    return Constants.No_Value;
-
-                double? curBfValue = curBf.ApplicationResults[0].DetailResult?.Value;
-                double? prevBfValue = prevBf.ApplicationResults[0].DetailResult?.Value;
-                if (curBfValue == null || prevBfValue == null) return Constants.No_Value;
-                double? varBf = _format.ToUpper().Equals("PERCENT") ? (curBfValue - prevBfValue) / prevBfValue
-                    : curBfValue - prevBfValue;
-                return _format.ToUpper().Equals("ABSOLUTE") ? varBf.Value.ToString("N0") : FormatHelper.FormatPercent(varBf);
-            }
-
-            return Constants.No_Value;
+            EvolutionResult result = MetricsUtility.GetMetricEvolution(reportData, reportData.CurrentSnapshot, reportData.PreviousSnapshot, metricId, true, module, techno, true);
+            
+            return _format.ToUpper().Equals("ABSOLUTE") ? result.evolution : result.evolutionPercent;
         }
         #endregion METHODS
     }

@@ -31,12 +31,16 @@ namespace CastReporting.UnitTest.Reporting
         }
 
         [DeploymentItem(@".\Data\BusinessValue.json", "Data")]
+        [DeploymentItem(@".\Data\BusinessValuePrevious.json", "Data")]
         public IEnumerable<Result> GetBackgroundFacts(string snapshotHref, string backgroundFacts, bool modules, bool technologies)
         {
             string[] _sample5Gpt = {"10152", "10154", "10161", "61111"};
             if (_sample5Gpt.Contains(backgroundFacts)) return new List<Result>();
-            IEnumerable<Result> res = TestUtility.GetSampleResult<Result>(@".\Data\BusinessValue.json").ToList();
-            return res;
+            if (snapshotHref.Equals("AED3/applications/7/snapshots/3") && backgroundFacts.Equals("66061"))
+            {
+                return TestUtility.GetSampleResult<Result>(@".\Data\BusinessValuePrevious.json").ToList();
+            }
+            return TestUtility.GetSampleResult<Result>(@".\Data\BusinessValue.json").ToList();
         }
 
         [DeploymentItem(@".\Data\OmgFunctionsEvolutions.csv", "Data")]
