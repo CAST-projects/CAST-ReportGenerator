@@ -284,7 +284,8 @@ namespace CastReporting.Repositories
 
         IEnumerable<Transaction> ICastRepsitory.GetTransactions(string snapshotHref, string businessCriteria, int count)
         {
-            var requestUrl = string.Format(_query_transactions, snapshotHref, businessCriteria, count);
+            var requestUrl = count != -1 ? string.Format(_query_transactions, snapshotHref, businessCriteria, count)
+                : string.Format(_query_transactions, snapshotHref, businessCriteria, "$all");
 
             return CallWS<IEnumerable<Transaction>>(requestUrl, RequestComplexity.Long);
         }
