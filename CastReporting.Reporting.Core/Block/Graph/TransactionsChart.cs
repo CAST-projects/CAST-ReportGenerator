@@ -24,6 +24,7 @@ using CastReporting.Reporting.Helper;
 using CastReporting.Domain;
 using CastReporting.BLL.Computing;
 using System.Globalization;
+using Cast.Util.Log;
 
 namespace CastReporting.Reporting.Block.Graph
 { 
@@ -44,45 +45,55 @@ namespace CastReporting.Reporting.Block.Graph
                 Labels.Efficiency,
                 Labels.Robustness
             });
-
-            List<TransactionDetailsDTO> transactionsDetails = new List<TransactionDetailsDTO>();
-            switch (filteringBc)
+            int rowcount = 0;
+            if (snapshot == null)
             {
-                case "SECU":
-                    transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Security.GetHashCode().ToString(), transactionsDetails, snapshot);
-                    transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Performance.GetHashCode().ToString(), transactionsDetails, snapshot);
-                    transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Robustness.GetHashCode().ToString(), transactionsDetails, snapshot);
-                    transactionsDetails = transactionsDetails.OrderByDescending(_ => _.TriSecurity).Take(nbLimitTop).ToList();
-                    break;
-                case "EFF":
-                case "PERF":
-                    transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Performance.GetHashCode().ToString(), transactionsDetails, snapshot);
-                    transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Robustness.GetHashCode().ToString(), transactionsDetails, snapshot);
-                    transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Security.GetHashCode().ToString(), transactionsDetails, snapshot);
-                    transactionsDetails = transactionsDetails.OrderByDescending(_ => _.TriEfficiency).Take(nbLimitTop).ToList();
-                    break;
-                default:
-                    transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Robustness.GetHashCode().ToString(), transactionsDetails, snapshot);
-                    transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Security.GetHashCode().ToString(), transactionsDetails, snapshot);
-                    transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Performance.GetHashCode().ToString(), transactionsDetails, snapshot);
-                    transactionsDetails = transactionsDetails.OrderByDescending(_ => _.TriRobustness).Take(nbLimitTop).ToList();
-                    break;
-            }
-
-            foreach (TransactionDetailsDTO trDetails in transactionsDetails)
+                LogHelper.LogError(Labels.NoSnapshot);
+                rowData.AddRange(new[] {Labels.NoSnapshot, "0", "0", "0"});
+                rowcount++;
+            } 
+            else
             {
-                rowData.AddRange(new[] {
+                List<TransactionDetailsDTO> transactionsDetails = new List<TransactionDetailsDTO>();
+                switch (filteringBc)
+                {
+                    case "SECU":
+                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Security.GetHashCode().ToString(), transactionsDetails, snapshot);
+                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Performance.GetHashCode().ToString(), transactionsDetails, snapshot);
+                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Robustness.GetHashCode().ToString(), transactionsDetails, snapshot);
+                        transactionsDetails = transactionsDetails.OrderByDescending(_ => _.TriSecurity).Take(nbLimitTop).ToList();
+                        break;
+                    case "EFF":
+                    case "PERF":
+                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Performance.GetHashCode().ToString(), transactionsDetails, snapshot);
+                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Robustness.GetHashCode().ToString(), transactionsDetails, snapshot);
+                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Security.GetHashCode().ToString(), transactionsDetails, snapshot);
+                        transactionsDetails = transactionsDetails.OrderByDescending(_ => _.TriEfficiency).Take(nbLimitTop).ToList();
+                        break;
+                    default:
+                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Robustness.GetHashCode().ToString(), transactionsDetails, snapshot);
+                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Security.GetHashCode().ToString(), transactionsDetails, snapshot);
+                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Performance.GetHashCode().ToString(), transactionsDetails, snapshot);
+                        transactionsDetails = transactionsDetails.OrderByDescending(_ => _.TriRobustness).Take(nbLimitTop).ToList();
+                        break;
+                }
+
+                foreach (TransactionDetailsDTO trDetails in transactionsDetails)
+                {
+                    rowData.AddRange(new[] {
                     trDetails.ShortName,
                     trDetails.TriSecurity.GetValueOrDefault().ToString(CultureInfo.CurrentCulture),
                     trDetails.TriEfficiency.GetValueOrDefault().ToString(CultureInfo.CurrentCulture),
                     trDetails.TriRobustness.GetValueOrDefault().ToString(CultureInfo.CurrentCulture)
-                });
+                    });
+                }
+                rowcount = transactionsDetails.Count;
             }
 
             TableDefinition resultTable = new TableDefinition {
                 HasRowHeaders = true,
                 HasColumnHeaders = false,
-                NbRows = transactionsDetails.Count + 1,
+                NbRows = rowcount + 1,
                 NbColumns = 4,
                 Data = rowData,
                 GraphOptions = null

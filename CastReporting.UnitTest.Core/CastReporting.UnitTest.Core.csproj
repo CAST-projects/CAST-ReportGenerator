@@ -427,6 +427,15 @@
     <None Update="Data\topArtefacts7212.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\Transactions60013WebGoat.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Transactions60014WebGoat.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Transactions60016WebGoat.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\Transactions60016Snap.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
