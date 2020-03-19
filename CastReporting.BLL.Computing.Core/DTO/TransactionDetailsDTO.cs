@@ -14,31 +14,20 @@
  *
  */
 
-using System.Runtime.Serialization;
-
-namespace CastReporting.Domain
+namespace CastReporting.BLL.Computing
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    [DataContract(Name = "transaction")]
-    public class Transaction
+   public class TransactionDetailsDTO
     {
-        [DataMember(Name = "href")]
         public string HRef { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        [DataMember(Name = "name")]
-        public string Name {get;set;}
 
-        [DataMember(Name = "shortName")]
+        public string Name { get; set; }
+
         public string ShortName { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [DataMember(Name = "transactionRiskIndex")]
-        public double? TransactionRiskIndex { get; set; }
+        public double? TriSecurity { get; set; }
+
+        public double? TriEfficiency { get; set; }
+
+        public double? TriRobustness { get; set; }
     }
 }

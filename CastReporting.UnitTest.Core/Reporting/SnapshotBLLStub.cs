@@ -383,14 +383,35 @@ namespace CastReporting.UnitTest.Reporting
         }
 
         [DeploymentItem(@".\Data\Transactions60016Snap.json", "Data")]
+        [DeploymentItem(@".\Data\Transactions60013WebGoat.json", "Data")]
+        [DeploymentItem(@".\Data\Transactions60014WebGoat.json", "Data")]
+        [DeploymentItem(@".\Data\Transactions60016WebGoat.json", "Data")]
         public IEnumerable<Transaction> GetTransactions(string snapshotHref, string businessCriteria, int count)
         {
             IEnumerable<Transaction> res = null;
-            if (businessCriteria == "60016")
-                res = TestUtility.GetSampleResult<Transaction>(@".\Data\Transactions60016Snap.json").ToList();
+            switch (businessCriteria)
+            {
+                case "60016":
+                    if (snapshotHref.Equals("AED/applications/3/snapshots/6"))
+                    {
+                        res = TestUtility.GetSampleResult<Transaction>(@".\Data\Transactions60016Snap.json").ToList();
+                    } else
+                    {
+                        res = TestUtility.GetSampleResult<Transaction>(@".\Data\Transactions60016WebGoat.json").ToList();
+                    }
+                    break;
+                case "60014":
+                    res = TestUtility.GetSampleResult<Transaction>(@".\Data\Transactions60014WebGoat.json").ToList();
+                    break;
+                case "60013":
+                    res = TestUtility.GetSampleResult<Transaction>(@".\Data\Transactions60013WebGoat.json").ToList();
+                    break;
+                default:
+                    res = TestUtility.GetSampleResult<Transaction>(@".\Data\Transactions60016WebGoat.json").ToList();
+                    break;
+            }
             if (count != -1)
                 res = res?.Take(count);
-
             return res;
         }
 

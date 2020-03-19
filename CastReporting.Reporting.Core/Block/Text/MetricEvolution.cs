@@ -18,10 +18,8 @@ using CastReporting.BLL.Computing.DTO;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.ReportingModel;
-using CastReporting.BLL.Computing;
 using CastReporting.Domain;
 using CastReporting.Reporting.Helper;
-// ReSharper disable InconsistentNaming
 
 namespace CastReporting.Reporting.Block.Text
 {

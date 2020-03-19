@@ -66,7 +66,7 @@ namespace CastReporting.Reporting.Block.Table
                     foreach (var transaction in bc.Transactions)
                     {
                         rowData.Add(transaction.Name);
-                        rowData.Add(transaction.TransactionRiskIndex.ToString(metricFormat));
+                        rowData.Add(transaction.TransactionRiskIndex.Value.ToString(metricFormat));
                         nbRows += 1;
                     }
                 }
