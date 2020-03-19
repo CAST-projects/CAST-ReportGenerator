@@ -39,6 +39,8 @@ namespace CastReporting.Reporting.Block.Graph
             int nbLimitTop = options.GetIntOption("COUNT", 20);
             string filteringBc = options.GetOption("FILTER", "ROB");
             Snapshot snapshot = options.GetOption("SNAPSHOT", "CURRENT").ToUpper().Equals("PREVIOUS") ? reportData.PreviousSnapshot : reportData.CurrentSnapshot;
+            bool fullNames = options.GetOption("NAME", "SHORT").ToUpper().Equals("FULL");
+
             List<string> rowData = new List<string>(new[] { 
                 Labels.TRI,
                 Labels.Security,
@@ -81,7 +83,7 @@ namespace CastReporting.Reporting.Block.Graph
                 foreach (TransactionDetailsDTO trDetails in transactionsDetails)
                 {
                     rowData.AddRange(new[] {
-                    trDetails.ShortName,
+                    fullNames ? trDetails.Name : trDetails.ShortName,
                     trDetails.TriSecurity.GetValueOrDefault().ToString(CultureInfo.CurrentCulture),
                     trDetails.TriEfficiency.GetValueOrDefault().ToString(CultureInfo.CurrentCulture),
                     trDetails.TriRobustness.GetValueOrDefault().ToString(CultureInfo.CurrentCulture)
