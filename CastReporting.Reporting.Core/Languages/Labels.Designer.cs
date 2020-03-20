@@ -9,7 +9,6 @@
 //------------------------------------------------------------------------------
 
 namespace CastReporting.Reporting.Core.Languages {
-    using System;
     
     
     /// <summary>

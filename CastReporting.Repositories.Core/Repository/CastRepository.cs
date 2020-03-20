@@ -46,7 +46,7 @@ namespace CastReporting.Repositories
         private const string _query_action_plan = "{0}/action-plan/summary";
         private const string _query_action_plan2 = "{0}/actionPlan/summary";
         private const string _query_result_rules_violations = "{0}/results?quality-indicators={1}{2}&select=violationRatio&modules=($all)";
-        private const string _query_result_quality_distribution_complexity = "{0}/results?quality-indicators=({1})&select=(categories)";
+        private const string _query_result_quality_distribution_complexity = "{0}/results?quality-indicators=({1})&select=(categories)&modules=$all&technologies=$all";
         private const string _query_rule_patterns = "{0}/rule-patterns/{1}";
         private const string _query_rules_details = "{0}/quality-indicators/{1}/snapshots/{2}/base-quality-indicators";
         private const string _query_grade_contributors = "{0}/quality-indicators/{1}/snapshots/{2}";

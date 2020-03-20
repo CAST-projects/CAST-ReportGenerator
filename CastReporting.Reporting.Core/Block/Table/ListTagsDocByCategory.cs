@@ -60,13 +60,13 @@ namespace CastReporting.Reporting.Block.Table
 	                {
 	                    var dataRowCat = headers.CreateDataRow();
 	                    dataRowCat.Set(Labels.Standards, category);
-	                    FormatHelper.AddGrayAndBold(cellProps, cellidx);
+	                    FormatTableHelper.AddGrayAndBold(cellProps, cellidx);
 	                    cellidx++;
 	                    dataRowCat.Set(Labels.Definition, "");
-	                    FormatHelper.AddGrayAndBold(cellProps, cellidx);
+						FormatTableHelper.AddGrayAndBold(cellProps, cellidx);
 	                    cellidx++;
 	                    dataRowCat.Set(Labels.Applicability, "");
-	                    FormatHelper.AddGrayAndBold(cellProps, cellidx);
+						FormatTableHelper.AddGrayAndBold(cellProps, cellidx);
 	                    cellidx++;
 	                    data.AddRange(dataRowCat);
 	                }
@@ -76,13 +76,13 @@ namespace CastReporting.Reporting.Block.Table
 	                    bool isApplicable = doc.Applicable.Equals("true");
                         var dataRow = headers.CreateDataRow();
 	                    dataRow.Set(Labels.Standards, doc.Key);
-	                    FormatHelper.AddColorsIfCondition(isApplicable, cellProps, cellidx, "MintCream", "BlanchedAlmond");
+						FormatTableHelper.AddColorsIfCondition(isApplicable, cellProps, cellidx, "MintCream", "BlanchedAlmond");
                         cellidx++;
 	                    dataRow.Set(Labels.Definition, doc.Name);
-	                    FormatHelper.AddColorsIfCondition(isApplicable, cellProps, cellidx, "MintCream", "BlanchedAlmond");
+						FormatTableHelper.AddColorsIfCondition(isApplicable, cellProps, cellidx, "MintCream", "BlanchedAlmond");
                         cellidx++;
 	                    dataRow.Set(Labels.Applicability, isApplicable ? Labels.Applicable : Labels.NotApplicable);
-	                    FormatHelper.AddColorsIfCondition(isApplicable, cellProps, cellidx, "MintCream", "BlanchedAlmond");
+						FormatTableHelper.AddColorsIfCondition(isApplicable, cellProps, cellidx, "MintCream", "BlanchedAlmond");
                         cellidx++;
 	                    data.AddRange(dataRow);
 	                }

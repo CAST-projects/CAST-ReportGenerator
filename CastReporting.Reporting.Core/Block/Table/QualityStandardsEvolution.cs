@@ -98,18 +98,18 @@ namespace CastReporting.Reporting.Block.Table
                     // usefull when the STD is a tag. when STD is a category it is not in the standardTags list for application, so only STD name is displayed
                     string stdTagName = result.Reference?.Name + " " + reportData.Application.StandardTags?.Where(_ => _.Key == result.Reference?.Name).FirstOrDefault()?.Name;
                     dataRow.Set(standard, stdTagName);
-                    FormatHelper.AddGrayOrBold(detail, cellProps, cellidx, nbViolations);
+                    FormatTableHelper.AddGrayOrBold(detail, cellProps, cellidx, nbViolations);
                     cellidx++;
                     dataRow.Set(lbltotal, detailResult.EvolutionSummary?.TotalViolations.NAIfEmpty("N0"));
-                    FormatHelper.AddGrayOrBold(detail, cellProps, cellidx, nbViolations);
+                    FormatTableHelper.AddGrayOrBold(detail, cellProps, cellidx, nbViolations);
                     cellidx++;
                     if (displayEvolution)
                     {
                         dataRow.Set(lbladded, detailResult.EvolutionSummary?.AddedViolations.NAIfEmpty("N0"));
-                        FormatHelper.AddGrayOrBold(detail, cellProps, cellidx, nbViolations);
+                        FormatTableHelper.AddGrayOrBold(detail, cellProps, cellidx, nbViolations);
                         cellidx++;
                         dataRow.Set(lblremoved, detailResult.EvolutionSummary?.RemovedViolations.NAIfEmpty("N0"));
-                        FormatHelper.AddGrayOrBold(detail, cellProps, cellidx, nbViolations);
+                        FormatTableHelper.AddGrayOrBold(detail, cellProps, cellidx, nbViolations);
                         cellidx++;
                     }
                     data.AddRange(dataRow);
@@ -128,18 +128,18 @@ namespace CastReporting.Reporting.Block.Table
                             int? nbStdViolations = detailStdResult.EvolutionSummary?.TotalViolations;
                             string stdresTagName = stdres.Reference?.Name + " " + reportData.Application.StandardTags?.Where(_ => _.Key == stdres.Reference?.Name).FirstOrDefault()?.Name;
                             stddataRow.Set(standard, "    " + stdresTagName);
-                            FormatHelper.AddGrayOrBold(false, cellProps, cellidx, nbStdViolations);
+                            FormatTableHelper.AddGrayOrBold(false, cellProps, cellidx, nbStdViolations);
                             cellidx++;
                             stddataRow.Set(lbltotal, detailStdResult.EvolutionSummary?.TotalViolations.NAIfEmpty("N0"));
-                            FormatHelper.AddGrayOrBold(false, cellProps, cellidx, nbStdViolations);
+                            FormatTableHelper.AddGrayOrBold(false, cellProps, cellidx, nbStdViolations);
                             cellidx++;
                             if (displayEvolution)
                             {
                                 stddataRow.Set(lbladded, detailStdResult.EvolutionSummary?.AddedViolations.NAIfEmpty("N0"));
-                                FormatHelper.AddGrayOrBold(false, cellProps, cellidx, nbStdViolations);
+                                FormatTableHelper.AddGrayOrBold(false, cellProps, cellidx, nbStdViolations);
                                 cellidx++;
                                 stddataRow.Set(lblremoved, detailStdResult.EvolutionSummary?.RemovedViolations.NAIfEmpty("N0"));
-                                FormatHelper.AddGrayOrBold(false, cellProps, cellidx, nbStdViolations);
+                                FormatTableHelper.AddGrayOrBold(false, cellProps, cellidx, nbStdViolations);
                                 cellidx++;
                             }
                             data.AddRange(stddataRow);
