@@ -34,8 +34,8 @@ namespace CastReporting.Reporting.Block.Table
             TableDefinition result = new TableDefinition();
             List<string> rowData = new List<string>();
             Constants.QualityDistribution distributionId;
-            bool techno = options.GetOption("TECHNO", "N").ToUpper().Equals("Y");
-            bool module = options.GetOption("MODULE", "N").ToUpper().Equals("Y");
+            bool techno = options.GetOption("TECHNOLOGIES", "N").ToUpper().Equals("Y");
+            bool module = options.GetOption("MODULES", "N").ToUpper().Equals("Y");
             int parId;
             if (null != options && options.ContainsKey("PAR") && int.TryParse(options["PAR"], out parId) && Enum.IsDefined(typeof(Constants.QualityDistribution), parId))
             {

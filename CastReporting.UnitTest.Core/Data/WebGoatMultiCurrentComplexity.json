@@ -1,0 +1,597 @@
+﻿[
+	{
+		"number": 2,
+		"date": {
+			"time": 1583160900000,
+			"isoDate": "2020-03-02"
+		},
+		"version": "Version-2",
+		"application": {
+			"href": "69f58395-7dd6-4509-98d2-6501028e7150/applications/3",
+			"name": "WebGoatMulti",
+			"adgDatabase": "webgoatmulti_central"
+		},
+		"applicationSnapshot": {
+			"href": "69f58395-7dd6-4509-98d2-6501028e7150/applications/3/snapshots/2",
+			"name": "WebGoatMulti"
+		},
+		"applicationResults": [
+			{
+				"type": "quality-distributions",
+				"reference": {
+					"href": "69f58395-7dd6-4509-98d2-6501028e7150/quality-indicators/65501/snapshots/2",
+					"name": "Cyclomatic Complexity Distribution",
+					"key": "65501",
+					"critical": false
+				},
+				"result": {
+					"grade": 3.422450389969395,
+					"categories": [
+						{
+							"key": "65505",
+							"name": "Very High Complexity Artifacts",
+							"value": 117
+						},
+						{
+							"key": "65504",
+							"name": "High Complexity Artifacts",
+							"value": 159
+						},
+						{
+							"key": "65503",
+							"name": "Moderate Complexity Artifacts",
+							"value": 908
+						},
+						{
+							"key": "65502",
+							"name": "Low Complexity Artifacts",
+							"value": 8945
+						}
+					]
+				},
+				"technologyResults": [
+					{
+						"technology": ".NET",
+						"result": {
+							"grade": 4,
+							"categories": [
+								{
+									"key": "65505",
+									"name": "Very High Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65504",
+									"name": "High Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65503",
+									"name": "Moderate Complexity Artifacts",
+									"value": 15
+								},
+								{
+									"key": "65502",
+									"name": "Low Complexity Artifacts",
+									"value": 113
+								}
+							]
+						}
+					},
+					{
+						"technology": "HTML5",
+						"result": {
+							"grade": 3.7607655502392343,
+							"categories": [
+								{
+									"key": "65505",
+									"name": "Very High Complexity Artifacts",
+									"value": 4
+								},
+								{
+									"key": "65504",
+									"name": "High Complexity Artifacts",
+									"value": 3
+								},
+								{
+									"key": "65503",
+									"name": "Moderate Complexity Artifacts",
+									"value": 39
+								},
+								{
+									"key": "65502",
+									"name": "Low Complexity Artifacts",
+									"value": 790
+								}
+							]
+						}
+					},
+					{
+						"technology": "JEE",
+						"result": {
+							"grade": 4,
+							"categories": [
+								{
+									"key": "65505",
+									"name": "Very High Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65504",
+									"name": "High Complexity Artifacts",
+									"value": 3
+								},
+								{
+									"key": "65503",
+									"name": "Moderate Complexity Artifacts",
+									"value": 69
+								},
+								{
+									"key": "65502",
+									"name": "Low Complexity Artifacts",
+									"value": 615
+								}
+							]
+						}
+					},
+					{
+						"technology": "PHP",
+						"result": {
+							"grade": 3.33286102255284,
+							"categories": [
+								{
+									"key": "65505",
+									"name": "Very High Complexity Artifacts",
+									"value": 113
+								},
+								{
+									"key": "65504",
+									"name": "High Complexity Artifacts",
+									"value": 153
+								},
+								{
+									"key": "65503",
+									"name": "Moderate Complexity Artifacts",
+									"value": 785
+								},
+								{
+									"key": "65502",
+									"name": "Low Complexity Artifacts",
+									"value": 7418
+								}
+							]
+						}
+					},
+					{
+						"technology": "SHELL",
+						"result": {
+							"categories": [
+								{
+									"key": "65505",
+									"name": "Very High Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65504",
+									"name": "High Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65503",
+									"name": "Moderate Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65502",
+									"name": "Low Complexity Artifacts",
+									"value": 0
+								}
+							]
+						}
+					},
+					{
+						"technology": "SQL",
+						"result": {
+							"grade": 3,
+							"categories": [
+								{
+									"key": "65505",
+									"name": "Very High Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65504",
+									"name": "High Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65503",
+									"name": "Moderate Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65502",
+									"name": "Low Complexity Artifacts",
+									"value": 9
+								}
+							]
+						}
+					}
+				],
+				"moduleResults": [
+					{
+						"number": 2,
+						"moduleSnapshot": {
+							"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/5/snapshots/2",
+							"name": "Module_Jee"
+						},
+						"result": {
+							"grade": 4,
+							"categories": [
+								{
+									"key": "65505",
+									"name": "Very High Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65504",
+									"name": "High Complexity Artifacts",
+									"value": 3
+								},
+								{
+									"key": "65503",
+									"name": "Moderate Complexity Artifacts",
+									"value": 69
+								},
+								{
+									"key": "65502",
+									"name": "Low Complexity Artifacts",
+									"value": 615
+								}
+							]
+						},
+						"technologyResults": [
+							{
+								"technology": "JEE",
+								"result": {
+									"grade": 4,
+									"categories": [
+										{
+											"key": "65505",
+											"name": "Very High Complexity Artifacts",
+											"value": 0
+										},
+										{
+											"key": "65504",
+											"name": "High Complexity Artifacts",
+											"value": 3
+										},
+										{
+											"key": "65503",
+											"name": "Moderate Complexity Artifacts",
+											"value": 69
+										},
+										{
+											"key": "65502",
+											"name": "Low Complexity Artifacts",
+											"value": 615
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"number": 2,
+						"moduleSnapshot": {
+							"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/7/snapshots/2",
+							"name": "Module_PHP"
+						},
+						"result": {
+							"grade": 3.33286102255284,
+							"categories": [
+								{
+									"key": "65505",
+									"name": "Very High Complexity Artifacts",
+									"value": 113
+								},
+								{
+									"key": "65504",
+									"name": "High Complexity Artifacts",
+									"value": 153
+								},
+								{
+									"key": "65503",
+									"name": "Moderate Complexity Artifacts",
+									"value": 785
+								},
+								{
+									"key": "65502",
+									"name": "Low Complexity Artifacts",
+									"value": 7418
+								}
+							]
+						},
+						"technologyResults": [
+							{
+								"technology": "PHP",
+								"result": {
+									"grade": 3.33286102255284,
+									"categories": [
+										{
+											"key": "65505",
+											"name": "Very High Complexity Artifacts",
+											"value": 113
+										},
+										{
+											"key": "65504",
+											"name": "High Complexity Artifacts",
+											"value": 153
+										},
+										{
+											"key": "65503",
+											"name": "Moderate Complexity Artifacts",
+											"value": 785
+										},
+										{
+											"key": "65502",
+											"name": "Low Complexity Artifacts",
+											"value": 7418
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"number": 2,
+						"moduleSnapshot": {
+							"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/6/snapshots/2",
+							"name": "Module_Sql"
+						},
+						"result": {
+							"grade": 3,
+							"categories": [
+								{
+									"key": "65505",
+									"name": "Very High Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65504",
+									"name": "High Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65503",
+									"name": "Moderate Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65502",
+									"name": "Low Complexity Artifacts",
+									"value": 9
+								}
+							]
+						},
+						"technologyResults": [
+							{
+								"technology": "SQL",
+								"result": {
+									"grade": 3,
+									"categories": [
+										{
+											"key": "65505",
+											"name": "Very High Complexity Artifacts",
+											"value": 0
+										},
+										{
+											"key": "65504",
+											"name": "High Complexity Artifacts",
+											"value": 0
+										},
+										{
+											"key": "65503",
+											"name": "Moderate Complexity Artifacts",
+											"value": 0
+										},
+										{
+											"key": "65502",
+											"name": "Low Complexity Artifacts",
+											"value": 9
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"number": 2,
+						"moduleSnapshot": {
+							"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/4/snapshots/2",
+							"name": "Module_dotnet"
+						},
+						"result": {
+							"grade": 4,
+							"categories": [
+								{
+									"key": "65505",
+									"name": "Very High Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65504",
+									"name": "High Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65503",
+									"name": "Moderate Complexity Artifacts",
+									"value": 15
+								},
+								{
+									"key": "65502",
+									"name": "Low Complexity Artifacts",
+									"value": 113
+								}
+							]
+						},
+						"technologyResults": [
+							{
+								"technology": ".NET",
+								"result": {
+									"grade": 4,
+									"categories": [
+										{
+											"key": "65505",
+											"name": "Very High Complexity Artifacts",
+											"value": 0
+										},
+										{
+											"key": "65504",
+											"name": "High Complexity Artifacts",
+											"value": 0
+										},
+										{
+											"key": "65503",
+											"name": "Moderate Complexity Artifacts",
+											"value": 15
+										},
+										{
+											"key": "65502",
+											"name": "Low Complexity Artifacts",
+											"value": 113
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"number": 2,
+						"moduleSnapshot": {
+							"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/8/snapshots/2",
+							"name": "Module_html5"
+						},
+						"result": {
+							"grade": 3.7607655502392343,
+							"categories": [
+								{
+									"key": "65505",
+									"name": "Very High Complexity Artifacts",
+									"value": 4
+								},
+								{
+									"key": "65504",
+									"name": "High Complexity Artifacts",
+									"value": 3
+								},
+								{
+									"key": "65503",
+									"name": "Moderate Complexity Artifacts",
+									"value": 39
+								},
+								{
+									"key": "65502",
+									"name": "Low Complexity Artifacts",
+									"value": 790
+								}
+							]
+						},
+						"technologyResults": [
+							{
+								"technology": "HTML5",
+								"result": {
+									"grade": 3.7607655502392343,
+									"categories": [
+										{
+											"key": "65505",
+											"name": "Very High Complexity Artifacts",
+											"value": 4
+										},
+										{
+											"key": "65504",
+											"name": "High Complexity Artifacts",
+											"value": 3
+										},
+										{
+											"key": "65503",
+											"name": "Moderate Complexity Artifacts",
+											"value": 39
+										},
+										{
+											"key": "65502",
+											"name": "Low Complexity Artifacts",
+											"value": 790
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"number": 2,
+						"moduleSnapshot": {
+							"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/9/snapshots/2",
+							"name": "Module_shell"
+						},
+						"result": {
+							"categories": [
+								{
+									"key": "65505",
+									"name": "Very High Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65504",
+									"name": "High Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65503",
+									"name": "Moderate Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65502",
+									"name": "Low Complexity Artifacts",
+									"value": 0
+								}
+							]
+						},
+						"technologyResults": [
+							{
+								"technology": "SHELL",
+								"result": {
+									"categories": [
+										{
+											"key": "65505",
+											"name": "Very High Complexity Artifacts",
+											"value": 0
+										},
+										{
+											"key": "65504",
+											"name": "High Complexity Artifacts",
+											"value": 0
+										},
+										{
+											"key": "65503",
+											"name": "Moderate Complexity Artifacts",
+											"value": 0
+										},
+										{
+											"key": "65502",
+											"name": "Low Complexity Artifacts",
+											"value": 0
+										}
+									]
+								}
+							}
+						]
+					}
+				],
+				"transactionResults": []
+			}
+		]
+	}
+]

@@ -442,5 +442,204 @@ namespace CastReporting.UnitTest.Reporting.Tables
             TestUtility.AssertTableContent(table, expectedData, 6, 5);
             Assert.IsTrue(table.HasColumnHeaders);
         }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\WebGoatMultiCurrentResults.json", "Data")]
+        [DeploymentItem(@".\Data\WebGoatMultiPreviousResults.json", "Data")]
+        [DeploymentItem(@".\Data\WebGoatMultiModules.json", "Data")]
+        [DeploymentItem(@".\Data\WebGoatMultiCurrentComplexity.json", "Data")]
+        [DeploymentItem(@".\Data\WebGoatMultiPreviousComplexity.json", "Data")]
+        public void TestModules()
+        {
+            ReportData reportData = TestUtility.PrepaReportData("WebGoatMulti",
+                @".\Data\WebGoatMultiModules.json", @".\Data\WebGoatMultiCurrentResults.json", "69f58395-7dd6-4509-98d2-6501028e7150/applications/3/snapshots/2", "Snapshot-2020-03-02T15-55-00", "Version-2",
+                @".\Data\WebGoatMultiModules.json", @".\Data\WebGoatMultiPreviousResults.json", "69f58395-7dd6-4509-98d2-6501028e7150/applications/3/snapshots/1", "Snapshot-v1", "Version-1");
+            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\WebGoatMultiCurrentComplexity.json", @".\Data\WebGoatMultiPreviousComplexity.json");
+
+            var component = new CastDistribution();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"PAR", "65501"},
+                {"MODULES","Y" }
+            };
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>();
+            expectedData.AddRange(new List<string> { "Cyclomatic Complexity Distribution", "Current", "Previous", "Evol.", "% Evol.", "% Total" });
+            expectedData.AddRange(new List<string> { " ", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Module_dotnet", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Low Complexity", "113", "232", "-119", "-51.3 %", "88.3 %" });
+            expectedData.AddRange(new List<string> { "Average Complexity", "15", "15", "0", "0 %", "11.7 %" });
+            expectedData.AddRange(new List<string> { "High Complexity", "0", "0", "0", "n/a", "0 %" });
+            expectedData.AddRange(new List<string> { "Extreme Complexity", "0", "0", "0", "n/a", "0 %" });
+            expectedData.AddRange(new List<string> { " ", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Module_html5", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Low Complexity", "790", "808", "-18", "-2.23 %", "94.5 %" });
+            expectedData.AddRange(new List<string> { "Average Complexity", "39", "44", "-5", "-11.4 %", "4.67 %" });
+            expectedData.AddRange(new List<string> { "High Complexity", "3", "3", "0", "0 %", "0.36 %" });
+            expectedData.AddRange(new List<string> { "Extreme Complexity", "4", "3", "+1", "+33.3 %", "0.48 %" });
+            expectedData.AddRange(new List<string> { " ", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Module_Jee", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Low Complexity", "615", "601", "+14", "+2.33 %", "89.5 %" });
+            expectedData.AddRange(new List<string> { "Average Complexity", "69", "66", "+3", "+4.55 %", "10.0 %" });
+            expectedData.AddRange(new List<string> { "High Complexity", "3", "3", "0", "0 %", "0.44 %" });
+            expectedData.AddRange(new List<string> { "Extreme Complexity", "0", "1", "-1", "-100 %", "0 %" });
+            expectedData.AddRange(new List<string> { " ", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Module_PHP", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Low Complexity", "7,418", "7,418", "0", "0 %", "87.6 %" });
+            expectedData.AddRange(new List<string> { "Average Complexity", "785", "785", "0", "0 %", "9.27 %" });
+            expectedData.AddRange(new List<string> { "High Complexity", "153", "153", "0", "0 %", "1.81 %" });
+            expectedData.AddRange(new List<string> { "Extreme Complexity", "113", "113", "0", "0 %", "1.33 %" });
+            expectedData.AddRange(new List<string> { " ", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Module_shell", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Low Complexity", "0", "0", "0", "n/a", "n/a" });
+            expectedData.AddRange(new List<string> { "Average Complexity", "0", "0", "0", "n/a", "n/a" });
+            expectedData.AddRange(new List<string> { "High Complexity", "0", "0", "0", "n/a", "n/a" });
+            expectedData.AddRange(new List<string> { "Extreme Complexity", "0", "0", "0", "n/a", "n/a" });
+            expectedData.AddRange(new List<string> { " ", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Module_Sql", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Low Complexity", "9", "9", "0", "0 %", "100 %" });
+            expectedData.AddRange(new List<string> { "Average Complexity", "0", "0", "0", "n/a", "0 %" });
+            expectedData.AddRange(new List<string> { "High Complexity", "0", "0", "0", "n/a", "0 %" });
+            expectedData.AddRange(new List<string> { "Extreme Complexity", "0", "0", "0", "n/a", "0 %" });
+            TestUtility.AssertTableContent(table, expectedData, 6, 37);
+            Assert.IsTrue(table.HasColumnHeaders);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\WebGoatMultiCurrentResults.json", "Data")]
+        [DeploymentItem(@".\Data\WebGoatMultiPreviousResults.json", "Data")]
+        [DeploymentItem(@".\Data\WebGoatMultiModules.json", "Data")]
+        [DeploymentItem(@".\Data\WebGoatMultiCurrentComplexity.json", "Data")]
+        [DeploymentItem(@".\Data\WebGoatMultiPreviousComplexity.json", "Data")]
+        public void TestTechnologies()
+        {
+            ReportData reportData = TestUtility.PrepaReportData("WebGoatMulti",
+                @".\Data\WebGoatMultiModules.json", @".\Data\WebGoatMultiCurrentResults.json", "69f58395-7dd6-4509-98d2-6501028e7150/applications/3/snapshots/2", "Snapshot-2020-03-02T15-55-00", "Version-2",
+                @".\Data\WebGoatMultiModules.json", @".\Data\WebGoatMultiPreviousResults.json", "69f58395-7dd6-4509-98d2-6501028e7150/applications/3/snapshots/1", "Snapshot-v1", "Version-1");
+            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\WebGoatMultiCurrentComplexity.json", @".\Data\WebGoatMultiPreviousComplexity.json");
+            reportData.CurrentSnapshot.Technologies = new[] { "JEE", ".NET", "HTML5", "PHP", "SHELL", "SQL" };
+            reportData.PreviousSnapshot.Technologies = new[] { "JEE", ".NET", "HTML5", "PHP", "SHELL", "SQL" };
+            var component = new CastDistribution();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"PAR", "65501"},
+                {"TECHNOLOGIES","Y" }
+            };
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>();
+            expectedData.AddRange(new List<string> { "Cyclomatic Complexity Distribution", "Current", "Previous", "Evol.", "% Evol.", "% Total" });
+            expectedData.AddRange(new List<string> { " ", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "JEE", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Low Complexity", "615", "601", "+14", "+2.33 %", "89.5 %" });
+            expectedData.AddRange(new List<string> { "Average Complexity", "69", "66", "+3", "+4.55 %", "10.0 %" });
+            expectedData.AddRange(new List<string> { "High Complexity", "3", "3", "0", "0 %", "0.44 %" });
+            expectedData.AddRange(new List<string> { "Extreme Complexity", "0", "1", "-1", "-100 %", "0 %" });
+            expectedData.AddRange(new List<string> { " ", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { ".NET", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Low Complexity", "113", "232", "-119", "-51.3 %", "88.3 %" });
+            expectedData.AddRange(new List<string> { "Average Complexity", "15", "15", "0", "0 %", "11.7 %" });
+            expectedData.AddRange(new List<string> { "High Complexity", "0", "0", "0", "n/a", "0 %" });
+            expectedData.AddRange(new List<string> { "Extreme Complexity", "0", "0", "0", "n/a", "0 %" });
+            expectedData.AddRange(new List<string> { " ", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "HTML5", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Low Complexity", "790", "808", "-18", "-2.23 %", "94.5 %" });
+            expectedData.AddRange(new List<string> { "Average Complexity", "39", "44", "-5", "-11.4 %", "4.67 %" });
+            expectedData.AddRange(new List<string> { "High Complexity", "3", "3", "0", "0 %", "0.36 %" });
+            expectedData.AddRange(new List<string> { "Extreme Complexity", "4", "3", "+1", "+33.3 %", "0.48 %" });
+            expectedData.AddRange(new List<string> { " ", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "PHP", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Low Complexity", "7,418", "7,418", "0", "0 %", "87.6 %" });
+            expectedData.AddRange(new List<string> { "Average Complexity", "785", "785", "0", "0 %", "9.27 %" });
+            expectedData.AddRange(new List<string> { "High Complexity", "153", "153", "0", "0 %", "1.81 %" });
+            expectedData.AddRange(new List<string> { "Extreme Complexity", "113", "113", "0", "0 %", "1.33 %" });
+            expectedData.AddRange(new List<string> { " ", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "SHELL", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Low Complexity", "0", "0", "0", "n/a", "n/a" });
+            expectedData.AddRange(new List<string> { "Average Complexity", "0", "0", "0", "n/a", "n/a" });
+            expectedData.AddRange(new List<string> { "High Complexity", "0", "0", "0", "n/a", "n/a" });
+            expectedData.AddRange(new List<string> { "Extreme Complexity", "0", "0", "0", "n/a", "n/a" });
+            expectedData.AddRange(new List<string> { " ", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "SQL", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Low Complexity", "9", "9", "0", "0 %", "100 %" });
+            expectedData.AddRange(new List<string> { "Average Complexity", "0", "0", "0", "n/a", "0 %" });
+            expectedData.AddRange(new List<string> { "High Complexity", "0", "0", "0", "n/a", "0 %" });
+            expectedData.AddRange(new List<string> { "Extreme Complexity", "0", "0", "0", "n/a", "0 %" });
+            TestUtility.AssertTableContent(table, expectedData, 6, 37);
+            Assert.IsTrue(table.HasColumnHeaders);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\WebGoatMultiCurrentResults.json", "Data")]
+        [DeploymentItem(@".\Data\WebGoatMultiPreviousResults.json", "Data")]
+        [DeploymentItem(@".\Data\WebGoatMultiModules.json", "Data")]
+        [DeploymentItem(@".\Data\WebGoatMultiCurrentComplexity.json", "Data")]
+        [DeploymentItem(@".\Data\WebGoatMultiPreviousComplexity.json", "Data")]
+        public void TestModulesTechnologies()
+        {
+            ReportData reportData = TestUtility.PrepaReportData("WebGoatMulti",
+                @".\Data\WebGoatMultiModules.json", @".\Data\WebGoatMultiCurrentResults.json", "69f58395-7dd6-4509-98d2-6501028e7150/applications/3/snapshots/2", "Snapshot-2020-03-02T15-55-00", "Version-2",
+                @".\Data\WebGoatMultiModules.json", @".\Data\WebGoatMultiPreviousResults.json", "69f58395-7dd6-4509-98d2-6501028e7150/applications/3/snapshots/1", "Snapshot-v1", "Version-1");
+            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\WebGoatMultiCurrentComplexity.json", @".\Data\WebGoatMultiPreviousComplexity.json");
+            reportData.CurrentSnapshot.Technologies = new[] { "JEE", ".NET", "HTML5", "PHP", "SHELL", "SQL" };
+            reportData.PreviousSnapshot.Technologies = new[] { "JEE", ".NET", "HTML5", "PHP", "SHELL", "SQL" };
+            var component = new CastDistribution();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"PAR", "65501"},
+                {"MODULES","Y" },
+                {"TECHNOLOGIES","Y" }
+            };
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>();
+            expectedData.AddRange(new List<string> { "Cyclomatic Complexity Distribution", "Current", "Previous", "Evol.", "% Evol.", "% Total" });
+            expectedData.AddRange(new List<string> { " ", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Module_dotnet", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { ".NET", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Low Complexity", "113", "232", "-119", "-51.3 %", "88.3 %" });
+            expectedData.AddRange(new List<string> { "Average Complexity", "15", "15", "0", "0 %", "11.7 %" });
+            expectedData.AddRange(new List<string> { "High Complexity", "0", "0", "0", "n/a", "0 %" });
+            expectedData.AddRange(new List<string> { "Extreme Complexity", "0", "0", "0", "n/a", "0 %" });
+            expectedData.AddRange(new List<string> { " ", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Module_html5", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "HTML5", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Low Complexity", "790", "808", "-18", "-2.23 %", "94.5 %" });
+            expectedData.AddRange(new List<string> { "Average Complexity", "39", "44", "-5", "-11.4 %", "4.67 %" });
+            expectedData.AddRange(new List<string> { "High Complexity", "3", "3", "0", "0 %", "0.36 %" });
+            expectedData.AddRange(new List<string> { "Extreme Complexity", "4", "3", "+1", "+33.3 %", "0.48 %" });
+            expectedData.AddRange(new List<string> { " ", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Module_Jee", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "JEE", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Low Complexity", "615", "601", "+14", "+2.33 %", "89.5 %" });
+            expectedData.AddRange(new List<string> { "Average Complexity", "69", "66", "+3", "+4.55 %", "10.0 %" });
+            expectedData.AddRange(new List<string> { "High Complexity", "3", "3", "0", "0 %", "0.44 %" });
+            expectedData.AddRange(new List<string> { "Extreme Complexity", "0", "1", "-1", "-100 %", "0 %" });
+            expectedData.AddRange(new List<string> { " ", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Module_PHP", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "PHP", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Low Complexity", "7,418", "7,418", "0", "0 %", "87.6 %" });
+            expectedData.AddRange(new List<string> { "Average Complexity", "785", "785", "0", "0 %", "9.27 %" });
+            expectedData.AddRange(new List<string> { "High Complexity", "153", "153", "0", "0 %", "1.81 %" });
+            expectedData.AddRange(new List<string> { "Extreme Complexity", "113", "113", "0", "0 %", "1.33 %" });
+            expectedData.AddRange(new List<string> { " ", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Module_shell", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "SHELL", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Low Complexity", "0", "0", "0", "n/a", "n/a" });
+            expectedData.AddRange(new List<string> { "Average Complexity", "0", "0", "0", "n/a", "n/a" });
+            expectedData.AddRange(new List<string> { "High Complexity", "0", "0", "0", "n/a", "n/a" });
+            expectedData.AddRange(new List<string> { "Extreme Complexity", "0", "0", "0", "n/a", "n/a" });
+            expectedData.AddRange(new List<string> { " ", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Module_Sql", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "SQL", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "Low Complexity", "9", "9", "0", "0 %", "100 %" });
+            expectedData.AddRange(new List<string> { "Average Complexity", "0", "0", "0", "n/a", "0 %" });
+            expectedData.AddRange(new List<string> { "High Complexity", "0", "0", "0", "n/a", "0 %" });
+            expectedData.AddRange(new List<string> { "Extreme Complexity", "0", "0", "0", "n/a", "0 %" });
+            TestUtility.AssertTableContent(table, expectedData, 6, 43);
+            Assert.IsTrue(table.HasColumnHeaders);
+        }
+
     }
 }
