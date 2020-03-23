@@ -442,7 +442,10 @@ namespace CastReporting.Reporting.Helper
                     appCurSnap = null;
                 }
                 SimpleResult appRes = GetMetricNameAndResult(reportData, appCurSnap, metricId, null, techno, format);
-                results.Add(appRes);
+                if (appRes != null)
+                {
+                    results.Add(appRes);
+                }
             }
 
             string metName = results.FirstOrDefault()?.name;
@@ -512,6 +515,7 @@ namespace CastReporting.Reporting.Helper
             {
                 name = metName,
                 type = metType,
+                result = curResult,
                 resultStr = res
             };
         }
