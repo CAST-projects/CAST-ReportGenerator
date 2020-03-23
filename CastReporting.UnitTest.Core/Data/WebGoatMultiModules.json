@@ -1,0 +1,122 @@
+﻿[
+	{
+		"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/4",
+		"name": "Module_dotnet",
+		"technologies": [
+			".NET"
+		],
+		"snapshots": {
+			"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/4/snapshots",
+			"name": "Snapshots of Module_dotnet"
+		},
+		"results": {
+			"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/4/results",
+			"name": "Results for Module_dotnet"
+		},
+		"adgLocalId": null,
+		"applications": {
+			"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/4/application",
+			"name": "WebGoatMulti"
+		}
+	},
+	{
+		"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/8",
+		"name": "Module_html5",
+		"technologies": [
+			"HTML5"
+		],
+		"snapshots": {
+			"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/8/snapshots",
+			"name": "Snapshots of Module_html5"
+		},
+		"results": {
+			"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/8/results",
+			"name": "Results for Module_html5"
+		},
+		"adgLocalId": null,
+		"applications": {
+			"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/8/application",
+			"name": "WebGoatMulti"
+		}
+	},
+	{
+		"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/5",
+		"name": "Module_Jee",
+		"technologies": [
+			"JEE"
+		],
+		"snapshots": {
+			"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/5/snapshots",
+			"name": "Snapshots of Module_Jee"
+		},
+		"results": {
+			"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/5/results",
+			"name": "Results for Module_Jee"
+		},
+		"adgLocalId": null,
+		"applications": {
+			"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/5/application",
+			"name": "WebGoatMulti"
+		}
+	},
+	{
+		"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/7",
+		"name": "Module_PHP",
+		"technologies": [
+			"PHP"
+		],
+		"snapshots": {
+			"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/7/snapshots",
+			"name": "Snapshots of Module_PHP"
+		},
+		"results": {
+			"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/7/results",
+			"name": "Results for Module_PHP"
+		},
+		"adgLocalId": null,
+		"applications": {
+			"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/7/application",
+			"name": "WebGoatMulti"
+		}
+	},
+	{
+		"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/9",
+		"name": "Module_shell",
+		"technologies": [
+			"SHELL"
+		],
+		"snapshots": {
+			"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/9/snapshots",
+			"name": "Snapshots of Module_shell"
+		},
+		"results": {
+			"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/9/results",
+			"name": "Results for Module_shell"
+		},
+		"adgLocalId": null,
+		"applications": {
+			"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/9/application",
+			"name": "WebGoatMulti"
+		}
+	},
+	{
+		"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/6",
+		"name": "Module_Sql",
+		"technologies": [
+			"SQL"
+		],
+		"snapshots": {
+			"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/6/snapshots",
+			"name": "Snapshots of Module_Sql"
+		},
+		"results": {
+			"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/6/results",
+			"name": "Results for Module_Sql"
+		},
+		"adgLocalId": null,
+		"applications": {
+			"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/6/application",
+			"name": "WebGoatMulti"
+		}
+	}
+]
