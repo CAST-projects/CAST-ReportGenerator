@@ -441,10 +441,13 @@ namespace CastReporting.Reporting.Helper
                 {
                     appCurSnap = null;
                 }
-                SimpleResult appRes = GetMetricNameAndResult(reportData, appCurSnap, metricId, null, techno, format);
-                if (appRes != null)
+                if (appCurSnap != null)
                 {
-                    results.Add(appRes);
+                    SimpleResult appRes = GetMetricNameAndResult(reportData, appCurSnap, metricId, null, techno, format);
+                    if (appRes != null)
+                    {
+                        results.Add(appRes);
+                    }
                 }
             }
 
