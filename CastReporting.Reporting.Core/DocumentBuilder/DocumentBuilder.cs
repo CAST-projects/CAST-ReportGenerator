@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cast.Util;
 using Cast.Util.Log;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.ReportingModel;
@@ -116,6 +117,7 @@ namespace CastReporting.Reporting.Builder
                 {
                     string logMessage = $"Exception thrown during document parsing (BlockType : {(null != config ? config.Type : string.Empty)}, BlockName : {(null != config ? config.Name : string.Empty)})";
                     LogHelper.LogError(logMessage, exception);
+                    throw;
                 }
             }
         }

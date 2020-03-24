@@ -46,7 +46,7 @@ namespace CastReporting.Repositories
         private const string _query_action_plan = "{0}/action-plan/summary";
         private const string _query_action_plan2 = "{0}/actionPlan/summary";
         private const string _query_result_rules_violations = "{0}/results?quality-indicators={1}{2}&select=violationRatio&modules=($all)";
-        private const string _query_result_quality_distribution_complexity = "{0}/results?quality-indicators=({1})&select=(categories)";
+        private const string _query_result_quality_distribution_complexity = "{0}/results?quality-indicators=({1})&select=(categories)&modules=$all&technologies=$all";
         private const string _query_rule_patterns = "{0}/rule-patterns/{1}";
         private const string _query_rules_details = "{0}/quality-indicators/{1}/snapshots/{2}/base-quality-indicators";
         private const string _query_grade_contributors = "{0}/quality-indicators/{1}/snapshots/{2}";
@@ -211,8 +211,8 @@ namespace CastReporting.Repositories
             if (startLine < 1) startLine = 1;
             if (endLine < 1) endLine = 1;
             var requestUrl = string.Format(_query_file_content, domainHRef, siteId, fileId, startLine, endLine);
-
-            return CallStringWS(requestUrl, RequestComplexity.Standard).Split('\n').ToList();
+            string res = CallStringWS(requestUrl, RequestComplexity.Standard);
+            return string.IsNullOrEmpty(res) ? new List<string>() : res.Split('\n').ToList();
         }
 
         AssociatedValue ICastRepsitory.GetAssociatedValue(string domainHRef, string snapshotId, string objectId, string metricId)
@@ -284,7 +284,8 @@ namespace CastReporting.Repositories
 
         IEnumerable<Transaction> ICastRepsitory.GetTransactions(string snapshotHref, string businessCriteria, int count)
         {
-            var requestUrl = string.Format(_query_transactions, snapshotHref, businessCriteria, count);
+            var requestUrl = count != -1 ? string.Format(_query_transactions, snapshotHref, businessCriteria, count)
+                : string.Format(_query_transactions, snapshotHref, businessCriteria, "$all");
 
             return CallWS<IEnumerable<Transaction>>(requestUrl, RequestComplexity.Long);
         }
@@ -802,7 +803,7 @@ namespace CastReporting.Repositories
 
             try
             {
-                return _Client.DownloadPlainText(requestUrl, pComplexity);
+                return _Client.DownloadText(requestUrl, pComplexity);
             }
             catch (WebException e)
             {

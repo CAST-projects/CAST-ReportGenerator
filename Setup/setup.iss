@@ -12,7 +12,7 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{123D703E-4446-45C0-934F-14E3AC4D169F}
+AppId={{552D10CE-5A09-4305-BC1A-7CF59ECCA10B}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppVerName={#MyAppName} {#MyAppVersion}
@@ -70,6 +70,7 @@ Source: "../CastReporting.Reporting.Core/Templates/*"; DestDir: "{code:GetTempPa
 source: "../CastReporting.Repositories.Core/CastReportingSetting.xml"; DestDir: "{code:GetSettingsPath}"; Flags: ignoreversion; AfterInstall:SaveSettings()
 ; NOTE:License
 Source: "../Setup/License.rtf"; DestDir: "{app}"; Flags: ignoreversion
+Source: "../Setup/install_dotnet_core.bat"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{#MyAppShortName} {#MyAppVersion}"; Filename: "{app}\{#MyAppExeName}"
@@ -80,6 +81,7 @@ Name: "{commondesktop}\{#MyAppShortName} {#MyAppVersion}"; Filename: "{app}\{#My
 Name: "{code:GetSettingsPath}"; Permissions: users-full
 
 [Run]
+Filename: "{app}\install_dotnet_core.bat"; Description: "Install dotnet core sdk 3.1.102 (mandatory for running CAST-ReportGenerator)"; Flags: postinstall
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppShortName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 
 [Code]
@@ -229,7 +231,7 @@ end;
 function InitializeSetup(): Boolean;
 begin
     result := false;
-    result := UninstallOldVersion('{#App1150Id}', '1.15.0');
+    result := UninstallOldVersion('{#App1150Id}', '{#MyAppVersion}');
 end;
 
 procedure InitializeWizard;

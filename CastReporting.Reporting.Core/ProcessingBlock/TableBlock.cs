@@ -20,6 +20,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Drawing;
 using Cast.Util.Log;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Helper;
 using CastReporting.Reporting.ReportingModel;
@@ -461,7 +462,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
                             CellAttributes attributes = content.CellsAttributes.FirstOrDefault(a => a.Index == i);
                             if (attributes?.BackgroundColor != null)
                             {
-                                Color myColor = FormatHelper.FormatColor(attributes.BackgroundColor);
+                                Color myColor = FormatTableHelper.FormatColor(attributes.BackgroundColor);
                                 OXD.RgbColorModelHex backColor = new OXD.RgbColorModelHex { Val = $"{myColor.R:X2}{myColor.G:X2}{myColor.B:X2}" };
                                 OXD.SolidFill solidFill = new OXD.SolidFill();
                                 solidFill.Append(backColor);

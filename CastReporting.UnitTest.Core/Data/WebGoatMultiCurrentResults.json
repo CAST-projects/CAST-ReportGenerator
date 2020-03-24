@@ -1,0 +1,345 @@
+﻿[
+	{
+		"number": 2,
+		"date": {
+			"time": 1583160900000,
+			"isoDate": "2020-03-02"
+		},
+		"version": "Version-2",
+		"application": {
+			"href": "69f58395-7dd6-4509-98d2-6501028e7150/applications/3",
+			"name": "WebGoatMulti",
+			"adgDatabase": "webgoatmulti_central"
+		},
+		"applicationSnapshot": {
+			"href": "69f58395-7dd6-4509-98d2-6501028e7150/applications/3/snapshots/2",
+			"name": "WebGoatMulti"
+		},
+		"applicationResults": [
+			{
+				"type": "technical-size-measures",
+				"reference": {
+					"href": "69f58395-7dd6-4509-98d2-6501028e7150/sizing-measures/10151/snapshots/2",
+					"name": "Number of Code Lines",
+					"shortName": "LOCs",
+					"key": "10151",
+					"critical": "N/A"
+				},
+				"result": {
+					"value": 99407
+				},
+				"technologyResults": [
+					{
+						"technology": ".NET",
+						"result": {
+							"value": 3604
+						}
+					},
+					{
+						"technology": "HTML5",
+						"result": {
+							"value": 12471
+						}
+					},
+					{
+						"technology": "JEE",
+						"result": {
+							"value": 7789
+						}
+					},
+					{
+						"technology": "PHP",
+						"result": {
+							"value": 73786
+						}
+					},
+					{
+						"technology": "SHELL",
+						"result": {
+							"value": 213
+						}
+					},
+					{
+						"technology": "SQL",
+						"result": {
+							"value": 1544
+						}
+					}
+				],
+				"moduleResults": [
+					{
+						"number": 2,
+						"moduleSnapshot": {
+							"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/5/snapshots/2",
+							"name": "Module_Jee"
+						},
+						"result": {
+							"value": 7789
+						},
+						"technologyResults": [
+							{
+								"technology": "JEE",
+								"result": {
+									"value": 7789
+								}
+							}
+						]
+					},
+					{
+						"number": 2,
+						"moduleSnapshot": {
+							"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/7/snapshots/2",
+							"name": "Module_PHP"
+						},
+						"result": {
+							"value": 73786
+						},
+						"technologyResults": [
+							{
+								"technology": "PHP",
+								"result": {
+									"value": 73786
+								}
+							}
+						]
+					},
+					{
+						"number": 2,
+						"moduleSnapshot": {
+							"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/6/snapshots/2",
+							"name": "Module_Sql"
+						},
+						"result": {
+							"value": 1544
+						},
+						"technologyResults": [
+							{
+								"technology": "SQL",
+								"result": {
+									"value": 1544
+								}
+							}
+						]
+					},
+					{
+						"number": 2,
+						"moduleSnapshot": {
+							"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/4/snapshots/2",
+							"name": "Module_dotnet"
+						},
+						"result": {
+							"value": 3604
+						},
+						"technologyResults": [
+							{
+								"technology": ".NET",
+								"result": {
+									"value": 3604
+								}
+							}
+						]
+					},
+					{
+						"number": 2,
+						"moduleSnapshot": {
+							"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/8/snapshots/2",
+							"name": "Module_html5"
+						},
+						"result": {
+							"value": 12471
+						},
+						"technologyResults": [
+							{
+								"technology": "HTML5",
+								"result": {
+									"value": 12471
+								}
+							}
+						]
+					},
+					{
+						"number": 2,
+						"moduleSnapshot": {
+							"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/9/snapshots/2",
+							"name": "Module_shell"
+						},
+						"result": {
+							"value": 213
+						},
+						"technologyResults": [
+							{
+								"technology": "SHELL",
+								"result": {
+									"value": 213
+								}
+							}
+						]
+					}
+				],
+				"transactionResults": []
+			},
+			{
+				"type": "business-criteria",
+				"reference": {
+					"href": "69f58395-7dd6-4509-98d2-6501028e7150/quality-indicators/60017/snapshots/2",
+					"name": "Total Quality Index",
+					"shortName": "TQI",
+					"key": "60017",
+					"critical": "N/A"
+				},
+				"result": {
+					"grade": 2.5544007900234664
+				},
+				"technologyResults": [
+					{
+						"technology": ".NET",
+						"result": {
+							"grade": 3.2845419105138363
+						}
+					},
+					{
+						"technology": "HTML5",
+						"result": {
+							"grade": 3.066031686782722
+						}
+					},
+					{
+						"technology": "JEE",
+						"result": {
+							"grade": 2.815135205610654
+						}
+					},
+					{
+						"technology": "PHP",
+						"result": {
+							"grade": 2.9603304514473896
+						}
+					},
+					{
+						"technology": "SHELL",
+						"result": {
+							"grade": 3.2003756002472303
+						}
+					},
+					{
+						"technology": "SQL",
+						"result": {
+							"grade": 3.0111009166656237
+						}
+					}
+				],
+				"moduleResults": [
+					{
+						"number": 2,
+						"moduleSnapshot": {
+							"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/5/snapshots/2",
+							"name": "Module_Jee"
+						},
+						"result": {
+							"grade": 2.815135205610653
+						},
+						"technologyResults": [
+							{
+								"technology": "JEE",
+								"result": {
+									"grade": 2.8151352056106536
+								}
+							}
+						]
+					},
+					{
+						"number": 2,
+						"moduleSnapshot": {
+							"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/7/snapshots/2",
+							"name": "Module_PHP"
+						},
+						"result": {
+							"grade": 2.9603304514473896
+						},
+						"technologyResults": [
+							{
+								"technology": "PHP",
+								"result": {
+									"grade": 2.9603304514473896
+								}
+							}
+						]
+					},
+					{
+						"number": 2,
+						"moduleSnapshot": {
+							"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/6/snapshots/2",
+							"name": "Module_Sql"
+						},
+						"result": {
+							"grade": 3.0111009166656237
+						},
+						"technologyResults": [
+							{
+								"technology": "SQL",
+								"result": {
+									"grade": 3.0111009166656237
+								}
+							}
+						]
+					},
+					{
+						"number": 2,
+						"moduleSnapshot": {
+							"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/4/snapshots/2",
+							"name": "Module_dotnet"
+						},
+						"result": {
+							"grade": 3.2845419105138363
+						},
+						"technologyResults": [
+							{
+								"technology": ".NET",
+								"result": {
+									"grade": 3.2845419105138363
+								}
+							}
+						]
+					},
+					{
+						"number": 2,
+						"moduleSnapshot": {
+							"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/8/snapshots/2",
+							"name": "Module_html5"
+						},
+						"result": {
+							"grade": 3.0660316867827224
+						},
+						"technologyResults": [
+							{
+								"technology": "HTML5",
+								"result": {
+									"grade": 3.066031686782722
+								}
+							}
+						]
+					},
+					{
+						"number": 2,
+						"moduleSnapshot": {
+							"href": "69f58395-7dd6-4509-98d2-6501028e7150/modules/9/snapshots/2",
+							"name": "Module_shell"
+						},
+						"result": {
+							"grade": 3.2003756002472303
+						},
+						"technologyResults": [
+							{
+								"technology": "SHELL",
+								"result": {
+									"grade": 3.200375600247231
+								}
+							}
+						]
+					}
+				],
+				"transactionResults": []
+			}
+		]
+	}
+]

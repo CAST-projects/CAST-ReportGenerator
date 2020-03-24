@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using CastReporting.BLL.Computing.DTO;
 using System.Linq;
 using Cast.Util.Log;
+using Cast.Util.Date;
 
 namespace CastReporting.Reporting.Helper
 {
@@ -1302,6 +1303,28 @@ namespace CastReporting.Reporting.Helper
             foreach (Application _application in reportData.Applications)
             {
                 list.Add(_application, _application.Snapshots.OrderBy(_ => _.Annotation.Date.DateSnapShot).LastOrDefault());
+            }
+        }
+
+        public static void BuildApplicationPreviousQuarterSnapshots(Dictionary<Application, Snapshot> list, ReportData reportData)
+        {
+            DateTime _dateNow = DateTime.Now;
+            int previousQuarter = DateUtil.GetPreviousQuarter(_dateNow);
+            int previousYear = DateUtil.GetPreviousQuarterYear(_dateNow);
+
+            foreach (Application _application in reportData.Applications)
+            {
+                try
+                {
+                    Snapshot _previous = _application.Snapshots.Where(_ => _.Annotation.Date.DateSnapShot != null
+                        && (_.Annotation.Date.DateSnapShot.Value.Year <= previousYear && DateUtil.GetQuarter(_.Annotation.Date.DateSnapShot.Value) <= previousQuarter || _.Annotation.Date.DateSnapShot.Value.Year < previousYear))
+                            .OrderByDescending(_ => _.Annotation.Date.DateSnapShot)
+                            .First();
+                    list.Add(_application, _previous);
+                } catch (InvalidOperationException e)
+                {
+                    LogHelper.LogWarn("No snapshots in previous quarter");
+                }
             }
         }
 

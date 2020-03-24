@@ -60,6 +60,6 @@ namespace CastReporting.Mediation.Interfaces
         /// <returns></returns>
         string DownloadCsvString(Uri pUri, RequestComplexity pComplexity);
 
-        string DownloadPlainText(string pUrl, RequestComplexity pComplexity);
+        string DownloadText(string pUrl, RequestComplexity pComplexity);
     }
 }

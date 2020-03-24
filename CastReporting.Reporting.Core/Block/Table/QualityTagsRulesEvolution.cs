@@ -98,16 +98,16 @@ namespace CastReporting.Reporting.Block.Table
                     string stdTagName = result.Reference?.Name + " " + reportData.Application.StandardTags?.Where(_ => _.Key == result.Reference?.Name).FirstOrDefault()?.Name;
                     // Add a line for each tag of the category
                     dataRow.Set(standard, stdTagName);
-                    FormatHelper.AddGrayOrBold(true, cellProps, cellidx, _nbTagViolations);
+                    FormatTableHelper.AddGrayOrBold(true, cellProps, cellidx, _nbTagViolations);
                     cellidx++;
                     dataRow.Set(lbltotal, detailResult.EvolutionSummary?.TotalViolations.NAIfEmpty("N0"));
-                    FormatHelper.AddGrayOrBold(true, cellProps, cellidx, _nbTagViolations);
+                    FormatTableHelper.AddGrayOrBold(true, cellProps, cellidx, _nbTagViolations);
                     cellidx++;
                     dataRow.Set(lbladded, detailResult.EvolutionSummary?.AddedViolations.NAIfEmpty("N0"));
-                    FormatHelper.AddGrayOrBold(true, cellProps, cellidx, _nbTagViolations);
+                    FormatTableHelper.AddGrayOrBold(true, cellProps, cellidx, _nbTagViolations);
                     cellidx++;
                     dataRow.Set(lblremoved, detailResult.EvolutionSummary?.RemovedViolations.NAIfEmpty("N0"));
-                    FormatHelper.AddGrayOrBold(true, cellProps, cellidx, _nbTagViolations);
+                    FormatTableHelper.AddGrayOrBold(true, cellProps, cellidx, _nbTagViolations);
                     cellidx++;
                     if (showDescription)
                     {
@@ -134,16 +134,16 @@ namespace CastReporting.Reporting.Block.Table
                             int? _nbViolations = _resultDetail.ViolationRatio?.FailedChecks;
                             string ruleName = ruleresult.Reference?.Name;
                             _ruleDr.Set(standard, "    " + ruleName);
-                            FormatHelper.AddGrayOrBold(false, cellProps, cellidx, _nbViolations);
+                            FormatTableHelper.AddGrayOrBold(false, cellProps, cellidx, _nbViolations);
                             cellidx++;
                             _ruleDr.Set(lbltotal, _resultDetail.ViolationRatio?.FailedChecks.NAIfEmpty("N0"));
-                            FormatHelper.AddGrayOrBold(false, cellProps, cellidx, _nbViolations);
+                            FormatTableHelper.AddGrayOrBold(false, cellProps, cellidx, _nbViolations);
                             cellidx++;
                             _ruleDr.Set(lbladded, _resultDetail.EvolutionSummary?.AddedViolations.NAIfEmpty("N0"));
-                            FormatHelper.AddGrayOrBold(false, cellProps, cellidx, _nbViolations);
+                            FormatTableHelper.AddGrayOrBold(false, cellProps, cellidx, _nbViolations);
                             cellidx++;
                             _ruleDr.Set(lblremoved, _resultDetail.EvolutionSummary?.RemovedViolations.NAIfEmpty("N0"));
-                            FormatHelper.AddGrayOrBold(false, cellProps, cellidx, _nbViolations);
+                            FormatTableHelper.AddGrayOrBold(false, cellProps, cellidx, _nbViolations);
                             cellidx++;
                             if (showDescription)
                             {

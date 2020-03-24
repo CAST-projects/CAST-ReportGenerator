@@ -196,12 +196,13 @@ namespace CastReporting.UI.WPF.Core.ViewModel
             {
                 if (exception.InnerException == null)
                 {
-                    MessagesList.Add(new MessageItem { Message = Messages.msgGenericError, FileName = string.Empty });
+                    MessagesList.Add(new MessageItem { Message = exception.Message, FileName = string.Empty });
                     return;
                 }
 
                 if (exception.InnerException.InnerException == null)
                 {
+                    MessagesList.Add(new MessageItem { Message = Messages.msgErrorGeneratingReport, FileName = string.Empty });
                     MessagesList.Add(new MessageItem { Message = exception.InnerException.Message, FileName = string.Empty });
                     return;
                 }

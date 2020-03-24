@@ -203,6 +203,10 @@ namespace CastReporting.Mediation
                 Headers.Remove(HttpRequestHeader.AcceptLanguage);
                 Headers.Add(HttpRequestHeader.AcceptLanguage, culture.Name.Equals("zh-CN") ? "zh" : "en");
 
+                // For RestAPI audit trail 
+                Headers.Remove("X-Client");
+                Headers.Add("X-Client", "CAST-ReportGenerator");
+                
                 Encoding = Encoding.UTF8;
 
                 RequestComplexity previousComplexity = _currentComplexity;
@@ -248,9 +252,17 @@ namespace CastReporting.Mediation
         	return DownloadContent(pUrl, "application/json", pComplexity);
         }
 
-        public string DownloadPlainText(string pUrl, RequestComplexity pComplexity)
+        public string DownloadText(string pUrl, RequestComplexity pComplexity)
         {
-            return DownloadContent(pUrl, "text/plain", pComplexity);
+            try
+            {
+                return DownloadContent(pUrl, "text/plain", pComplexity);
+            }
+            catch (WebException webEx)
+            {
+                LogHelper.LogInfo(webEx.Message);
+                return null;
+            }
         }
 
 

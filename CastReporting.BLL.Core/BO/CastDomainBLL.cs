@@ -82,6 +82,29 @@ namespace CastReporting.BLL
             return applications.OrderBy(_ => _.Name).ToList();
         }
 
+        public List<Application> GetAdgApplications()
+        {
+            List<Application> applications = new List<Application>();
+
+            var adgDomains = GetDomains().Where(d => d.DBType.Equals("ADG"));
+
+            using (var castRepsitory = GetRepository())
+            {
+                foreach (var domain in adgDomains)
+                {
+                    List<Application> domainApps = castRepsitory.GetApplicationsByDomain(domain.Href)?.ToList();
+                    if (domainApps == null) continue;
+                    foreach (Application application in domainApps.Where(_ => string.IsNullOrEmpty(_.Version)))
+                    {
+                        application.Version = domain.Version;
+                    }
+                    applications.AddRange(domainApps);
+                }
+            }
+
+            return applications.OrderBy(_ => _.Name).ToList();
+        }
+
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         public class CommonTags
         {

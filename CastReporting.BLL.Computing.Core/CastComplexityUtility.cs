@@ -47,6 +47,100 @@ namespace CastReporting.BLL.Computing
 
             return category != null ? MathUtility.GetRound(category.Value) : null;
         }
+
+        public static double? GetModuleCostComplexityGrade(Snapshot snapshot, int categorieId, string position, Module module)
+        {
+            var result = snapshot?.CostComplexityResults?.FirstOrDefault(_ => _.Reference.Key == categorieId);
+            Category category = null;
+            ModuleResult moduleResults = result?.ModulesResult.FirstOrDefault(_ => _.Module.Name.Equals(module.Name));
+            if (moduleResults == null) return null;
+            // ReSharper disable once SwitchStatementMissingSomeCases nothing to do in default case
+            switch (position)
+            {
+                case "low":
+                    category = moduleResults.DetailResult?.Categories?.FirstOrDefault(_ => _.Name.ToLower().Contains("low"))
+                               ?? moduleResults.DetailResult?.Categories?.FirstOrDefault(_ => _.Name.ToLower().Contains("small"));
+                    break;
+                case "average":
+                    category = moduleResults.DetailResult?.Categories?.FirstOrDefault(_ => _.Name.ToLower().Contains("average"))
+                        ?? moduleResults.DetailResult?.Categories?.FirstOrDefault(_ => _.Name.ToLower().Contains("moderate"));
+                    break;
+                case "high":
+                    category = moduleResults.DetailResult?.Categories?.FirstOrDefault(_ => _.Name.ToLower().Contains("high") && !_.Name.ToLower().Contains("very"))
+                               ?? moduleResults.DetailResult?.Categories?.FirstOrDefault(_ => _.Name.ToLower().Contains("large") && !_.Name.ToLower().Contains("very"));
+                    break;
+                case "very_high":
+                    category = moduleResults.DetailResult?.Categories?.FirstOrDefault(_ => _.Name.ToLower().Contains("high") && _.Name.ToLower().Contains("very"))
+                               ?? moduleResults.DetailResult?.Categories?.FirstOrDefault(_ => _.Name.ToLower().Contains("large") && _.Name.ToLower().Contains("very"));
+                    break;
+            }
+
+            return category != null ? MathUtility.GetRound(category.Value) : null;
+        }
+
+        public static double? GetTechnologyCostComplexityGrade(Snapshot snapshot, int categorieId, string position, string technology)
+        {
+            var result = snapshot?.CostComplexityResults?.FirstOrDefault(_ => _.Reference.Key == categorieId);
+            Category category = null;
+            TechnologyResult technoResults = result?.TechnologyResult.FirstOrDefault(_ => _.Technology.Equals(technology));
+            if (technoResults == null) return null;
+            // ReSharper disable once SwitchStatementMissingSomeCases nothing to do in default case
+            switch (position)
+            {
+                case "low":
+                    category = technoResults.DetailResult?.Categories?.FirstOrDefault(_ => _.Name.ToLower().Contains("low"))
+                               ?? technoResults.DetailResult?.Categories?.FirstOrDefault(_ => _.Name.ToLower().Contains("small"));
+                    break;
+                case "average":
+                    category = technoResults.DetailResult?.Categories?.FirstOrDefault(_ => _.Name.ToLower().Contains("average"))
+                        ?? technoResults.DetailResult?.Categories?.FirstOrDefault(_ => _.Name.ToLower().Contains("moderate"));
+                    break;
+                case "high":
+                    category = technoResults.DetailResult?.Categories?.FirstOrDefault(_ => _.Name.ToLower().Contains("high") && !_.Name.ToLower().Contains("very"))
+                               ?? technoResults.DetailResult?.Categories?.FirstOrDefault(_ => _.Name.ToLower().Contains("large") && !_.Name.ToLower().Contains("very"));
+                    break;
+                case "very_high":
+                    category = technoResults.DetailResult?.Categories?.FirstOrDefault(_ => _.Name.ToLower().Contains("high") && _.Name.ToLower().Contains("very"))
+                               ?? technoResults.DetailResult?.Categories?.FirstOrDefault(_ => _.Name.ToLower().Contains("large") && _.Name.ToLower().Contains("very"));
+                    break;
+            }
+
+            return category != null ? MathUtility.GetRound(category.Value) : null;
+        }
+
+        public static double? GetModuleTechnoCostComplexityGrade(Snapshot snapshot, int categorieId, string position, Module module, string technology)
+        {
+            var result = snapshot?.CostComplexityResults?.FirstOrDefault(_ => _.Reference.Key == categorieId);
+            Category category = null;
+            ModuleResult moduleResults = result?.ModulesResult.FirstOrDefault(_ => _.Module.Name.Equals(module.Name));
+            if (moduleResults == null) return null;
+            TechnologyResult technoResults = moduleResults.TechnologyResults.FirstOrDefault(_ => _.Technology.Equals(technology));
+            if (technoResults == null) return null;
+
+            // ReSharper disable once SwitchStatementMissingSomeCases nothing to do in default case
+            switch (position)
+            {
+                case "low":
+                    category = technoResults.DetailResult?.Categories?.FirstOrDefault(_ => _.Name.ToLower().Contains("low"))
+                               ?? technoResults.DetailResult?.Categories?.FirstOrDefault(_ => _.Name.ToLower().Contains("small"));
+                    break;
+                case "average":
+                    category = technoResults.DetailResult?.Categories?.FirstOrDefault(_ => _.Name.ToLower().Contains("average"))
+                        ?? technoResults.DetailResult?.Categories?.FirstOrDefault(_ => _.Name.ToLower().Contains("moderate"));
+                    break;
+                case "high":
+                    category = technoResults.DetailResult?.Categories?.FirstOrDefault(_ => _.Name.ToLower().Contains("high") && !_.Name.ToLower().Contains("very"))
+                               ?? technoResults.DetailResult?.Categories?.FirstOrDefault(_ => _.Name.ToLower().Contains("large") && !_.Name.ToLower().Contains("very"));
+                    break;
+                case "very_high":
+                    category = technoResults.DetailResult?.Categories?.FirstOrDefault(_ => _.Name.ToLower().Contains("high") && _.Name.ToLower().Contains("very"))
+                               ?? technoResults.DetailResult?.Categories?.FirstOrDefault(_ => _.Name.ToLower().Contains("large") && _.Name.ToLower().Contains("very"));
+                    break;
+            }
+
+            return category != null ? MathUtility.GetRound(category.Value) : null;
+        }
+
         /// <summary>
         /// 
         /// </summary>
