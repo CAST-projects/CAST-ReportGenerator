@@ -544,6 +544,27 @@
         "technologyResults": [],
         "moduleResults": [],
         "transactionResults": []
+      },
+      {
+        "type": "quality-rules",
+        "reference": {
+          "href": "AAD/quality-indicators/4554/snapshots/9",
+          "name": "Avoid large Classes - too many Methods",
+          "key": "4554",
+          "critical": false
+        },
+        "result": {
+          "grade": 2.60352,
+          "evolutionSummary": {
+            "addedCriticalViolations": 0,
+            "removedCriticalViolations": 0,
+            "addedViolations": 1,
+            "removedViolations": 0
+          }
+        },
+        "technologyResults": [],
+        "moduleResults": [],
+        "transactionResults": []
       }
     ]
   },
@@ -963,6 +984,27 @@
         },
         "result": {
           "grade": 3.9098639455782305,
+          "evolutionSummary": {
+            "addedCriticalViolations": 0,
+            "removedCriticalViolations": 0,
+            "addedViolations": 1,
+            "removedViolations": 0
+          }
+        },
+        "technologyResults": [],
+        "moduleResults": [],
+        "transactionResults": []
+      },
+            {
+        "type": "quality-rules",
+        "reference": {
+          "href": "AAD/quality-indicators/4554/snapshots/9",
+          "name": "Avoid large Classes - too many Methods",
+          "key": "4554",
+          "critical": false
+        },
+        "result": {
+          "grade": 1.9913793103448278,
           "evolutionSummary": {
             "addedCriticalViolations": 0,
             "removedCriticalViolations": 0,
