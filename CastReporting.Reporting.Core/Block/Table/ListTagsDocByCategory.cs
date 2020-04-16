@@ -70,23 +70,26 @@ namespace CastReporting.Reporting.Block.Table
 	                    cellidx++;
 	                    data.AddRange(dataRowCat);
 	                }
-	                List<StandardTag> tagsDoc = reportData.RuleExplorer.GetQualityStandardTagsApplicabilityByCategory(reportData.Application.DomainId, category).ToList();
-	                foreach (var doc in tagsDoc)
-	                {
-	                    bool isApplicable = doc.Applicable.Equals("true");
-                        var dataRow = headers.CreateDataRow();
-	                    dataRow.Set(Labels.Standards, doc.Key);
-						FormatTableHelper.AddColorsIfCondition(isApplicable, cellProps, cellidx, "MintCream", "BlanchedAlmond");
-                        cellidx++;
-	                    dataRow.Set(Labels.Definition, doc.Name);
-						FormatTableHelper.AddColorsIfCondition(isApplicable, cellProps, cellidx, "MintCream", "BlanchedAlmond");
-                        cellidx++;
-	                    dataRow.Set(Labels.Applicability, isApplicable ? Labels.Applicable : Labels.NotApplicable);
-						FormatTableHelper.AddColorsIfCondition(isApplicable, cellProps, cellidx, "MintCream", "BlanchedAlmond");
-                        cellidx++;
-	                    data.AddRange(dataRow);
-	                }
-	            }
+	                List<StandardTag> tagsDoc = reportData.RuleExplorer.GetQualityStandardTagsApplicabilityByCategory(reportData.Application.DomainId, category)?.ToList();
+	                if (tagsDoc != null && tagsDoc.Count > 0)
+					{
+						foreach (var doc in tagsDoc)
+						{
+							bool isApplicable = doc.Applicable.Equals("true");
+							var dataRow = headers.CreateDataRow();
+							dataRow.Set(Labels.Standards, doc.Key);
+							FormatTableHelper.AddColorsIfCondition(isApplicable, cellProps, cellidx, "MintCream", "BlanchedAlmond");
+							cellidx++;
+							dataRow.Set(Labels.Definition, doc.Name);
+							FormatTableHelper.AddColorsIfCondition(isApplicable, cellProps, cellidx, "MintCream", "BlanchedAlmond");
+							cellidx++;
+							dataRow.Set(Labels.Applicability, isApplicable ? Labels.Applicable : Labels.NotApplicable);
+							FormatTableHelper.AddColorsIfCondition(isApplicable, cellProps, cellidx, "MintCream", "BlanchedAlmond");
+							cellidx++;
+							data.AddRange(dataRow);
+						}
+					}
+				}
 	        }
 
 	        if (data.Count == 0)

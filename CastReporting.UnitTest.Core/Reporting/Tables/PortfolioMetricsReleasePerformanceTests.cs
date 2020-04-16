@@ -80,7 +80,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
             TestUtility.PreparePortfSnapshots(reportData);
 
-             var component = new PortfolioMetricsReleasePerformance();
+            var component = new PortfolioMetricsReleasePerformance();
             Dictionary<string, string> config = new Dictionary<string, string>
             {
                 {"ID", "60012|61001|4554" },
