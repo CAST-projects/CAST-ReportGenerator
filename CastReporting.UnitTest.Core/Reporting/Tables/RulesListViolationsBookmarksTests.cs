@@ -348,10 +348,10 @@ namespace CastReporting.UnitTest.Reporting.Tables
             Assert.AreEqual("# Violations: 77", table.Data.ElementAt(3));
             Assert.AreEqual("Violation #1    Action Mappings should have few forwards", table.Data.ElementAt(9));
             Assert.AreEqual("Violation #2    Action Mappings should have few forwards", table.Data.ElementAt(38));
-            Assert.AreEqual("Objects in violation for rule Avoid accessing data by using the position and length", table.Data.ElementAt(71));
-            Assert.AreEqual("# Violations: 6", table.Data.ElementAt(72));
-            Assert.AreEqual("Objects in violation for rule Avoid artifacts having recursive calls", table.Data.ElementAt(142));
-            Assert.AreEqual("# Violations: 12", table.Data.ElementAt(143));
+            Assert.AreEqual("Objects in violation for rule Avoid artifacts having recursive calls", table.Data.ElementAt(71));
+            Assert.AreEqual("# Violations: 12", table.Data.ElementAt(72));
+            Assert.AreEqual("Objects in violation for rule Avoid accessing data by using the position and length", table.Data.ElementAt(142));
+            Assert.AreEqual("# Violations: 6", table.Data.ElementAt(143));
             Assert.AreEqual("1203 :         }", table.Data.ElementAt(207));
 
 

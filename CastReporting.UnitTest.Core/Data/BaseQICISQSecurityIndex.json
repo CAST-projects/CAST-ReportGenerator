@@ -1,0 +1,38 @@
+[
+	{
+		"href": "b6a0c6f5-83d1-441f-bd7a-dc50a7d9c5d9/quality-indicators/8412/snapshots/1",
+		"key": "8412",
+		"name": "\"CX_ROOT\" should not be used in TRY .. CATCH.. ENDTRY block",
+		"compoundedWeight": 25,
+		"compoundedWeightFormula": "(5x5)",
+		"compoundedWeightTerms": [
+			{
+				"term": "5x5",
+				"technicalCriterion": {
+					"href": "b6a0c6f5-83d1-441f-bd7a-dc50a7d9c5d9/quality-indicators/1062181/snapshots/1",
+					"name": "ASCSM-CWE-397 - Declaration of Throws for Generic Exception",
+					"key": "1062181"
+				}
+			}
+		],
+		"critical": false
+	},
+	{
+		"href": "b6a0c6f5-83d1-441f-bd7a-dc50a7d9c5d9/quality-indicators/8000/snapshots/1",
+		"key": "8000",
+		"name": "Avoid 'catch-all' statement",
+		"compoundedWeight": 25,
+		"compoundedWeightFormula": "(5x5)",
+		"compoundedWeightTerms": [
+			{
+				"term": "5x5",
+				"technicalCriterion": {
+					"href": "b6a0c6f5-83d1-441f-bd7a-dc50a7d9c5d9/quality-indicators/1062180/snapshots/1",
+					"name": "ASCSM-CWE-396 - Declaration of Catch for Generic Exception",
+					"key": "1062180"
+				}
+			}
+		],
+		"critical": false
+	}
+]

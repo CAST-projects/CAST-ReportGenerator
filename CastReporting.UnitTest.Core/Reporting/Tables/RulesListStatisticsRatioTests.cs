@@ -290,7 +290,6 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
         [TestMethod]
         [DeploymentItem(@".\Data\CurrentBCTC.json", "Data")]
-        [DeploymentItem(@".\Data\BaseQI60011.json", "Data")]
         public void TestCriticalBCMetrics()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
@@ -329,8 +328,6 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
         [TestMethod]
         [DeploymentItem(@".\Data\CurrentBCTC.json", "Data")]
-        [DeploymentItem(@".\Data\BaseQI60011.json", "Data")]
-        [DeploymentItem(@".\Data\RulePatterns.json", "Data")]
         public void TestCriticalBCMetricsWithDescription()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
@@ -524,6 +521,80 @@ namespace CastReporting.UnitTest.Reporting.Tables
             };
 
             TestUtility.AssertTableContent(table, expectedData, 4, 2);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\CurrentBCTCindex.json", "Data")]
+        public void TestBCIndexMetrics()
+        {
+            CastDate currentDate = new CastDate { Time = 1484953200000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+                null, @".\Data\CurrentBCTCindex.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, null, null, null, null, null);
+            WSConnection connection = new WSConnection
+            {
+                Url = "http://tests/CAST-RESTAPI/rest/",
+                Login = "admin",
+                Password = "cast",
+                IsActive = true,
+                Name = "Default"
+            };
+            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
+            reportData.RuleExplorer = new RuleBLLStub();
+
+            var component = new CastReporting.Reporting.Block.Table.RulesListStatisticsRatio();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"METRICS","CISQ-Security" },
+                {"EVOLUTION", "true" }
+            };
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>
+            {
+                "CAST Rules","Total Vulnerabilities","Added Vulnerabilities","Removed Vulnerabilities",
+                "\"CX_ROOT\" should not be used in TRY .. CATCH.. ENDTRY block (8412)","63","5","2"
+            };
+
+            TestUtility.AssertTableContent(table, expectedData, 4, 2);
+
+        }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\CurrentBCTCindex.json", "Data")]
+        public void TestTCIndexMetrics()
+        {
+            CastDate currentDate = new CastDate { Time = 1484953200000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+                null, @".\Data\CurrentBCTCindex.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, null, null, null, null, null);
+            WSConnection connection = new WSConnection
+            {
+                Url = "http://tests/CAST-RESTAPI/rest/",
+                Login = "admin",
+                Password = "cast",
+                IsActive = true,
+                Name = "Default"
+            };
+            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
+            reportData.RuleExplorer = new RuleBLLStub();
+
+            var component = new CastReporting.Reporting.Block.Table.RulesListStatisticsRatio();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"METRICS","A1-2013" },
+                {"EVOLUTION", "true" }
+            };
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>
+            {
+                "CAST Rules","Total Vulnerabilities","Added Vulnerabilities","Removed Vulnerabilities",
+                "\"CX_ROOT\" should not be used in TRY .. CATCH.. ENDTRY block (8412)","63","5","2"
+            };
+
+            TestUtility.AssertTableContent(table, expectedData, 4, 2);
+
         }
 
     }

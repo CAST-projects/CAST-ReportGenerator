@@ -532,8 +532,27 @@ namespace CastReporting.Reporting.Helper
                 // If metric can not be parsed as integer, this is potentially a string containing a standard tag for quality rule selection
                 if (!int.TryParse(_metric, out int _))
                 {
-                    List<string> stdTagMetrics = reportData.SnapshotExplorer.GetQualityStandardsRulesList(reportData.CurrentSnapshot.Href, _metric);
-                    if (stdTagMetrics != null) qualityRules.AddRange(stdTagMetrics);
+                    // From 8.3.21 and new index extensions, a quality standard can be a BC or TC (as shortName)
+                    Snapshot snapshot = reportData.CurrentSnapshot;
+                    int metricBcIdFromShortName = snapshot.BusinessCriteriaResults.Where(_ => _.Reference.Name == _metric).Select(_ => _.Reference.Key).FirstOrDefault();
+                    if (metricBcIdFromShortName != 0)
+                    {
+                        List<RuleDetails> rules = reportData.RuleExplorer.GetRulesDetails(snapshot.DomainId, metricBcIdFromShortName, snapshot.Id).ToList();
+                        qualityRules.AddRange(critical ? rules.Where(_ => _.Critical).Select(_ => _.Key.ToString()).ToList() : rules.Select(_ => _.Key.ToString()).ToList());
+                    } else
+                    {
+                        int metricTcIdFromShortName = snapshot.TechnicalCriteriaResults.Where(_ => _.Reference.ShortName == _metric).Select(_ => _.Reference.Key).FirstOrDefault();
+                        if (metricTcIdFromShortName != 0)
+                        {
+                            List<Contributor> rules = reportData.RuleExplorer.GetRulesInTechnicalCriteria(snapshot.DomainId, metricTcIdFromShortName.ToString(), snapshot.Id).ToList();
+                            qualityRules.AddRange(critical ? rules.Where(_ => _.Critical).Select(_ => _.Key.ToString()).ToList() : rules.Select(_ => _.Key.ToString()).ToList());
+                        }
+                        else
+                        {
+                            List<string> stdTagMetrics = reportData.SnapshotExplorer.GetQualityStandardsRulesList(reportData.CurrentSnapshot.Href, _metric);
+                            if (stdTagMetrics != null) qualityRules.AddRange(stdTagMetrics);
+                        }
+                    }
                 }
                 else
                 {
@@ -544,7 +563,6 @@ namespace CastReporting.Reporting.Helper
                     if (name != null)
                     {
                         // This is a Business criteria
-
                         List<RuleDetails> rules = reportData.RuleExplorer.GetRulesDetails(snapshot.DomainId, metricId, snapshot.Id).ToList();
                         qualityRules.AddRange(critical ? rules.Where(_ => _.Critical).Select(_ => _.Key.ToString()).ToList() : rules.Select(_ => _.Key.ToString()).ToList());
                     }
@@ -573,7 +591,7 @@ namespace CastReporting.Reporting.Helper
                 }
             }
 
-            return qualityRules.Distinct().ToList();
+            return qualityRules.Distinct().OrderBy(_=>_).ToList();
         }
 
         public class ViolationsBookmarksProperties

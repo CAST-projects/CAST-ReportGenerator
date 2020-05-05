@@ -78,17 +78,18 @@ namespace CastReporting.UnitTest.Reporting
 
         [DeploymentItem(@".\Data\BaseQI60011.json", "Data")]
         [DeploymentItem(@".\Data\BaseQI60012.json", "Data")]
-        [DeploymentItem(@".\Data\BaseQI60017.json", "Data")]
+        [DeploymentItem(@".\Data\BaseQI60017.json", "Data")] 
+        [DeploymentItem(@".\Data\BaseQICISQSecurityIndex.json", "Data")]
         public IEnumerable<RuleDetails> GetRulesDetails(string domain, int businessCriteria, long snapshotId)
         {
             switch (businessCriteria)
             {
                 case 60011:
                     return TestUtility.GetSampleResult<RuleDetails>(@".\Data\BaseQI60011.json").ToList();
-
                 case 60012:
                     return TestUtility.GetSampleResult<RuleDetails>(@".\Data\BaseQI60012.json").ToList();
-
+                case 1062104:
+                    return TestUtility.GetSampleResult<RuleDetails>(@".\Data\BaseQICISQSecurityIndex.json").ToList();
                 default:
                     return TestUtility.GetSampleResult<RuleDetails>(@".\Data\BaseQI60017.json").ToList();
             }
@@ -103,6 +104,11 @@ namespace CastReporting.UnitTest.Reporting
                     {
                         new Contributor {Key = 7132, Critical = true},
                         new Contributor {Key = 7846, Critical = false}
+                    };
+                case "1062301":
+                    return new List<Contributor>
+                    {
+                        new Contributor {Key = 8412, Critical = false}
                     };
                 default:
                     return new List<Contributor>
