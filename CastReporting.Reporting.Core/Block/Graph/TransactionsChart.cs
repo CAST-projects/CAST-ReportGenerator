@@ -63,20 +63,27 @@ namespace CastReporting.Reporting.Block.Graph
                         transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Security.GetHashCode().ToString(), transactionsDetails, snapshot);
                         transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Performance.GetHashCode().ToString(), transactionsDetails, snapshot);
                         transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Robustness.GetHashCode().ToString(), transactionsDetails, snapshot);
-                        transactionsDetails = transactionsDetails.OrderByDescending(_ => _.TriSecurity).Take(nbLimitTop).ToList();
+                        transactionsDetails = nbLimitTop != -1 ?
+                            transactionsDetails.OrderByDescending(_ => _.TriSecurity).Take(nbLimitTop).ToList()
+                            : transactionsDetails.OrderByDescending(_ => _.TriSecurity).ToList();
                         break;
                     case "EFF":
                     case "PERF":
                         transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Performance.GetHashCode().ToString(), transactionsDetails, snapshot);
                         transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Robustness.GetHashCode().ToString(), transactionsDetails, snapshot);
                         transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Security.GetHashCode().ToString(), transactionsDetails, snapshot);
-                        transactionsDetails = transactionsDetails.OrderByDescending(_ => _.TriEfficiency).Take(nbLimitTop).ToList();
+                        transactionsDetails = nbLimitTop != -1 ?
+                            transactionsDetails.OrderByDescending(_ => _.TriEfficiency).Take(nbLimitTop).ToList()
+                            : transactionsDetails.OrderByDescending(_ => _.TriEfficiency).ToList();
                         break;
                     default:
                         transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Robustness.GetHashCode().ToString(), transactionsDetails, snapshot);
                         transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Security.GetHashCode().ToString(), transactionsDetails, snapshot);
                         transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Performance.GetHashCode().ToString(), transactionsDetails, snapshot);
-                        transactionsDetails = transactionsDetails.OrderByDescending(_ => _.TriRobustness).Take(nbLimitTop).ToList();
+                        transactionsDetails = nbLimitTop != -1 ?
+                            transactionsDetails.OrderByDescending(_ => _.TriRobustness).Take(nbLimitTop).ToList()
+                            : transactionsDetails.OrderByDescending(_ => _.TriRobustness).ToList();
+
                         break;
                 }
 
