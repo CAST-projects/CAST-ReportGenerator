@@ -8,6 +8,7 @@ using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
 using CastReporting.Domain;
 using CastReporting.Reporting.Helper;
+using System;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -50,14 +51,24 @@ namespace CastReporting.Reporting.Block.Table
             { 
                 foreach (OmgFunctionTechnical omgFunction in functions)
                 {
-                    rowData.Add(string.IsNullOrEmpty(omgFunction.ObjectName) ? Constants.No_Data : omgFunction.ObjectName);
-                    rowData.Add(string.IsNullOrEmpty(omgFunction.ObjectFullName) ? Constants.No_Data : omgFunction.ObjectFullName);
-                    rowData.Add(string.IsNullOrEmpty(omgFunction.ObjectType) ? Constants.No_Data : omgFunction.ObjectType);
-                    rowData.Add(string.IsNullOrEmpty(omgFunction.ObjectStatus) ? Constants.No_Data : omgFunction.ObjectStatus);
-                    rowData.Add(string.IsNullOrEmpty(omgFunction.EffortComplexity) ? Constants.No_Data : omgFunction.EffortComplexity.FormatStringDoubleIntoString());
-                    rowData.Add(string.IsNullOrEmpty(omgFunction.EquivalenceRatio) ? Constants.No_Data : omgFunction.EquivalenceRatio.FormatStringDoubleIntoString());
-                    rowData.Add(string.IsNullOrEmpty(omgFunction.AepCount) ? Constants.No_Data : omgFunction.AepCount?.FormatStringDoubleIntoString());
-                    nbRows += 1;
+                    List<string> row = new List<string>();
+
+                    try
+                    {
+                        row.Add(string.IsNullOrEmpty(omgFunction.ObjectName) ? Constants.No_Data : omgFunction.ObjectName);
+                        row.Add(string.IsNullOrEmpty(omgFunction.ObjectFullName) ? Constants.No_Data : omgFunction.ObjectFullName);
+                        row.Add(string.IsNullOrEmpty(omgFunction.ObjectType) ? Constants.No_Data : omgFunction.ObjectType);
+                        row.Add(string.IsNullOrEmpty(omgFunction.ObjectStatus) ? Constants.No_Data : omgFunction.ObjectStatus);
+                        row.Add(string.IsNullOrEmpty(omgFunction.EffortComplexity) ? Constants.No_Data : omgFunction.EffortComplexity.FormatStringDoubleIntoString());
+                        row.Add(string.IsNullOrEmpty(omgFunction.EquivalenceRatio) ? Constants.No_Data : omgFunction.EquivalenceRatio.FormatStringDoubleIntoString());
+                        row.Add(string.IsNullOrEmpty(omgFunction.AepCount) ? Constants.No_Data : omgFunction.AepCount?.FormatStringDoubleIntoString());
+                        rowData.AddRange(row);
+                        nbRows += 1;
+                    }
+                    catch (Exception e) when (e is FormatException)
+                    {
+                        LogHelper.LogWarn("Invalid data cannot be add in the AETP_LIST table : " + e.Message);
+                    }
                 }
             }
             else
