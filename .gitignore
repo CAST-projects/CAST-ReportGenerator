@@ -225,3 +225,4 @@ Setup/ReportGeneratorSetup.exe
 /CastReporting.Reporting/TemplatesFiles/CISQ Compliance Report_ABD.docx
 /.vs/Cast-Reporting/v16/Server/sqlite3
 /.vs/Cast-Reporting/v16/TestStore/0
+/.vs/Cast-Reporting/DesignTimeBuild/.dtbcache.v2

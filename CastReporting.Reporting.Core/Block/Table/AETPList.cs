@@ -69,7 +69,6 @@ namespace CastReporting.Reporting.Block.Table
                     }
                 }
             }
-        }
             else
             {
                 rowData.AddRange(new[] { Labels.NoItem, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty });
