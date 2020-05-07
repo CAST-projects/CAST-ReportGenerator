@@ -7,7 +7,7 @@ using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
 using CastReporting.Domain;
-using CastReporting.Reporting.Helper;
+using System;
 
 namespace CastReporting.Reporting.Block.Table
 {
