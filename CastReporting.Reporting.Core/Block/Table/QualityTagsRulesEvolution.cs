@@ -85,6 +85,14 @@ namespace CastReporting.Reporting.Block.Table
                 cellidx++; // for Remediation
             }
 
+            // REPORTGEN-877
+            // TODO : utiliser RulesViolationUtility.GetViolStat (fonctionne avec BC, TC, Rule), si pas de résultat, alors GetQualityStandardsTagsResults
+            // Ne pas oublier de changer le nom stdTagName ça va pas marcher avec un TC/BC
+            
+            // Pour BC, TC doit trouver la liste des contributors
+            // Si BC, doit donner les résultats des TC associés
+            // Si TC doit donner les résultats des QR associées
+
             List<ApplicationResult> results = reportData.SnapshotExplorer.GetQualityStandardsTagsResults(reportData.CurrentSnapshot.Href, standard)?.FirstOrDefault()?.ApplicationResults?.ToList();
 
             if (results?.Count > 0)

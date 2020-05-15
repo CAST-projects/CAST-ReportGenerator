@@ -1293,7 +1293,160 @@
 		"technologyResults": [],
 		"moduleResults": [],
 		"transactionResults": []
-	  }
+	  },
+      {
+				"type": "quality-rules",
+				"reference": {
+					"href": "ee5a6ca3-9238-4c09-b1d7-727f0c1a11e5/quality-indicators/7752/snapshots/3",
+					"name": "Avoid file path manipulation vulnerabilities",
+					"key": "7752",
+					"critical": true
+				},
+				"result": {
+					"grade": 4,
+					"violationRatio": {
+						"totalChecks": 30,
+						"failedChecks": 0,
+						"successfulChecks": 30,
+						"ratio": 1
+					},
+					"evolutionSummary": {
+						"addedCriticalViolations": 0,
+						"removedCriticalViolations": 0,
+						"addedViolations": 0,
+						"removedViolations": 0
+					}
+				},
+				"technologyResults": [],
+				"moduleResults": [],
+				"transactionResults": []
+			},
+			{
+				"type": "quality-rules",
+				"reference": {
+					"href": "ee5a6ca3-9238-4c09-b1d7-727f0c1a11e5/quality-indicators/8436/snapshots/3",
+					"name": "Avoid thread injection vulnerabilities",
+					"key": "8436",
+					"critical": true
+				},
+				"result": {
+					"grade": 4,
+					"violationRatio": {
+						"totalChecks": 30,
+						"failedChecks": 0,
+						"successfulChecks": 30,
+						"ratio": 1
+					},
+					"evolutionSummary": {
+						"addedCriticalViolations": 0,
+						"removedCriticalViolations": 0,
+						"addedViolations": 0,
+						"removedViolations": 0
+					}
+				},
+				"technologyResults": [],
+				"moduleResults": [],
+				"transactionResults": []
+			},
+			{
+				"type": "quality-rules",
+				"reference": {
+					"href": "ee5a6ca3-9238-4c09-b1d7-727f0c1a11e5/quality-indicators/8442/snapshots/3",
+					"name": "Avoid resource injection",
+					"key": "8442",
+					"critical": true
+				},
+				"result": {
+					"grade": 4,
+					"violationRatio": {
+						"totalChecks": 30,
+						"failedChecks": 0,
+						"successfulChecks": 30,
+						"ratio": 1
+					},
+					"evolutionSummary": {
+						"addedCriticalViolations": 0,
+						"removedCriticalViolations": 0,
+						"addedViolations": 0,
+						"removedViolations": 0
+					}
+				},
+				"technologyResults": [],
+				"moduleResults": [],
+				"transactionResults": []
+			},
+			{
+				"type": "technical-criteria",
+				"reference": {
+					"href": "ee5a6ca3-9238-4c09-b1d7-727f0c1a11e5/quality-indicators/1062177/snapshots/3",
+					"name": "ASCSM-CWE-22 - Path Traversal Improper Input Neutralization",
+					"shortName": "ASCSM-CWE-22",
+					"key": "1062177",
+					"critical": false
+				},
+				"result": {
+					"grade": 4,
+					"evolutionSummary": {
+						"totalCriticalViolations": 0,
+						"addedCriticalViolations": 0,
+						"removedCriticalViolations": 0,
+						"totalViolations": 0,
+						"addedViolations": 0,
+						"removedViolations": 0
+					}
+				},
+				"technologyResults": [],
+				"moduleResults": [],
+				"transactionResults": []
+			},
+			{
+				"type": "technical-criteria",
+				"reference": {
+					"href": "ee5a6ca3-9238-4c09-b1d7-727f0c1a11e5/quality-indicators/1062189/snapshots/3",
+					"name": "ASCSM-CWE-78 - OS Command Injection Improper Input Neutralization",
+					"shortName": "ASCSM-CWE-78",
+					"key": "1062189",
+					"critical": false
+				},
+				"result": {
+					"grade": 4,
+					"evolutionSummary": {
+						"totalCriticalViolations": 0,
+						"addedCriticalViolations": 0,
+						"removedCriticalViolations": 0,
+						"totalViolations": 0,
+						"addedViolations": 0,
+						"removedViolations": 0
+					}
+				},
+				"technologyResults": [],
+				"moduleResults": [],
+				"transactionResults": []
+			},
+			{
+				"type": "technical-criteria",
+				"reference": {
+					"href": "ee5a6ca3-9238-4c09-b1d7-727f0c1a11e5/quality-indicators/1062191/snapshots/3",
+					"name": "ASCSM-CWE-79 - Cross-site Scripting Improper Input Neutralization",
+					"shortName": "ASCSM-CWE-79",
+					"key": "1062191",
+					"critical": false
+				},
+				"result": {
+					"grade": 4,
+					"evolutionSummary": {
+						"totalCriticalViolations": 0,
+						"addedCriticalViolations": 0,
+						"removedCriticalViolations": 0,
+						"totalViolations": 0,
+						"addedViolations": 0,
+						"removedViolations": 1
+					}
+				},
+				"technologyResults": [],
+				"moduleResults": [],
+				"transactionResults": []
+			}
     ]
 	}
 ]
