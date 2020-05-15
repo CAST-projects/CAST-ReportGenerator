@@ -1,0 +1,4 @@
+﻿Object id;Object name;Object name location;Object type;Object status;Effort complexity;Equivalence ratio;AEP
+497;getDays;[C:\jenkins7_slave\workspace\CAIP_Trunk_TestE2E_CSS_ADG\Work\CAST\Deploy\IFPUG\Sol2005\solution_complete_for_stats\WebApplicationVB\appli_web_asp\calendar.htc].getDays;eFunction;added;0.05;45.42553191489362;2.2712766295893396
+4087;"getM;onthName";"[C:\jenkins7_slave\workspace\CAIP_Trunk_TestE2E_CSS_ADG\Work\CAST\Deploy\IFPUG\Sol2005\solution_complete_for_stats\WebApplicationVB\appli_web_asp\calendar.htc].getM;onthName";eFunction;added;0.05;45.42553191489362;2.2712766295893396
+1348;leapYear;[C:\jenkins7_slave\workspace\CAIP_Trunk_TestE2E_CSS_ADG\Work\CAST\Deploy\IFPUG\Sol2005\solution_complete_for_stats\WebApplicationVB\appli_web_asp\calendar.htc].leapYear;eFunction;added;0.05;45.42553191489362;2.2712766295893396

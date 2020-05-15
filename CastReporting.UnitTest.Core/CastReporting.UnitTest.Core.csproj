@@ -160,6 +160,9 @@
     <None Update="Data\cocraFuncWeightPrevious.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\OmgFunctionsTechnicalEscaped.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\WebGoatMultiPreviousResults.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
