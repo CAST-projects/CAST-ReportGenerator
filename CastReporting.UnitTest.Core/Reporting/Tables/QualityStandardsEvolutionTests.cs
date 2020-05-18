@@ -323,6 +323,84 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
         }
 
+        [TestMethod]
+        [DeploymentItem(@".\Data\CurrentBCTCindex.json", "Data")]
+        public void TestBCOWASP2013()
+        {
+            CastDate currentDate = new CastDate { Time = 1484953200000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+                null, @".\Data\CurrentBCTCindex.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, null, null, null, null, null);
+            WSConnection connection = new WSConnection
+            {
+                Url = "http://tests/CAST-RESTAPI/rest/",
+                Login = "admin",
+                Password = "cast",
+                IsActive = true,
+                Name = "Default"
+            };
+            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
+            reportData.RuleExplorer = new RuleBLLStub();
+
+            var component = new CastReporting.Reporting.Block.Table.QualityStandardsEvolution();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"STD","OWASP-2013" },
+                {"EVOLUTION", "true" }
+            };
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>
+            {
+                "OWASP-2013","Total Vulnerabilities","Added Vulnerabilities","Removed Vulnerabilities",
+                "ASCSM-CWE-22 - Path Traversal Improper Input Neutralization","15","9","6",
+                "ASCSM-CWE-78 - OS Command Injection Improper Input Neutralization","17","3","10"
+            };
+
+            TestUtility.AssertTableContent(table, expectedData, 4, 3);
+
+        }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\CurrentBCTCindex.json", "Data")]
+        public void TestBCCISQMore()
+        {
+            CastDate currentDate = new CastDate { Time = 1484953200000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+                null, @".\Data\CurrentBCTCindex.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, null, null, null, null, null);
+            WSConnection connection = new WSConnection
+            {
+                Url = "http://tests/CAST-RESTAPI/rest/",
+                Login = "admin",
+                Password = "cast",
+                IsActive = true,
+                Name = "Default"
+            };
+            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
+            reportData.RuleExplorer = new RuleBLLStub();
+
+            var component = new CastReporting.Reporting.Block.Table.QualityStandardsEvolution();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"STD","CISQ" },
+                {"MORE", "true" },
+                {"EVOLUTION", "true" }
+            };
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>
+            {
+                "CISQ","Total Vulnerabilities","Added Vulnerabilities","Removed Vulnerabilities",
+                "CISQ-Security","11","11","2",
+                "    ASCSM-CWE-22 - Path Traversal Improper Input Neutralization","15","9","6",
+                "    ASCSM-CWE-78 - OS Command Injection Improper Input Neutralization","17","3","10"
+            };
+
+            TestUtility.AssertTableContent(table, expectedData, 4, 4);
+
+        }
+
     }
 }
 

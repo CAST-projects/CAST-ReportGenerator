@@ -127,6 +127,12 @@ namespace CastReporting.UnitTest.Reporting
                         new Contributor {Key = 1020058, Critical = false},
                         new Contributor {Key = 8436, Critical = false}
                     };
+                case "1062300":
+                    return new List<Contributor>
+                    {
+                        new Contributor {Key = 1062177, Critical = false},
+                        new Contributor {Key = 1062189, Critical = false}
+                    };
                 default:
                     return new List<Contributor>
                     {

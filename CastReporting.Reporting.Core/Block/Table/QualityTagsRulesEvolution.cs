@@ -90,12 +90,17 @@ namespace CastReporting.Reporting.Block.Table
             }
 
             // REPORTGEN-877 : 
-            // this component initially designed for standard category, should now wotk for a BC, because in new extension the standards are besoming BC
-            // to avoid changing the reports, the parameter should accept : BC name, BC id, category name
+            // this component initially designed for standard category, should now wotk for a BC, because in new extension the standards are becoming BC
+            // to avoid changing the reports, the parameter should accept : BC name or short name, BC id, category name
             int metricBcIdFromName = reportData.CurrentSnapshot.BusinessCriteriaResults.Where(_ => _.Reference.Name == indicatorName).Select(_ => _.Reference.Key).FirstOrDefault();
+            if (metricBcIdFromName == 0)
+            {
+                // if we don't get it with the name, we try with the short name
+                metricBcIdFromName = reportData.CurrentSnapshot.BusinessCriteriaResults.Where(_ => _.Reference.ShortName == indicatorName).Select(_ => _.Reference.Key).FirstOrDefault();
+            }
             if (metricBcIdFromName != 0)
             {
-                // Case of BC name
+                // Case of BC
                 List<int?> technicalCriterionIds = reportData.RuleExplorer.GetCriteriaContributors(reportData.CurrentSnapshot.DomainId, metricBcIdFromName.ToString(), reportData.CurrentSnapshot.Id).Select(_=>_.Key).ToList();
                 List<ApplicationResult> tcResults = technicalCriterionIds.Count > 0 ? 
                     reportData.CurrentSnapshot.TechnicalCriteriaResults.Where(_ => technicalCriterionIds.Contains(_.Reference.Key)).ToList() 

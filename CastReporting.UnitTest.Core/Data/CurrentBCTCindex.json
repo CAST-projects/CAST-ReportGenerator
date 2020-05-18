@@ -46,6 +46,7 @@
 		"reference": {
 			"href": "b6a0c6f5-83d1-441f-bd7a-dc50a7d9c5d9/quality-indicators/1062104/snapshots/6",
 			"name": "CISQ-Security",
+            "shortName": "CISQ-Security",
 			"key": "1062104",
 			"critical": "N/A"
 		},
@@ -1468,6 +1469,58 @@
 						"removedCriticalViolations": 2,
 						"addedViolations": 3,
 						"removedViolations": 2
+					}
+				},
+				"technologyResults": [],
+				"moduleResults": [],
+				"transactionResults": []
+			},
+            {
+				"type": "business-criteria",
+				"reference": {
+					"href": "e0f045f8-bc24-49aa-973b-9c35db316c78/quality-indicators/1062300/snapshots/2",
+					"name": "OWASP-2013 Index",
+                    "shortName": "OWASP-2013",
+					"key": "1062300",
+					"critical": "N/A"
+				},
+				"result": {
+					"grade": 3.799736674640271,
+					"evolutionSummary": {
+						"criticalViolationsInNewAndModifiedCode": 0,
+						"totalCriticalViolations": 0,
+						"addedCriticalViolations": 0,
+						"removedCriticalViolations": 0,
+						"violationsInNewAndModifiedCode": 1,
+						"totalViolations": 22,
+						"addedViolations": 1,
+						"removedViolations": 16
+					}
+				},
+				"technologyResults": [],
+				"moduleResults": [],
+				"transactionResults": []
+			},
+            {
+				"type": "business-criteria",
+				"reference": {
+					"href": "e0f045f8-bc24-49aa-973b-9c35db316c78/quality-indicators/1062100/snapshots/2",
+					"name": "CISQ-Index",
+                    "shortName": "CISQ",
+					"key": "1062100",
+					"critical": "N/A"
+				},
+				"result": {
+					"grade": 3.281833401933219,
+					"evolutionSummary": {
+						"criticalViolationsInNewAndModifiedCode": 0,
+						"totalCriticalViolations": 0,
+						"addedCriticalViolations": 0,
+						"removedCriticalViolations": 0,
+						"violationsInNewAndModifiedCode": 37,
+						"totalViolations": 1393,
+						"addedViolations": 73,
+						"removedViolations": 11
 					}
 				},
 				"technologyResults": [],
