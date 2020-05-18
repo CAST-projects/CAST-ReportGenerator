@@ -544,7 +544,7 @@ namespace CastReporting.Reporting.Helper
                         int metricTcIdFromShortName = snapshot.TechnicalCriteriaResults.Where(_ => _.Reference.ShortName == _metric).Select(_ => _.Reference.Key).FirstOrDefault();
                         if (metricTcIdFromShortName != 0)
                         {
-                            List<Contributor> rules = reportData.RuleExplorer.GetRulesInTechnicalCriteria(snapshot.DomainId, metricTcIdFromShortName.ToString(), snapshot.Id).ToList();
+                            List<Contributor> rules = reportData.RuleExplorer.GetCriteriaContributors(snapshot.DomainId, metricTcIdFromShortName.ToString(), snapshot.Id).ToList();
                             qualityRules.AddRange(critical ? rules.Where(_ => _.Critical).Select(_ => _.Key.ToString()).ToList() : rules.Select(_ => _.Key.ToString()).ToList());
                         }
                         else
@@ -573,7 +573,7 @@ namespace CastReporting.Reporting.Helper
                         if (name != null)
                         {
                             // This is a Technical criteria
-                            List<Contributor> rules = reportData.RuleExplorer.GetRulesInTechnicalCriteria(snapshot.DomainId, _metric, snapshot.Id).ToList();
+                            List<Contributor> rules = reportData.RuleExplorer.GetCriteriaContributors(snapshot.DomainId, _metric, snapshot.Id).ToList();
                             qualityRules.AddRange(critical ? rules.Where(_ => _.Critical).Select(_ => _.Key.ToString()).ToList() : rules.Select(_ => _.Key.ToString()));
                         }
                         else

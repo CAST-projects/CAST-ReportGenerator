@@ -1306,15 +1306,15 @@
 					"grade": 4,
 					"violationRatio": {
 						"totalChecks": 30,
-						"failedChecks": 0,
-						"successfulChecks": 30,
-						"ratio": 1
+						"failedChecks": 10,
+						"successfulChecks": 20,
+						"ratio": 0.33
 					},
 					"evolutionSummary": {
-						"addedCriticalViolations": 0,
-						"removedCriticalViolations": 0,
-						"addedViolations": 0,
-						"removedViolations": 0
+						"addedCriticalViolations": 5,
+						"removedCriticalViolations": 2,
+						"addedViolations": 7,
+						"removedViolations": 3
 					}
 				},
 				"technologyResults": [],
@@ -1332,16 +1332,16 @@
 				"result": {
 					"grade": 4,
 					"violationRatio": {
-						"totalChecks": 30,
-						"failedChecks": 0,
-						"successfulChecks": 30,
-						"ratio": 1
+						"totalChecks": 14,
+						"failedChecks": 5,
+						"successfulChecks": 9,
+						"ratio": 0.6325
 					},
 					"evolutionSummary": {
-						"addedCriticalViolations": 0,
-						"removedCriticalViolations": 0,
-						"addedViolations": 0,
-						"removedViolations": 0
+						"addedCriticalViolations": 6,
+						"removedCriticalViolations": 4,
+						"addedViolations": 5,
+						"removedViolations": 3
 					}
 				},
 				"technologyResults": [],
@@ -1387,12 +1387,12 @@
 				"result": {
 					"grade": 4,
 					"evolutionSummary": {
-						"totalCriticalViolations": 0,
-						"addedCriticalViolations": 0,
-						"removedCriticalViolations": 0,
-						"totalViolations": 0,
-						"addedViolations": 0,
-						"removedViolations": 0
+						"totalCriticalViolations": 7,
+						"addedCriticalViolations": 3,
+						"removedCriticalViolations": 2,
+						"totalViolations": 15,
+						"addedViolations": 9,
+						"removedViolations": 6
 					}
 				},
 				"technologyResults": [],
@@ -1411,12 +1411,12 @@
 				"result": {
 					"grade": 4,
 					"evolutionSummary": {
-						"totalCriticalViolations": 0,
-						"addedCriticalViolations": 0,
-						"removedCriticalViolations": 0,
-						"totalViolations": 0,
-						"addedViolations": 0,
-						"removedViolations": 0
+						"totalCriticalViolations": 9,
+						"addedCriticalViolations": 8,
+						"removedCriticalViolations": 7,
+						"totalViolations": 17,
+						"addedViolations": 3,
+						"removedViolations": 10
 					}
 				},
 				"technologyResults": [],
@@ -1441,6 +1441,33 @@
 						"totalViolations": 0,
 						"addedViolations": 0,
 						"removedViolations": 1
+					}
+				},
+				"technologyResults": [],
+				"moduleResults": [],
+				"transactionResults": []
+			},
+            {
+				"type": "quality-rules",
+				"reference": {
+					"href": "e0f045f8-bc24-49aa-973b-9c35db316c78/quality-indicators/1020058/snapshots/2",
+					"name": "Avoid using eval() (Javascript)",
+					"key": "1020058",
+					"critical": true
+				},
+				"result": {
+					"grade": 4,
+					"violationRatio": {
+						"totalChecks": 1111,
+						"failedChecks": 4,
+						"successfulChecks": 1107,
+						"ratio": 0.9963996399639964
+					},
+					"evolutionSummary": {
+						"addedCriticalViolations": 3,
+						"removedCriticalViolations": 2,
+						"addedViolations": 3,
+						"removedViolations": 2
 					}
 				},
 				"technologyResults": [],

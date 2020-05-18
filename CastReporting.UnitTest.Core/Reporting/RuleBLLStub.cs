@@ -95,7 +95,7 @@ namespace CastReporting.UnitTest.Reporting
             }
         }
 
-        public IEnumerable<Contributor> GetRulesInTechnicalCriteria(string domain, string technicalCriteria, long snapshotHRef)
+        public IEnumerable<Contributor> GetCriteriaContributors(string domain, string technicalCriteria, long snapshotHRef)
         {
             switch (technicalCriteria)
             {
@@ -109,6 +109,23 @@ namespace CastReporting.UnitTest.Reporting
                     return new List<Contributor>
                     {
                         new Contributor {Key = 8412, Critical = false}
+                    };
+                case "1062104":
+                    return new List<Contributor>
+                    {
+                        new Contributor {Key = 1062177, Critical = false},
+                        new Contributor {Key = 1062189, Critical = false}
+                    };
+                case "1062177":
+                    return new List<Contributor>
+                    {
+                        new Contributor {Key = 7752, Critical = false}
+                    };
+                case "1062189":
+                    return new List<Contributor>
+                    {
+                        new Contributor {Key = 1020058, Critical = false},
+                        new Contributor {Key = 8436, Critical = false}
                     };
                 default:
                     return new List<Contributor>

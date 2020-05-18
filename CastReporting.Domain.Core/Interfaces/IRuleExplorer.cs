@@ -43,7 +43,7 @@ namespace CastReporting.Domain.Interfaces
         /// <returns></returns>
         IEnumerable<RuleDetails> GetRulesDetails(string domain, int businessCriteria, long snapshotId);
 
-        IEnumerable<Contributor> GetRulesInTechnicalCriteria(string domain, string technicalCriteria, long snapshotHRef);
+        IEnumerable<Contributor> GetCriteriaContributors(string domain, string technicalCriteria, long snapshotHRef);
 
         /// <summary>
         /// Get the list of added,updated or deleted artifacts for application, module or technology
