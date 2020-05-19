@@ -282,11 +282,11 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var expectedData = new List<string>
             {
                 "CISQ-Security","Total Vulnerabilities","Added Vulnerabilities","Removed Vulnerabilities",
-                "ASCSM-CWE-22 - Path Traversal Improper Input Neutralization","15","9","6",
-                "    Avoid file path manipulation vulnerabilities","10","7","3",
                 "ASCSM-CWE-78 - OS Command Injection Improper Input Neutralization","17","3","10",
                 "    Avoid thread injection vulnerabilities","5","5","3",
-                "    Avoid using eval() (Javascript)","4","3","2"
+                "    Avoid using eval() (Javascript)","4","3","2",
+                "ASCSM-CWE-22 - Path Traversal Improper Input Neutralization","15","9","6",
+                "    Avoid file path manipulation vulnerabilities","10","7","3"
             };
 
             TestUtility.AssertTableContent(table, expectedData, 4, 6);
@@ -320,11 +320,11 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var expectedData = new List<string>
             {
                 "CISQ-Security","Total Vulnerabilities","Added Vulnerabilities","Removed Vulnerabilities",
-                "ASCSM-CWE-22 - Path Traversal Improper Input Neutralization","15","9","6",
-                "    Avoid file path manipulation vulnerabilities","10","7","3",
                 "ASCSM-CWE-78 - OS Command Injection Improper Input Neutralization","17","3","10",
                 "    Avoid thread injection vulnerabilities","5","5","3",
-                "    Avoid using eval() (Javascript)","4","3","2"
+                "    Avoid using eval() (Javascript)","4","3","2",
+                "ASCSM-CWE-22 - Path Traversal Improper Input Neutralization","15","9","6",
+                "    Avoid file path manipulation vulnerabilities","10","7","3"
             };
 
             TestUtility.AssertTableContent(table, expectedData, 4, 6);
