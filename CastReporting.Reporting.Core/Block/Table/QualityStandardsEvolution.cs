@@ -106,16 +106,16 @@ namespace CastReporting.Reporting.Block.Table
                 // so if MORE=true, we do not get the results for CISQ, but we search for all CISQ-xxx BCs
                 if (detail)
                 {
-                    List<ApplicationResult> bcresults = reportData.CurrentSnapshot.BusinessCriteriaResults.Where(_ => _.Reference.ShortName.Contains(indicatorName + "-")).ToList();
+                    List<ApplicationResult> bcresults = reportData.CurrentSnapshot.BusinessCriteriaResults.Where(_ => _.Reference.ShortName.Contains(indicatorName + "-")).OrderByDescending(_=>_.DetailResult.EvolutionSummary.TotalViolations).ToList();
                     foreach(ApplicationResult bcres in bcresults)
                     {
                         string bcName = bcres.Reference.Name;
                         int? nbbcViolations = bcres.DetailResult?.EvolutionSummary?.TotalViolations;
-                        cellidx = AddDataRow(false, displayEvolution, lbltotal, lbladded, lblremoved, indicatorName, cellProps, cellidx, headers, data, bcres.DetailResult, nbbcViolations, bcName);
+                        cellidx = AddDataRow(true, displayEvolution, lbltotal, lbladded, lblremoved, indicatorName, cellProps, cellidx, headers, data, bcres.DetailResult, nbbcViolations, bcName);
 
                         List<int?> technicalCriterionIds = reportData.RuleExplorer.GetCriteriaContributors(reportData.CurrentSnapshot.DomainId, bcres.Reference.Key.ToString(), reportData.CurrentSnapshot.Id).Select(_ => _.Key).ToList();
                         List<ApplicationResult> tcResults = technicalCriterionIds.Count > 0 ?
-                            reportData.CurrentSnapshot.TechnicalCriteriaResults.Where(_ => technicalCriterionIds.Contains(_.Reference.Key)).ToList()
+                            reportData.CurrentSnapshot.TechnicalCriteriaResults.Where(_ => technicalCriterionIds.Contains(_.Reference.Key)).OrderByDescending(_=>_.DetailResult.EvolutionSummary.TotalViolations).ToList()
                             : null;
                         if (tcResults?.Count > 0)
                         {
@@ -132,7 +132,7 @@ namespace CastReporting.Reporting.Block.Table
                 {
                     List<int?> technicalCriterionIds = reportData.RuleExplorer.GetCriteriaContributors(reportData.CurrentSnapshot.DomainId, metricBcIdFromName.ToString(), reportData.CurrentSnapshot.Id).Select(_ => _.Key).ToList();
                     List<ApplicationResult> tcResults = technicalCriterionIds.Count > 0 ?
-                        reportData.CurrentSnapshot.TechnicalCriteriaResults.Where(_ => technicalCriterionIds.Contains(_.Reference.Key)).ToList()
+                        reportData.CurrentSnapshot.TechnicalCriteriaResults.Where(_ => technicalCriterionIds.Contains(_.Reference.Key)).OrderByDescending(_=>_.DetailResult.EvolutionSummary.TotalViolations).ToList()
                         : null;
                     if (tcResults?.Count > 0)
                     {

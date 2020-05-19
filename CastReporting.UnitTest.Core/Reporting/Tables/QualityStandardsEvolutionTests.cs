@@ -353,8 +353,8 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var expectedData = new List<string>
             {
                 "OWASP-2013","Total Vulnerabilities","Added Vulnerabilities","Removed Vulnerabilities",
-                "ASCSM-CWE-22 - Path Traversal Improper Input Neutralization","15","9","6",
-                "ASCSM-CWE-78 - OS Command Injection Improper Input Neutralization","17","3","10"
+                "ASCSM-CWE-78 - OS Command Injection Improper Input Neutralization","17","3","10",
+                "ASCSM-CWE-22 - Path Traversal Improper Input Neutralization","15","9","6"
             };
 
             TestUtility.AssertTableContent(table, expectedData, 4, 3);
@@ -393,8 +393,8 @@ namespace CastReporting.UnitTest.Reporting.Tables
             {
                 "CISQ","Total Vulnerabilities","Added Vulnerabilities","Removed Vulnerabilities",
                 "CISQ-Security","11","11","2",
-                "    ASCSM-CWE-22 - Path Traversal Improper Input Neutralization","15","9","6",
-                "    ASCSM-CWE-78 - OS Command Injection Improper Input Neutralization","17","3","10"
+                "    ASCSM-CWE-78 - OS Command Injection Improper Input Neutralization","17","3","10",
+                "    ASCSM-CWE-22 - Path Traversal Improper Input Neutralization","15","9","6"
             };
 
             TestUtility.AssertTableContent(table, expectedData, 4, 4);
