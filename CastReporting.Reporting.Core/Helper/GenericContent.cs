@@ -1478,7 +1478,7 @@ namespace CastReporting.Reporting.Helper
 
             if (metricstags.Count > 0) metrics.AddRange(metricstags);
 
-            return metrics.Distinct().ToList();
+            return metrics.Distinct().OrderBy(_ => _).ToList();
         }
     }
 }

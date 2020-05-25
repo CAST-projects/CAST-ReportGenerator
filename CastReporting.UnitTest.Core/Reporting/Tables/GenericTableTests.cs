@@ -38,8 +38,8 @@ namespace CastReporting.UnitTest.Reporting.Tables
             };
             var table = component.Content(reportData, config);
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> {"Snapshots", "Efficiency", "Total Quality Index", "Robustness"});
-            expectedData.AddRange(new List<string> {"PreVersion 1.5.0 sprint 2 shot 2 - V-1.5.0_Sprint 2_2", "2.59", "2.78", "3.19"});
+            expectedData.AddRange(new List<string> {"Snapshots", "Robustness", "Efficiency", "Total Quality Index"});
+            expectedData.AddRange(new List<string> {"PreVersion 1.5.0 sprint 2 shot 2 - V-1.5.0_Sprint 2_2", "3.19", "2.59", "2.78"});
             TestUtility.AssertTableContent(table, expectedData, 4, 2);
         }
 
@@ -67,9 +67,9 @@ namespace CastReporting.UnitTest.Reporting.Tables
             };
             var table = component.Content(reportData, config);
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> {"Snapshots", "Efficiency", "Total Quality Index", "Robustness"});
-            expectedData.AddRange(new List<string> {"PreVersion 1.5.0 sprint 2 shot 2 - V-1.5.0_Sprint 2_2", "2.59", "2.78", "3.19"});
-            expectedData.AddRange(new List<string> {"PreVersion 1.4.1 before release - V-1.4.1", "2.61", "2.61", "2.88"});
+            expectedData.AddRange(new List<string> {"Snapshots", "Robustness", "Efficiency", "Total Quality Index"});
+            expectedData.AddRange(new List<string> {"PreVersion 1.5.0 sprint 2 shot 2 - V-1.5.0_Sprint 2_2", "3.19", "2.59", "2.78"});
+            expectedData.AddRange(new List<string> {"PreVersion 1.4.1 before release - V-1.4.1", "2.88", "2.61", "2.61"});
             TestUtility.AssertTableContent(table, expectedData, 4, 3);
         }
 
@@ -243,16 +243,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
             var expectedData = new List<string>();
             expectedData.AddRange(new List<string> { "Snapshots",
-                "Total Quality Index - SHOPIZER/AppliAEPtran/Shopizer_sql content",
-                "Total Quality Index - sm-central/AppliAEPtran/Shopizer_src content",
-                "Total Quality Index - sm-core/AppliAEPtran/Shopizer_src content",
-                "Total Quality Index - sm-shop/AppliAEPtran/Shopizer_src content",
                 "Efficiency - SHOPIZER/AppliAEPtran/Shopizer_sql content",
                 "Efficiency - sm-central/AppliAEPtran/Shopizer_src content",
                 "Efficiency - sm-core/AppliAEPtran/Shopizer_src content",
-                "Efficiency - sm-shop/AppliAEPtran/Shopizer_src content"});
-            expectedData.AddRange(new List<string> { "Snap_v1.1.4 - v1.1.4","3.47","2.53", "2.68", "2.49","3.26", "1.84", "1.88", "1.84"});
-            expectedData.AddRange(new List<string> { "Snap_v1.1.3 - v1.1.3", "3.47", "2.53", "2.68", "2.49", "3.26", "1.84", "1.88", "1.84" });
+                "Efficiency - sm-shop/AppliAEPtran/Shopizer_src content",
+                "Total Quality Index - SHOPIZER/AppliAEPtran/Shopizer_sql content",
+                "Total Quality Index - sm-central/AppliAEPtran/Shopizer_src content",
+                "Total Quality Index - sm-core/AppliAEPtran/Shopizer_src content",
+                "Total Quality Index - sm-shop/AppliAEPtran/Shopizer_src content" });
+            expectedData.AddRange(new List<string> { "Snap_v1.1.4 - v1.1.4", "3.26", "1.84", "1.88", "1.84", "3.47","2.53", "2.68", "2.49"});
+            expectedData.AddRange(new List<string> { "Snap_v1.1.3 - v1.1.3", "3.26", "1.84", "1.88", "1.84", "3.47", "2.53", "2.68", "2.49" });
             TestUtility.AssertTableContent(table, expectedData, 9, 3);
             
         }
@@ -285,12 +285,12 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
             var expectedData = new List<string>();
             expectedData.AddRange(new List<string> { "Snapshots",
-                "Adg - Total Quality Index", "Adg - Efficiency",
-                "Central - Total Quality Index", "Central - Efficiency",
-                "DssAdmin - Total Quality Index", "DssAdmin - Efficiency",
-                "Pchit - Total Quality Index", "Pchit - Efficiency"});
-            expectedData.AddRange(new List<string> { "ADGAutoSnap_Dream Team_4 - 4", "2.35", "2.64", "2.40", "1.71", "3.08", "3.31", "2.62", "2.14" });
-            expectedData.AddRange(new List<string> { "ADGAutoSnap_Dream Team_1 - 1", "2.43", "2.64", "2.40", "1.71", "3.08", "3.32", "2.63", "2.09" });
+                "Adg - Efficiency", "Adg - Total Quality Index",
+                "Central - Efficiency", "Central - Total Quality Index",
+                "DssAdmin - Efficiency", "DssAdmin - Total Quality Index",
+                "Pchit - Efficiency", "Pchit - Total Quality Index" });
+            expectedData.AddRange(new List<string> { "ADGAutoSnap_Dream Team_4 - 4", "2.64", "2.35", "1.71", "2.40", "3.31", "3.08", "2.14", "2.62" });
+            expectedData.AddRange(new List<string> { "ADGAutoSnap_Dream Team_1 - 1", "2.64", "2.43", "1.71", "2.40", "3.32", "3.08", "2.09", "2.63" });
             TestUtility.AssertTableContent(table, expectedData, 9, 3);
         }
 
@@ -327,20 +327,20 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
             var expectedData = new List<string>();
             expectedData.AddRange(new List<string> { "Snapshots",
-                "Adg - Total Quality Index", "Adg - Efficiency",
-                "Central - Total Quality Index", "Central - Efficiency",
-                "DssAdmin - Total Quality Index", "DssAdmin - Efficiency",
-                "Pchit - Total Quality Index", "Pchit - Efficiency"});
+                "Adg - Efficiency", "Adg - Total Quality Index",
+                "Central - Efficiency", "Central - Total Quality Index",
+                "DssAdmin - Efficiency", "DssAdmin - Total Quality Index",
+                "Pchit - Efficiency", "Pchit - Total Quality Index" });
             expectedData.AddRange(new List<string> { "ADGAutoSnap_Dream Team_4 - 4", " ", " ", " ", " ", " ", " ", " ", " " });
-            expectedData.AddRange(new List<string> { "    JEE", "2.35", "2.64", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a" });
-            expectedData.AddRange(new List<string> { "    PL/SQL", "n/a", "n/a", "2.40", "1.71", "n/a", "n/a", "n/a", "n/a" });
-            expectedData.AddRange(new List<string> { "    C++", "n/a", "n/a", "n/a", "n/a", "3.08", "3.31", "n/a", "n/a" });
-            expectedData.AddRange(new List<string> { "    .NET", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "2.62", "2.14" });
+            expectedData.AddRange(new List<string> { "    JEE", "2.64", "2.35", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a" });
+            expectedData.AddRange(new List<string> { "    PL/SQL", "n/a", "n/a", "1.71", "2.40", "n/a", "n/a", "n/a", "n/a" });
+            expectedData.AddRange(new List<string> { "    C++", "n/a", "n/a", "n/a", "n/a", "3.31", "3.08", "n/a", "n/a" });
+            expectedData.AddRange(new List<string> { "    .NET", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "2.14", "2.62" });
             expectedData.AddRange(new List<string> { "ADGAutoSnap_Dream Team_1 - 1", " ", " ", " ", " ", " ", " ", " ", " " });
-            expectedData.AddRange(new List<string> { "    JEE", "2.43", "2.64", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a" });
-            expectedData.AddRange(new List<string> { "    PL/SQL", "n/a", "n/a", "2.40", "1.71", "n/a", "n/a", "n/a", "n/a" });
-            expectedData.AddRange(new List<string> { "    C++", "n/a", "n/a", "n/a", "n/a", "3.08", "3.32", "n/a", "n/a" });
-            expectedData.AddRange(new List<string> { "    .NET", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "2.63", "2.09" });
+            expectedData.AddRange(new List<string> { "    JEE", "2.64", "2.43", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a" });
+            expectedData.AddRange(new List<string> { "    PL/SQL", "n/a", "n/a", "1.71", "2.40", "n/a", "n/a", "n/a", "n/a" });
+            expectedData.AddRange(new List<string> { "    C++", "n/a", "n/a", "n/a", "n/a", "3.32", "3.08", "n/a", "n/a" });
+            expectedData.AddRange(new List<string> { "    .NET", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "2.09", "2.63" });
             TestUtility.AssertTableContent(table, expectedData, 9, 11);
         }
 
@@ -502,8 +502,8 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
             var expectedData = new List<string>();
             expectedData.AddRange(new List<string> {"Metrics", "ADGAutoSnap_Dream Team_4 - 4", "ADGAutoSnap_Dream Team_1 - 1", "Evolution", "% Evolution" });
+            expectedData.AddRange(new List<string> { "Number of Comment Lines", "10,626", "10,009", "617", "+6.16 %" });
             expectedData.AddRange(new List<string> {"Number of Code Lines", "104,851", "92,762", "12,089", "+13.0 %" });
-            expectedData.AddRange(new List<string> {"Number of Comment Lines", "10,626", "10,009", "617", "+6.16 %" });
             expectedData.AddRange(new List<string> {"Number of Artifacts",  "6,727", "6,089", "638", "+10.5 %" });
             expectedData.AddRange(new List<string> {"Number of Files", "579", "485", "94", "+19.4 %" });
             expectedData.AddRange(new List<string> {"Number of Methods", "6,477", "5,883", "594", "+10.1 %" });

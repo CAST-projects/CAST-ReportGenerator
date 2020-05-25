@@ -186,7 +186,7 @@ namespace CastReporting.Repositories.Interfaces
         /// <returns></returns>
         IEnumerable<RuleDetails> GetRulesDetails(string domain, int businessCriteria, long snapshotId);
 
-        IEnumerable<Contributor> GetRulesForTechnicalCriteria(string domain, string technicalCriteria, long snapshotId);
+        IEnumerable<Contributor> GetCriteriaContributors(string domain, string technicalCriteria, long snapshotId);
 
         /// <summary>
         /// 
