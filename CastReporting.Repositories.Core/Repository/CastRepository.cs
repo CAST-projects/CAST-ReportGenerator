@@ -463,7 +463,7 @@ namespace CastReporting.Repositories
             return CallWS<IEnumerable<RuleDetails>>(requestUrl, RequestComplexity.Standard);
         }
 
-        IEnumerable<Contributor> ICastRepsitory.GetRulesForTechnicalCriteria(string domain, string technicalCriteria, long snapshotId)
+        IEnumerable<Contributor> ICastRepsitory.GetCriteriaContributors(string domain, string technicalCriteria, long snapshotId)
         {
             var requestUrl = string.Format(_query_grade_contributors, domain, technicalCriteria, snapshotId);
 

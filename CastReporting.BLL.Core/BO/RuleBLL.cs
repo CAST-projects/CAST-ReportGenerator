@@ -68,11 +68,11 @@ namespace CastReporting.BLL
             }
         }
 
-        public IEnumerable<Contributor> GetRulesInTechnicalCriteria(string domain, string technicalCriteria, long snapshotHRef)
+        public IEnumerable<Contributor> GetCriteriaContributors(string domain, string technicalCriteria, long snapshotHRef)
         {
             using (var castRepsitory = GetRepository())
             {
-                return castRepsitory.GetRulesForTechnicalCriteria(domain, technicalCriteria, snapshotHRef);
+                return castRepsitory.GetCriteriaContributors(domain, technicalCriteria, snapshotHRef);
             }
         }
 
