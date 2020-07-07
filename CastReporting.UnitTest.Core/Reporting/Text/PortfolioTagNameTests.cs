@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using CastReporting.Reporting.Block.Text;
+﻿using CastReporting.Reporting.Block.Text;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Text
 {
@@ -47,6 +47,6 @@ namespace CastReporting.UnitTest.Reporting.Text
             Assert.AreEqual("n/a", str);
         }
 
-       
+
     }
 }

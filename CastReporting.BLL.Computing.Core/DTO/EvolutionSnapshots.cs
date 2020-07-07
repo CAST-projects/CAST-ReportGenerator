@@ -20,12 +20,12 @@ namespace CastReporting.BLL.Computing.DTO
     public class EvolutionSnapshots
     {
 
-       public string name { get; set; }
-       public double? curValue { get ; set; }
-       public double? preValue { get; set; }
-       public double? evolValue { get; set; }
-                            
-        
+        public string name { get; set; }
+        public double? curValue { get; set; }
+        public double? preValue { get; set; }
+        public double? evolValue { get; set; }
+
+
     }
 
     public enum MetricType
@@ -45,7 +45,7 @@ namespace CastReporting.BLL.Computing.DTO
         public double? result { get; set; }
         public string resultStr { get; set; }
     }
-    
+
     public class EvolutionResult
     {
         public string name { get; set; }

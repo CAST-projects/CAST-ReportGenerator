@@ -13,15 +13,15 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
+using CastReporting.BLL.Computing;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.ReportingModel;
-using CastReporting.BLL.Computing;
+using System.Collections.Generic;
 
 namespace CastReporting.Reporting.Block.Text
 {
-  
+
     [Block("METRIC_AFP_DF"), Block("DATA_FUNCTIONS")]
     public class AfpMetricDF : TextBlock
     {

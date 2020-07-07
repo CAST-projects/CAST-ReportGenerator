@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {
@@ -46,7 +46,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
 
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> { "Object Name", "Cyclomatic Complexity", "Fan-Out"});
+            expectedData.AddRange(new List<string> { "Object Name", "Cyclomatic Complexity", "Fan-Out" });
             expectedData.AddRange(new List<string> { "com.castsoftware.util.string.StringHelper.encodeString", "65", "8" });
             expectedData.AddRange(new List<string> { "com.castsoftware.util.string.StringHelper.isEncodedString", "59", "4" });
             expectedData.AddRange(new List<string> { "com.castsoftware.graph.GraphDoc.Definition.setProperty", "57", "9" });
@@ -144,7 +144,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             expectedData.AddRange(new List<string> { "distinctOperators", "", "" });
             expectedData.AddRange(new List<string> { "distinctOperands", "", "" });
             expectedData.AddRange(new List<string> { "integrationComplexity", "", "" });
-            expectedData.AddRange(new List<string> { "essentialComplexity",  "", "" });
+            expectedData.AddRange(new List<string> { "essentialComplexity", "", "" });
             TestUtility.AssertTableContent(table, expectedData, 3, 17);
         }
 

@@ -13,8 +13,8 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
 using CastReporting.BLL;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
@@ -202,21 +202,21 @@ namespace CastReporting.UI.WPF.Core.ViewModel
             {
                 string previousCulture = Setting.ReportingParameter.CultureName;
                 Setting.ReportingParameter.CultureName = value.Name;
-                
+
                 if (value.Name.Equals("zh-CN"))
                 {
                     string previousTemplatePath = Setting.ReportingParameter.TemplatePath;
                     TemplatePath = previousTemplatePath + "\\zh-CN";
-                    
+
                 }
-                
+
                 if (previousCulture != null && previousCulture.Equals("zh-CN"))
                 {
                     string previousTemplatePath = Setting.ReportingParameter.TemplatePath;
                     int idxToKeep = previousTemplatePath.Length - "\\zh-CN".Length;
                     TemplatePath = previousTemplatePath.Substring(0, idxToKeep);
                 }
-                
+
                 OnPropertyChanged("Culture");
             }
         }

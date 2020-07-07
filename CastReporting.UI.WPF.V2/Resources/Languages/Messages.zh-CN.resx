@@ -354,4 +354,13 @@
   <data name="msgServiceShouldBeRevalidated" xml:space="preserve">
     <value>请重新验证您的网络服务连接，似乎您已经断开连接</value>
   </data>
+  <data name="extendUnavailable" xml:space="preserve">
+    <value>无法连接到扩展服务器。 无法获取更新信息。</value>
+  </data>
+  <data name="rgVersionOutdated" xml:space="preserve">
+    <value>扩展服务器上提供了新版本的报告生成器，您可以在这里下载：</value>
+  </data>
+  <data name="rgVersionUpTodate" xml:space="preserve">
+    <value>当前使用的报告生成器版本是最新的。</value>
+  </data>
 </root>

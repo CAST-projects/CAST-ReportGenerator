@@ -57,7 +57,7 @@ namespace CastReporting.UI.WPF.Core.Common
         {
             return _canExecutePredicate?.Invoke(parameter) ?? true;
         }
-      
+
         /// <summary>
         /// 
         /// </summary>

@@ -13,13 +13,13 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
 
 namespace CastReporting.Reporting.Block.Text
 {
@@ -57,9 +57,9 @@ namespace CastReporting.Reporting.Block.Text
 
             return value < reportData.Parameter.ApplicationQualityGood ? Labels.QualityGood : Labels.QualityVeryGood;
         }
-        
+
         #endregion METHODS
 
-        
+
     }
 }

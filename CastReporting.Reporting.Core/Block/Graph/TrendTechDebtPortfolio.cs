@@ -13,17 +13,17 @@
  * limitations under the License.
  *
  */
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
+using Cast.Util.Date;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
-using System.Data;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using Cast.Util.Date;
 
 namespace CastReporting.Reporting.Block.Graph
 {
@@ -38,18 +38,18 @@ namespace CastReporting.Reporting.Block.Graph
 
             var rowData = new List<string>();
             rowData.AddRange(new[] {
-				" ",
-				Labels.DebtRemoved + " (" + reportData.CurrencySymbol + ")",
-				Labels.DebtAdded + " (" + reportData.CurrencySymbol + ")",
-				Labels.Debt + " (" + reportData.CurrencySymbol + ")"
-			});
+                " ",
+                Labels.DebtRemoved + " (" + reportData.CurrencySymbol + ")",
+                Labels.DebtAdded + " (" + reportData.CurrencySymbol + ")",
+                Labels.Debt + " (" + reportData.CurrencySymbol + ")"
+            });
 
             DataTable dtDates = new DataTable();
             dtDates.Columns.Add("Quarter", typeof(int));
             dtDates.Columns.Add("Year", typeof(int));
             dtDates.Columns.Add("RemovedTechnicalDebt", typeof(double));
             dtDates.Columns.Add("AddedTechnicalDebt", typeof(double));
-            dtDates.Columns.Add("TotalTechnicalDebt", typeof(double)); 
+            dtDates.Columns.Add("TotalTechnicalDebt", typeof(double));
             dtDates.AcceptChanges();
 
             #region Fetch SnapshotsPF
@@ -129,6 +129,6 @@ namespace CastReporting.Reporting.Block.Graph
         }
 
         #endregion METHODS
- 
+
     }
 }

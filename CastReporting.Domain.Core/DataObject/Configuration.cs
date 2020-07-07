@@ -43,9 +43,9 @@ namespace CastReporting.Domain
         [DataMember(Name = "annotation")]
         public Annotation Annotation { get; set; }
 
-     
+
         #endregion PROPERTIES
 
-  
+
     }
 }

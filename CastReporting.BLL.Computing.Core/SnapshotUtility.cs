@@ -30,7 +30,7 @@ namespace CastReporting.BLL.Computing
         /// <returns></returns>
         public static DateTime? GetSnapshotDate(Snapshot snapshot)
         {
-			return snapshot?.Annotation?.Date?.DateSnapShot;
+            return snapshot?.Annotation?.Date?.DateSnapShot;
         }
 
         public static bool IsLatestSnapshot(Application application, Snapshot snapshot)

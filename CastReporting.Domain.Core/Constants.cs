@@ -53,15 +53,15 @@ namespace CastReporting.Domain
             ViolationsToCriticalQualityRulesNewModifiedCodeNumber = 67015,
             TechnicalDebt = 68001,
             TechnicalDebtDensity = 68002,
-            AddedViolationsTechnicalDebt =  68901,
+            AddedViolationsTechnicalDebt = 68901,
             RemovedViolationsTechnicalDebt = 68902,
             ModifiedDataFunctionPoints = 10311,
             ModifiedTransactionalFunctionPoints = 10312,
             ModifiedFunctionPoints = 10310
 
         }
-        
-        
+
+
         public enum BusinessCriteria
         {
             Transferability = 60011,
@@ -107,16 +107,16 @@ namespace CastReporting.Domain
 
         public enum CostComplexity
         {
-            CostComplexityArtifacts_Low =  67005,
-            CostComplexityArtifacts_Average =  67004,
-            CostComplexityArtifacts_High =  67003,
+            CostComplexityArtifacts_Low = 67005,
+            CostComplexityArtifacts_Average = 67004,
+            CostComplexityArtifacts_High = 67003,
             CostComplexityArtifacts_VeryHigh = 67002
         }
         public enum ViolationsToCriticalDiagnosticBasedMetricsPerCostComplexity
         {
-            ComplexityViolations_VeryHigh = 67021, 
-            ComplexityViolations_HighCost = 67022,  
-            ComplexityViolations_Average = 67023, 
+            ComplexityViolations_VeryHigh = 67021,
+            ComplexityViolations_HighCost = 67022,
+            ComplexityViolations_Average = 67023,
             ComplexityViolations_LowCost = 67024
         }
         public enum DefectsToCriticalDiagnosticBasedMetricsPerCostComplexity
@@ -199,7 +199,7 @@ namespace CastReporting.Domain
         }
 
         public const string No_Value = "n/a";
-		public const string No_Data = "-";
+        public const string No_Data = "-";
         public const string Zero = "0";
         #endregion CONSTANTS
 

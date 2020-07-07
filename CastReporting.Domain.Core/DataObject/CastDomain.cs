@@ -38,6 +38,6 @@ namespace CastReporting.Domain
         public string Version { get; set; }
 
 
-       
+
     }
 }

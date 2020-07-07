@@ -66,7 +66,7 @@ CAST REPORT GENERATOR HELP - PORTFOLIO LEVEL
         /// <param name="pShowHelp">Show help indicator</param>
         /// <returns>Arguments</returns>
         public XmlCastReport Load(string[] pArgs, out bool pShowHelp)
-        { 
+        {
             // Do not show help by default
             pShowHelp = false;
 
@@ -194,7 +194,7 @@ CAST REPORT GENERATOR HELP - PORTFOLIO LEVEL
                 case "username": pCastReport.Username = new XmlTagName { Name = pValue }; break;
                 case "password": pCastReport.Password = new XmlTagName { Name = pValue }; break;
                 case "apikey": pCastReport.ApiKey = new XmlTagName { Name = pValue }; break;
-                case "culture": pCastReport.Culture = new XmlTagName {Name = pValue }; break;
+                case "culture": pCastReport.Culture = new XmlTagName { Name = pValue }; break;
 
                 case "reporttype": pCastReport.ReportType = new XmlTagName { Name = pValue }; break;
                 case "category": pCastReport.Category = new XmlTagName { Name = pValue }; break;

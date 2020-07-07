@@ -14,13 +14,13 @@
  * limitations under the License.
  *
  */
-using System;
-using System.Collections.Generic;
+using CastReporting.BLL.Computing;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
-using CastReporting.BLL.Computing;
+using CastReporting.Reporting.ReportingModel;
+using System;
+using System.Collections.Generic;
 
 namespace CastReporting.Reporting.Block.Graph
 {
@@ -58,6 +58,6 @@ namespace CastReporting.Reporting.Block.Graph
             };
             return resultTable;
         }
-     
+
     }
 }

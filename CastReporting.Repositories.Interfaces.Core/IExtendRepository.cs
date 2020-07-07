@@ -15,6 +15,9 @@ namespace CastReporting.Repositories.Interfaces
         /// <param name="targetPath"></param>
         /// <param name="version"></param>
         void GetPackageTemplate(string packageId, string targetPath, string version);
+
         string SearchForLatestVersion(string packageId);
+
+        bool IsExtendValid(string url);
     }
 }

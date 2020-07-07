@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Table;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {
@@ -28,7 +28,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
 
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> { "Name", "Value"});
+            expectedData.AddRange(new List<string> { "Name", "Value" });
             expectedData.AddRange(new List<string> { "Technical Debt ($)", "236,648" });
             expectedData.AddRange(new List<string> { "Technical Debt Added ($)", "1,946" });
             expectedData.AddRange(new List<string> { "Technical Debt Removed ($)", "23,600" });

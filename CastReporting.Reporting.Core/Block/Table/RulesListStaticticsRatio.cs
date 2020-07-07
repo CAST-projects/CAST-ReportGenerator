@@ -13,16 +13,16 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
-using System.Linq;
 using Cast.Util.Log;
 using Cast.Util.Version;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
-using CastReporting.Domain;
 using CastReporting.Reporting.Helper;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Linq;
 
 
 namespace CastReporting.Reporting.Block.Table
@@ -101,9 +101,9 @@ namespace CastReporting.Reporting.Block.Table
 
             List<string> qualityRules = MetricsUtility.BuildRulesList(reportData, metrics, critical);
 
-            List<ApplicationResult> results = sortedByCompliance ? 
+            List<ApplicationResult> results = sortedByCompliance ?
                     reportData.CurrentSnapshot?.QualityRulesResults.Where(_ => qualityRules.Contains(_.Reference.Key.ToString())).OrderBy(_ => _.DetailResult.ViolationRatio.Ratio).ToList()
-                    : reportData.CurrentSnapshot?.QualityRulesResults.Where(_ => qualityRules.Contains(_.Reference.Key.ToString())).OrderByDescending(_=>  _.DetailResult.ViolationRatio.FailedChecks).ToList();
+                    : reportData.CurrentSnapshot?.QualityRulesResults.Where(_ => qualityRules.Contains(_.Reference.Key.ToString())).OrderByDescending(_ => _.DetailResult.ViolationRatio.FailedChecks).ToList();
             string colorBeige = "Beige";
             if (results?.Count > 0)
             {
@@ -113,7 +113,7 @@ namespace CastReporting.Reporting.Block.Table
                     if (detailResult == null) continue;
                     int nbViolations = detailResult.ViolationRatio.FailedChecks ?? 0;
 
-                    dataRow.Set(Labels.CASTRules, (result.Reference?.Name + " (" + result.Reference?.Key + ")" ).NAIfEmpty());
+                    dataRow.Set(Labels.CASTRules, (result.Reference?.Name + " (" + result.Reference?.Key + ")").NAIfEmpty());
                     if (nbViolations > 0)
                     {
                         cellProps.Add(new CellAttributes(cellidx, colorBeige));
@@ -156,7 +156,7 @@ namespace CastReporting.Reporting.Block.Table
                         if (!string.IsNullOrWhiteSpace(rule.Rationale))
                         {
                             dataRow.Set(Labels.Rationale, rule.Rationale);
-                        } 
+                        }
                         else
                         {
                             dataRow.Set(Labels.Rationale, string.Empty);

@@ -13,13 +13,13 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -38,10 +38,10 @@ namespace CastReporting.Reporting.Block.Table
         /// <returns></returns>
         public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
-            List<string> rowData = new List<string>();           
+            List<string> rowData = new List<string>();
 
-            bool displayShortHeader = options != null && options.ContainsKey("HEADER") && "SHORT" == options["HEADER"];           
-                     
+            bool displayShortHeader = options != null && options.ContainsKey("HEADER") && "SHORT" == options["HEADER"];
+
             if (reportData?.CurrentSnapshot != null)
             {
                 //Compute nb objectives
@@ -96,6 +96,6 @@ namespace CastReporting.Reporting.Block.Table
 
             return resultTable;
         }
-       
+
     }
 }

@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Cast.Util.Log;
+﻿using Cast.Util.Log;
 using Cast.Util.Version;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
-using CastReporting.Domain;
+using CastReporting.Reporting.ReportingModel;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -47,7 +47,7 @@ namespace CastReporting.Reporting.Block.Table
 
             IEnumerable<OmgFunctionTechnical> functions = reportData.SnapshotExplorer.GetOmgFunctionsTechnical(reportData.CurrentSnapshot.Href, nbLimitTop)?.ToList();
             if (functions?.Count() > 0)
-            { 
+            {
                 foreach (OmgFunctionTechnical omgFunction in functions)
                 {
                     List<string> row = new List<string>();

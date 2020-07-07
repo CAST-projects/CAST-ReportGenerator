@@ -13,14 +13,14 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
-using System.Linq;
+using CastReporting.BLL.Computing;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
-using CastReporting.BLL.Computing;
 using CastReporting.Reporting.Helper;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -39,8 +39,8 @@ namespace CastReporting.Reporting.Block.Table
             rowData.AddRange(new[] {
                 Labels.Weight,
                 Labels.Variation,
-				Labels.RuleName
-			});
+                Labels.RuleName
+            });
 
             List<string> bcIdsStr = options.GetOption("BCID", "60017").Split('|').ToList();
             List<int> bcIds = bcIdsStr.Select(int.Parse).ToList();
@@ -52,11 +52,12 @@ namespace CastReporting.Reporting.Block.Table
 
             int nbLimitTop = options.GetIntOption("COUNT", 50);
 
-            if (reportData?.CurrentSnapshot != null) {
-                List<RuleViolationResultDTO> currentCriticalRulesViolation = 
+            if (reportData?.CurrentSnapshot != null)
+            {
+                List<RuleViolationResultDTO> currentCriticalRulesViolation =
                     RulesViolationUtility.GetNbViolationByRule(reportData.CurrentSnapshot, reportData.RuleExplorer, bcIds, -1);
-                
-                List<RuleViolationResultDTO> previousCriticalRulesViolation = reportData.PreviousSnapshot != null ? 
+
+                List<RuleViolationResultDTO> previousCriticalRulesViolation = reportData.PreviousSnapshot != null ?
                     RulesViolationUtility.GetNbViolationByRule(reportData.PreviousSnapshot, reportData.RuleExplorer, bcIds, -1)
                     : null;
 
@@ -97,12 +98,12 @@ namespace CastReporting.Reporting.Block.Table
                                 {
                                     continue;
                                 }
-                                    
+
                             }
 
                             variationRules.Add(new RuleViolationsVariationResultDTO
                             {
-                                Rule = new RuleDetailsDTO {Name = item.Rule.Name, Key = item.Rule.Key, CompoundedWeight = item.Rule.CompoundedWeight},
+                                Rule = new RuleDetailsDTO { Name = item.Rule.Name, Key = item.Rule.Key, CompoundedWeight = item.Rule.CompoundedWeight },
                                 CurrentNbViolations = item.TotalFailed ?? -1,
                                 PreviousNbViolations = previousitem?.TotalFailed ?? -1,
                                 Variation = variation ?? double.NaN
@@ -119,7 +120,7 @@ namespace CastReporting.Reporting.Block.Table
 
                             if (item != null)
                             {
-                                if (previousitem.TotalChecks != null && item.TotalChecks!= null)
+                                if (previousitem.TotalChecks != null && item.TotalChecks != null)
                                 {
                                     variation = percent
                                         ? previousitem.TotalFailed / (double)previousitem.TotalChecks - item.TotalFailed / (double)item.TotalChecks
@@ -136,7 +137,7 @@ namespace CastReporting.Reporting.Block.Table
                                 if (previousitem.TotalChecks != null)
                                 {
                                     variation = percent
-                                        ? previousitem.TotalFailed / (double) previousitem.TotalChecks
+                                        ? previousitem.TotalFailed / (double)previousitem.TotalChecks
                                         : previousitem.TotalFailed;
                                     if (variation <= 0) continue;
                                 }
@@ -148,7 +149,7 @@ namespace CastReporting.Reporting.Block.Table
 
                             variationRules.Add(new RuleViolationsVariationResultDTO
                             {
-                                Rule = new RuleDetailsDTO {Name = previousitem.Rule.Name, Key = previousitem.Rule.Key, CompoundedWeight = previousitem.Rule.CompoundedWeight},
+                                Rule = new RuleDetailsDTO { Name = previousitem.Rule.Name, Key = previousitem.Rule.Key, CompoundedWeight = previousitem.Rule.CompoundedWeight },
                                 CurrentNbViolations = item?.TotalFailed ?? -1,
                                 PreviousNbViolations = previousitem.TotalFailed ?? -1,
                                 Variation = variation ?? double.NaN
@@ -195,8 +196,9 @@ namespace CastReporting.Reporting.Block.Table
                 }
 
             }
-            
-            var resultTable = new TableDefinition {
+
+            var resultTable = new TableDefinition
+            {
                 HasRowHeaders = false,
                 HasColumnHeaders = true,
                 NbRows = rowCount + 1,

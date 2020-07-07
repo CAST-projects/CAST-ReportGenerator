@@ -13,14 +13,14 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
-using System.Linq;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
-using CastReporting.Domain;
 using CastReporting.Reporting.Helper;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Linq;
 
 
 namespace CastReporting.Reporting.Block.Table
@@ -68,7 +68,8 @@ namespace CastReporting.Reporting.Block.Table
 
             int nbRow = 0;
 
-            if (reportData.CurrentSnapshot != null) {
+            if (reportData.CurrentSnapshot != null)
+            {
                 Dictionary<int, RuleDetails> targetRules =
                     reportData.RuleExplorer
                     .GetRulesDetails(reportData.CurrentSnapshot.DomainId, Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode(), reportData.CurrentSnapshot.Id)
@@ -79,12 +80,14 @@ namespace CastReporting.Reporting.Block.Table
 
                 var modules = (perModule ? reportData.CurrentSnapshot.Modules : new List<Module>(new Module[] { null }).AsEnumerable()).OrderBy(m => m == null ? string.Empty : m.Name);
 
-                foreach (var module in modules) {
-                    if (perModule) {
+                foreach (var module in modules)
+                {
+                    if (perModule)
+                    {
                         dataRow.Set(Labels.ModuleName, module.Name.NAIfEmpty());
                     }
 
-                    var query = sourceResults.Select(ar => new {ar.Reference, AppDetailResult = ar.DetailResult, ModDetailResult = GetModuleResult(ar, module) });
+                    var query = sourceResults.Select(ar => new { ar.Reference, AppDetailResult = ar.DetailResult, ModDetailResult = GetModuleResult(ar, module) });
 
                     foreach (var result in query)
                     {
@@ -99,15 +102,15 @@ namespace CastReporting.Reporting.Block.Table
                             }
                             if (showFailedChecks)
                             {
-                                dataRow.Set(Labels.ViolationsCount, (bool) detailResult.ViolationRatio?.FailedChecks.HasValue ? detailResult.ViolationRatio?.FailedChecks.Value.ToString("N0") : Constants.No_Value);
+                                dataRow.Set(Labels.ViolationsCount, (bool)detailResult.ViolationRatio?.FailedChecks.HasValue ? detailResult.ViolationRatio?.FailedChecks.Value.ToString("N0") : Constants.No_Value);
                             }
                             if (showSuccessfulChecks)
                             {
-                                dataRow.Set(Labels.TotalOk, (bool) detailResult.ViolationRatio?.SuccessfulChecks.HasValue ? detailResult.ViolationRatio?.SuccessfulChecks.Value.ToString("N0") : Constants.No_Value);
+                                dataRow.Set(Labels.TotalOk, (bool)detailResult.ViolationRatio?.SuccessfulChecks.HasValue ? detailResult.ViolationRatio?.SuccessfulChecks.Value.ToString("N0") : Constants.No_Value);
                             }
                             if (showTotal)
                             {
-                                dataRow.Set(Labels.TotalChecks, (bool) detailResult.ViolationRatio?.TotalChecks.HasValue ? detailResult.ViolationRatio?.TotalChecks.Value.ToString("N0") : Constants.No_Value);
+                                dataRow.Set(Labels.TotalChecks, (bool)detailResult.ViolationRatio?.TotalChecks.HasValue ? detailResult.ViolationRatio?.TotalChecks.Value.ToString("N0") : Constants.No_Value);
                             }
                             if (showCompliance)
                             {
@@ -128,7 +131,8 @@ namespace CastReporting.Reporting.Block.Table
                 }
             }
 
-            if (data.Count == 0) {
+            if (data.Count == 0)
+            {
                 dataRow.Reset();
                 dataRow.Set(0, Labels.NoItem);
                 data.AddRange(dataRow);
@@ -136,7 +140,8 @@ namespace CastReporting.Reporting.Block.Table
 
             data.InsertRange(0, headers.Labels);
 
-            return new TableDefinition {
+            return new TableDefinition
+            {
                 Data = data,
                 HasColumnHeaders = true,
                 HasRowHeaders = false,

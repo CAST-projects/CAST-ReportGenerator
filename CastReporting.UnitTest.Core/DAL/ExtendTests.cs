@@ -1,7 +1,8 @@
-﻿using System;
-using System.IO;
+﻿using CastReporting.BLL;
 using CastReporting.Repositories.Core.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.IO;
 
 namespace CastReporting.UnitTest.Core.DAL
 {
@@ -26,11 +27,23 @@ namespace CastReporting.UnitTest.Core.DAL
         }
 
         [TestMethod]
+        public void TestIsExtendValid()
+        {
+            Assert.IsTrue(ExtendBLL.CheckExtendValid());
+        }
+
+        [TestMethod]
+        public void TestIsRGVersionLatest()
+        {
+            Assert.IsTrue(ExtendBLL.IsRGVersionLatest());
+        }
+
+        [TestMethod]
         public void TestSearchForLatestVersion()
         {
             using (ExtendRepository extendRepository = new ExtendRepository(_extendUrl, "123456789"))
             {
-                string latestVersion = extendRepository.SearchForLatestVersion("com.castsoftware.aip.reportgeneratorfordashboard");
+                string latestVersion = extendRepository.SearchForLatestVersion("com.castsoftware.aip.reportgenerator");
                 Assert.IsNotNull(latestVersion);
             }
         }
@@ -43,7 +56,7 @@ namespace CastReporting.UnitTest.Core.DAL
             // to run test, nugget key should be get from the profile in https://extendng.castsoftware.com
             using (ExtendRepository extendRepository = new ExtendRepository(_extendUrl, "12345678"))
             {
-                extendRepository.GetPackageTemplate("com.castsoftware.aip.reportgeneratorfordashboard", tempDirectory, null);
+                extendRepository.GetPackageTemplate("com.castsoftware.aip.reportgenerator", tempDirectory, null);
             }
             Assert.IsTrue(Directory.Exists(Path.Combine(tempDirectory, "Templates", "Portfolio")));
             Assert.IsTrue(Directory.Exists(Path.Combine(tempDirectory, "Templates", "Application")));

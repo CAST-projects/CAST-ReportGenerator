@@ -13,12 +13,12 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
 using CastReporting.BLL.Computing;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
 
 
 namespace CastReporting.Reporting.Block.Table
@@ -26,7 +26,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("TQI")]
     public class TQI : TableBlock
     {
-         /// <summary>
+        /// <summary>
         /// 
         /// </summary>
         private const string MetricFormat = "N2";
@@ -44,11 +44,11 @@ namespace CastReporting.Reporting.Block.Table
             rowData.AddRange(new[] { Labels.Statistics, Labels.CurrentScore, Labels.PreviousScore });
 
 
-            double? currentTqi= BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(reportData.CurrentSnapshot, Domain.Constants.BusinessCriteria.TechnicalQualityIndex, true);
+            double? currentTqi = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(reportData.CurrentSnapshot, Domain.Constants.BusinessCriteria.TechnicalQualityIndex, true);
             double? previousTqi = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(reportData.PreviousSnapshot, Domain.Constants.BusinessCriteria.TechnicalQualityIndex, true);
 
-            rowData.AddRange(new[] { Labels.TQI, 
-                                       currentTqi?.ToString(MetricFormat) ?? string.Empty, 
+            rowData.AddRange(new[] { Labels.TQI,
+                                       currentTqi?.ToString(MetricFormat) ?? string.Empty,
                                        previousTqi?.ToString(MetricFormat) ?? Domain.Constants.No_Value});
 
             var resultTable = new TableDefinition

@@ -13,13 +13,13 @@
  * limitations under the License.
  *
  */
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -46,16 +46,19 @@ namespace CastReporting.Reporting.Block.Table
             int? metricId = options != null && options.ContainsKey("ID") ? Convert.ToInt32(options["ID"]) : (int?)Domain.Constants.BusinessCriteria.TechnicalQualityIndex;
 
             var result = reportData?.CurrentSnapshot?.BusinessCriteriaResults.FirstOrDefault(r => r.Reference.Key == metricId);
-                
-            if (result != null) {
+
+            if (result != null)
+            {
                 string value = Text(metricId.Value);
                 rowData.AddRange(new[] { Labels.Techno, value });
-                foreach (var res in result.TechnologyResult) {
+                foreach (var res in result.TechnologyResult)
+                {
                     rowData.AddRange(new[] { res.Technology, res.DetailResult.Grade?.ToString(MetricFormat) ?? Domain.Constants.No_Value });
                 }
                 nbTot = result.TechnologyResult.Length;
             }
-            var resultTable = new TableDefinition {
+            var resultTable = new TableDefinition
+            {
                 HasRowHeaders = false,
                 HasColumnHeaders = true,
                 NbRows = nbTot + 1,
@@ -68,18 +71,19 @@ namespace CastReporting.Reporting.Block.Table
         private static string Text(int value)
         {
             // Begin the switch.
-            switch (value) {
-				case (int)Domain.Constants.BusinessCriteria.TechnicalQualityIndex:		return Labels.TQI;
-				case (int)Domain.Constants.BusinessCriteria.ArchitecturalDesign:		return Labels.ArchitecturalDesign;
-				case (int)Domain.Constants.BusinessCriteria.Changeability:				return Labels.Changeability;
-				case (int)Domain.Constants.BusinessCriteria.Documentation:				return Labels.Documentation;
-				case (int)Domain.Constants.BusinessCriteria.Performance:				return Labels.Efficiency;
-				case (int)Domain.Constants.BusinessCriteria.ProgrammingPractices:		return Labels.ProgrammingPractices;
-				case (int)Domain.Constants.BusinessCriteria.Robustness:					return Labels.Robustness;
-				case (int)Domain.Constants.BusinessCriteria.Security:					return Labels.Security;
-				case (int)Domain.Constants.BusinessCriteria.SEIMaintainability:			return Labels.SEIMaintainability;
-				case (int)Domain.Constants.BusinessCriteria.Transferability:			return Labels.Transferability;
-        		default:																return Domain.Constants.No_Value + " (" + value +")";
+            switch (value)
+            {
+                case (int)Domain.Constants.BusinessCriteria.TechnicalQualityIndex: return Labels.TQI;
+                case (int)Domain.Constants.BusinessCriteria.ArchitecturalDesign: return Labels.ArchitecturalDesign;
+                case (int)Domain.Constants.BusinessCriteria.Changeability: return Labels.Changeability;
+                case (int)Domain.Constants.BusinessCriteria.Documentation: return Labels.Documentation;
+                case (int)Domain.Constants.BusinessCriteria.Performance: return Labels.Efficiency;
+                case (int)Domain.Constants.BusinessCriteria.ProgrammingPractices: return Labels.ProgrammingPractices;
+                case (int)Domain.Constants.BusinessCriteria.Robustness: return Labels.Robustness;
+                case (int)Domain.Constants.BusinessCriteria.Security: return Labels.Security;
+                case (int)Domain.Constants.BusinessCriteria.SEIMaintainability: return Labels.SEIMaintainability;
+                case (int)Domain.Constants.BusinessCriteria.Transferability: return Labels.Transferability;
+                default: return Domain.Constants.No_Value + " (" + value + ")";
             }
         }
 

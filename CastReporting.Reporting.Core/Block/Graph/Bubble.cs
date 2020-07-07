@@ -14,78 +14,78 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
-using System.Globalization;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace CastReporting.Reporting.Block.Graph
+{
+    [Block("BUBBLE")]
+    public class Bubble : GraphBlock
     {
-        [Block("BUBBLE")]
-        public class Bubble : GraphBlock
+        #region METHODS
+
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
-            #region METHODS
 
-            public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+
+            #region Required Options
+            string moduleIdstr = options != null && options.ContainsKey("M") ? options["M"] : string.Empty;
+            int moduleId;
+            if (string.IsNullOrWhiteSpace(moduleIdstr) || !int.TryParse(moduleIdstr, out moduleId))
             {
-             
-
-                #region Required Options
-                string moduleIdstr = options != null && options.ContainsKey("M") ? options["M"] : string.Empty;
-                int moduleId;
-                if (string.IsNullOrWhiteSpace(moduleIdstr) || !int.TryParse(moduleIdstr, out moduleId))
-                {
-                    moduleId = -1;
-                }
-               
-                #endregion Required Options
-
-                List<string> rowData = new List<string>();
-                rowData.AddRange(new[] { Labels.TQI, Labels.TechnicalDebt + " (" + reportData.CurrencySymbol + ")", Labels.Size });
-
-                if (reportData.CurrentSnapshot != null)
-                {
-
-                    double? _tqiValue;
-                    double? _techDebtValue;
-                    double? _colValue;
-
-                    if (moduleId > 0)
-                    {
-
-                        _tqiValue = BusinessCriteriaUtility.GetBusinessCriteriaModuleGrade(reportData.CurrentSnapshot, moduleId, Constants.BusinessCriteria.TechnicalQualityIndex, true);
-                        _techDebtValue = MeasureUtility.GetSizingMeasureModule(reportData.CurrentSnapshot, moduleId, Constants.SizingInformations.TechnicalDebt.GetHashCode());
-                        _colValue = MeasureUtility.GetSizingMeasureModule(reportData.CurrentSnapshot, moduleId, Constants.SizingInformations.CodeLineNumber.GetHashCode());
-                    }
-                    else
-                    {
-                        _tqiValue = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(reportData.CurrentSnapshot, Constants.BusinessCriteria.TechnicalQualityIndex, true);
-                        _techDebtValue = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, Constants.SizingInformations.TechnicalDebt);
-                        _colValue = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, Constants.SizingInformations.CodeLineNumber);
-                    }
-
-                    rowData.Add(_tqiValue.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));
-                    rowData.Add(_techDebtValue.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));
-                    rowData.Add(_colValue.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));
-                }
-
-                TableDefinition resultTable = new TableDefinition
-                {
-                    HasRowHeaders = false,
-                    HasColumnHeaders = true,
-                    NbRows = 2,
-                    NbColumns = 3,
-                    Data = rowData
-                };
-                return resultTable;
+                moduleId = -1;
             }
-            #endregion METHODS
+
+            #endregion Required Options
+
+            List<string> rowData = new List<string>();
+            rowData.AddRange(new[] { Labels.TQI, Labels.TechnicalDebt + " (" + reportData.CurrencySymbol + ")", Labels.Size });
+
+            if (reportData.CurrentSnapshot != null)
+            {
+
+                double? _tqiValue;
+                double? _techDebtValue;
+                double? _colValue;
+
+                if (moduleId > 0)
+                {
+
+                    _tqiValue = BusinessCriteriaUtility.GetBusinessCriteriaModuleGrade(reportData.CurrentSnapshot, moduleId, Constants.BusinessCriteria.TechnicalQualityIndex, true);
+                    _techDebtValue = MeasureUtility.GetSizingMeasureModule(reportData.CurrentSnapshot, moduleId, Constants.SizingInformations.TechnicalDebt.GetHashCode());
+                    _colValue = MeasureUtility.GetSizingMeasureModule(reportData.CurrentSnapshot, moduleId, Constants.SizingInformations.CodeLineNumber.GetHashCode());
+                }
+                else
+                {
+                    _tqiValue = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(reportData.CurrentSnapshot, Constants.BusinessCriteria.TechnicalQualityIndex, true);
+                    _techDebtValue = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, Constants.SizingInformations.TechnicalDebt);
+                    _colValue = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, Constants.SizingInformations.CodeLineNumber);
+                }
+
+                rowData.Add(_tqiValue.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));
+                rowData.Add(_techDebtValue.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));
+                rowData.Add(_colValue.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));
+            }
+
+            TableDefinition resultTable = new TableDefinition
+            {
+                HasRowHeaders = false,
+                HasColumnHeaders = true,
+                NbRows = 2,
+                NbColumns = 3,
+                Data = rowData
+            };
+            return resultTable;
         }
+        #endregion METHODS
     }
+}
 
 
 

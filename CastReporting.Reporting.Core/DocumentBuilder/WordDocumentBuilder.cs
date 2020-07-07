@@ -13,29 +13,29 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.ReportingModel;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Drawing.Wordprocessing;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
 
 namespace CastReporting.Reporting.Builder
 {
     internal class WordDocumentBuilder : DocumentBuilderBase
     {
-      
+
 
         #region CONSTRUCTORS
         /// <summary>
         /// 
         /// </summary>
         /// <param name="client"></param>
-        public WordDocumentBuilder(ReportData client) : base(client) 
-        { 
+        public WordDocumentBuilder(ReportData client) : base(client)
+        {
         }
         #endregion CONSTRUCTORS
 
@@ -121,11 +121,11 @@ namespace CastReporting.Reporting.Builder
             OpenXmlPartRootElement rootContainer = GetRootContainer(container);
             var blocks = rootContainer.Descendants<SdtElement>()
                                       .Select(_ => new BlockItem
-                                                   {
-                                                       OxpBlock = _,
-                                                       XBlock = XElement.Parse(_.OuterXml),
-                                                       Container = container
-                                                   })
+                                      {
+                                          OxpBlock = _,
+                                          XBlock = XElement.Parse(_.OuterXml),
+                                          Container = container
+                                      })
                                       .ToList();
 
             // Find text and graph that are not in content control
@@ -142,7 +142,7 @@ namespace CastReporting.Reporting.Builder
                                          })
                                          .ToList();
             blocks.AddRange(addblocks);
-            
+
             // Find tables that are not in content control
             var addblocks2 = rootContainer.Descendants<TableProperties>()
                                          .Where(_ => null != _.TableDescription

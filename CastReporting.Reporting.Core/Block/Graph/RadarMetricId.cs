@@ -4,25 +4,25 @@
  *
  */
 
-using System.Collections.Generic;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Helper;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
 
 namespace CastReporting.Reporting.Block.Graph
 {
-	[Block("RADAR_METRIC_ID")]
-	public class RadarMetricId : GraphBlock
+    [Block("RADAR_METRIC_ID")]
+    public class RadarMetricId : GraphBlock
     {
         public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
-            string[] qidList = options.GetOption("ID")?.Split('|') ;
+            string[] qidList = options.GetOption("ID")?.Split('|');
             string _version = options.GetOption("SNAPSHOT", "BOTH");
 
-            var rowData = new List<string> {null};
+            var rowData = new List<string> { null };
 
             if (reportData?.CurrentSnapshot == null) return null;
 
@@ -100,7 +100,7 @@ namespace CastReporting.Reporting.Block.Graph
 
             return resultTable;
         }
-     
+
     }
 
 }

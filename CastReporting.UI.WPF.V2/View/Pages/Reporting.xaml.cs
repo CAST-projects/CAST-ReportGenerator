@@ -13,20 +13,20 @@
  * limitations under the License.
  *
  */
-using System.Diagnostics;
-using System.Windows;
-using System.Windows.Controls;
-using CastReporting.UI.WPF.Core.ViewModel;
-using CastReporting.Domain;
-using System.Collections.Generic;
-using System.IO;
-using System;
-using System.Security;
 using Cast.Util.Log;
 using CastReporting.BLL;
+using CastReporting.Domain;
+using CastReporting.UI.WPF.Core.ViewModel;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Security;
+using System.Windows;
+using System.Windows.Controls;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using TreeView = System.Windows.Controls.TreeView;
-using System.Runtime.InteropServices;
 
 namespace CastReporting.UI.WPF.Core.View
 {
@@ -35,7 +35,7 @@ namespace CastReporting.UI.WPF.Core.View
     /// </summary>
     public partial class Reporting : Page
     {
-        private static readonly List<string> ExtensionList = new List<string> {".xlsx", ".docx", ".pptx"};
+        private static readonly List<string> ExtensionList = new List<string> { ".xlsx", ".docx", ".pptx" };
 
         public Reporting()
         {
@@ -104,7 +104,7 @@ namespace CastReporting.UI.WPF.Core.View
 
         private void LoadTemplates()
         {
-            ReportingVM _reportingVm = (ReportingVM) DataContext;
+            ReportingVM _reportingVm = (ReportingVM)DataContext;
             switch (_reportingVm.SelectedTab)
             {
                 case 0:
@@ -130,7 +130,16 @@ namespace CastReporting.UI.WPF.Core.View
         /// <param name="e"></param>
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            (DataContext as ReportingVM)?.InitializeFromWS();
+            ReportingVM _reportingVm = DataContext as ReportingVM;
+            _reportingVm?.InitializeFromWS();
+            if (!ExtendBLL.CheckExtendValid())
+            {
+                _reportingVm.MessageManager.OnExtendCheck(false);
+            }
+            else
+            {
+                _reportingVm.MessageManager.OnExtendSearchLatestVersion(!ExtendBLL.IsRGVersionLatest());
+            }
         }
 
 
@@ -178,7 +187,7 @@ namespace CastReporting.UI.WPF.Core.View
             }
 
             var result = dialog.ShowDialog();
-            var _vm = (ReportingVM) DataContext;
+            var _vm = (ReportingVM)DataContext;
             if (result != null && result.Value)
             {
                 settings.ReportingParameter.GeneratedFilePath = Path.GetDirectoryName(dialog.FileName);
@@ -189,7 +198,7 @@ namespace CastReporting.UI.WPF.Core.View
             }
             else
             {
-                
+
                 if (_vm != null) _vm.ReportFileName = string.Empty;
             }
         }
@@ -216,7 +225,7 @@ namespace CastReporting.UI.WPF.Core.View
             FileInfo selectedFileInfo = new FileInfo(selectedTreeViewItem.Tag.ToString());
             if (selectedFileInfo.Exists)
             {
-                ((ReportingVM) DataContext).SelectedTemplateFile = selectedFileInfo;
+                ((ReportingVM)DataContext).SelectedTemplateFile = selectedFileInfo;
             }
         }
 

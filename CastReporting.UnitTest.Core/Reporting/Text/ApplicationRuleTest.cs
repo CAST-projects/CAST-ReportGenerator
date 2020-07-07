@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Text;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Text
 {
@@ -188,8 +188,8 @@ namespace CastReporting.UnitTest.Reporting.Text
                 IsActive = true,
                 Name = "Default"
             };
-            reportData.SnapshotExplorer = new SnapshotBLLStub(connection,reportData.CurrentSnapshot);
-            
+            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
+
             var component = new ApplicationRule();
             Dictionary<string, string> config = new Dictionary<string, string>
             {

@@ -13,12 +13,12 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
+using CastReporting.BLL.Computing;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
-using CastReporting.BLL.Computing;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
 
 namespace CastReporting.Reporting.Block.Text
 {
@@ -46,7 +46,7 @@ namespace CastReporting.Reporting.Block.Text
         private static string GetApplicationQualification(ReportData reportData, double value)
         {
             if (value < reportData.Parameter.ApplicationSizeLimitSupSmall)
-				return Labels.SizeS;
+                return Labels.SizeS;
             if (value < reportData.Parameter.ApplicationSizeLimitSupMedium)
                 return Labels.SizeM;
             return value < reportData.Parameter.ApplicationSizeLimitSupLarge ? Labels.SizeL : Labels.SizeXL;

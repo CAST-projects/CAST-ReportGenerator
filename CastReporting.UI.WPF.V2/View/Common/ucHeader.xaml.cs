@@ -34,6 +34,6 @@ namespace CastReporting.UI.WPF.Core.Common
         {
             UcMenu.Refersh();
         }
-       
+
     }
 }

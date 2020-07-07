@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Cast.Util.Date;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Cast.Util.Date;
+using System;
 
 namespace CastReporting.UnitTest
 {
@@ -27,7 +27,7 @@ namespace CastReporting.UnitTest
         [TestMethod]
         public void TestGetYear()
         {
-            Assert.AreEqual(DateUtil.GetYear(new DateTime(2016,12,12)), 2016);
+            Assert.AreEqual(DateUtil.GetYear(new DateTime(2016, 12, 12)), 2016);
             Assert.AreEqual(DateUtil.GetYear(new DateTime(2009, 1, 1)), 2009);
         }
 

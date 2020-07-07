@@ -68,7 +68,7 @@ namespace CastReporting.UI.WPF.Core.Common
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("_isApiKey"));
             }
         }
-    
+
         public static readonly DependencyProperty ApiKeyProperty =
             DependencyProperty.Register("ApiKey", typeof(bool), typeof(UcCurrentWS), new PropertyMetadata(false));
 

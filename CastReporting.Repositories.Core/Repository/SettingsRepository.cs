@@ -13,16 +13,16 @@
  * limitations under the License.
  *
  */
+using CastReporting.Domain;
+using CastReporting.Repositories.Core;
+using CastReporting.Repositories.Interfaces;
+using CastReporting.Repositories.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using CastReporting.Domain;
-using CastReporting.Repositories.Core;
-using CastReporting.Repositories.Interfaces;
-using CastReporting.Repositories.Util;
 
 namespace CastReporting.Repositories
 {
@@ -38,8 +38,8 @@ namespace CastReporting.Repositories
         public void SaveSetting(Setting setting)
         {
             string settingFilePath = Path.Combine(GetApplicationPath(), Settings.Default.SettingFileName);
-                       
-            SerializerHelper.SerializeToFile(setting,settingFilePath);
+
+            SerializerHelper.SerializeToFile(setting, settingFilePath);
         }
 
 
@@ -111,11 +111,11 @@ namespace CastReporting.Repositories
         /// 
         /// </summary>
         void IDisposable.Dispose()
-{
+        {
 
-}              
+        }
 
 
 
-}
+    }
 }

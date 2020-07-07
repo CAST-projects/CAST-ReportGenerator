@@ -17,12 +17,12 @@ using System.Runtime.Serialization;
 
 namespace CastReporting.Domain
 {
-    
-     [DataContract(Name = "annotation")]
+
+    [DataContract(Name = "annotation")]
     public class Annotation
     {
 
-          /// <summary>
+        /// <summary>
         /// Get/Set the snapshot name.
         /// </summary>
         [DataMember(Name = "version")]
@@ -32,20 +32,20 @@ namespace CastReporting.Domain
         /// 
         /// </summary>
         [DataMember(Name = "date")]
-        public CastDate Date {get;set;}
-          
-   
+        public CastDate Date { get; set; }
+
+
         /// <summary>
         /// Get/Set the snapshot name.
         /// </summary>
         [DataMember(Name = "description")]
         public string Description { get; set; }
 
-          /// <summary>
+        /// <summary>
         /// Get/Set the snapshot name.
         /// </summary>
         [DataMember(Name = "name")]
         public string Name { get; set; }
-     
+
     }
 }

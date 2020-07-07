@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using CastReporting.Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Table;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {
@@ -38,8 +38,8 @@ namespace CastReporting.UnitTest.Reporting.Tables
             };
             var table = component.Content(reportData, config);
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> {"Snapshots", "Robustness", "Efficiency", "Total Quality Index"});
-            expectedData.AddRange(new List<string> {"PreVersion 1.5.0 sprint 2 shot 2 - V-1.5.0_Sprint 2_2", "3.19", "2.59", "2.78"});
+            expectedData.AddRange(new List<string> { "Snapshots", "Robustness", "Efficiency", "Total Quality Index" });
+            expectedData.AddRange(new List<string> { "PreVersion 1.5.0 sprint 2 shot 2 - V-1.5.0_Sprint 2_2", "3.19", "2.59", "2.78" });
             TestUtility.AssertTableContent(table, expectedData, 4, 2);
         }
 
@@ -67,9 +67,9 @@ namespace CastReporting.UnitTest.Reporting.Tables
             };
             var table = component.Content(reportData, config);
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> {"Snapshots", "Robustness", "Efficiency", "Total Quality Index"});
-            expectedData.AddRange(new List<string> {"PreVersion 1.5.0 sprint 2 shot 2 - V-1.5.0_Sprint 2_2", "3.19", "2.59", "2.78"});
-            expectedData.AddRange(new List<string> {"PreVersion 1.4.1 before release - V-1.4.1", "2.88", "2.61", "2.61"});
+            expectedData.AddRange(new List<string> { "Snapshots", "Robustness", "Efficiency", "Total Quality Index" });
+            expectedData.AddRange(new List<string> { "PreVersion 1.5.0 sprint 2 shot 2 - V-1.5.0_Sprint 2_2", "3.19", "2.59", "2.78" });
+            expectedData.AddRange(new List<string> { "PreVersion 1.4.1 before release - V-1.4.1", "2.88", "2.61", "2.61" });
             TestUtility.AssertTableContent(table, expectedData, 4, 3);
         }
 
@@ -96,9 +96,9 @@ namespace CastReporting.UnitTest.Reporting.Tables
             };
             var table = component.Content(reportData, config);
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> {"Snapshots", "Transferability", "Changeability", "Robustness", "Efficiency", "Security"});
-            expectedData.AddRange(new List<string> {"Snap_v1.1.4 - v1.1.4", "3.12", "2.98", "2.55", "1.88", "1.70"});
-            expectedData.AddRange(new List<string> {"Snap_v1.1.3 - v1.1.3", "3.13", "2.98", "2.55", "1.88", "1.70"});
+            expectedData.AddRange(new List<string> { "Snapshots", "Transferability", "Changeability", "Robustness", "Efficiency", "Security" });
+            expectedData.AddRange(new List<string> { "Snap_v1.1.4 - v1.1.4", "3.12", "2.98", "2.55", "1.88", "1.70" });
+            expectedData.AddRange(new List<string> { "Snap_v1.1.3 - v1.1.3", "3.13", "2.98", "2.55", "1.88", "1.70" });
             TestUtility.AssertTableContent(table, expectedData, 6, 3);
         }
 
@@ -251,10 +251,10 @@ namespace CastReporting.UnitTest.Reporting.Tables
                 "Total Quality Index - sm-central/AppliAEPtran/Shopizer_src content",
                 "Total Quality Index - sm-core/AppliAEPtran/Shopizer_src content",
                 "Total Quality Index - sm-shop/AppliAEPtran/Shopizer_src content" });
-            expectedData.AddRange(new List<string> { "Snap_v1.1.4 - v1.1.4", "3.26", "1.84", "1.88", "1.84", "3.47","2.53", "2.68", "2.49"});
+            expectedData.AddRange(new List<string> { "Snap_v1.1.4 - v1.1.4", "3.26", "1.84", "1.88", "1.84", "3.47", "2.53", "2.68", "2.49" });
             expectedData.AddRange(new List<string> { "Snap_v1.1.3 - v1.1.3", "3.26", "1.84", "1.88", "1.84", "3.47", "2.53", "2.68", "2.49" });
             TestUtility.AssertTableContent(table, expectedData, 9, 3);
-            
+
         }
 
         [TestMethod]
@@ -310,7 +310,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
                @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap4Sample7.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap1Sample7.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
-            reportData.CurrentSnapshot.Technologies = new[] {"JEE", "PL/SQL", "C++", ".NET"};
+            reportData.CurrentSnapshot.Technologies = new[] { "JEE", "PL/SQL", "C++", ".NET" };
             reportData.PreviousSnapshot.Technologies = new[] { "JEE", "PL/SQL", "C++", ".NET" };
             var component = new GenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -501,12 +501,12 @@ namespace CastReporting.UnitTest.Reporting.Tables
             TestUtility.SetCulture("invariant");
             var table = component.Content(reportData, config);
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> {"Metrics", "ADGAutoSnap_Dream Team_4 - 4", "ADGAutoSnap_Dream Team_1 - 1", "Evolution", "% Evolution" });
+            expectedData.AddRange(new List<string> { "Metrics", "ADGAutoSnap_Dream Team_4 - 4", "ADGAutoSnap_Dream Team_1 - 1", "Evolution", "% Evolution" });
             expectedData.AddRange(new List<string> { "Number of Comment Lines", "10,626", "10,009", "617", "+6.16 %" });
-            expectedData.AddRange(new List<string> {"Number of Code Lines", "104,851", "92,762", "12,089", "+13.0 %" });
-            expectedData.AddRange(new List<string> {"Number of Artifacts",  "6,727", "6,089", "638", "+10.5 %" });
-            expectedData.AddRange(new List<string> {"Number of Files", "579", "485", "94", "+19.4 %" });
-            expectedData.AddRange(new List<string> {"Number of Methods", "6,477", "5,883", "594", "+10.1 %" });
+            expectedData.AddRange(new List<string> { "Number of Code Lines", "104,851", "92,762", "12,089", "+13.0 %" });
+            expectedData.AddRange(new List<string> { "Number of Artifacts", "6,727", "6,089", "638", "+10.5 %" });
+            expectedData.AddRange(new List<string> { "Number of Files", "579", "485", "94", "+19.4 %" });
+            expectedData.AddRange(new List<string> { "Number of Methods", "6,477", "5,883", "594", "+10.1 %" });
             TestUtility.AssertTableContent(table, expectedData, 5, 6);
         }
 
@@ -531,7 +531,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
                 {"METRICS", "TECHNICAL_DEBT" },
                 {"SNAPSHOTS", "CURRENT"}
             };
-            
+
             var table = component.Content(reportData, config);
             Assert.AreEqual(2, table.NbColumns);
             Assert.AreEqual(2, table.NbRows);
@@ -942,11 +942,11 @@ namespace CastReporting.UnitTest.Reporting.Tables
             reportData.RuleExplorer = new RuleBLLStub();
             var table = component.Content(reportData, config);
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> {"Snapshots", "a/b", "(c+d)/2"});
-            expectedData.AddRange(new List<string> {"Snap_v1.1.4 - v1.1.4", "92.30", "3.89"});
-            expectedData.AddRange(new List<string> {"Snap_v1.1.3 - v1.1.3", "103.81", "2.82"});
+            expectedData.AddRange(new List<string> { "Snapshots", "a/b", "(c+d)/2" });
+            expectedData.AddRange(new List<string> { "Snap_v1.1.4 - v1.1.4", "92.30", "3.89" });
+            expectedData.AddRange(new List<string> { "Snap_v1.1.3 - v1.1.3", "103.81", "2.82" });
             TestUtility.AssertTableContent(table, expectedData, 3, 3);
-    }
+        }
 
         [TestMethod]
         [DeploymentItem(@".\Data\ModulesDreamTeam.json", "Data")]
@@ -983,11 +983,11 @@ namespace CastReporting.UnitTest.Reporting.Tables
             reportData.RuleExplorer = new RuleBLLStub();
             var table = component.Content(reportData, config);
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> {"Modules", "a/b", "(c+d)/2"});
-            expectedData.AddRange(new List<string> {"Adg", "0.44", "2.27"});
-            expectedData.AddRange(new List<string> {"Central", "No data found", "No data found"});
-            expectedData.AddRange(new List<string> {"DssAdmin", "0.22", "3.31"});
-            expectedData.AddRange(new List<string> {"Pchit", "0.15", "2.80"});
+            expectedData.AddRange(new List<string> { "Modules", "a/b", "(c+d)/2" });
+            expectedData.AddRange(new List<string> { "Adg", "0.44", "2.27" });
+            expectedData.AddRange(new List<string> { "Central", "No data found", "No data found" });
+            expectedData.AddRange(new List<string> { "DssAdmin", "0.22", "3.31" });
+            expectedData.AddRange(new List<string> { "Pchit", "0.15", "2.80" });
             TestUtility.AssertTableContent(table, expectedData, 3, 5);
         }
 
@@ -1027,11 +1027,11 @@ namespace CastReporting.UnitTest.Reporting.Tables
             reportData.RuleExplorer = new RuleBLLStub();
             var table = component.Content(reportData, config);
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> {"Technologies", "a/b", "(c+d)/2"});
-            expectedData.AddRange(new List<string> {"JEE", "0.44", "2.27"});
-            expectedData.AddRange(new List<string> {"PL/SQL", "No data found", "No data found"});
-            expectedData.AddRange(new List<string> {"C++", "0.22", "3.31"});
-            expectedData.AddRange(new List<string> {".NET", "0.15", "2.80"});
+            expectedData.AddRange(new List<string> { "Technologies", "a/b", "(c+d)/2" });
+            expectedData.AddRange(new List<string> { "JEE", "0.44", "2.27" });
+            expectedData.AddRange(new List<string> { "PL/SQL", "No data found", "No data found" });
+            expectedData.AddRange(new List<string> { "C++", "0.22", "3.31" });
+            expectedData.AddRange(new List<string> { ".NET", "0.15", "2.80" });
             TestUtility.AssertTableContent(table, expectedData, 3, 5);
         }
 
@@ -1098,6 +1098,6 @@ namespace CastReporting.UnitTest.Reporting.Tables
             TestUtility.AssertTableContent(table, expectedData, 3, 21);
         }
 
-}
+    }
 }
 

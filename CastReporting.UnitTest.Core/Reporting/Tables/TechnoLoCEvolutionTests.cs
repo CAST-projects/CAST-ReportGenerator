@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Table;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {
@@ -33,7 +33,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
 
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> { "Name", "Current LoC", "Previous LoC", "Evolution", "% Evolution"});
+            expectedData.AddRange(new List<string> { "Name", "Current LoC", "Previous LoC", "Evolution", "% Evolution" });
             expectedData.AddRange(new List<string> { "SQL Analyzer", "24,670", "24,440", "+230", "+0.94 %" });
             expectedData.AddRange(new List<string> { ".NET", "24,446", "18,012", "+6,434", "+35.7 %" });
             expectedData.AddRange(new List<string> { "JEE", "13,311", "11,716", "+1,595", "+13.6 %" });

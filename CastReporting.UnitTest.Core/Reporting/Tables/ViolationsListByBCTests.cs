@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {
@@ -263,7 +263,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
                 Name = "JSPBookDemo",
                 Href = "AED/modules/6/snapshots/6"
             };
-            reportData.CurrentSnapshot.Modules = new List<Module> {mod};
+            reportData.CurrentSnapshot.Modules = new List<Module> { mod };
 
             var table = component.Content(reportData, config);
 

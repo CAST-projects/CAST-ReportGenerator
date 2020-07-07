@@ -27,7 +27,7 @@ namespace CastReporting.Domain
         /// Used by Quality indicators
         /// </summary>
         [DataMember(Name = "grade")]
-        public double? Grade {get;set;}
+        public double? Grade { get; set; }
 
         /// <summary>
         /// Used by sizing measures
@@ -52,6 +52,6 @@ namespace CastReporting.Domain
         /// </summary>
         [DataMember(Name = "evolutionSummary")]
         public EvolutionSummary EvolutionSummary { get; set; }
-        
+
     }
 }

@@ -22,8 +22,8 @@ namespace CastReporting.Domain
     /// <summary>
     /// 
     /// </summary>
-   [DataContract(Name = "technicalCriteria")]
-    public class QITechnicalCriteria : QIBase  
+    [DataContract(Name = "technicalCriteria")]
+    public class QITechnicalCriteria : QIBase
     {
 
         [DataMember(Name = "gradeContributors")]

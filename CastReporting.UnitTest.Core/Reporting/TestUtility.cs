@@ -1,4 +1,9 @@
-﻿using System;
+﻿using CastReporting.Domain;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
+using CastReporting.Repositories;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -7,11 +12,6 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization.Json;
 using System.Text;
-using CastReporting.Domain;
-using CastReporting.Reporting.Core.Languages;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Repositories;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Module = CastReporting.Domain.Module;
 
 namespace CastReporting.UnitTest.Reporting
@@ -211,13 +211,13 @@ namespace CastReporting.UnitTest.Reporting
             };
 
             reportData.CurrentSnapshot.Annotation.Date = currentDate;
-            List<Snapshot> snapshotList = new List<Snapshot> {reportData.CurrentSnapshot};
+            List<Snapshot> snapshotList = new List<Snapshot> { reportData.CurrentSnapshot };
             if (reportData.PreviousSnapshot != null)
             {
                 reportData.PreviousSnapshot.Annotation.Date = previousDate;
                 snapshotList.Add(reportData.PreviousSnapshot);
             }
-            
+
             appli.Snapshots = snapshotList;
             reportData.Application = appli;
             return reportData;
@@ -447,7 +447,7 @@ namespace CastReporting.UnitTest.Reporting
                                     break;
                                 default: throw new ArgumentOutOfRangeException();
                             }
-                       }
+                        }
                         snap.BusinessCriteriaResults = businessCriteriaResults;
                         snap.TechnicalCriteriaResults = technicalCriteriaResults;
                         snap.QualityRulesResults = qualityRulesResults;
@@ -466,8 +466,8 @@ namespace CastReporting.UnitTest.Reporting
             ReportData reportData = new ReportData
             {
                 Applications = new Application[0],
-                IgnoresApplications = new[] {"Appli Ignor 1", "Appli 2 Ignore"},
-                IgnoresSnapshots = new[] {"Snap Ignor 1", "Snap 2 Ignore"}
+                IgnoresApplications = new[] { "Appli Ignor 1", "Appli 2 Ignore" },
+                IgnoresSnapshots = new[] { "Snap Ignor 1", "Snap 2 Ignore" }
             };
 
             return reportData;

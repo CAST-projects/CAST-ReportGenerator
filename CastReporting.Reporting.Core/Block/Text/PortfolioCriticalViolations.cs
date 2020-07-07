@@ -13,17 +13,17 @@
  * limitations under the License.
  *
  */
+using Cast.Util.Log;
 using CastReporting.BLL.Computing;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.Helper;
 using CastReporting.Reporting.ReportingModel;
-using CastReporting.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CastReporting.Reporting.Helper;
-using Cast.Util.Log;
-using CastReporting.Reporting.Core.Languages;
 
 namespace CastReporting.Reporting.Block.Text
 {
@@ -47,7 +47,7 @@ namespace CastReporting.Reporting.Block.Text
                 {
                     Snapshot _snapshot = _app.Snapshots.OrderByDescending(_ => _.Annotation.Date.DateSnapShot).First();
                     if (_snapshot == null) continue;
-                    int? _snapCv = RulesViolationUtility.GetBCEvolutionSummary(_snapshot,metricId).FirstOrDefault()?.TotalCriticalViolations;
+                    int? _snapCv = RulesViolationUtility.GetBCEvolutionSummary(_snapshot, metricId).FirstOrDefault()?.TotalCriticalViolations;
                     if (_snapCv != null) _cv = _cv + _snapCv;
                 }
                 catch (Exception ex)

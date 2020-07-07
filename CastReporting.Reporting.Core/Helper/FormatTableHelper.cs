@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
 using System.Drawing;
-using CastReporting.Reporting.ReportingModel;
 
 namespace CastReporting.Reporting.Helper
 {

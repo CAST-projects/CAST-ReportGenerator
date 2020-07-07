@@ -14,18 +14,18 @@
  * limitations under the License.
  *
  */
-using System;
-using System.Collections.Generic;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
+using System;
+using System.Collections.Generic;
 
 
 
-namespace CastReporting.Reporting.Block.Graph 
+namespace CastReporting.Reporting.Block.Graph
 {
     [Block("MODULES_ARTIFACTS")]
     public class PieModuleArtifact : GraphBlock
@@ -49,13 +49,13 @@ namespace CastReporting.Reporting.Block.Graph
 
             List<string> rowData = new List<string>();
             rowData.AddRange(new[] { Labels.Name, Labels.Artifacts });
-          
+
             foreach (var mod in moduleArtifacts)
             {
                 rowData.Add(mod.Name);
                 rowData.Add(Convert.ToInt32(mod.Value).ToString());
             }
-              
+
 
             TableDefinition resultTable = new TableDefinition
             {
@@ -69,7 +69,7 @@ namespace CastReporting.Reporting.Block.Graph
             return resultTable;
         }
 
-        
+
         #endregion METHODS
     }
 

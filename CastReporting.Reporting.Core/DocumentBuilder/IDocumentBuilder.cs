@@ -13,8 +13,8 @@
  * limitations under the License.
  *
  */
-using System;
 using CastReporting.Reporting.ReportingModel;
+using System;
 
 namespace CastReporting.Reporting.Builder
 {

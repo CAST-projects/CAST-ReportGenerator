@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {
@@ -42,7 +42,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
 
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> { "Artifact Name", "PRI"});
+            expectedData.AddRange(new List<string> { "Artifact Name", "PRI" });
             expectedData.AddRange(new List<string> { "central.dss_metric_results", "229,656" });
             expectedData.AddRange(new List<string> { "central.dss_history", "180,488" });
             expectedData.AddRange(new List<string> { "central.dss_snapshots", "140,952" });

@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Graph;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Graph
 {
@@ -87,7 +87,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
 
             Assert.AreEqual(-0.9, table.GraphOptions.AxisConfiguration.VerticalAxisMinimal);
             Assert.AreEqual(6, table.GraphOptions.AxisConfiguration.VerticalAxisMaximal);
-            
+
         }
     }
 }

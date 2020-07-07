@@ -13,14 +13,14 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
-using System.Linq;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Linq;
 
 
 namespace CastReporting.Reporting.Block.Table
@@ -39,15 +39,16 @@ namespace CastReporting.Reporting.Block.Table
             List<RuleViolationsVariationResultDTO> variationRules = new List<RuleViolationsVariationResultDTO>();
 
             rowData.AddRange(new[] {
-				Labels.RuleName,
-				Labels.Current,
-				Labels.Previous,
-				Labels.Evolution,
-				Labels.EvolutionPercent
-			});
+                Labels.RuleName,
+                Labels.Current,
+                Labels.Previous,
+                Labels.Evolution,
+                Labels.EvolutionPercent
+            });
 
             int? metricId = (options != null && options.ContainsKey("BC-ID") ? int.Parse(options["BC-ID"]) : (int?)null) ?? (options != null && options.ContainsKey("PAR") ? int.Parse(options["PAR"]) : (int?)null);
-            if (options == null || !options.ContainsKey("COUNT") || !int.TryParse(options["COUNT"], out nbLimitTop)) {
+            if (options == null || !options.ContainsKey("COUNT") || !int.TryParse(options["COUNT"], out nbLimitTop))
+            {
                 nbLimitTop = reportData.Parameter.NbResultDefault;
             }
 
@@ -67,10 +68,10 @@ namespace CastReporting.Reporting.Block.Table
                                                                                            : null;
 
 
-                if (currentNonCriticalRulesViolation != null) 
+                if (currentNonCriticalRulesViolation != null)
                 {
                     rowCount += currentNonCriticalRulesViolation.Count;
-                    foreach (var item in currentNonCriticalRulesViolation) 
+                    foreach (var item in currentNonCriticalRulesViolation)
                     {
                         //Get previous value
                         var previousitem = previousNonCriticalRulesViolation?.FirstOrDefault(_ => _.Rule.Key == item.Rule.Key);
@@ -91,8 +92,8 @@ namespace CastReporting.Reporting.Block.Table
                     var selectedRules = variationRules.OrderByDescending(_ => _.Ratio).Take(nbLimitTop);
                     foreach (var varRule in selectedRules)
                     {
-                        rowData.AddRange(new[] 
-                                    { 
+                        rowData.AddRange(new[]
+                                    {
                                           varRule.Rule.Name
                                         , varRule.CurrentNbViolations.HasValue && varRule.CurrentNbViolations.Value != -1? varRule.CurrentNbViolations.Value.ToString("N0"): Constants.No_Value
                                         , varRule.PreviousNbViolations.HasValue && varRule.PreviousNbViolations.Value != -1? varRule.PreviousNbViolations.Value.ToString("N0"): Constants.No_Value
@@ -101,27 +102,28 @@ namespace CastReporting.Reporting.Block.Table
                                    }
                             );
                     }
-                } 
-                else 
+                }
+                else
                 {
-					rowData.AddRange(new[] {
-						Labels.NoItem,
-						string.Empty,
-						string.Empty,
-						string.Empty,
-						string.Empty
-					});
+                    rowData.AddRange(new[] {
+                        Labels.NoItem,
+                        string.Empty,
+                        string.Empty,
+                        string.Empty,
+                        string.Empty
+                    });
                     rowCount = 1;
                 }
             }
 
-			var resultTable = new TableDefinition {
-			    HasRowHeaders = false,
-			    HasColumnHeaders = true,
-			    NbRows = rowCount + 1,
-			    NbColumns = 5,
-			    Data = rowData
-			};
+            var resultTable = new TableDefinition
+            {
+                HasRowHeaders = false,
+                HasColumnHeaders = true,
+                NbRows = rowCount + 1,
+                NbColumns = 5,
+                Data = rowData
+            };
             return resultTable;
         }
     }

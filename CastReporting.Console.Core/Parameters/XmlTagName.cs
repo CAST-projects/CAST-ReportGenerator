@@ -29,7 +29,7 @@ namespace CastReporting.Console.Argument
         {
             return Name;
         }
-        
+
         #endregion
     }
 }

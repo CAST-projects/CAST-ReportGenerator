@@ -32,7 +32,7 @@ namespace CastReporting.Repositories.Util
             try
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(T));
-               
+
                 stream = File.Open(filePath, FileMode.Create);
 
                 serializer.Serialize(stream, instance);
@@ -75,14 +75,14 @@ namespace CastReporting.Repositories.Util
         /// <param name="filePath"></param>
         /// <param name="overrides"></param>
         /// <returns></returns>
-        public static T DeserializeFromFile<T>(string filePath, XmlRootAttribute overrides=null)
+        public static T DeserializeFromFile<T>(string filePath, XmlRootAttribute overrides = null)
         {
             FileStream stream = null;
 
             try
             {
-                
-                XmlSerializer serializer = overrides==null?new XmlSerializer(typeof(T)) : new XmlSerializer(typeof(T),overrides);
+
+                XmlSerializer serializer = overrides == null ? new XmlSerializer(typeof(T)) : new XmlSerializer(typeof(T), overrides);
 
                 stream = File.OpenRead(filePath);
 

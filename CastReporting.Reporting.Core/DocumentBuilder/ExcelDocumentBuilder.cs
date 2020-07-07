@@ -13,18 +13,18 @@
  * limitations under the License.
  *
  */
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Helper;
+using CastReporting.Reporting.ReportingModel;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Spreadsheet;
-using System.Linq;
-using DocumentFormat.OpenXml;
 using System.Globalization;
+using System.Linq;
 using System.Text.RegularExpressions;
-using CastReporting.Reporting.Helper;
 
 
 namespace CastReporting.Reporting.Builder
@@ -44,7 +44,7 @@ namespace CastReporting.Reporting.Builder
         /// <param name="tmpRepFlexi"></param>
         public ExcelDocumentBuilder(ReportData client, string tmpRepFlexi)
             : base(client)
-        { 
+        {
             StrFinalTempFile = tmpRepFlexi;
             reportData = client;
         }
@@ -82,13 +82,13 @@ namespace CastReporting.Reporting.Builder
                 blockOptionStr = !string.IsNullOrWhiteSpace(tag) ? tag.Replace(@"\r\n", string.Empty) : string.Empty;
             }
             else if (!string.IsNullOrWhiteSpace(tag))
-        {
+            {
                 optionList = tag.Replace(@"\r\n", string.Empty).Split(';');
                 if (optionList.Length >= 3)
-            {
+                {
                     blockOptionStr = optionList[2];
+                }
             }
-        }
             if (null == optionList || optionList.Length < 2) return back;
             back.Type = optionList[0];
             back.Name = optionList[1];
@@ -169,7 +169,7 @@ namespace CastReporting.Reporting.Builder
             {
                 for (int j = 0; j < 26; j++)
                 {
-                    alph[26 + i + j] = alphabet.Substring(i,1) + alphabet.Substring(j, 1);
+                    alph[26 + i + j] = alphabet.Substring(i, 1) + alphabet.Substring(j, 1);
 
                 }
             }

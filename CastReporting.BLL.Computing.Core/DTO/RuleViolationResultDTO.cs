@@ -13,24 +13,25 @@ namespace CastReporting.BLL.Computing
         public int? TotalFailed { get; set; }
 
         public double? Grade { get; set; }
-        
-        public class Comparer : IEqualityComparer<RuleViolationResultDTO> {
-			#region IEqualityComparer implementation
-			public bool Equals(RuleViolationResultDTO x, RuleViolationResultDTO y)
-			{
-				if (x == null && y == null)
-					return true;
-				if (x == null || y == null)
-					return false;
-				int xk = x.Rule?.Key ?? 0;
-				int yk = y.Rule?.Key ?? 0;
-				return xk != 0 && xk == yk;
-			}
-			public int GetHashCode(RuleViolationResultDTO obj)
-			{
-				return obj.Rule?.Key ?? 0;
-			}
-			#endregion
+
+        public class Comparer : IEqualityComparer<RuleViolationResultDTO>
+        {
+            #region IEqualityComparer implementation
+            public bool Equals(RuleViolationResultDTO x, RuleViolationResultDTO y)
+            {
+                if (x == null && y == null)
+                    return true;
+                if (x == null || y == null)
+                    return false;
+                int xk = x.Rule?.Key ?? 0;
+                int yk = y.Rule?.Key ?? 0;
+                return xk != 0 && xk == yk;
+            }
+            public int GetHashCode(RuleViolationResultDTO obj)
+            {
+                return obj.Rule?.Key ?? 0;
+            }
+            #endregion
         }
     }
 
@@ -47,7 +48,7 @@ namespace CastReporting.BLL.Computing
         public double? Grade { get; set; }
 
         public double? GradeEvolution { get; set; }
-    
+
     }
 
     public class RuleViolationsVariationResultDTO
@@ -70,7 +71,7 @@ namespace CastReporting.BLL.Computing
         public int Key { get; set; }
 
         public string Name { get; set; }
-       
+
         public int CompoundedWeight { get; set; }
 
         public bool Critical { get; set; }
@@ -89,6 +90,6 @@ namespace CastReporting.BLL.Computing
         public int? TotalChecks { get; set; }
 
         public int? TotalFailed { get; set; }
-       
+
     }
 }

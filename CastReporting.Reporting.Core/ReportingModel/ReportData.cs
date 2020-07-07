@@ -14,10 +14,10 @@
  *
  */
 
-using System;
-using System.IO;
 using CastReporting.Domain;
 using CastReporting.Domain.Interfaces;
+using System;
+using System.IO;
 
 namespace CastReporting.Reporting.ReportingModel
 {
@@ -27,44 +27,44 @@ namespace CastReporting.Reporting.ReportingModel
     public class ReportData : IDisposable
     {
 
-       
+
         /// <summary>
         /// 
         /// </summary>
         public string FileName { get; set; }
-        
+
         /// <summary>
         /// 
         /// </summary>
-        public FormatType ReportType 
+        public FormatType ReportType
         {
             get
             {
-                switch(Path.GetExtension(FileName))
+                switch (Path.GetExtension(FileName))
                 {
-                    case ".docx":                    
-                        return FormatType.Word; 
-                    
-                    case ".xlsx":                    
-                        return FormatType.Excel; 
-                    
+                    case ".docx":
+                        return FormatType.Word;
+
+                    case ".xlsx":
+                        return FormatType.Excel;
+
                     case ".pptx":
-                        return FormatType.PowerPoint; 
-                    
+                        return FormatType.PowerPoint;
+
                     default:
                         return 0;
                 }
             }
-           
+
         }
 
         /// <summary>
         /// 
         /// </summary>
         public Application Application
-          { 
-            get; 
-            set; 
+        {
+            get;
+            set;
         }
 
         public string Category
@@ -81,22 +81,22 @@ namespace CastReporting.Reporting.ReportingModel
 
 
 
-         /// <summary>
+        /// <summary>
         /// 
         /// </summary>
         public Snapshot CurrentSnapshot
-        { 
-            get; 
-            set; 
+        {
+            get;
+            set;
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
         public Snapshot PreviousSnapshot
-        { 
-            get; 
-            set; 
+        {
+            get;
+            set;
         }
 
 

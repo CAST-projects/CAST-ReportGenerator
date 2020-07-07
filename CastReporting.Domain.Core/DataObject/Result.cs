@@ -33,15 +33,15 @@ namespace CastReporting.Domain
         /// <summary>
         /// 
         /// </summary>
-        [DataMember(Name = "date")]        
-        public CastDate Date {get; set;}
+        [DataMember(Name = "date")]
+        public CastDate Date { get; set; }
 
 
         /// <summary>
         /// 
         /// </summary>
         [DataMember(Name = "applicationResults")]
-        public ApplicationResult[] ApplicationResults {get; set;}
+        public ApplicationResult[] ApplicationResults { get; set; }
 
 
         /// <summary>
@@ -49,6 +49,6 @@ namespace CastReporting.Domain
         /// </summary>
         [DataMember(Name = "applicationSnapshot")]
         public Snapshot Snapshot { get; set; }
-       
+
     }
 }

@@ -26,7 +26,7 @@ namespace CastReporting.UI.WPF.Core.Converter
         {
             bool isBold = value != null && (bool)value;
             return isBold ? FontWeights.Bold : FontWeights.Normal;
-      
+
 
         }
 

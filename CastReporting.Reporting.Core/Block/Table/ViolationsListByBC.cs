@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using CastReporting.BLL.Computing;
+﻿using CastReporting.BLL.Computing;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Domain;
-using CastReporting.Reporting.Helper;
 using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.Helper;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -17,9 +17,9 @@ namespace CastReporting.Reporting.Block.Table
         {
             List<string> rowData = new List<string>();
 
-            string[] bcIds = options.GetOption("BCID") != null? options.GetOption("BCID").Trim().Split('|') : new[] { "60016" }; // by default, security
+            string[] bcIds = options.GetOption("BCID") != null ? options.GetOption("BCID").Trim().Split('|') : new[] { "60016" }; // by default, security
             int nbLimitTop = options.GetOption("COUNT") == "ALL" ? -1 : options.GetIntOption("COUNT", 10);
-            bool shortName = options.GetOption("NAME","FULL").Equals("SHORT");
+            bool shortName = options.GetOption("NAME", "FULL").Equals("SHORT");
             bool hasPri = bcIds.Contains("60013") || bcIds.Contains("60014") || bcIds.Contains("60016");
             string[] filter = options.GetOption("FILTER", "ALL").Trim().Split('|');
             bool critical = options.GetOption("VIOLATIONS", "CRITICAL").Equals("CRITICAL");
@@ -39,7 +39,7 @@ namespace CastReporting.Reporting.Block.Table
 
             List<Violation> results = new List<Violation>();
 
-            
+
             foreach (string _bcid in bcIds)
             {
                 Module mod = module != null ? reportData.CurrentSnapshot.Modules.FirstOrDefault(m => m.Name.Equals(module)) : null;
@@ -47,9 +47,9 @@ namespace CastReporting.Reporting.Block.Table
 
                 string technologies = technos.Aggregate(string.Empty, (current, techno) => current.Equals(string.Empty) ? techno : current + "," + techno);
 
-                IEnumerable <Violation> bcresults = critical ? 
+                IEnumerable<Violation> bcresults = critical ?
                     reportData.SnapshotExplorer.GetViolationsListIDbyBC(href, "(critical-rules)", _bcid, -1, "(" + technologies + ")").ToList()
-                    : reportData.SnapshotExplorer.GetViolationsListIDbyBC(href, "(nc:" + _bcid + ",cc:" + _bcid + ")", _bcid, -1,"(" + technologies + ")").ToList() ;
+                    : reportData.SnapshotExplorer.GetViolationsListIDbyBC(href, "(nc:" + _bcid + ",cc:" + _bcid + ")", _bcid, -1, "(" + technologies + ")").ToList();
 
                 List<Violation> filterResults = new List<Violation>();
                 if (!bcresults.Any()) continue;

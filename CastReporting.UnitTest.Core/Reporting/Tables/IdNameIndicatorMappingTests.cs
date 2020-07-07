@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Table;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {
@@ -18,7 +18,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         [TestMethod]
         public void TestIdNameIndicatorMapping()
         {
-            CastDate currentDate = new CastDate {Time = 1492984800000};
+            CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                 null, null, null, null, null, null);
@@ -29,7 +29,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
             var expectedData = new List<string>();
             expectedData.AddRange(new List<string> { "Name", "Id" });
-            expectedData.AddRange(new List<string> { "TechnicalQualityIndex", "60017"});
+            expectedData.AddRange(new List<string> { "TechnicalQualityIndex", "60017" });
             expectedData.AddRange(new List<string> { "Security", "60016" });
             expectedData.AddRange(new List<string> { "Robustness", "60013" });
             expectedData.AddRange(new List<string> { "Performance", "60014" });

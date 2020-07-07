@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Cast.Util.Date;
+using Cast.Util.Log;
 using CastReporting.BLL.Computing;
+using CastReporting.BLL.Computing.DTO;
 using CastReporting.Domain;
 using CastReporting.Reporting.Core.Languages;
 using CastReporting.Reporting.ReportingModel;
+using System;
 using System.Collections.Generic;
-using CastReporting.BLL.Computing.DTO;
 using System.Linq;
-using Cast.Util.Log;
-using Cast.Util.Date;
 
 namespace CastReporting.Reporting.Helper
 {
@@ -217,7 +217,7 @@ namespace CastReporting.Reporting.Helper
                         }
                         if (metricsAggregators == null)
                         {
-                            metricsAggregators = new[] {"AVERAGE"};
+                            metricsAggregators = new[] { "AVERAGE" };
                         }
                         break;
 
@@ -304,7 +304,7 @@ namespace CastReporting.Reporting.Helper
                         results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), value);
                     }
                 }
-                
+
                 // case violations
                 if (violations.Count != 0 && criticalViolations.Count == 0)
                 {
@@ -622,7 +622,7 @@ namespace CastReporting.Reporting.Helper
                         if (string.IsNullOrEmpty(_metricFormat)) _metricFormat = "N2";
                         if (positionCustomExpression != -1) _posResults[positionCustomExpression] = expr;
 
-                        foreach (string techno in technologies) 
+                        foreach (string techno in technologies)
                         {
                             _posResults[positionTechnologies] = techno;
                             string _metricAggregator = idxExpr < metricsAggregators.Length ? metricsAggregators[idxExpr] : "AVERAGE";
@@ -1321,7 +1321,8 @@ namespace CastReporting.Reporting.Helper
                             .OrderByDescending(_ => _.Annotation.Date.DateSnapShot)
                             .First();
                     list.Add(_application, _previous);
-                } catch (InvalidOperationException e)
+                }
+                catch (InvalidOperationException e)
                 {
                     LogHelper.LogWarn("No snapshots in previous quarter");
                 }

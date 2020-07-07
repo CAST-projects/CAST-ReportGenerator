@@ -21,20 +21,20 @@ namespace CastReporting.Domain
     /// <summary>
     /// 
     /// </summary>
-   [DataContract(Name = "reference")]
+    [DataContract(Name = "reference")]
     public class ResultReference
     {
-       /// <summary>
-       /// 
-       /// </summary>
+        /// <summary>
+        /// 
+        /// </summary>
         [DataMember(Name = "href")]
-        public string HRef {get; set;}
+        public string HRef { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [DataMember(Name = "name")]
-        public string Name {get; set;}
+        public string Name { get; set; }
 
         /// <summary>
         /// 
@@ -46,7 +46,7 @@ namespace CastReporting.Domain
         /// 
         /// </summary>
         [DataMember(Name = "key")]
-        public int Key {get; set; }
+        public int Key { get; set; }
 
         /// <summary>
         /// 
@@ -64,7 +64,7 @@ namespace CastReporting.Domain
             if (!(obj is ResultReference)) return false;
 
 
-            return Key.Equals(((ResultReference) obj).Key);
+            return Key.Equals(((ResultReference)obj).Key);
         }
 
         /// <summary>

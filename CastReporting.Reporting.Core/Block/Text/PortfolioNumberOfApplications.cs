@@ -13,10 +13,10 @@
  * limitations under the License.
  *
  */
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.ReportingModel;
-using CastReporting.Domain;
 using System.Collections.Generic;
 
 
@@ -30,7 +30,7 @@ namespace CastReporting.Reporting.Block.Text
         {
             if (reportData?.Applications == null || null == reportData.Snapshots) return Constants.No_Value;
             Application[] _allApps = reportData.Applications;
-                
+
 
             return _allApps.Length.ToString();
         }

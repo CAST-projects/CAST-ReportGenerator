@@ -14,13 +14,13 @@
  *
  */
 
-using System.Collections.Generic;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
 
 
 namespace CastReporting.Reporting.Block.Table
@@ -31,49 +31,56 @@ namespace CastReporting.Reporting.Block.Table
         public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             List<string> rowData = new List<string>();
-			rowData.AddRange(new[] {
-				Labels.RuleName,
-				Labels.ViolationsCount
-			});
-            
+            rowData.AddRange(new[] {
+                Labels.RuleName,
+                Labels.ViolationsCount
+            });
+
             int nbRows = 0;
             int nbLimitTop;
             int? metricId = (options != null && options.ContainsKey("BC-ID") ? int.Parse(options["BC-ID"]) : (int?)null) ?? (options != null && options.ContainsKey("PAR") ? int.Parse(options["PAR"]) : (int?)null);
 
-            if (null == options || !options.ContainsKey("COUNT") || !int.TryParse(options["COUNT"], out nbLimitTop)) {
+            if (null == options || !options.ContainsKey("COUNT") || !int.TryParse(options["COUNT"], out nbLimitTop))
+            {
                 nbLimitTop = reportData.Parameter.NbResultDefault;
             }
 
-            if (reportData?.CurrentSnapshot != null) {
+            if (reportData?.CurrentSnapshot != null)
+            {
 
-				if (!metricId.HasValue)
-					metricId = 0;
+                if (!metricId.HasValue)
+                    metricId = 0;
 
-                var rulesViolation = RulesViolationUtility.GetRuleViolations(reportData.CurrentSnapshot, 
+                var rulesViolation = RulesViolationUtility.GetRuleViolations(reportData.CurrentSnapshot,
                                                                                      Constants.RulesViolation.CriticalRulesViolation,
                                                                                      (Constants.BusinessCriteria)metricId,
-                                                                                     true, 
+                                                                                     true,
                                                                                      nbLimitTop);
 
 
-                if (null != rulesViolation) {
-                    foreach (var elt in rulesViolation) {
-						rowData.AddRange(new[] {
-							elt.Rule.Name,
-							elt.TotalFailed?.ToString("N0")
-						});
+                if (null != rulesViolation)
+                {
+                    foreach (var elt in rulesViolation)
+                    {
+                        rowData.AddRange(new[] {
+                            elt.Rule.Name,
+                            elt.TotalFailed?.ToString("N0")
+                        });
                     }
-                } else {
-					rowData.AddRange(new[] {
-						Labels.NoItem,
-						string.Empty
-					});
+                }
+                else
+                {
+                    rowData.AddRange(new[] {
+                        Labels.NoItem,
+                        string.Empty
+                    });
                 }
                 if (rulesViolation != null) nbRows = rulesViolation.Count;
             }
 
 
-            TableDefinition resultTable = new TableDefinition {
+            TableDefinition resultTable = new TableDefinition
+            {
                 HasRowHeaders = false,
                 HasColumnHeaders = true,
                 NbRows = nbRows + 1,

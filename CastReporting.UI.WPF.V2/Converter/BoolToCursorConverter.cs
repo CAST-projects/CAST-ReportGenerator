@@ -24,7 +24,7 @@ namespace CastReporting.UI.WPF.Core.Converter
     public class BoolToCursorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {         
+        {
             return value != null && (bool)value ? Cursors.Wait : null;
         }
 

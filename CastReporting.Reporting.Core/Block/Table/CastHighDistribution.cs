@@ -13,18 +13,18 @@
  * limitations under the License.
  *
  */
-using System;
-using System.Collections.Generic;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
+using System;
+using System.Collections.Generic;
 
 
 namespace CastReporting.Reporting.Block.Table
-{ 
+{
     [Block("CAST_HIGH_DISTRIBUTION")]
     public class CastHighDistribution : TableBlock
     {
@@ -57,38 +57,38 @@ namespace CastReporting.Reporting.Block.Table
             #region Selected Snapshot
 
             double? selectedLowVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                distributionId.GetHashCode(),"low");
+                distributionId.GetHashCode(), "low");
             double? selectedAveVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                distributionId.GetHashCode(),"average");
+                distributionId.GetHashCode(), "average");
             double? selectedHigVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                distributionId.GetHashCode(),"high");
+                distributionId.GetHashCode(), "high");
             double? selectedVhiVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                distributionId.GetHashCode(),"very_high");
-            
+                distributionId.GetHashCode(), "very_high");
+
             double? selectedTotal = selectedLowVal.HasValue && selectedAveVal.HasValue && selectedHigVal.HasValue && selectedVhiVal.HasValue ? selectedLowVal.Value + selectedAveVal.Value + selectedHigVal.Value + selectedVhiVal.Value : (double?)null;
             double? selectedHttVal = selectedHigVal.HasValue && selectedVhiVal.HasValue ? selectedHigVal.Value + selectedVhiVal.Value : (double?)null;
- 
+
             #endregion Selected Snapshot
-            
+
             #region Previous Snapshot
 
             if (reportData.PreviousSnapshot != null)
             {
 
                 var previousHigVal = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
-                    distributionId.GetHashCode(),"high");
+                    distributionId.GetHashCode(), "high");
                 var previousVhiVal = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
-                    distributionId.GetHashCode(),"very_high");
+                    distributionId.GetHashCode(), "very_high");
 
                 previousHttVal = previousHigVal.HasValue && previousVhiVal.HasValue ? previousHigVal.Value + previousVhiVal.Value : (double?)null;
 
             }
-             
+
             #endregion Previous Snapshot
 
             #region Data
             int? variation = selectedHttVal.HasValue && previousHttVal.HasValue ? (int)(selectedHttVal - previousHttVal) : (int?)null;
-                 
+
             string distributionName = CastComplexityUtility.GetCostComplexityName(reportData.CurrentSnapshot, distributionId.GetHashCode());
 
             rowData.AddRange(new[] { distributionName, Labels.Current, Labels.Previous, Labels.Evol, Labels.TotalPercent });
@@ -100,7 +100,7 @@ namespace CastReporting.Reporting.Block.Table
                 , selectedHttVal.HasValue && selectedTotal.HasValue && selectedTotal.Value>0? FormatPercent(selectedHttVal.Value / selectedTotal.Value, false): Constants.No_Value
             });
 
-              
+
             #endregion Data
 
             back = new TableDefinition
@@ -116,6 +116,6 @@ namespace CastReporting.Reporting.Block.Table
         }
 
 
-       
+
     }
 }

@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Drawing;
-using Cast.Util.Log;
+﻿using Cast.Util.Log;
 using Cast.Util.Version;
 using CastReporting.BLL.Computing;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Domain;
-using CastReporting.Reporting.Helper;
 using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.Helper;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -28,7 +28,7 @@ namespace CastReporting.Reporting.Block.Table
 
             List<string> metrics = options.GetOption("METRICS").Trim().Split('|').ToList();
             bool critical;
-            if (options == null || !options.ContainsKey("CRITICAL") )
+            if (options == null || !options.ContainsKey("CRITICAL"))
             {
                 critical = false;
             }
@@ -53,7 +53,7 @@ namespace CastReporting.Reporting.Block.Table
                 };
             }
 
-            List<string> qualityRules = MetricsUtility.BuildRulesList(reportData, metrics,critical);
+            List<string> qualityRules = MetricsUtility.BuildRulesList(reportData, metrics, critical);
 
             if (displayHeader)
             {
@@ -89,7 +89,7 @@ namespace CastReporting.Reporting.Block.Table
                     if (!int.TryParse(_metric, out int metricId)) continue;
                     ViolStatMetricIdDTO violStats = RulesViolationUtility.GetViolStat(reportData.CurrentSnapshot, metricId);
                     if (violStats == null) continue;
-                    
+
                     // if no violations, do not display anything for this rule
                     if (violStats.TotalViolations < 1) continue;
 

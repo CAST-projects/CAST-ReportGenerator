@@ -13,14 +13,14 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
-using System.Linq;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -36,10 +36,10 @@ namespace CastReporting.Reporting.Block.Table
             rowData.AddRange(new[] { " ", Labels.TQI, Labels.Robu, Labels.Efcy, Labels.Secu, Labels.Trans, Labels.Chang });
 
             rowData.AddRange(new[] { Labels.Current, " ", " ", " ", " ", " ", " " });
-          
+
             foreach (var resultModule in results.OrderBy(_ => _.ModuleName))
             {
-               rowData.AddRange(new[] {
+                rowData.AddRange(new[] {
                           resultModule.ModuleName,
                           resultModule[Constants.BusinessCriteria.TechnicalQualityIndex]?.TotalCriticalViolations?.ToString(MetricFormat) ?? Constants.No_Value,
 
@@ -51,11 +51,11 @@ namespace CastReporting.Reporting.Block.Table
 
                           resultModule[Constants.BusinessCriteria.Transferability]?.TotalCriticalViolations?.ToString(MetricFormat) ?? Constants.No_Value ,
 
-                          resultModule[Constants.BusinessCriteria.Changeability]?.TotalCriticalViolations?.ToString(MetricFormat) ?? Constants.No_Value 
+                          resultModule[Constants.BusinessCriteria.Changeability]?.TotalCriticalViolations?.ToString(MetricFormat) ?? Constants.No_Value
 
                         });
 
-               
+
             }
             rowData.AddRange(new[] { Labels.ViolationsAdded, " ", " ", " ", " ", " ", " " });
 
@@ -73,7 +73,7 @@ namespace CastReporting.Reporting.Block.Table
 
                           resultModule[Constants.BusinessCriteria.Transferability]?.AddedCriticalViolations?.ToString(MetricFormat) ?? Constants.No_Value ,
 
-                          resultModule[Constants.BusinessCriteria.Changeability]?.AddedCriticalViolations?.ToString(MetricFormat) ?? Constants.No_Value 
+                          resultModule[Constants.BusinessCriteria.Changeability]?.AddedCriticalViolations?.ToString(MetricFormat) ?? Constants.No_Value
 
                         });
 
@@ -94,7 +94,7 @@ namespace CastReporting.Reporting.Block.Table
 
                           resultModule[Constants.BusinessCriteria.Transferability]?.RemovedCriticalViolations?.ToString(MetricFormat) ?? Constants.No_Value ,
 
-                          resultModule[Constants.BusinessCriteria.Changeability]?.RemovedCriticalViolations?.ToString(MetricFormat) ?? Constants.No_Value 
+                          resultModule[Constants.BusinessCriteria.Changeability]?.RemovedCriticalViolations?.ToString(MetricFormat) ?? Constants.No_Value
 
                         });
 
@@ -107,7 +107,7 @@ namespace CastReporting.Reporting.Block.Table
                 NbColumns = 7,
                 Data = rowData
             };
-            
+
             return resultTable;
         }
     }

@@ -26,7 +26,7 @@ namespace CastReporting.UI.WPF.Core.Common
         /// <summary>
         /// 
         /// </summary>
-        bool IsBusy {get;}
+        bool IsBusy { get; }
 
 
         /// <summary>
@@ -88,5 +88,9 @@ namespace CastReporting.UI.WPF.Core.Common
         /// <param name="message"></param>
         /// <param name="timeSpan"></param>
         void OnStepDone(double percentage, string message, TimeSpan timeSpan);
+
+        void OnExtendCheck(bool statusOk);
+
+        void OnExtendSearchLatestVersion(bool needToUpdate);
     }
 }

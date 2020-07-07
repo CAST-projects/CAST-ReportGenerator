@@ -21,9 +21,9 @@ namespace CastReporting.Domain
     /// <summary>
     /// 
     /// </summary>
-   [DataContract(Name = "qualityDescription")]
-    public class QIQualityDescription : QIBase  
+    [DataContract(Name = "qualityDescription")]
+    public class QIQualityDescription : QIBase
     {
-               
+
     }
 }

@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using CastReporting.Reporting.Block.Table;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CastReporting.Reporting.Block.Table;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {
@@ -29,10 +29,10 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
             var expectedData = new List<string>();
             expectedData.AddRange(new List<string> { "CAST Complexity", "Artifacts", "With Violations" });
-            expectedData.AddRange(new List<string> { "Extreme", "71", "29"});
-            expectedData.AddRange(new List<string> { "High", "172", "74"});
+            expectedData.AddRange(new List<string> { "Extreme", "71", "29" });
+            expectedData.AddRange(new List<string> { "High", "172", "74" });
             expectedData.AddRange(new List<string> { "Average", "1,167", "270" });
-            expectedData.AddRange(new List<string> { "Low", "8,881", "221"});
+            expectedData.AddRange(new List<string> { "Low", "8,881", "221" });
             TestUtility.AssertTableContent(table, expectedData, 3, 4);
             Assert.IsTrue(table.HasColumnHeaders);
             Assert.IsFalse(table.HasRowHeaders);

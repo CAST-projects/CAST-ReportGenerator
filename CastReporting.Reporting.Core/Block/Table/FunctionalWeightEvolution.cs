@@ -14,14 +14,14 @@
  *
  */
 
-using System;
-using System.Collections.Generic;
+using CastReporting.BLL.Computing;
 using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
-using CastReporting.BLL.Computing;
+using CastReporting.Reporting.ReportingModel;
+using System;
+using System.Collections.Generic;
 
 
 namespace CastReporting.Reporting.Block.Table
@@ -32,7 +32,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("FUNCTIONAL_WEIGHT_EVOLUTION")]
     public class FunctionalWeightEvolution : TableBlock
     {
-         #region METHODS
+        #region METHODS
 
         public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
@@ -47,7 +47,7 @@ namespace CastReporting.Reporting.Block.Table
 
             double? automatedFPointsPrev = MeasureUtility.GetAutomatedIFPUGFunction(reportData.PreviousSnapshot);
             double? decisionPointsPrev = MeasureUtility.GetDecisionPointsNumber(reportData.PreviousSnapshot);
-            double? backFiredFPointsPrev =MeasureUtility.GetBackfiredIFPUGFunction(reportData.PreviousSnapshot);
+            double? backFiredFPointsPrev = MeasureUtility.GetBackfiredIFPUGFunction(reportData.PreviousSnapshot);
 
             double? automatedFPointsEvol = MathUtility.GetEvolution(automatedFPoints, automatedFPointsPrev);
             double? decisionPointsEvol = MathUtility.GetEvolution(decisionPoints, decisionPointsPrev);

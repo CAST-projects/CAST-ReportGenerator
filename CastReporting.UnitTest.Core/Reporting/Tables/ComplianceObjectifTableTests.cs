@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Table;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {
@@ -33,7 +33,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
 
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> { " ", "Objectives", "Achievement", "Achievement ratio"});
+            expectedData.AddRange(new List<string> { " ", "Objectives", "Achievement", "Achievement ratio" });
             expectedData.AddRange(new List<string> { "Entire Application (whole code)", "8", "3", "38 %" });
             expectedData.AddRange(new List<string> { "Last Delivery (new and modified)", "8", "6", "75 %" });
             TestUtility.AssertTableContent(table, expectedData, 4, 3);

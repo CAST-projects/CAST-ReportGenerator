@@ -22,7 +22,7 @@ namespace CastReporting.BLL.Computing
 
         public static double? GetSizingMeasure(Snapshot snapshot, int measureId)
         {
-            var measure =snapshot?.SizingMeasuresResults?.FirstOrDefault(_ => _.Reference.Key == measureId);
+            var measure = snapshot?.SizingMeasuresResults?.FirstOrDefault(_ => _.Reference.Key == measureId);
             return measure?.DetailResult?.Value;
         }
 
@@ -36,7 +36,7 @@ namespace CastReporting.BLL.Computing
         public static double? GetSizingMeasureModule(Snapshot snapshot, int moduleId, int measureId)
         {
             var measure = snapshot?.SizingMeasuresResults?.FirstOrDefault(_ => _.Reference.Key == measureId);
-            return measure?.ModulesResult.FirstOrDefault(_=>_.Module.Id == moduleId)?.DetailResult?.Value;
+            return measure?.ModulesResult.FirstOrDefault(_ => _.Module.Id == moduleId)?.DetailResult?.Value;
         }
 
         public static double? GetAddedFunctionPoint(Snapshot snapshot)
@@ -64,10 +64,10 @@ namespace CastReporting.BLL.Computing
         /// <returns></returns>
         // ReSharper disable once InconsistentNaming
         public static double? GetAfpMetricDF(Snapshot snapshot)
-        {         
+        {
             return GetSizingMeasure(snapshot, Constants.SizingInformations.UnadjustedDataFunctions);
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -75,8 +75,8 @@ namespace CastReporting.BLL.Computing
         /// <returns></returns>
         // ReSharper disable once InconsistentNaming
         public static double? GetAfpMetricTF(Snapshot snapshot)
-        {          
-            return  GetSizingMeasure(snapshot, Constants.SizingInformations.UnadjustedTransactionalFunctions);
+        {
+            return GetSizingMeasure(snapshot, Constants.SizingInformations.UnadjustedTransactionalFunctions);
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace CastReporting.BLL.Computing
         /// <param name="snapshot"></param>
         /// <returns></returns>
         public static double? GetTechnicalDebtMetric(Snapshot snapshot)
-        {            
+        {
             return GetSizingMeasure(snapshot, Constants.SizingInformations.TechnicalDebt);
         }
 
@@ -96,7 +96,7 @@ namespace CastReporting.BLL.Computing
         /// <param name="snapshot"></param>
         /// <returns></returns>
         public static double? GetRemovedTechDebtMetric(Snapshot snapshot)
-        {           
+        {
             return GetSizingMeasure(snapshot, Constants.SizingInformations.RemovedViolationsTechnicalDebt);
         }
 
@@ -183,7 +183,7 @@ namespace CastReporting.BLL.Computing
         /// <returns></returns>
         // ReSharper disable once InconsistentNaming
         public static double? GetBackfiredIFPUGFunction(Snapshot snapshot)
-        {           
+        {
             return GetSizingMeasure(snapshot, Constants.SizingInformations.BackfiredIFPUGFunctionPoints);
         }
 
@@ -193,7 +193,7 @@ namespace CastReporting.BLL.Computing
         /// <param name="snapshot"></param>
         /// <returns></returns>
         public static double? GetCodeLineNumber(Snapshot snapshot)
-        {           
+        {
             return GetSizingMeasure(snapshot, Constants.SizingInformations.CodeLineNumber);
         }
 
@@ -204,7 +204,7 @@ namespace CastReporting.BLL.Computing
         /// <param name="snapshot"></param>
         /// <returns></returns>
         public static int? GetAddedCriticalViolations(Snapshot snapshot)
-        {          
+        {
             return (int?)GetSizingMeasure(snapshot, Constants.SizingInformations.CriticalQualityRulesWithViolationsNewModifiedCodeNumber);
         }
 
@@ -217,7 +217,7 @@ namespace CastReporting.BLL.Computing
         /// <param name="measureId"></param>
         /// <returns></returns>
         public static double? SumDeltaIndicator(Snapshot currentSnapshot, Snapshot previousSnapshot, Application application, Constants.SizingInformations measureId)
-        {        
+        {
             if (application == null || currentSnapshot?.SizingMeasuresResults == null) return null;
             double? result = GetSizingMeasure(currentSnapshot, measureId);
 
@@ -227,12 +227,12 @@ namespace CastReporting.BLL.Computing
             DateTime dtCurrentSnapshot = currentSnapshot.Annotation.Date.DateSnapShot.Value;
 
             var quryPreviusIndicators = from s in application.Snapshots
-                where s.Annotation.Date.DateSnapShot > dtPrevoiusSnapshot 
-                      &&    s.Annotation.Date.DateSnapShot < dtCurrentSnapshot
-                from i in s.SizingMeasuresResults
-                where i.Reference.Key == measureId.GetHashCode()
-                select i;
-             
+                                        where s.Annotation.Date.DateSnapShot > dtPrevoiusSnapshot
+                                              && s.Annotation.Date.DateSnapShot < dtCurrentSnapshot
+                                        from i in s.SizingMeasuresResults
+                                        where i.Reference.Key == measureId.GetHashCode()
+                                        select i;
+
             result += quryPreviusIndicators.Sum(s => s.DetailResult.Value);
             return result;
 
@@ -275,16 +275,16 @@ namespace CastReporting.BLL.Computing
             if (snapshot?.Technologies == null || snapshot.SizingMeasuresResults == null) return null;
             List<TechnologyResultDTO> technologyInfos = (from techno in snapshot.Technologies
                     .Where(_ => !(_.StartsWith("APM") && _.EndsWith("Module")))
-                from codeLineNumber in snapshot.SizingMeasuresResults
-                where codeLineNumber.Reference.Key == Constants.SizingInformations.CodeLineNumber.GetHashCode() &&
-                      codeLineNumber.DetailResult?.Value > 0 &&
-                      codeLineNumber.TechnologyResult.Count(_ => _.Technology.Equals(techno)) != 0
-                select new TechnologyResultDTO
-                {
-                    Name = techno,
-                    Value = codeLineNumber?.TechnologyResult?.FirstOrDefault(_ => _.Technology.Equals(techno))?.DetailResult.Value ?? -1
+                                                         from codeLineNumber in snapshot.SizingMeasuresResults
+                                                         where codeLineNumber.Reference.Key == Constants.SizingInformations.CodeLineNumber.GetHashCode() &&
+                                                               codeLineNumber.DetailResult?.Value > 0 &&
+                                                               codeLineNumber.TechnologyResult.Count(_ => _.Technology.Equals(techno)) != 0
+                                                         select new TechnologyResultDTO
+                                                         {
+                                                             Name = techno,
+                                                             Value = codeLineNumber?.TechnologyResult?.FirstOrDefault(_ => _.Technology.Equals(techno))?.DetailResult.Value ?? -1
 
-                }).OrderByDescending(_ => _.Value).Take(nbResult).ToList();
+                                                         }).OrderByDescending(_ => _.Value).Take(nbResult).ToList();
             return technologyInfos;
         }
 
@@ -294,14 +294,14 @@ namespace CastReporting.BLL.Computing
             if (snapshot?.Technologies == null || snapshot.SizingMeasuresResults == null) return null;
             List<TechnologyResultDTO> technologyInfos = (from techno in snapshot.Technologies
                     .Where(_ => !(_.StartsWith("APM") && _.EndsWith("Module")))
-                from codeLineNumber in snapshot.SizingMeasuresResults
-                where codeLineNumber.Reference.Key == Constants.SizingInformations.ClassNumber.GetHashCode() &&
-                      codeLineNumber.DetailResult.Value > 0
-                select new TechnologyResultDTO
-                {
-                    Name = techno,
-                    Value = codeLineNumber?.TechnologyResult?.FirstOrDefault(_ => _.Technology.Equals(techno))?.DetailResult.Value ?? -1
-                }).OrderByDescending(_ => _.Value).Take(nbResult).ToList();
+                                                         from codeLineNumber in snapshot.SizingMeasuresResults
+                                                         where codeLineNumber.Reference.Key == Constants.SizingInformations.ClassNumber.GetHashCode() &&
+                                                               codeLineNumber.DetailResult.Value > 0
+                                                         select new TechnologyResultDTO
+                                                         {
+                                                             Name = techno,
+                                                             Value = codeLineNumber?.TechnologyResult?.FirstOrDefault(_ => _.Technology.Equals(techno))?.DetailResult.Value ?? -1
+                                                         }).OrderByDescending(_ => _.Value).Take(nbResult).ToList();
             return technologyInfos;
         }
 
@@ -311,15 +311,15 @@ namespace CastReporting.BLL.Computing
             if (snapshot?.Technologies == null || snapshot.SizingMeasuresResults == null) return null;
             List<TechnologyResultDTO> technologyInfos = (from techno in snapshot.Technologies
                     .Where(_ => !(_.StartsWith("APM") && _.EndsWith("Module")))
-                from codeLineNumber in snapshot.SizingMeasuresResults
-                where codeLineNumber.Reference.Key == Constants.SizingInformations.DecisionPointsNumber.GetHashCode() &&
-                      codeLineNumber.DetailResult.Value > 0
-                select new TechnologyResultDTO
-                {
-                    Name = techno,
-                    Value = codeLineNumber?.TechnologyResult?.FirstOrDefault(_ => _.Technology.Equals(techno))?.DetailResult.Value ?? -1
+                                                         from codeLineNumber in snapshot.SizingMeasuresResults
+                                                         where codeLineNumber.Reference.Key == Constants.SizingInformations.DecisionPointsNumber.GetHashCode() &&
+                                                               codeLineNumber.DetailResult.Value > 0
+                                                         select new TechnologyResultDTO
+                                                         {
+                                                             Name = techno,
+                                                             Value = codeLineNumber?.TechnologyResult?.FirstOrDefault(_ => _.Technology.Equals(techno))?.DetailResult.Value ?? -1
 
-                }).OrderByDescending(_ => _.Value).Take(nbResult).ToList();
+                                                         }).OrderByDescending(_ => _.Value).Take(nbResult).ToList();
             return technologyInfos;
         }
 
@@ -333,15 +333,15 @@ namespace CastReporting.BLL.Computing
         /// <returns></returns>
         public static List<ModuleResultDTO> GetModulesMeasure(Snapshot snapshot, int nbResult, Constants.SizingInformations measureId)
         {
-            if(snapshot?.SizingMeasuresResults != null)
+            if (snapshot?.SizingMeasuresResults != null)
             {
                 return snapshot.SizingMeasuresResults
                                .Where(_ => _.Reference.Key == measureId.GetHashCode())
-                               .SelectMany(_ => _.ModulesResult)                           
+                               .SelectMany(_ => _.ModulesResult)
                                .Where(m => m.DetailResult != null)
-                               .Select( _ => new ModuleResultDTO { Name = _.Module.Name, Value= _.DetailResult.Value})
+                               .Select(_ => new ModuleResultDTO { Name = _.Module.Name, Value = _.DetailResult.Value })
                                .OrderByDescending(_ => _.Value)
-                               .Take(nbResult)                           
+                               .Take(nbResult)
                                .ToList();
             }
 

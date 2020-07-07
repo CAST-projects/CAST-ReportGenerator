@@ -20,10 +20,10 @@ namespace CastReporting.Domain
     /// <summary>
     /// 
     /// </summary>
-   [DataContract]
+    [DataContract]
     public abstract class QIBase : DiagBase
     {
-       
-              
+
+
     }
 }

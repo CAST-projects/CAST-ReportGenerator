@@ -13,11 +13,12 @@
  * limitations under the License.
  *
  */
-using System;
 using CastReporting.Domain;
 using CastReporting.Mediation.Interfaces;
 using CastReporting.Repositories;
+using CastReporting.Repositories.Core.Repository;
 using CastReporting.Repositories.Interfaces;
+using System;
 
 namespace CastReporting.BLL
 {
@@ -40,11 +41,21 @@ namespace CastReporting.BLL
             return repo;
         }
 
-        protected static ICastRepsitory GetRepository(WSConnection connection, bool dropCookie=false)
+        protected static ICastRepsitory GetRepository(WSConnection connection, bool dropCookie = false)
         {
             CastRepository repo = dropCookie ? new CastRepository(connection, null) : new CastRepository(connection, Client);
             Client = repo.GetClient();
             return repo;
+        }
+
+        protected static IExtendRepository GetExtendRepository(string url, string nugetKey)
+        {
+            if (string.IsNullOrEmpty(url))
+            {
+                url = "https://extendng.castsoftware.com";
+            }
+            ExtendRepository extendRepo = new ExtendRepository(url, nugetKey);
+            return extendRepo;
         }
 
 

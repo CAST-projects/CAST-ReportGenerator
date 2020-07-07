@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using CastReporting.BLL;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Domain;
-using CastReporting.Reporting.Helper;
 using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.Helper;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -50,7 +49,7 @@ namespace CastReporting.Reporting.Block.Table
                 var _violations = results as Violation[] ?? results.ToArray();
                 if (_violations.Length != 0)
                 {
-                    MetricsUtility.ViolationsBookmarksProperties violationsBookmarksProperties = 
+                    MetricsUtility.ViolationsBookmarksProperties violationsBookmarksProperties =
                         new MetricsUtility.ViolationsBookmarksProperties(_violations, 0, rowData, ruleName, hasPreviousSnapshot, reportData.CurrentSnapshot.DomainId, reportData.CurrentSnapshot.Id.ToString(), ruleId);
                     MetricsUtility.PopulateViolationsBookmarks(reportData, violationsBookmarksProperties, cellidx, cellProps, true);
                 }

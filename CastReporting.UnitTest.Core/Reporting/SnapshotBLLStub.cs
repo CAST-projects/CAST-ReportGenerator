@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CastReporting.BLL;
+﻿using CastReporting.BLL;
 using CastReporting.Domain;
 using CastReporting.Domain.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CastReporting.UnitTest.Reporting
 {
@@ -34,7 +34,7 @@ namespace CastReporting.UnitTest.Reporting
         [DeploymentItem(@".\Data\BusinessValuePrevious.json", "Data")]
         public IEnumerable<Result> GetBackgroundFacts(string snapshotHref, string backgroundFacts, bool modules, bool technologies)
         {
-            string[] _sample5Gpt = {"10152", "10154", "10161", "61111"};
+            string[] _sample5Gpt = { "10152", "10154", "10161", "61111" };
             if (_sample5Gpt.Contains(backgroundFacts)) return new List<Result>();
             if (snapshotHref.Equals("AED3/applications/7/snapshots/3") && backgroundFacts.Equals("66061"))
             {
@@ -159,7 +159,7 @@ namespace CastReporting.UnitTest.Reporting
                 default:
                     return TestUtility.GetSampleResult<AssociatedValue>(@".\Data\findings7392.json").ToArray()[0];
             }
-            
+
         }
 
         [DeploymentItem(@".\Data\findings_path.json", "Data")]
@@ -220,18 +220,18 @@ namespace CastReporting.UnitTest.Reporting
             return sources;
         }
 
-        
+
         public TypedComponent GetTypedComponent(string domainId, string componentId, string snapshotId)
         {
-            ObjectType type = new ObjectType {Label = "MyObjType", Name="toto"};
-            return new TypedComponent {Type = type};
+            ObjectType type = new ObjectType { Label = "MyObjType", Name = "toto" };
+            return new TypedComponent { Type = type };
         }
 
         [DeploymentItem(@".\Data\IfpugFunctions.csv", "Data")]
         [DeploymentItem(@".\Data\IfpugFunctionsNew.csv", "Data")]
         public IEnumerable<IfpugFunction> GetIfpugFunctions(string snapshotHref, int count)
         {
-            IEnumerable<IfpugFunction> res = TestUtility.GetCsvSampleResult<IfpugFunction>(@".\Data\IfpugFunctions.csv",count,null).ToList();
+            IEnumerable<IfpugFunction> res = TestUtility.GetCsvSampleResult<IfpugFunction>(@".\Data\IfpugFunctions.csv", count, null).ToList();
             return res;
         }
 
@@ -349,11 +349,11 @@ namespace CastReporting.UnitTest.Reporting
                 case "CWE":
                     return new List<string> { "7424" };
                 case "CISQ":
-                    return new List<string> {"7388", "7558" };
+                    return new List<string> { "7388", "7558" };
                 default:
                     return null;
             }
-            
+
         }
 
         [DeploymentItem(@".\Data\Snapshot_StdTagResultsCWE.json", "Data")]
@@ -395,7 +395,8 @@ namespace CastReporting.UnitTest.Reporting
                     if (snapshotHref.Equals("AED/applications/3/snapshots/6"))
                     {
                         res = TestUtility.GetSampleResult<Transaction>(@".\Data\Transactions60016Snap.json").ToList();
-                    } else
+                    }
+                    else
                     {
                         res = TestUtility.GetSampleResult<Transaction>(@".\Data\Transactions60016WebGoat.json").ToList();
                     }

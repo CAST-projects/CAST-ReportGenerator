@@ -13,6 +13,7 @@
  * limitations under the License.
  *
  */
+using CastReporting.BLL;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -31,7 +32,7 @@ namespace CastReporting.UI.WPF.Core.Common
     public partial class UcMessage : UserControl
     {
 
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -54,7 +55,7 @@ namespace CastReporting.UI.WPF.Core.Common
         }
 
 
-       
+
         /// <summary>
         /// 
         /// </summary>
@@ -67,7 +68,7 @@ namespace CastReporting.UI.WPF.Core.Common
         {
             InitializeComponent();
 
-            ClearCommand = new CommandHandler(ExecuteClearCommand, null);        
+            ClearCommand = new CommandHandler(ExecuteClearCommand, null);
         }
 
 
@@ -89,7 +90,7 @@ namespace CastReporting.UI.WPF.Core.Common
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 var fileName = ((e.Source as Button)?.DataContext as MessageItem)?.FileName;
-                if (!string.IsNullOrEmpty(fileName) && File.Exists(fileName))
+                if (!string.IsNullOrEmpty(fileName) && (File.Exists(fileName) || fileName.StartsWith(SettingsBLL.GetExtendUrl())))
                 {
                     Process.Start(new ProcessStartInfo(fileName) { UseShellExecute = true });
                 }
@@ -112,11 +113,11 @@ namespace CastReporting.UI.WPF.Core.Common
     /// 
     /// </summary>
     public class MessageItem
-    {  
+    {
         /// <summary>
         /// 
         /// </summary>
-        public string Message{get;set;}
+        public string Message { get; set; }
 
 
         /// <summary>

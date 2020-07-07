@@ -15,24 +15,24 @@
  */
 
 using Cast.Util.Log;
+using CastReporting.Mediation.Core;
 using CastReporting.Mediation.Interfaces;
 using System;
 using System.Diagnostics;
 using System.Net;
 using System.Text;
 using System.Threading;
-using CastReporting.Mediation.Core;
 
 namespace CastReporting.Mediation
 {
 
-   
+
 
     /// <summary>
     /// WebClient Class for Cast Reporting
     /// </summary>
     public class CastProxy : WebClient, ICastProxy
-    {     
+    {
         #region ATTRIBUTES
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace CastReporting.Mediation
                 // For RestAPI audit trail 
                 Headers.Remove("X-Client");
                 Headers.Add("X-Client", "CAST-ReportGenerator");
-                
+
                 Encoding = Encoding.UTF8;
 
                 RequestComplexity previousComplexity = _currentComplexity;
@@ -224,17 +224,17 @@ namespace CastReporting.Mediation
                         , pUrl
                         , requestWatch.Elapsed.ToString()
                         );
-               
-            }
-            catch(Exception ex) when (ex is ArgumentNullException || ex is WebException || ex is NotSupportedException || ex is InvalidOperationException || ex is ArgumentOutOfRangeException)
-            {
-                 LogHelper.LogErrorFormat
-                        ("Request URL '{0}' - Error execution :  {1}"
-                        , pUrl
-                        , ex.Message
-                        );
 
-                 throw;
+            }
+            catch (Exception ex) when (ex is ArgumentNullException || ex is WebException || ex is NotSupportedException || ex is InvalidOperationException || ex is ArgumentOutOfRangeException)
+            {
+                LogHelper.LogErrorFormat
+                       ("Request URL '{0}' - Error execution :  {1}"
+                       , pUrl
+                       , ex.Message
+                       );
+
+                throw;
             }
 
             return result;
@@ -249,7 +249,7 @@ namespace CastReporting.Mediation
         /// <returns></returns>
         public string DownloadString(string pUrl, RequestComplexity pComplexity)
         {
-        	return DownloadContent(pUrl, "application/json", pComplexity);
+            return DownloadContent(pUrl, "application/json", pComplexity);
         }
 
         public string DownloadText(string pUrl, RequestComplexity pComplexity)
@@ -274,7 +274,7 @@ namespace CastReporting.Mediation
         /// <returns></returns>
         public string DownloadString(Uri pUri, RequestComplexity pComplexity)
         {
-            return DownloadString(pUri.ToString(), pComplexity);         
+            return DownloadString(pUri.ToString(), pComplexity);
         }
 
         /// <summary>
@@ -344,18 +344,18 @@ namespace CastReporting.Mediation
             // ReSharper disable once SwitchStatementMissingSomeCases
             switch (pComplexity)
             {
-                case RequestComplexity.Long: 
+                case RequestComplexity.Long:
                     {
-                        return Settings.Default.TimoutLong; 
+                        return Settings.Default.TimoutLong;
                     }
-                case RequestComplexity.Soft: 
+                case RequestComplexity.Soft:
                     {
-                        return Settings.Default.TimeoutQuick; 
+                        return Settings.Default.TimeoutQuick;
                     }
                 //case RequestComplexity.Standard:
-                default: 
+                default:
                     {
-                        return Settings.Default.TimeoutStandard; 
+                        return Settings.Default.TimeoutStandard;
                     }
             }
 

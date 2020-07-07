@@ -1,6 +1,6 @@
-﻿using System.Reflection;
+﻿using CastReporting.UI.WPF.Core.Resources.Languages;
+using System.Reflection;
 using System.Windows.Controls;
-using CastReporting.UI.WPF.Core.Resources.Languages;
 
 namespace CastReporting.UI.WPF.Core.View.Pages
 {
@@ -13,7 +13,7 @@ namespace CastReporting.UI.WPF.Core.View.Pages
         {
             InitializeComponent();
         }
-        
+
         // ReSharper disable once InconsistentNaming
         public static string lblAboutVersion => string.Format(Messages.lblAboutVersion, Assembly.GetExecutingAssembly().GetName().Version);
     }

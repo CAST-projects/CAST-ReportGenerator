@@ -14,13 +14,13 @@
  *
  */
 
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -47,11 +47,11 @@ namespace CastReporting.Reporting.Block.Table
             #endregion Options
 
             List<string> rowData = new List<string>();
-			rowData.AddRange(new[] {
-				Labels.RuleName,
-				Labels.Description,
-				Labels.ViolationsCount
-			});
+            rowData.AddRange(new[] {
+                Labels.RuleName,
+                Labels.Description,
+                Labels.ViolationsCount
+            });
 
             var businessCriteria = reportData.CurrentSnapshot.BusinessCriteriaResults.FirstOrDefault(_ => _.Reference.Key == bizCriteriaId);
 
@@ -66,31 +66,34 @@ namespace CastReporting.Reporting.Block.Table
                 var results = technicalCriteria.RulesViolation
                                                .OrderByDescending(_ => _.DetailResult.ViolationRatio.FailedChecks)
                                                .Take(nblimit);
-                
-                foreach (var violation in results) {
+
+                foreach (var violation in results)
+                {
                     var ruleDescription = reportData.RuleExplorer.GetSpecificRule(reportData.Application.DomainId, violation.Reference.Key.ToString());
 
                     rowData.AddRange(
                             new[] {
-								violation.Reference.Name
-	                            , violation.DetailResult.ViolationRatio.FailedChecks > 0 ? ruleDescription.Description : string.Empty
-	                            , violation.DetailResult.ViolationRatio.FailedChecks > 0 ? violation.DetailResult.ViolationRatio.FailedChecks.ToString() : string.Empty
+                                violation.Reference.Name
+                                , violation.DetailResult.ViolationRatio.FailedChecks > 0 ? ruleDescription.Description : string.Empty
+                                , violation.DetailResult.ViolationRatio.FailedChecks > 0 ? violation.DetailResult.ViolationRatio.FailedChecks.ToString() : string.Empty
                             });
-					
-					rowCount++;
+
+                    rowCount++;
                 }
             }
 
-            if (rowCount == 0) {
-				rowData.AddRange(new[] {
-					Labels.NoItem,
-					string.Empty,
-					string.Empty
-				});
+            if (rowCount == 0)
+            {
+                rowData.AddRange(new[] {
+                    Labels.NoItem,
+                    string.Empty,
+                    string.Empty
+                });
                 rowCount = 1;
             }
 
-			TableDefinition resultTable = new TableDefinition {
+            TableDefinition resultTable = new TableDefinition
+            {
                 HasRowHeaders = false,
                 HasColumnHeaders = true,
                 NbRows = rowCount + 1,

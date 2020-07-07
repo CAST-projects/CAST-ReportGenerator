@@ -14,6 +14,8 @@
  *
  */
 
+using Cast.Util.Log;
+using Cast.Util.Version;
 using CastReporting.Domain;
 using CastReporting.Domain.Interfaces;
 using System;
@@ -21,8 +23,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Cast.Util.Version;
-using Cast.Util.Log;
 // ReSharper disable AccessToDisposedClosure
 
 namespace CastReporting.BLL
@@ -66,7 +66,7 @@ namespace CastReporting.BLL
                                                                       .Where(_ => _.ApplicationResults != null)
                                                                       .SelectMany(_ => _.ApplicationResults)
                                                                       .ToList();
-            
+
 
 
                 var businessCriteriaResults = new List<ApplicationResult>();
@@ -75,13 +75,15 @@ namespace CastReporting.BLL
                 var qualityRulesResults = new List<ApplicationResult>();
                 var technicalCriteriaResults = new List<ApplicationResult>();
 
-                foreach (var appRes in qualityIndicatorsResults) {
-                    switch (appRes.Type) {
-                        case "business-criteria":       businessCriteriaResults.Add(appRes); break;
-                        case "quality-distributions":   qualityDistributionsResults.Add(appRes); break;
-                        case "quality-measures":        qualityMeasuresResults.Add(appRes); break;
-                        case "quality-rules":           qualityRulesResults.Add(appRes); break;
-                        case "technical-criteria":      technicalCriteriaResults.Add(appRes); break;
+                foreach (var appRes in qualityIndicatorsResults)
+                {
+                    switch (appRes.Type)
+                    {
+                        case "business-criteria": businessCriteriaResults.Add(appRes); break;
+                        case "quality-distributions": qualityDistributionsResults.Add(appRes); break;
+                        case "quality-measures": qualityMeasuresResults.Add(appRes); break;
+                        case "quality-rules": qualityRulesResults.Add(appRes); break;
+                        case "technical-criteria": technicalCriteriaResults.Add(appRes); break;
                         default: throw new ArgumentOutOfRangeException();
                     }
                 }
@@ -154,10 +156,10 @@ namespace CastReporting.BLL
 
                 _Snapshot.QIBusinessCriterias = fullQibusinesCriterias;
             }
-           
+
         }
 
-     
+
 
         /// <summary>
         /// 
@@ -226,7 +228,7 @@ namespace CastReporting.BLL
                 LogHelper.LogInfo(ex.Message);
                 return null;
             }
-            
+
         }
 
         public IEnumerable<Result> GetBackgroundFacts(string snapshotHref, string backgroundFacts)
@@ -600,7 +602,7 @@ namespace CastReporting.BLL
                 LogHelper.LogInfo(ex.Message);
                 return null;
             }
-           
+
         }
 
         /// <summary>
@@ -615,7 +617,7 @@ namespace CastReporting.BLL
         /// <param name="count"></param>
         /// <returns></returns>
         public IEnumerable<ComponentWithProperties> GetComponentsByProperties(string snapshotHref, int businessCriteria, string prop1, string prop2, string order1, string order2, int count)
-        {           
+        {
             try
             {
                 using (var castRepsitory = GetRepository())
@@ -627,7 +629,7 @@ namespace CastReporting.BLL
             {
                 LogHelper.LogInfo(ex.Message);
                 return null;
-            }                      
+            }
         }
 
         /// <summary>
@@ -723,12 +725,12 @@ namespace CastReporting.BLL
             {
                 Task taskModules = new Task(() => snapshotBll.SetModules());
                 taskModules.Start();
-                
+
 
                 //Build Quality Indicators
                 Task taskQualityIndicators = new Task(() => snapshotBll.SetQualityIndicators());
                 taskQualityIndicators.Start();
-                
+
                 //Build Sizing Measures
                 Task taskSizingMeasure = new Task(() => snapshotBll.SetSizingMeasure());
                 taskSizingMeasure.Start();
@@ -824,7 +826,7 @@ namespace CastReporting.BLL
             }
         }
 
-        public Dictionary<int, string> GetSourceCodeBookmark(string domainId, CodeBookmark bookmark, int offset )
+        public Dictionary<int, string> GetSourceCodeBookmark(string domainId, CodeBookmark bookmark, int offset)
         {
             string siteId = bookmark.CodeFragment.CodeFile.GetSiteId();
             string fileId = bookmark.CodeFragment.CodeFile.GetFileId();
@@ -842,7 +844,7 @@ namespace CastReporting.BLL
                     }
 
                     List<string> lines = castRepository.GetFileContent(domainId, siteId, fileId, idx, endLine + offset);
-                    for (int i = 0; i <= 2*offset; i++)
+                    for (int i = 0; i <= 2 * offset; i++)
                     {
                         string line = lines[i].Replace("\u001a", "");
                         codeLines.Add(idx, line);
@@ -858,9 +860,9 @@ namespace CastReporting.BLL
             }
         }
 
-        public List<Tuple<string, Dictionary<int, string>>> GetSourceCode(string domainId,string snapshotId, string componentId, int offset, bool withCodeLines)
+        public List<Tuple<string, Dictionary<int, string>>> GetSourceCode(string domainId, string snapshotId, string componentId, int offset, bool withCodeLines)
         {
-            List<Tuple<string, Dictionary<int,string>>> codesAndPath = new List<Tuple<string, Dictionary<int, string>>>();
+            List<Tuple<string, Dictionary<int, string>>> codesAndPath = new List<Tuple<string, Dictionary<int, string>>>();
             try
             {
                 using (var castRepository = GetRepository())
@@ -931,7 +933,7 @@ namespace CastReporting.BLL
                 return codesAndLineProps;
             }
 
-            
+
         }
 
     }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using CastReporting.Domain;
 
 namespace CastReporting.Domain
 {

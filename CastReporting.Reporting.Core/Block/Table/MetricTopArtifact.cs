@@ -13,14 +13,14 @@
  * limitations under the License.
  *
  */
+using CastReporting.Domain;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
-using CastReporting.Domain;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -84,7 +84,7 @@ namespace CastReporting.Reporting.Block.Table
                     rowData.AddRange(new[] { "Sample Violating Artefacts for Rule '" + violation.Reference.Name + "'", "# " + nbArtefactsDisp + " of " + nbArtefactsCount });
                     nbRows++;
 
-                    if (metricTopArtefact != null &&  metricTopArtefact.Any() && nbArtefactsDisp > 0)
+                    if (metricTopArtefact != null && metricTopArtefact.Any() && nbArtefactsDisp > 0)
                     {
                         foreach (var metric in metricTopArtefact)
                         {
@@ -107,11 +107,12 @@ namespace CastReporting.Reporting.Block.Table
                     }
                 }
 
-            if (nbRows == 0) {		
+            if (nbRows == 0)
+            {
                 rowData.AddRange(new[] { Labels.NoItem, string.Empty });
                 nbRows++;
             }
-            
+
             var back = new TableDefinition
             {
                 HasRowHeaders = false,

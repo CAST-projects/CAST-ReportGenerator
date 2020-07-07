@@ -34,7 +34,7 @@ namespace CastReporting.Console.Argument
         /// </summary>
         [XmlElement("previousId")]
         public XmlTagName PreviousId { get; set; }
-        
+
         #endregion
 
         #region Method

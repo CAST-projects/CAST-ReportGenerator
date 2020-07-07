@@ -13,23 +13,23 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
 using CastReporting.BLL.Computing.DTO;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Domain;
 using CastReporting.Reporting.Helper;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
 
 namespace CastReporting.Reporting.Block.Text
 {
-	[Block("METRIC_EVOLUTION")]
+    [Block("METRIC_EVOLUTION")]
     public class MetricEvolution : TextBlock
     {
         #region METHODS
         public override string Content(ReportData reportData, Dictionary<string, string> options)
         {
-          
+
             string metricId = options.GetOption("ID", "60017");
             string _format = options.GetOption("FORMAT", "PERCENT");
             string moduleName = options.GetOption("MODULE", null);
@@ -50,7 +50,7 @@ namespace CastReporting.Reporting.Block.Text
             }
 
             EvolutionResult result = MetricsUtility.GetMetricEvolution(reportData, reportData.CurrentSnapshot, reportData.PreviousSnapshot, metricId, true, module, techno, true);
-            
+
             return _format.ToUpper().Equals("ABSOLUTE") ? result.evolution : result.evolutionPercent;
         }
         #endregion METHODS

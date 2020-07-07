@@ -13,13 +13,13 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
 
 
 namespace CastReporting.Reporting.Block.Table
@@ -36,14 +36,16 @@ namespace CastReporting.Reporting.Block.Table
             bool displayShortHeader = options != null && options.ContainsKey("HEADER") && "SHORT" == options["HEADER"];
 
             bool showEvol = false;
-            if (options != null && options.ContainsKey("SHOW_EVOL") && int.TryParse(options["SHOW_EVOL"], out int param)) {
-				showEvol = param != 0;
-			}
+            if (options != null && options.ContainsKey("SHOW_EVOL") && int.TryParse(options["SHOW_EVOL"], out int param))
+            {
+                showEvol = param != 0;
+            }
 
-			bool showEvolPercent = true;
-			if (options != null && options.ContainsKey("SHOW_EVOL_PERCENT") && int.TryParse(options["SHOW_EVOL_PERCENT"], out param)) {
-				showEvolPercent = param != 0;
-			}
+            bool showEvolPercent = true;
+            if (options != null && options.ContainsKey("SHOW_EVOL_PERCENT") && int.TryParse(options["SHOW_EVOL_PERCENT"], out param))
+            {
+                showEvolPercent = param != 0;
+            }
 
             if (reportData?.CurrentSnapshot?.BusinessCriteriaResults == null) return null;
             bool hasPreviousSnapshot = null != reportData.PreviousSnapshot;
@@ -73,7 +75,8 @@ namespace CastReporting.Reporting.Block.Table
                     currSnapshotBisCriDTO.Changeability?.ToString(metricFormat) ?? Constants.No_Value
                 });
 
-            if (hasPreviousSnapshot) {
+            if (hasPreviousSnapshot)
+            {
                 #region variation
                 BusinessCriteriaDTO _businessCriteriaGradesEvol = currSnapshotBisCriDTO - prevSnapshotBisCriDTO;
                 BusinessCriteriaDTO _businessCriteriaGradesEvolPercent = _businessCriteriaGradesEvol / prevSnapshotBisCriDTO;
@@ -89,8 +92,9 @@ namespace CastReporting.Reporting.Block.Table
                         prevSnapshotBisCriDTO.Transferability?.ToString(metricFormat) ?? Constants.No_Value,
                         prevSnapshotBisCriDTO.Changeability?.ToString(metricFormat) ?? Constants.No_Value
                     });
-                
-                if (showEvol) {
+
+                if (showEvol)
+                {
                     rowData.AddRange(
                         new[] {
                             Labels.Evol,
@@ -103,7 +107,8 @@ namespace CastReporting.Reporting.Block.Table
                         });
                 }
 
-                if (showEvolPercent) {
+                if (showEvolPercent)
+                {
                     rowData.AddRange(
                         new[] {
                             Labels.EvolPercent,
@@ -117,7 +122,8 @@ namespace CastReporting.Reporting.Block.Table
                 }
             }
 
-            var resultTable = new TableDefinition {
+            var resultTable = new TableDefinition
+            {
                 HasRowHeaders = false,
                 HasColumnHeaders = true,
                 NbRows = hasPreviousSnapshot ? 4 : 2,

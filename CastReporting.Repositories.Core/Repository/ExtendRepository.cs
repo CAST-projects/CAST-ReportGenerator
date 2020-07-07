@@ -1,14 +1,14 @@
-﻿using System;
-using System.IO;
-using System.Net;
-using System.Runtime.Serialization.Json;
-using System.Text;
-using Cast.Util;
+﻿using Cast.Util;
 using Cast.Util.Log;
 using CastReporting.Domain.Core.WSObjects;
 using CastReporting.Mediation.Core;
 using CastReporting.Mediation.Interfaces.Core;
 using CastReporting.Repositories.Interfaces;
+using System;
+using System.IO;
+using System.Net;
+using System.Runtime.Serialization.Json;
+using System.Text;
 
 namespace CastReporting.Repositories.Core.Repository
 {
@@ -25,6 +25,11 @@ namespace CastReporting.Repositories.Core.Repository
             _url = url.EndsWith("/") ? url.Substring(0, url.Length - 1) : url;
         }
 
+        public IExtendProxy GetProxy()
+        {
+            return Proxy;
+        }
+
         public void GetPackageTemplate(string packageId, string targetPath, string version)
         {
             string workTmpPath = GetWorkTempPath();
@@ -32,6 +37,25 @@ namespace CastReporting.Repositories.Core.Repository
             PathUtil.UnzipAndCopy(archive, targetPath);
             LogHelper.LogInfo("Extension " + packageId + " version " + version + " downloaded and installed in " + targetPath);
             DeleteWorkTempPath(workTmpPath);
+        }
+
+        public bool IsExtendValid(string url)
+        {
+            string query = string.Format(QUERY_GET_PACKAGE_LATEST_VERSION, _url, "com.castsoftware.aip.reportgenerator");
+            try
+            {
+                string jsonString = Proxy.DownloadPackageInformation(query);
+                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(ExtendPackage));
+                using (MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(jsonString)))
+                {
+                    ExtendPackage res = serializer.ReadObject(ms) as ExtendPackage;
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public string SearchForLatestVersion(string packageId)
@@ -42,15 +66,10 @@ namespace CastReporting.Repositories.Core.Repository
             {
                 string jsonString = Proxy.DownloadPackageInformation(query);
                 DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(ExtendPackage));
-                MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(jsonString));
-                try
+                using (MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(jsonString)))
                 {
                     ExtendPackage res = serializer.ReadObject(ms) as ExtendPackage;
                     return res?.Version;
-                }
-                finally
-                {
-                    ms.Close();
                 }
             }
             catch (WebException e)

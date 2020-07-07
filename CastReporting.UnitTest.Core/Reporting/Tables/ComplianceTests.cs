@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Table;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {
@@ -28,7 +28,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
 
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> { "", "Programming Practices", "Architectural Design", "Documentation"});
+            expectedData.AddRange(new List<string> { "", "Programming Practices", "Architectural Design", "Documentation" });
             expectedData.AddRange(new List<string> { "V-1.5.0_Sprint 2_2", "2.93", "2.10", "2.65" });
             TestUtility.AssertTableContent(table, expectedData, 4, 2);
         }

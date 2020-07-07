@@ -13,11 +13,11 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
+using CastReporting.BLL.Computing;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.ReportingModel;
-using CastReporting.BLL.Computing;
+using System.Collections.Generic;
 
 namespace CastReporting.Reporting.Block.Text
 {
@@ -28,8 +28,8 @@ namespace CastReporting.Reporting.Block.Text
         public override string Content(ReportData reportData, Dictionary<string, string> options)
         {
             if (reportData?.CurrentSnapshot == null) return Domain.Constants.No_Value;
-            double? result = MeasureUtility.GetAddedFunctionPoint(reportData.CurrentSnapshot) 
-                + MeasureUtility.GetModifiedFunctionPoint(reportData.CurrentSnapshot) 
+            double? result = MeasureUtility.GetAddedFunctionPoint(reportData.CurrentSnapshot)
+                + MeasureUtility.GetModifiedFunctionPoint(reportData.CurrentSnapshot)
                 + MeasureUtility.GetDeletedFunctionPoint(reportData.CurrentSnapshot);
             return result?.ToString("N0") ?? Domain.Constants.No_Value;
         }

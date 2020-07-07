@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Graph;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Graph
 {
@@ -31,7 +31,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
              * AADApplication2Snap.json : AAD2/applications/24/snapshots/12
              * AADApplication2SnapResults.json : AAD2/applications/24/snapshots/12/results?quality-indicators=(60014,61004,550,7654,7856)&sizing-measures=(10151,68001,10202,67210,67011)
              */
-            List<string> snapList = new List<string>{ @".\Data\AADApplication1Snap.json" , @".\Data\AADApplication2Snap.json"};
+            List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json", @".\Data\AADApplication2Snap.json" };
             List<string> snapResultsList = new List<string> { @".\Data\AADApplication1SnapResults.json", @".\Data\AADApplication2SnapResults.json" };
             ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
 

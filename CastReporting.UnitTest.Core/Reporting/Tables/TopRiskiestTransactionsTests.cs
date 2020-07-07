@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {
@@ -42,7 +42,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
 
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> { "Transaction Entry Point", "TRI"});
+            expectedData.AddRange(new List<string> { "Transaction Entry Point", "TRI" });
             expectedData.AddRange(new List<string> { "Save", "12,208" });
             expectedData.AddRange(new List<string> { "SaveJavaProcedureParams", "12,208" });
             expectedData.AddRange(new List<string> { "Save", "11,658" });

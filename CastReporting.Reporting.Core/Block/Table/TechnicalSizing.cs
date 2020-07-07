@@ -13,13 +13,13 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
+using CastReporting.BLL.Computing;
 using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
-using CastReporting.BLL.Computing;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -28,7 +28,7 @@ namespace CastReporting.Reporting.Block.Table
     {
         public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
-              #region METHODS
+            #region METHODS
 
             if (reportData?.CurrentSnapshot == null) return null;
             double? codeLineNumber = MeasureUtility.GetCodeLineNumber(reportData.CurrentSnapshot);
@@ -56,7 +56,8 @@ namespace CastReporting.Reporting.Block.Table
                 , "  " + Labels.Tables, tableNumber?.ToString(metricFormat) ?? noData
             });
 
-            var resultTable = new TableDefinition {
+            var resultTable = new TableDefinition
+            {
                 HasRowHeaders = false,
                 HasColumnHeaders = displayHeader,
                 NbRows = displayHeader ? 6 : 5,

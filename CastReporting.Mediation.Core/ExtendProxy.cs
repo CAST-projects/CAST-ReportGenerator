@@ -1,5 +1,5 @@
-﻿using System.Net;
-using CastReporting.Mediation.Interfaces.Core;
+﻿using CastReporting.Mediation.Interfaces.Core;
+using System.Net;
 
 namespace CastReporting.Mediation.Core
 {

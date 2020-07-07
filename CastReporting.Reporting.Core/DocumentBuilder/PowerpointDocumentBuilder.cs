@@ -13,29 +13,29 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.ReportingModel;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Presentation;
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
 using OXD = DocumentFormat.OpenXml.Drawing;
 
 namespace CastReporting.Reporting.Builder
 {
     internal class PowerpointDocumentBuilder : DocumentBuilderBase
     {
-       
+
 
         #region CONSTRUCTORS
         /// <summary>
         /// 
         /// </summary>
         /// <param name="client"></param>
-        public PowerpointDocumentBuilder(ReportData client) : base(client) 
-        { 
+        public PowerpointDocumentBuilder(ReportData client) : base(client)
+        {
         }
         #endregion CONSTRUCTORS
 
@@ -78,11 +78,11 @@ namespace CastReporting.Reporting.Builder
                                          .Descendants<NonVisualDrawingProperties>()
                                          .Where(_ => !string.IsNullOrWhiteSpace(_.Description) && (_.Parent.Parent is Shape || _.Parent.Parent is GraphicFrame))
                                          .Select(_ => new BlockItem
-                                                      {
-                                                          OxpBlock = _.Parent.Parent,
-                                                          XBlock = XElement.Parse(_.Parent.Parent.OuterXml),
-                                                          Container = (SlidePart)container
-                                                      })
+                                         {
+                                             OxpBlock = _.Parent.Parent,
+                                             XBlock = XElement.Parse(_.Parent.Parent.OuterXml),
+                                             Container = (SlidePart)container
+                                         })
                                          .ToList();
         }
 

@@ -14,8 +14,8 @@
  *
  */
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace CastReporting.Domain
 {
@@ -41,7 +41,7 @@ namespace CastReporting.Domain
         [DataMember(Name = "annotation")]
         public Annotation Annotation { get; set; }
 
-       
+
         #endregion  Serialized properties       
 
 
@@ -70,7 +70,7 @@ namespace CastReporting.Domain
         /// </summary>
         public IEnumerable<ApplicationResult> QualityDistributionsResults { get; set; }
 
-      
+
 
         /// <summary>
         /// 

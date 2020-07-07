@@ -13,15 +13,15 @@
  * limitations under the License.
  *
  */
-using System;
-using System.Windows;
-using System.Windows.Controls;
+using CastReporting.UI.WPF.Core.Common;
+using CastReporting.UI.WPF.Core.Resources.Languages;
 using CastReporting.UI.WPF.Core.View;
 using CastReporting.UI.WPF.Core.ViewModel;
-using System.Windows.Input;
-using CastReporting.UI.WPF.Core.Resources.Languages;
+using System;
 using System.Reflection;
-using CastReporting.UI.WPF.Core.Common;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace CastReporting.UI.WPF.Core
 {
@@ -130,7 +130,7 @@ namespace CastReporting.UI.WPF.Core
             UcMessages.Refresh();
             UcHeader.Refresh();
             MainFrame.NavigationService.Refresh();
-          
+
         }
 
         /// <summary>

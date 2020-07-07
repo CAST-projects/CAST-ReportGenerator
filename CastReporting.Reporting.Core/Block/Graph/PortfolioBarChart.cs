@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Cast.Util.Log;
+﻿using Cast.Util.Log;
 using CastReporting.BLL.Computing.DTO;
 using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.Helper;
 using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.Helper;
 using CastReporting.Reporting.ReportingModel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CastReporting.Reporting.Block.Graph
 {
@@ -21,7 +21,7 @@ namespace CastReporting.Reporting.Block.Graph
             bool firstLoop = true;
             var rowData = new List<string>();
             int cntRow = 1;
-            
+
 
             Application[] _allApps = reportData.Applications;
             foreach (Application _app in _allApps)
@@ -30,7 +30,7 @@ namespace CastReporting.Reporting.Block.Graph
                 {
                     Snapshot _snapshot = _app.Snapshots.OrderByDescending(_ => _.Annotation.Date.DateSnapShot).First();
                     if (_snapshot == null) continue;
-                    SimpleResult res = MetricsUtility.GetMetricNameAndResult(reportData, _snapshot, metricId,null,null,false);
+                    SimpleResult res = MetricsUtility.GetMetricNameAndResult(reportData, _snapshot, metricId, null, null, false);
                     if (res == null) continue;
                     if (firstLoop)
                     {

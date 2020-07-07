@@ -13,14 +13,13 @@
  * limitations under the License.
  *
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Cast.Util;
 using Cast.Util.Log;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.ReportingModel;
 using DocumentFormat.OpenXml.Packaging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CastReporting.Reporting.Builder
 {
@@ -40,7 +39,7 @@ namespace CastReporting.Reporting.Builder
         #endregion CONSTRUCTORS
 
         #region PROPERTIES
-        
+
         /// <summary>
         /// Get/Set the client
         /// </summary>
@@ -106,7 +105,7 @@ namespace CastReporting.Reporting.Builder
                     }
                     else if (GraphBlock.IsMatching(config.Type))
                     {
-                        GraphBlock.BuildContent(ReportData, Package,block, config.Name, config.Options);
+                        GraphBlock.BuildContent(ReportData, Package, block, config.Name, config.Options);
                     }
                     else
                     {
@@ -202,18 +201,18 @@ namespace CastReporting.Reporting.Builder
             // ReSharper disable once SwitchStatementMissingSomeCases
             switch (reportType)
             {
-                case FormatType.Word: 
-                { 
-                    return WordprocessingDocument.Open(pPath, true); 
-                }
-                case FormatType.PowerPoint: 
-                { 
-                    return PresentationDocument.Open(pPath, true); 
-                }
-                case FormatType.Excel: 
-                { 
-                    return SpreadsheetDocument.Open(pPath, true); 
-                }
+                case FormatType.Word:
+                    {
+                        return WordprocessingDocument.Open(pPath, true);
+                    }
+                case FormatType.PowerPoint:
+                    {
+                        return PresentationDocument.Open(pPath, true);
+                    }
+                case FormatType.Excel:
+                    {
+                        return SpreadsheetDocument.Open(pPath, true);
+                    }
             }
             return null;
         }
@@ -231,7 +230,7 @@ namespace CastReporting.Reporting.Builder
             Package.Close();
             Package.Dispose();
         }
-        
+
         #endregion Inherited
 
         #endregion METHODS

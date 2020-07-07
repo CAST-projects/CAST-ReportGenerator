@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Table;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {
@@ -53,7 +53,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             expectedData.AddRange(new List<string> { "V-1.5.0_Sprint 2_2", "2.78", "3.19", "2.59", "3.17", "2.92", "1.93" });
             expectedData.AddRange(new List<string> { "V-1.4.1", "2.73", "3.15", "2.60", "3.13", "2.82", "1.93" });
             expectedData.AddRange(new List<string> { "% Evol.", "+1.60 %", "+1.46 %", "-0.49 %", "+1.36 %", "+3.48 %", "+0.14 %" });
-            TestUtility.AssertTableContent(table, expectedData, 7,4);
+            TestUtility.AssertTableContent(table, expectedData, 7, 4);
         }
 
         [TestMethod]
@@ -79,7 +79,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             expectedData.AddRange(new List<string> { "V-1.5.0_Sprint 2_2", "2.78", "3.19", "2.59", "3.17", "2.92", "1.93" });
             expectedData.AddRange(new List<string> { "V-1.4.1", "2.73", "3.15", "2.60", "3.13", "2.82", "1.93" });
             expectedData.AddRange(new List<string> { "% Evol.", "+1.60 %", "+1.46 %", "-0.49 %", "+1.36 %", "+3.48 %", "+0.14 %" });
-            TestUtility.AssertTableContent(table, expectedData, 7,4);
+            TestUtility.AssertTableContent(table, expectedData, 7, 4);
 
         }
 

@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Cast.Util.Log;
+﻿using Cast.Util.Log;
 using Cast.Util.Version;
-using CastReporting.BLL.Computing;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Domain;
-using CastReporting.Reporting.Helper;
 using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.Helper;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -22,7 +21,7 @@ namespace CastReporting.Reporting.Block.Table
 
             List<string> metrics = options.GetOption("METRICS").Trim().Split('|').ToList();
             bool critical;
-            if (options == null || !options.ContainsKey("CRITICAL") )
+            if (options == null || !options.ContainsKey("CRITICAL"))
             {
                 critical = false;
             }
@@ -61,7 +60,7 @@ namespace CastReporting.Reporting.Block.Table
             headers.Append(Labels.StartLine);
             headers.Append(Labels.EndLine);
 
-            List<string> qualityRules = MetricsUtility.BuildRulesList(reportData, metrics,critical);
+            List<string> qualityRules = MetricsUtility.BuildRulesList(reportData, metrics, critical);
             if (qualityRules.Count > 0)
             {
                 const string bcId = "60017";

@@ -14,18 +14,16 @@
  *
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Cast.Util.Log;
 using Cast.Util.Version;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
-using CastReporting.Domain;
 using CastReporting.Reporting.Helper;
-using DocumentFormat.OpenXml.Spreadsheet;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -101,9 +99,9 @@ namespace CastReporting.Reporting.Block.Table
             if (metricBcIdFromName != 0)
             {
                 // Case of BC
-                List<int?> technicalCriterionIds = reportData.RuleExplorer.GetCriteriaContributors(reportData.CurrentSnapshot.DomainId, metricBcIdFromName.ToString(), reportData.CurrentSnapshot.Id).Select(_=>_.Key).ToList();
-                List<ApplicationResult> tcResults = technicalCriterionIds.Count > 0 ? 
-                    reportData.CurrentSnapshot.TechnicalCriteriaResults.Where(_ => technicalCriterionIds.Contains(_.Reference.Key)).OrderByDescending(_=>_.DetailResult.EvolutionSummary.TotalViolations).ToList() 
+                List<int?> technicalCriterionIds = reportData.RuleExplorer.GetCriteriaContributors(reportData.CurrentSnapshot.DomainId, metricBcIdFromName.ToString(), reportData.CurrentSnapshot.Id).Select(_ => _.Key).ToList();
+                List<ApplicationResult> tcResults = technicalCriterionIds.Count > 0 ?
+                    reportData.CurrentSnapshot.TechnicalCriteriaResults.Where(_ => technicalCriterionIds.Contains(_.Reference.Key)).OrderByDescending(_ => _.DetailResult.EvolutionSummary.TotalViolations).ToList()
                     : null;
                 if (tcResults?.Count > 0)
                 {
@@ -114,7 +112,7 @@ namespace CastReporting.Reporting.Block.Table
 
                         List<int?> rulesIds = reportData.RuleExplorer.GetCriteriaContributors(reportData.CurrentSnapshot.DomainId, tcres.Reference.Key.ToString(), reportData.CurrentSnapshot.Id).Select(_ => _.Key).ToList();
                         List<ApplicationResult> rulesResults = rulesIds.Count > 0 ?
-                            reportData.CurrentSnapshot.QualityRulesResults.Where(_ => rulesIds.Contains(_.Reference.Key)).OrderByDescending(_=>_.DetailResult.ViolationRatio.FailedChecks).ToList()
+                            reportData.CurrentSnapshot.QualityRulesResults.Where(_ => rulesIds.Contains(_.Reference.Key)).OrderByDescending(_ => _.DetailResult.ViolationRatio.FailedChecks).ToList()
                             : null;
 
                         cellidx = AddRowsForRules(reportData, indicatorName, lbltotal, lbladded, lblremoved, showDescription, cellProps, cellidx, headers, data, rulesResults);
@@ -145,7 +143,7 @@ namespace CastReporting.Reporting.Block.Table
             {
                 var dataRow = headers.CreateDataRow();
                 dataRow.Set(0, Labels.NoRules);
-                for (int i=1; i < headers.Count; i++)
+                for (int i = 1; i < headers.Count; i++)
                 {
                     dataRow.Set(i, string.Empty);
                 }

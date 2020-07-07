@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Table;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {
@@ -41,7 +41,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
             var expectedData = new List<string>();
             expectedData.AddRange(new List<string> { "Element Type", "Object Name", "# of FPs", "FP Details", "Object Type", "Module Name", "Technology" });
-            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.PRODUCTS_OPTIONS_VALUES", "5", "DET: 4, RET: 1, EIF: 5 (External)",  "Oracle table",  "eCommerce full content", "PL/SQL" });
+            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.PRODUCTS_OPTIONS_VALUES", "5", "DET: 4, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
             expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.PRODUCTS_OPTIONS_VALUES_DESC", "5", "DET: 3, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
             expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.ZONES_TO_GEO_ZONES_TAX_TPL", "5", "DET: 6, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
             expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-shop\\WebContent\\integration\\portlets\\fancontent.jsp]", "5", "DET: 12, FTR: 2 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });

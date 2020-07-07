@@ -14,11 +14,11 @@
  *
  */
 
+using Cast.Util;
+using Cast.Util.Log;
 using CastReporting.BLL;
 using CastReporting.Domain;
-using Cast.Util;
 using CastReporting.UI.WPF.Core.Common;
-using Cast.Util.Log;
 
 namespace CastReporting.UI.WPF.Core.ViewModel
 {
@@ -32,7 +32,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// <summary>
         /// 
         /// </summary>
-        public static Setting Setting {get; protected set;}
+        public static Setting Setting { get; protected set; }
 
         /// <summary>
         /// 
@@ -43,7 +43,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// <summary>
         /// 
         /// </summary>
-        static  ViewModelBase()
+        static ViewModelBase()
         {
             Setting = SettingsBLL.GetSetting();
         }
@@ -59,4 +59,3 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         }
     }
 }
- 

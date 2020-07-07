@@ -25,7 +25,7 @@ namespace CastReporting.Domain
     [Serializable]
     public class WSConnection
     {
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -154,10 +154,10 @@ namespace CastReporting.Domain
         /// </summary>       
         public bool IsActive { get; set; }
 
-        [XmlIgnore] 
+        [XmlIgnore]
         public bool ApiKey { get; set; }
 
-        [XmlIgnore] 
+        [XmlIgnore]
         public bool ServerCertificateValidation { get; set; }
         /// <summary>
         /// 

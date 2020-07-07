@@ -13,26 +13,26 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
+using CastReporting.BLL.Computing;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
-using CastReporting.BLL.Computing;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
 
 
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("COMPLIANCE")]
     public class Compliance : TableBlock
-    {   
+    {
 
-         #region METHODS
+        #region METHODS
 
         public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
 
-          
+
             const string metricFormat = "N2";
             TableDefinition resultTable = null;
             bool displayShortHeader = options != null && options.ContainsKey("HEADER") && "SHORT" == options["HEADER"];
@@ -53,9 +53,9 @@ namespace CastReporting.Reporting.Block.Table
             double? currDocumentationValue = currSnapshotBisCriDTO.Documentation ?? 1;
 
 
-            double? prevProgrammingPracticesValue = hasPreviousSnapshot?prevSnapshotBisCriDTO.ProgrammingPractices : 0;
-            double? prevArchitecturalDesignValue = hasPreviousSnapshot ?prevSnapshotBisCriDTO.ArchitecturalDesign : 0;
-            double? prevDocumentationValue = hasPreviousSnapshot?prevSnapshotBisCriDTO.Documentation : 0;
+            double? prevProgrammingPracticesValue = hasPreviousSnapshot ? prevSnapshotBisCriDTO.ProgrammingPractices : 0;
+            double? prevArchitecturalDesignValue = hasPreviousSnapshot ? prevSnapshotBisCriDTO.ArchitecturalDesign : 0;
+            double? prevDocumentationValue = hasPreviousSnapshot ? prevSnapshotBisCriDTO.Documentation : 0;
 
             double? varProgrammingPractices = MathUtility.GetPercent(MathUtility.GetEvolution(currProgrammingPracticesValue.Value, prevProgrammingPracticesValue.Value),
                 prevProgrammingPracticesValue.Value);
@@ -63,13 +63,13 @@ namespace CastReporting.Reporting.Block.Table
             double? varArchitecturalDesign = MathUtility.GetPercent(MathUtility.GetEvolution(currArchitecturalDesignValue.Value, prevArchitecturalDesignValue.Value),
                 prevArchitecturalDesignValue.Value);
 
-            double? varDocumentation = MathUtility.GetPercent(MathUtility.GetEvolution(currDocumentationValue.Value, prevDocumentationValue.Value), 
+            double? varDocumentation = MathUtility.GetPercent(MathUtility.GetEvolution(currDocumentationValue.Value, prevDocumentationValue.Value),
                 prevDocumentationValue.Value);
 
 
 
             List<string> rowData = new List<string>();
-            rowData.AddRange(displayShortHeader ? new[] {"", Labels.Prog, Labels.Arch, Labels.Doc} : new[] {"", Labels.ProgrammingPractices, Labels.ArchitecturalDesign, Labels.Documentation});
+            rowData.AddRange(displayShortHeader ? new[] { "", Labels.Prog, Labels.Arch, Labels.Doc } : new[] { "", Labels.ProgrammingPractices, Labels.ArchitecturalDesign, Labels.Documentation });
 
             rowData.AddRange(
                 new[]

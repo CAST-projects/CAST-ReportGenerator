@@ -13,14 +13,14 @@
  * limitations under the License.
  *
  */
-using System;
-using System.Collections.Generic;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
+using System;
+using System.Collections.Generic;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -31,16 +31,16 @@ namespace CastReporting.Reporting.Block.Table
         {
             int rowCount = 0;
             List<string> rowData = new List<string>();
-            rowData.AddRange(new[] { Labels.TechnicalCriterionName,  Labels.ViolationsCount, Labels.TotalChecks, Labels.Grade });
+            rowData.AddRange(new[] { Labels.TechnicalCriterionName, Labels.ViolationsCount, Labels.TotalChecks, Labels.Grade });
 
             #region Options
-            
+
             int nbLimitTop;
             if (null == options || !options.ContainsKey("COUNT") || !int.TryParse(options["COUNT"], out nbLimitTop))
             {
                 nbLimitTop = reportData.Parameter.NbResultDefault;
             }
-            
+
             int bcCriteriaId;
             if (null == options || !options.ContainsKey("PAR") || !int.TryParse(options["PAR"], out bcCriteriaId))
             {
@@ -52,15 +52,15 @@ namespace CastReporting.Reporting.Block.Table
             var technicalCriticalViolation = RulesViolationUtility.GetTechnicalCriteriaViolations(reportData.CurrentSnapshot,
                                                                                                      (Constants.BusinessCriteria)bcCriteriaId,
                                                                                                      nbLimitTop);
-            if(technicalCriticalViolation!=null)
+            if (technicalCriticalViolation != null)
             {
                 foreach (var item in technicalCriticalViolation)
                 {
-                    rowData.AddRange(new[] 
-                                    { 
+                    rowData.AddRange(new[]
+                                    {
                                           item.Name
                                         , item.TotalFailed?.ToString("N0") ?? Constants.No_Value
-                                        , item.TotalChecks?.ToString("N0") ?? Constants.No_Value                                        
+                                        , item.TotalChecks?.ToString("N0") ?? Constants.No_Value
                                         , item.Grade?.ToString("N2") ?? Constants.No_Value
                                    }
                                    );

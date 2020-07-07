@@ -5,6 +5,8 @@ using CastReporting.Console.Argument;
 using CastReporting.Domain;
 using CastReporting.Reporting.Builder;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.Office.Interop.PowerPoint;
+using Microsoft.Office.Interop.Word;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -12,10 +14,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
-using CastReporting.Repositories.Core.Repository;
-using CastReporting.Repositories.Interfaces;
-using Microsoft.Office.Interop.PowerPoint;
-using Microsoft.Office.Interop.Word;
 using Application = CastReporting.Domain.Application;
 
 namespace CastReporting.Console
@@ -35,13 +33,13 @@ namespace CastReporting.Console
         /// </summary>
         /// <param name="args"></param>
         private static void Main(string[] args)
-        { 
+        {
             string showhelp;
-            
-            LogHelper.SetPathLog(Path.Combine(SettingsBLL.GetApplicationPath(),"Logs"));
-            
+
+            LogHelper.SetPathLog(Path.Combine(SettingsBLL.GetApplicationPath(), "Logs"));
+
             SetCulture();
-           
+
             LogHelper.LogInfo("Application started.");
 
             Environment.ExitCode = DoWork(args, out showhelp);
@@ -113,10 +111,10 @@ namespace CastReporting.Console
         private static int DoWork(string[] args, out string help)
         {
             LogHelper.LogInfo("Read arguments.");
-            XmlCastReport arguments = ReadArguments(args, out help); 
+            XmlCastReport arguments = ReadArguments(args, out help);
 
             if (!string.IsNullOrEmpty(help))
-            {             
+            {
                 return 1;
             }
 
@@ -124,7 +122,7 @@ namespace CastReporting.Console
             {
                 SetCulture(arguments.Culture.Name);
             }
-            
+
             string pathFile = GenerateReport(arguments, out help);
 
             if (!string.IsNullOrEmpty(help))
@@ -144,6 +142,7 @@ namespace CastReporting.Console
         /// <returns></returns>
         private static string GenerateReport(XmlCastReport arguments, out string help)
         {
+            /* this code for CLI to download a package from extend. Specs are not ready for the moment, so it is disabled.
             if (arguments.ExtendPackId != null)
             {
                 try
@@ -165,10 +164,11 @@ namespace CastReporting.Console
                     return string.Empty;
                 }
             }
+            */
             if (arguments.ReportType != null)
             {
 
-                string reportPath = string.Empty; 
+                string reportPath = string.Empty;
                 string tmpReportFile = string.Empty;
 
                 try
@@ -202,7 +202,7 @@ namespace CastReporting.Console
                     LogHelper.LogInfo("Web services Initialized successfully");
 
                     List<Application> _apps = new List<Application>();
-                    
+
                     try
                     {
                         using (CastDomainBLL castDomainBLL = new CastDomainBLL(connection))
@@ -493,7 +493,7 @@ namespace CastReporting.Console
                     LogHelper.LogInfo($"Result of current snapshot {currentSnapshot.Name} built successfully");
 
                     //Set previous snapshot
-                    
+
                     Snapshot prevSnapshot = GetSnapshotOrDefault(arguments.Snapshot.Previous, arguments.Snapshot.PreviousId, application.Snapshots, -1);
                     if (prevSnapshot != null)
                     {
@@ -503,7 +503,7 @@ namespace CastReporting.Console
                         SnapshotBLL.BuildSnapshotResult(connection, prevSnapshot, false);
                         LogHelper.LogInfo($"Result of previous snapshot {prevSnapshot.Name}  built successfully");
                     }
-                    else 
+                    else
                     {
                         if (arguments.Snapshot.Previous == null && arguments.Snapshot.PreviousId == null)
                         {
@@ -550,7 +550,7 @@ namespace CastReporting.Console
                     SetFileName(arguments);
 
                     var reportPath = Path.Combine(string.IsNullOrEmpty(settings.ReportingParameter.GeneratedFilePath)
-                        ? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) 
+                        ? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
                         : settings.ReportingParameter.GeneratedFilePath, arguments.File.Name);
 
                     if (tmpReportFile.Contains(".xlsx"))
@@ -676,10 +676,10 @@ namespace CastReporting.Console
         /// <param name="application"></param>
         /// <returns></returns>
         private static void SetSnapshots(WSConnection connection, Application application)
-        {          
+        {
             using (ApplicationBLL applicationBLL = new ApplicationBLL(connection, application))
             {
-                applicationBLL.SetSnapshots();                
+                applicationBLL.SetSnapshots();
             }
         }
 

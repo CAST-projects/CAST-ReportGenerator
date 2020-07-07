@@ -9,7 +9,7 @@ namespace CastReporting.Console.Argument
     /// <summary>
     /// XmlCastReport Class
     /// </summary>
-    [Serializable] 
+    [Serializable]
     [XmlRoot("castReport", Namespace = "http://tempuri.org/CastReportSchema.xsd", IsNullable = false)]
     public sealed class XmlCastReport
     {
@@ -38,7 +38,7 @@ namespace CastReporting.Console.Argument
         /// </summary>
         [XmlElement("extendkey")]
         public XmlTagName ExtendKey { get; set; }
-        
+
         /// <summary>
         /// ReportType
         /// </summary>

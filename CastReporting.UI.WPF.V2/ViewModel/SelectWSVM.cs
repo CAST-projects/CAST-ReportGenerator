@@ -13,13 +13,13 @@
  * limitations under the License.
  *
  */
-using System;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
 using Cast.Util.Log;
 using CastReporting.BLL;
 using CastReporting.Domain;
 using CastReporting.UI.WPF.Core.Common;
+using System;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace CastReporting.UI.WPF.Core.ViewModel
 {
@@ -28,7 +28,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
     /// </summary>
     public class SelectWSVM : ViewModelBase
     {
-       
+
         /// <summary>
         /// 
         /// </summary>
@@ -120,19 +120,19 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// 
         /// </summary>       
         private ObservableCollection<WSConnection> _wsConnections;
-        public ObservableCollection<WSConnection> WSConnections 
-        { 
+        public ObservableCollection<WSConnection> WSConnections
+        {
             get
             {
                 return _wsConnections;
-            } 
+            }
             set
             {
                 _wsConnections = value;
 
-                 OnPropertyChanged("WSConnections");
-            } 
-            
+                OnPropertyChanged("WSConnections");
+            }
+
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
             ActiveCommand = new CommandHandler(ExecuteActiveCommand, null);
 
             WSConnections = new ObservableCollection<WSConnection>(Setting.WSConnections);
-           
+
         }
 
         /// <summary>

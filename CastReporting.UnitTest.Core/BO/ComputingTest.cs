@@ -1,7 +1,7 @@
 ﻿using CastReporting.BLL.Computing;
 using CastReporting.Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CastReporting.UnitTest.Reporting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CastReporting.UnitTest
 {
@@ -23,7 +23,7 @@ namespace CastReporting.UnitTest
             {
                 Name = "Test",
                 Href = "AED1/applications/3/snapshots/3",
-                Annotation = new Annotation {Name = "My Snapshot", Version = "2.1"},
+                Annotation = new Annotation { Name = "My Snapshot", Version = "2.1" },
                 BusinessCriteriaResults = TestUtility.GetSampleResult<ApplicationResult>(@".\Data\ComputingTest1.json")
             };
 

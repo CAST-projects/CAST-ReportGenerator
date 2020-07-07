@@ -13,16 +13,16 @@
  * limitations under the License.
  *
  */
+using Cast.Util.Log;
 using CastReporting.BLL.Computing;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
 using CastReporting.Reporting.ReportingModel;
-using CastReporting.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CastReporting.Reporting.Core.Languages;
-using Cast.Util.Log;
 
 namespace CastReporting.Reporting.Block.Text
 {

@@ -21,10 +21,10 @@ namespace CastReporting.Domain
     /// <summary>
     /// 
     /// </summary>
-   [DataContract(Name = "businessCriteria")]
-    public class QIBusinessCriteria : QIBase  
+    [DataContract(Name = "businessCriteria")]
+    public class QIBusinessCriteria : QIBase
     {
-       [DataMember(Name = "gradeContributors")]
-       public IEnumerable<QITechnicalCriteria> Contributors { get; set; }
+        [DataMember(Name = "gradeContributors")]
+        public IEnumerable<QITechnicalCriteria> Contributors { get; set; }
     }
 }

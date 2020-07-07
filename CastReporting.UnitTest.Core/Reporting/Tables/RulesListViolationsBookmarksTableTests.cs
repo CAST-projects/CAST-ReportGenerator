@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using CastReporting.Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {
@@ -158,7 +157,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
                 "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adgc_delta_debt_added","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
                 "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adgc_delta_debt_removed","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
                 "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adgc_delta_debt_removed","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
-                "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adgc_delta_debt_removed","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201"            
+                "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adgc_delta_debt_removed","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201"
             };
             TestUtility.AssertTableContent(table, expectedData, 8, 22);
         }
@@ -195,7 +194,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
 
             var expectedData = new List<string>
-            { 
+            {
                 "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adg_central_grades_std","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
                 "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adg_central_grades_std","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
                 "Avoid using SQL queries inside a loop","aedtst_exclusions_central.adg_central_grades_std","MyObjType","","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",

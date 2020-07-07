@@ -14,8 +14,8 @@
  *
  */
 using System.Collections.Generic;
-using System.Text;
 using System.Runtime.Serialization;
+using System.Text;
 
 namespace CastReporting.Domain
 {
@@ -24,7 +24,7 @@ namespace CastReporting.Domain
     /// </summary>
     [DataContract(Name = "application")]
     public class Application : CRObject
-    {      
+    {
         /// <summary>
         /// 
         /// </summary>
@@ -46,21 +46,24 @@ namespace CastReporting.Domain
         /// 
         /// </summary>
         public IEnumerable<System> Systems { get; set; }
-        
-        public string SystemNames {
-        	get {
-        		var sb = new StringBuilder();
-	            if (Systems == null) return sb.ToString();
 
-	            foreach (var sys in Systems) {
-	                if (sb.Length > 0)
-	                    sb.Append(", ");
-	                sb.Append(sys.Name);
-	            }
-	            return sb.ToString();
-        	}
+        public string SystemNames
+        {
+            get
+            {
+                var sb = new StringBuilder();
+                if (Systems == null) return sb.ToString();
+
+                foreach (var sys in Systems)
+                {
+                    if (sb.Length > 0)
+                        sb.Append(", ");
+                    sb.Append(sys.Name);
+                }
+                return sb.ToString();
+            }
         }
-        
+
         /// <summary>
         /// 
         /// </summary>

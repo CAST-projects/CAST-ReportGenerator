@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using CastReporting.Reporting.Block.Graph;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CastReporting.Reporting.Block.Graph;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Graph
 {
@@ -34,7 +34,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
             expectedData.AddRange(new List<string> { "TQI", "Technical Debt ($)", "Size (kLoC)" });
             expectedData.AddRange(new List<string> { "2.1", "1503963.75", "104851" });
             TestUtility.AssertTableContent(table, expectedData, 3, 2);
-            
+
         }
 
         [TestMethod]

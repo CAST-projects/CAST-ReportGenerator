@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Table;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {
@@ -46,7 +46,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             CastDate currentDate = new CastDate { Time = 1496959200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 null, @".\Data\cocraFuncWeight.json", "AED/applications/3/snapshots/5", "Snap5_CAIP-8.3ra2_RG-1.6a", "8.3.ra2", currentDate,
-               null,null, null, null, null, null);
+               null, null, null, null, null, null);
 
             var component = new FunctionalWeightEvolution();
             Dictionary<string, string> config = new Dictionary<string, string>();

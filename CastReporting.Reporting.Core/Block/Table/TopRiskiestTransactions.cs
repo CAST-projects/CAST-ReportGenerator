@@ -14,13 +14,13 @@
  *
  */
 
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -61,7 +61,7 @@ namespace CastReporting.Reporting.Block.Table
             if (bc != null)
             {
                 bc.Transactions = reportData.SnapshotExplorer.GetTransactions(reportData.CurrentSnapshot.Href, bc.Reference.Key.ToString(), nbLimitTop)?.ToList();
-                if (bc.Transactions !=null && bc.Transactions.Any())
+                if (bc.Transactions != null && bc.Transactions.Any())
                 {
                     foreach (var transaction in bc.Transactions)
                     {
