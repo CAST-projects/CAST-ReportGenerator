@@ -313,6 +313,15 @@ namespace CastReporting.UI.WPF.Core.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Release Notes.
+        /// </summary>
+        public static string lblReleaseNotes {
+            get {
+                return ResourceManager.GetString("lblReleaseNotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select application.
         /// </summary>
         public static string lblSelectApplication {

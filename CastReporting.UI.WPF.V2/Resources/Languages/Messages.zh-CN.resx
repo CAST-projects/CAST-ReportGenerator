@@ -363,4 +363,7 @@
   <data name="rgVersionUpTodate" xml:space="preserve">
     <value>当前使用的报告生成器版本是最新的。</value>
   </data>
+  <data name="lblReleaseNotes" xml:space="preserve">
+    <value>发行说明</value>
+  </data>
 </root>

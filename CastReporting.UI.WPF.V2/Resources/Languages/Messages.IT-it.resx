@@ -363,4 +363,7 @@
   <data name="rgVersionUpTodate" xml:space="preserve">
     <value>La versione di Generatore report attualmente in uso è aggiornata.</value>
   </data>
+  <data name="lblReleaseNotes" xml:space="preserve">
+    <value>Note di rilascio</value>
+  </data>
 </root>
