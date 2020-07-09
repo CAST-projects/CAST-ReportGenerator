@@ -354,77 +354,78 @@ if errorlevel 1 goto endclean
 echo End of build with success.
 set RETCODE=0
 
-pushd %WORKSPACE%
-echo.
-echo ==============================================
-echo Preparing package for Report Generator Templates ...
-echo ==============================================
-pushd %WORKSPACE%
-set REPORTINGDIR=%SRCDIR%/CastReporting.Reporting.Core
 
-::put the templates in the right places
-robocopy /njh /mir %REPORTINGDIR%\Templates %WORKTEMPLATES%
-if errorlevel 8 exit /b 1
-
-set ZIPPATHTEMPLATES=%RESDIRTEMPLATES%\%TEMPLATES_ID%.%TEMPLATES_VERSION%.zip
-pushd %WORKTEMPLATES%
-7z.exe a -y -r %ZIPPATHTEMPLATES% .
-if errorlevel 1 goto endclean
-
-echo.
-echo Package path for ReportGeneratorTemplates is: %ZIPPATHTEMPLATES%
-
-pushd %WORKSPACE%
-echo.
-echo ==============================================
-echo Nuget packaging ReportGeneratorTemplates...
-echo ==============================================
-echo F|xcopy /f /y %SRCDIR%\_build\plugin_for_templates.nuspec %RESDIRTEMPLATES%\plugin.nuspec
-if errorlevel 1 goto endclean
-
-sed -i 's/_THE_VERSION_/%TEMPLATES_VERSION%/' %RESDIRTEMPLATES%/plugin.nuspec
-if errorlevel 1 goto endclean
-sed -i 's/_THE_SHORT_VERSION_/%SHORT_TEMPLATES_VERSION%/' %RESDIRTEMPLATES%/plugin.nuspec
-if errorlevel 1 goto endclean
-sed -i 's/_THE_ID_/%TEMPLATES_ID%/' %RESDIRTEMPLATES%/plugin.nuspec
-if errorlevel 1 goto endclean
-
-cd %WORKSPACE%
-set CMD=%BUILDDIR%\nuget_package_basics.bat outdir=%RESDIRTEMPLATES% pkgdir=%RESDIRTEMPLATES% buildno=%BUILDNO% nopub=%NOPUB% is_component=true
-echo Executing command:
-echo %CMD%
-call %CMD%
-if errorlevel 1 goto endclean
-
-for /f "tokens=*" %%a in ('dir /b %RESDIRTEMPLATES%\com.castsoftware.*.nupkg') do set PACKPATHTEMPLATES=%RESDIRTEMPLATES%\%%a
-if not defined PACKPATHTEMPLATES (
-	echo .
-	echo ERROR: No package was created : file not found %RESDIRTEMPLATES%\com.castsoftware.*.nupkg ...
-	goto endclean
-)
-if not exist %PACKPATHTEMPLATES% (
-	echo .
-	echo ERROR: File not found %PACKPATHTEMPLATES% ...
-	goto endclean
-)
-
-set GROOVYEXE=groovy
-%GROOVYEXE% --version 2>nul
-if errorlevel 1 set GROOVYEXE="%GROOVY_HOME%\bin\groovy"
-%GROOVYEXE% --version 2>nul
-if errorlevel 1 (
-	echo ERROR: no groovy executable available, need one!
-	goto endclean
-)
-
-:: ========================================================================================
-:: Nuget checking ReportGeneratorTemplates
-:: ========================================================================================
-set CMD=%GROOVYEXE% %BUILDDIR%\nuget_package_verification.groovy --packpath=%PACKPATHTEMPLATES%
-echo Executing command:
-echo %CMD%
-call %CMD%
-if errorlevel 1 goto endclean
+:: pushd %WORKSPACE%
+:: echo.
+:: echo ==============================================
+:: echo Preparing package for Report Generator Templates ...
+:: echo ==============================================
+:: pushd %WORKSPACE%
+:: set REPORTINGDIR=%SRCDIR%/CastReporting.Reporting.Core
+:: 
+:: ::put the templates in the right places
+:: robocopy /njh /mir %REPORTINGDIR%\Templates %WORKTEMPLATES%
+:: if errorlevel 8 exit /b 1
+:: 
+:: set ZIPPATHTEMPLATES=%RESDIRTEMPLATES%\%TEMPLATES_ID%.%TEMPLATES_VERSION%.zip
+:: pushd %WORKTEMPLATES%
+:: 7z.exe a -y -r %ZIPPATHTEMPLATES% .
+:: if errorlevel 1 goto endclean
+:: 
+:: echo.
+:: echo Package path for ReportGeneratorTemplates is: %ZIPPATHTEMPLATES%
+:: 
+:: pushd %WORKSPACE%
+:: echo.
+:: echo ==============================================
+:: echo Nuget packaging ReportGeneratorTemplates...
+:: echo ==============================================
+:: echo F|xcopy /f /y %SRCDIR%\_build\plugin_for_templates.nuspec %RESDIRTEMPLATES%\plugin.nuspec
+:: if errorlevel 1 goto endclean
+:: 
+:: sed -i 's/_THE_VERSION_/%TEMPLATES_VERSION%/' %RESDIRTEMPLATES%/plugin.nuspec
+:: if errorlevel 1 goto endclean
+:: sed -i 's/_THE_SHORT_VERSION_/%SHORT_TEMPLATES_VERSION%/' %RESDIRTEMPLATES%/plugin.nuspec
+:: if errorlevel 1 goto endclean
+:: sed -i 's/_THE_ID_/%TEMPLATES_ID%/' %RESDIRTEMPLATES%/plugin.nuspec
+:: if errorlevel 1 goto endclean
+:: 
+:: cd %WORKSPACE%
+:: set CMD=%BUILDDIR%\nuget_package_basics.bat outdir=%RESDIRTEMPLATES% pkgdir=%RESDIRTEMPLATES% buildno=%BUILDNO% nopub=%NOPUB% is_component=true
+:: echo Executing command:
+:: echo %CMD%
+:: call %CMD%
+:: if errorlevel 1 goto endclean
+:: 
+:: for /f "tokens=*" %%a in ('dir /b %RESDIRTEMPLATES%\com.castsoftware.*.nupkg') do set PACKPATHTEMPLATES=%RESDIRTEMPLATES%\%%a
+:: if not defined PACKPATHTEMPLATES (
+:: 	echo .
+:: 	echo ERROR: No package was created : file not found %RESDIRTEMPLATES%\com.castsoftware.*.nupkg ...
+:: 	goto endclean
+:: )
+:: if not exist %PACKPATHTEMPLATES% (
+:: 	echo .
+:: 	echo ERROR: File not found %PACKPATHTEMPLATES% ...
+:: 	goto endclean
+:: )
+:: 
+:: set GROOVYEXE=groovy
+:: %GROOVYEXE% --version 2>nul
+:: if errorlevel 1 set GROOVYEXE="%GROOVY_HOME%\bin\groovy"
+:: %GROOVYEXE% --version 2>nul
+:: if errorlevel 1 (
+:: 	echo ERROR: no groovy executable available, need one!
+:: 	goto endclean
+:: )
+:: 
+:: :: ========================================================================================
+:: :: Nuget checking ReportGeneratorTemplates
+:: :: ========================================================================================
+:: set CMD=%GROOVYEXE% %BUILDDIR%\nuget_package_verification.groovy --packpath=%PACKPATHTEMPLATES%
+:: :: echo Executing command:
+:: echo %CMD%
+:: call %CMD%
+:: if errorlevel 1 goto endclean
 
 echo End of build with success.
 set RETCODE=0
