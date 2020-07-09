@@ -20,10 +20,10 @@ namespace CastReporting.Domain
     /// <summary>
     /// 
     /// </summary>
-   [DataContract(Name = "technicalMeasure")]
-    public class QITechnicalMeasure : QIBase  
+    [DataContract(Name = "technicalMeasure")]
+    public class QITechnicalMeasure : QIBase
     {
-    
-       
+
+
     }
 }

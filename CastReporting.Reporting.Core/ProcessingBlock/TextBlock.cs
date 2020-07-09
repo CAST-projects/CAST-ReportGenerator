@@ -13,17 +13,17 @@
  * limitations under the License.
  *
  */
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Cast.Util.Log;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Helper;
 using CastReporting.Reporting.ReportingModel;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using OXD = DocumentFormat.OpenXml.Drawing;
 using OXP = DocumentFormat.OpenXml.Presentation;
 using OXW = DocumentFormat.OpenXml.Wordprocessing;
@@ -86,7 +86,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
                 UpdateBlock(client, container, contentblock, content);
             }
         }
-        
+
         private static void UpdateBlock(ReportData client, OpenXmlPartContainer container, OpenXmlElement block, string content)
         {
             switch (client.ReportType)
@@ -113,14 +113,15 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
         private static void UpdateWordBlock(OpenXmlPartContainer container, OpenXmlElement block, string content)
         {
             OXW.Text new_text = new OXW.Text(content);
-            if (!string.IsNullOrEmpty(content) && (char.IsWhiteSpace(content[0]) || char.IsWhiteSpace(content[content.Length-1]))) {
-            	new_text.Space = SpaceProcessingModeValues.Preserve;
+            if (!string.IsNullOrEmpty(content) && (char.IsWhiteSpace(content[0]) || char.IsWhiteSpace(content[content.Length - 1])))
+            {
+                new_text.Space = SpaceProcessingModeValues.Preserve;
             }
             OXW.Run run = new OXW.Run(new_text);
             OXW.RunProperties originalRunProp = block.Descendants<OXW.RunProperties>().FirstOrDefault();
             if (originalRunProp != null)
             {
-            	run.RunProperties = (OXW.RunProperties)originalRunProp.CloneNode(true);
+                run.RunProperties = (OXW.RunProperties)originalRunProp.CloneNode(true);
             }
             OpenXmlElement finalBlock = run;
             if ("SdtRun" == block.Parent.GetType().Name)
@@ -139,9 +140,9 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
             var docPart = container.GetPartsOfType<MainDocumentPart>().FirstOrDefault();
             if (docPart == null)
             {
-            	var p = container as OpenXmlPart;
-            	if (p != null)
-            		docPart = p.GetParentParts().FirstOrDefault(_ => _ is MainDocumentPart) as MainDocumentPart;
+                var p = container as OpenXmlPart;
+                if (p != null)
+                    docPart = p.GetParentParts().FirstOrDefault(_ => _ is MainDocumentPart) as MainDocumentPart;
             }
             docPart?.Document.Save();
         }
@@ -158,7 +159,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
                 case FormatType.Word:
                     var txtContent = block.OxpBlock.Descendants<OXW.SdtContentRun>().FirstOrDefault();
                     return txtContent ?? block.OxpBlock;
-                    // case text is in a text box
+                // case text is in a text box
                 case FormatType.PowerPoint: return block.OxpBlock;
                 case FormatType.Excel:
                     return null;

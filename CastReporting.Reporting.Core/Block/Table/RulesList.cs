@@ -13,14 +13,14 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
-using System.Linq;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -55,7 +55,7 @@ namespace CastReporting.Reporting.Block.Table
                     businessCriteriasIds.Add(metricId);
                 }
             }
-                                              
+
             //Build result
             List<string> rowData = new List<string>();
             rowData.AddRange(new[] { Labels.Criticality, Labels.Weight, Labels.Grade, Labels.TechnicalCriterion, Labels.RuleName, Labels.ViolCount, Labels.TotalOk });
@@ -64,16 +64,16 @@ namespace CastReporting.Reporting.Block.Table
             int nbRows = 0;
             foreach (var item in results)
             {
-                    
+
                 rowData.Add(item.Rule.Critical ? "µ" : string.Empty);
-                rowData.Add(item.Rule.CompoundedWeight.ToString());              
+                rowData.Add(item.Rule.CompoundedWeight.ToString());
                 rowData.Add(item.Grade?.ToString("N2"));
                 rowData.Add(item.TechnicalCriteraiName);
                 rowData.Add(item.Rule.Name);
 
                 rowData.Add(item.TotalFailed?.ToString("N0") ?? Constants.No_Value);
-                rowData.Add(item.TotalChecks?.ToString("N0") ?? Constants.No_Value);                       
-                   
+                rowData.Add(item.TotalChecks?.ToString("N0") ?? Constants.No_Value);
+
                 nbRows++;
             }
 
@@ -91,6 +91,6 @@ namespace CastReporting.Reporting.Block.Table
 
 
 
-      
+
     }
 }

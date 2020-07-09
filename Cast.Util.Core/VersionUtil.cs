@@ -1,4 +1,6 @@
 ﻿
+using System.Reflection;
+
 namespace Cast.Util.Version
 {
     public class VersionUtil
@@ -6,6 +8,14 @@ namespace Cast.Util.Version
         private VersionUtil()
         {
             // Avoid instanciation of the class
+        }
+
+        public static string GetRGVersion(Assembly asm)
+        {
+            if (asm == null)
+                return null;
+            var n = asm.GetName();
+            return n.Version == null ? null : n.Version.ToString();
         }
 
         private static bool IsVersionCompatible(string targetVersion, string serviceVersion)

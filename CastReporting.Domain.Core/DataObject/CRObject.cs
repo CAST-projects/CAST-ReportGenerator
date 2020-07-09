@@ -68,12 +68,12 @@ namespace CastReporting.Domain
 
         public override bool Equals(object obj)
         {
-            if(!(obj is CRObject)) return false;
+            if (!(obj is CRObject)) return false;
 
 
-            return Href != null && 
-                   ((CRObject) obj).Href!=null  && 
-                   Href.Equals(((CRObject) obj).Href);
+            return Href != null &&
+                   ((CRObject)obj).Href != null &&
+                   Href.Equals(((CRObject)obj).Href);
         }
 
         /// <summary>

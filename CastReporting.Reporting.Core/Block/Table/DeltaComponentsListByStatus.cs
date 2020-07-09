@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Cast.Util.Log;
+﻿using Cast.Util.Log;
 using Cast.Util.Version;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Domain;
-using CastReporting.Reporting.Helper;
 using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.Helper;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -78,11 +78,11 @@ namespace CastReporting.Reporting.Block.Table
 
             if (previousSnapshotId == null)
             {
-                rowData.AddRange(new[]{Labels.NoPreviousSnapshot,string.Empty,string.Empty,string.Empty,string.Empty,string.Empty,string.Empty,string.Empty});
-                return new TableDefinition {HasRowHeaders = false,HasColumnHeaders = true,NbRows = 2,NbColumns = 8,Data = rowData};
+                rowData.AddRange(new[] { Labels.NoPreviousSnapshot, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty });
+                return new TableDefinition { HasRowHeaders = false, HasColumnHeaders = true, NbRows = 2, NbColumns = 8, Data = rowData };
             }
 
-            string[] allowedStatus = { "added", "deleted", "updated"};
+            string[] allowedStatus = { "added", "deleted", "updated" };
             if (!allowedStatus.Contains(status))
             {
                 rowData.AddRange(new[] { Labels.StatusNotAllowed, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty });
@@ -120,7 +120,7 @@ namespace CastReporting.Reporting.Block.Table
         private IEnumerable<string> GetDeltaComponents(ReportData reportData, string href, string status, string currentSnapshotId, string previousSnapshotId, string complexity = "all", string technology = null)
         {
             List<string> dataList = new List<string>();
-            IEnumerable<DeltaComponent> components = complexity.Equals("all") || !new[] {"low", "moderate", "high", "very high"}.Contains(complexity)
+            IEnumerable<DeltaComponent> components = complexity.Equals("all") || !new[] { "low", "moderate", "high", "very high" }.Contains(complexity)
                 ? reportData.RuleExplorer.GetDeltaComponents(href, status, currentSnapshotId, previousSnapshotId, technology).OrderBy(_ => _.Name)
                 : reportData.RuleExplorer.GetDeltaComponents(href, status, currentSnapshotId, previousSnapshotId, technology).Where(_ => _.Complexity.ToLower().Equals(complexity + " risk")).OrderBy(_ => _.Name);
 
@@ -144,7 +144,7 @@ namespace CastReporting.Reporting.Block.Table
                     component.NbOfUpdates.ToString(),
                     component.Name
                 });
-                _nbRows ++;
+                _nbRows++;
             }
             return dataList;
         }

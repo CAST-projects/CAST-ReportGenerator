@@ -13,32 +13,26 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
-using System.Reflection;
+using Cast.Util.Version;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace CastReporting.Reporting.Block.Text
 {
-	[Block("REPGEN_VERSION"), Block("EMP_VERSION")]
-	public class RepGenVersion : TextBlock
+    [Block("REPGEN_VERSION"), Block("EMP_VERSION")]
+    public class RepGenVersion : TextBlock
     {
         #region METHODS
         public override string Content(ReportData reportData, Dictionary<string, string> options)
         {
-        	var ver = GetVersion(Assembly.GetExecutingAssembly());
-        	if (string.IsNullOrEmpty(ver))
-        		ver = Domain.Constants.No_Value;
-        	
-        	return ver;
-        }
-        
-        private static string GetVersion(Assembly asm) {
-        	if (asm == null)
-        		return null;
-        	var n = asm.GetName();
-        	return n.Version == null ? null : n.Version.ToString();
+            var ver = VersionUtil.GetRGVersion(Assembly.GetExecutingAssembly());
+            if (string.IsNullOrEmpty(ver))
+                ver = Domain.Constants.No_Value;
+
+            return ver;
         }
         #endregion METHODS
     }

@@ -13,18 +13,18 @@
  * limitations under the License.
  *
  */
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
+using Cast.Util.Date;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
-using System.Data;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.Helper;
+using CastReporting.Reporting.ReportingModel;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using Cast.Util.Date;
-using CastReporting.Reporting.Helper;
 
 namespace CastReporting.Reporting.Block.Graph
 {
@@ -35,15 +35,15 @@ namespace CastReporting.Reporting.Block.Graph
 
         public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
-            int metricId = options.GetIntOption("BCID",60017);
+            int metricId = options.GetIntOption("BCID", 60017);
 
             var rowData = new List<string>();
             rowData.AddRange(new[] {
-				" ",
-				Labels.ViolationsCritical + " - " + Labels.ViolationsRemoved ,
-				Labels.ViolationsCritical + " - " + Labels.ViolationsAdded,
-				Labels.ViolationsCritical + " - " + Labels.Total
-			});
+                " ",
+                Labels.ViolationsCritical + " - " + Labels.ViolationsRemoved ,
+                Labels.ViolationsCritical + " - " + Labels.ViolationsAdded,
+                Labels.ViolationsCritical + " - " + Labels.Total
+            });
 
             DataTable dtDates = new DataTable();
             dtDates.Columns.Add("Quarter", typeof(int));

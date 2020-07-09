@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using CastReporting.Reporting.Block.Graph;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CastReporting.Reporting.Block.Graph;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Graph
 {

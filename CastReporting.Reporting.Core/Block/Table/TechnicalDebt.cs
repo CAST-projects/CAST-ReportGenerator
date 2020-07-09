@@ -15,13 +15,13 @@
  *
  */
 
-using System.Collections.Generic;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
 
 
 namespace CastReporting.Reporting.Block.Table
@@ -40,13 +40,13 @@ namespace CastReporting.Reporting.Block.Table
             if (reportData?.CurrentSnapshot != null)
             {
 
-                
+
                 //Build Debt row          
                 double? technicalDebtBuild = MeasureUtility.GetTechnicalDebtMetric(reportData.CurrentSnapshot);
                 rowData.AddRange(new[] { Labels.Name, Labels.Value });
                 rowData.AddRange(new[] {
                     displayShortHeader ? Labels.Debt : Labels.TechnicalDebt  + " (" + reportData.CurrencySymbol + ")",
-                   technicalDebtBuild?.ToString(numberFormat) ?? Constants.No_Value                    
+                   technicalDebtBuild?.ToString(numberFormat) ?? Constants.No_Value
                 });
 
 
@@ -55,7 +55,7 @@ namespace CastReporting.Reporting.Block.Table
 
                 rowData.AddRange(new[] {
                      displayShortHeader ? Labels.DebtAdded : Labels.TechnicalDebtAdded + " (" + reportData.CurrencySymbol + ")",
-                   technicalDebtadded?.ToString(numberFormat) ?? Constants.No_Value                   
+                   technicalDebtadded?.ToString(numberFormat) ?? Constants.No_Value
                 });
 
                 //Build Debt removed row            
@@ -63,7 +63,7 @@ namespace CastReporting.Reporting.Block.Table
 
                 rowData.AddRange(new[] {
                      displayShortHeader ? Labels.DebtRemoved : Labels.TechnicalDebtRemoved + " (" + reportData.CurrencySymbol + ")",
-                   technicalDebtremoved?.ToString(numberFormat) ?? Constants.No_Value                   
+                   technicalDebtremoved?.ToString(numberFormat) ?? Constants.No_Value
                 });
             }
 
@@ -78,7 +78,7 @@ namespace CastReporting.Reporting.Block.Table
             };
 
             return resultTable;
-        }       
-  
+        }
+
     }
 }

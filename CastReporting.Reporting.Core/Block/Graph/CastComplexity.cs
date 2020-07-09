@@ -14,14 +14,14 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
-using System.Globalization;
+using CastReporting.BLL.Computing;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
-using CastReporting.Domain;
-using CastReporting.BLL.Computing;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace CastReporting.Reporting.Block.Graph
 {
@@ -32,7 +32,7 @@ namespace CastReporting.Reporting.Block.Graph
 
         public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
-        
+
             List<string> rowData = new List<string>();
             bool hasPreviousSnapshot = null != reportData.PreviousSnapshot;
 
@@ -43,7 +43,7 @@ namespace CastReporting.Reporting.Block.Graph
 
             if (reportData.CurrentSnapshot != null)
             {
- 
+
                 #region Selected Snapshot
 
                 var selectedName = reportData.CurrentSnapshot.Annotation.Version;
@@ -81,7 +81,7 @@ namespace CastReporting.Reporting.Block.Graph
                                                                                           Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
                                                                                           Constants.CostComplexity.CostComplexityArtifacts_VeryHigh.GetHashCode());
                 }
-                 #endregion Previous Snapshot
+                #endregion Previous Snapshot
 
 
                 #region Data
@@ -117,18 +117,18 @@ namespace CastReporting.Reporting.Block.Graph
 
             }
             TableDefinition back = new TableDefinition
-                {
-                    Data = rowData,
-                    HasRowHeaders = false,
-                    HasColumnHeaders = false,
-                    NbColumns = hasPreviousSnapshot ? 3 : 2,
-                    NbRows = 7
-                };
-        
+            {
+                Data = rowData,
+                HasRowHeaders = false,
+                HasColumnHeaders = false,
+                NbColumns = hasPreviousSnapshot ? 3 : 2,
+                NbRows = 7
+            };
+
             return back;
         }
         #endregion METHODS
     }
-        
+
 }
 

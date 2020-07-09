@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Graph;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Graph
 {
@@ -28,14 +28,14 @@ namespace CastReporting.UnitTest.Reporting.Graph
                 null, @".\Data\TechSizeModTechnoCurrent.json", "AED/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
                 null, null, null, null, null);
 
-            ReportingParameter repParam = new ReportingParameter {NbResultDefault = 5};
+            ReportingParameter repParam = new ReportingParameter { NbResultDefault = 5 };
             reportData.Parameter = repParam;
 
             var component = new PieModuleArtifact();
 
             var table = component.Content(reportData, null);
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> {"Name", "Artifacts"});
+            expectedData.AddRange(new List<string> { "Name", "Artifacts" });
             expectedData.AddRange(new List<string> { "sm-core/AppliAEPtran/Shopizer_src content", "5131" });
             expectedData.AddRange(new List<string> { "sm-central/AppliAEPtran/Shopizer_src content", "4344" });
             expectedData.AddRange(new List<string> { "sm-shop/AppliAEPtran/Shopizer_src content", "801" });

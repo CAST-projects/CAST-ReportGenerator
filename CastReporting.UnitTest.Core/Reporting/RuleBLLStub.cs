@@ -1,9 +1,9 @@
-﻿using CastReporting.Domain;
+﻿using CastReporting.BLL;
+using CastReporting.Domain;
 using CastReporting.Domain.Interfaces;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
-using CastReporting.BLL;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CastReporting.UnitTest.Reporting
 {
@@ -70,7 +70,7 @@ namespace CastReporting.UnitTest.Reporting
         public IEnumerable<Result> GetRulesViolations(string snapshotHRef, string ruleId)
         {
             if (ruleId != "1634") return null;
-            IEnumerable<Result>  res = snapshotHRef == "AED/applications/3/snapshots/4" ? TestUtility.GetSampleResult<Result>(@".\Data\RuleViolation1634Previous.json").ToList() 
+            IEnumerable<Result> res = snapshotHRef == "AED/applications/3/snapshots/4" ? TestUtility.GetSampleResult<Result>(@".\Data\RuleViolation1634Previous.json").ToList()
                 : TestUtility.GetSampleResult<Result>(@".\Data\RuleViolation1634.json").ToList();
 
             return res;
@@ -78,7 +78,7 @@ namespace CastReporting.UnitTest.Reporting
 
         [DeploymentItem(@".\Data\BaseQI60011.json", "Data")]
         [DeploymentItem(@".\Data\BaseQI60012.json", "Data")]
-        [DeploymentItem(@".\Data\BaseQI60017.json", "Data")] 
+        [DeploymentItem(@".\Data\BaseQI60017.json", "Data")]
         [DeploymentItem(@".\Data\BaseQICISQSecurityIndex.json", "Data")]
         public IEnumerable<RuleDetails> GetRulesDetails(string domain, int businessCriteria, long snapshotId)
         {

@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CastReporting.Domain;
+﻿using CastReporting.Domain;
 using CastReporting.Repositories;
 using CastReporting.Repositories.Interfaces;
 using CastReporting.UnitTest.Reporting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CastReporting.UnitTest.Repositories
 {
@@ -39,10 +39,10 @@ namespace CastReporting.UnitTest.Repositories
         public void IsServiceValidTest()
         {
             ICastRepsitory context = new CastRepository(_connection, null);
-           
+
             bool result = context.IsServiceValid();
-           
-            Assert.IsTrue( result);           
+
+            Assert.IsTrue(result);
         }
 
         /// <summary>
@@ -53,11 +53,11 @@ namespace CastReporting.UnitTest.Repositories
         {
             ICastRepsitory context = new CastRepository(_connection, null);
             IEnumerable<CastDomain> result = context.GetDomains();
-            
+
             Assert.IsNotNull(result);
-            Assert.AreNotEqual(result.Count(),0);
+            Assert.AreNotEqual(result.Count(), 0);
         }
-       
+
         /// <summary>
         ///
         ///</summary>
@@ -81,7 +81,7 @@ namespace CastReporting.UnitTest.Repositories
             string appilcationId = "AED1/applications/3";
             Application result = context.GetApplication(appilcationId);
             Assert.IsNotNull(result);
-            
+
         }
 
         /// <summary>
@@ -163,12 +163,12 @@ namespace CastReporting.UnitTest.Repositories
             string strBusinessCriterias = string.Join(",", businessCriterias);
 
             var result = context.GetResultsQualityIndicators(appilcationRef, strBusinessCriterias, "$all", string.Empty, string.Empty);
-            
-            
+
+
             Assert.IsNotNull(result);
             var _enumerable = result as IList<Result> ?? result.ToList();
             Assert.AreNotEqual(_enumerable.Count, 0);
-            Assert.AreNotEqual(_enumerable.First().ApplicationResults.Length, 0);            
+            Assert.AreNotEqual(_enumerable.First().ApplicationResults.Length, 0);
         }
 
         /// <summary>
@@ -271,7 +271,7 @@ namespace CastReporting.UnitTest.Repositories
             const int snapshotId = 1;
 
             var result = context.GetConfBusinessCriteriaBySnapshot(domainHref, snapshotId);
-            
+
             Assert.IsNotNull(result);
             Assert.AreNotEqual(result.Count(), 0);
         }

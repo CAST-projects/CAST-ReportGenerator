@@ -89,23 +89,27 @@ namespace CastReporting.Domain
 
         public string ServerCertificateValidation { get; set; }
 
-         /// <summary>
-         /// 
-         /// </summary>
+        public string ExtendUrl { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public ReportingParameter()
         {
-            ApplicationSizeLimitSupSmall=200000;
-            ApplicationSizeLimitSupMedium=500000;
-            ApplicationSizeLimitSupLarge=1000000;
+            ApplicationSizeLimitSupSmall = 200000;
+            ApplicationSizeLimitSupMedium = 500000;
+            ApplicationSizeLimitSupLarge = 1000000;
 
-            ApplicationQualityVeryLow=2;
-            ApplicationQualityLow=2.8;
-            ApplicationQualityMedium=3.2;
-            ApplicationQualityGood=3.5;
+            ApplicationQualityVeryLow = 2;
+            ApplicationQualityLow = 2.8;
+            ApplicationQualityMedium = 3.2;
+            ApplicationQualityGood = 3.5;
 
             NbResultDefault = 5;
             PortfolioFolderNamePath = "\\Portfolio";
             ApplicationFolderNamePath = "\\Application";
+
+            ExtendUrl = "https://extendng.castsoftware.com";
         }
     }
 }

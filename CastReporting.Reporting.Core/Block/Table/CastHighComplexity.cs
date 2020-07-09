@@ -13,13 +13,13 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
 
 
 namespace CastReporting.Reporting.Block.Table
@@ -27,14 +27,14 @@ namespace CastReporting.Reporting.Block.Table
     [Block("CAST_HIGH_COMPLEXITY")]
     public class CastHighComplexity : TableBlock
     {
-         private const string MetricFormat = "N0";
+        private const string MetricFormat = "N0";
 
 
         public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             TableDefinition back = new TableDefinition();
             List<string> rowData = new List<string>();
-            double? previousHttVal= null;
+            double? previousHttVal = null;
 
             if (null == reportData) return back;
 
@@ -52,19 +52,19 @@ namespace CastReporting.Reporting.Block.Table
                 Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
                 Constants.CostComplexity.CostComplexityArtifacts_VeryHigh.GetHashCode());
 
-            double? selectedTotal = selectedLowVal.HasValue && selectedAveVal.HasValue && selectedHigVal.HasValue && selectedVhiVal.HasValue?selectedLowVal.Value + selectedAveVal.Value + selectedHigVal.Value + selectedVhiVal.Value : (double?)null;
-            double? selectedHttVal = selectedHigVal.HasValue && selectedVhiVal.HasValue?selectedHigVal.Value + selectedVhiVal.Value:(double?)null;
-                
+            double? selectedTotal = selectedLowVal.HasValue && selectedAveVal.HasValue && selectedHigVal.HasValue && selectedVhiVal.HasValue ? selectedLowVal.Value + selectedAveVal.Value + selectedHigVal.Value + selectedVhiVal.Value : (double?)null;
+            double? selectedHttVal = selectedHigVal.HasValue && selectedVhiVal.HasValue ? selectedHigVal.Value + selectedVhiVal.Value : (double?)null;
+
             #endregion Selected Snapshot
 
             #region Previous Snapshot
-           
-            if(reportData.PreviousSnapshot!=null)
+
+            if (reportData.PreviousSnapshot != null)
             {
                 var previousHigVal = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
                     Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
                     Constants.CostComplexity.CostComplexityArtifacts_High.GetHashCode());
-                var previousVhiVal= CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
+                var previousVhiVal = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
                     Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
                     Constants.CostComplexity.CostComplexityArtifacts_VeryHigh.GetHashCode());
                 previousHttVal = previousHigVal.HasValue && previousVhiVal.HasValue ? previousHigVal.Value + previousVhiVal.Value : (double?)null;
@@ -73,10 +73,10 @@ namespace CastReporting.Reporting.Block.Table
 
             #region Data
             int? variation = selectedHttVal.HasValue && previousHttVal.HasValue ? (int)(selectedHttVal - previousHttVal) : (int?)null;
-               
+
 
             rowData.AddRange(new[] { Labels.Complexity, Labels.Current, Labels.Previous, Labels.Evol, Labels.TotalPercent });
-                
+
             rowData.AddRange(new[]
             { Labels.ComplexityHighAndVeryHigh
                 , selectedHttVal?.ToString(MetricFormat) ?? Constants.No_Value

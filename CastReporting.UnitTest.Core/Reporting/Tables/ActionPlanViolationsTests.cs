@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {
@@ -217,7 +217,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             expectedData.AddRange(new List<string> { "Rule Name", "Object Name", "Comment", "Priority", "Status", "Last Updated" });
             expectedData.AddRange(new List<string> { "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "CastReporting.BLL.SnapshotBLL.GetBackgroundFacts", "do what you can", "extreme", "solved", "Aug 11 2017" });
             expectedData.AddRange(new List<string> { "Provide a private default Constructor for utility Classes", "CastReporting.Reporting.Helper.StreamHelper", "to do", "high", "solved", "Aug 11 2017" });
-            TestUtility.AssertTableContent(table, expectedData, 6,3);
+            TestUtility.AssertTableContent(table, expectedData, 6, 3);
         }
 
     }

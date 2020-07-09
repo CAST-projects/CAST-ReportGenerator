@@ -13,18 +13,18 @@
  * limitations under the License.
  *
  */
+using Cast.Util.Date;
+using Cast.Util.Log;
+using CastReporting.BLL.Computing;
+using CastReporting.Domain;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.Helper;
+using CastReporting.Reporting.ReportingModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
-using CastReporting.BLL.Computing;
-using CastReporting.Domain;
-using Cast.Util.Log;
-using Cast.Util.Date;
-using CastReporting.Reporting.Helper;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -38,7 +38,7 @@ namespace CastReporting.Reporting.Block.Table
 
             List<string> rowData = new List<string>();
             List<double> _tagIds = new List<double>();
-            List<double> _slAs = new List<double>(); 
+            List<double> _slAs = new List<double>();
 
             if (!string.IsNullOrEmpty(strTargets))
             {
@@ -111,7 +111,7 @@ namespace CastReporting.Reporting.Block.Table
                         int previousQuarter = DateUtil.GetPreviousQuarter(_dateNow);
                         int previousYear = DateUtil.GetPreviousQuarterYear(_dateNow);
 
-                        Snapshot _previous = _app.Snapshots.Where(_ => _.Annotation.Date.DateSnapShot != null 
+                        Snapshot _previous = _app.Snapshots.Where(_ => _.Annotation.Date.DateSnapShot != null
                             && (_.Annotation.Date.DateSnapShot.Value.Year <= previousYear && DateUtil.GetQuarter(_.Annotation.Date.DateSnapShot.Value) <= previousQuarter || _.Annotation.Date.DateSnapShot.Value.Year < previousYear))
                                 .OrderByDescending(_ => _.Annotation.Date.DateSnapShot)
                                 .First();

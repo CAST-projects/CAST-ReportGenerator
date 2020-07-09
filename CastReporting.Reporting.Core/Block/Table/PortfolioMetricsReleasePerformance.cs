@@ -13,20 +13,17 @@
  * limitations under the License.
  *
  */
+using Cast.Util.Log;
+using CastReporting.BLL.Computing.DTO;
+using CastReporting.Domain;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.Helper;
+using CastReporting.Reporting.ReportingModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
-using CastReporting.BLL.Computing;
-using CastReporting.Domain;
-using Cast.Util.Log;
-using Cast.Util.Date;
-using CastReporting.Reporting.Helper;
-using Cast.Util;
-using CastReporting.BLL.Computing.DTO;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -36,7 +33,7 @@ namespace CastReporting.Reporting.Block.Table
         public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             List<string> metrics = options.GetOption("ID", string.Empty).Trim().Split('|').ToList();
-            List<double> strTargets = options.GetOption("TARGETS", "0").Trim().Split('|').Select(_=> Convert.ToDouble(_, System.Globalization.CultureInfo.InvariantCulture)).ToList();
+            List<double> strTargets = options.GetOption("TARGETS", "0").Trim().Split('|').Select(_ => Convert.ToDouble(_, System.Globalization.CultureInfo.InvariantCulture)).ToList();
             bool lonelyTarget = false;
 
             List<string> rowData = new List<string>();
@@ -63,7 +60,7 @@ namespace CastReporting.Reporting.Block.Table
                 strTargets = new List<double> { first };
             }
 
-            List<double> _strSla = options.GetOption("SLA", "0").Trim().Split('|').Select(_=> Convert.ToDouble(_, System.Globalization.CultureInfo.InvariantCulture)).ToList();
+            List<double> _strSla = options.GetOption("SLA", "0").Trim().Split('|').Select(_ => Convert.ToDouble(_, System.Globalization.CultureInfo.InvariantCulture)).ToList();
             if (_strSla.Count() != 2)
             {
                 LogHelper.LogError("Bad SLA configuration");
@@ -107,7 +104,7 @@ namespace CastReporting.Reporting.Block.Table
                     if (lonelyTarget)
                     {
                         target = strTargets[0];
-                        metricSla = (target - currentRes.result) / target > upper ? Labels.Bad 
+                        metricSla = (target - currentRes.result) / target > upper ? Labels.Bad
                             : (target - currentRes.result) / target > lower ? Labels.Acceptable : Labels.Good;
                     }
                     else
@@ -120,14 +117,14 @@ namespace CastReporting.Reporting.Block.Table
                                 : (target - currentRes.result) / target > lower ? Labels.Acceptable : Labels.Good;
                         }
                     }
-                    rowData.AddRange(new[] { 
+                    rowData.AddRange(new[] {
                         currentRes.name,
                         previousRes != null ? previousRes.resultStr : Constants.No_Data,
                         target.ToString("N2"),
                         currentRes.resultStr,
                         metricSla });
                 }
-                
+
             }
 
             var resultTable = new TableDefinition

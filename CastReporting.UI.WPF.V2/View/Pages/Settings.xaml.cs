@@ -44,7 +44,7 @@ namespace CastReporting.UI.WPF.Core.View
             InitializeComponent();
 
             DataContext = new SettingsVM();
-         
+
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace CastReporting.UI.WPF.Core.View
             {
                 var _settingsVm = DataContext as SettingsVM;
                 if (_settingsVm != null) _settingsVm.LangageChanged -= value;
-            } 
+            }
         }
 
 
@@ -78,7 +78,7 @@ namespace CastReporting.UI.WPF.Core.View
 
             if (result == DialogResult.OK) TxtTemplatePath.Text = dialog.SelectedPath;
 
-  
+
         }
 
         private void OpenSaveSettings_CanExecute(object sender, CanExecuteRoutedEventArgs e)

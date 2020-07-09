@@ -21,14 +21,14 @@ namespace CastReporting.Domain
     /// <summary>
     /// 
     /// </summary>
-   [DataContract(Name = "qualityRules")]
-    public class QIQualityRules : QIBase  
+    [DataContract(Name = "qualityRules")]
+    public class QIQualityRules : QIBase
     {
-       /// <summary>
-       /// 
-       /// </summary>
-       [DataMember(Name = "thresholds")]
-       public double[] Thresholds {get; set;}
+        /// <summary>
+        /// 
+        /// </summary>
+        [DataMember(Name = "thresholds")]
+        public double[] Thresholds { get; set; }
 
 
     }

@@ -19,7 +19,7 @@ namespace CastReporting.Domain
 {
     [DataContract(Name = "common-categories")]
     public class CommonCategories
-    {  
+    {
         [DataMember(Name = "key")]
         // ReSharper disable once InconsistentNaming
         public string key { get; set; }

@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Graph;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Graph
 {
@@ -207,7 +207,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
         {
             ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
                null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
-               null, @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3" );
+               null, @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
 
             WSConnection connection = new WSConnection
             {

@@ -20,7 +20,7 @@ namespace CastReporting.UnitTest.Repositories
             var serializer = new CsvSerializer<OmgFunctionTechnical>();
             OmgFunctionTechnical[] functions = serializer.ReadObjects(csvString, -1, null).ToArray();
             Assert.AreEqual(functions.Count(), 3);
-            
+
             OmgFunctionTechnical expect1 = initFunction(new string[] { "497", "getDays",
                 "[C:\\jenkins7_slave\\workspace\\CAIP_Trunk_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\IFPUG\\Sol2005\\solution_complete_for_stats\\WebApplicationVB\\appli_web_asp\\calendar.htc].getDays",
                 "eFunction","added","0.05","45.42553191489362","2.2712766295893396" });
@@ -29,12 +29,12 @@ namespace CastReporting.UnitTest.Repositories
             OmgFunctionTechnical expect2 = initFunction(new string[] { "4087", "getM;onthName",
                 "[C:\\jenkins7_slave\\workspace\\CAIP_Trunk_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\IFPUG\\Sol2005\\solution_complete_for_stats\\WebApplicationVB\\appli_web_asp\\calendar.htc].getM;onthName",
                 "eFunction","added","0.05","45.42553191489362","2.2712766295893396"});
-            Assert.IsTrue(Compare(expect2,functions[1]));
+            Assert.IsTrue(Compare(expect2, functions[1]));
 
             OmgFunctionTechnical expect3 = initFunction(new string[] { "1348", "leapYear",
                 "[C:\\jenkins7_slave\\workspace\\CAIP_Trunk_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\IFPUG\\Sol2005\\solution_complete_for_stats\\WebApplicationVB\\appli_web_asp\\calendar.htc].leapYear",
                 "eFunction","added","0.05","45.42553191489362","2.2712766295893396"});
-            Assert.IsTrue(Compare(expect3,functions[2]));
+            Assert.IsTrue(Compare(expect3, functions[2]));
         }
 
         private OmgFunctionTechnical initFunction(string[] parameters)

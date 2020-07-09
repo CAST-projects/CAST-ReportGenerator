@@ -1,9 +1,9 @@
 ﻿
-using System.Collections.Generic;
 using CastReporting.Domain;
 using CastReporting.Reporting.Block.Graph;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Graph
 {
@@ -28,7 +28,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
              * @".\Data\Snapshot_QIresults1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/4/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
              * @".\Data\Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
              */
-            CastDate currentDate = new CastDate {Time = 1468360800000};
+            CastDate currentDate = new CastDate { Time = 1468360800000 };
             CastDate previousDate = new CastDate { Time = 1463090400000 };
 
             ReportData reportData = TestUtility.PrepareApplicationReportData("AppliAEP",

@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Cast.Util.Log;
 using CastReporting.BLL.Computing;
+using CastReporting.BLL.Computing.DTO;
 using CastReporting.Domain;
 using CastReporting.Reporting.Core.Languages;
 using CastReporting.Reporting.ReportingModel;
+using System;
 using System.Collections.Generic;
-using CastReporting.BLL.Computing.DTO;
 using System.Linq;
-using Cast.Util.Log;
 
 namespace CastReporting.Reporting.Helper
 {
@@ -282,7 +282,7 @@ namespace CastReporting.Reporting.Helper
                         customExpressions.AddRange(_posConfig[i].Parameters);
                         if (customExprFormat.Length != customExpressions.Count)
                         {
-                            customExprFormat = new [] {"N2"};
+                            customExprFormat = new[] { "N2" };
                         }
                         break;
                     default:

@@ -23,12 +23,12 @@ namespace CastReporting.Reporting.ReportingModel
     public class GraphOptions
     {
         #region PROPERTIES
-        
+
         /// <summary>
         /// Get/Set the axis configuration of the graphic.
         /// </summary>
         public AxisDefinition AxisConfiguration { get; set; }
-        
+
         /// <summary>
         /// Get the indication of at once one definition is present in this GraphOptions.
         /// </summary>

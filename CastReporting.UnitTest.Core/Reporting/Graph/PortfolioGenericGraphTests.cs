@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CastReporting.Reporting.Block.Graph;
+﻿using CastReporting.Reporting.Block.Graph;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {
@@ -52,7 +52,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
             var expectedData = new List<string>();
             expectedData.AddRange(new List<string> { "Applications", "Transferability", "Changeability", "Robustness", "Efficiency", "SEI Maintainability", "Security", "Total Quality Index", "Programming Practices", "Architectural Design", "Documentation" });
-            expectedData.AddRange(new List<string> { "ReportGenerator", "3.07", "2.55", "3.32", "2.65", "3.31", "3.30", "3.03" ,"3.32", "1.81", "2.57" });
+            expectedData.AddRange(new List<string> { "ReportGenerator", "3.07", "2.55", "3.32", "2.65", "3.31", "3.30", "3.03", "3.32", "1.81", "2.57" });
             expectedData.AddRange(new List<string> { "AADAEDAdmin", "2.97", "3.37", "3.68", "2.71", "3.34", "3.73", "3.30", "3.36", "3.24", "2.17" });
             TestUtility.AssertTableContent(table, expectedData, 11, 3);
         }

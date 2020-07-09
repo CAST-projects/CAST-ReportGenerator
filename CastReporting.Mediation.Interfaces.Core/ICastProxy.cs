@@ -22,7 +22,7 @@ namespace CastReporting.Mediation.Interfaces
     /// <summary>
     /// 
     /// </summary>
-    public interface ICastProxy: IDisposable
+    public interface ICastProxy : IDisposable
     {
         CookieContainer GetCookieContainer();
 

@@ -13,12 +13,6 @@
  * limitations under the License.
  *
  */
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Drawing;
 using Cast.Util.Log;
 using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
@@ -26,6 +20,12 @@ using CastReporting.Reporting.Helper;
 using CastReporting.Reporting.ReportingModel;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
+using System.Linq;
 using OXD = DocumentFormat.OpenXml.Drawing;
 using OXP = DocumentFormat.OpenXml.Presentation;
 using OXW = DocumentFormat.OpenXml.Wordprocessing;
@@ -297,7 +297,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
                     var blockStd = block;
                     blockStd.Parent.ReplaceChild(table, blockStd);
                 }
-                
+
             }
             else
             {
@@ -377,7 +377,8 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
             if (text != null)
             {
                 text.Text = txt;
-                if (!string.IsNullOrEmpty(txt) && (char.IsWhiteSpace(txt[0]) || char.IsWhiteSpace(txt[txt.Length-1]))) {
+                if (!string.IsNullOrEmpty(txt) && (char.IsWhiteSpace(txt[0]) || char.IsWhiteSpace(txt[txt.Length - 1])))
+                {
                     text.Space = SpaceProcessingModeValues.Preserve;
                 }
                 run?.Append(text);
@@ -427,8 +428,11 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
                         {
                             AddNewGridColumn(table.TableGrid, headerRowTemplate, contentRowTemplate);
                         }
-                    } else if (columns != null && columns.Count > content.NbColumns) {
-                        for (int i = content.NbColumns, lim = columns.Count; i < lim; i++) {
+                    }
+                    else if (columns != null && columns.Count > content.NbColumns)
+                    {
+                        for (int i = content.NbColumns, lim = columns.Count; i < lim; i++)
+                        {
                             RemoveLastGridColumn(table.TableGrid);
                         }
                     }
@@ -456,7 +460,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
                             cell = contentCells?[idx].CloneNode(true) as OXD.TableCell;
                         }
                         ModifyPowerPointCellTextContent(cell, item);
-                            
+
                         if (content.HasCellsAttributes())
                         {
                             CellAttributes attributes = content.CellsAttributes.FirstOrDefault(a => a.Index == i);
@@ -565,11 +569,11 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
             contentRow.InsertAfter((OXD.TableCell)contentLastCell.CloneNode(true), contentLastCell);
         }
 
-		private static void RemoveLastGridColumn(OpenXmlElement tableGrid)
-		{
-			var lastColumn = tableGrid.Descendants<OXD.GridColumn>().Last();
-			tableGrid.RemoveChild(lastColumn);
-		}
+        private static void RemoveLastGridColumn(OpenXmlElement tableGrid)
+        {
+            var lastColumn = tableGrid.Descendants<OXD.GridColumn>().Last();
+            tableGrid.RemoveChild(lastColumn);
+        }
 
         private static void ModifyPowerPointRowTextContent(OpenXmlElement headerRowTemplate, string txt)
         {

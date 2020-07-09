@@ -1,5 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Cast.Util.Version;
+﻿using Cast.Util.Version;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CastReporting.UnitTest
 {

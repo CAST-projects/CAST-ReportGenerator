@@ -16,15 +16,15 @@
  */
 using Cast.Util.Log;
 using CastReporting.BLL;
+using CastReporting.UI.WPF.Core.Common;
 using CastReporting.UI.WPF.Core.Resources.Languages;
 using CastReporting.UI.WPF.Core.ViewModel;
 using System;
 using System.Globalization;
+using System.IO;
 using System.Net;
 using System.Threading;
 using System.Windows;
-using CastReporting.UI.WPF.Core.Common;
-using System.IO;
 
 namespace CastReporting.UI.WPF.Core
 {
@@ -48,7 +48,7 @@ namespace CastReporting.UI.WPF.Core
             CultureInfo cultureInfo = CultureInfo.GetCultureInfo(ViewModelBase.Setting.ReportingParameter.CultureName);
 
             Thread.CurrentThread.CurrentCulture = cultureInfo;
-            Thread.CurrentThread.CurrentUICulture =cultureInfo;
+            Thread.CurrentThread.CurrentUICulture = cultureInfo;
         }
 
         /// <summary>
@@ -61,20 +61,20 @@ namespace CastReporting.UI.WPF.Core
         private void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             Exception currentException;
-            
+
             if (e.Exception.InnerException is WebException)
-            { 
+            {
                 // ReSharper disable once RedundantAssignment
                 currentException = e.Exception.InnerException;
             }
             // ReSharper disable once CanBeReplacedWithTryCastAndCheckForNull
             if (e.Exception.InnerException is AggregateException)
-                currentException = ((AggregateException) e.Exception.InnerException).GetBaseException();
+                currentException = ((AggregateException)e.Exception.InnerException).GetBaseException();
             else
-                currentException = e.Exception;                            
-                   
+                currentException = e.Exception;
+
             LogHelper.LogError(Messages.msgGenericError, currentException);
-            
+
             IMessageManager messageManager = MainWindow?.DataContext as IMessageManager;
             messageManager?.OnErrorOccured(currentException);
 

@@ -13,14 +13,14 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
-using System.Linq;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
-using CastReporting.Domain;
 using CastReporting.Reporting.Helper;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Linq;
 
 
 namespace CastReporting.Reporting.Block.Table
@@ -47,33 +47,33 @@ namespace CastReporting.Reporting.Block.Table
 
             bool kloc = options.GetOption("FORMAT", "LOC").Equals("KLOC");
 
-            rowData.AddRange(kloc ? new[] {Labels.ModuleName, Labels.kLoC} : new[] {Labels.ModuleName, Labels.LoC});
+            rowData.AddRange(kloc ? new[] { Labels.ModuleName, Labels.kLoC } : new[] { Labels.ModuleName, Labels.LoC });
 
             if (reportData?.CurrentSnapshot?.Modules != null)
             {
-               var result = reportData.CurrentSnapshot.SizingMeasuresResults.FirstOrDefault(v => v.Reference.Key == (int)Constants.SizingInformations.CodeLineNumber);
+                var result = reportData.CurrentSnapshot.SizingMeasuresResults.FirstOrDefault(v => v.Reference.Key == (int)Constants.SizingInformations.CodeLineNumber);
 
-               if (result != null)
-               {
-                   foreach (var res in result.ModulesResult)
-                   {
-                       double? codeLineNb = res.DetailResult.Value;
-                       rowData.AddRange(kloc ?
-                           new[] { res.Module.Name, (codeLineNb / 1000)?.ToString(MetricFormat) }
-                           : new[] { res.Module.Name, codeLineNb?.ToString(MetricFormat) }
-                       );
-                   }
-                   nbTot = result.ModulesResult.Length;
-               }
+                if (result != null)
+                {
+                    foreach (var res in result.ModulesResult)
+                    {
+                        double? codeLineNb = res.DetailResult.Value;
+                        rowData.AddRange(kloc ?
+                            new[] { res.Module.Name, (codeLineNb / 1000)?.ToString(MetricFormat) }
+                            : new[] { res.Module.Name, codeLineNb?.ToString(MetricFormat) }
+                        );
+                    }
+                    nbTot = result.ModulesResult.Length;
+                }
             }
-           var resultTable = new TableDefinition
-           {
-               HasRowHeaders = false,
-               HasColumnHeaders = true,
-               NbRows = nbTot + 1,
-               NbColumns = 2,
-               Data = rowData
-           };
+            var resultTable = new TableDefinition
+            {
+                HasRowHeaders = false,
+                HasColumnHeaders = true,
+                NbRows = nbTot + 1,
+                NbColumns = 2,
+                Data = rowData
+            };
             return resultTable;
         }
 

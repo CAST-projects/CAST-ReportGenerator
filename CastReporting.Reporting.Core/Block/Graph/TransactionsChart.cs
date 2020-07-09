@@ -14,20 +14,20 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
-using System.Linq;
+using Cast.Util.Log;
+using CastReporting.BLL.Computing;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
 using CastReporting.Reporting.Helper;
-using CastReporting.Domain;
-using CastReporting.BLL.Computing;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
 using System.Globalization;
-using Cast.Util.Log;
+using System.Linq;
 
 namespace CastReporting.Reporting.Block.Graph
-{ 
+{
     [Block("TRANSACTIONS_CHART")]
     public class TransactionsChart : GraphBlock
     {
@@ -41,7 +41,7 @@ namespace CastReporting.Reporting.Block.Graph
             Snapshot snapshot = options.GetOption("SNAPSHOT", "CURRENT").ToUpper().Equals("PREVIOUS") ? reportData.PreviousSnapshot : reportData.CurrentSnapshot;
             bool fullNames = options.GetOption("NAME", "SHORT").ToUpper().Equals("FULL");
 
-            List<string> rowData = new List<string>(new[] { 
+            List<string> rowData = new List<string>(new[] {
                 Labels.TRI,
                 Labels.Security,
                 Labels.Efficiency,
@@ -51,9 +51,9 @@ namespace CastReporting.Reporting.Block.Graph
             if (snapshot == null)
             {
                 LogHelper.LogError(Labels.NoSnapshot);
-                rowData.AddRange(new[] {Labels.NoSnapshot, "0", "0", "0"});
+                rowData.AddRange(new[] { Labels.NoSnapshot, "0", "0", "0" });
                 rowcount++;
-            } 
+            }
             else
             {
                 List<TransactionDetailsDTO> transactionsDetails = new List<TransactionDetailsDTO>();
@@ -98,7 +98,8 @@ namespace CastReporting.Reporting.Block.Graph
                 rowcount = transactionsDetails.Count;
             }
 
-            TableDefinition resultTable = new TableDefinition {
+            TableDefinition resultTable = new TableDefinition
+            {
                 HasRowHeaders = true,
                 HasColumnHeaders = false,
                 NbRows = rowcount + 1,
@@ -109,7 +110,7 @@ namespace CastReporting.Reporting.Block.Graph
             return resultTable;
         }
 
-        private List<TransactionDetailsDTO> getTransactionsDetails (ReportData reportData, int nbLimitTop, string bc, List<TransactionDetailsDTO> transactionsDetails, Snapshot snapshot)
+        private List<TransactionDetailsDTO> getTransactionsDetails(ReportData reportData, int nbLimitTop, string bc, List<TransactionDetailsDTO> transactionsDetails, Snapshot snapshot)
         {
             // Get the transactions list
             List<Transaction> transactions = reportData.SnapshotExplorer.GetTransactions(snapshot.Href, bc, nbLimitTop)?.ToList();
@@ -178,9 +179,9 @@ namespace CastReporting.Reporting.Block.Graph
             }
             return transactionsDetails;
         }
-       
+
         #endregion METHODS
- 
+
     }
 }
 

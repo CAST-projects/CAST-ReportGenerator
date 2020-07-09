@@ -14,13 +14,13 @@
  *
  */
 
-using System.Collections.Generic;
-using System.Linq;
+using CastReporting.BLL.Computing;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
-using CastReporting.BLL.Computing;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Linq;
 
 
 namespace CastReporting.Reporting.Block.Table
@@ -46,42 +46,45 @@ namespace CastReporting.Reporting.Block.Table
 
             List<string> rowData = new List<string>();
             rowData.AddRange(isDisplayShortHeader
-            	? new[] { " ", Labels.TQICur, Labels.TQIPrev, Labels.Var }
+                ? new[] { " ", Labels.TQICur, Labels.TQIPrev, Labels.Var }
                 : new[] { " ", Labels.TQICurrent, Labels.TQIPrevious, Labels.Variation });
 
             var resultCurrentSnapshot = BusinessCriteriaUtility.GetBusinessCriteriaGradesModules(reportData.CurrentSnapshot, false);
             var resultPreviousSnapshot = BusinessCriteriaUtility.GetBusinessCriteriaGradesModules(reportData.PreviousSnapshot, false);
-            
-            int count = 0;            
-            if (resultCurrentSnapshot != null) {
+
+            int count = 0;
+            if (resultCurrentSnapshot != null)
+            {
 
                 if (resultPreviousSnapshot == null) resultPreviousSnapshot = new List<BusinessCriteriaDTO>();
 
-                var results =  from current in resultCurrentSnapshot
-                               join prev in resultPreviousSnapshot on current.Name equals prev.Name
-                               into g
-                               from subset in g.DefaultIfEmpty()
-                               select new
-                               {
-                                   current.Name,
-                                   TqiCurrent = current.TQI,
-                                   TqiPrevious = subset?.TQI,
-                                   PercentVariation =  subset != null ? MathUtility.GetVariationPercent(current.TQI, subset.TQI):null
-                               };
+                var results = from current in resultCurrentSnapshot
+                              join prev in resultPreviousSnapshot on current.Name equals prev.Name
+                              into g
+                              from subset in g.DefaultIfEmpty()
+                              select new
+                              {
+                                  current.Name,
+                                  TqiCurrent = current.TQI,
+                                  TqiPrevious = subset?.TQI,
+                                  PercentVariation = subset != null ? MathUtility.GetVariationPercent(current.TQI, subset.TQI) : null
+                              };
 
 
-                foreach (var result in results.OrderBy(_ => _.Name)) {
+                foreach (var result in results.OrderBy(_ => _.Name))
+                {
                     rowData.AddRange(new[] {
                             result.Name,
-                            result.TqiCurrent?.ToString(MetricFormat) ?? Domain.Constants.No_Value,     
-                            result.TqiPrevious?.ToString(MetricFormat) ?? Domain.Constants.No_Value,     
+                            result.TqiCurrent?.ToString(MetricFormat) ?? Domain.Constants.No_Value,
+                            result.TqiPrevious?.ToString(MetricFormat) ?? Domain.Constants.No_Value,
                             result.PercentVariation.HasValue ? FormatPercent(result.PercentVariation):Domain.Constants.No_Value
                         });
-					count++;
+                    count++;
                 }
             }
 
-            var resultTable = new TableDefinition {
+            var resultTable = new TableDefinition
+            {
                 HasRowHeaders = false,
                 HasColumnHeaders = true,
                 NbRows = count + 1,

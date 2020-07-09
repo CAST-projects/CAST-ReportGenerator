@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CastReporting.Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Table;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {
@@ -56,8 +56,8 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
 
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> { "Business criterion name", "Previous score", "Target score" ,"Current score", "SLA Violations" });
-            expectedData.AddRange(new List<string> { "Robustness", "3.10","2.90","3.10","Good" });
+            expectedData.AddRange(new List<string> { "Business criterion name", "Previous score", "Target score", "Current score", "SLA Violations" });
+            expectedData.AddRange(new List<string> { "Robustness", "3.10", "2.90", "3.10", "Good" });
             expectedData.AddRange(new List<string> { "Security", "2.93", "2.90", "2.97", "Good" });
             expectedData.AddRange(new List<string> { "Efficiency", "1.85", "2.90", "1.84", "Poor" });
             expectedData.AddRange(new List<string> { "Changeability", "2.35", "2.90", "2.37", "Poor" });
@@ -236,7 +236,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             _snapshots[0] = _snap0;
             reportData.Snapshots = _snapshots;
             reportData.Applications[0].Snapshots = _snapshots;
-            
+
             var component = new PortfolioReleasePerformance();
             Dictionary<string, string> config = new Dictionary<string, string>
             {

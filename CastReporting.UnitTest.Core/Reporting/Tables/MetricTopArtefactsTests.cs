@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {
@@ -44,8 +44,8 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
 
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> { "Sample Violating Artefacts for Rule 'Avoid instantiations inside loops'", "# 8 of 8"});
-            expectedData.AddRange(new List<string> { "CastReporting.BLL.Computing.RulesViolationUtility.GetNbViolationByRule","" });
+            expectedData.AddRange(new List<string> { "Sample Violating Artefacts for Rule 'Avoid instantiations inside loops'", "# 8 of 8" });
+            expectedData.AddRange(new List<string> { "CastReporting.BLL.Computing.RulesViolationUtility.GetNbViolationByRule", "" });
             expectedData.AddRange(new List<string> { "CastReporting.Reporting.Block.Graph.PieModuleArtifact.Content", "" });
             expectedData.AddRange(new List<string> { "CastReporting.Reporting.Block.Table.MetricTopArtifact.Content", "" });
             expectedData.AddRange(new List<string> { "CastReporting.Reporting.Builder.BlockProcessing.GraphBlock.ApplyContent", "" });

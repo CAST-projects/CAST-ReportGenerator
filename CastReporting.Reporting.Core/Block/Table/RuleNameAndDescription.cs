@@ -16,8 +16,8 @@
  */
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -39,30 +39,33 @@ namespace CastReporting.Reporting.Block.Table
         public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             string strRuleId = options != null && options.ContainsKey("RULID") ? options["RULID"] : null;
-   
+
             List<string> rowData = new List<string>();
-       
+
             var rule = reportData.RuleExplorer.GetSpecificRule(reportData.Application.DomainId, strRuleId);
             var currentviolation = reportData.RuleExplorer.GetRulesViolations(reportData.CurrentSnapshot.Href, strRuleId).FirstOrDefault();
             int? failedChecks = null;
 
-            if (currentviolation != null && currentviolation.ApplicationResults.Any()) {
-                failedChecks = currentviolation.ApplicationResults[0].DetailResult.ViolationRatio.FailedChecks;               
+            if (currentviolation != null && currentviolation.ApplicationResults.Any())
+            {
+                failedChecks = currentviolation.ApplicationResults[0].DetailResult.ViolationRatio.FailedChecks;
             }
 
-            if (rule != null) {
+            if (rule != null)
+            {
                 rowData.AddRange(new[] {
                                 rule.Name, null,
-					Labels.Rationale, string.IsNullOrWhiteSpace(rule.Rationale) ? Constants.No_Value : rule.Rationale,
-					Labels.Description, rule.Description,
-					Labels.Remediation, string.IsNullOrWhiteSpace(rule.Remediation) ? Constants.No_Value : rule.Remediation,
-					Labels.ViolationsCount, failedChecks?.ToString("N0") ?? Constants.No_Value
+                    Labels.Rationale, string.IsNullOrWhiteSpace(rule.Rationale) ? Constants.No_Value : rule.Rationale,
+                    Labels.Description, rule.Description,
+                    Labels.Remediation, string.IsNullOrWhiteSpace(rule.Remediation) ? Constants.No_Value : rule.Remediation,
+                    Labels.ViolationsCount, failedChecks?.ToString("N0") ?? Constants.No_Value
                             });
             }
-                
 
 
-			TableDefinition back = new TableDefinition {
+
+            TableDefinition back = new TableDefinition
+            {
                 HasRowHeaders = false,
                 HasColumnHeaders = true,
                 NbRows = 5,

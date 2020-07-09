@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Graph;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Graph
 {
@@ -29,7 +29,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
 
             var expectedData = new List<string>();
             expectedData.AddRange(new List<string> { " ", "Debt Removed ($)", "Debt Added ($)", "Debt ($)" });
-            expectedData.AddRange(new List<string> { "42756", "-23599.5", "1946.25", "236647.5"});
+            expectedData.AddRange(new List<string> { "42756", "-23599.5", "1946.25", "236647.5" });
             expectedData.AddRange(new List<string> { "42756", "-23599.5", "1946.25", "236647.5" });
             TestUtility.AssertTableContent(table, expectedData, 4, 3);
 

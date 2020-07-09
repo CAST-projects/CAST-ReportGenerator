@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {
@@ -34,7 +34,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
 
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> { "Avoid unreferenced Tables", null});
+            expectedData.AddRange(new List<string> { "Avoid unreferenced Tables", null });
             expectedData.AddRange(new List<string> { "Rationale", "All Tables should be referenced.\nUnreferenced tables may be the symptom of Dead Code. And dead Code must be avoided as it makes source code less readable and increases the cost of the software maintenance.\n\n\nWarning:\nUnreference code can also be the symptoms of missing code (code not included in the source code analysis) and / or can be the symptom of use of polymorphism." });
             expectedData.AddRange(new List<string> { "Description", "List of schema tables that are not called" });
             expectedData.AddRange(new List<string> { "Remediation", "Check if the table  is truly unnecessary.\nRemoveit if so" });

@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Table;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {
@@ -31,10 +31,10 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
             var expectedData = new List<string>();
             expectedData.AddRange(new List<string> { "Name", "Value" });
-            expectedData.AddRange(new List<string> { "Critical Violations", "75"});
-            expectedData.AddRange(new List<string> { "  per File", "0.22"});
+            expectedData.AddRange(new List<string> { "Critical Violations", "75" });
+            expectedData.AddRange(new List<string> { "  per File", "0.22" });
             expectedData.AddRange(new List<string> { "  per kLoC", "3.53" });
-            expectedData.AddRange(new List<string> { "Complex Objects", "243"});
+            expectedData.AddRange(new List<string> { "Complex Objects", "243" });
             expectedData.AddRange(new List<string> { "  With Violations", "103" });
             TestUtility.AssertTableContent(table, expectedData, 2, 6);
             Assert.IsFalse(table.HasColumnHeaders);

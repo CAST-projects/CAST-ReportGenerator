@@ -14,13 +14,13 @@
  *
  */
 
+using Cast.Util.Log;
+using Cast.Util.Version;
 using CastReporting.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using Cast.Util.Version;
-using Cast.Util.Log;
 
 namespace CastReporting.BLL
 {
@@ -184,7 +184,7 @@ namespace CastReporting.BLL
             return _ignoreSnaps;
         }
 
-     
+
 
         /// <summary>
         /// 

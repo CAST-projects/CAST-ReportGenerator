@@ -29,10 +29,10 @@ namespace CastReporting.BLL
         /// <param name="connection"></param>
         public CommonBLL(WSConnection connection)
             : base(connection)
-        {                      
+        {
         }
-       
-       
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -65,6 +65,5 @@ namespace CastReporting.BLL
                 return castRepsitory.GetServerVersion();
             }
         }
-
     }
 }

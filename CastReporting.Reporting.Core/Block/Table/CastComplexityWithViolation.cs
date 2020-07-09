@@ -13,13 +13,13 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -36,7 +36,7 @@ namespace CastReporting.Reporting.Block.Table
 
             #region Selected Snapshot
 
-                            
+
             double? nbArtifactLow = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
                 Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
                 Constants.CostComplexity.CostComplexityArtifacts_Low.GetHashCode());
@@ -67,7 +67,7 @@ namespace CastReporting.Reporting.Block.Table
 
             #region Data
 
-              
+
             rowData.AddRange(new[] { Labels.Complexity, Labels.Artifacts, Labels.WithViolations });
             rowData.AddRange(new[] { Labels.CplxExtreme, nbArtifactVeryHigh?.ToString(numberFormat) ?? Constants.No_Value, nbViolationVeryHigh?.ToString(numberFormat) ?? Constants.No_Value });
             rowData.AddRange(new[] { Labels.CplxHigh, nbArtifactHigh?.ToString(numberFormat) ?? Constants.No_Value, nbViolationHigh?.ToString(numberFormat) ?? Constants.No_Value });

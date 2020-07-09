@@ -14,12 +14,12 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using CastReporting.Domain;
 using CastReporting.Repositories;
 using CastReporting.Repositories.Interfaces;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace CastReporting.BLL
 {
@@ -65,14 +65,22 @@ namespace CastReporting.BLL
                 return templateFilePath + rp.PortfolioFolderNamePath;
             }
         }
-    
-    public static bool GetCertificateValidationStrategy()
+
+        public static bool GetCertificateValidationStrategy()
         {
             using (ISettingRepository setttingRepository = new SettingsRepository())
             {
                 string certificateValidation = setttingRepository.GetSeting().ReportingParameter.ServerCertificateValidation;
                 if (certificateValidation == null) return true;
                 return !certificateValidation.Equals("disable");
+            }
+        }
+
+        public static string GetExtendUrl()
+        {
+            using (ISettingRepository setttingRepository = new SettingsRepository())
+            {
+                return setttingRepository.GetSeting().ReportingParameter.ExtendUrl;
             }
         }
 

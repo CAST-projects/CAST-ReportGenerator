@@ -31,7 +31,7 @@ namespace CastReporting.UI.WPF.Core.Common
                 button.ContextMenu.IsOpen = true;
             }
 
-            DataContext = this;          
+            DataContext = this;
         }
 
 
@@ -40,8 +40,8 @@ namespace CastReporting.UI.WPF.Core.Common
         /// </summary>
         public void Refersh()
         {
-            DataContext = null;      
-            DataContext = this;      
+            DataContext = null;
+            DataContext = this;
         }
     }
 }

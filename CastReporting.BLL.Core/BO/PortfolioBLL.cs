@@ -1,18 +1,18 @@
-﻿using System.Linq;
+﻿using Cast.Util.Log;
+using Cast.Util.Version;
 using CastReporting.Domain;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
-using Cast.Util.Version;
-using Cast.Util.Log;
 
 namespace CastReporting.BLL
 {
     public class PortfolioBLL : BaseBLL
     {
-         /// <summary>
+        /// <summary>
         /// 
         /// </summary>
-         protected Application[] Applications;
+        protected Application[] Applications;
 
         /// <summary>
         /// 
@@ -105,7 +105,7 @@ namespace CastReporting.BLL
             return ignoreApps;
         }
 
-     
+
         /// <summary>
         /// 
         /// </summary>
@@ -185,7 +185,7 @@ namespace CastReporting.BLL
             //Build Quality Indicators
             using (PortfolioBLL applicationBLL = new PortfolioBLL(connection, application))
             {
-                List <string> appsSetSnapshots = applicationBLL.SetSnapshots();
+                List<string> appsSetSnapshots = applicationBLL.SetSnapshots();
                 List<string> appsSetQualityIndicators = applicationBLL.SetQualityIndicators();
                 List<string> appsSetSizingMeasure = applicationBLL.SetSizingMeasure();
 

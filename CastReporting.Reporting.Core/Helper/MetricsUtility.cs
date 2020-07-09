@@ -1,16 +1,16 @@
-﻿using CastReporting.BLL.Computing.DTO;
+﻿using Cast.Util.Log;
+using CastReporting.BLL.Computing.DTO;
 using CastReporting.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Cast.Util.Log;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
-using System.Dynamic;
+using CastReporting.Reporting.ReportingModel;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
-using System.Reflection;
 using Microsoft.CodeAnalysis.Scripting;
+using System;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Linq;
+using System.Reflection;
 using Module = CastReporting.Domain.Module;
 
 namespace CastReporting.Reporting.Helper
@@ -178,7 +178,7 @@ namespace CastReporting.Reporting.Helper
                             .FirstOrDefault(_ => _.Technology == technology && _.DetailResult != null)?.DetailResult.Grade;
                     }
                     resStr = result?.ToString("N2") ?? (format ? Constants.No_Value : "0");
-                    
+
                     break;
                 case MetricType.SizingMeasure:
                     if (module == null && string.IsNullOrEmpty(technology))
@@ -240,7 +240,7 @@ namespace CastReporting.Reporting.Helper
             {
                 name = name + " (" + metricId + ")";
             }
-            SimpleResult res = new SimpleResult {name = name, type = type, result = result, resultStr = resStr};
+            SimpleResult res = new SimpleResult { name = name, type = type, result = result, resultStr = resStr };
             return res;
         }
 
@@ -367,7 +367,7 @@ namespace CastReporting.Reporting.Helper
                         finalCurRes = curResult.result.Value.ToString("N2");
                         finalPrevRes = prevResult.result.Value.ToString("N2");
                         evolution = (curResult.result - prevResult.result).Value.ToString("N2");
-                        evp = Math.Abs((double) prevResult.result) > 0.0 ? (curResult.result - prevResult.result) / prevResult.result : null;
+                        evp = Math.Abs((double)prevResult.result) > 0.0 ? (curResult.result - prevResult.result) / prevResult.result : null;
                         evolPercent = evp != null ? evp.FormatPercent() : format ? Constants.No_Value : "0";
                     }
                     else
@@ -394,7 +394,7 @@ namespace CastReporting.Reporting.Helper
                             finalPrevRes = prevResult.result.ToString();
                             evolution = (curResult.result - prevResult.result).ToString();
                         }
-                        evp = Math.Abs((double) prevResult.result) > 0.0 ? (curResult.result - prevResult.result) / prevResult.result : null;
+                        evp = Math.Abs((double)prevResult.result) > 0.0 ? (curResult.result - prevResult.result) / prevResult.result : null;
                         evolPercent = evp != null ? evp.FormatPercent() : format ? Constants.No_Value : "0";
                     }
                     else
@@ -539,7 +539,8 @@ namespace CastReporting.Reporting.Helper
                     {
                         List<RuleDetails> rules = reportData.RuleExplorer.GetRulesDetails(snapshot.DomainId, metricBcIdFromShortName, snapshot.Id).ToList();
                         qualityRules.AddRange(critical ? rules.Where(_ => _.Critical).Select(_ => _.Key.ToString()).ToList() : rules.Select(_ => _.Key.ToString()).ToList());
-                    } else
+                    }
+                    else
                     {
                         int metricTcIdFromShortName = snapshot.TechnicalCriteriaResults.Where(_ => _.Reference.ShortName == _metric).Select(_ => _.Reference.Key).FirstOrDefault();
                         if (metricTcIdFromShortName != 0)
@@ -591,7 +592,7 @@ namespace CastReporting.Reporting.Helper
                 }
             }
 
-            return qualityRules.Distinct().OrderBy(_=>_).ToList();
+            return qualityRules.Distinct().OrderBy(_ => _).ToList();
         }
 
         public class ViolationsBookmarksProperties
@@ -815,7 +816,7 @@ namespace CastReporting.Reporting.Helper
                     cellidx++;
                 }
             }
-            
+
             return cellidx;
         }
 
@@ -908,7 +909,7 @@ namespace CastReporting.Reporting.Helper
             try
             {
                 var r = ExecuteScript(reportData, options, lstParams, snapshot, expr, module, technology);
-                double? res = (double) r.ReturnValue;
+                double? res = (double)r.ReturnValue;
                 return res.Value.Equals(double.NaN) ? Labels.NoData : res.Value.ToString(metricFormat);
             }
             catch (Exception ex) when (ex is CompilationErrorException || ex is ArgumentException || ex is AggregateException)
@@ -979,7 +980,7 @@ namespace CastReporting.Reporting.Helper
             foreach (Violation _violation in results)
             {
                 TypedComponent objectComponent = reportData.SnapshotExplorer.GetTypedComponent(reportData.CurrentSnapshot.DomainId, _violation.Component.GetComponentId(), reportData.CurrentSnapshot.GetId());
-                
+
                 if (hasPreviousSnapshot)
                 {
                     status = _violation.Diagnosis.Status;
@@ -1147,7 +1148,7 @@ namespace CastReporting.Reporting.Helper
                             _row.Set(Labels.ObjectName, _violation.Component.Name);
                             _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
                             _row.Set(Labels.Status, st);
-                            _row.Set(Labels.AssociatedValue, string.Join(',',associatedValue.Values));
+                            _row.Set(Labels.AssociatedValue, string.Join(',', associatedValue.Values));
                             _row.Set(Labels.FilePath, _.Item1);
                             _row.Set(Labels.StartLine, _.Item2.ToString());
                             _row.Set(Labels.EndLine, _.Item3.ToString());
@@ -1156,7 +1157,7 @@ namespace CastReporting.Reporting.Helper
                     }
                     if (associatedValue.Type != null && associatedValue.Type.Equals("percentage"))
                     {
-                        decimal? value = (decimal?) associatedValue.Values?.GetValue(0);
+                        decimal? value = (decimal?)associatedValue.Values?.GetValue(0);
                         // manage case when type= "percentage"
                         List<Tuple<string, int, int>> paths = reportData.SnapshotExplorer.GetComponentFilePath(domainId, _violation.Component.GetComponentId(), snapshotId);
                         paths.ForEach(_ =>

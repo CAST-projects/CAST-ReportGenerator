@@ -15,14 +15,14 @@
  *
  */
 
-using System.Collections.Generic;
-using System.Linq;
 using CastReporting.BLL.Computing;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
-using CastReporting.Domain;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -47,14 +47,14 @@ namespace CastReporting.Reporting.Block.Table
                                 ? new[] { " ", Labels.TQI, Labels.Robu, Labels.Efcy, Labels.Secu, Labels.Trans, Labels.Chang }
                                 : new[] { " ", Labels.TQI, Labels.Robustness, Labels.Efficiency, Labels.Security, Labels.Transferability, Labels.Changeability });
 
-            
+
 
             //Current snpashot
             var resultCurrentSnapshot = BusinessCriteriaUtility.GetBusinessCriteriaGradesModules(reportData.CurrentSnapshot, false);
 
             rowData.AddRange(new[] { reportData.CurrentSnapshot.ToString(), " ", " ", " ", " ", " ", " " });
-            
-            foreach(var  result in resultCurrentSnapshot.OrderBy(_ => _.Name))
+
+            foreach (var result in resultCurrentSnapshot.OrderBy(_ => _.Name))
             {
                 rowData.AddRange(new[] {
                             result.Name,
@@ -67,15 +67,15 @@ namespace CastReporting.Reporting.Block.Table
                         });
             }
 
-            nbRows += resultCurrentSnapshot.Count+2;
+            nbRows += resultCurrentSnapshot.Count + 2;
 
             //previous snpashot
             var resultPreviousSnapshot = BusinessCriteriaUtility.GetBusinessCriteriaGradesModules(reportData.PreviousSnapshot, false);
 
-            if(resultPreviousSnapshot != null)
+            if (resultPreviousSnapshot != null)
             {
-                rowData.AddRange(new[] {" "," "," "," "," "," "," "});
-                rowData.AddRange(new[] {  reportData.PreviousSnapshot.ToString(), " ", " ", " ", " ", " ", " " });
+                rowData.AddRange(new[] { " ", " ", " ", " ", " ", " ", " " });
+                rowData.AddRange(new[] { reportData.PreviousSnapshot.ToString(), " ", " ", " ", " ", " ", " " });
 
                 foreach (var result in resultPreviousSnapshot.OrderBy(_ => _.Name))
                 {
@@ -90,19 +90,19 @@ namespace CastReporting.Reporting.Block.Table
                             });
                 }
 
-                nbRows += resultPreviousSnapshot.Count+2;
+                nbRows += resultPreviousSnapshot.Count + 2;
 
                 //Variation             
                 var variationList = (from current in resultCurrentSnapshot
-                                    join previous in resultPreviousSnapshot
-                                    on current.Name equals previous.Name
-                                    select new
-                                    {
-                                        current.Name,
-                                        Variation = (current - previous) / previous                               
-                                    }).ToList();
-                
-                rowData.AddRange(new[] {" "," "," "," "," "," "," "});
+                                     join previous in resultPreviousSnapshot
+                                     on current.Name equals previous.Name
+                                     select new
+                                     {
+                                         current.Name,
+                                         Variation = (current - previous) / previous
+                                     }).ToList();
+
+                rowData.AddRange(new[] { " ", " ", " ", " ", " ", " ", " " });
                 rowData.AddRange(new[] { Labels.Variation, " ", " ", " ", " ", " ", " " });
 
                 foreach (var result in variationList.OrderBy(_ => _.Name))
@@ -118,7 +118,7 @@ namespace CastReporting.Reporting.Block.Table
                             });
                 }
 
-                nbRows += variationList.Count+2;
+                nbRows += variationList.Count + 2;
             }
 
             var resultTable = new TableDefinition
@@ -129,9 +129,9 @@ namespace CastReporting.Reporting.Block.Table
                 NbColumns = 7,
                 Data = rowData
             };
-            
+
             return resultTable;
         }
-       
+
     }
 }

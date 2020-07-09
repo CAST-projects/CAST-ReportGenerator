@@ -6,9 +6,9 @@ namespace CastReporting.BLL
 {
     public class RuleBLL : BaseBLL, IRuleExplorer
     {
-       
+
         public RuleBLL(WSConnection connection)
-            : base(connection) {}
+            : base(connection) { }
 
 
         /// <summary>

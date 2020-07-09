@@ -115,6 +115,15 @@ namespace CastReporting.UI.WPF.Core.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not able to connect to the Extend server. Unable to fetch the update information..
+        /// </summary>
+        public static string extendUnavailable {
+            get {
+                return ResourceManager.GetString("extendUnavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copyright © CAST.
         /// </summary>
         public static string lblAboutCopyright {
@@ -300,6 +309,15 @@ namespace CastReporting.UI.WPF.Core.Resources.Languages {
         public static string lblPortfolioCategoriesSelection {
             get {
                 return ResourceManager.GetString("lblPortfolioCategoriesSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Release Notes.
+        /// </summary>
+        public static string lblReleaseNotes {
+            get {
+                return ResourceManager.GetString("lblReleaseNotes", resourceCulture);
             }
         }
         
@@ -723,6 +741,24 @@ namespace CastReporting.UI.WPF.Core.Resources.Languages {
         public static string msgWSError {
             get {
                 return ResourceManager.GetString("msgWSError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A new version of Report Generator is available on Extend server, you can download it here : .
+        /// </summary>
+        public static string rgVersionOutdated {
+            get {
+                return ResourceManager.GetString("rgVersionOutdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Report Generator version currently in use is up to date..
+        /// </summary>
+        public static string rgVersionUpTodate {
+            get {
+                return ResourceManager.GetString("rgVersionUpTodate", resourceCulture);
             }
         }
         

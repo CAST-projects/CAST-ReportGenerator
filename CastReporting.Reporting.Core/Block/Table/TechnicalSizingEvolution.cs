@@ -13,13 +13,13 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
+using CastReporting.BLL.Computing;
 using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
-using CastReporting.BLL.Computing;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
 
 
 namespace CastReporting.Reporting.Block.Table
@@ -79,13 +79,13 @@ namespace CastReporting.Reporting.Block.Table
                 , codeLineNumberPrev?.ToString(metricFormat) ?? noData
                 , hasPrevious? FormatEvolution((int)codeLineNumberEvol.Value) : noData
                 , codeLineNumberPercent.HasValue? FormatPercent(codeLineNumberPercent.Value): noData
-                   
+
                 , "   " + Labels.Files
                 , fileNumber?.ToString(metricFormat) ?? noData
                 , fileNumberPrev?.ToString(metricFormat) ?? noData
                 , hasPrevious? FormatEvolution((int)fileNumberEvol.Value) : noData
                 , fileNumberPercent.HasValue? FormatPercent(fileNumberPercent.Value): noData
-                    
+
                 , "   " + Labels.Classes
                 , classNumber?.ToString(metricFormat) ?? noData
                 , classNumberPrev?.ToString(metricFormat) ?? noData
@@ -97,7 +97,7 @@ namespace CastReporting.Reporting.Block.Table
                 , sqlArtifactNumberPrev?.ToString(metricFormat) ?? noData
                 , hasPrevious? FormatEvolution((int)sqlArtifactNumberEvol.Value) : noData
                 , sqlArtifactNumberPercent.HasValue? FormatPercent(sqlArtifactNumberPercent.Value): noData
-                    
+
                 , "   " + Labels.Tables
                 , tableNumber?.ToString(metricFormat) ?? noData
                 , tableNumberPrev?.ToString(metricFormat) ?? noData
@@ -116,6 +116,6 @@ namespace CastReporting.Reporting.Block.Table
             return resultTable;
         }
         #endregion METHODS
- 
+
     }
 }

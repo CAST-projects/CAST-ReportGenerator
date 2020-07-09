@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Table;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {
@@ -40,15 +40,15 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
 
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> { "Element Type", "Function Name", "Object Type", "Technology", "Module Name", "Object Name", "AEP", "Status", "Complexity Factor", "Updated Artifacts"});
-            expectedData.AddRange(new List<string> { "Data Function", "COI5F21", "Cobol File Link", "Cobol", "Presales", "[c:\\jenkins7_slave\\workspace\\CAIP_Trunk_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Big Ben\\Presales\\PROG-BATCH].COCPB10.COI5F21", "5", "Added", "1.0", "-"});
+            expectedData.AddRange(new List<string> { "Element Type", "Function Name", "Object Type", "Technology", "Module Name", "Object Name", "AEP", "Status", "Complexity Factor", "Updated Artifacts" });
+            expectedData.AddRange(new List<string> { "Data Function", "COI5F21", "Cobol File Link", "Cobol", "Presales", "[c:\\jenkins7_slave\\workspace\\CAIP_Trunk_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Big Ben\\Presales\\PROG-BATCH].COCPB10.COI5F21", "5", "Added", "1.0", "-" });
             expectedData.AddRange(new List<string> { "Data Function", "CSI0F61", "Cobol File Link", "Cobol", "Presales", "[c:\\jenkins7_slave\\workspace\\CAIP_Trunk_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Big Ben\\Presales\\PROG-BATCH].CSVAB482.CSI0F61", "5", "Added", "1.0", "-" });
             expectedData.AddRange(new List<string> { "Data Function", "CSI1F41", "Cobol File Link", "Cobol", "Presales", "[c:\\jenkins7_slave\\workspace\\CAIP_Trunk_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Big Ben\\Presales\\PROG-BATCH].CSVAB482.CSI1F41", "5", "Added", "1.0", "-" });
             expectedData.AddRange(new List<string> { "Data Function", "CSI1F51", "Cobol File Link", "Cobol", "Presales", "[c:\\jenkins7_slave\\workspace\\CAIP_Trunk_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Big Ben\\Presales\\PROG-BATCH].CSVAB482.CSI1F51", "5", "Modified", "1.0", "-" });
             expectedData.AddRange(new List<string> { "Data Function", "CSI1F62", "Cobol File Link", "Cobol", "Presales", "[c:\\jenkins7_slave\\workspace\\CAIP_Trunk_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Big Ben\\Presales\\PROG-BATCH].CSVAB482.CSI1F62", "5", "Modified", "1.0", "-" });
-            expectedData.AddRange(new List<string> {"Data Function", "EKPO", "SAP unresolved Table", "SAP SQL", "Abap_castpubs", "unresolvedObjects/SAP_TABLE/EKPO", "3", "Deleted", "0.4", "-"});
-            expectedData.AddRange(new List<string> {"Data Function", "COI1F91", "Cobol File Link", "Cobol", "Presales", "[c:\\jenkins7_slave\\workspace\\CAIP_Trunk_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Big Ben\\Presales\\PROG-BATCH].COVAB24.COI1F91", "2", "Deleted", "0.4", "-"});
-            expectedData.AddRange(new List<string> { "Data Function", "COI2F01", "Cobol File Link", "Cobol", "Presales", "[c:\\jenkins7_slave\\workspace\\CAIP_Trunk_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Big Ben\\Presales\\PROG-BATCH].COVAB24.COI2F01", "2", "Deleted", "0.4", "-"});
+            expectedData.AddRange(new List<string> { "Data Function", "EKPO", "SAP unresolved Table", "SAP SQL", "Abap_castpubs", "unresolvedObjects/SAP_TABLE/EKPO", "3", "Deleted", "0.4", "-" });
+            expectedData.AddRange(new List<string> { "Data Function", "COI1F91", "Cobol File Link", "Cobol", "Presales", "[c:\\jenkins7_slave\\workspace\\CAIP_Trunk_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Big Ben\\Presales\\PROG-BATCH].COVAB24.COI1F91", "2", "Deleted", "0.4", "-" });
+            expectedData.AddRange(new List<string> { "Data Function", "COI2F01", "Cobol File Link", "Cobol", "Presales", "[c:\\jenkins7_slave\\workspace\\CAIP_Trunk_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Big Ben\\Presales\\PROG-BATCH].COVAB24.COI2F01", "2", "Deleted", "0.4", "-" });
             expectedData.AddRange(new List<string> { "Data Function", "COI2F11", "Cobol File Link", "Cobol", "Presales", "[c:\\jenkins7_slave\\workspace\\CAIP_Trunk_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Big Ben\\Presales\\PROG-BATCH].COVAB24.COI2F11", "2", "Deleted", "0.4", "-" });
             expectedData.AddRange(new List<string> { "Data Function", "COI1F71", "Cobol File Link", "Cobol", "Presales", "[c:\\jenkins7_slave\\workspace\\CAIP_Trunk_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Big Ben\\Presales\\PROG-BATCH].COVAB18.COI1F71", "1", "Modified", "0.25", "0" });
             TestUtility.AssertTableContent(table, expectedData, 10, 11);

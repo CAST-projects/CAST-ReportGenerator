@@ -22,14 +22,14 @@ namespace CastReporting.Domain
     /// 
     /// </summary>
     [DataContract(Name = "date")]
-    public class CastDate:IComparable
+    public class CastDate : IComparable
     {
         /// <summary>
         /// 
         /// </summary>        
         private double? _time;
         [DataMember(Name = "time")]
-        public double? Time 
+        public double? Time
         {
             set
             {
@@ -46,10 +46,10 @@ namespace CastReporting.Domain
         /// Get/Set the snapshot date
         /// </summary>
 
-        public DateTime? DateSnapShot 
-        { 
-            get; 
-            private set; 
+        public DateTime? DateSnapShot
+        {
+            get;
+            private set;
         }
 
         public int CompareTo(object obj)

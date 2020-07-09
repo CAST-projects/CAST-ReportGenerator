@@ -32,13 +32,14 @@ namespace CastReporting.BLL.Computing
             }
 
             rules = rules.GroupBy(_ => new { _.Key, _.Href, _.Name })
-                         .Select(_ => new RuleDetails {
-                                                         Key = _.Key.Key,
-                                                         Href = _.Key.Href,
-                                                         Name = _.Key.Name,
-                                                         CompoundedWeight = _.Sum(x => x.CompoundedWeight),
-                                                         Critical = _.Any(x => x.Critical)
-                                                     })
+                         .Select(_ => new RuleDetails
+                         {
+                             Key = _.Key.Key,
+                             Href = _.Key.Href,
+                             Name = _.Key.Name,
+                             CompoundedWeight = _.Sum(x => x.CompoundedWeight),
+                             Critical = _.Any(x => x.Critical)
+                         })
                          .ToList();
 
             //Get result by technical criterias
@@ -48,7 +49,7 @@ namespace CastReporting.BLL.Computing
                 // ruleViolationResult instanciation can not be out outside the loop, because the Add in reslutByTechnicalCriterias is by reference and list is corrupted
                 RuleViolationResultDTO ruleViolationResult = new RuleViolationResultDTO();
                 var technicalCriterias = snapshot.TechnicalCriteriaResults
-                                                 .FirstOrDefault(_ => _.RulesViolation!=null && _.RulesViolation.Any(p => rule.Key.HasValue && p.Reference.Key == rule.Key.Value));
+                                                 .FirstOrDefault(_ => _.RulesViolation != null && _.RulesViolation.Any(p => rule.Key.HasValue && p.Reference.Key == rule.Key.Value));
 
                 if (technicalCriterias == null) continue;
 
@@ -62,7 +63,7 @@ namespace CastReporting.BLL.Computing
                 if (violationRatio != null)
                 {
                     ruleViolationResult.TotalFailed = violationRatio.FailedChecks;
-                    ruleViolationResult.TotalChecks = violationRatio.TotalChecks;                      
+                    ruleViolationResult.TotalChecks = violationRatio.TotalChecks;
                 }
 
                 reslutByTechnicalCriterias.Add(ruleViolationResult);
@@ -84,12 +85,12 @@ namespace CastReporting.BLL.Computing
             if (snapshot.QIBusinessCriterias == null || snapshot.TechnicalCriteriaResults == null) return null;
 
             IEnumerable<int> technicalCriteriaId = snapshot.QIBusinessCriterias.Where(_ => (int)businessCriteriaId == _.Key)
-                .SelectMany(_ => _.Contributors).Select( _ => _.Key);
+                .SelectMany(_ => _.Contributors).Select(_ => _.Key);
 
-            return snapshot.TechnicalCriteriaResults.Where(_ => technicalCriteriaId.Contains(_.Reference.Key) && _.Reference !=null && _.DetailResult != null && _.RulesViolation != null)
+            return snapshot.TechnicalCriteriaResults.Where(_ => technicalCriteriaId.Contains(_.Reference.Key) && _.Reference != null && _.DetailResult != null && _.RulesViolation != null)
                 .Select(_ => new TechnicalCriteriaResultDTO
                 {
-                    Name = _.Reference.Name, 
+                    Name = _.Reference.Name,
                     Grade = _.DetailResult.Grade,
                     TotalChecks = _.RulesViolation.Sum(r => r.DetailResult?.ViolationRatio != null ? r.DetailResult.ViolationRatio.TotalChecks : 0),
                     TotalFailed = _.RulesViolation.Sum(r => r.DetailResult?.ViolationRatio != null ? r.DetailResult.ViolationRatio.FailedChecks : 0)
@@ -113,17 +114,17 @@ namespace CastReporting.BLL.Computing
                                                                         Constants.BusinessCriteria businessCriteriaId,
                                                                         bool onlyFailedChecks,
                                                                         int nbTopResult)
-        {            
-          
+        {
+
             var query = GetQueryRuleViolations(snapshot, rulesViolationType, businessCriteriaId, onlyFailedChecks);
 
             return query?.Select(_ => new RuleViolationResultDTO
-                {
-                    Rule = new RuleDetailsDTO { Name = _.Reference.Name, Key = _.Reference.Key },
-                    TotalChecks = _.DetailResult.ViolationRatio.TotalChecks,
-                    TotalFailed = _.DetailResult.ViolationRatio.FailedChecks,
-                    Grade = _.DetailResult.Grade
-                })
+            {
+                Rule = new RuleDetailsDTO { Name = _.Reference.Name, Key = _.Reference.Key },
+                TotalChecks = _.DetailResult.ViolationRatio.TotalChecks,
+                TotalFailed = _.DetailResult.ViolationRatio.FailedChecks,
+                Grade = _.DetailResult.Grade
+            })
                 .Distinct(new RuleViolationResultDTO.Comparer())
                 .OrderByDescending(_ => _.TotalFailed)
                 .Take(nbTopResult)
@@ -147,12 +148,12 @@ namespace CastReporting.BLL.Computing
             var query = GetQueryRuleViolations(snapshot, rulesViolationType, businessCriteriaId, onlyFailedChecks);
 
             return query?.Select(_ => new RuleViolationResultDTO
-                {
-                    Rule = new RuleDetailsDTO { Name = _.Reference.Name, Key = _.Reference.Key, Critical = _.Reference.Critical.Equals("true") },
-                    TotalChecks = _.DetailResult.ViolationRatio.TotalChecks,
-                    TotalFailed = _.DetailResult.ViolationRatio.FailedChecks,
-                    Grade = _.DetailResult.Grade
-                })
+            {
+                Rule = new RuleDetailsDTO { Name = _.Reference.Name, Key = _.Reference.Key, Critical = _.Reference.Critical.Equals("true") },
+                TotalChecks = _.DetailResult.ViolationRatio.TotalChecks,
+                TotalFailed = _.DetailResult.ViolationRatio.FailedChecks,
+                Grade = _.DetailResult.Grade
+            })
                 .OrderByDescending(_ => _.TotalFailed)
                 .ToList();
         }
@@ -217,8 +218,9 @@ namespace CastReporting.BLL.Computing
 
             var query = snapshot.BusinessCriteriaResults.AsQueryable();
 
-            if (businessCriteriaId != 0) { 
-            	query = query.Where(_ => _.Reference.Key == businessCriteriaId.GetHashCode());
+            if (businessCriteriaId != 0)
+            {
+                query = query.Where(_ => _.Reference.Key == businessCriteriaId.GetHashCode());
             }
 
             // ReSharper disable once SwitchStatementMissingSomeCases
@@ -237,10 +239,10 @@ namespace CastReporting.BLL.Computing
 
 
             query = from bc in query
-                where bc.DetailResult != null
-                      && bc.DetailResult.ViolationRatio != null
-                      && (!onlyFailedChecks || bc.DetailResult.ViolationRatio.FailedChecks > 0)
-                select bc;
+                    where bc.DetailResult != null
+                          && bc.DetailResult.ViolationRatio != null
+                          && (!onlyFailedChecks || bc.DetailResult.ViolationRatio.FailedChecks > 0)
+                    select bc;
 
             return query;
         }
@@ -269,7 +271,7 @@ namespace CastReporting.BLL.Computing
         /// <returns></returns>
         private static List<ViolationsStatisticsDTO> GetEvolutionSummary(Snapshot snapshot, Module module)
         {
-            if (snapshot?.BusinessCriteriaResults == null || module==null) return null;
+            if (snapshot?.BusinessCriteriaResults == null || module == null) return null;
 
             return snapshot.BusinessCriteriaResults.Where(_ => _.ModulesResult.Any(m => m.Module != null && m.Module.Equals(module) && m.DetailResult?.EvolutionSummary != null))
                                                    .Select(_ => new ViolationsStatisticsDTO
@@ -311,30 +313,30 @@ namespace CastReporting.BLL.Computing
             if (resbc != null)
             {
                 return new ViolStatMetricIdDTO
-                    {
-                        Id = metricId,
-                        TotalViolations = resbc.DetailResult.EvolutionSummary?.TotalViolations,
-                        AddedViolations = resbc.DetailResult.EvolutionSummary?.AddedViolations,
-                        RemovedViolations = resbc.DetailResult.EvolutionSummary?.RemovedViolations,
-                        TotalCriticalViolations = resbc.DetailResult.EvolutionSummary?.TotalCriticalViolations,
-                        AddedCriticalViolations = resbc.DetailResult.EvolutionSummary?.AddedCriticalViolations,
-                        RemovedCriticalViolations = resbc.DetailResult.EvolutionSummary?.RemovedCriticalViolations
-                    };
+                {
+                    Id = metricId,
+                    TotalViolations = resbc.DetailResult.EvolutionSummary?.TotalViolations,
+                    AddedViolations = resbc.DetailResult.EvolutionSummary?.AddedViolations,
+                    RemovedViolations = resbc.DetailResult.EvolutionSummary?.RemovedViolations,
+                    TotalCriticalViolations = resbc.DetailResult.EvolutionSummary?.TotalCriticalViolations,
+                    AddedCriticalViolations = resbc.DetailResult.EvolutionSummary?.AddedCriticalViolations,
+                    RemovedCriticalViolations = resbc.DetailResult.EvolutionSummary?.RemovedCriticalViolations
+                };
             }
 
             ApplicationResult restc = snapshot.TechnicalCriteriaResults.FirstOrDefault(_ => _.Reference.Key == metricId);
             if (restc != null)
             {
                 return new ViolStatMetricIdDTO
-                    {
-                        Id = metricId,
-                        TotalViolations = restc.DetailResult.EvolutionSummary?.TotalViolations,
-                        AddedViolations = restc.DetailResult.EvolutionSummary?.AddedViolations,
-                        RemovedViolations = restc.DetailResult.EvolutionSummary?.RemovedViolations,
-                        TotalCriticalViolations = restc.DetailResult.EvolutionSummary?.TotalCriticalViolations,
-                        AddedCriticalViolations = restc.DetailResult.EvolutionSummary?.AddedCriticalViolations,
-                        RemovedCriticalViolations = restc.DetailResult.EvolutionSummary?.RemovedCriticalViolations
-                    };
+                {
+                    Id = metricId,
+                    TotalViolations = restc.DetailResult.EvolutionSummary?.TotalViolations,
+                    AddedViolations = restc.DetailResult.EvolutionSummary?.AddedViolations,
+                    RemovedViolations = restc.DetailResult.EvolutionSummary?.RemovedViolations,
+                    TotalCriticalViolations = restc.DetailResult.EvolutionSummary?.TotalCriticalViolations,
+                    AddedCriticalViolations = restc.DetailResult.EvolutionSummary?.AddedCriticalViolations,
+                    RemovedCriticalViolations = restc.DetailResult.EvolutionSummary?.RemovedCriticalViolations
+                };
             }
 
             ApplicationResult resqr = snapshot.QualityRulesResults.FirstOrDefault(_ => _.Reference.Key == metricId);
@@ -342,15 +344,15 @@ namespace CastReporting.BLL.Computing
             {
                 // for a quality rule, there is no 'critical' violations. to simplify code, the critical are set to the same values than the violations itself
                 return new ViolStatMetricIdDTO
-                    {
-                        Id = metricId,
-                        TotalViolations = resqr.DetailResult.ViolationRatio?.FailedChecks,
-                        AddedViolations = resqr.DetailResult.EvolutionSummary?.AddedViolations,
-                        RemovedViolations = resqr.DetailResult.EvolutionSummary?.RemovedViolations,
-                        TotalCriticalViolations = resqr.DetailResult.ViolationRatio?.FailedChecks,
-                        AddedCriticalViolations = resqr.DetailResult.EvolutionSummary?.AddedViolations,
-                        RemovedCriticalViolations = resqr.DetailResult.EvolutionSummary?.RemovedViolations
-                    };
+                {
+                    Id = metricId,
+                    TotalViolations = resqr.DetailResult.ViolationRatio?.FailedChecks,
+                    AddedViolations = resqr.DetailResult.EvolutionSummary?.AddedViolations,
+                    RemovedViolations = resqr.DetailResult.EvolutionSummary?.RemovedViolations,
+                    TotalCriticalViolations = resqr.DetailResult.ViolationRatio?.FailedChecks,
+                    AddedCriticalViolations = resqr.DetailResult.EvolutionSummary?.AddedViolations,
+                    RemovedCriticalViolations = resqr.DetailResult.EvolutionSummary?.RemovedViolations
+                };
             }
 
             return null;
@@ -365,7 +367,7 @@ namespace CastReporting.BLL.Computing
             int? totalCritViol = 0;
             int? addedCritViol = 0;
             int? removedCritViol = 0;
-            
+
             foreach (Application _application in snapshotList.Keys)
             {
                 ViolStatMetricIdDTO appRes = GetViolStat(snapshotList[_application], metricId);
@@ -426,30 +428,30 @@ namespace CastReporting.BLL.Computing
             if (resbc != null)
             {
                 return new ViolStatMetricIdDTO
-                    {
-                        Id = metricId,
-                        TotalViolations = resbc.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.TotalViolations,
-                        AddedViolations = resbc.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.AddedViolations,
-                        RemovedViolations = resbc.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.RemovedViolations,
-                        TotalCriticalViolations = resbc.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.TotalCriticalViolations,
-                        AddedCriticalViolations = resbc.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.AddedCriticalViolations,
-                        RemovedCriticalViolations = resbc.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.RemovedCriticalViolations
-                    };
+                {
+                    Id = metricId,
+                    TotalViolations = resbc.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.TotalViolations,
+                    AddedViolations = resbc.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.AddedViolations,
+                    RemovedViolations = resbc.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.RemovedViolations,
+                    TotalCriticalViolations = resbc.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.TotalCriticalViolations,
+                    AddedCriticalViolations = resbc.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.AddedCriticalViolations,
+                    RemovedCriticalViolations = resbc.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.RemovedCriticalViolations
+                };
             }
 
             ApplicationResult restc = snapshot.TechnicalCriteriaResults.FirstOrDefault(_ => _.Reference.Key == metricId);
             if (restc != null)
             {
                 return new ViolStatMetricIdDTO
-                    {
-                        Id = metricId,
-                        TotalViolations = restc.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.TotalViolations,
-                        AddedViolations = restc.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.AddedViolations,
-                        RemovedViolations = restc.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.RemovedViolations,
-                        TotalCriticalViolations = restc.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.TotalCriticalViolations,
-                        AddedCriticalViolations = restc.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.AddedCriticalViolations,
-                        RemovedCriticalViolations = restc.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.RemovedCriticalViolations
-                    };
+                {
+                    Id = metricId,
+                    TotalViolations = restc.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.TotalViolations,
+                    AddedViolations = restc.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.AddedViolations,
+                    RemovedViolations = restc.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.RemovedViolations,
+                    TotalCriticalViolations = restc.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.TotalCriticalViolations,
+                    AddedCriticalViolations = restc.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.AddedCriticalViolations,
+                    RemovedCriticalViolations = restc.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.RemovedCriticalViolations
+                };
             }
 
             ApplicationResult resqr = snapshot.QualityRulesResults.FirstOrDefault(_ => _.Reference.Key == metricId);
@@ -457,15 +459,15 @@ namespace CastReporting.BLL.Computing
             {
                 // for a quality rule, there is no 'critical' violations. to simplify code, the critical are set to the same values than the violations itself
                 return new ViolStatMetricIdDTO
-                    {
-                        Id = metricId,
-                        TotalViolations = resqr.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.ViolationRatio?.FailedChecks,
-                        AddedViolations = resqr.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.AddedViolations,
-                        RemovedViolations = resqr.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.RemovedViolations,
-                        TotalCriticalViolations = resqr.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.ViolationRatio?.FailedChecks,
-                        AddedCriticalViolations = resqr.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.AddedViolations,
-                        RemovedCriticalViolations = resqr.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.RemovedViolations
-                    };
+                {
+                    Id = metricId,
+                    TotalViolations = resqr.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.ViolationRatio?.FailedChecks,
+                    AddedViolations = resqr.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.AddedViolations,
+                    RemovedViolations = resqr.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.RemovedViolations,
+                    TotalCriticalViolations = resqr.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.ViolationRatio?.FailedChecks,
+                    AddedCriticalViolations = resqr.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.AddedViolations,
+                    RemovedCriticalViolations = resqr.ModulesResult.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult.EvolutionSummary?.RemovedViolations
+                };
             }
 
             return null;
@@ -477,30 +479,30 @@ namespace CastReporting.BLL.Computing
             if (resbc != null)
             {
                 return new ViolStatMetricIdDTO
-                    {
-                        Id = metricId,
-                        TotalViolations = resbc.TechnologyResult.FirstOrDefault(t => t.Technology == techno)?.DetailResult.EvolutionSummary?.TotalViolations,
-                        AddedViolations = resbc.TechnologyResult.FirstOrDefault(t => t.Technology == techno)?.DetailResult.EvolutionSummary?.AddedViolations,
-                        RemovedViolations = resbc.TechnologyResult.FirstOrDefault(t => t.Technology == techno)?.DetailResult.EvolutionSummary?.RemovedViolations,
-                        TotalCriticalViolations = resbc.TechnologyResult.FirstOrDefault(t => t.Technology == techno)?.DetailResult.EvolutionSummary?.TotalCriticalViolations,
-                        AddedCriticalViolations = resbc.TechnologyResult.FirstOrDefault(t => t.Technology == techno)?.DetailResult.EvolutionSummary?.AddedCriticalViolations,
-                        RemovedCriticalViolations = resbc.TechnologyResult.FirstOrDefault(t => t.Technology == techno)?.DetailResult.EvolutionSummary?.RemovedCriticalViolations
-                    };
+                {
+                    Id = metricId,
+                    TotalViolations = resbc.TechnologyResult.FirstOrDefault(t => t.Technology == techno)?.DetailResult.EvolutionSummary?.TotalViolations,
+                    AddedViolations = resbc.TechnologyResult.FirstOrDefault(t => t.Technology == techno)?.DetailResult.EvolutionSummary?.AddedViolations,
+                    RemovedViolations = resbc.TechnologyResult.FirstOrDefault(t => t.Technology == techno)?.DetailResult.EvolutionSummary?.RemovedViolations,
+                    TotalCriticalViolations = resbc.TechnologyResult.FirstOrDefault(t => t.Technology == techno)?.DetailResult.EvolutionSummary?.TotalCriticalViolations,
+                    AddedCriticalViolations = resbc.TechnologyResult.FirstOrDefault(t => t.Technology == techno)?.DetailResult.EvolutionSummary?.AddedCriticalViolations,
+                    RemovedCriticalViolations = resbc.TechnologyResult.FirstOrDefault(t => t.Technology == techno)?.DetailResult.EvolutionSummary?.RemovedCriticalViolations
+                };
             }
 
             ApplicationResult restc = snapshot.TechnicalCriteriaResults.FirstOrDefault(_ => _.Reference.Key == metricId);
             if (restc != null)
             {
                 return new ViolStatMetricIdDTO
-                    {
-                        Id = metricId,
-                        TotalViolations = restc.TechnologyResult.FirstOrDefault(t => t.Technology == techno)?.DetailResult.EvolutionSummary?.TotalViolations,
-                        AddedViolations = restc.TechnologyResult.FirstOrDefault(t => t.Technology == techno)?.DetailResult.EvolutionSummary?.AddedViolations,
-                        RemovedViolations = restc.TechnologyResult.FirstOrDefault(t => t.Technology == techno)?.DetailResult.EvolutionSummary?.RemovedViolations,
-                        TotalCriticalViolations = restc.TechnologyResult.FirstOrDefault(t => t.Technology == techno)?.DetailResult.EvolutionSummary?.TotalCriticalViolations,
-                        AddedCriticalViolations = restc.TechnologyResult.FirstOrDefault(t => t.Technology == techno)?.DetailResult.EvolutionSummary?.AddedCriticalViolations,
-                        RemovedCriticalViolations = restc.TechnologyResult.FirstOrDefault(t => t.Technology == techno)?.DetailResult.EvolutionSummary?.RemovedCriticalViolations
-                    };
+                {
+                    Id = metricId,
+                    TotalViolations = restc.TechnologyResult.FirstOrDefault(t => t.Technology == techno)?.DetailResult.EvolutionSummary?.TotalViolations,
+                    AddedViolations = restc.TechnologyResult.FirstOrDefault(t => t.Technology == techno)?.DetailResult.EvolutionSummary?.AddedViolations,
+                    RemovedViolations = restc.TechnologyResult.FirstOrDefault(t => t.Technology == techno)?.DetailResult.EvolutionSummary?.RemovedViolations,
+                    TotalCriticalViolations = restc.TechnologyResult.FirstOrDefault(t => t.Technology == techno)?.DetailResult.EvolutionSummary?.TotalCriticalViolations,
+                    AddedCriticalViolations = restc.TechnologyResult.FirstOrDefault(t => t.Technology == techno)?.DetailResult.EvolutionSummary?.AddedCriticalViolations,
+                    RemovedCriticalViolations = restc.TechnologyResult.FirstOrDefault(t => t.Technology == techno)?.DetailResult.EvolutionSummary?.RemovedCriticalViolations
+                };
             }
 
             ApplicationResult resqr = snapshot.QualityRulesResults.FirstOrDefault(_ => _.Reference.Key == metricId);

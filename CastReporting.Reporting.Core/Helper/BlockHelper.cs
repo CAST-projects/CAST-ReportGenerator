@@ -13,10 +13,10 @@
  * limitations under the License.
  *
  */
+using CastReporting.Reporting.Atrributes;
 using System;
 using System.Linq;
 using System.Reflection;
-using CastReporting.Reporting.Atrributes;
 
 namespace CastReporting.Reporting.Helper
 {
@@ -24,7 +24,7 @@ namespace CastReporting.Reporting.Helper
     /// Common Helper Class
     /// </summary>
     public static class BlockHelper
-    {      
+    {
         /// <summary>
         /// 
         /// </summary>
@@ -35,7 +35,7 @@ namespace CastReporting.Reporting.Helper
         {
             return GetAssociatedBlockInstance<T>(Assembly.GetExecutingAssembly(), blockName);
         }
-        
+
 
         /// <summary>
         /// 
@@ -45,25 +45,25 @@ namespace CastReporting.Reporting.Helper
         /// <param name="blockName"></param>
         /// <returns></returns>
         public static T GetAssociatedBlockInstance<T>(Assembly assembly, string blockName) where T : class
-        {                       
+        {
             Type type = assembly.GetTypes()
                                 .FirstOrDefault(_ => !_.IsAbstract &&
                                                       _.IsSubclassOf(typeof(T)) &&
                                                       _.GetCustomAttributes(typeof(BlockAttribute), true)
                                                        .Cast<BlockAttribute>()
                                                        .Any(a => a.Name.Equals(blockName)));
-           
+
 
             if (null != type)
             {
                 return Activator.CreateInstance(type) as T;
             }
-           
+
             return null;
         }
-        
-       
 
-       
+
+
+
     }
 }

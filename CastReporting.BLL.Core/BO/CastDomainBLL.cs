@@ -14,15 +14,15 @@
  *
  */
 
+using Cast.Util.Log;
+using CastReporting.Domain;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using CastReporting.Domain;
-using System.Runtime.Serialization.Json;
 using System.IO;
+using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Text;
-using Cast.Util.Log;
 
 namespace CastReporting.BLL
 {
@@ -55,7 +55,7 @@ namespace CastReporting.BLL
             }
         }
 
-           
+
         /// <summary>
         /// 
         /// </summary>
@@ -69,13 +69,13 @@ namespace CastReporting.BLL
             {
                 foreach (var domain in domains)
                 {
-					List<Application> domainApps = castRepsitory.GetApplicationsByDomain(domain.Href)?.ToList();
+                    List<Application> domainApps = castRepsitory.GetApplicationsByDomain(domain.Href)?.ToList();
                     if (domainApps == null) continue;
-                    foreach (Application application in domainApps.Where(_=>string.IsNullOrEmpty(_.Version)))
+                    foreach (Application application in domainApps.Where(_ => string.IsNullOrEmpty(_.Version)))
                     {
                         application.Version = domain.Version;
                     }
-				    applications.AddRange(domainApps);
+                    applications.AddRange(domainApps);
                 }
             }
 
@@ -192,9 +192,9 @@ namespace CastReporting.BLL
         }
 
         public List<string> GetTags(string strCategory)
-        { 
+        {
             List<string> _tags = new List<string>();
-             
+
             using (var castRepository = GetRepository())
             {
                 string _commonCategoriesJson = castRepository.GetCommonCategoriesJson();

@@ -13,12 +13,12 @@
  * limitations under the License.
  *
  */
+using DocumentFormat.OpenXml.Packaging;
+using OpenXmlPowerTools;
 using System;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using DocumentFormat.OpenXml.Packaging;
-using OpenXmlPowerTools;
 
 namespace CastReporting.Reporting.Builder.BlockProcessing
 {
@@ -106,7 +106,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
             if (sharedStringsXDocument.Root == null) return null;
             var newIndex = sharedStringsXDocument.Root.Elements().Count();
             var siElement = new XElement(S.si);
-            var tElement = new XElement(S.t) {Value = value};
+            var tElement = new XElement(S.t) { Value = value };
 
             siElement.Add(tElement);
             sharedStringsXDocument.Root.Add(siElement);

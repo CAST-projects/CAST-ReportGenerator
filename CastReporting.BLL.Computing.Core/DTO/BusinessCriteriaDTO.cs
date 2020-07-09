@@ -18,7 +18,7 @@ namespace CastReporting.BLL.Computing
 {
     public class BusinessCriteriaDTO
     {
-               
+
         /// <summary>
         /// 
         /// </summary>
@@ -60,19 +60,19 @@ namespace CastReporting.BLL.Computing
         /// </summary>
         public double? ProgrammingPractices { get; set; }
 
-        
+
         /// <summary>
         /// /
         /// </summary>
         public double? ArchitecturalDesign { get; set; }
 
-        
+
         /// <summary>
         /// /
         /// </summary>
         public double? Documentation { get; set; }
 
-        
+
         /// <summary>
         /// /
         /// </summary>
@@ -96,7 +96,7 @@ namespace CastReporting.BLL.Computing
             _getBusinessCriteriaGradesVartiation.Security = left.Security.HasValue && right.Security.HasValue ? left.Security - right.Security : null;
             _getBusinessCriteriaGradesVartiation.Transferability = left.Transferability.HasValue && right.Transferability.HasValue ? left.Transferability - right.Transferability : null;
             _getBusinessCriteriaGradesVartiation.Changeability = left.Changeability.HasValue && right.Changeability.HasValue ? left.Changeability - right.Changeability : null;
-            return _getBusinessCriteriaGradesVartiation;           
+            return _getBusinessCriteriaGradesVartiation;
         }
 
         /// <summary>

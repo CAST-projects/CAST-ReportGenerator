@@ -73,6 +73,14 @@ echo.
 echo Current version is %VERSION%
 echo Current short version is %SHORT_VERSION%
 
+set TEMPLATES_VERSION=1.0.0
+set TEMPLATES_ID=com.castsoftware.aip.reportgeneratortemplates
+for /f "delims=. tokens=1,2" %%a in ('echo %TEMPLATES_VERSION%') do set SHORT_TEMPLATES_VERSION=%%a.%%b
+echo.
+echo Current version for templates is %TEMPLATES_VERSION%
+echo Current short version for templates is %SHORT_TEMPLATES_VERSION%
+
+
 cd %WORKSPACE%
 if errorlevel 1 (
 	echo.
@@ -120,6 +128,13 @@ pushd %RESDIRRGFD%
 for /f "delims=/" %%a in ('cd') do set RESDIRRGFD=%%a
 popd
 
+set RESDIRTEMPLATES=%RESDIR%\Templates
+mkdir %RESDIRTEMPLATES%
+if errorlevel 1 goto endclean
+pushd %RESDIRTEMPLATES%
+for /f "delims=/" %%a in ('cd') do set RESDIRTEMPLATES=%%a
+popd
+
 set WORK=%WORKSPACE%\work
 if exist %WORK% (
     echo Cleaning %WORK%
@@ -127,6 +142,14 @@ if exist %WORK% (
     sleep 3
 )
 mkdir %WORK%
+
+set WORKTEMPLATES=%WORKSPACE%\workTemplates
+if exist %WORKTEMPLATES% (
+    echo Cleaning %WORKTEMPLATES%
+    rmdir /q /s %WORKTEMPLATES%
+    sleep 3
+)
+mkdir %WORKTEMPLATES%
 
 cd %SRCDIR%
 echo.
@@ -331,6 +354,82 @@ if errorlevel 1 goto endclean
 echo End of build with success.
 set RETCODE=0
 
+
+:: pushd %WORKSPACE%
+:: echo.
+:: echo ==============================================
+:: echo Preparing package for Report Generator Templates ...
+:: echo ==============================================
+:: pushd %WORKSPACE%
+:: set REPORTINGDIR=%SRCDIR%/CastReporting.Reporting.Core
+:: 
+:: ::put the templates in the right places
+:: robocopy /njh /mir %REPORTINGDIR%\Templates %WORKTEMPLATES%
+:: if errorlevel 8 exit /b 1
+:: 
+:: set ZIPPATHTEMPLATES=%RESDIRTEMPLATES%\%TEMPLATES_ID%.%TEMPLATES_VERSION%.zip
+:: pushd %WORKTEMPLATES%
+:: 7z.exe a -y -r %ZIPPATHTEMPLATES% .
+:: if errorlevel 1 goto endclean
+:: 
+:: echo.
+:: echo Package path for ReportGeneratorTemplates is: %ZIPPATHTEMPLATES%
+:: 
+:: pushd %WORKSPACE%
+:: echo.
+:: echo ==============================================
+:: echo Nuget packaging ReportGeneratorTemplates...
+:: echo ==============================================
+:: echo F|xcopy /f /y %SRCDIR%\_build\plugin_for_templates.nuspec %RESDIRTEMPLATES%\plugin.nuspec
+:: if errorlevel 1 goto endclean
+:: 
+:: sed -i 's/_THE_VERSION_/%TEMPLATES_VERSION%/' %RESDIRTEMPLATES%/plugin.nuspec
+:: if errorlevel 1 goto endclean
+:: sed -i 's/_THE_SHORT_VERSION_/%SHORT_TEMPLATES_VERSION%/' %RESDIRTEMPLATES%/plugin.nuspec
+:: if errorlevel 1 goto endclean
+:: sed -i 's/_THE_ID_/%TEMPLATES_ID%/' %RESDIRTEMPLATES%/plugin.nuspec
+:: if errorlevel 1 goto endclean
+:: 
+:: cd %WORKSPACE%
+:: set CMD=%BUILDDIR%\nuget_package_basics.bat outdir=%RESDIRTEMPLATES% pkgdir=%RESDIRTEMPLATES% buildno=%BUILDNO% nopub=%NOPUB% is_component=true
+:: echo Executing command:
+:: echo %CMD%
+:: call %CMD%
+:: if errorlevel 1 goto endclean
+:: 
+:: for /f "tokens=*" %%a in ('dir /b %RESDIRTEMPLATES%\com.castsoftware.*.nupkg') do set PACKPATHTEMPLATES=%RESDIRTEMPLATES%\%%a
+:: if not defined PACKPATHTEMPLATES (
+:: 	echo .
+:: 	echo ERROR: No package was created : file not found %RESDIRTEMPLATES%\com.castsoftware.*.nupkg ...
+:: 	goto endclean
+:: )
+:: if not exist %PACKPATHTEMPLATES% (
+:: 	echo .
+:: 	echo ERROR: File not found %PACKPATHTEMPLATES% ...
+:: 	goto endclean
+:: )
+:: 
+:: set GROOVYEXE=groovy
+:: %GROOVYEXE% --version 2>nul
+:: if errorlevel 1 set GROOVYEXE="%GROOVY_HOME%\bin\groovy"
+:: %GROOVYEXE% --version 2>nul
+:: if errorlevel 1 (
+:: 	echo ERROR: no groovy executable available, need one!
+:: 	goto endclean
+:: )
+:: 
+:: :: ========================================================================================
+:: :: Nuget checking ReportGeneratorTemplates
+:: :: ========================================================================================
+:: set CMD=%GROOVYEXE% %BUILDDIR%\nuget_package_verification.groovy --packpath=%PACKPATHTEMPLATES%
+:: :: echo Executing command:
+:: echo %CMD%
+:: call %CMD%
+:: if errorlevel 1 goto endclean
+
+echo End of build with success.
+set RETCODE=0
+
 :endclean
 cd /d %CURRENTPWD%
 exit /b %RETCODE%
@@ -348,3 +447,5 @@ exit /b %RETCODE%
     echo.
     goto endclean
 goto:eof
+
+

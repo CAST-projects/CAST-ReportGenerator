@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Cast.Util.Log;
+﻿using Cast.Util.Log;
 using Cast.Util.Version;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
-using CastReporting.Domain;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -108,13 +108,13 @@ namespace CastReporting.Reporting.Block.Table
                     {
                         rowData.Add(string.IsNullOrEmpty(omgFunction.ElementType) ? Constants.No_Data : GetType(omgFunction.ElementType));
                     }
-                    
+
                     rowData.Add(string.IsNullOrEmpty(omgFunction.FunctionName) ? Constants.No_Data : omgFunction.FunctionName);
                     rowData.Add(string.IsNullOrEmpty(omgFunction.ObjectType) ? Constants.No_Data : omgFunction.ObjectType);
                     rowData.Add(string.IsNullOrEmpty(omgFunction.Technology) ? Constants.No_Data : omgFunction.Technology);
                     rowData.Add(string.IsNullOrEmpty(omgFunction.ModuleName) ? Constants.No_Data : omgFunction.ModuleName);
                     rowData.Add(string.IsNullOrEmpty(omgFunction.ObjectName) ? Constants.No_Data : omgFunction.ObjectName);
-                    rowData.Add(string.IsNullOrEmpty(omgFunction.Aeps) ? 
+                    rowData.Add(string.IsNullOrEmpty(omgFunction.Aeps) ?
                             string.IsNullOrEmpty(omgFunction.NoOfFPs) ? Constants.No_Data : omgFunction.NoOfFPs
                             : omgFunction.Aeps);
                     rowData.Add(string.IsNullOrEmpty(omgFunction.ElementType) ? Constants.No_Data : GetStatus(omgFunction.ElementType));

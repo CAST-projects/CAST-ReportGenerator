@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Table;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {
@@ -31,9 +31,9 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
             var expectedData = new List<string>();
             expectedData.AddRange(new List<string> { "Module Name" });
-            expectedData.AddRange(new List<string> { "AAD-Admin"});
-            expectedData.AddRange(new List<string> { "AED-Admin"});
-            expectedData.AddRange(new List<string> { "ReportGenerator"});
+            expectedData.AddRange(new List<string> { "AAD-Admin" });
+            expectedData.AddRange(new List<string> { "AED-Admin" });
+            expectedData.AddRange(new List<string> { "ReportGenerator" });
             TestUtility.AssertTableContent(table, expectedData, 1, 4);
             Assert.IsTrue(table.HasColumnHeaders);
         }

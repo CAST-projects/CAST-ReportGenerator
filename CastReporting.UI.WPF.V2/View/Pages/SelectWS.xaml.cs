@@ -14,11 +14,11 @@
  *
  */
 
-using System.Collections.Generic;
-using System.Windows.Controls;
 using CastReporting.BLL;
 using CastReporting.Domain;
 using CastReporting.UI.WPF.Core.ViewModel;
+using System.Collections.Generic;
+using System.Windows.Controls;
 
 namespace CastReporting.UI.WPF.Core.View
 {
@@ -27,7 +27,7 @@ namespace CastReporting.UI.WPF.Core.View
     /// </summary>
     public partial class SelectWS : Page
     {
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -36,7 +36,7 @@ namespace CastReporting.UI.WPF.Core.View
             InitializeComponent();
 
             DataContext = new SelectWSVM();
-             
+
         }
 
         private void ActivateWebService_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)

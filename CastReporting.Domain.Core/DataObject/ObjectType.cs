@@ -17,12 +17,12 @@ using System.Runtime.Serialization;
 
 namespace CastReporting.Domain
 {
-    
-     [DataContract(Name = "type")]
+
+    [DataContract(Name = "type")]
     public class ObjectType
     {
 
-          /// <summary>
+        /// <summary>
         /// Get/Set the snapshot name.
         /// </summary>
         [DataMember(Name = "label")]
@@ -32,9 +32,9 @@ namespace CastReporting.Domain
         /// 
         /// </summary>
         [DataMember(Name = "name")]
-        public string Name {get;set;}
-          
-   
-     
+        public string Name { get; set; }
+
+
+
     }
 }

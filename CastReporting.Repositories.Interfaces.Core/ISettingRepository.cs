@@ -1,7 +1,7 @@
-﻿using System;
+﻿using CastReporting.Domain;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using CastReporting.Domain;
 
 
 namespace CastReporting.Repositories.Interfaces

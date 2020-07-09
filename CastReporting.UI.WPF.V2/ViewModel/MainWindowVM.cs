@@ -28,7 +28,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
     /// </summary>
     public class MainWindowVM : ViewModelBase, IMessageManager
     {
-       
+
         /// <summary>
         /// 
         /// </summary>
@@ -60,7 +60,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// <summary>
         /// 
         /// </summary>
-        
+
 
         /// <summary>
         /// 
@@ -73,9 +73,9 @@ namespace CastReporting.UI.WPF.Core.ViewModel
             {
                 if (value == _messagesList)
                     return;
-                
+
                 _messagesList = value;
-                
+
                 OnPropertyChanged("MessagesList");
             }
         }
@@ -111,7 +111,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
             MessagesList.Add(new MessageItem { Message = Messages.msgReportGenerationSuccess, FileName = fileName });
 
 #if DEBUG
-            MessagesList.Add(new MessageItem { Message = $"Generation duration : {timeSpan}"}); 
+            MessagesList.Add(new MessageItem { Message = $"Generation duration : {timeSpan}" });
 #endif
         }
 
@@ -153,7 +153,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// <param name="url"></param>
         public void OnServiceActivated(string url)
         {
-            MessagesList.Add(new MessageItem { Message = Messages.msgServiceActivated, FileName = string.Empty });             
+            MessagesList.Add(new MessageItem { Message = Messages.msgServiceActivated, FileName = string.Empty });
         }
 
         /// <summary>
@@ -163,7 +163,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// <param name="pingOk"></param>
         public void OnServiceChecked(string url, bool pingOk)
         {
-            MessagesList.Add(new MessageItem { Message = pingOk ? Messages.msgPingServiceSuccess : Messages.msgPingServiceFailure, FileName = string.Empty });             
+            MessagesList.Add(new MessageItem { Message = pingOk ? Messages.msgPingServiceSuccess : Messages.msgPingServiceFailure, FileName = string.Empty });
         }
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// <param name="url"></param>
         public void OnServiceRemoved(string url)
         {
-            MessagesList.Add(new MessageItem { Message = Messages.msgServiceRemoved, FileName = string.Empty });        
+            MessagesList.Add(new MessageItem { Message = Messages.msgServiceRemoved, FileName = string.Empty });
         }
 
         /// <summary>
@@ -191,7 +191,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         public void OnErrorOccured(Exception exception)
         {
             if (exception is WebException)
-                MessagesList.Add(new MessageItem {Message = Messages.msgWSError, FileName = string.Empty});
+                MessagesList.Add(new MessageItem { Message = Messages.msgWSError, FileName = string.Empty });
             else
             {
                 if (exception.InnerException == null)
@@ -210,21 +210,21 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                 MessagesList.Add(new MessageItem { Message = exception.InnerException.InnerException.Message, FileName = string.Empty });
                 WebException _webex = exception.InnerException.InnerException as WebException;
                 if (_webex == null) return;
-                MessagesList.Add(new MessageItem {Message = Messages.msgWSError, FileName = string.Empty});
+                MessagesList.Add(new MessageItem { Message = Messages.msgWSError, FileName = string.Empty });
                 if (_webex.Status == WebExceptionStatus.ProtocolError)
                 {
                     MessagesList.Add(new MessageItem { Message = Messages.msgServiceShouldBeRevalidated, FileName = string.Empty });
                 }
             }
-                
-            
+
+
         }
-      
+
         /// <summary>
         /// 
         /// </summary>
         public void SetBusyMode(bool isBusy)
-        {           
+        {
             IsBusy = isBusy;
         }
 
@@ -249,7 +249,28 @@ namespace CastReporting.UI.WPF.Core.ViewModel
             }
 #endif
         }
-        
+
+        public void OnExtendCheck(bool statusOk)
+        {
+            if (!statusOk)
+            {
+                MessagesList.Add(new MessageItem { Message = Messages.extendUnavailable, FileName = string.Empty });
+            }
+        }
+
+        public void OnExtendSearchLatestVersion(bool needToUpdate)
+        {
+            if (needToUpdate)
+            {
+                string latestUrl = SettingsBLL.GetExtendUrl() + "/timeline#/extension?id=com.castsoftware.aip.reportgenerator&version=latest";
+                MessagesList.Add(new MessageItem { Message = Messages.rgVersionOutdated, FileName = latestUrl });
+            }
+            else
+            {
+                MessagesList.Add(new MessageItem { Message = Messages.rgVersionUpTodate, FileName = string.Empty });
+            }
+        }
+
         #endregion
 
     }

@@ -23,7 +23,7 @@ namespace CastReporting.Domain
     /// Represents a central database.
     /// </summary>
     [Serializable]
-    public class Setting 
+    public class Setting
     {
         /// <summary>
         /// 
@@ -39,19 +39,19 @@ namespace CastReporting.Domain
         /// 
         /// </summary>
         private List<WSConnection> _wsConnections;
-        public List<WSConnection> WSConnections 
+        public List<WSConnection> WSConnections
         {
             get => _wsConnections ?? (_wsConnections = new List<WSConnection>());
             set => _wsConnections = value;
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         public WSConnection GetActiveConnection()
         {
-            return WSConnections.FirstOrDefault(_ => _.IsActive);                
+            return WSConnections.FirstOrDefault(_ => _.IsActive);
         }
 
 
@@ -60,8 +60,8 @@ namespace CastReporting.Domain
         /// </summary>
         public void ChangeActiveConnection(string newActiveUrl)
         {
-            WSConnection previousActiveconnection= WSConnections.FirstOrDefault(_ => _.IsActive);
-            if (previousActiveconnection!=null) previousActiveconnection.IsActive = false;
+            WSConnection previousActiveconnection = WSConnections.FirstOrDefault(_ => _.IsActive);
+            if (previousActiveconnection != null) previousActiveconnection.IsActive = false;
 
             WSConnection newActiveConnection = WSConnections.FirstOrDefault(_ => _.Url.Equals(newActiveUrl));
             if (newActiveConnection != null) newActiveConnection.IsActive = true;

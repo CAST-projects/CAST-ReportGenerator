@@ -14,14 +14,14 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
-using System.Linq;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Linq;
 namespace CastReporting.Reporting.Block.Graph
 {
     [Block("RADAR_COMPLIANCE_2_LAST_SNAPSHOTS")]
@@ -29,11 +29,11 @@ namespace CastReporting.Reporting.Block.Graph
     {
         public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
-            string prevSnapshotLabel=string.Empty;
-            BusinessCriteriaDTO prevSnapshotBCResult=null;
+            string prevSnapshotLabel = string.Empty;
+            BusinessCriteriaDTO prevSnapshotBCResult = null;
 
             if (reportData?.CurrentSnapshot == null) return null;
-            string currSnapshotLabel = SnapshotUtility.GetSnapshotVersionNumber(reportData.CurrentSnapshot);                
+            string currSnapshotLabel = SnapshotUtility.GetSnapshotVersionNumber(reportData.CurrentSnapshot);
             BusinessCriteriaDTO _currSnapshotBcdto = BusinessCriteriaUtility.GetBusinessCriteriaGradesSnapshot(reportData.CurrentSnapshot, true);
 
             if (reportData.PreviousSnapshot != null)
@@ -52,10 +52,10 @@ namespace CastReporting.Reporting.Block.Graph
             }
 
 
-            var rowData = new List<string> {null, currSnapshotLabel};
-            if (prevSnapshotBCResult != null) { rowData.Add(prevSnapshotLabel??Constants.No_Value); }
+            var rowData = new List<string> { null, currSnapshotLabel };
+            if (prevSnapshotBCResult != null) { rowData.Add(prevSnapshotLabel ?? Constants.No_Value); }
 
-                
+
             #region Programming Practices
             rowData.Add(Labels.Prog);
             rowData.Add(_currSnapshotBcdto.ProgrammingPractices.ToString());
@@ -86,8 +86,8 @@ namespace CastReporting.Reporting.Block.Graph
 
             return resultTable;
         }
-       
 
-        
+
+
     }
 }

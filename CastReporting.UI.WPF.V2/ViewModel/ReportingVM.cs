@@ -21,6 +21,10 @@ using CastReporting.BLL;
 using CastReporting.Domain;
 using CastReporting.Reporting.Builder;
 using CastReporting.Reporting.ReportingModel;
+using CastReporting.UI.WPF.Core.Common;
+using CastReporting.UI.WPF.Core.Resources.Languages;
+using Microsoft.Office.Interop.PowerPoint;
+using Microsoft.Office.Interop.Word;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,10 +35,6 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Input;
 using System.Windows.Threading;
-using CastReporting.UI.WPF.Core.Resources.Languages;
-using CastReporting.UI.WPF.Core.Common;
-using Microsoft.Office.Interop.Word;
-using Microsoft.Office.Interop.PowerPoint;
 //using Microsoft.Office.Interop.Excel;
 
 // ReSharper disable InconsistentNaming
@@ -147,7 +147,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         }
 
 
-      
+
         /// <summary>
         /// 
         /// </summary>
@@ -323,7 +323,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                 OnPropertyChanged("ReportFileName");
             }
         }
-       
+
         /// <summary>
         /// 
         /// </summary>      
@@ -397,7 +397,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                     throw new ArgumentOutOfRangeException();
             }
         }
-        
+
 
         /// <summary>
         /// Implement Command that Load the templates list
@@ -452,7 +452,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         private void ExecuteLoadSnapshotsCommand(object parameter)
         {
             if (SelectedApplication != null)
-            {               
+            {
                 using (ApplicationBLL applicationBLL = new ApplicationBLL(ActiveConnection, SelectedApplication.Application))
                 {
                     applicationBLL.SetSnapshots();
@@ -834,7 +834,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                 };
 
 
-               
+
                 using (IDocumentBuilder docBuilder = BuilderFactory.CreateBuilder(reportData, tmpReportFileFlexi))
                 {
                     docBuilder.BuildDocument();
@@ -926,7 +926,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// <summary>
         /// 
         /// </summary>
-        private void GenerateReportPortfolio(Domain.Application[] ApplicationsArray, Snapshot[] ApplicationsSnapshots, string[] IgnoredApps, string[] IgnoredSnapshots )
+        private void GenerateReportPortfolio(Domain.Application[] ApplicationsArray, Snapshot[] ApplicationsSnapshots, string[] IgnoredApps, string[] IgnoredSnapshots)
         {
             string tmpReportFile = string.Empty;
             string tmpReportFileFlexi = string.Empty;
@@ -989,7 +989,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
             }
         }
 
-       
+
 
         /// <summary>
         /// 
@@ -1009,7 +1009,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                 Categories = domains.Count > 0 ? castDomainBLL.GetCategories() : new List<string>();
                 SelectedTab = 0;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageManager.OnErrorOccured(ex);
             }

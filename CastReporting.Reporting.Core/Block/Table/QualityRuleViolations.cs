@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using CastReporting.BLL.Computing;
+﻿using CastReporting.BLL.Computing;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Domain;
-using CastReporting.Reporting.Helper;
 using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.Helper;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -20,7 +20,7 @@ namespace CastReporting.Reporting.Block.Table
             string ruleId = options.GetOption("ID", "7788");
             string bcId = options.GetOption("BCID", "60013");
             int nbLimitTop = options.GetIntOption("COUNT", 10);
-            bool shortName = options.GetOption("NAME","FULL") == "SHORT";
+            bool shortName = options.GetOption("NAME", "FULL") == "SHORT";
             bool previous = options.GetOption("SNAPSHOT", "CURRENT") == "PREVIOUS";
             bool hasPri = bcId.Equals("60013") || bcId.Equals("60014") || bcId.Equals("60016");
 

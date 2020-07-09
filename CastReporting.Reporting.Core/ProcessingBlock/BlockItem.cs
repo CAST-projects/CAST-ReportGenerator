@@ -13,9 +13,9 @@
  * limitations under the License.
  *
  */
-using System.Xml.Linq;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
+using System.Xml.Linq;
 
 namespace CastReporting.Reporting.Builder.BlockProcessing
 {

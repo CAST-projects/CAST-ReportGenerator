@@ -13,16 +13,16 @@
  * limitations under the License.
  *
  */
+using Cast.Util.Log;
 using CastReporting.BLL.Computing;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
 using CastReporting.Reporting.ReportingModel;
-using CastReporting.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cast.Util.Log;
-using CastReporting.Reporting.Core.Languages;
 
 namespace CastReporting.Reporting.Block.Text
 {
@@ -64,8 +64,8 @@ namespace CastReporting.Reporting.Block.Text
 
             if (!(_allTechDebt > 0) || !(_afpAll > 0)) return Labels.NoData;
             double? _finalValue = _allTechDebt / _afpAll;
-            return $"{_finalValue.Value:N0} {reportData.CurrencySymbol}"; 
-            
+            return $"{_finalValue.Value:N0} {reportData.CurrencySymbol}";
+
         }
         #endregion METHODS
     }

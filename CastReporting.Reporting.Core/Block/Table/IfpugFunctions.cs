@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
-using CastReporting.Domain;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -64,10 +64,10 @@ namespace CastReporting.Reporting.Block.Table
                 {
                     rowData.Add(string.IsNullOrEmpty(ifpugFunction.ElementType) ? " " : ifpugFunction.ElementType);
                     rowData.Add(string.IsNullOrEmpty(ifpugFunction.ObjectName) ? " " : ifpugFunction.ObjectName);
-                    rowData.Add(string.IsNullOrEmpty(ifpugFunction.NbOfFPs) ? 
-                        string.IsNullOrEmpty(ifpugFunction.NoOfFPs) ? 
+                    rowData.Add(string.IsNullOrEmpty(ifpugFunction.NbOfFPs) ?
+                        string.IsNullOrEmpty(ifpugFunction.NoOfFPs) ?
                         string.IsNullOrEmpty(ifpugFunction.Afps) ? " " : ifpugFunction.Afps
-                        : ifpugFunction.NoOfFPs 
+                        : ifpugFunction.NoOfFPs
                         : ifpugFunction.NbOfFPs);
                     rowData.Add(string.IsNullOrEmpty(ifpugFunction.FPDetails) ? " " : ifpugFunction.FPDetails);
                     rowData.Add(string.IsNullOrEmpty(ifpugFunction.ObjectType) ? " " : ifpugFunction.ObjectType);

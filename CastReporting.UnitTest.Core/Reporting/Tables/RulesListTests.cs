@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Table;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {

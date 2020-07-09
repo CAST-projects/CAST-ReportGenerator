@@ -13,14 +13,14 @@
  * limitations under the License.
  *
  */
-using System;
-using System.Collections.Generic;
+using CastReporting.BLL.Computing;
 using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
-using CastReporting.BLL.Computing;
+using CastReporting.Reporting.ReportingModel;
+using System;
+using System.Collections.Generic;
 
 
 namespace CastReporting.Reporting.Block.Table
@@ -85,10 +85,10 @@ namespace CastReporting.Reporting.Block.Table
 
             #region Data
             List<string> rowData = new List<string>();
-            rowData.AddRange(new[] { Labels.Complexity, Labels.Current, Labels.Previous,  Labels.Evol, Labels.EvolPercent, Labels.TotalPercent });
+            rowData.AddRange(new[] { Labels.Complexity, Labels.Current, Labels.Previous, Labels.Evol, Labels.EvolPercent, Labels.TotalPercent });
 
             const string noData = Constants.No_Value;
-           
+
             rowData.AddRange(new[]
             { Labels.ComplexityLow
                 , selectedLowVal?.ToString("N0") ?? noData

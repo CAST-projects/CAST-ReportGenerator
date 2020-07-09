@@ -18,7 +18,7 @@ using System.Xml.Linq;
 
 namespace CastReporting.Reporting.ReportingModel
 {
-  
+
     /// <summary>
     /// Represents the definition of a table options in order to set correctly
     /// the table container and its content.

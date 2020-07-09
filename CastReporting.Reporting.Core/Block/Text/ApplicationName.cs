@@ -13,10 +13,10 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
 
 namespace CastReporting.Reporting.Block.Text
 {

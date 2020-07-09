@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CastReporting.Domain;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Text;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CastReporting.UnitTest.Reporting.Text
 {
@@ -16,7 +16,7 @@ namespace CastReporting.UnitTest.Reporting.Text
         {
             TestUtility.SetCulture("en-US");
         }
-        
+
         [TestMethod]
         [DeploymentItem(@".\Data\AADApplications.json", "Data")]
         [DeploymentItem(@".\Data\AADApplication1Snap.json", "Data")]
@@ -101,6 +101,6 @@ namespace CastReporting.UnitTest.Reporting.Text
             Assert.AreEqual("n/a", str);
         }
 
-       
+
     }
 }

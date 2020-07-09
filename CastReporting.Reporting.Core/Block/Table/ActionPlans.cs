@@ -16,8 +16,8 @@
  */
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -31,33 +31,37 @@ namespace CastReporting.Reporting.Block.Table
         {
             List<string> rowData = new List<string>();
 
-			rowData.AddRange(new[] {
-				Labels.Rule,
-				Labels.ViolationsStill,
-				Labels.ViolationsNew
-			});
+            rowData.AddRange(new[] {
+                Labels.Rule,
+                Labels.ViolationsStill,
+                Labels.ViolationsNew
+            });
 
-			int actionPlanCount = reportData?.CurrentSnapshot?.ActionsPlan?.Count() ?? 0;
+            int actionPlanCount = reportData?.CurrentSnapshot?.ActionsPlan?.Count() ?? 0;
             if (actionPlanCount > 0)
             {
                 if (reportData?.CurrentSnapshot?.ActionsPlan != null)
-                    foreach (var _actionPlan in reportData.CurrentSnapshot?.ActionsPlan) {
+                    foreach (var _actionPlan in reportData.CurrentSnapshot?.ActionsPlan)
+                    {
                         rowData.AddRange
                         (new[] { _actionPlan.RulePattern.Name
                             , _actionPlan.PendingIssues.ToString("N0")
-                            , _actionPlan.AddedIssues.ToString("N0") 
+                            , _actionPlan.AddedIssues.ToString("N0")
                         });
                     }
-            } else {
-				rowData.AddRange(new[] {
-					Labels.NoItem,
-					string.Empty,
-					string.Empty
-				});
+            }
+            else
+            {
+                rowData.AddRange(new[] {
+                    Labels.NoItem,
+                    string.Empty,
+                    string.Empty
+                });
                 actionPlanCount = 1;
             }
 
-            TableDefinition resultTable = new TableDefinition {
+            TableDefinition resultTable = new TableDefinition
+            {
                 HasRowHeaders = false,
                 HasColumnHeaders = true,
                 NbRows = actionPlanCount + 1,

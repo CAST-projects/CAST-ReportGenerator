@@ -13,13 +13,13 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
 
 
 namespace CastReporting.Reporting.Block.Table
@@ -63,10 +63,10 @@ namespace CastReporting.Reporting.Block.Table
 
             #region PreviousSnapshot
 
-            double? criticalViolationPrev = MeasureUtility.GetSizingMeasure(reportData.PreviousSnapshot, 
+            double? criticalViolationPrev = MeasureUtility.GetSizingMeasure(reportData.PreviousSnapshot,
                 Constants.SizingInformations.ViolationsToCriticalQualityRulesNumber);
 
-            double? numCritPerFilePrev = MeasureUtility.GetSizingMeasure(reportData.PreviousSnapshot, 
+            double? numCritPerFilePrev = MeasureUtility.GetSizingMeasure(reportData.PreviousSnapshot,
                 Constants.SizingInformations.ViolationsToCriticalQualityRulesPerFileNumber);
             string numCritPerFilePrevIfNegative;
             // ReSharper disable once CompareOfFloatsByEqualityOperator -- special case
@@ -75,13 +75,13 @@ namespace CastReporting.Reporting.Block.Table
             else
                 numCritPerFilePrevIfNegative = numCritPerFilePrev?.ToString("N2") ?? Constants.No_Value;
 
-            double? _numCritPerKlocPrev = MeasureUtility.GetSizingMeasure(reportData.PreviousSnapshot, 
+            double? _numCritPerKlocPrev = MeasureUtility.GetSizingMeasure(reportData.PreviousSnapshot,
                 Constants.SizingInformations.ViolationsToCriticalQualityRulesPerKLOCNumber);
 
-            double? veryHighCostComplexityViolationsPrev = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot, 
+            double? veryHighCostComplexityViolationsPrev = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
                 Constants.QualityDistribution.DistributionOfDefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.GetHashCode(),
                 Constants.DefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.CostComplexityDefects_VeryHigh.GetHashCode());
-                
+
             double? highCostComplexityViolationsPrev = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
                 Constants.QualityDistribution.DistributionOfDefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.GetHashCode(),
                 Constants.DefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.CostComplexityDefects_High.GetHashCode());
@@ -103,7 +103,7 @@ namespace CastReporting.Reporting.Block.Table
             double? _highveryHighCostComplexityViolationsPrev = MathUtility.GetSum(veryHighCostComplexityViolationsPrev, highCostComplexityViolationsPrev);
 
             #endregion SumMetric
-              
+
             #region evolutionPercMetric
 
             double? criticalViolationEvolPerc = MathUtility.GetVariationPercent(criticalViolation, criticalViolationPrev);
@@ -133,12 +133,12 @@ namespace CastReporting.Reporting.Block.Table
                 , _numCritPerKloc?.ToString("N2") ?? Constants.No_Value
                 , _numCritPerKlocPrev?.ToString("N2") ?? Constants.No_Value
                 , _numCritPerKlocEvolPerc.HasValue ? FormatPercent(_numCritPerKlocEvolPerc.Value) : Constants.No_Value
-                   
+
                 , Labels.ComplexObjects
                 , _highveryHighCostComplexityArtefacts?.ToString(metricFormat) ?? Constants.No_Value
                 , _highveryHighCostComplexityArtefactsPrev?.ToString(metricFormat) ?? Constants.No_Value
                 , _highveryHighCostComplexityArtefactsEvolPerc.HasValue ? FormatPercent(_highveryHighCostComplexityArtefactsEvolPerc.Value) : Constants.No_Value
-                    
+
                 , "  " + Labels.WithViolations
                 , _highveryHighCostComplexityViolations?.ToString(metricFormat) ?? Constants.No_Value
                 , _highveryHighCostComplexityViolationsPrev?.ToString(metricFormat) ?? Constants.No_Value

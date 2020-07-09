@@ -21,18 +21,22 @@ namespace CastReporting.Reporting.Helper
 {
     public static class OptionsHelper
     {
-        public static string GetOption(this Dictionary<string, string> options, string key, string defaultValue = default(string)) {
+        public static string GetOption(this Dictionary<string, string> options, string key, string defaultValue = default(string))
+        {
             string value;
-            if (options == null || !options.TryGetValue(key, out value)) {
+            if (options == null || !options.TryGetValue(key, out value))
+            {
                 value = defaultValue;
             }
             return value?.Replace("\t", "").Replace("\n", "").Replace("\r", "");
         }
 
-        public static int GetIntOption(this Dictionary<string, string> options, string key, int defaultValue = default(int)) {
+        public static int GetIntOption(this Dictionary<string, string> options, string key, int defaultValue = default(int))
+        {
             int value;
             var s = options.GetOption(key);
-            if (string.IsNullOrWhiteSpace(s) || !int.TryParse(s, out value)) {
+            if (string.IsNullOrWhiteSpace(s) || !int.TryParse(s, out value))
+            {
                 value = defaultValue;
             }
             return value;
@@ -54,18 +58,26 @@ namespace CastReporting.Reporting.Helper
             return var;
         }
 
-        public static bool GetBoolOption(this Dictionary<string, string> options, string key, bool defaultValue = default(bool)) {
+        public static bool GetBoolOption(this Dictionary<string, string> options, string key, bool defaultValue = default(bool))
+        {
             bool value;
             var s = options.GetOption(key);
-            if (string.IsNullOrWhiteSpace(s)) {
+            if (string.IsNullOrWhiteSpace(s))
+            {
                 value = defaultValue;
-            } else {
+            }
+            else
+            {
                 int v;
-                if (int.TryParse(s, out v)) {
+                if (int.TryParse(s, out v))
+                {
                     value = v != 0;
-                } else {
+                }
+                else
+                {
                     s = s.ToLower();
-                    switch (s) {
+                    switch (s)
+                    {
                         case "1":
                         case "y":
                         case "yes":

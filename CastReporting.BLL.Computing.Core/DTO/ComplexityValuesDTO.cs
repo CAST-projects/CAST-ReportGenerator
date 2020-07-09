@@ -1,5 +1,5 @@
-﻿using System;
-using CastReporting.Domain;
+﻿using CastReporting.Domain;
+using System;
 
 namespace CastReporting.BLL.Computing
 {

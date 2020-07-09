@@ -19,7 +19,8 @@ namespace CastReporting.UI.WPF.Core
 {
     public class ApplicationItem
     {
-        public ApplicationItem(Application app) {
+        public ApplicationItem(Application app)
+        {
             if (app.AdgVersion == null && app.Version != null)
                 app.AdgVersion = app.Version;
             Application = app;
@@ -27,7 +28,8 @@ namespace CastReporting.UI.WPF.Core
 
         public Application Application { get; protected set; }
 
-        public override string ToString() {
+        public override string ToString()
+        {
             return Application.DomainId + " / " + Application.Name;
         }
     }

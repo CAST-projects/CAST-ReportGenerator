@@ -13,13 +13,13 @@
  * limitations under the License.
  *
  */
-using System;
 using log4net;
 using log4net.Appender;
+using log4net.Config;
 using log4net.Repository.Hierarchy;
+using System;
 using System.IO;
 using System.Reflection;
-using log4net.Config;
 
 namespace Cast.Util.Log
 {
@@ -175,7 +175,7 @@ namespace Cast.Util.Log
         /// <summary>
         /// Set Template Path Registry
         /// </summary>
-        public static void  SetPathLog(string pathLog)
+        public static void SetPathLog(string pathLog)
         {
             GlobalContext.Properties["APPNAME"] = "ReportGenerator";
             GlobalContext.Properties["LOGPATH"] = pathLog;

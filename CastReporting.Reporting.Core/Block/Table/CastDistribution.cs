@@ -13,15 +13,15 @@
  * limitations under the License.
  *
  */
-using System;
-using System.Collections.Generic;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
 using CastReporting.Reporting.Helper;
+using CastReporting.Reporting.ReportingModel;
+using System;
+using System.Collections.Generic;
 
 
 namespace CastReporting.Reporting.Block.Table
@@ -59,7 +59,7 @@ namespace CastReporting.Reporting.Block.Table
                     SelectedHigVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot, distributionId.GetHashCode(), "high"),
                     SelectedVhiVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot, distributionId.GetHashCode(), "very_high")
                 };
-                  
+
                 if (reportData.PreviousSnapshot != null)
                 {
                     values.PreviousLowVal = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot, distributionId.GetHashCode(), "low");
@@ -73,7 +73,7 @@ namespace CastReporting.Reporting.Block.Table
                 rowData.AddRange(values.GetComplexityAverage(Labels.ComplexityAverage));
                 rowData.AddRange(values.GetComplexityHigh(Labels.ComplexityHigh));
                 rowData.AddRange(values.GetComplexityExtreme(Labels.ComplexityExtreme));
-            } 
+            }
             else if (module && !techno)
             {
                 foreach (Module m in reportData.CurrentSnapshot.Modules)
@@ -101,7 +101,7 @@ namespace CastReporting.Reporting.Block.Table
                     rowData.AddRange(modValues.GetComplexityExtreme(Labels.ComplexityExtreme));
                 };
             }
-            else if (module && techno)            
+            else if (module && techno)
             {
                 foreach (Module m in reportData.CurrentSnapshot.Modules)
                 {
@@ -135,7 +135,7 @@ namespace CastReporting.Reporting.Block.Table
             }
             else if (!module && techno)
             {
-                foreach(string technology in reportData.CurrentSnapshot.Technologies)
+                foreach (string technology in reportData.CurrentSnapshot.Technologies)
                 {
                     ComplexityValuesDTO technoValues = new ComplexityValuesDTO
                     {

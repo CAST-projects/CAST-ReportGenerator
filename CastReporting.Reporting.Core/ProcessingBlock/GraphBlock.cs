@@ -13,6 +13,14 @@
  * limitations under the License.
  *
  */
+using Cast.Util.Log;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Helper;
+using CastReporting.Reporting.ReportingModel;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Drawing.Charts;
+using DocumentFormat.OpenXml.Packaging;
+using OpenXmlPowerTools;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,14 +30,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Xml.Linq;
-using Cast.Util.Log;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Helper;
-using CastReporting.Reporting.ReportingModel;
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Drawing.Charts;
-using DocumentFormat.OpenXml.Packaging;
-using OpenXmlPowerTools;
 using OXS = DocumentFormat.OpenXml.Spreadsheet;
 using OXW = DocumentFormat.OpenXml.Wordprocessing;
 // ReSharper disable UnusedParameter.Local
@@ -73,8 +73,8 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
             try
             {
                 if (null != content)
-                {                       
-                    ApplyContent(client, pPackage, block, content, options);                        
+                {
+                    ApplyContent(client, pPackage, block, content, options);
                 }
             }
             finally
@@ -94,7 +94,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
         [SuppressMessage("ReSharper", "RedundantAssignment")]
         private static void ApplyContent(ReportData pClient, OpenXmlPackage pPackage, BlockItem pBlock, TableDefinition pContent, Dictionary<string, string> pOptions)
         {
-           
+
             try
             {
                 string chartId = null;
@@ -419,7 +419,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
                 LogHelper.LogError("Unexpected exception thrown.", exception);
                 throw;
             }
-           
+
         }
 
         private static IEnumerable<XElement> GetElementsInPlaceHolder(ReportData pClient, IEnumerable<XElement> phElem)
@@ -438,13 +438,13 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
             switch (formatType)
             {
                 case FormatType.Word:
-                {
-                    if (!(block is OXW.SdtBlock)) return block.Select(_ => XElement.Parse(_.OuterXml));
-                    List<XElement> back = new List<XElement>();
-                    back.AddRange(block.Descendants<OXW.SdtContentBlock>().Select(_ => XElement.Parse(_.OuterXml)));
-                    back.AddRange(block.Descendants<OXW.SdtContentRun>().Select(_ => XElement.Parse(_.OuterXml)));
-                    return back;
-                }
+                    {
+                        if (!(block is OXW.SdtBlock)) return block.Select(_ => XElement.Parse(_.OuterXml));
+                        List<XElement> back = new List<XElement>();
+                        back.AddRange(block.Descendants<OXW.SdtContentBlock>().Select(_ => XElement.Parse(_.OuterXml)));
+                        back.AddRange(block.Descendants<OXW.SdtContentRun>().Select(_ => XElement.Parse(_.OuterXml)));
+                        return back;
+                    }
                 case FormatType.PowerPoint: { return block.Select(_ => XElement.Parse(_.OuterXml)); }
                 case FormatType.Excel: // TODO : Finalize Excel alimentation
                     { return null; }
@@ -526,7 +526,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
                             }
                             // ignore if mapped to a single cell of first row or first column
                             if (endCol - startCol == 0 && endRow - startRow == 0 && (startCol == 1 || startRow == 1))
-                            	continue;
+                                continue;
                             // otherwise this is mapped to a range: update
                             if (startCol == endCol && endRow != content.NbRows && startRow != endRow)
                             {
@@ -559,9 +559,9 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
                                 string sheetName;
                                 WorksheetPart sheet = WorksheetAccessorExt.GetFormula
                                     (spreadsheetDoc, formula.Value
-                                    ,out sheetName, out startRow
-                                    ,out startCol, out endRow
-                                    ,out endCol
+                                    , out sheetName, out startRow
+                                    , out startCol, out endRow
+                                    , out endCol
                                     );
                                 if (sheet != null)
                                 {

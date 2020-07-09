@@ -13,13 +13,13 @@
  * limitations under the License.
  *
  */
-using System;
-using System.Collections.Generic;
+using CastReporting.BLL.Computing;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
-using CastReporting.BLL.Computing;
+using CastReporting.Reporting.ReportingModel;
+using System;
+using System.Collections.Generic;
 
 namespace CastReporting.Reporting.Block.Text
 {
@@ -29,7 +29,7 @@ namespace CastReporting.Reporting.Block.Text
         #region METHODS
         public override string Content(ReportData reportData, Dictionary<string, string> options)
         {
-        	string res = string.Empty;
+            string res = string.Empty;
             if (reportData?.PreviousSnapshot == null) return string.IsNullOrEmpty(res) ? Domain.Constants.No_Value : res;
             DateTime? d = SnapshotUtility.GetSnapshotDate(reportData.PreviousSnapshot);
             if (d.HasValue) res = d.Value.ToString(Labels.FORMAT_LONG_DATE);

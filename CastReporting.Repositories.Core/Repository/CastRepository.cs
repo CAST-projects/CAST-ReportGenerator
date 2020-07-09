@@ -13,6 +13,12 @@
  * limitations under the License.
  *
  */
+using Cast.Util.Log;
+using CastReporting.Domain;
+using CastReporting.Domain.Core.DataObject;
+using CastReporting.Mediation;
+using CastReporting.Mediation.Interfaces;
+using CastReporting.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,12 +26,6 @@ using System.Linq;
 using System.Net;
 using System.Runtime.Serialization.Json;
 using System.Text;
-using Cast.Util.Log;
-using CastReporting.Domain;
-using CastReporting.Domain.Core.DataObject;
-using CastReporting.Mediation;
-using CastReporting.Mediation.Interfaces;
-using CastReporting.Repositories.Interfaces;
 // ReSharper disable InconsistentNaming
 
 
@@ -37,7 +37,7 @@ namespace CastReporting.Repositories
     public class CastRepository : ICastRepsitory
     {
         #region CONSTANTS
-        
+
         // Sometimes modules, technologies, snapshots, categories are null and the rest api 8.2 does not support it anymore for security reasons
         private const string _query_result_quality_indicators = "{0}/results?quality-indicators=({1})&select=(evolutionSummary,violationRatio)";
         private const string _query_result_sizing_measures = "{0}/results?sizing-measures=({1})";
@@ -81,7 +81,7 @@ namespace CastReporting.Repositories
         /// 
         /// </summary>
         protected ICastProxy _Client;
-        
+
         #endregion ATTRIBUTES
 
         #region PROPERTIES
@@ -89,14 +89,14 @@ namespace CastReporting.Repositories
         /// <summary>
         /// Get/Set the current connection.
         /// </summary>
-        protected string  _CurrentConnection;
+        protected string _CurrentConnection;
         public string CurrentConnection
         {
             get
             {
                 if (_CurrentConnection == null) throw new TypeLoadException("Rest connection not set");
                 return _CurrentConnection;
-            }           
+            }
         }
 
         protected bool _CurrentApiKey;
@@ -114,7 +114,7 @@ namespace CastReporting.Repositories
         public CastRepository(WSConnection connection, ICastProxy client)
         {
             _Client = new CastProxy(connection.Login, connection.Password, connection.ApiKey, connection.ServerCertificateValidation, client?.GetCookieContainer());
-            
+
             _CurrentConnection = connection.Url;
             _CurrentApiKey = connection.ApiKey;
         }
@@ -176,9 +176,9 @@ namespace CastReporting.Repositories
         /// <returns></returns>
         IEnumerable<CastDomain> ICastRepsitory.GetDomains()
         {
-            return ListSet<CastDomain>(string.Empty, string.Empty);           
+            return ListSet<CastDomain>(string.Empty, string.Empty);
         }
-            
+
         #endregion Databases
 
         #region Applications
@@ -265,11 +265,11 @@ namespace CastReporting.Repositories
             return CallWS<IEnumerable<Component>>(requestUrl, RequestComplexity.Long);
         }
 
-        IEnumerable<ComponentWithProperties> ICastRepsitory.GetComponentsWithProperties(string snapshothref, int bcId, string prop1 , string prop2, string order1, string order2, int count)
+        IEnumerable<ComponentWithProperties> ICastRepsitory.GetComponentsWithProperties(string snapshothref, int bcId, string prop1, string prop2, string order1, string order2, int count)
         {
             // rest api url : D/applications/A/snapshots/S/components/60017?properties=(cyclomaticComplexity,fanOut)&order=(desc(cyclomaticComplexity),desc(fanOut))&startRow=1&nbRows=50
             // _query_components_with_properties = {0}/components/{1}?properties=({2},{3})&order=({4})&startRow=1&nbRows={5}
-            string order = order1.ToLower() + "(" + prop1 + ")," + order2.ToLower() + "(" + prop2 + ")"; 
+            string order = order1.ToLower() + "(" + prop1 + ")," + order2.ToLower() + "(" + prop2 + ")";
             var requestUrl = string.Format(_query_components_with_properties, snapshothref, bcId, prop1, prop2, order, count);
 
             return CallWS<IEnumerable<ComponentWithProperties>>(requestUrl, RequestComplexity.Long);
@@ -278,7 +278,7 @@ namespace CastReporting.Repositories
         IEnumerable<Component> ICastRepsitory.GetComponentsByModule(string domainId, int moduleId, int snapshotId, string businessCriteria, int count)
         {
             var requestUrl = string.Format(_query_components_by_modules, domainId, moduleId, snapshotId, businessCriteria, count);
-            
+
             return CallWS<IEnumerable<Component>>(requestUrl, RequestComplexity.Long);
         }
 
@@ -301,7 +301,7 @@ namespace CastReporting.Repositories
         {
             var requestUrl = string.Format(_query_common_categories, "");
 
-            return CallWSJsonOnly(requestUrl, RequestComplexity.Standard); 
+            return CallWSJsonOnly(requestUrl, RequestComplexity.Standard);
         }
 
         string ICastRepsitory.GetCommonTagsJson()
@@ -349,7 +349,7 @@ namespace CastReporting.Repositories
 
         IEnumerable<Violation> ICastRepsitory.GetViolationsListIDbyBC(string snapshotHref, string RuleId, string bcId, int count, string technos)
         {
-            var requestUrl = count != -1 ? string.Format(_query_violations_list_by_rule_bcid, snapshotHref, RuleId, bcId, count,technos)
+            var requestUrl = count != -1 ? string.Format(_query_violations_list_by_rule_bcid, snapshotHref, RuleId, bcId, count, technos)
                     : string.Format(_query_violations_list_by_rule_bcid, snapshotHref, RuleId, bcId, "$all", technos);
 
             return CallWS<IEnumerable<Violation>>(requestUrl, RequestComplexity.Long);
@@ -358,7 +358,7 @@ namespace CastReporting.Repositories
         IEnumerable<Violation> ICastRepsitory.GetViolationsInActionPlan(string snapshotHref, int count)
         {
             var requestUrl = count != -1 ? string.Format(_query_action_plan_issues, snapshotHref, count)
-                : string.Format(_query_action_plan_issues, snapshotHref, "$all") ;
+                : string.Format(_query_action_plan_issues, snapshotHref, "$all");
 
             return CallWS<IEnumerable<Violation>>(requestUrl, RequestComplexity.Long);
         }
@@ -424,7 +424,7 @@ namespace CastReporting.Repositories
             }
 
             var requestUrl = string.Format(_query_result_rules_violations, snapshotHRef, criticity, businessCriteria);
-            
+
             return CallWS<IEnumerable<Result>>(requestUrl, RequestComplexity.Long);
         }
 
@@ -433,7 +433,7 @@ namespace CastReporting.Repositories
             string query = _query_removed_violations_by_bcid;
             if (criticity == null || criticity.Equals(string.Empty)) criticity = "all";
             switch (criticity)
-        {
+            {
                 case "c":
                     query += "rule-pattern=(cc:{1})";
                     break;
@@ -443,8 +443,8 @@ namespace CastReporting.Repositories
                 default:
                     query += "rule-pattern=(cc:{1},nc:{1})";
                     break;
-             }
-            query += count == -1 ?"&nbRows=$all" : $"&nbRows={count}";
+            }
+            query += count == -1 ? "&nbRows=$all" : $"&nbRows={count}";
             var requestUrl = string.Format(query, snapshotHRef, businessCriteria);
             return CallWS<IEnumerable<Violation>>(requestUrl, RequestComplexity.Long);
         }
@@ -483,7 +483,7 @@ namespace CastReporting.Repositories
         {
             var requestUrl = string.Format(_query_action_plan, snapshotHRef);
             var requestUrl2 = string.Format(_query_action_plan2, snapshotHRef);
-            
+
             try
             {
                 return CallWS<IEnumerable<ActionPlan>>(requestUrl, RequestComplexity.Long);
@@ -593,7 +593,7 @@ namespace CastReporting.Repositories
 
             return CallWS<IEnumerable<Result>>(relativeURL, RequestComplexity.Long);
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -705,7 +705,7 @@ namespace CastReporting.Repositories
         /// <param name="snapshotId"></param>
         /// <returns></returns>
         IEnumerable<QIBusinessCriteria> ICastRepsitory.GetConfBusinessCriteriaBySnapshot(string domainHRef, long snapshotId)
-        {                    
+        {
             return ListConfiguration<QIBusinessCriteria>(domainHRef, snapshotId, "business-criteria");
         }
 
@@ -726,7 +726,7 @@ namespace CastReporting.Repositories
         /// <returns></returns>
         private T CallWS<T>(string relativeURL, RequestComplexity pComplexity) where T : class
         {
-             var requestUrl = _CurrentConnection.EndsWith("/") ? _CurrentConnection.Substring(0, _CurrentConnection.Length - 1) : _CurrentConnection;
+            var requestUrl = _CurrentConnection.EndsWith("/") ? _CurrentConnection.Substring(0, _CurrentConnection.Length - 1) : _CurrentConnection;
             requestUrl += "/";
             requestUrl += relativeURL.StartsWith("/") ? relativeURL.Substring(1) : relativeURL;
 
@@ -762,7 +762,7 @@ namespace CastReporting.Repositories
             {
                 LogHelper.LogError(e.Message);
             }
-            
+
             return jsonString;
         }
 
@@ -836,15 +836,15 @@ namespace CastReporting.Repositories
         /// <param name="pSetName"></param>
         /// <returns></returns>
         private IEnumerable<T> ListSet<T>(string pRelativeUrl, string pSetName) where T : class
-        {           
-             string url = string.Empty;
+        {
+            string url = string.Empty;
 
-            if (!string.IsNullOrEmpty(pRelativeUrl)) url = pRelativeUrl; 
-                
-            if(!string.IsNullOrEmpty(pSetName)) url += "/" + pSetName;
+            if (!string.IsNullOrEmpty(pRelativeUrl)) url = pRelativeUrl;
+
+            if (!string.IsNullOrEmpty(pSetName)) url += "/" + pSetName;
 
             return CallWS<IEnumerable<T>>(url, RequestComplexity.Standard);
-           
+
         }
 
         /// <summary>
@@ -871,11 +871,11 @@ namespace CastReporting.Repositories
         /// <returns></returns>
         private T Get<T>(string id) where T : class
         {
-             return CallWS<T>(id, RequestComplexity.Standard);                     
+            return CallWS<T>(id, RequestComplexity.Standard);
         }
 
         #endregion
 
-      
+
     }
 }

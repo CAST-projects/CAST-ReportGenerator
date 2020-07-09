@@ -1,6 +1,6 @@
-﻿using System;
+﻿using CastReporting.Domain;
+using System;
 using System.Collections.Generic;
-using CastReporting.Domain;
 
 
 namespace CastReporting.Repositories.Interfaces
@@ -202,7 +202,7 @@ namespace CastReporting.Repositories.Interfaces
         /// </summary>
         /// <returns></returns>
         IEnumerable<CommonCategories> GetCommonCategories();
-        
+
         string GetCommonCategoriesJson();
 
 

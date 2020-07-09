@@ -14,15 +14,15 @@
  * limitations under the License.
  *
  */
+using CastReporting.BLL.Computing;
+using CastReporting.Domain;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
-using CastReporting.Domain;
-using CastReporting.BLL.Computing;
 
 namespace CastReporting.Reporting.Block.Graph
 {
@@ -30,7 +30,7 @@ namespace CastReporting.Reporting.Block.Graph
     public class CastDistribution : GraphBlock
     {
 
-     
+
 
         #region METHODS
 
@@ -56,8 +56,8 @@ namespace CastReporting.Reporting.Block.Graph
             else
                 distributionId = Constants.QualityDistribution.CostComplexityDistribution;
 
-           
-           
+
+
             if (reportData.CurrentSnapshot != null)
             {
                 var selectedName = reportData.CurrentSnapshot.Annotation.Version;
@@ -67,13 +67,13 @@ namespace CastReporting.Reporting.Block.Graph
                 var selectedLowVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
                     distributionId.GetHashCode(), "low");
                 var selectedAveVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                    distributionId.GetHashCode(),"average");
+                    distributionId.GetHashCode(), "average");
                 var selectedHigVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                    distributionId.GetHashCode(),"high");
+                    distributionId.GetHashCode(), "high");
                 var selectedVhiVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                    distributionId.GetHashCode(),"very_high");
+                    distributionId.GetHashCode(), "very_high");
 
-               
+
 
                 #endregion Selected Snapshot
 
@@ -97,7 +97,7 @@ namespace CastReporting.Reporting.Block.Graph
                                                                                     distributionId.GetHashCode(),
                                                                                     "very_high");
 
-                                     
+
                 }
 
                 #endregion Previous Snapshot
@@ -105,7 +105,7 @@ namespace CastReporting.Reporting.Block.Graph
                 #region Data
                 rowData.Add(" ");
                 rowData.Add(selectedName);
-                if (hasPreviousSnapshot) rowData.Add(previousName); 
+                if (hasPreviousSnapshot) rowData.Add(previousName);
 
                 rowData.Add(" ");
                 rowData.Add("0");
@@ -113,19 +113,19 @@ namespace CastReporting.Reporting.Block.Graph
 
                 rowData.Add(Labels.CplxLow);
                 rowData.Add(selectedLowVal.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));
-                if (hasPreviousSnapshot) rowData.Add(previousLowVal.GetValueOrDefault().ToString(CultureInfo.CurrentCulture)); 
+                if (hasPreviousSnapshot) rowData.Add(previousLowVal.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));
 
                 rowData.Add(Labels.CplxAverage);
                 rowData.Add(selectedAveVal.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));
-                if (hasPreviousSnapshot) rowData.Add(previousAveVal.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));               
+                if (hasPreviousSnapshot) rowData.Add(previousAveVal.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));
 
                 rowData.Add(Labels.CplxHigh);
-                rowData.Add(selectedHigVal.GetValueOrDefault().ToString(CultureInfo.CurrentCulture) );
-                if (hasPreviousSnapshot) rowData.Add(previousHigVal.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));                      
+                rowData.Add(selectedHigVal.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));
+                if (hasPreviousSnapshot) rowData.Add(previousHigVal.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));
 
                 rowData.Add(Labels.CplxVeryHigh);
-                rowData.Add(selectedVhiVal.GetValueOrDefault().ToString(CultureInfo.CurrentCulture) );
-                if (hasPreviousSnapshot) rowData.Add(previousVhiVal.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));    
+                rowData.Add(selectedVhiVal.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));
+                if (hasPreviousSnapshot) rowData.Add(previousVhiVal.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));
 
                 rowData.Add(" ");
                 rowData.Add("0");

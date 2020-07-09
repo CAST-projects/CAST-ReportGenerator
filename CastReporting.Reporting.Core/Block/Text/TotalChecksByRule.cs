@@ -14,14 +14,14 @@
  *
  */
 
-using System.Collections.Generic;
-using System.Linq;
+using CastReporting.BLL.Computing;
 using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Helper;
-using CastReporting.BLL.Computing;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CastReporting.Reporting.Block.Text
 {
@@ -31,7 +31,7 @@ namespace CastReporting.Reporting.Block.Text
         #region METHODS
         public override string Content(ReportData reportData, Dictionary<string, string> options)
         {
-            string strRuleId = options.GetOption("RULID",string.Empty);
+            string strRuleId = options.GetOption("RULID", string.Empty);
             string _snapshot = options.GetOption("SNAPSHOT", "CURRENT");
 
             if (reportData?.CurrentSnapshot == null || string.IsNullOrEmpty(strRuleId)) return Constants.No_Value;

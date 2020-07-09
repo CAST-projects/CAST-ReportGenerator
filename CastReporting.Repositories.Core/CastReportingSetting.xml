@@ -13,6 +13,7 @@
     <PortfolioFolderNamePath></PortfolioFolderNamePath>
 	  <ApplicationFolderNamePath></ApplicationFolderNamePath>
     <CultureName>en-US</CultureName>
+    <ExtendUrl>https://extendng.castsoftware.com</ExtendUrl>
 	</ReportingParameter>
 	<WSConnections />
 </Setting>

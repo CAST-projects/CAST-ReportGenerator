@@ -13,14 +13,14 @@
  * limitations under the License.
  *
  */
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
-using System.Globalization;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace CastReporting.Reporting.Block.Graph
@@ -36,11 +36,11 @@ namespace CastReporting.Reporting.Block.Graph
 
             List<string> rowData = new List<string>();
             rowData.AddRange(new[] {
-				Labels.TQI ,
-				Labels.ViolationsCritical + "/" + Labels.kLoC ,
-				Labels.AutomatedFP,
+                Labels.TQI ,
+                Labels.ViolationsCritical + "/" + Labels.kLoC ,
+                Labels.AutomatedFP,
                 Labels.Application
-			});
+            });
 
             #region Fetch SnapshotsPF
 

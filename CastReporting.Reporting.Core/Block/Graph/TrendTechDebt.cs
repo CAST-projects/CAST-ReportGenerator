@@ -14,18 +14,18 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
-using System.Linq;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace CastReporting.Reporting.Block.Graph
-{ 
+{
     [Block("TREND_TECH_DEBT")]
     public class TrendTechDebt : GraphBlock
     {
@@ -34,37 +34,37 @@ namespace CastReporting.Reporting.Block.Graph
 
         public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
-           
+
             int count = 0;
 
             var rowData = new List<string>();
-			rowData.AddRange(new[] {
-				" ",
-				Labels.DebtRemoved + " (" + reportData.CurrencySymbol + ")",
-				Labels.DebtAdded + " (" + reportData.CurrencySymbol + ")",
-				Labels.Debt + " (" + reportData.CurrencySymbol + ")"
-			}); 
+            rowData.AddRange(new[] {
+                " ",
+                Labels.DebtRemoved + " (" + reportData.CurrencySymbol + ")",
+                Labels.DebtAdded + " (" + reportData.CurrencySymbol + ")",
+                Labels.Debt + " (" + reportData.CurrencySymbol + ")"
+            });
 
             #region Fetch Snapshots
-			int nbSnapshots = reportData.Application?.Snapshots.Count() ?? 0;
-			if (nbSnapshots > 0)
-			{
-			    var _snapshots = reportData.Application?.Snapshots.OrderBy(_ => _.Annotation.Date.DateSnapShot);
-			    if (_snapshots != null)
-			        foreach (Snapshot snapshot in _snapshots)
+            int nbSnapshots = reportData.Application?.Snapshots.Count() ?? 0;
+            if (nbSnapshots > 0)
+            {
+                var _snapshots = reportData.Application?.Snapshots.OrderBy(_ => _.Annotation.Date.DateSnapShot);
+                if (_snapshots != null)
+                    foreach (Snapshot snapshot in _snapshots)
                     {
-			            double? prevDoubleSnapshotDate = snapshot.Annotation.Date.DateSnapShot?.ToOADate() ?? 0;
-			            double? prevRemovedTechDebtValue = MeasureUtility.GetRemovedTechDebtMetric(snapshot) * -1;
-			            double? prevAddedTechDebtValue = MeasureUtility.GetAddedTechDebtMetric(snapshot);
-			            double? prevTotalTechDebtValue = MeasureUtility.GetTechnicalDebtMetric(snapshot);
+                        double? prevDoubleSnapshotDate = snapshot.Annotation.Date.DateSnapShot?.ToOADate() ?? 0;
+                        double? prevRemovedTechDebtValue = MeasureUtility.GetRemovedTechDebtMetric(snapshot) * -1;
+                        double? prevAddedTechDebtValue = MeasureUtility.GetAddedTechDebtMetric(snapshot);
+                        double? prevTotalTechDebtValue = MeasureUtility.GetTechnicalDebtMetric(snapshot);
 
                         rowData.Add(prevDoubleSnapshotDate.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));
                         rowData.Add(prevRemovedTechDebtValue.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));
                         rowData.Add(prevAddedTechDebtValue.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));
                         rowData.Add(prevTotalTechDebtValue.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));
-			        }
-			    count = nbSnapshots;
-			}
+                    }
+                count = nbSnapshots;
+            }
             #endregion Previous Snapshots
 
             #region just 1 snapshot
@@ -83,8 +83,9 @@ namespace CastReporting.Reporting.Block.Graph
                 count = count + 1;
             }
             #endregion just 1 snapshot
-            
-            TableDefinition resultTable = new TableDefinition {
+
+            TableDefinition resultTable = new TableDefinition
+            {
                 HasRowHeaders = true,
                 HasColumnHeaders = false,
                 NbRows = count + 1,
@@ -94,9 +95,9 @@ namespace CastReporting.Reporting.Block.Graph
             };
             return resultTable;
         }
-       
+
         #endregion METHODS
- 
+
     }
 }
 

@@ -15,13 +15,19 @@
         </Style>
     </Page.Resources>
 
-    <StackPanel Orientation="Vertical"  HorizontalAlignment="Center"  Margin="40,40,-85,-170" Width="600" >
-
+    <StackPanel Orientation="Vertical"  HorizontalAlignment="Center"  Margin="-20,40,-85,-170" Width="600" >
         <TextBlock Text="{x:Static label:Messages.lblAboutTitle}" />
 
-        <TextBlock Text="{x:Static page:About.lblAboutVersion}" />
+        <TextBlock Text="{x:Static page:About.LblAboutVersion}" />
         <TextBlock Text="{x:Static label:Messages.lblAboutCopyright}" />
-        <Image Source="/CastReporting.UI.WPF.Core;component/Resources/Images/splash.png" Height="300" Width="500"  Margin="-20,40,100,0"  />
+        <TextBlock Text="{x:Static label:Messages.lblReleaseNotes}" MouseLeftButtonDown="TextBoxRN_MouseLeftButtonDown" TextDecorations="Underline"/>
+        <StackPanel Orientation="Vertical" Width="500">
+            <TextBlock Text="{x:Static page:About.AboutVersionInformation}" 
+                       TextWrapping="Wrap"  
+                       MouseLeftButtonDown="TextBoxExtend_MouseLeftButtonDown"
+                       TextAlignment="Center"/>
+        </StackPanel>
+        <Image Source="/CastReporting.UI.WPF.Core;component/Resources/Images/splash.png" Height="300" Width="500"  Margin="50,50,100,0"  />
 
 
 

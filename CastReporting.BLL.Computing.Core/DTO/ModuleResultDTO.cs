@@ -16,15 +16,15 @@
 
 namespace CastReporting.BLL.Computing
 {
-   public class ModuleResultDTO
+    public class ModuleResultDTO
     {
         /// <summary>
         /// 
         /// </summary>
         public string Name { get; set; }
-       /// <summary>
-       /// 
-       /// </summary>
+        /// <summary>
+        /// 
+        /// </summary>
         public double? Value { get; set; }
     }
 }

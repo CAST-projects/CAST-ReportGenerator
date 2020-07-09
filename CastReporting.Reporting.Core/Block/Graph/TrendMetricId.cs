@@ -4,28 +4,28 @@
  *
  */
 
+using CastReporting.BLL.Computing;
 using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Helper;
 using CastReporting.Reporting.ReportingModel;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using CastReporting.BLL.Computing;
-using CastReporting.Reporting.Helper;
 
 namespace CastReporting.Reporting.Block.Graph
 {
-   
+
     [Block("TREND_METRIC_ID")]
     public class TrendMetricId : GraphBlock
     {
-     
+
         #region METHODS
 
         public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
-            int count = 0;         
+            int count = 0;
 
             string[] qidList = options.GetOption("QID")?.Split('|');
             string[] sidList = options.GetOption("SID")?.Split('|');
@@ -36,7 +36,7 @@ namespace CastReporting.Reporting.Block.Graph
 
             #region get Metric names
 
-            Dictionary<string,string> names = new Dictionary<string, string>();
+            Dictionary<string, string> names = new Dictionary<string, string>();
 
             if (qidList != null)
             {
@@ -134,7 +134,7 @@ namespace CastReporting.Reporting.Block.Graph
 
             #region just 1 snapshot
             // if there is only one snapshot, a fake snapshot is added with same data to have a line and not a point in the graph
-			if (count == 1)
+            if (count == 1)
             {
                 string[] range = new string[names.Count + 1];
 
@@ -144,14 +144,15 @@ namespace CastReporting.Reporting.Block.Graph
                 }
 
                 rowData.AddRange(range);
-                count = count +1;
+                count = count + 1;
             }
             #endregion just 1 snapshot
-            
-            TableDefinition resultTable = new TableDefinition {
+
+            TableDefinition resultTable = new TableDefinition
+            {
                 HasRowHeaders = true,
                 HasColumnHeaders = false,
-                NbRows =count + 1 ,
+                NbRows = count + 1,
                 NbColumns = names.Count + 1,
                 Data = rowData
             };

@@ -16,7 +16,7 @@
 
 namespace CastReporting.BLL.Computing
 {
-   public class TransactionDetailsDTO
+    public class TransactionDetailsDTO
     {
         public string HRef { get; set; }
 

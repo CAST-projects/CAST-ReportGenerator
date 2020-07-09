@@ -15,18 +15,18 @@
  *
  */
 
-using System.Collections.Generic;
-using System.Linq;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Linq;
 namespace CastReporting.Reporting.Block.Graph
 {
-	[Block("RADAR_HEALTH_FACTOR_2_LAST_SNAPSHOTS"), Block("RADAR_HEALTH_FACTOR_2_SNAPSHOTS")]
-	public class RadarHealthFactor2LastSnapshots : GraphBlock
+    [Block("RADAR_HEALTH_FACTOR_2_LAST_SNAPSHOTS"), Block("RADAR_HEALTH_FACTOR_2_SNAPSHOTS")]
+    public class RadarHealthFactor2LastSnapshots : GraphBlock
     {
         public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
@@ -54,7 +54,7 @@ namespace CastReporting.Reporting.Block.Graph
             }
 
 
-            var rowData = new List<string> {null, currSnapshotLabel};
+            var rowData = new List<string> { null, currSnapshotLabel };
             if (prevSnapshotBCResult != null) { rowData.Add(prevSnapshotLabel ?? Constants.No_Value); }
 
 
@@ -85,7 +85,7 @@ namespace CastReporting.Reporting.Block.Graph
             #region Security
             rowData.Add(Labels.Secu);
             rowData.Add(_currSnapshotBcdto.Security.ToString());
-            if (prevSnapshotBCResult != null) { rowData.Add(prevSnapshotBCResult.Security.ToString()); }              
+            if (prevSnapshotBCResult != null) { rowData.Add(prevSnapshotBCResult.Security.ToString()); }
             #endregion Security
 
             TableDefinition resultTable = new TableDefinition
@@ -99,7 +99,7 @@ namespace CastReporting.Reporting.Block.Graph
 
             return resultTable;
         }
-     
+
     }
 
 }

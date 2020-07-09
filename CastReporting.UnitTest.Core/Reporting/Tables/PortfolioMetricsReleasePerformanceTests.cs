@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CastReporting.Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Table;
 using CastReporting.Reporting.ReportingModel;
-using Cast.Util;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {
@@ -58,15 +57,15 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
 
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> { "Metrics", "Previous score", "Target score" ,"Current score", "SLA Violations" });
+            expectedData.AddRange(new List<string> { "Metrics", "Previous score", "Target score", "Current score", "SLA Violations" });
             expectedData.AddRange(new List<string> { "Efficiency", "1.85", "2.90", "1.84", "Poor" });
             expectedData.AddRange(new List<string> { "Changeability", "2.35", "2.90", "2.37", "Poor" });
-            expectedData.AddRange(new List<string> { "Total Quality Index", "2.62","2.90","2.63","Poor" });
+            expectedData.AddRange(new List<string> { "Total Quality Index", "2.62", "2.90", "2.63", "Poor" });
             TestUtility.AssertTableContent(table, expectedData, 5, 4);
             Assert.IsTrue(table.HasColumnHeaders);
         }
 
-        
+
         [TestMethod]
         [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
         [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
@@ -158,7 +157,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             _snapshots[0] = _snap0;
             reportData.Snapshots = _snapshots;
             reportData.Applications[0].Snapshots = _snapshots;
-            
+
             var component = new PortfolioMetricsReleasePerformance();
             Dictionary<string, string> config = new Dictionary<string, string>
             {

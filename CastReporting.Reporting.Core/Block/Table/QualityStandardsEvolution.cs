@@ -13,16 +13,16 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
-using System.Linq;
 using Cast.Util.Log;
 using Cast.Util.Version;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
-using CastReporting.Domain;
 using CastReporting.Reporting.Helper;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Linq;
 
 
 namespace CastReporting.Reporting.Block.Table
@@ -37,7 +37,7 @@ namespace CastReporting.Reporting.Block.Table
             bool vulnerability = options.GetOption("LBL", "vulnerabilities").ToLower().Equals("vulnerabilities");
             string displayAddedRemoved = reportData.PreviousSnapshot != null ? "true" : "false";
             bool displayEvolution = options.GetOption("EVOLUTION", displayAddedRemoved).ToLower().Equals("true");
-            bool displayHeader = !options.GetOption("HEADER","YES").ToUpper().Equals("NO");
+            bool displayHeader = !options.GetOption("HEADER", "YES").ToUpper().Equals("NO");
 
             string lbltotal = vulnerability ? Labels.TotalVulnerabilities : Labels.TotalViolations;
             string lbladded = vulnerability ? Labels.AddedVulnerabilities : Labels.AddedViolations;
@@ -45,7 +45,7 @@ namespace CastReporting.Reporting.Block.Table
 
             string indicatorName = int.TryParse(standard, out int id) ?
                 reportData.CurrentSnapshot.BusinessCriteriaResults.Where(_ => _.Reference.Key == id).Select(_ => _.Reference.Name).FirstOrDefault()
-    :           standard;
+    : standard;
 
             // cellProps will contains the properties of the cell (background color) linked to the data by position in the list stored with cellidx.
             List<CellAttributes> cellProps = new List<CellAttributes>();
@@ -106,8 +106,8 @@ namespace CastReporting.Reporting.Block.Table
                 // so if MORE=true, we do not get the results for CISQ, but we search for all CISQ-xxx BCs
                 if (detail)
                 {
-                    List<ApplicationResult> bcresults = reportData.CurrentSnapshot.BusinessCriteriaResults.Where(_ => _.Reference.ShortName.Contains(indicatorName + "-")).OrderByDescending(_=>_.DetailResult.EvolutionSummary.TotalViolations).ToList();
-                    foreach(ApplicationResult bcres in bcresults)
+                    List<ApplicationResult> bcresults = reportData.CurrentSnapshot.BusinessCriteriaResults.Where(_ => _.Reference.ShortName.Contains(indicatorName + "-")).OrderByDescending(_ => _.DetailResult.EvolutionSummary.TotalViolations).ToList();
+                    foreach (ApplicationResult bcres in bcresults)
                     {
                         string bcName = bcres.Reference.Name;
                         int? nbbcViolations = bcres.DetailResult?.EvolutionSummary?.TotalViolations;
@@ -115,7 +115,7 @@ namespace CastReporting.Reporting.Block.Table
 
                         List<int?> technicalCriterionIds = reportData.RuleExplorer.GetCriteriaContributors(reportData.CurrentSnapshot.DomainId, bcres.Reference.Key.ToString(), reportData.CurrentSnapshot.Id).Select(_ => _.Key).ToList();
                         List<ApplicationResult> tcResults = technicalCriterionIds.Count > 0 ?
-                            reportData.CurrentSnapshot.TechnicalCriteriaResults.Where(_ => technicalCriterionIds.Contains(_.Reference.Key)).OrderByDescending(_=>_.DetailResult.EvolutionSummary.TotalViolations).ToList()
+                            reportData.CurrentSnapshot.TechnicalCriteriaResults.Where(_ => technicalCriterionIds.Contains(_.Reference.Key)).OrderByDescending(_ => _.DetailResult.EvolutionSummary.TotalViolations).ToList()
                             : null;
                         if (tcResults?.Count > 0)
                         {
@@ -132,7 +132,7 @@ namespace CastReporting.Reporting.Block.Table
                 {
                     List<int?> technicalCriterionIds = reportData.RuleExplorer.GetCriteriaContributors(reportData.CurrentSnapshot.DomainId, metricBcIdFromName.ToString(), reportData.CurrentSnapshot.Id).Select(_ => _.Key).ToList();
                     List<ApplicationResult> tcResults = technicalCriterionIds.Count > 0 ?
-                        reportData.CurrentSnapshot.TechnicalCriteriaResults.Where(_ => technicalCriterionIds.Contains(_.Reference.Key)).OrderByDescending(_=>_.DetailResult.EvolutionSummary.TotalViolations).ToList()
+                        reportData.CurrentSnapshot.TechnicalCriteriaResults.Where(_ => technicalCriterionIds.Contains(_.Reference.Key)).OrderByDescending(_ => _.DetailResult.EvolutionSummary.TotalViolations).ToList()
                         : null;
                     if (tcResults?.Count > 0)
                     {

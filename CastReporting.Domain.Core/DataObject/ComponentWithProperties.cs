@@ -27,7 +27,7 @@ namespace CastReporting.Domain
         /// 
         /// </summary>
         [DataMember(Name = "name")]
-        public string Name {get;set;}
+        public string Name { get; set; }
 
         [DataMember(Name = "href")]
         public string Href { get; set; }
@@ -40,7 +40,7 @@ namespace CastReporting.Domain
 
         [DataMember(Name = "codeLines")]
         public double? CodeLines { get; set; }
-        
+
         [DataMember(Name = "commentedCodeLines")]
         public double? CommentedCodeLines { get; set; }
 

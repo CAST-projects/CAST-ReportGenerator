@@ -14,12 +14,12 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
 using CastReporting.BLL.Computing;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
 
 namespace CastReporting.Reporting.Block.Table
 {
@@ -50,14 +50,14 @@ namespace CastReporting.Reporting.Block.Table
             {
                 rowData.AddRange(_intLocFlag == 1 ? new[] { Labels.Name } : new[] { Labels.Name, Labels.LoC });
             }
-            
+
             if (reportData.CurrentSnapshot?.Technologies != null)
             {
                 var technologyInfos = MeasureUtility.GetTechnoLoc(reportData.CurrentSnapshot, nbResult);
 
                 foreach (var elt in technologyInfos)
                 {
-                    rowData.AddRange(_intLocFlag == 1 ? new[] {elt.Name} : new[] {elt.Name, elt.Value?.ToString("N0")});
+                    rowData.AddRange(_intLocFlag == 1 ? new[] { elt.Name } : new[] { elt.Name, elt.Value?.ToString("N0") });
                 }
                 nbTot = technologyInfos.Count;
             }
@@ -72,6 +72,6 @@ namespace CastReporting.Reporting.Block.Table
             };
             return resultTable;
         }
-            #endregion METHODS
+        #endregion METHODS
     }
 }

@@ -44,8 +44,8 @@ namespace CastReporting.Domain
 
 
             return Href != null &&
-                   ((RuleDetails) obj).Href != null &&
-                   Href.Equals(((RuleDetails) obj).Href);
+                   ((RuleDetails)obj).Href != null &&
+                   Href.Equals(((RuleDetails)obj).Href);
         }
 
         /// <summary>

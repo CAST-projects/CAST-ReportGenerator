@@ -14,13 +14,13 @@
  *
  */
 
-using System.Collections.Generic;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Reporting.Core.Languages;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
 
 
 namespace CastReporting.Reporting.Block.Table
@@ -38,10 +38,10 @@ namespace CastReporting.Reporting.Block.Table
             double? numCritPerFile = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, Constants.SizingInformations.ViolationsToCriticalQualityRulesPerFileNumber);
             double? _numCritPerKloc = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, Constants.SizingInformations.ViolationsToCriticalQualityRulesPerKLOCNumber);
 
-            double? veryHighCostComplexityViolations = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,Constants.
+            double? veryHighCostComplexityViolations = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot, Constants.
                     QualityDistribution.DistributionOfDefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.GetHashCode(),
                 Constants.DefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.CostComplexityDefects_VeryHigh.GetHashCode());
-                
+
             double? highCostComplexityViolations = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
                 Constants.QualityDistribution.DistributionOfDefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.GetHashCode(),
                 Constants.DefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.CostComplexityDefects_High.GetHashCode());
@@ -49,12 +49,12 @@ namespace CastReporting.Reporting.Block.Table
             double? veryHighCostComplexityArtefacts = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
                 Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
                 Constants.CostComplexity.CostComplexityArtifacts_VeryHigh.GetHashCode());
-                
+
             double? highCostComplexityArtefacts = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
                 Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
                 Constants.CostComplexity.CostComplexityArtifacts_High.GetHashCode());
 
-        
+
             double? nbComplexityArtefacts = MathUtility.GetSum(veryHighCostComplexityArtefacts, highCostComplexityArtefacts);
             double? nbComplexityArtefactsViolation = MathUtility.GetSum(veryHighCostComplexityViolations, highCostComplexityViolations);
 
@@ -69,12 +69,12 @@ namespace CastReporting.Reporting.Block.Table
                 numCritPerFileIfNegative = Constants.No_Value;
             else
                 numCritPerFileIfNegative = numCritPerFile?.ToString(metricFormatPrecision) ?? Constants.No_Value;
-                
+
             var rowData = new List<string>
-            { 
+            {
                 Labels.Name
                 , Labels.Value
-                    
+
                 , Labels.ViolationsCritical
                 , criticalViolation?.ToString(metricFormat) ?? Constants.No_Value
 
@@ -86,11 +86,11 @@ namespace CastReporting.Reporting.Block.Table
 
                 , Labels.ComplexObjects
                 , nbComplexityArtefacts?.ToString(metricFormat) ?? Constants.No_Value
-                
+
                 , "  " + Labels.WithViolations
                 , nbComplexityArtefactsViolation?.ToString(metricFormat) ?? Constants.No_Value
             };
-                
+
             var resultTable = new TableDefinition
             {
                 HasRowHeaders = true,

@@ -34,7 +34,7 @@ namespace CastReporting.Domain
 
         [DataMember(Name = "violationsInNewAndModifiedCode")]
         public int? ViolationsInNewAndModifiedCode { get; set; }
-        
+
         [DataMember(Name = "totalViolations")]
         public int? TotalViolations { get; set; }
 

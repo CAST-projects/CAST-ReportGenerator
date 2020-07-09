@@ -13,31 +13,31 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
-using System.Linq;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Helper;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Linq;
 // ReSharper disable InconsistentNaming
 
 namespace CastReporting.Reporting.Block.Text
 {
-	[Block("APPLICATION_RULE"), Block("APPLICATION_METRIC")]
+    [Block("APPLICATION_RULE"), Block("APPLICATION_METRIC")]
     public class ApplicationRule : TextBlock
     {
         #region METHODS
         public override string Content(ReportData reportData, Dictionary<string, string> options)
         {
-          
+
             int metricId = options.GetIntOption("ID");
             int metricSzId = options.GetIntOption("SZID");
             int metricBfId = options.GetIntOption("BFID");
             string _format = options.GetOption("FORMAT", "N0");
             string _snapshot = options.GetOption("SNAPSHOT", "CURRENT");
-           
+
             if (reportData?.CurrentSnapshot != null && metricId != 0)
             {
                 if (_snapshot == "PREVIOUS")

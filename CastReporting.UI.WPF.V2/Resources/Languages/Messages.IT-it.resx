@@ -354,4 +354,16 @@
   <data name="msgServiceShouldBeRevalidated" xml:space="preserve">
     <value>Per favore riconvalida la tua connessione al servizio web, sembra che tu non sia più connesso.</value>
   </data>
+  <data name="extendUnavailable" xml:space="preserve">
+    <value>Impossibile connettersi al server Extend. Impossibile recuperare le informazioni di aggiornamento.</value>
+  </data>
+  <data name="rgVersionOutdated" xml:space="preserve">
+    <value>Una nuova versione di Generatore report è disponibile sul server Extend, puoi scaricarla qui:</value>
+  </data>
+  <data name="rgVersionUpTodate" xml:space="preserve">
+    <value>La versione di Generatore report attualmente in uso è aggiornata.</value>
+  </data>
+  <data name="lblReleaseNotes" xml:space="preserve">
+    <value>Note di rilascio</value>
+  </data>
 </root>

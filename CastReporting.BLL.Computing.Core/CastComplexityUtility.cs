@@ -152,6 +152,6 @@ namespace CastReporting.BLL.Computing
             var result = snapshot.CostComplexityResults.FirstOrDefault(_ => _.Reference.Key == categorieId);
             return result?.Reference?.Name;
         }
-       
+
     }
 }

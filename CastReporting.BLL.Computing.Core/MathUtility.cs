@@ -59,7 +59,7 @@ namespace CastReporting.BLL.Computing
         /// <returns></returns>
         public static double? GetPercent(double? value, double? reference)
         {
-            return value.HasValue && reference.HasValue && Math.Abs(reference.Value) > 0 ? value.Value / reference.Value :(double?) null;
+            return value.HasValue && reference.HasValue && Math.Abs(reference.Value) > 0 ? value.Value / reference.Value : (double?)null;
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace CastReporting.BLL.Computing
             return variaton.HasValue && prevMesure.HasValue && prevMesure.Value > 0 ? variaton / prevMesure : null;
         }
 
-        
+
 
 
         /// <summary>

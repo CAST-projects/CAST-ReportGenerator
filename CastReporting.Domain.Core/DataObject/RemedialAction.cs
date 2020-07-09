@@ -19,6 +19,6 @@ namespace CastReporting.Domain
 
         [DataMember(Name = "dates")]
         public RemedialDates Dates { get; set; }
-        
+
     }
 }

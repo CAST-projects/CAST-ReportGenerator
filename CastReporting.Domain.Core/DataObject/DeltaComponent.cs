@@ -27,7 +27,7 @@ namespace CastReporting.Domain
         public string Href { get; set; }
 
         [DataMember(Name = "name")]
-        public string Name {get;set;}
+        public string Name { get; set; }
 
         [DataMember(Name = "shortName")]
         public string ShortName { get; set; }

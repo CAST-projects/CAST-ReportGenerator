@@ -20,7 +20,7 @@ namespace CastReporting.Domain
     /// <summary>
     /// 
     /// </summary>
-   [DataContract(Name = "ModuleResult")]
+    [DataContract(Name = "ModuleResult")]
     public class ModuleResult
     {
 
@@ -35,19 +35,19 @@ namespace CastReporting.Domain
         /// </summary>
         [DataMember(Name = "number")]
         public int? Number { get; set; }
-                      
+
         /// <summary>
         /// 
         /// </summary>
-         [DataMember(Name = "result")]
-        public ResultDetail DetailResult{get;set;}
+        [DataMember(Name = "result")]
+        public ResultDetail DetailResult { get; set; }
 
-       /// <summary>
-       /// 
-       /// </summary>
-        [DataMember(Name = "technologyResults")]        
+        /// <summary>
+        /// 
+        /// </summary>
+        [DataMember(Name = "technologyResults")]
         public TechnologyResult[] TechnologyResults { get; set; }
     }
 
-  
+
 }

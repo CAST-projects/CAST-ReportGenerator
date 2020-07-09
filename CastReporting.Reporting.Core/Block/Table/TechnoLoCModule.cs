@@ -13,13 +13,13 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
-using System.Linq;
+using CastReporting.BLL.Computing;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.ReportingModel;
-using CastReporting.BLL.Computing;
-using CastReporting.Domain;
+using System.Collections.Generic;
+using System.Linq;
 
 
 namespace CastReporting.Reporting.Block.Table
@@ -41,7 +41,7 @@ namespace CastReporting.Reporting.Block.Table
         /// <returns></returns>
         public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
-            List<string> rowData = new List<string> {""};
+            List<string> rowData = new List<string> { "" };
 
             //Set the table header
             rowData.AddRange(reportData.CurrentSnapshot.Technologies);
@@ -61,7 +61,7 @@ namespace CastReporting.Reporting.Block.Table
                 HasRowHeaders = false,
                 HasColumnHeaders = true,
                 NbRows = reportData.CurrentSnapshot.Modules.Count() + 1,
-                NbColumns = reportData.CurrentSnapshot.Technologies.Length  + 1,
+                NbColumns = reportData.CurrentSnapshot.Technologies.Length + 1,
                 Data = rowData
             };
 
@@ -70,6 +70,6 @@ namespace CastReporting.Reporting.Block.Table
 
 
 
-       
+
     }
 }

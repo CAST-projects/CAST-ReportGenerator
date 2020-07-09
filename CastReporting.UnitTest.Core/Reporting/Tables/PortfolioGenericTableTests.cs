@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using CastReporting.Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Table;
 using CastReporting.Reporting.ReportingModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CastReporting.UnitTest.Reporting.Tables
 {
@@ -50,8 +50,8 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
             var table = component.Content(reportData, config);
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> {"Applications", "Efficiency", "Total Quality Index", "Robustness"});
-            expectedData.AddRange(new List<string> {"2 Applications", "2.68", "3.16", "3.50"});
+            expectedData.AddRange(new List<string> { "Applications", "Efficiency", "Total Quality Index", "Robustness" });
+            expectedData.AddRange(new List<string> { "2 Applications", "2.68", "3.16", "3.50" });
             TestUtility.AssertTableContent(table, expectedData, 4, 2);
         }
 
@@ -113,7 +113,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             expectedData.AddRange(new List<string> { "Number of Code Lines", "67,589" });
             TestUtility.AssertTableContent(table, expectedData, 2, 3);
         }
-        
+
         [TestMethod]
         [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
         [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]

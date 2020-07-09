@@ -354,4 +354,16 @@
   <data name="msgServiceShouldBeRevalidated" xml:space="preserve">
     <value>Bitte validieren Sie Ihre Webdienst-Verbindung erneut. Sie scheinen nicht mehr verbunden zu sein.</value>
   </data>
+  <data name="extendUnavailable" xml:space="preserve">
+    <value>Es kann keine Verbindung zum Extend-Server hergestellt werden. Aktualisierungsinformationen können nicht abgerufen werden.</value>
+  </data>
+  <data name="rgVersionOutdated" xml:space="preserve">
+    <value>Eine neue Version von Report Generator ist auf dem Extend-Server verfügbar. Sie können sie hier herunterladen:</value>
+  </data>
+  <data name="rgVersionUpTodate" xml:space="preserve">
+    <value>Die derzeit verwendete Report Generator-Version ist aktuell.</value>
+  </data>
+  <data name="lblReleaseNotes" xml:space="preserve">
+    <value>Versionshinweise</value>
+  </data>
 </root>

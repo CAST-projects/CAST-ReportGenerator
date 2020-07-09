@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using CastReporting.Domain;
 using CastReporting.Reporting.Core.Languages;
 using CastReporting.Reporting.Helper;
+using CastReporting.Reporting.ReportingModel;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CastReporting.Reporting.Block.Text
 {
@@ -18,7 +18,7 @@ namespace CastReporting.Reporting.Block.Text
         {
             string _metricFormat = options.GetOption("FORMAT", "N2");
             string _params = options.GetOption("PARAMS", string.Empty);
-            string _expr = options.GetOption("EXPR",string.Empty);
+            string _expr = options.GetOption("EXPR", string.Empty);
             string _aggregator = options.GetOption("AGGREGATOR", "AVERAGE");
 
             string[] lstParams = _params.Split(' ');
@@ -33,9 +33,9 @@ namespace CastReporting.Reporting.Block.Text
                 Application _app = _allApps[k];
                 Snapshot currentSnap = _app.Snapshots.OrderByDescending(_ => _.Annotation.Date.DateSnapShot).First();
                 if (currentSnap == null) continue;
-                
+
                 string value = MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, currentSnap, _expr, _metricFormat, null, string.Empty, true);
-                
+
                 if (!string.IsNullOrEmpty(value))
                 {
                     strValues[k] = value;
