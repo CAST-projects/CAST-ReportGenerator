@@ -1,4 +1,5 @@
 ﻿using CastReporting.Domain;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CastReporting.BLL.Computing
@@ -153,5 +154,104 @@ namespace CastReporting.BLL.Computing
             return result?.Reference?.Name;
         }
 
+
+        public static double? GetCategoryValue(Snapshot snapshot, int categorieId)
+        {
+            double? value = null;
+            List<Category[]> categories = snapshot?.CostComplexityResults.Select(_ => _.DetailResult.Categories).ToList();
+            foreach (Category[] distrib in categories)
+            {
+                foreach (Category c in distrib)
+                {
+                    if (c.key == categorieId)
+                    {
+                        value = c.Value;
+                    }
+                }
+            }
+            return value;
+        }
+
+        public static string GetCategoryName(Snapshot snapshot, int categorieId)
+        {
+            string name = null;
+            List<Category[]> categories = snapshot?.CostComplexityResults?.Select(_ => _.DetailResult.Categories)?.ToList();
+            if (categories == null) return null;
+            foreach (Category[] distrib in categories)
+            {
+                foreach (Category c in distrib)
+                {
+                    if (c.key == categorieId)
+                    {
+                        name = c.Name;
+                    }
+                }
+            }
+            return name;
+        }
+
+        public static double? GetModuleCategoryValue(Snapshot snapshot, int categorieId, Module module)
+        {
+            double? value = null;
+            // à vérifier
+            List<Category[]> categories = snapshot?.CostComplexityResults?
+                .Select(_ => _.ModulesResult.Where(m => m.Module.Name.Equals(module.Name)).FirstOrDefault())?
+                .Select(_ => _.DetailResult.Categories)?.ToList();
+            if (categories == null) return null;
+            foreach (Category[] distrib in categories)
+            {
+                foreach (Category c in distrib)
+                {
+                    if (c.key == categorieId)
+                    {
+                        value = c.Value;
+                    }
+                }
+            }
+            return value;
+        }
+
+        public static double? GetTechnoCategoryValue(Snapshot snapshot, int categorieId, string technology)
+        {
+            double? value = null;
+            // à vérifier
+            List<Category[]> categories = snapshot?.CostComplexityResults?
+                .Select(_ => _.TechnologyResult.Where(t => t.Technology.Equals(technology)).FirstOrDefault())?
+                .Select(_ => _.DetailResult.Categories)?.ToList();
+            if (categories == null) return null;
+            foreach (Category[] distrib in categories)
+            {
+                foreach (Category c in distrib)
+                {
+                    if (c.key == categorieId)
+                    {
+                        value = c.Value;
+                    }
+                }
+            }
+            return value;
+        }
+
+        public static double? GetModuleTechnoCategoryValue(Snapshot snapshot, int categorieId, Module module, string technology)
+        {
+            double? value = null;
+            // à vérifier
+            List<Category[]> categories = snapshot?.CostComplexityResults?
+                .Select(_ => _.ModulesResult.Where(m => m.Module.Name.Equals(module.Name)).FirstOrDefault())?
+                .Select(_ => _.TechnologyResults.Where(t => t.Technology.Equals(technology)).FirstOrDefault())?
+                .Select(_ => _.DetailResult.Categories)?.ToList();
+            if (categories == null) return null;
+            foreach (Category[] distrib in categories)
+            {
+                foreach (Category c in distrib)
+                {
+                    if (c.key == categorieId)
+                    {
+                        value = c.Value;
+                    }
+                }
+            }
+            return value;
+        }
     }
 }

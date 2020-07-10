@@ -1,4 +1,5 @@
 ﻿using Cast.Util.Log;
+using CastReporting.BLL.Computing;
 using CastReporting.BLL.Computing.DTO;
 using CastReporting.Domain;
 using CastReporting.Reporting.Core.Languages;
@@ -85,7 +86,13 @@ namespace CastReporting.Reporting.Helper
                 name = snapshot.SizingMeasuresResults.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault();
                 if (name != null) type = MetricType.SizingMeasure;
             }
-            // if metricId is not a sizing measure, perhaps a background fact
+            // if metricId is not a sizing measure, perhaps a category
+            if (name == null)
+            {
+                name = CastComplexityUtility.GetCategoryName(snapshot, int.Parse(metricId));
+                if (name != null) type = MetricType.Category;
+            }
+            // if metricId is not a category, perhaps a background fact
             if (name == null)
             {
                 bfResult = reportData.SnapshotExplorer.GetBackgroundFacts(snapshot.Href, metricId, true, true).FirstOrDefault();
@@ -207,6 +214,25 @@ namespace CastReporting.Reporting.Helper
                     }
                     resStr = format ? result?.ToString("N0") ?? Constants.No_Value : result?.ToString() ?? "0";
                     break;
+                case MetricType.Category:
+                    if (module == null && string.IsNullOrEmpty(technology))
+                    {
+                        result = CastComplexityUtility.GetCategoryValue(snapshot, int.Parse(metricId));
+                    }
+                    else if (module != null && string.IsNullOrEmpty(technology))
+                    {
+                        result = CastComplexityUtility.GetModuleCategoryValue(snapshot, int.Parse(metricId), module);
+                    }
+                    else if (module == null && !string.IsNullOrEmpty(technology))
+                    {
+                        result = CastComplexityUtility.GetTechnoCategoryValue(snapshot, int.Parse(metricId), technology);
+                    }
+                    else if (module != null && !string.IsNullOrEmpty(technology))
+                    {
+                        result = CastComplexityUtility.GetModuleTechnoCategoryValue(snapshot, int.Parse(metricId), module, technology);
+                    }
+                    resStr = format ? result?.ToString("N0") ?? Constants.No_Value : result?.ToString() ?? "0";
+                    break;
                 case MetricType.BackgroundFact:
                     if (module == null && string.IsNullOrEmpty(technology))
                     {
@@ -278,6 +304,7 @@ namespace CastReporting.Reporting.Helper
                         prevRes = prevResult?.result?.ToString("N2") ?? (format ? Constants.No_Value : "0");
                         break;
                     case MetricType.SizingMeasure:
+                    case MetricType.Category:
                     case MetricType.BackgroundFact:
                         if (format)
                         {
@@ -322,6 +349,7 @@ namespace CastReporting.Reporting.Helper
                         prevRes = prevResult?.result?.ToString("N2") ?? (format ? Constants.No_Value : "0");
                         break;
                     case MetricType.SizingMeasure:
+                    case MetricType.Category:
                     case MetricType.BackgroundFact:
                         if (format)
                         {
@@ -379,6 +407,7 @@ namespace CastReporting.Reporting.Helper
                     }
                     break;
                 case MetricType.SizingMeasure:
+                case MetricType.Category:
                 case MetricType.BackgroundFact:
                     if (curResult.result != null && prevResult.result != null)
                     {
@@ -469,6 +498,7 @@ namespace CastReporting.Reporting.Helper
                         aggregator = "AVERAGE";
                         break;
                     case MetricType.SizingMeasure:
+                    case MetricType.Category:
                     case MetricType.BackgroundFact:
                         aggregator = "SUM";
                         break;
@@ -504,6 +534,7 @@ namespace CastReporting.Reporting.Helper
                     res = curResult?.ToString("N2") ?? (format ? Constants.No_Value : "0");
                     break;
                 case MetricType.SizingMeasure:
+                case MetricType.Category:
                 case MetricType.BackgroundFact:
                     res = format ? curResult?.ToString("N0") ?? Constants.No_Value : curResult?.ToString() ?? "0";
                     break;
