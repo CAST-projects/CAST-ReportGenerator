@@ -163,6 +163,9 @@
     <None Update="Data\cocraFuncWeightPrevious.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\SizeDistributionSnapCurrent.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\CurrentBCTCindex.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

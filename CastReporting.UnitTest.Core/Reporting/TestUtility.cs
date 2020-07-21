@@ -224,6 +224,17 @@ namespace CastReporting.UnitTest.Reporting
 
         }
 
+        public static ReportData AddPortfolioComplexity(ReportData reportData, string currentJsonComplexity) 
+        {
+            var currentComplexityResultsList = new List<ApplicationResult>();
+            currentComplexityResultsList.AddRange(GetSampleResult<Result>(currentJsonComplexity).SelectMany(_ => _.ApplicationResults));
+            foreach(Snapshot snapshot in reportData.Snapshots)
+            {
+                snapshot.CostComplexityResults = currentComplexityResultsList;
+            }
+            return reportData;
+        }
+
         public static ReportData AddApplicationComplexity(ReportData reportData, string currentJsonComplexity, string previousJsonComplexity)
         {
             if (currentJsonComplexity != null)

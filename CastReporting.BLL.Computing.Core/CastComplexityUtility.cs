@@ -193,7 +193,6 @@ namespace CastReporting.BLL.Computing
         public static double? GetModuleCategoryValue(Snapshot snapshot, int categorieId, Module module)
         {
             double? value = null;
-            // à vérifier
             List<Category[]> categories = snapshot?.CostComplexityResults?
                 .Select(_ => _.ModulesResult.Where(m => m.Module.Name.Equals(module.Name)).FirstOrDefault())?
                 .Select(_ => _.DetailResult.Categories)?.ToList();
@@ -214,13 +213,13 @@ namespace CastReporting.BLL.Computing
         public static double? GetTechnoCategoryValue(Snapshot snapshot, int categorieId, string technology)
         {
             double? value = null;
-            // à vérifier
             List<Category[]> categories = snapshot?.CostComplexityResults?
                 .Select(_ => _.TechnologyResult.Where(t => t.Technology.Equals(technology)).FirstOrDefault())?
-                .Select(_ => _.DetailResult.Categories)?.ToList();
+                .Select(_ => _?.DetailResult.Categories)?.ToList();
             if (categories == null) return null;
             foreach (Category[] distrib in categories)
             {
+                if (distrib == null) continue;
                 foreach (Category c in distrib)
                 {
                     if (c.key == categorieId)
@@ -235,14 +234,14 @@ namespace CastReporting.BLL.Computing
         public static double? GetModuleTechnoCategoryValue(Snapshot snapshot, int categorieId, Module module, string technology)
         {
             double? value = null;
-            // à vérifier
             List<Category[]> categories = snapshot?.CostComplexityResults?
                 .Select(_ => _.ModulesResult.Where(m => m.Module.Name.Equals(module.Name)).FirstOrDefault())?
                 .Select(_ => _.TechnologyResults.Where(t => t.Technology.Equals(technology)).FirstOrDefault())?
-                .Select(_ => _.DetailResult.Categories)?.ToList();
+                .Select(_ => _?.DetailResult.Categories)?.ToList();
             if (categories == null) return null;
             foreach (Category[] distrib in categories)
             {
+                if (distrib == null) continue;
                 foreach (Category c in distrib)
                 {
                     if (c.key == categorieId)
