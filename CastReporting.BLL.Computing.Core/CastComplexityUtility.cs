@@ -161,6 +161,7 @@ namespace CastReporting.BLL.Computing
             List<Category[]> categories = snapshot?.CostComplexityResults.Select(_ => _.DetailResult.Categories).ToList();
             foreach (Category[] distrib in categories)
             {
+                if (distrib == null) continue;
                 foreach (Category c in distrib)
                 {
                     if (c.key == categorieId)
@@ -179,6 +180,7 @@ namespace CastReporting.BLL.Computing
             if (categories == null) return null;
             foreach (Category[] distrib in categories)
             {
+                if (distrib == null) continue;
                 foreach (Category c in distrib)
                 {
                     if (c.key == categorieId)
