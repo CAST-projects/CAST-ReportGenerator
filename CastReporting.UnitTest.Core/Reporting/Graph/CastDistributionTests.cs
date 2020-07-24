@@ -1,4 +1,5 @@
-﻿using CastReporting.Reporting.Block.Graph;
+﻿using CastReporting.BLL.Computing;
+using CastReporting.Reporting.Block.Graph;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
@@ -471,5 +472,20 @@ namespace CastReporting.UnitTest.Reporting.Graph
             TestUtility.AssertTableContent(table, expectedData, 3, 7);
 
         }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\Sample1Current.json", "Data")]
+        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
+        public void TestGetCategory()
+        {
+            ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
+                null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
+                null, null, null, null, null);
+            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", null);
+
+            double? res = CastComplexityUtility.GetCategoryValue(reportData.CurrentSnapshot, 67002);
+            Assert.AreEqual(71, res);
+        }
+
     }
 }

@@ -204,5 +204,29 @@ namespace CastReporting.UnitTest.Reporting.Text
             Initialize();
         }
 
+        [TestMethod]
+        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
+        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
+        public void TestCategoryContent()
+        {
+            CastDate currentDate = new CastDate { Time = 1484953200000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, null, null, null, null, null);
+            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", null);
+
+            var component = new CustomExpression();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"PARAMS", "QR a QR b"},
+                {"EXPR", "a+b"},
+                {"a","65104"},
+                {"b", "65103"},
+                {"FORMAT", "N0" }
+            };
+            var str = component.Content(reportData, config);
+            Assert.AreEqual("357", str);
+
+        }
     }
 }

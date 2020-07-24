@@ -1,0 +1,1209 @@
+﻿[
+	{
+		"number": 4,
+		"date": {
+			"time": 1385852400000,
+			"isoDate": "2013-12-01"
+		},
+		"version": "4",
+		"application": {
+			"href": "TST8326/applications/7",
+			"name": "Dream Team",
+			"adgDatabase": "tst_8326_central"
+		},
+		"applicationSnapshot": {
+			"href": "TST8326/applications/7/snapshots/15",
+			"name": "Dream Team"
+		},
+		"applicationResults": [
+			{
+				"type": "quality-distributions",
+				"reference": {
+					"href": "TST8326/quality-indicators/65105/snapshots/15",
+					"name": "Size Distribution",
+					"key": "65105",
+					"critical": false
+				},
+				"result": {
+					"grade": 3.7652990264255912,
+					"categories": [
+						{
+							"key": "65104",
+							"name": "Very Large Size Artifacts",
+							"value": 27
+						},
+						{
+							"key": "65103",
+							"name": "Large Size Artifacts",
+							"value": 202
+						},
+						{
+							"key": "65102",
+							"name": "Average Size Artifacts",
+							"value": 997
+						},
+						{
+							"key": "65101",
+							"name": "Small Size Artifacts",
+							"value": 4526
+						}
+					]
+				},
+				"technologyResults": [
+					{
+						"technology": ".NET",
+						"result": {
+							"grade": 3.1052631578947367,
+							"categories": [
+								{
+									"key": "65104",
+									"name": "Very Large Size Artifacts",
+									"value": 1
+								},
+								{
+									"key": "65103",
+									"name": "Large Size Artifacts",
+									"value": 11
+								},
+								{
+									"key": "65102",
+									"name": "Average Size Artifacts",
+									"value": 35
+								},
+								{
+									"key": "65101",
+									"name": "Small Size Artifacts",
+									"value": 29
+								}
+							]
+						}
+					},
+					{
+						"technology": "C++",
+						"result": {
+							"grade": 2.8778054862842892,
+							"categories": [
+								{
+									"key": "65104",
+									"name": "Very Large Size Artifacts",
+									"value": 18
+								},
+								{
+									"key": "65103",
+									"name": "Large Size Artifacts",
+									"value": 75
+								},
+								{
+									"key": "65102",
+									"name": "Average Size Artifacts",
+									"value": 207
+								},
+								{
+									"key": "65101",
+									"name": "Small Size Artifacts",
+									"value": 502
+								}
+							]
+						}
+					},
+					{
+						"technology": "JEE",
+						"result": {
+							"grade": 3.9179318834632744,
+							"categories": [
+								{
+									"key": "65104",
+									"name": "Very Large Size Artifacts",
+									"value": 8
+								},
+								{
+									"key": "65103",
+									"name": "Large Size Artifacts",
+									"value": 116
+								},
+								{
+									"key": "65102",
+									"name": "Average Size Artifacts",
+									"value": 755
+								},
+								{
+									"key": "65101",
+									"name": "Small Size Artifacts",
+									"value": 3995
+								}
+							]
+						}
+					},
+					{
+						"technology": "PL/SQL",
+						"result": {
+							"categories": [
+								{
+									"key": "65104",
+									"name": "Very Large Size Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65103",
+									"name": "Large Size Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65102",
+									"name": "Average Size Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65101",
+									"name": "Small Size Artifacts",
+									"value": 0
+								}
+							]
+						}
+					}
+				],
+				"moduleResults": [
+					{
+						"number": 4,
+						"moduleSnapshot": {
+							"href": "TST8326/modules/8/snapshots/15",
+							"name": "Adg"
+						},
+						"result": {
+							"grade": 3.9179318834632744,
+							"categories": [
+								{
+									"key": "65104",
+									"name": "Very Large Size Artifacts",
+									"value": 8
+								},
+								{
+									"key": "65103",
+									"name": "Large Size Artifacts",
+									"value": 116
+								},
+								{
+									"key": "65102",
+									"name": "Average Size Artifacts",
+									"value": 755
+								},
+								{
+									"key": "65101",
+									"name": "Small Size Artifacts",
+									"value": 3995
+								}
+							]
+						},
+						"technologyResults": [
+							{
+								"technology": "JEE",
+								"result": {
+									"grade": 3.9179318834632744,
+									"categories": [
+										{
+											"key": "65104",
+											"name": "Very Large Size Artifacts",
+											"value": 8
+										},
+										{
+											"key": "65103",
+											"name": "Large Size Artifacts",
+											"value": 116
+										},
+										{
+											"key": "65102",
+											"name": "Average Size Artifacts",
+											"value": 755
+										},
+										{
+											"key": "65101",
+											"name": "Small Size Artifacts",
+											"value": 3995
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"number": 4,
+						"moduleSnapshot": {
+							"href": "TST8326/modules/9/snapshots/15",
+							"name": "Central"
+						},
+						"result": {
+							"categories": [
+								{
+									"key": "65104",
+									"name": "Very Large Size Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65103",
+									"name": "Large Size Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65102",
+									"name": "Average Size Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65101",
+									"name": "Small Size Artifacts",
+									"value": 0
+								}
+							]
+						},
+						"technologyResults": [
+							{
+								"technology": "PL/SQL",
+								"result": {
+									"categories": [
+										{
+											"key": "65104",
+											"name": "Very Large Size Artifacts",
+											"value": 0
+										},
+										{
+											"key": "65103",
+											"name": "Large Size Artifacts",
+											"value": 0
+										},
+										{
+											"key": "65102",
+											"name": "Average Size Artifacts",
+											"value": 0
+										},
+										{
+											"key": "65101",
+											"name": "Small Size Artifacts",
+											"value": 0
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"number": 4,
+						"moduleSnapshot": {
+							"href": "TST8326/modules/10/snapshots/15",
+							"name": "DssAdmin"
+						},
+						"result": {
+							"grade": 2.8778054862842892,
+							"categories": [
+								{
+									"key": "65104",
+									"name": "Very Large Size Artifacts",
+									"value": 18
+								},
+								{
+									"key": "65103",
+									"name": "Large Size Artifacts",
+									"value": 75
+								},
+								{
+									"key": "65102",
+									"name": "Average Size Artifacts",
+									"value": 207
+								},
+								{
+									"key": "65101",
+									"name": "Small Size Artifacts",
+									"value": 502
+								}
+							]
+						},
+						"technologyResults": [
+							{
+								"technology": "C++",
+								"result": {
+									"grade": 2.8778054862842892,
+									"categories": [
+										{
+											"key": "65104",
+											"name": "Very Large Size Artifacts",
+											"value": 18
+										},
+										{
+											"key": "65103",
+											"name": "Large Size Artifacts",
+											"value": 75
+										},
+										{
+											"key": "65102",
+											"name": "Average Size Artifacts",
+											"value": 207
+										},
+										{
+											"key": "65101",
+											"name": "Small Size Artifacts",
+											"value": 502
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"number": 4,
+						"moduleSnapshot": {
+							"href": "TST8326/modules/11/snapshots/15",
+							"name": "Pchit"
+						},
+						"result": {
+							"grade": 3.1052631578947367,
+							"categories": [
+								{
+									"key": "65104",
+									"name": "Very Large Size Artifacts",
+									"value": 1
+								},
+								{
+									"key": "65103",
+									"name": "Large Size Artifacts",
+									"value": 11
+								},
+								{
+									"key": "65102",
+									"name": "Average Size Artifacts",
+									"value": 35
+								},
+								{
+									"key": "65101",
+									"name": "Small Size Artifacts",
+									"value": 29
+								}
+							]
+						},
+						"technologyResults": [
+							{
+								"technology": ".NET",
+								"result": {
+									"grade": 3.1052631578947367,
+									"categories": [
+										{
+											"key": "65104",
+											"name": "Very Large Size Artifacts",
+											"value": 1
+										},
+										{
+											"key": "65103",
+											"name": "Large Size Artifacts",
+											"value": 11
+										},
+										{
+											"key": "65102",
+											"name": "Average Size Artifacts",
+											"value": 35
+										},
+										{
+											"key": "65101",
+											"name": "Small Size Artifacts",
+											"value": 29
+										}
+									]
+								}
+							}
+						]
+					}
+				],
+				"transactionResults": []
+			},
+			{
+				"type": "quality-distributions",
+				"reference": {
+					"href": "TST8326/quality-indicators/65501/snapshots/15",
+					"name": "Cyclomatic Complexity Distribution",
+					"key": "65501",
+					"critical": false
+				},
+				"result": {
+					"grade": 3.575070821529745,
+					"categories": [
+						{
+							"key": "65505",
+							"name": "Very High Complexity Artifacts",
+							"value": 39
+						},
+						{
+							"key": "65504",
+							"name": "High Complexity Artifacts",
+							"value": 94
+						},
+						{
+							"key": "65503",
+							"name": "Moderate Complexity Artifacts",
+							"value": 460
+						},
+						{
+							"key": "65502",
+							"name": "Low Complexity Artifacts",
+							"value": 3996
+						}
+					]
+				},
+				"technologyResults": [
+					{
+						"technology": ".NET",
+						"result": {
+							"grade": 3.3243243243243246,
+							"categories": [
+								{
+									"key": "65505",
+									"name": "Very High Complexity Artifacts",
+									"value": 1
+								},
+								{
+									"key": "65504",
+									"name": "High Complexity Artifacts",
+									"value": 7
+								},
+								{
+									"key": "65503",
+									"name": "Moderate Complexity Artifacts",
+									"value": 20
+								},
+								{
+									"key": "65502",
+									"name": "Low Complexity Artifacts",
+									"value": 46
+								}
+							]
+						}
+					},
+					{
+						"technology": "C++",
+						"result": {
+							"grade": 1.1882845188284517,
+							"categories": [
+								{
+									"key": "65505",
+									"name": "Very High Complexity Artifacts",
+									"value": 23
+								},
+								{
+									"key": "65504",
+									"name": "High Complexity Artifacts",
+									"value": 38
+								},
+								{
+									"key": "65503",
+									"name": "Moderate Complexity Artifacts",
+									"value": 120
+								},
+								{
+									"key": "65502",
+									"name": "Low Complexity Artifacts",
+									"value": 297
+								}
+							]
+						}
+					},
+					{
+						"technology": "JEE",
+						"result": {
+							"grade": 3.8142184790686153,
+							"categories": [
+								{
+									"key": "65505",
+									"name": "Very High Complexity Artifacts",
+									"value": 15
+								},
+								{
+									"key": "65504",
+									"name": "High Complexity Artifacts",
+									"value": 49
+								},
+								{
+									"key": "65503",
+									"name": "Moderate Complexity Artifacts",
+									"value": 320
+								},
+								{
+									"key": "65502",
+									"name": "Low Complexity Artifacts",
+									"value": 3653
+								}
+							]
+						}
+					},
+					{
+						"technology": "PL/SQL",
+						"result": {
+							"categories": [
+								{
+									"key": "65505",
+									"name": "Very High Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65504",
+									"name": "High Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65503",
+									"name": "Moderate Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65502",
+									"name": "Low Complexity Artifacts",
+									"value": 0
+								}
+							]
+						}
+					}
+				],
+				"moduleResults": [
+					{
+						"number": 4,
+						"moduleSnapshot": {
+							"href": "TST8326/modules/8/snapshots/15",
+							"name": "Adg"
+						},
+						"result": {
+							"grade": 3.8142184790686153,
+							"categories": [
+								{
+									"key": "65505",
+									"name": "Very High Complexity Artifacts",
+									"value": 15
+								},
+								{
+									"key": "65504",
+									"name": "High Complexity Artifacts",
+									"value": 49
+								},
+								{
+									"key": "65503",
+									"name": "Moderate Complexity Artifacts",
+									"value": 320
+								},
+								{
+									"key": "65502",
+									"name": "Low Complexity Artifacts",
+									"value": 3653
+								}
+							]
+						},
+						"technologyResults": [
+							{
+								"technology": "JEE",
+								"result": {
+									"grade": 3.8142184790686153,
+									"categories": [
+										{
+											"key": "65505",
+											"name": "Very High Complexity Artifacts",
+											"value": 15
+										},
+										{
+											"key": "65504",
+											"name": "High Complexity Artifacts",
+											"value": 49
+										},
+										{
+											"key": "65503",
+											"name": "Moderate Complexity Artifacts",
+											"value": 320
+										},
+										{
+											"key": "65502",
+											"name": "Low Complexity Artifacts",
+											"value": 3653
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"number": 4,
+						"moduleSnapshot": {
+							"href": "TST8326/modules/9/snapshots/15",
+							"name": "Central"
+						},
+						"result": {
+							"categories": [
+								{
+									"key": "65505",
+									"name": "Very High Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65504",
+									"name": "High Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65503",
+									"name": "Moderate Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "65502",
+									"name": "Low Complexity Artifacts",
+									"value": 0
+								}
+							]
+						},
+						"technologyResults": [
+							{
+								"technology": "PL/SQL",
+								"result": {
+									"categories": [
+										{
+											"key": "65505",
+											"name": "Very High Complexity Artifacts",
+											"value": 0
+										},
+										{
+											"key": "65504",
+											"name": "High Complexity Artifacts",
+											"value": 0
+										},
+										{
+											"key": "65503",
+											"name": "Moderate Complexity Artifacts",
+											"value": 0
+										},
+										{
+											"key": "65502",
+											"name": "Low Complexity Artifacts",
+											"value": 0
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"number": 4,
+						"moduleSnapshot": {
+							"href": "TST8326/modules/10/snapshots/15",
+							"name": "DssAdmin"
+						},
+						"result": {
+							"grade": 1.1882845188284517,
+							"categories": [
+								{
+									"key": "65505",
+									"name": "Very High Complexity Artifacts",
+									"value": 23
+								},
+								{
+									"key": "65504",
+									"name": "High Complexity Artifacts",
+									"value": 38
+								},
+								{
+									"key": "65503",
+									"name": "Moderate Complexity Artifacts",
+									"value": 120
+								},
+								{
+									"key": "65502",
+									"name": "Low Complexity Artifacts",
+									"value": 297
+								}
+							]
+						},
+						"technologyResults": [
+							{
+								"technology": "C++",
+								"result": {
+									"grade": 1.1882845188284517,
+									"categories": [
+										{
+											"key": "65505",
+											"name": "Very High Complexity Artifacts",
+											"value": 23
+										},
+										{
+											"key": "65504",
+											"name": "High Complexity Artifacts",
+											"value": 38
+										},
+										{
+											"key": "65503",
+											"name": "Moderate Complexity Artifacts",
+											"value": 120
+										},
+										{
+											"key": "65502",
+											"name": "Low Complexity Artifacts",
+											"value": 297
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"number": 4,
+						"moduleSnapshot": {
+							"href": "TST8326/modules/11/snapshots/15",
+							"name": "Pchit"
+						},
+						"result": {
+							"grade": 3.3243243243243246,
+							"categories": [
+								{
+									"key": "65505",
+									"name": "Very High Complexity Artifacts",
+									"value": 1
+								},
+								{
+									"key": "65504",
+									"name": "High Complexity Artifacts",
+									"value": 7
+								},
+								{
+									"key": "65503",
+									"name": "Moderate Complexity Artifacts",
+									"value": 20
+								},
+								{
+									"key": "65502",
+									"name": "Low Complexity Artifacts",
+									"value": 46
+								}
+							]
+						},
+						"technologyResults": [
+							{
+								"technology": ".NET",
+								"result": {
+									"grade": 3.3243243243243246,
+									"categories": [
+										{
+											"key": "65505",
+											"name": "Very High Complexity Artifacts",
+											"value": 1
+										},
+										{
+											"key": "65504",
+											"name": "High Complexity Artifacts",
+											"value": 7
+										},
+										{
+											"key": "65503",
+											"name": "Moderate Complexity Artifacts",
+											"value": 20
+										},
+										{
+											"key": "65502",
+											"name": "Low Complexity Artifacts",
+											"value": 46
+										}
+									]
+								}
+							}
+						]
+					}
+				],
+				"transactionResults": []
+			},
+			{
+				"type": "quality-distributions",
+				"reference": {
+					"href": "TST8326/quality-indicators/67001/snapshots/15",
+					"name": "Cost Complexity distribution",
+					"key": "67001",
+					"critical": false
+				},
+				"result": {
+					"grade": 3.5177329624478446,
+					"categories": [
+						{
+							"key": "67005",
+							"name": "Low Cost Complexity Artifacts",
+							"value": 4879
+						},
+						{
+							"key": "67004",
+							"name": "Average Cost Complexity Artifacts",
+							"value": 740
+						},
+						{
+							"key": "67003",
+							"name": "High Cost Complexity Artifacts",
+							"value": 94
+						},
+						{
+							"key": "67002",
+							"name": "Very High Cost Complexity Artifacts",
+							"value": 39
+						}
+					]
+				},
+				"technologyResults": [
+					{
+						"technology": ".NET",
+						"result": {
+							"grade": 3.3421052631578947,
+							"categories": [
+								{
+									"key": "67005",
+									"name": "Low Cost Complexity Artifacts",
+									"value": 38
+								},
+								{
+									"key": "67004",
+									"name": "Average Cost Complexity Artifacts",
+									"value": 30
+								},
+								{
+									"key": "67003",
+									"name": "High Cost Complexity Artifacts",
+									"value": 7
+								},
+								{
+									"key": "67002",
+									"name": "Very High Cost Complexity Artifacts",
+									"value": 1
+								}
+							]
+						}
+					},
+					{
+						"technology": "C++",
+						"result": {
+							"grade": 2.566084788029925,
+							"categories": [
+								{
+									"key": "67005",
+									"name": "Low Cost Complexity Artifacts",
+									"value": 604
+								},
+								{
+									"key": "67004",
+									"name": "Average Cost Complexity Artifacts",
+									"value": 137
+								},
+								{
+									"key": "67003",
+									"name": "High Cost Complexity Artifacts",
+									"value": 38
+								},
+								{
+									"key": "67002",
+									"name": "Very High Cost Complexity Artifacts",
+									"value": 23
+								}
+							]
+						}
+					},
+					{
+						"technology": "JEE",
+						"result": {
+							"grade": 3.3069347558473536,
+							"categories": [
+								{
+									"key": "67005",
+									"name": "Low Cost Complexity Artifacts",
+									"value": 4237
+								},
+								{
+									"key": "67004",
+									"name": "Average Cost Complexity Artifacts",
+									"value": 573
+								},
+								{
+									"key": "67003",
+									"name": "High Cost Complexity Artifacts",
+									"value": 49
+								},
+								{
+									"key": "67002",
+									"name": "Very High Cost Complexity Artifacts",
+									"value": 15
+								}
+							]
+						}
+					},
+					{
+						"technology": "PL/SQL",
+						"result": {
+							"categories": [
+								{
+									"key": "67005",
+									"name": "Low Cost Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "67004",
+									"name": "Average Cost Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "67003",
+									"name": "High Cost Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "67002",
+									"name": "Very High Cost Complexity Artifacts",
+									"value": 0
+								}
+							]
+						}
+					}
+				],
+				"moduleResults": [
+					{
+						"number": 4,
+						"moduleSnapshot": {
+							"href": "TST8326/modules/8/snapshots/15",
+							"name": "Adg"
+						},
+						"result": {
+							"grade": 3.3069347558473536,
+							"categories": [
+								{
+									"key": "67005",
+									"name": "Low Cost Complexity Artifacts",
+									"value": 4237
+								},
+								{
+									"key": "67004",
+									"name": "Average Cost Complexity Artifacts",
+									"value": 573
+								},
+								{
+									"key": "67003",
+									"name": "High Cost Complexity Artifacts",
+									"value": 49
+								},
+								{
+									"key": "67002",
+									"name": "Very High Cost Complexity Artifacts",
+									"value": 15
+								}
+							]
+						},
+						"technologyResults": [
+							{
+								"technology": "JEE",
+								"result": {
+									"grade": 3.3069347558473536,
+									"categories": [
+										{
+											"key": "67005",
+											"name": "Low Cost Complexity Artifacts",
+											"value": 4237
+										},
+										{
+											"key": "67004",
+											"name": "Average Cost Complexity Artifacts",
+											"value": 573
+										},
+										{
+											"key": "67003",
+											"name": "High Cost Complexity Artifacts",
+											"value": 49
+										},
+										{
+											"key": "67002",
+											"name": "Very High Cost Complexity Artifacts",
+											"value": 15
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"number": 4,
+						"moduleSnapshot": {
+							"href": "TST8326/modules/9/snapshots/15",
+							"name": "Central"
+						},
+						"result": {
+							"categories": [
+								{
+									"key": "67005",
+									"name": "Low Cost Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "67004",
+									"name": "Average Cost Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "67003",
+									"name": "High Cost Complexity Artifacts",
+									"value": 0
+								},
+								{
+									"key": "67002",
+									"name": "Very High Cost Complexity Artifacts",
+									"value": 0
+								}
+							]
+						},
+						"technologyResults": [
+							{
+								"technology": "PL/SQL",
+								"result": {
+									"categories": [
+										{
+											"key": "67005",
+											"name": "Low Cost Complexity Artifacts",
+											"value": 0
+										},
+										{
+											"key": "67004",
+											"name": "Average Cost Complexity Artifacts",
+											"value": 0
+										},
+										{
+											"key": "67003",
+											"name": "High Cost Complexity Artifacts",
+											"value": 0
+										},
+										{
+											"key": "67002",
+											"name": "Very High Cost Complexity Artifacts",
+											"value": 0
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"number": 4,
+						"moduleSnapshot": {
+							"href": "TST8326/modules/10/snapshots/15",
+							"name": "DssAdmin"
+						},
+						"result": {
+							"grade": 2.566084788029925,
+							"categories": [
+								{
+									"key": "67005",
+									"name": "Low Cost Complexity Artifacts",
+									"value": 604
+								},
+								{
+									"key": "67004",
+									"name": "Average Cost Complexity Artifacts",
+									"value": 137
+								},
+								{
+									"key": "67003",
+									"name": "High Cost Complexity Artifacts",
+									"value": 38
+								},
+								{
+									"key": "67002",
+									"name": "Very High Cost Complexity Artifacts",
+									"value": 23
+								}
+							]
+						},
+						"technologyResults": [
+							{
+								"technology": "C++",
+								"result": {
+									"grade": 2.566084788029925,
+									"categories": [
+										{
+											"key": "67005",
+											"name": "Low Cost Complexity Artifacts",
+											"value": 604
+										},
+										{
+											"key": "67004",
+											"name": "Average Cost Complexity Artifacts",
+											"value": 137
+										},
+										{
+											"key": "67003",
+											"name": "High Cost Complexity Artifacts",
+											"value": 38
+										},
+										{
+											"key": "67002",
+											"name": "Very High Cost Complexity Artifacts",
+											"value": 23
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"number": 4,
+						"moduleSnapshot": {
+							"href": "TST8326/modules/11/snapshots/15",
+							"name": "Pchit"
+						},
+						"result": {
+							"grade": 3.3421052631578947,
+							"categories": [
+								{
+									"key": "67005",
+									"name": "Low Cost Complexity Artifacts",
+									"value": 38
+								},
+								{
+									"key": "67004",
+									"name": "Average Cost Complexity Artifacts",
+									"value": 30
+								},
+								{
+									"key": "67003",
+									"name": "High Cost Complexity Artifacts",
+									"value": 7
+								},
+								{
+									"key": "67002",
+									"name": "Very High Cost Complexity Artifacts",
+									"value": 1
+								}
+							]
+						},
+						"technologyResults": [
+							{
+								"technology": ".NET",
+								"result": {
+									"grade": 3.3421052631578947,
+									"categories": [
+										{
+											"key": "67005",
+											"name": "Low Cost Complexity Artifacts",
+											"value": 38
+										},
+										{
+											"key": "67004",
+											"name": "Average Cost Complexity Artifacts",
+											"value": 30
+										},
+										{
+											"key": "67003",
+											"name": "High Cost Complexity Artifacts",
+											"value": 7
+										},
+										{
+											"key": "67002",
+											"name": "Very High Cost Complexity Artifacts",
+											"value": 1
+										}
+									]
+								}
+							}
+						]
+					}
+				],
+				"transactionResults": []
+			}
+		]
+	}
+]
