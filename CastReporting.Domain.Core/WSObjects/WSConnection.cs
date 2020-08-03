@@ -42,7 +42,7 @@ namespace CastReporting.Domain
         /// /// <param name="name"></param>
         public WSConnection(string url, string login, string password, string name)
         {
-            Url = url;
+            Url = ValidateUrl(url);
             Login = login;
             Password = password;
             Name = name;
@@ -69,10 +69,20 @@ namespace CastReporting.Domain
         {
             set
             {
-                _url = string.IsNullOrEmpty(value) ? string.Empty : value.Trim();
+                _url = ValidateUrl(value);
                 Uri = !string.IsNullOrEmpty(_url) ? new Uri(_url) : null;
             }
             get => _url;
+        }
+
+        private string ValidateUrl(string url)
+        {
+            string validatedUrl = string.IsNullOrEmpty(url) ? string.Empty : url.Trim();
+            return validatedUrl.EndsWith("/rest") || validatedUrl.EndsWith("/rest/") ? 
+                validatedUrl 
+                : validatedUrl.EndsWith("/") ? 
+                validatedUrl + "rest"
+                : validatedUrl + "/rest";
         }
 
         /// <summary>
