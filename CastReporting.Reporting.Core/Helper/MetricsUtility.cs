@@ -941,13 +941,13 @@ namespace CastReporting.Reporting.Helper
             {
                 var r = ExecuteScript(reportData, options, lstParams, snapshot, expr, module, technology);
                 double? res = (double)r.ReturnValue;
-                return res.Value.Equals(double.NaN) ? Labels.NoData : res.Value.ToString(metricFormat);
+                return res.Value.Equals(double.NaN) ? metricFormat.Equals("graph") ? "0" : Labels.NoData : res.Value.ToString(metricFormat);
             }
             catch (Exception ex) when (ex is CompilationErrorException || ex is ArgumentException || ex is AggregateException)
             {
                 if (portfolio) return null;
                 LogHelper.LogError("Expression cannot be evaluate : " + ex.Message);
-                return Labels.NoData;
+                return metricFormat.Equals("graph") ? "0" : Labels.NoData;
             }
         }
 
@@ -969,6 +969,10 @@ namespace CastReporting.Reporting.Helper
         {
             List<double?> results = snapshots.Select(snapshot => CustomExpressionDoubleEvaluation(reportData, options, lstParams, snapshot, expr, module, technology)).ToList();
             double? res = AggregateValues(aggregator, results);
+            if (metricFormat.Equals("graph"))
+            {
+                return res == null ? "0" : res.ToString();
+            }
             return res?.ToString(metricFormat) ?? Labels.NoData;
         }
 

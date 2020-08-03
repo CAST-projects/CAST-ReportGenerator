@@ -300,7 +300,9 @@ namespace CastReporting.Reporting.Helper
                         if (string.IsNullOrEmpty(_metricAggregator)) _metricAggregator = "AVERAGE";
                         if (positionCustomExpression != -1) _posResults[positionCustomExpression] = expr;
                         List<Snapshot> snapshots = lastApplicationSnapshots.Keys.Select(application => lastApplicationSnapshots[application]).ToList();
-                        string value = MetricsUtility.CustomExpressionEvaluationAggregated(reportData, options, lstParams, snapshots, expr, _metricFormat, null, string.Empty, _metricAggregator);
+                        string value = format ?
+                            MetricsUtility.CustomExpressionEvaluationAggregated(reportData, options, lstParams, snapshots, expr, _metricFormat, null, string.Empty, _metricAggregator)
+                            : MetricsUtility.CustomExpressionEvaluationAggregated(reportData, options, lstParams, snapshots, expr, "graph", null, string.Empty, _metricAggregator);
                         results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), value);
                     }
                 }
@@ -457,7 +459,9 @@ namespace CastReporting.Reporting.Helper
                         foreach (Application application in applications) // applications, no need to aggregate here, resuls by application
                         {
                             _posResults[positionApplications] = application.Name;
-                            string value = MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, lastApplicationSnapshots[application], expr, _metricFormat, null, string.Empty);
+                            string value = format ?
+                                MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, lastApplicationSnapshots[application], expr, _metricFormat, null, string.Empty)
+                                : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, lastApplicationSnapshots[application], expr, "graph", null, string.Empty);
                             results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), value);
                         }
                     }
@@ -628,7 +632,9 @@ namespace CastReporting.Reporting.Helper
                             string _metricAggregator = idxExpr < metricsAggregators.Length ? metricsAggregators[idxExpr] : "AVERAGE";
                             if (string.IsNullOrEmpty(_metricAggregator)) _metricAggregator = "AVERAGE";
                             List<Snapshot> snapshots = lastApplicationSnapshots.Keys.Select(application => lastApplicationSnapshots[application]).ToList();
-                            string value = MetricsUtility.CustomExpressionEvaluationAggregated(reportData, options, lstParams, snapshots, expr, _metricFormat, null, techno, _metricAggregator);
+                            string value = format ?
+                                MetricsUtility.CustomExpressionEvaluationAggregated(reportData, options, lstParams, snapshots, expr, _metricFormat, null, techno, _metricAggregator)
+                                : MetricsUtility.CustomExpressionEvaluationAggregated(reportData, options, lstParams, snapshots, expr, "graph", null, techno, _metricAggregator);
                             results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), value);
                         }
                     }
@@ -786,7 +792,9 @@ namespace CastReporting.Reporting.Helper
                             foreach (string techno in technologies)
                             {
                                 _posResults[positionTechnologies] = techno;
-                                string value = MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, lastApplicationSnapshots[_app], expr, _metricFormat, null, techno);
+                                string value = format ? 
+                                    MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, lastApplicationSnapshots[_app], expr, _metricFormat, null, techno)
+                                    : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, lastApplicationSnapshots[_app], expr, "graph", null, techno);
                                 results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), value);
                             }
                         }
