@@ -40,7 +40,6 @@ namespace CastReporting.Reporting.Block.Text
             string[] lstParams = options.GetOption("PARAMS", string.Empty).Split(' ');
             string _expr = options.GetOption("EXPR", string.Empty);
 
-
             if (reportData?.CurrentSnapshot == null || reportData?.PreviousSnapshot == null) return Constants.No_Value;
 
             Module module = null;
@@ -81,7 +80,6 @@ namespace CastReporting.Reporting.Block.Text
             {
                 result = MetricsUtility.GetMetricEvolution(reportData, reportData.CurrentSnapshot, reportData.PreviousSnapshot, metricId, true, module, techno, true);
             }
-
 
             if (result == null)
             {
