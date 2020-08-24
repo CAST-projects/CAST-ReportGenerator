@@ -17,8 +17,10 @@ using CastReporting.BLL.Computing.DTO;
 using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.Languages;
 using CastReporting.Reporting.Helper;
 using CastReporting.Reporting.ReportingModel;
+using System;
 using System.Collections.Generic;
 
 namespace CastReporting.Reporting.Block.Text
@@ -35,6 +37,9 @@ namespace CastReporting.Reporting.Block.Text
             string moduleName = options.GetOption("MODULE", null);
             string techno = options.GetOption("TECHNO", null);
 
+            string[] lstParams = options.GetOption("PARAMS", string.Empty).Split(' ');
+            string _expr = options.GetOption("EXPR", string.Empty);
+
             if (reportData?.CurrentSnapshot == null || reportData?.PreviousSnapshot == null) return Constants.No_Value;
 
             Module module = null;
@@ -49,8 +54,37 @@ namespace CastReporting.Reporting.Block.Text
                 }
             }
 
-            EvolutionResult result = MetricsUtility.GetMetricEvolution(reportData, reportData.CurrentSnapshot, reportData.PreviousSnapshot, metricId, true, module, techno, true);
+            EvolutionResult result = null;
+            if (lstParams.Length > 0 && _expr != string.Empty)
+            {
+                double? curResult = MetricsUtility.CustomExpressionDoubleEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, _expr, module, techno);
+                double? prevResult = MetricsUtility.CustomExpressionDoubleEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, _expr, module, techno);
+                if (curResult == null || prevResult == null)
+                {
+                    return Labels.NoData;
+                }
+                string evolution = (curResult.Value - prevResult.Value).ToString("N2");
+                double? evp = Math.Abs((double)prevResult) > 0.0 ? (curResult - prevResult) / prevResult : null;
+                string evolPercent = evp != null ? evp.FormatPercent() : Constants.No_Value;
+                result = new EvolutionResult()
+                {
+                    name = _expr,
+                    type = MetricType.NotKnown,
+                    curResult = curResult.ToString(),
+                    prevResult = prevResult.ToString(),
+                    evolution = evolution,
+                    evolutionPercent = evolPercent
+                };
+            }
+            else if (metricId != null)
+            {
+                result = MetricsUtility.GetMetricEvolution(reportData, reportData.CurrentSnapshot, reportData.PreviousSnapshot, metricId, true, module, techno, true);
+            }
 
+            if (result == null)
+            {
+                return Labels.NoData;
+            }
             return _format.ToUpper().Equals("ABSOLUTE") ? result.evolution : result.evolutionPercent;
         }
         #endregion METHODS
