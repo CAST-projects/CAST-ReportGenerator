@@ -167,7 +167,6 @@ namespace CastReporting.UnitTest.Reporting.Text
         [TestMethod]
         [DeploymentItem(@".\Data\DreamTeamSnap4Sample12.json", "Data")]
         [DeploymentItem(@".\Data\DreamTeamSnap1Sample12.json", "Data")]
-        [DeploymentItem(@".\Data\BackFacts.json", "Data")]
         public void TestCurrentBackFact()
         {
             /*
@@ -198,7 +197,7 @@ namespace CastReporting.UnitTest.Reporting.Text
                 {"FORMAT", "N0"}
             };
             var str = component.Content(reportData, config);
-            Assert.AreEqual("2", str);
+            Assert.AreEqual("3", str);
         }
 
         [TestMethod]
