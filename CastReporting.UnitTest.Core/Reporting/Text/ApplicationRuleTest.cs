@@ -246,5 +246,66 @@ namespace CastReporting.UnitTest.Reporting.Text
             Assert.AreEqual("321", str);
         }
 
+        [TestMethod]
+        [DeploymentItem(@".\Data\Snapshot_QIresults1.json", "Data")]
+        [DeploymentItem(@".\Data\Snapshot_QIresults2.json", "Data")]
+        public void TestQRModule()
+        {
+            ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
+                @".\Data\Modules1.json", @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
+                @".\Data\Modules1.json", @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
+
+            var component = new ApplicationRule();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"ID", "4656"},
+                {"MODULE", "sm-central/AppliAEPtran/Shopizer_src content" },
+                {"FORMAT","N2" }
+            };
+            var str = component.Content(reportData, config);
+            Assert.AreEqual("2.95", str);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\Snapshot_QIresults1.json", "Data")]
+        [DeploymentItem(@".\Data\Snapshot_QIresults2.json", "Data")]
+        public void TestQRTechno()
+        {
+            ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
+                @".\Data\Modules1.json", @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
+                @".\Data\Modules1.json", @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
+
+            var component = new ApplicationRule();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"ID", "4656"},
+                {"TECHNO", "JEE" },
+                {"FORMAT","N2" }
+            };
+            var str = component.Content(reportData, config);
+            Assert.AreEqual("3.03", str);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\Snapshot_QIresults1.json", "Data")]
+        [DeploymentItem(@".\Data\Snapshot_QIresults2.json", "Data")]
+        public void TestQRModuleTechno()
+        {
+            ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
+                @".\Data\Modules1.json", @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
+                @".\Data\Modules1.json", @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
+
+            var component = new ApplicationRule();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"ID", "1576"},
+                {"MODULE", "SHOPIZER/AppliAEPtran/Shopizer_sql content" },
+                {"TECHNO", "PL/SQL" },
+                {"FORMAT","N2" },
+                {"SNAPSHOT", "previous" }
+            };
+            var str = component.Content(reportData, config);
+            Assert.AreEqual("1.94", str);
+        }
     }
 }

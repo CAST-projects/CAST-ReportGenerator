@@ -40,10 +40,25 @@ namespace CastReporting.Reporting.Block.Text
                 reportData.PreviousSnapshot
                 : reportData.CurrentSnapshot;
 
+            string moduleName = options.GetOption("MODULE", null);
+            string techno = options.GetOption("TECHNO", null);
+
+            Module module = null;
+            if (moduleName != null)
+            {
+                foreach (Module snapModule in reportData.CurrentSnapshot.Modules)
+                {
+                    if (snapModule.Name.Equals(moduleName))
+                    {
+                        module = snapModule;
+                    }
+                }
+            }
+
             if (string.IsNullOrEmpty(metricId)) return Constants.No_Value;
             if (snapshot == null) return Constants.No_Value;
 
-            SimpleResult res = MetricsUtility.GetMetricNameAndResult(reportData, snapshot, metricId, null, string.Empty, true);
+            SimpleResult res = MetricsUtility.GetMetricNameAndResult(reportData, snapshot, metricId, module, techno, true);
             return res.result.HasValue ? res.result.Value.ToString(_format) : Constants.No_Value;
 
         }
