@@ -307,5 +307,29 @@ namespace CastReporting.UnitTest.Reporting.Text
             var str = component.Content(reportData, config);
             Assert.AreEqual("1.94", str);
         }
+        [TestMethod]
+        [DeploymentItem(@".\Data\Sample1Current.json", "Data")]
+        [DeploymentItem(@".\Data\Sample1Previous.json", "Data")]
+        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
+        [DeploymentItem(@".\Data\ComplexitySnapPrevious.json", "Data")]
+        public void TestCustomExprCategory()
+        {
+            ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
+                null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
+                null, @".\Data\Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
+            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", @".\Data\ComplexitySnapPrevious.json");
+
+            var component = new ApplicationRule();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"PARAMS", "QR a QR b"},
+                {"EXPR", "a+b"},
+                {"a","65104"},
+                {"b", "65103"},
+                {"FORMAT", "N0"}
+            };
+            var str = component.Content(reportData, config);
+            Assert.AreEqual("357", str);
+        }
     }
 }

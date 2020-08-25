@@ -43,6 +43,9 @@ namespace CastReporting.Reporting.Block.Text
             string moduleName = options.GetOption("MODULE", null);
             string techno = options.GetOption("TECHNO", null);
 
+            string[] lstParams = options.GetOption("PARAMS", string.Empty).Split(' ');
+            string _expr = options.GetOption("EXPR", string.Empty);
+
             Module module = null;
             if (moduleName != null)
             {
@@ -55,8 +58,13 @@ namespace CastReporting.Reporting.Block.Text
                 }
             }
 
-            if (string.IsNullOrEmpty(metricId)) return Constants.No_Value;
             if (snapshot == null) return Constants.No_Value;
+            if (lstParams.Length > 0 && _expr != string.Empty)
+            {
+                double? exprRes = MetricsUtility.CustomExpressionDoubleEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, _expr, module, techno);
+                return exprRes.HasValue ? exprRes.Value.ToString(_format) : Constants.No_Value;
+            }
+            else if (string.IsNullOrEmpty(metricId)) return Constants.No_Value;
 
             SimpleResult res = MetricsUtility.GetMetricNameAndResult(reportData, snapshot, metricId, module, techno, true);
             return res.result.HasValue ? res.result.Value.ToString(_format) : Constants.No_Value;
