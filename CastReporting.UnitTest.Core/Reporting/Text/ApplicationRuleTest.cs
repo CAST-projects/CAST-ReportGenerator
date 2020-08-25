@@ -225,5 +225,26 @@ namespace CastReporting.UnitTest.Reporting.Text
             Assert.AreEqual("1.92", str);
         }
 
+        [TestMethod]
+        [DeploymentItem(@".\Data\Sample1Current.json", "Data")]
+        [DeploymentItem(@".\Data\Sample1Previous.json", "Data")]
+        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
+        public void TestCategory()
+        {
+            ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
+                null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
+                null, @".\Data\Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
+            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", null);
+            var component = new ApplicationRule();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"SNAPSHOT", "CURRENT"},
+                {"ID", "65103"},
+                {"FORMAT", "N0"}
+            };
+            var str = component.Content(reportData, config);
+            Assert.AreEqual("321", str);
+        }
+
     }
 }
