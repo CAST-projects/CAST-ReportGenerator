@@ -14,6 +14,7 @@
  *
  */
 using CastReporting.BLL.Computing;
+using CastReporting.BLL.Computing.DTO;
 using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
@@ -32,62 +33,42 @@ namespace CastReporting.Reporting.Block.Text
         public override string Content(ReportData reportData, Dictionary<string, string> options)
         {
 
-            int metricId = options.GetIntOption("ID");
-            int metricSzId = options.GetIntOption("SZID");
-            int metricBfId = options.GetIntOption("BFID");
+            string metricId = options.GetOption("ID") ?? options.GetOption("SZID") ?? options.GetOption("BFID") ?? null;
             string _format = options.GetOption("FORMAT", "N0");
-            string _snapshot = options.GetOption("SNAPSHOT", "CURRENT");
 
-            if (reportData?.CurrentSnapshot != null && metricId != 0)
+            Snapshot snapshot = options.GetOption("SNAPSHOT", "CURRENT").ToUpper().Equals("PREVIOUS") ?
+                reportData.PreviousSnapshot
+                : reportData.CurrentSnapshot;
+
+            string moduleName = options.GetOption("MODULE", null);
+            string techno = options.GetOption("TECHNO", null);
+
+            string[] lstParams = options.GetOption("PARAMS", string.Empty).Split(' ');
+            string _expr = options.GetOption("EXPR", string.Empty);
+
+            Module module = null;
+            if (moduleName != null)
             {
-                if (_snapshot == "PREVIOUS")
+                foreach (Module snapModule in reportData.CurrentSnapshot.Modules)
                 {
-                    if (reportData.PreviousSnapshot == null) return Constants.No_Value;
-                    double? result = BusinessCriteriaUtility.GetMetricValue(reportData.PreviousSnapshot, metricId);
-                    return result?.ToString("N2") ?? Constants.No_Value;
-                }
-                else
-                {
-                    double? result = BusinessCriteriaUtility.GetMetricValue(reportData.CurrentSnapshot, metricId);
-                    return result?.ToString("N2") ?? Constants.No_Value;
-                }
-            }
-            if (reportData?.CurrentSnapshot != null && metricSzId != 0)
-            {
-                if (_snapshot == "PREVIOUS")
-                {
-                    if (reportData.PreviousSnapshot == null) return Constants.No_Value;
-                    double? result = MeasureUtility.GetSizingMeasure(reportData.PreviousSnapshot, metricSzId);
-                    return result?.ToString(_format) ?? Constants.No_Value;
-                }
-                else
-                {
-                    double? result = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, metricSzId);
-                    return result?.ToString(_format) ?? Constants.No_Value;
-                }
-            }
-            // ReSharper disable once InvertIf
-            if (reportData?.CurrentSnapshot != null && metricBfId != 0)
-            {
-                if (_snapshot == "PREVIOUS")
-                {
-                    if (reportData.PreviousSnapshot == null) return Constants.No_Value;
-                    Result bfValue = reportData.SnapshotExplorer.GetBackgroundFacts(reportData.PreviousSnapshot.Href, metricBfId.ToString()).FirstOrDefault();
-                    if (bfValue == null || !bfValue.ApplicationResults.Any())
-                        return Constants.No_Value;
-                    double? result = bfValue.ApplicationResults[0].DetailResult?.Value;
-                    return result?.ToString(_format) ?? Constants.No_Value;
-                }
-                else
-                {
-                    Result bfValue = reportData.SnapshotExplorer.GetBackgroundFacts(reportData.CurrentSnapshot.Href, metricBfId.ToString()).FirstOrDefault();
-                    if (bfValue == null || !bfValue.ApplicationResults.Any()) return Constants.No_Value;
-                    double? result = bfValue.ApplicationResults[0].DetailResult?.Value;
-                    return result?.ToString(_format) ?? Constants.No_Value;
+                    if (snapModule.Name.Equals(moduleName))
+                    {
+                        module = snapModule;
+                    }
                 }
             }
 
-            return Constants.No_Value;
+            if (snapshot == null) return Constants.No_Value;
+            if (lstParams.Length > 0 && _expr != string.Empty)
+            {
+                double? exprRes = MetricsUtility.CustomExpressionDoubleEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, _expr, module, techno);
+                return exprRes.HasValue ? exprRes.Value.ToString(_format) : Constants.No_Value;
+            }
+            else if (string.IsNullOrEmpty(metricId)) return Constants.No_Value;
+
+            SimpleResult res = MetricsUtility.GetMetricNameAndResult(reportData, snapshot, metricId, module, techno, true);
+            return res.result.HasValue ? res.result.Value.ToString(_format) : Constants.No_Value;
+
         }
         #endregion METHODS
     }

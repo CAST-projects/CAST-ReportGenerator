@@ -213,8 +213,6 @@ namespace CastReporting.UnitTest.Reporting.Text
         [TestMethod]
         [DeploymentItem(@".\Data\DreamTeamSnap4Sample12.json", "Data")]
         [DeploymentItem(@".\Data\DreamTeamSnap1Sample12.json", "Data")]
-        [DeploymentItem(@".\Data\BackFacts.json", "Data")]
-        [DeploymentItem(@".\Data\BackFactsPrevious.json", "Data")]
         public void TestBackFact()
         {
             /*

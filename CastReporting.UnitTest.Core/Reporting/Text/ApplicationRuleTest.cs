@@ -167,7 +167,6 @@ namespace CastReporting.UnitTest.Reporting.Text
         [TestMethod]
         [DeploymentItem(@".\Data\DreamTeamSnap4Sample12.json", "Data")]
         [DeploymentItem(@".\Data\DreamTeamSnap1Sample12.json", "Data")]
-        [DeploymentItem(@".\Data\BackFacts.json", "Data")]
         public void TestCurrentBackFact()
         {
             /*
@@ -198,7 +197,7 @@ namespace CastReporting.UnitTest.Reporting.Text
                 {"FORMAT", "N0"}
             };
             var str = component.Content(reportData, config);
-            Assert.AreEqual("2", str);
+            Assert.AreEqual("3", str);
         }
 
         [TestMethod]
@@ -226,5 +225,111 @@ namespace CastReporting.UnitTest.Reporting.Text
             Assert.AreEqual("1.92", str);
         }
 
+        [TestMethod]
+        [DeploymentItem(@".\Data\Sample1Current.json", "Data")]
+        [DeploymentItem(@".\Data\Sample1Previous.json", "Data")]
+        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
+        public void TestCategory()
+        {
+            ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
+                null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
+                null, @".\Data\Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
+            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", null);
+            var component = new ApplicationRule();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"SNAPSHOT", "CURRENT"},
+                {"ID", "65103"},
+                {"FORMAT", "N0"}
+            };
+            var str = component.Content(reportData, config);
+            Assert.AreEqual("321", str);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\Snapshot_QIresults1.json", "Data")]
+        [DeploymentItem(@".\Data\Snapshot_QIresults2.json", "Data")]
+        public void TestQRModule()
+        {
+            ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
+                @".\Data\Modules1.json", @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
+                @".\Data\Modules1.json", @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
+
+            var component = new ApplicationRule();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"ID", "4656"},
+                {"MODULE", "sm-central/AppliAEPtran/Shopizer_src content" },
+                {"FORMAT","N2" }
+            };
+            var str = component.Content(reportData, config);
+            Assert.AreEqual("2.95", str);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\Snapshot_QIresults1.json", "Data")]
+        [DeploymentItem(@".\Data\Snapshot_QIresults2.json", "Data")]
+        public void TestQRTechno()
+        {
+            ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
+                @".\Data\Modules1.json", @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
+                @".\Data\Modules1.json", @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
+
+            var component = new ApplicationRule();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"ID", "4656"},
+                {"TECHNO", "JEE" },
+                {"FORMAT","N2" }
+            };
+            var str = component.Content(reportData, config);
+            Assert.AreEqual("3.03", str);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\Snapshot_QIresults1.json", "Data")]
+        [DeploymentItem(@".\Data\Snapshot_QIresults2.json", "Data")]
+        public void TestQRModuleTechno()
+        {
+            ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
+                @".\Data\Modules1.json", @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
+                @".\Data\Modules1.json", @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
+
+            var component = new ApplicationRule();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"ID", "1576"},
+                {"MODULE", "SHOPIZER/AppliAEPtran/Shopizer_sql content" },
+                {"TECHNO", "PL/SQL" },
+                {"FORMAT","N2" },
+                {"SNAPSHOT", "previous" }
+            };
+            var str = component.Content(reportData, config);
+            Assert.AreEqual("1.94", str);
+        }
+        [TestMethod]
+        [DeploymentItem(@".\Data\Sample1Current.json", "Data")]
+        [DeploymentItem(@".\Data\Sample1Previous.json", "Data")]
+        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
+        [DeploymentItem(@".\Data\ComplexitySnapPrevious.json", "Data")]
+        public void TestCustomExprCategory()
+        {
+            ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
+                null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
+                null, @".\Data\Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
+            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", @".\Data\ComplexitySnapPrevious.json");
+
+            var component = new ApplicationRule();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"PARAMS", "QR a QR b"},
+                {"EXPR", "a+b"},
+                {"a","65104"},
+                {"b", "65103"},
+                {"FORMAT", "N0"}
+            };
+            var str = component.Content(reportData, config);
+            Assert.AreEqual("357", str);
+        }
     }
 }
