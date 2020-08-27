@@ -847,7 +847,8 @@ namespace CastReporting.BLL
                     for (int i = 0; i <= 2 * offset; i++)
                     {
                         string line = lines[i].Replace("\u001a", "");
-                        codeLines.Add(idx, line);
+                        // Max number of char in a line is 255 to avoid https://jira.castsoftware.com/browse/REPORTGEN-945
+                        codeLines.Add(idx, line.Length > 255 ? line.Substring(0, 120) + "(...)" : line);
                         idx++;
                     }
                     return (codeLines.Count == 0) ? null : codeLines;
@@ -889,7 +890,8 @@ namespace CastReporting.BLL
                             foreach (string _line in lines)
                             {
                                 string line = _line.Replace("\u001a", "");
-                                codeLines.Add(idx, line);
+                                // Max number of char in a line is 255 to avoid https://jira.castsoftware.com/browse/REPORTGEN-945
+                                codeLines.Add(idx, line.Length > 255 ? line.Substring(0, 120) + "(...)" : line);
                                 idx++;
                             }
                             codesAndPath.Add(new Tuple<string, Dictionary<int, string>>(_fragment.CodeFile.Name, codeLines));
