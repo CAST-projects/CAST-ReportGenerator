@@ -35,7 +35,7 @@ namespace CastReporting.UI.WPF.Core.View.Pages
                     {
                         return Messages.rgVersionUpTodate;
                     }
-                    return Messages.rgVersionOutdated + " https://extendng.castsoftware.com";
+                    return Messages.rgVersionOutdated + " https://extend.castsoftware.com";
                 }
             }
         }
