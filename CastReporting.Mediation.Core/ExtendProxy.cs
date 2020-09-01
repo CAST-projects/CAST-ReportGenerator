@@ -5,8 +5,8 @@ namespace CastReporting.Mediation.Core
 {
     public class ExtendProxy : WebClient, IExtendProxy
     {
-        // https://extendng.castsoftware.com/api/package/EXTENSION-ID/latest 
-        // https://extendng.castsoftware.com/api/package/download/EXTENSION_ID/VERSION
+        // https://extend.castsoftware.com/api/package/EXTENSION-ID/latest 
+        // https://extend.castsoftware.com/api/package/download/EXTENSION_ID/VERSION
 
         public ExtendProxy(string nugetApiKey)
         {

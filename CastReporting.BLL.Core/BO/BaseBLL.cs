@@ -52,7 +52,7 @@ namespace CastReporting.BLL
         {
             if (string.IsNullOrEmpty(url))
             {
-                url = "https://extendng.castsoftware.com";
+                url = "https://extend.castsoftware.com";
             }
             ExtendRepository extendRepo = new ExtendRepository(url, nugetKey);
             return extendRepo;
