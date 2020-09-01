@@ -109,7 +109,7 @@ namespace CastReporting.Domain
             PortfolioFolderNamePath = "\\Portfolio";
             ApplicationFolderNamePath = "\\Application";
 
-            ExtendUrl = "https://extendng.castsoftware.com";
+            ExtendUrl = "https://extend.castsoftware.com";
         }
     }
 }

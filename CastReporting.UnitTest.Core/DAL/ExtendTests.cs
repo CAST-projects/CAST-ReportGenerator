@@ -9,7 +9,7 @@ namespace CastReporting.UnitTest.Core.DAL
     [TestClass]
     public class ExtendTest
     {
-        private static readonly string _extendUrl = "https://extendng.castsoftware.com";
+        private static readonly string _extendUrl = "https://extend.castsoftware.com";
         private readonly Random _random = new Random();
 
         private string GetTmpPath()
@@ -53,7 +53,7 @@ namespace CastReporting.UnitTest.Core.DAL
         public void TestGetLatestTemplateVersion()
         {
             string tempDirectory = GetTmpPath();
-            // to run test, nugget key should be get from the profile in https://extendng.castsoftware.com
+            // to run test, nugget key should be get from the profile in https://extend.castsoftware.com
             using (ExtendRepository extendRepository = new ExtendRepository(_extendUrl, "12345678"))
             {
                 extendRepository.GetPackageTemplate("com.castsoftware.aip.reportgenerator", tempDirectory, null);
@@ -68,7 +68,7 @@ namespace CastReporting.UnitTest.Core.DAL
         public void TestGetSpecificTemplateVersion()
         {
             string tempDirectory = GetTmpPath();
-            // to run test, nugget key should be get from the profile in https://extendng.castsoftware.com
+            // to run test, nugget key should be get from the profile in https://extend.castsoftware.com
             using (ExtendRepository extendRepository = new ExtendRepository(_extendUrl, "12345678"))
             {
                 string latestVersion = extendRepository.SearchForLatestVersion("com.castsoftware.aip.reportgeneratorfordashboard");
