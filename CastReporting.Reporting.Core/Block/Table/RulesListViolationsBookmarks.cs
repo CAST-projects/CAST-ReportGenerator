@@ -37,6 +37,7 @@ namespace CastReporting.Reporting.Block.Table
                 critical = options.GetOption("CRITICAL").Equals("true");
             }
             bool displayHeader = !options.GetOption("HEADER", "YES").ToUpper().Equals("NO");
+            string showDescription = options.GetOption("DESC", "simple").ToLower();
 
             if (!VersionUtil.Is111Compatible(reportData.ServerVersion))
             {
@@ -102,29 +103,16 @@ namespace CastReporting.Reporting.Block.Table
                     rowData.Add(Labels.ViolationsCount + ": " + violStats.TotalViolations);
                     cellProps.Add(new CellAttributes(cellidx, ColorWhite));
                     cellidx++;
-                    if (!string.IsNullOrWhiteSpace(rule.Rationale))
+                    switch (showDescription)
                     {
-                        rowData.Add(Labels.Rationale + ": ");
-                        cellProps.Add(new CellAttributes(cellidx, ColorLightGray));
-                        cellidx++;
-                        rowData.Add(rule.Rationale);
-                        cellProps.Add(new CellAttributes(cellidx, ColorWhite));
-                        cellidx++;
-                    }
-                    rowData.Add(Labels.Description + ": ");
-                    cellProps.Add(new CellAttributes(cellidx, ColorLightGray));
-                    cellidx++;
-                    rowData.Add(rule.Description);
-                    cellProps.Add(new CellAttributes(cellidx, ColorWhite));
-                    cellidx++;
-                    if (!string.IsNullOrWhiteSpace(rule.Remediation))
-                    {
-                        rowData.Add(Labels.Remediation + ": ");
-                        cellProps.Add(new CellAttributes(cellidx, ColorLightGray));
-                        cellidx++;
-                        rowData.Add(rule.Remediation);
-                        cellProps.Add(new CellAttributes(cellidx, ColorWhite));
-                        cellidx++;
+                        case "simple":
+                            cellidx = MetricsUtility.AddSimpleDescription(rowData, cellProps, cellidx, rule);
+                            break;
+                        case "full":
+                            cellidx = MetricsUtility.AddFullDescription(rowData, cellProps, cellidx, rule);
+                            break;
+                        default:
+                            break;
                     }
 
                     IEnumerable<Violation> results = reportData.SnapshotExplorer.GetViolationsListIDbyBC(reportData.CurrentSnapshot.Href, _metric, bcId, nbLimitTop, "$all");

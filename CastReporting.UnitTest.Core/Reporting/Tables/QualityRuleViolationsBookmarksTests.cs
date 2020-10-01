@@ -647,6 +647,175 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
         }
 
+        [TestMethod]
+        [DeploymentItem(@".\Data\Violations7424_60017.json", "Data")]
+        [DeploymentItem(@".\Data\Violations7846_60016.json", "Data")]
+        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
+        [DeploymentItem(@".\Data\findings7392.json", "Data")]
+        [DeploymentItem(@".\Data\RulePattern7424.json", "Data")]
+        public void TestSimpleDescription()
+        {
+            CastDate currentDate = new CastDate { Time = 1484953200000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, null, null, null, null, null);
+            WSConnection connection = new WSConnection
+            {
+                Url = "http://tests/CAST-RESTAPI/rest/",
+                Login = "admin",
+                Password = "cast",
+                IsActive = true,
+                Name = "Default"
+            };
+            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
+            reportData.RuleExplorer = new RuleBLLStub();
+            var component = new CastReporting.Reporting.Block.Table.QualityRuleViolationsBookmarks();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"ID","7424" },
+                {"COUNT","1" },
+                {"DESC", "Simple" }
+            };
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>
+            {
+                "Objects in violation for rule Avoid using SQL queries inside a loop",
+                "",
+                "Rationale: ",
+                "Having an SQL query inside a loop is usually the source of performance and scalability problems especially if the number of iterations become very high (for example if it is dependent on the data returned from the database).",
+                "This iterative pattern has proved to be very dangerous for application performance and scalability. Database servers perform much better in set-oriented patterns rather than pure iterative ones.",
+                "Description: ",
+                "This metric retrieves all artifacts using at least one SQL query inside a loop statement.",
+                "Remediation: ",
+                "The remediation is often to replace the iterative approach based on a loop with a set-oriented one and thus modify the query.",
+                "",
+                "Violation #1    Avoid using SQL queries inside a loop",
+                "Object Name: aedtst_exclusions_central.adg_central_grades_std",
+                "Object Type: MyObjType",
+                "Associated Value: 3",
+                "File path: D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql",
+                "1197 : PreparedStatement statement = null;",
+                "1198 :         try",
+                "1199 :         {",
+                "1200 :             statement = consolidatedConn.prepareStatement(insertMessage); ",
+                "1201 :             statement.setString(1, message); ",
+                "1202 :             statement.executeUpdate(); ",
+                "1203 :         }",
+                "File path: D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java",
+                "1197 : PreparedStatement statement = null;",
+                "1198 :         try",
+                "1199 :         {",
+                "1200 :             statement = consolidatedConn.prepareStatement(insertMessage); ",
+                "1201 :             statement.setString(1, message); ",
+                "1202 :             statement.executeUpdate(); ",
+                "1203 :         }",
+                "File path: D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java",
+                "1197 : PreparedStatement statement = null;",
+                "1198 :         try",
+                "1199 :         {",
+                "1200 :             statement = consolidatedConn.prepareStatement(insertMessage); ",
+                "1201 :             statement.setString(1, message); ",
+                "1202 :             statement.executeUpdate(); ",
+                "1203 :         }"
+            };
+
+            TestUtility.AssertTableContent(table, expectedData, 1, 38);
+
+            var cellsProperties = table.CellsAttributes;
+            Assert.AreEqual(35, cellsProperties.Count);
+
+        }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\Violations7424_60017.json", "Data")]
+        [DeploymentItem(@".\Data\Violations7846_60016.json", "Data")]
+        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
+        [DeploymentItem(@".\Data\findings7392.json", "Data")]
+        [DeploymentItem(@".\Data\RulePattern7424.json", "Data")]
+        public void TestFullDescription()
+        {
+            CastDate currentDate = new CastDate { Time = 1484953200000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, null, null, null, null, null);
+            WSConnection connection = new WSConnection
+            {
+                Url = "http://tests/CAST-RESTAPI/rest/",
+                Login = "admin",
+                Password = "cast",
+                IsActive = true,
+                Name = "Default"
+            };
+            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
+            reportData.RuleExplorer = new RuleBLLStub();
+            var component = new CastReporting.Reporting.Block.Table.QualityRuleViolationsBookmarks();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"ID","7424" },
+                {"COUNT","1" },
+                {"DESC", "full" }
+            };
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>
+            {
+                "Objects in violation for rule Avoid using SQL queries inside a loop",
+                "",
+                "Rationale: ",
+                "Having an SQL query inside a loop is usually the source of performance and scalability problems especially if the number of iterations become very high (for example if it is dependent on the data returned from the database).","This iterative pattern has proved to be very dangerous for application performance and scalability. Database servers perform much better in set-oriented patterns rather than pure iterative ones.",
+                "Description: ",
+                "This metric retrieves all artifacts using at least one SQL query inside a loop statement.",
+                "Remediation: ",
+                "The remediation is often to replace the iterative approach based on a loop with a set-oriented one and thus modify the query.",
+                "Sample: ",
+                "Oracle:","for x in ( select * from t1 )","loop","  for y in ( select * from t2 where t2.col = x.COL )","  loop ","    for z in (select * from t3 where t3.col = y.SOMETHING )","    loop","      update table_name set co1 = z.SOMETHING_ELSE where table_name.col2 = z.KeyName;","    end loop;","  end loop;","end loop;","","Microsoft SQL Server:","WHILE @Counter <= @MaxOscars","BEGIN","SET @NumFilms =","(","SELECT COUNT(*)","FROM tblFilm","WHERE FilmOscarWins = @Counter",")","PRINT","CAST(@NumFilms AS VARCHAR(3)) +","' films have won ' +","CAST(@Counter AS VARCHAR(2)) +","' Oscars.'","SET @Counter += 1","END","","PreparedStatement updateSales;","String updateString = \"update COFFEES \" +","                      \"set SALES = ? where COF_NAME like ?\";","updateSales = con.prepareStatement(updateString);","","int len = coffees.length;","for(int i = 0; i < len; i++) {","                updateSales.setInt(1, salesForWeek[i]);","                updateSales.setString(2, coffees[i]);","                updateSales.executeUpdate();    // VIOLATION","        }",
+                "Remediation Sample: ",
+                "Oracle:"," update table_name"," set co1 = (select z.SOMETHING_ELSE","              from t3 z","                  join t2 y on z.col = y.SOMETHING","                  join t1 x on y.col = x.COL","              where table_name.col2 = z.KeyName)","where exists(select 1","              from t3 z","                  join t2 y on z.col = y.SOMETHING","                  join t1 x on y.col = x.COL","              where table_name.col2 = z.KeyName);","","Microsoft SQL Server:","SELECT","FilmOscarWins",",COUNT(*) AS [NumberOfFilms]","FROM","tblFilm","GROUP BY","FilmOscarWins",
+                "Output: ",
+                "Associated to each client-server artifact with violations, the Quality Rule provides:","- Number of violation patterns","- Bookmarks for violation patterns found in the source code:","  - SQL query","  - loop starting line",
+                "Associated Value: ",
+                "Number of violation patterns",
+                "Total: ",
+                "Number of client-server artifacts using tables and views",
+                "",
+                "Violation #1    Avoid using SQL queries inside a loop",
+                "Object Name: aedtst_exclusions_central.adg_central_grades_std",
+                "Object Type: MyObjType",
+                "Associated Value: 3",
+                "File path: D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql",
+                "1197 : PreparedStatement statement = null;",
+                "1198 :         try",
+                "1199 :         {",
+                "1200 :             statement = consolidatedConn.prepareStatement(insertMessage); ",
+                "1201 :             statement.setString(1, message); ",
+                "1202 :             statement.executeUpdate(); ",
+                "1203 :         }",
+                "File path: D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java",
+                "1197 : PreparedStatement statement = null;",
+                "1198 :         try",
+                "1199 :         {",
+                "1200 :             statement = consolidatedConn.prepareStatement(insertMessage); ",
+                "1201 :             statement.setString(1, message); ",
+                "1202 :             statement.executeUpdate(); ",
+                "1203 :         }",
+                "File path: D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java",
+                "1197 : PreparedStatement statement = null;",
+                "1198 :         try",
+                "1199 :         {",
+                "1200 :             statement = consolidatedConn.prepareStatement(insertMessage); ",
+                "1201 :             statement.setString(1, message); ",
+                "1202 :             statement.executeUpdate(); ",
+                "1203 :         }"
+            };
+
+            TestUtility.AssertTableContent(table, expectedData, 1, 111);
+
+            var cellsProperties = table.CellsAttributes;
+            Assert.AreEqual(108, cellsProperties.Count);
+
+        }
+
     }
 }
 

@@ -1214,6 +1214,104 @@ namespace CastReporting.Reporting.Helper
             return rowData;
         }
 
+        public static int AddSimpleDescription(List<string> rowData, List<CellAttributes> cellProps, int cellidx, RuleDescription rule)
+        {
+            return AddDescription(rowData, cellProps, cellidx, rule, false);
+        }
+
+        public static int AddFullDescription(List<string> rowData, List<CellAttributes> cellProps, int cellidx, RuleDescription rule)
+        {
+            return AddDescription(rowData, cellProps, cellidx, rule, true);
+        }
+
+        public static int AddDescription(List<string> rowData, List<CellAttributes> cellProps, int cellidx, RuleDescription rule, bool full)
+        {
+            string ColorWhite = "White";
+            string ColorLightGray = "LightGrey";
+
+            rowData.Add("");
+            cellidx++;
+            if (!string.IsNullOrWhiteSpace(rule.Rationale))
+            {
+                rowData.Add(Labels.Rationale + ": ");
+                cellProps.Add(new CellAttributes(cellidx, ColorLightGray));
+                cellidx++;
+                cellidx = FormatStringWithLinesBreak(rowData, cellProps, cellidx, rule.Rationale, ColorWhite);
+            }
+            rowData.Add(Labels.Description + ": ");
+            cellProps.Add(new CellAttributes(cellidx, ColorLightGray));
+            cellidx++;
+            cellidx = FormatStringWithLinesBreak(rowData, cellProps, cellidx, rule.Description, ColorWhite);
+            if (!string.IsNullOrWhiteSpace(rule.Remediation))
+            {
+                rowData.Add(Labels.Remediation + ": ");
+                cellProps.Add(new CellAttributes(cellidx, ColorLightGray));
+                cellidx++;
+                cellidx = FormatStringWithLinesBreak(rowData, cellProps, cellidx, rule.Remediation, ColorWhite);
+            }
+
+            if (full)
+            {
+                if (!string.IsNullOrWhiteSpace(rule.Reference))
+                {
+                    rowData.Add(Labels.Reference + ": ");
+                    cellProps.Add(new CellAttributes(cellidx, ColorLightGray));
+                    cellidx++;
+                    rowData.Add(rule.Reference);
+                    cellProps.Add(new CellAttributes(cellidx, ColorWhite));
+                    cellidx++;
+                }
+                if (!string.IsNullOrWhiteSpace(rule.Sample))
+                {
+                    rowData.Add(Labels.Sample + ": ");
+                    cellProps.Add(new CellAttributes(cellidx, ColorLightGray));
+                    cellidx++;
+                    cellidx = FormatStringWithLinesBreak(rowData, cellProps, cellidx, rule.Sample, ColorWhite);
+                }
+                if (!string.IsNullOrWhiteSpace(rule.RemediationSample))
+                {
+                    rowData.Add(Labels.RemediationSample + ": ");
+                    cellProps.Add(new CellAttributes(cellidx, ColorLightGray));
+                    cellidx++;
+                    cellidx = FormatStringWithLinesBreak(rowData, cellProps, cellidx, rule.RemediationSample, ColorWhite);
+                }
+                if (!string.IsNullOrWhiteSpace(rule.Output))
+                {
+                    rowData.Add(Labels.Output + ": ");
+                    cellProps.Add(new CellAttributes(cellidx, ColorLightGray));
+                    cellidx++;
+                    cellidx = FormatStringWithLinesBreak(rowData, cellProps, cellidx, rule.Output, ColorWhite);
+                }
+                if (!string.IsNullOrWhiteSpace(rule.AssociatedValueName))
+                {
+                    rowData.Add(Labels.AssociatedValue + ": ");
+                    cellProps.Add(new CellAttributes(cellidx, ColorLightGray));
+                    cellidx++;
+                    cellidx = FormatStringWithLinesBreak(rowData, cellProps, cellidx, rule.AssociatedValueName, ColorWhite);
+                }
+                if (!string.IsNullOrWhiteSpace(rule.Total))
+                {
+                    rowData.Add(Labels.Total + ": ");
+                    cellProps.Add(new CellAttributes(cellidx, ColorLightGray));
+                    cellidx++;
+                    cellidx = FormatStringWithLinesBreak(rowData, cellProps, cellidx, rule.Total, ColorWhite);
+                }
+            }
+            return cellidx;
+        }
+
+        private static int FormatStringWithLinesBreak(List<string> rowData, List<CellAttributes> cellProps, int cellidx, string desc, string ColorWhite)
+        {
+            string[] sampleFragments = desc.Split("\n");
+            for (int i = 0; i < sampleFragments.Count(); i++)
+            {
+                rowData.Add(sampleFragments[i]);
+                cellProps.Add(new CellAttributes(cellidx, ColorWhite));
+                cellidx++;
+            }
+
+            return cellidx;
+        }
     }
 
 }

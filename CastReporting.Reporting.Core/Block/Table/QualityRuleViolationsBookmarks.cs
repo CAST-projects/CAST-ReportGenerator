@@ -22,6 +22,7 @@ namespace CastReporting.Reporting.Block.Table
             string ruleId = options.GetOption("ID", "7788");
             const string bcId = "60017";
             int nbLimitTop = options.GetIntOption("COUNT", 5);
+            string showDescription = options.GetOption("DESC", "no").ToLower();
 
             bool hasPreviousSnapshot = reportData.PreviousSnapshot != null;
             RuleDescription rule = reportData.RuleExplorer.GetSpecificRule(reportData.Application.DomainId, ruleId);
@@ -29,6 +30,18 @@ namespace CastReporting.Reporting.Block.Table
 
             rowData.Add(Labels.ObjectsInViolationForRule + " " + ruleName);
             cellidx++;
+
+            switch (showDescription)
+            {
+                case "simple":
+                    cellidx = MetricsUtility.AddSimpleDescription(rowData, cellProps, cellidx, rule);
+                    break;
+                case "full":
+                    cellidx = MetricsUtility.AddFullDescription(rowData, cellProps, cellidx, rule);
+                    break;
+                default:
+                    break;
+            }
 
             if (reportData.Application.DomainType != null && reportData.Application.DomainType.Equals("AAD"))
             {
@@ -76,5 +89,6 @@ namespace CastReporting.Reporting.Block.Table
             return table;
 
         }
+
     }
 }
