@@ -19,6 +19,7 @@ using CastReporting.Reporting.ReportingModel;
 using DocumentFormat.OpenXml.Packaging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace CastReporting.Reporting.Builder
@@ -199,20 +200,65 @@ namespace CastReporting.Reporting.Builder
             if (string.IsNullOrWhiteSpace(pPath)) return null;
             LogHelper.LogInfoFormat("Opening '{0}'...", pPath);
             // ReSharper disable once SwitchStatementMissingSomeCases
-            switch (reportType)
+            try
             {
-                case FormatType.Word:
+                switch (reportType)
+                {
+                    case FormatType.Word:
+                        {
+                            return WordprocessingDocument.Open(pPath, true);
+                        }
+                    case FormatType.PowerPoint:
+                        {
+                            return PresentationDocument.Open(pPath, true);
+                        }
+                    case FormatType.Excel:
+                        {
+                            return SpreadsheetDocument.Open(pPath, true);
+                        }
+                }
+            }
+            catch (OpenXmlPackageException e)
+            {
+                if (e.ToString().Contains("Invalid Hyperlink"))
+                {
+                    LogHelper.LogWarn(e.Message);
+                    LogHelper.LogWarn("Trying to repair the uri to open the template document.");
+
+
+                    FileInfo fileInfo = new FileInfo(pPath);
+                    string newFileName = fileInfo.FullName + ".fixed" + fileInfo.Extension;
+                    FileInfo newFileInfo = new FileInfo(newFileName);
+
+                    if (newFileInfo.Exists)
+                        newFileInfo.Delete();
+
+                    File.Copy(pPath, newFileName);
+                    
+                    using (FileStream fs = new FileStream(newFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite))
                     {
-                        return WordprocessingDocument.Open(pPath, true);
+                        UriFixer.FixInvalidUri(fs, brokenUri => FixUri(brokenUri));
                     }
-                case FormatType.PowerPoint:
+
+                    fileInfo.Delete();
+                    File.Copy(newFileName, pPath);
+
+                    switch (reportType)
                     {
-                        return PresentationDocument.Open(pPath, true);
+                        case FormatType.Word:
+                            {
+                                return WordprocessingDocument.Open(pPath, true);
+                            }
+                        case FormatType.PowerPoint:
+                            {
+                                return PresentationDocument.Open(pPath, true);
+                            }
+                        case FormatType.Excel:
+                            {
+                                return SpreadsheetDocument.Open(pPath, true);
+                            }
                     }
-                case FormatType.Excel:
-                    {
-                        return SpreadsheetDocument.Open(pPath, true);
-                    }
+                }
             }
             return null;
         }
@@ -232,6 +278,11 @@ namespace CastReporting.Reporting.Builder
         }
 
         #endregion Inherited
+        
+        private static Uri FixUri(string brokenUri)
+        {
+            return new Uri("http://broken-link/");
+        }
 
         #endregion METHODS
     }
