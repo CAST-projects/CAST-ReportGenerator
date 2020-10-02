@@ -792,4 +792,16 @@
   <data name="BadDomain" xml:space="preserve">
     <value>Application is loaded from an AAD domain, so no information is available.</value>
   </data>
+  <data name="Output" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="Reference" xml:space="preserve">
+    <value>Reference</value>
+  </data>
+  <data name="RemediationSample" xml:space="preserve">
+    <value>Remediation Sample</value>
+  </data>
+  <data name="Sample" xml:space="preserve">
+    <value>Sample</value>
+  </data>
 </root>

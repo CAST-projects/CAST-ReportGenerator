@@ -792,4 +792,16 @@
   <data name="BadDomain" xml:space="preserve">
     <value>La aplicación se carga desde un dominio AAD, por lo que no hay información disponible.</value>
   </data>
+  <data name="Output" xml:space="preserve">
+    <value>Salida</value>
+  </data>
+  <data name="Reference" xml:space="preserve">
+    <value>Referencia</value>
+  </data>
+  <data name="RemediationSample" xml:space="preserve">
+    <value>Muestra de remediación</value>
+  </data>
+  <data name="Sample" xml:space="preserve">
+    <value>Muestra</value>
+  </data>
 </root>

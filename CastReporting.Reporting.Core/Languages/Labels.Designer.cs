@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace CastReporting.Reporting.Core.Languages {
+    using System;
     
     
     /// <summary>
@@ -1221,6 +1222,15 @@ namespace CastReporting.Reporting.Core.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Output.
+        /// </summary>
+        public static string Output {
+            get {
+                return ResourceManager.GetString("Output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to per File.
         /// </summary>
         public static string PerFile {
@@ -1383,11 +1393,29 @@ namespace CastReporting.Reporting.Core.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reference.
+        /// </summary>
+        public static string Reference {
+            get {
+                return ResourceManager.GetString("Reference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remediation.
         /// </summary>
         public static string Remediation {
             get {
                 return ResourceManager.GetString("Remediation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remediation Sample.
+        /// </summary>
+        public static string RemediationSample {
+            get {
+                return ResourceManager.GetString("RemediationSample", resourceCulture);
             }
         }
         
@@ -1451,6 +1479,15 @@ namespace CastReporting.Reporting.Core.Languages {
         public static string RuleName {
             get {
                 return ResourceManager.GetString("RuleName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sample.
+        /// </summary>
+        public static string Sample {
+            get {
+                return ResourceManager.GetString("Sample", resourceCulture);
             }
         }
         

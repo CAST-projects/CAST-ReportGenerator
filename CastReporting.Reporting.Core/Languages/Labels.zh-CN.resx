@@ -792,4 +792,16 @@
   <data name="BadDomain" xml:space="preserve">
     <value>应用程序从 AAD 域加载，因此没有可用的信息</value>
   </data>
+  <data name="Output" xml:space="preserve">
+    <value>产出</value>
+  </data>
+  <data name="Reference" xml:space="preserve">
+    <value>参考</value>
+  </data>
+  <data name="RemediationSample" xml:space="preserve">
+    <value>修复样品</value>
+  </data>
+  <data name="Sample" xml:space="preserve">
+    <value>样品</value>
+  </data>
 </root>
