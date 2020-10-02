@@ -573,6 +573,11 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
                                         {
                                             var cachedCell = allCells.FirstOrDefault(x => x.Attribute(NoNamespace.idx) != null &&
                                                                                           x.Attribute(NoNamespace.idx)?.Value == indexCell.ToString());
+                                            if (cachedCell == null && previousCell ==null)
+                                            {
+                                                indexCell += 1;
+                                                continue;
+                                            }
                                             if (cachedCell == null && previousCell != null)
                                             {
                                                 cachedCell = new XElement(previousCell);
