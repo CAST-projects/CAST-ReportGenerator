@@ -58,7 +58,7 @@ namespace CastReporting.Reporting.Block.Table
 
             //Build result
             List<string> rowData = new List<string>();
-            rowData.AddRange(new[] { Labels.Criticality, Labels.Weight, Labels.Grade, Labels.TechnicalCriterion, Labels.RuleName, Labels.ViolCount, Labels.TotalOk });
+            rowData.AddRange(new[] { Labels.Criticality, Labels.Weight, Labels.Grade, Labels.TechnicalCriterion, Labels.RuleName, Labels.ViolCount, Labels.TotalChecks });
 
             var results = RulesViolationUtility.GetNbViolationByRule(reportData.CurrentSnapshot, reportData.RuleExplorer, businessCriteriasIds, count);
             int nbRows = 0;
