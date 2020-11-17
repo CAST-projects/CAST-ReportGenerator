@@ -623,7 +623,7 @@ namespace CastReporting.Reporting.Helper
                 }
             }
 
-            return qualityRules.Distinct().OrderBy(_ => _).ToList();
+            return qualityRules.Distinct().ToList();
         }
 
         public class ViolationsBookmarksProperties
