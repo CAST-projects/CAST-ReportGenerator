@@ -1,6 +1,7 @@
 ﻿using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Helper;
 using CastReporting.Reporting.Core.Languages;
 using CastReporting.Reporting.ReportingModel;
 using System.Collections.Generic;
@@ -37,9 +38,10 @@ namespace CastReporting.Reporting.Block.Table
                 }
             }
             bool displayHeader = options == null || !options.ContainsKey("HEADER") || "NO" != options["HEADER"];
+            bool displayPrevious = options.GetBoolOption("PREVIOUS", false);
 
             IEnumerable<IfpugFunction> functions = reportData.SnapshotExplorer.GetIfpugFunctions(reportData.CurrentSnapshot.Href, string.IsNullOrEmpty(type) ? nbLimitTop : -1)?.ToList();
-            bool previous = reportData.PreviousSnapshot != null;
+            bool previous = displayPrevious && reportData.PreviousSnapshot != null;
 
             List<string> rowData = new List<string>();
             IEnumerable<IfpugFunction> prevFunctions = null;
@@ -51,7 +53,15 @@ namespace CastReporting.Reporting.Block.Table
 
             if (displayHeader)
             {
-                rowData.AddRange(new[] { Labels.IFPUG_ElementType, Labels.ObjectName, Labels.IFPUG_NoOfFPs, Labels.Previous, Labels.IFPUG_FPDetails, Labels.IFPUG_ObjectType, Labels.ModuleName, Labels.Technology });
+                if (displayPrevious)
+                {
+                    rowData.AddRange(new[] { Labels.IFPUG_ElementType, Labels.ObjectName, Labels.IFPUG_NoOfFPs, Labels.Previous, Labels.IFPUG_FPDetails, Labels.IFPUG_ObjectType, Labels.ModuleName, Labels.Technology });
+                }
+                else
+                {
+                    rowData.AddRange(new[] { Labels.IFPUG_ElementType, Labels.ObjectName, Labels.IFPUG_NoOfFPs, Labels.IFPUG_FPDetails, Labels.IFPUG_ObjectType, Labels.ModuleName, Labels.Technology });
+                }
+                
             }
 
             int nbRows = 0;
@@ -92,7 +102,7 @@ namespace CastReporting.Reporting.Block.Table
                             rowData.Add(" ");
                         }
                     }
-                    else
+                    else if (displayPrevious)
                     {
                         rowData.Add(" ");
                     }
@@ -113,7 +123,7 @@ namespace CastReporting.Reporting.Block.Table
                 HasRowHeaders = false,
                 HasColumnHeaders = displayHeader,
                 NbRows = nbRows + (displayHeader ? 1 : 0),
-                NbColumns = 8,
+                NbColumns = displayPrevious ? 8 : 7,
                 Data = rowData
             };
 
