@@ -1,6 +1,7 @@
 ﻿using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Helper;
 using CastReporting.Reporting.Core.Languages;
 using CastReporting.Reporting.ReportingModel;
 using System.Collections.Generic;
@@ -37,6 +38,7 @@ namespace CastReporting.Reporting.Block.Table
                 }
             }
             bool displayHeader = options == null || !options.ContainsKey("HEADER") || "NO" != options["HEADER"];
+            bool displayPrevious = options.GetBoolOption("PREVIOUS", false);
             bool displayZero = options == null || !options.ContainsKey("ZERO") || "NO" != options["ZERO"].ToUpper();
 
             IEnumerable<IfpugFunction> functions = reportData.SnapshotExplorer.GetIfpugFunctions(reportData.CurrentSnapshot.Href, string.IsNullOrEmpty(type) || displayZero ? nbLimitTop : -1)?.ToList();
@@ -49,12 +51,27 @@ namespace CastReporting.Reporting.Block.Table
                     return false;
                     });
             }
+            bool previous = displayPrevious && reportData.PreviousSnapshot != null;
 
             List<string> rowData = new List<string>();
+            IEnumerable<IfpugFunction> prevFunctions = null;
+            if (previous)
+            {
+                prevFunctions = reportData.SnapshotExplorer.GetIfpugFunctions(reportData.PreviousSnapshot.Href, string.IsNullOrEmpty(type) ? nbLimitTop : -1)?.ToList();
+            }
+
 
             if (displayHeader)
             {
-                rowData.AddRange(new[] { Labels.IFPUG_ElementType, Labels.ObjectName, Labels.IFPUG_NoOfFPs, Labels.IFPUG_FPDetails, Labels.IFPUG_ObjectType, Labels.ModuleName, Labels.Technology });
+                if (displayPrevious)
+                {
+                    rowData.AddRange(new[] { Labels.IFPUG_ElementType, Labels.ObjectName, Labels.IFPUG_NoOfFPs, Labels.Previous, Labels.IFPUG_FPDetails, Labels.IFPUG_ObjectType, Labels.ModuleName, Labels.Technology });
+                }
+                else
+                {
+                    rowData.AddRange(new[] { Labels.IFPUG_ElementType, Labels.ObjectName, Labels.IFPUG_NoOfFPs, Labels.IFPUG_FPDetails, Labels.IFPUG_ObjectType, Labels.ModuleName, Labels.Technology });
+                }
+                
             }
 
             int nbRows = 0;
@@ -79,6 +96,26 @@ namespace CastReporting.Reporting.Block.Table
                         string.IsNullOrEmpty(ifpugFunction.Afps) ? " " : ifpugFunction.Afps
                         : ifpugFunction.NoOfFPs
                         : ifpugFunction.NbOfFPs);
+                    if (previous)
+                    {
+                        var prevFunction = prevFunctions.Where(f => f.ObjectName.Equals(ifpugFunction.ObjectName) && f.ObjectType.Equals(ifpugFunction.ObjectType)).FirstOrDefault();
+                        if (prevFunction != null)
+                        {
+                            rowData.Add(string.IsNullOrEmpty(prevFunction.NbOfFPs) ?
+                                string.IsNullOrEmpty(prevFunction.NoOfFPs) ?
+                                string.IsNullOrEmpty(prevFunction.Afps) ? " " : prevFunction.Afps
+                                : prevFunction.NoOfFPs
+                                : prevFunction.NbOfFPs);
+                        }
+                        else
+                        {
+                            rowData.Add(" ");
+                        }
+                    }
+                    else if (displayPrevious)
+                    {
+                        rowData.Add(" ");
+                    }
                     rowData.Add(string.IsNullOrEmpty(ifpugFunction.FPDetails) ? " " : ifpugFunction.FPDetails);
                     rowData.Add(string.IsNullOrEmpty(ifpugFunction.ObjectType) ? " " : ifpugFunction.ObjectType);
                     rowData.Add(string.IsNullOrEmpty(ifpugFunction.ModuleName) ? " " : ifpugFunction.ModuleName);
@@ -88,7 +125,7 @@ namespace CastReporting.Reporting.Block.Table
             }
             else
             {
-                rowData.AddRange(new[] { Labels.NoItem, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty });
+                rowData.AddRange(new[] { Labels.NoItem, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty });
             }
 
             var resultTable = new TableDefinition
@@ -96,7 +133,7 @@ namespace CastReporting.Reporting.Block.Table
                 HasRowHeaders = false,
                 HasColumnHeaders = displayHeader,
                 NbRows = nbRows + (displayHeader ? 1 : 0),
-                NbColumns = 7,
+                NbColumns = displayPrevious ? 8 : 7,
                 Data = rowData
             };
 

@@ -429,6 +429,7 @@ namespace CastReporting.Reporting.Helper
                         {
                             _posResults[positionApplications] = application.Name;
                             SimpleResult res = MetricsUtility.GetMetricNameAndResult(reportData, lastApplicationSnapshots[application], _metricId, null, string.Empty, format);
+                            if (res == null) continue;
                             if (res.name == Constants.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = res.name;
                             try

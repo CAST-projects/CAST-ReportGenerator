@@ -352,6 +352,7 @@ namespace CastReporting.Reporting.Helper
                     foreach (string _metricId in metrics)
                     {
                         EvolutionResult res = MetricsUtility.GetMetricEvolution(reportData, reportData.CurrentSnapshot, reportData.PreviousSnapshot, _metricId, true, null, string.Empty, format);
+                        if (res == null) continue;
                         if (res.name == Constants.No_Value) continue;
                         if (positionMetrics != -1) _posResults[positionMetrics] = res.name;
                         foreach (string param in snapshotConfiguration)
@@ -554,6 +555,7 @@ namespace CastReporting.Reporting.Helper
                         {
                             _posResults[positionModules] = module.Name;
                             EvolutionResult res = MetricsUtility.GetMetricEvolution(reportData, reportData.CurrentSnapshot, reportData.PreviousSnapshot, _metricId, true, module, string.Empty, format);
+                            if (res == null) continue;
                             if (res.name == Constants.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = res.name;
                             foreach (string param in snapshotConfiguration)
@@ -777,6 +779,7 @@ namespace CastReporting.Reporting.Helper
                         {
                             _posResults[positionTechnologies] = techno;
                             EvolutionResult res = MetricsUtility.GetMetricEvolution(reportData, reportData.CurrentSnapshot, reportData.PreviousSnapshot, _metricId, true, null, techno, format);
+                            if (res == null) continue;
                             if (res.name == Constants.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = res.name;
                             foreach (string param in snapshotConfiguration)
@@ -1004,6 +1007,7 @@ namespace CastReporting.Reporting.Helper
                             {
                                 _posResults[positionTechnologies] = techno;
                                 EvolutionResult res = MetricsUtility.GetMetricEvolution(reportData, reportData.CurrentSnapshot, reportData.PreviousSnapshot, _metricId, true, module, techno, format);
+                                if (res == null) continue;
                                 if (res.name == Constants.No_Value) continue;
                                 if (positionMetrics != -1) _posResults[positionMetrics] = res.name;
                                 foreach (string param in snapshotConfiguration)

@@ -418,7 +418,7 @@ namespace CastReporting.BLL
             {
                 using (var castRepsitory = GetRepository())
                 {
-                    return castRepsitory.GetIfpugFunctions(_Snapshot.Href, count);
+                    return castRepsitory.GetIfpugFunctions(snapshotHref, count);
                 }
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
@@ -452,7 +452,7 @@ namespace CastReporting.BLL
             {
                 using (var castRepsitory = GetRepository())
                 {
-                    return castRepsitory.GetOmgFunctionsEvolutions(_Snapshot.Href, count);
+                    return castRepsitory.GetOmgFunctionsEvolutions(snapshotHref, count);
                 }
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)

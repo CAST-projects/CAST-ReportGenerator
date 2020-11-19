@@ -288,6 +288,7 @@ namespace CastReporting.Reporting.Helper
             SimpleResult curResult = null;
             SimpleResult prevResult = null;
             if (curSnapshot != null) curResult = GetMetricNameAndResult(reportData, curSnapshot, metricId, module, technology, format);
+            if (curResult == null) return null;
             if (prevSnapshot != null) prevResult = GetMetricNameAndResult(reportData, prevSnapshot, metricId, module, technology, format);
             if (!evol && (curResult?.result != null || prevResult?.result != null))
             {
