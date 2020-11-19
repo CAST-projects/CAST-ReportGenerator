@@ -40,15 +40,15 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
 
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> { "Element Type", "Object Name", "# of FPs", "FP Details", "Object Type", "Module Name", "Technology" });
-            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.PRODUCTS_OPTIONS_VALUES", "5", "DET: 4, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
-            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.PRODUCTS_OPTIONS_VALUES_DESC", "5", "DET: 3, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
-            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.ZONES_TO_GEO_ZONES_TAX_TPL", "5", "DET: 6, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
-            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-shop\\WebContent\\integration\\portlets\\fancontent.jsp]", "5", "DET: 12, FTR: 2 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
-            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-shop\\WebContent\\integration\\portlets\\productslider.jsp]", "5", "DET: 25, FTR: 1 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
-            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-central\\WebContent\\merchantstore\\editmerchantstore.jsp]", "4", "DET: 6, FTR: 1 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
-            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-central\\WebContent\\profile\\userList.jsp]", "4", "DET: 6, FTR: 1 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
-            TestUtility.AssertTableContent(table, expectedData, 7, 8);
+            expectedData.AddRange(new List<string> { "Element Type", "Object Name", "# of FPs", "Previous", "FP Details", "Object Type", "Module Name", "Technology" }); ;
+            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.PRODUCTS_OPTIONS_VALUES", "5", " ", "DET: 4, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
+            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.PRODUCTS_OPTIONS_VALUES_DESC", "5", " ", "DET: 3, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
+            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.ZONES_TO_GEO_ZONES_TAX_TPL", "5", " ", "DET: 6, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
+            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-shop\\WebContent\\integration\\portlets\\fancontent.jsp]", "5", " ", "DET: 12, FTR: 2 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
+            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-shop\\WebContent\\integration\\portlets\\productslider.jsp]", "5", " ", "DET: 25, FTR: 1 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
+            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-central\\WebContent\\merchantstore\\editmerchantstore.jsp]", "4", " ", "DET: 6, FTR: 1 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
+            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-central\\WebContent\\profile\\userList.jsp]", "4", " ", "DET: 6, FTR: 1 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
+            TestUtility.AssertTableContent(table, expectedData, 8, 8);
             Assert.IsTrue(table.HasColumnHeaders);
         }
 
@@ -80,11 +80,11 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
 
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> { "Element Type", "Object Name", "# of FPs", "FP Details", "Object Type", "Module Name", "Technology" });
-            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.PRODUCTS_OPTIONS_VALUES", "5", "DET: 4, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
-            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.PRODUCTS_OPTIONS_VALUES_DESC", "5", "DET: 3, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
-            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.ZONES_TO_GEO_ZONES_TAX_TPL", "5", "DET: 6, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
-            TestUtility.AssertTableContent(table, expectedData, 7, 4);
+            expectedData.AddRange(new List<string> { "Element Type", "Object Name", "# of FPs", "Previous", "FP Details", "Object Type", "Module Name", "Technology" });
+            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.PRODUCTS_OPTIONS_VALUES", "5", " ", "DET: 4, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
+            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.PRODUCTS_OPTIONS_VALUES_DESC", "5", " ", "DET: 3, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
+            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.ZONES_TO_GEO_ZONES_TAX_TPL", "5", " ", "DET: 6, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
+            TestUtility.AssertTableContent(table, expectedData, 8, 4);
             Assert.IsTrue(table.HasColumnHeaders);
         }
 
@@ -116,12 +116,12 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
 
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> { "Element Type", "Object Name", "# of FPs", "FP Details", "Object Type", "Module Name", "Technology" });
-            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-shop\\WebContent\\integration\\portlets\\fancontent.jsp]", "5", "DET: 12, FTR: 2 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
-            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-shop\\WebContent\\integration\\portlets\\productslider.jsp]", "5", "DET: 25, FTR: 1 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
-            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-central\\WebContent\\merchantstore\\editmerchantstore.jsp]", "4", "DET: 6, FTR: 1 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
-            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-central\\WebContent\\profile\\userList.jsp]", "4", "DET: 6, FTR: 1 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
-            TestUtility.AssertTableContent(table, expectedData, 7, 5);
+            expectedData.AddRange(new List<string> { "Element Type", "Object Name", "# of FPs", "Previous", "FP Details", "Object Type", "Module Name", "Technology" });
+            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-shop\\WebContent\\integration\\portlets\\fancontent.jsp]", "5", " ", "DET: 12, FTR: 2 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
+            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-shop\\WebContent\\integration\\portlets\\productslider.jsp]", "5", " ", "DET: 25, FTR: 1 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
+            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-central\\WebContent\\merchantstore\\editmerchantstore.jsp]", "4", " ", "DET: 6, FTR: 1 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
+            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-central\\WebContent\\profile\\userList.jsp]", "4", " ", "DET: 6, FTR: 1 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
+            TestUtility.AssertTableContent(table, expectedData, 8, 5);
             Assert.IsTrue(table.HasColumnHeaders);
         }
 
@@ -153,12 +153,12 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
 
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> { "Element Type", "Object Name", "# of FPs", "FP Details", "Object Type", "Module Name", "Technology" });
-            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.PRODUCTS_OPTIONS_VALUES", "5", "DET: 4, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
-            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.PRODUCTS_OPTIONS_VALUES_DESC", "5", "DET: 3, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
-            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.ZONES_TO_GEO_ZONES_TAX_TPL", "5", "DET: 6, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
-            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-shop\\WebContent\\integration\\portlets\\fancontent.jsp]", "5", "DET: 12, FTR: 2 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
-            TestUtility.AssertTableContent(table, expectedData, 7, 5);
+            expectedData.AddRange(new List<string> { "Element Type", "Object Name", "# of FPs", "Previous", "FP Details", "Object Type", "Module Name", "Technology" });
+            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.PRODUCTS_OPTIONS_VALUES", "5", " ", "DET: 4, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
+            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.PRODUCTS_OPTIONS_VALUES_DESC", "5", " ", "DET: 3, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
+            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.ZONES_TO_GEO_ZONES_TAX_TPL", "5", " ", "DET: 6, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
+            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-shop\\WebContent\\integration\\portlets\\fancontent.jsp]", "5", " ", "DET: 12, FTR: 2 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
+            TestUtility.AssertTableContent(table, expectedData, 8, 5);
             Assert.IsTrue(table.HasColumnHeaders);
         }
 
@@ -190,14 +190,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
 
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.PRODUCTS_OPTIONS_VALUES", "5", "DET: 4, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
-            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.PRODUCTS_OPTIONS_VALUES_DESC", "5", "DET: 3, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
-            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.ZONES_TO_GEO_ZONES_TAX_TPL", "5", "DET: 6, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
-            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-shop\\WebContent\\integration\\portlets\\fancontent.jsp]", "5", "DET: 12, FTR: 2 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
-            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-shop\\WebContent\\integration\\portlets\\productslider.jsp]", "5", "DET: 25, FTR: 1 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
-            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-central\\WebContent\\merchantstore\\editmerchantstore.jsp]", "4", "DET: 6, FTR: 1 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
-            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-central\\WebContent\\profile\\userList.jsp]", "4", "DET: 6, FTR: 1 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
-            TestUtility.AssertTableContent(table, expectedData, 7, 7);
+            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.PRODUCTS_OPTIONS_VALUES", "5", " ", "DET: 4, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
+            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.PRODUCTS_OPTIONS_VALUES_DESC", "5", " ", "DET: 3, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
+            expectedData.AddRange(new List<string> { "Data Function", "CASTDB.SHOPIZER.ZONES_TO_GEO_ZONES_TAX_TPL", "5", " ", "DET: 6, RET: 1, EIF: 5 (External)", "Oracle table", "eCommerce full content", "PL/SQL" });
+            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-shop\\WebContent\\integration\\portlets\\fancontent.jsp]", "5", " ", "DET: 12, FTR: 2 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
+            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-shop\\WebContent\\integration\\portlets\\productslider.jsp]", "5", " ", "DET: 25, FTR: 1 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
+            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-central\\WebContent\\merchantstore\\editmerchantstore.jsp]", "4", " ", "DET: 6, FTR: 1 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
+            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-central\\WebContent\\profile\\userList.jsp]", "4", " ", "DET: 6, FTR: 1 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
+            TestUtility.AssertTableContent(table, expectedData, 8, 7);
             Assert.IsFalse(table.HasColumnHeaders);
         }
 
