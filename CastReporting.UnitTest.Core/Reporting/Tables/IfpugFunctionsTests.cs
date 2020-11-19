@@ -237,7 +237,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-shop\\WebContent\\integration\\portlets\\fancontent.jsp]", "5", "5", "DET: 12, FTR: 2 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
             expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-shop\\WebContent\\integration\\portlets\\productslider.jsp]", "5", "5", "DET: 25, FTR: 1 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
             expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-central\\WebContent\\merchantstore\\editmerchantstore.jsp]", "4", "4", "DET: 6, FTR: 1 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
-            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-central\\WebContent\\profile\\userList.jsp]", "4", "4", "DET: 6, FTR: 1 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
+            expectedData.AddRange(new List<string> { "Transaction", "[C:\\CASTMS73\\Deploy\\eCommerce\\Java\\sm-central\\WebContent\\profile\\userList.jsp]", "0", "0", "DET: 6, FTR: 1 (Output or Inquiry)", "eFile", "eCommerce full content", "JEE" });
             TestUtility.AssertTableContent(table, expectedData, 8, 8);
             Assert.IsTrue(table.HasColumnHeaders);
         }

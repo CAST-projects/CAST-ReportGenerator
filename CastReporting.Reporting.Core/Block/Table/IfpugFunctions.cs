@@ -39,7 +39,7 @@ namespace CastReporting.Reporting.Block.Table
             }
             bool displayHeader = options == null || !options.ContainsKey("HEADER") || "NO" != options["HEADER"];
             bool displayPrevious = options.GetBoolOption("PREVIOUS", false);
-            bool displayZero = options == null || !options.ContainsKey("ZERO") || "NO" != options["ZERO"].ToUpper();
+            bool displayZero = options.GetBoolOption("ZERO", true);
 
             IEnumerable<IfpugFunction> functions = reportData.SnapshotExplorer.GetIfpugFunctions(reportData.CurrentSnapshot.Href, string.IsNullOrEmpty(type) || displayZero ? nbLimitTop : -1)?.ToList();
             if (!displayZero)
