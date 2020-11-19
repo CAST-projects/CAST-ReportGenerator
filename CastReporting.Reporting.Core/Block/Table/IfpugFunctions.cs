@@ -37,8 +37,18 @@ namespace CastReporting.Reporting.Block.Table
                 }
             }
             bool displayHeader = options == null || !options.ContainsKey("HEADER") || "NO" != options["HEADER"];
+            bool displayZero = options == null || !options.ContainsKey("ZERO") || "NO" != options["ZERO"].ToUpper();
 
-            IEnumerable<IfpugFunction> functions = reportData.SnapshotExplorer.GetIfpugFunctions(reportData.CurrentSnapshot.Href, string.IsNullOrEmpty(type) ? nbLimitTop : -1)?.ToList();
+            IEnumerable<IfpugFunction> functions = reportData.SnapshotExplorer.GetIfpugFunctions(reportData.CurrentSnapshot.Href, string.IsNullOrEmpty(type) || displayZero ? nbLimitTop : -1)?.ToList();
+            if (!displayZero)
+            {
+                functions = functions.Where(f => {
+                    if (f.NbOfFPs != null) return int.Parse(f.NbOfFPs) > 0;
+                    if (f.NoOfFPs != null) return int.Parse(f.NoOfFPs) > 0;
+                    if (f.Afps != null) return int.Parse(f.Afps) > 0;
+                    return false;
+                    });
+            }
 
             List<string> rowData = new List<string>();
 
