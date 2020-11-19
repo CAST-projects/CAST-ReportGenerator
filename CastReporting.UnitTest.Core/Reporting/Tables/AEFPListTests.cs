@@ -130,6 +130,44 @@ namespace CastReporting.UnitTest.Reporting.Tables
         [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
         [DeploymentItem(@".\Data\CurrentBCTCmodules.json", "Data")]
         [DeploymentItem(@".\Data\OmgFunctionsEvolutions.csv", "Data")]
+        public void TestAEFPPreviousTransactional()
+        {
+            CastDate currentDate = new CastDate { Time = 1492984800000 };
+            CastDate previousDate = new CastDate { Time = 1492984700000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+                @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+                @".\Data\ModulesCoCRA.json", @".\Data\PreviousBCTCmodules.json", "AED/applications/3/snapshots/3", "Snap3_CAIP-8.3ra_RG-1.5.a", "8.3.ra", previousDate);
+            WSConnection connection = new WSConnection
+            {
+                Url = "http://tests/CAST-RESTAPI/rest/",
+                Login = "admin",
+                Password = "cast",
+                IsActive = true,
+                Name = "Default"
+            };
+            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
+
+            var component = new AEFPList();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                { "TYPE", "TF"},
+                { "STATUS", "MODIFIED"},
+                { "PREVIOUS", "YES" }
+            };
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>();
+            expectedData.AddRange(new List<string> { "Function Name", "Object Type", "Technology", "Module Name", "Object Name", "AEP", "Previous", "Status", "Complexity Factor", "Updated Artifacts" });
+            expectedData.AddRange(new List<string> { "ERCO0CP2", "JCL Job", "JCL", "Presales", "[c:\\jenkins7_slave\\workspace\\CAIP_Trunk_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Big Ben\\Presales\\JCL].ERCO0CP2", "4", "4", "Modified", "0.5", "1" });
+            expectedData.AddRange(new List<string> { "ERCO0MPY", "JCL Job", "JCL", "Presales", "[c:\\jenkins7_slave\\workspace\\CAIP_Trunk_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Big Ben\\Presales\\JCL].ERCO0MPY", "4", "4", "Modified", "0.5", "0" });
+            expectedData.AddRange(new List<string> { "ERCS0NPA", "JCL Job", "JCL", "Presales", "[c:\\jenkins7_slave\\workspace\\CAIP_Trunk_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Big Ben\\Presales\\JCL].ERCS0NPA", "4", "4", "Modified", "0.5", "2" });
+            TestUtility.AssertTableContent(table, expectedData, 10, 4);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@".\Data\CurrentBCTCmodules.json", "Data")]
+        [DeploymentItem(@".\Data\OmgFunctionsEvolutions.csv", "Data")]
         public void TestAEFPAllDeleted()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
