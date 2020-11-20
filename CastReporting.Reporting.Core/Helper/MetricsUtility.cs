@@ -690,8 +690,10 @@ namespace CastReporting.Reporting.Helper
                 cellidx++;
 
                 if (hasPreviousSnapshot)
-                {
-                    rowData.Add($"{Labels.Status}: {_violation.Diagnosis.Status}");
+                { 
+                    // if ruleName is empty, this is a violation in action plan
+                    string status = ruleName != string.Empty ? _violation.Diagnosis.Status : _violation.RemedialAction.Status;
+                    rowData.Add($"{Labels.Status}: {status}");
                     cellProps.Add(new CellAttributes(cellidx, ColorWhite));
                     cellidx++;
                 }
@@ -1013,9 +1015,10 @@ namespace CastReporting.Reporting.Helper
             return res;
         }
 
-        public static List<string> PopulateViolationsBookmarksRow(ReportData reportData, List<Violation> results, HeaderDefinition headers, string metric)
+        public static List<string> PopulateViolationsBookmarksRow(ReportData reportData, List<Violation> results, HeaderDefinition headers, string ruleId)
         {
             List<string> rowData = new List<string>();
+            string metric = ruleId;
             string ruleName = results.FirstOrDefault()?.RulePattern.Name;
             if (ruleName == null) return rowData;
 
@@ -1026,12 +1029,20 @@ namespace CastReporting.Reporting.Helper
             string assoValue = string.Empty;
             foreach (Violation _violation in results)
             {
-                TypedComponent objectComponent = reportData.SnapshotExplorer.GetTypedComponent(reportData.CurrentSnapshot.DomainId, _violation.Component.GetComponentId(), reportData.CurrentSnapshot.GetId());
-
                 if (hasPreviousSnapshot)
                 {
-                    status = _violation.Diagnosis.Status;
+                    // if ruleId is empty this is a violation from action plan
+                    status = ruleId != string.Empty ? _violation.Diagnosis.Status : _violation.RemedialAction.Status;
                 }
+
+                if (ruleId == string.Empty)
+                {
+                    // case of violations in action plan
+                    ruleName = _violation.RulePattern.Name;
+                    string[] fragments = _violation.RulePattern.Href.Split('/');
+                    metric = fragments[fragments.Length - 1];
+                }
+                TypedComponent objectComponent = reportData.SnapshotExplorer.GetTypedComponent(reportData.CurrentSnapshot.DomainId, _violation.Component.GetComponentId(), reportData.CurrentSnapshot.GetId());
 
                 AssociatedValue associatedValue = reportData.SnapshotExplorer.GetAssociatedValue(domainId, _violation.Component.GetComponentId(), snapshotId, metric);
                 if (associatedValue == null)
