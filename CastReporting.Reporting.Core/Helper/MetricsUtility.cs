@@ -663,10 +663,21 @@ namespace CastReporting.Reporting.Helper
             string metric = violationsBookmarksProperties.Metric;
             foreach (Violation _violation in violations)
             {
+                // rule name is empty if violations comes from action plan (where every action can have a different rule
+                string ruleStr = ruleName != string.Empty ? ruleName : _violation.RulePattern.Name;
+                string key;
+                if (ruleName == string.Empty)
+                {
+                    string[] fragments = _violation.RulePattern.Href.Split('/');
+                    key = fragments[fragments.Length - 1];
+                } else
+                {
+                    key = metric;
+                }
                 violationCounter++;
                 rowData.Add("");
                 cellidx++;
-                rowData.Add($"{Labels.Violation} #{violationCounter}    {ruleName}");
+                rowData.Add($"{Labels.Violation} #{violationCounter}    {ruleStr}");
                 cellProps.Add(new CellAttributes(cellidx, ColorGainsboro));
                 cellidx++;
                 rowData.Add($"{Labels.ObjectName}: {_violation.Component.Name}");
@@ -685,7 +696,7 @@ namespace CastReporting.Reporting.Helper
                     cellidx++;
                 }
 
-                AssociatedValue associatedValue = reportData.SnapshotExplorer.GetAssociatedValue(domainId, _violation.Component.GetComponentId(), snapshotId, metric);
+                AssociatedValue associatedValue = reportData.SnapshotExplorer.GetAssociatedValue(domainId, _violation.Component.GetComponentId(), snapshotId, key);
                 if (associatedValue == null) continue;
 
                 if (associatedValue.Type == null || associatedValue.Type.Equals("integer"))
@@ -740,7 +751,7 @@ namespace CastReporting.Reporting.Helper
                 if (associatedValue.Type != null && associatedValue.Type.Equals("path"))
                 {
                     // manage case when type="path" and values contains the different path
-                    AssociatedValuePath associatedValueEx = reportData.SnapshotExplorer.GetAssociatedValuePath(domainId, _violation.Component.GetComponentId(), snapshotId, metric);
+                    AssociatedValuePath associatedValueEx = reportData.SnapshotExplorer.GetAssociatedValuePath(domainId, _violation.Component.GetComponentId(), snapshotId, key);
                     IEnumerable<IEnumerable<CodeBookmark>> values = associatedValueEx?.Values;
                     if (values == null || !values.Any())
                     {
@@ -797,7 +808,7 @@ namespace CastReporting.Reporting.Helper
                 if (associatedValue.Type != null && associatedValue.Type.Equals("group"))
                 {
                     // manage case when type="group" and values contains an array of array of components
-                    AssociatedValueGroup associatedValueEx = reportData.SnapshotExplorer.GetAssociatedValueGroup(domainId, _violation.Component.GetComponentId(), snapshotId, metric);
+                    AssociatedValueGroup associatedValueEx = reportData.SnapshotExplorer.GetAssociatedValueGroup(domainId, _violation.Component.GetComponentId(), snapshotId, key);
                     IEnumerable<IEnumerable<CodeBookmark>> values = associatedValueEx?.Values;
                     if (values == null || !values.Any())
                     {

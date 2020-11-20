@@ -804,4 +804,7 @@
   <data name="Sample" xml:space="preserve">
     <value>Muestra</value>
   </data>
+  <data name="ViolationsInActionPlan" xml:space="preserve">
+    <value>Violaciones en el plan de acción</value>
+  </data>
 </root>

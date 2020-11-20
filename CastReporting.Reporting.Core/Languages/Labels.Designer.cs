@@ -2050,6 +2050,15 @@ namespace CastReporting.Reporting.Core.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Violations in action plan.
+        /// </summary>
+        public static string ViolationsInActionPlan {
+            get {
+                return ResourceManager.GetString("ViolationsInActionPlan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Violations (#).
         /// </summary>
         public static string ViolationsNew {
