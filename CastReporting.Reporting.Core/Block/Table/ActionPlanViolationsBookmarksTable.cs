@@ -18,6 +18,7 @@ namespace CastReporting.Reporting.Block.Table
             int nbLimitTop = options.GetOption("COUNT") == "ALL" ? -1 : options.GetIntOption("COUNT", 10);
             string filter = options.GetOption("FILTER", "ALL").ToUpper();
             bool displayHeader = options.GetBoolOption("HEADER",true);
+            bool tag = options.GetBoolOption("TAG", true);
 
             List<string> rowData = new List<string>();
             var headers = new HeaderDefinition();
@@ -25,6 +26,7 @@ namespace CastReporting.Reporting.Block.Table
             headers.Append(Labels.ObjectName);
             headers.Append(Labels.IFPUG_ObjectType);
             headers.Append(Labels.Status);
+            headers.Append(Labels.Priority);
             headers.Append(Labels.AssociatedValue);
             headers.Append(Labels.FilePath);
             headers.Append(Labels.StartLine);
@@ -55,7 +57,7 @@ namespace CastReporting.Reporting.Block.Table
                 int nbViolations = _violations.Count();
                 if (nbViolations > 0)
                 {
-                    rowData.AddRange(MetricsUtility.PopulateViolationsBookmarksRow(reportData, _violations, headers, string.Empty));
+                    rowData.AddRange(MetricsUtility.PopulateViolationsBookmarksRow(reportData, _violations, headers, tag ? "actionPlan" : "actionPlanPriority"));
                 }
                 else
                 {

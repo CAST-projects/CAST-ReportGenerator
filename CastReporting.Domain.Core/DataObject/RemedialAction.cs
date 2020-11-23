@@ -14,6 +14,9 @@ namespace CastReporting.Domain
         [DataMember(Name = "priority")]
         public string Priority { get; set; }
 
+        [DataMember(Name = "tag")]
+        public string Tag { get; set; }
+
         [DataMember(Name = "comment")]
         public string Comment { get; set; }
 

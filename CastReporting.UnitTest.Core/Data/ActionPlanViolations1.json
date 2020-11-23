@@ -17,6 +17,7 @@
     "remedialAction": {
       "status": "added",
       "priority": "low",
+      "tag": "low",
       "comment": "do what you can",
       "dates": {
         "updated": {
@@ -43,7 +44,8 @@
     },
     "remedialAction": {
       "status": "pending",
-      "priority": "moderate",
+      "priority": "low",
+      "tag": "moderate",
       "comment": "do what you can",
       "dates": {
         "updated": {
@@ -70,7 +72,8 @@
     },
     "remedialAction": {
       "status": "solved",
-      "priority": "extreme",
+      "priority": "low",
+      "tag": "extreme",
       "comment": "do what you can",
       "dates": {
         "updated": {
@@ -97,7 +100,8 @@
     },
     "remedialAction": {
       "status": "added",
-      "priority": "high",
+      "priority": "low",
+      "tag": "high",
       "comment": "to do",
       "dates": {
         "updated": {
@@ -124,7 +128,8 @@
     },
     "remedialAction": {
       "status": "solved",
-      "priority": "high",
+      "priority": "low",
+      "tag": "high",
       "comment": "to do",
       "dates": {
         "updated": {
@@ -151,7 +156,8 @@
     },
     "remedialAction": {
       "status": "pending",
-      "priority": "high",
+      "priority": "low",
+      "tag": "high",
       "comment": "to do",
       "dates": {
         "updated": {

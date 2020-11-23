@@ -664,9 +664,9 @@ namespace CastReporting.Reporting.Helper
             foreach (Violation _violation in violations)
             {
                 // rule name is empty if violations comes from action plan (where every action can have a different rule
-                string ruleStr = ruleName != string.Empty ? ruleName : _violation.RulePattern.Name;
+                string ruleStr = (ruleName != "actionPlan" && ruleName != "actionPlanPriority") ? ruleName : _violation.RulePattern.Name;
                 string key;
-                if (ruleName == string.Empty)
+                if (ruleName == "actionPlan" || ruleName == "actionPlanPriority")
                 {
                     string[] fragments = _violation.RulePattern.Href.Split('/');
                     key = fragments[fragments.Length - 1];
@@ -697,7 +697,16 @@ namespace CastReporting.Reporting.Helper
                     cellProps.Add(new CellAttributes(cellidx, ColorWhite));
                     cellidx++;
                 }
-
+                if (ruleName == "actionPlan")
+                {
+                    rowData.Add($"{Labels.Priority}: {_violation.RemedialAction.Tag}");
+                    cellidx++;
+                }
+                else if (ruleName == "actionPlanPriority")
+                {
+                    rowData.Add($"{Labels.Priority}: {_violation.RemedialAction.Priority}");
+                    cellidx++;
+                }
                 AssociatedValue associatedValue = reportData.SnapshotExplorer.GetAssociatedValue(domainId, _violation.Component.GetComponentId(), snapshotId, key);
                 if (associatedValue == null) continue;
 
@@ -1031,11 +1040,10 @@ namespace CastReporting.Reporting.Helper
             {
                 if (hasPreviousSnapshot)
                 {
-                    // if ruleId is empty this is a violation from action plan
-                    status = ruleId != string.Empty ? _violation.Diagnosis.Status : _violation.RemedialAction.Status;
+                    status = (ruleId != "actionPlan" && ruleId != "actionPlanPriority") ? _violation.Diagnosis.Status : _violation.RemedialAction.Status;
                 }
 
-                if (ruleId == string.Empty)
+                if (ruleId == "actionPlan" || ruleId == "actionPlanPriority")
                 {
                     // case of violations in action plan
                     ruleName = _violation.RulePattern.Name;
@@ -1052,6 +1060,14 @@ namespace CastReporting.Reporting.Helper
                     _row.Set(Labels.ObjectName, _violation.Component.Name);
                     _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
                     _row.Set(Labels.Status, status);
+                    if (ruleId == "actionPlan")
+                    {
+                        _row.Set(Labels.Priority, _violation.RemedialAction.Tag);
+                    } 
+                    else if (ruleId == ("actionPlanPriority"))
+                    {
+                        _row.Set(Labels.Priority, _violation.RemedialAction.Priority);
+                    }
                     _row.Set(Labels.AssociatedValue, assoValue);
                     _row.Set(Labels.FilePath, string.Empty);
                     _row.Set(Labels.StartLine, string.Empty);
@@ -1082,6 +1098,14 @@ namespace CastReporting.Reporting.Helper
                                 _row.Set(Labels.ObjectName, _violation.Component.Name);
                                 _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
                                 _row.Set(Labels.Status, st);
+                                if (ruleId == "actionPlan")
+                                {
+                                    _row.Set(Labels.Priority, _violation.RemedialAction.Tag);
+                                }
+                                else if (ruleId == ("actionPlanPriority"))
+                                {
+                                    _row.Set(Labels.Priority, _violation.RemedialAction.Priority);
+                                }
                                 _row.Set(Labels.AssociatedValue, av);
                                 _row.Set(Labels.FilePath, _path.Item1);
                                 _row.Set(Labels.StartLine, _path.Item2.ToString());
@@ -1100,6 +1124,14 @@ namespace CastReporting.Reporting.Helper
                                     _row.Set(Labels.ObjectName, _violation.Component.Name);
                                     _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
                                     _row.Set(Labels.Status, st);
+                                    if (ruleId == "actionPlan")
+                                    {
+                                        _row.Set(Labels.Priority, _violation.RemedialAction.Tag);
+                                    }
+                                    else if (ruleId == ("actionPlanPriority"))
+                                    {
+                                        _row.Set(Labels.Priority, _violation.RemedialAction.Priority);
+                                    }
                                     _row.Set(Labels.AssociatedValue, av);
                                     _row.Set(Labels.FilePath, _.CodeFragment?.CodeFile.Name);
                                     _row.Set(Labels.StartLine, _.CodeFragment?.StartLine.ToString());
@@ -1126,6 +1158,14 @@ namespace CastReporting.Reporting.Helper
                                 _row.Set(Labels.ObjectName, _violation.Component.Name);
                                 _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
                                 _row.Set(Labels.Status, st);
+                                if (ruleId == "actionPlan")
+                                {
+                                    _row.Set(Labels.Priority, _violation.RemedialAction.Tag);
+                                }
+                                else if (ruleId == ("actionPlanPriority"))
+                                {
+                                    _row.Set(Labels.Priority, _violation.RemedialAction.Priority);
+                                }
                                 _row.Set(Labels.AssociatedValue, string.Empty);
                                 _row.Set(Labels.FilePath, _path.Item1);
                                 _row.Set(Labels.StartLine, _path.Item2.ToString());
@@ -1145,6 +1185,14 @@ namespace CastReporting.Reporting.Helper
                                     _row.Set(Labels.ObjectName, _violation.Component.Name);
                                     _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
                                     _row.Set(Labels.Status, st);
+                                    if (ruleId == "actionPlan")
+                                    {
+                                        _row.Set(Labels.Priority, _violation.RemedialAction.Tag);
+                                    }
+                                    else if (ruleId == ("actionPlanPriority"))
+                                    {
+                                        _row.Set(Labels.Priority, _violation.RemedialAction.Priority);
+                                    }
                                     _row.Set(Labels.AssociatedValue, $"path #{bookList.IndexOf(_bookval)}");
                                     _row.Set(Labels.FilePath, _bookval.CodeFragment?.CodeFile.Name);
                                     _row.Set(Labels.StartLine, _bookval.CodeFragment?.StartLine.ToString());
@@ -1169,6 +1217,14 @@ namespace CastReporting.Reporting.Helper
                                 _row.Set(Labels.ObjectName, _violation.Component.Name);
                                 _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
                                 _row.Set(Labels.Status, st);
+                                if (ruleId == "actionPlan")
+                                {
+                                    _row.Set(Labels.Priority, _violation.RemedialAction.Tag);
+                                }
+                                else if (ruleId == ("actionPlanPriority"))
+                                {
+                                    _row.Set(Labels.Priority, _violation.RemedialAction.Priority);
+                                }
                                 _row.Set(Labels.AssociatedValue, string.Empty);
                                 _row.Set(Labels.FilePath, _.Item1);
                                 _row.Set(Labels.StartLine, _.Item2.ToString());
@@ -1187,6 +1243,14 @@ namespace CastReporting.Reporting.Helper
                                     _row.Set(Labels.ObjectName, _violation.Component.Name);
                                     _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
                                     _row.Set(Labels.Status, st);
+                                    if (ruleId == "actionPlan")
+                                    {
+                                        _row.Set(Labels.Priority, _violation.RemedialAction.Tag);
+                                    }
+                                    else if (ruleId == ("actionPlanPriority"))
+                                    {
+                                        _row.Set(Labels.Priority, _violation.RemedialAction.Priority);
+                                    }
                                     _row.Set(Labels.AssociatedValue, _component.Component.Name);
                                     _row.Set(Labels.FilePath, _component.CodeFragment?.CodeFile.Name);
                                     _row.Set(Labels.StartLine, _component.CodeFragment?.StartLine.ToString());
@@ -1206,6 +1270,14 @@ namespace CastReporting.Reporting.Helper
                             _row.Set(Labels.ObjectName, _violation.Component.Name);
                             _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
                             _row.Set(Labels.Status, st);
+                            if (ruleId == "actionPlan")
+                            {
+                                _row.Set(Labels.Priority, _violation.RemedialAction.Tag);
+                            }
+                            else if (ruleId == ("actionPlanPriority"))
+                            {
+                                _row.Set(Labels.Priority, _violation.RemedialAction.Priority);
+                            }
                             _row.Set(Labels.AssociatedValue, string.Join(',', associatedValue.Values));
                             _row.Set(Labels.FilePath, _.Item1);
                             _row.Set(Labels.StartLine, _.Item2.ToString());
@@ -1225,6 +1297,14 @@ namespace CastReporting.Reporting.Helper
                             _row.Set(Labels.ObjectName, _violation.Component.Name);
                             _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
                             _row.Set(Labels.Status, st);
+                            if (ruleId == "actionPlan")
+                            {
+                                _row.Set(Labels.Priority, _violation.RemedialAction.Tag);
+                            }
+                            else if (ruleId == ("actionPlanPriority"))
+                            {
+                                _row.Set(Labels.Priority, _violation.RemedialAction.Priority);
+                            }
                             _row.Set(Labels.AssociatedValue, value?.ToString("N2"));
                             _row.Set(Labels.FilePath, _.Item1);
                             _row.Set(Labels.StartLine, _.Item2.ToString());

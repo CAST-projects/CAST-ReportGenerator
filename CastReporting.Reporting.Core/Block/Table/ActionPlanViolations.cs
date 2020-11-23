@@ -19,6 +19,7 @@ namespace CastReporting.Reporting.Block.Table
             bool shortName = options.GetOption("NAME", "FULL") == "SHORT";
             int nbLimitTop = options.GetOption("COUNT") == "ALL" ? -1 : options.GetIntOption("COUNT", 10);
             string filter = options.GetOption("FILTER", "ALL");
+            bool tag = options.GetBoolOption("TAG", true);
             int nbRows;
 
             rowData.Add(Labels.RuleName);
@@ -58,7 +59,13 @@ namespace CastReporting.Reporting.Block.Table
                         rowData.Add(_violation.RulePattern.Name ?? Constants.No_Value);
                         rowData.Add(shortName ? _violation.Component.ShortName : _violation.Component.Name ?? Constants.No_Value);
                         rowData.Add(_violation.RemedialAction.Comment ?? Constants.No_Value);
-                        rowData.Add(_violation.RemedialAction.Priority ?? Constants.No_Value);
+                        if (tag)
+                        {
+                            rowData.Add(_violation.RemedialAction.Tag ?? Constants.No_Value);
+                        } else
+                        {
+                            rowData.Add(_violation.RemedialAction.Priority ?? Constants.No_Value);
+                        }
                         rowData.Add(_violation.RemedialAction.Status ?? Constants.No_Value);
                         rowData.Add(_violation.RemedialAction.Dates.Updated.DateSnapShot?.ToString(Labels.FORMAT_LONG_DATE) ?? Constants.No_Value);
                     }

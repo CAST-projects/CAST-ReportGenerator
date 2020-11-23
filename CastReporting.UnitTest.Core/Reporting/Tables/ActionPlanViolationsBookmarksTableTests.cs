@@ -44,27 +44,27 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
             var expectedData = new List<string>
             {
-                "Rule Name", "Object Name", "Object Type","Status", "Associated Value", "File path","Start Line", "End Line",
-                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "Cast.Util.ExpressionEvaluator.Eval", "MyObjType", "added","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
-                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "Cast.Util.ExpressionEvaluator.Eval", "MyObjType", "added","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
-                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "Cast.Util.ExpressionEvaluator.Eval", "MyObjType", "added","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
-                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "CastReporting.BLL.CastDomainBLL.GetCategories", "MyObjType", "pending","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
-                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "CastReporting.BLL.CastDomainBLL.GetCategories", "MyObjType", "pending","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
-                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "CastReporting.BLL.CastDomainBLL.GetCategories", "MyObjType", "pending","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
-                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "CastReporting.BLL.SnapshotBLL.GetBackgroundFacts", "MyObjType", "solved","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
-                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "CastReporting.BLL.SnapshotBLL.GetBackgroundFacts", "MyObjType", "solved","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
-                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "CastReporting.BLL.SnapshotBLL.GetBackgroundFacts", "MyObjType", "solved","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
-                "Provide a private default Constructor for utility Classes", "CastReporting.Reporting.Builder.WorksheetAccessorExt","MyObjType","added","3", "D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
-                "Provide a private default Constructor for utility Classes", "CastReporting.Reporting.Builder.WorksheetAccessorExt","MyObjType","added","3", "D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
-                "Provide a private default Constructor for utility Classes", "CastReporting.Reporting.Builder.WorksheetAccessorExt","MyObjType","added","3", "D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
-                "Provide a private default Constructor for utility Classes", "CastReporting.Reporting.Helper.StreamHelper","MyObjType","solved","3", "D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
-                "Provide a private default Constructor for utility Classes", "CastReporting.Reporting.Helper.StreamHelper","MyObjType","solved","3", "D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
-                "Provide a private default Constructor for utility Classes", "CastReporting.Reporting.Helper.StreamHelper","MyObjType","solved","3", "D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
-                "Provide a private default Constructor for utility Classes", "CastReporting.UI.WPF.Utilities.PasswordBoxAssistant","MyObjType","pending","3", "D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
-                "Provide a private default Constructor for utility Classes", "CastReporting.UI.WPF.Utilities.PasswordBoxAssistant","MyObjType","pending","3", "D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
-                "Provide a private default Constructor for utility Classes", "CastReporting.UI.WPF.Utilities.PasswordBoxAssistant","MyObjType","pending","3", "D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Rule Name", "Object Name", "Object Type","Status", "Priority", "Associated Value", "File path","Start Line", "End Line",
+                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "Cast.Util.ExpressionEvaluator.Eval", "MyObjType", "added", "low", "3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
+                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "Cast.Util.ExpressionEvaluator.Eval", "MyObjType", "added", "low","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "Cast.Util.ExpressionEvaluator.Eval", "MyObjType", "added", "low","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "CastReporting.BLL.CastDomainBLL.GetCategories", "MyObjType", "pending", "moderate","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
+                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "CastReporting.BLL.CastDomainBLL.GetCategories", "MyObjType", "pending", "moderate","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "CastReporting.BLL.CastDomainBLL.GetCategories", "MyObjType", "pending", "moderate","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "CastReporting.BLL.SnapshotBLL.GetBackgroundFacts", "MyObjType", "solved", "extreme","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
+                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "CastReporting.BLL.SnapshotBLL.GetBackgroundFacts", "MyObjType", "solved", "extreme","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "CastReporting.BLL.SnapshotBLL.GetBackgroundFacts", "MyObjType", "solved", "extreme","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Provide a private default Constructor for utility Classes", "CastReporting.Reporting.Builder.WorksheetAccessorExt","MyObjType","added", "high","3", "D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
+                "Provide a private default Constructor for utility Classes", "CastReporting.Reporting.Builder.WorksheetAccessorExt","MyObjType","added", "high","3", "D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Provide a private default Constructor for utility Classes", "CastReporting.Reporting.Builder.WorksheetAccessorExt","MyObjType","added", "high","3", "D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Provide a private default Constructor for utility Classes", "CastReporting.Reporting.Helper.StreamHelper","MyObjType","solved", "high","3", "D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
+                "Provide a private default Constructor for utility Classes", "CastReporting.Reporting.Helper.StreamHelper","MyObjType","solved", "high","3", "D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Provide a private default Constructor for utility Classes", "CastReporting.Reporting.Helper.StreamHelper","MyObjType","solved", "high","3", "D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Provide a private default Constructor for utility Classes", "CastReporting.UI.WPF.Utilities.PasswordBoxAssistant","MyObjType","pending", "high","3", "D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
+                "Provide a private default Constructor for utility Classes", "CastReporting.UI.WPF.Utilities.PasswordBoxAssistant","MyObjType","pending", "high","3", "D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Provide a private default Constructor for utility Classes", "CastReporting.UI.WPF.Utilities.PasswordBoxAssistant","MyObjType","pending", "high","3", "D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
             };
-            TestUtility.AssertTableContent(table, expectedData, 8, 19);
+            TestUtility.AssertTableContent(table, expectedData, 9, 19);
 
         }
 
@@ -94,21 +94,22 @@ namespace CastReporting.UnitTest.Reporting.Tables
             Dictionary<string, string> config = new Dictionary<string, string>
             {
                 {"COUNT","ALL" },
-                {"FILTER","solved" }
+                {"FILTER","solved" },
+                {"TAG", "NO" }
             };
             var table = component.Content(reportData, config);
 
             var expectedData = new List<string>
             {
-                "Rule Name", "Object Name", "Object Type","Status", "Associated Value", "File path","Start Line", "End Line",
-                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "CastReporting.BLL.SnapshotBLL.GetBackgroundFacts", "MyObjType", "solved","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
-                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "CastReporting.BLL.SnapshotBLL.GetBackgroundFacts", "MyObjType", "solved","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
-                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "CastReporting.BLL.SnapshotBLL.GetBackgroundFacts", "MyObjType", "solved","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
-                "Provide a private default Constructor for utility Classes", "CastReporting.Reporting.Helper.StreamHelper","MyObjType","solved","3", "D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
-                "Provide a private default Constructor for utility Classes", "CastReporting.Reporting.Helper.StreamHelper","MyObjType","solved","3", "D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
-                "Provide a private default Constructor for utility Classes", "CastReporting.Reporting.Helper.StreamHelper","MyObjType","solved","3", "D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201"
+                "Rule Name", "Object Name", "Object Type","Status", "Priority", "Associated Value", "File path","Start Line", "End Line",
+                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "CastReporting.BLL.SnapshotBLL.GetBackgroundFacts", "MyObjType", "solved", "low","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
+                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "CastReporting.BLL.SnapshotBLL.GetBackgroundFacts", "MyObjType", "solved", "low","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "CastReporting.BLL.SnapshotBLL.GetBackgroundFacts", "MyObjType", "solved", "low","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Provide a private default Constructor for utility Classes", "CastReporting.Reporting.Helper.StreamHelper","MyObjType","solved", "low","3", "D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
+                "Provide a private default Constructor for utility Classes", "CastReporting.Reporting.Helper.StreamHelper","MyObjType","solved", "low","3", "D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Provide a private default Constructor for utility Classes", "CastReporting.Reporting.Helper.StreamHelper","MyObjType","solved", "low","3", "D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201"
             };
-            TestUtility.AssertTableContent(table, expectedData, 8, 7);
+            TestUtility.AssertTableContent(table, expectedData, 9, 7);
 
         }
 
@@ -144,11 +145,11 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
             var expectedData = new List<string>
             {
-                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "CastReporting.BLL.SnapshotBLL.GetBackgroundFacts", "MyObjType", "solved","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
-                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "CastReporting.BLL.SnapshotBLL.GetBackgroundFacts", "MyObjType", "solved","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
-                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "CastReporting.BLL.SnapshotBLL.GetBackgroundFacts", "MyObjType", "solved","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201"
+                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "CastReporting.BLL.SnapshotBLL.GetBackgroundFacts", "MyObjType", "solved", "extreme","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql","1200","1201",
+                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "CastReporting.BLL.SnapshotBLL.GetBackgroundFacts", "MyObjType", "solved", "extreme","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201",
+                "Avoid catching an exception of type Exception, RuntimeException, or Throwable", "CastReporting.BLL.SnapshotBLL.GetBackgroundFacts", "MyObjType", "solved", "extreme","3","D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\Java\\AADAdmin\\AadSite\\sources\\com\\castsoftware\\aad\\site\\AadSite.java","1200","1201"
             };
-            TestUtility.AssertTableContent(table, expectedData, 8, 3);
+            TestUtility.AssertTableContent(table, expectedData, 9, 3);
 
         }
 

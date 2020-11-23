@@ -47,6 +47,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
                 "Violation #1    Avoid catching an exception of type Exception, RuntimeException, or Throwable",
                 "Object Name: Cast.Util.ExpressionEvaluator.Eval",
                 "Object Type: MyObjType",
+                "Priority: low",
                 "Associated Value: 3",
                 "File path: D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql",
                 "1197 : PreparedStatement statement = null;",
@@ -74,7 +75,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
                 "1203 :         }"
             };
 
-            TestUtility.AssertTableContent(table, expectedData, 1, 30);
+            TestUtility.AssertTableContent(table, expectedData, 1, 31);
 
             var cellsProperties = table.CellsAttributes;
             Assert.AreEqual(28, cellsProperties.Count);
@@ -115,6 +116,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
                 "Violation #1    Avoid catching an exception of type Exception, RuntimeException, or Throwable",
                 "Object Name: CastReporting.BLL.SnapshotBLL.GetBackgroundFacts",
                 "Object Type: MyObjType",
+                "Priority: extreme",
                 "Associated Value: 3",
                 "File path: D:\\CASTMS\\TST834\\Deploy\\Team\\AADAED\\SQL\\central.sql",
                 "1197 : PreparedStatement statement = null;",
@@ -142,7 +144,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
                 "1203 :         }"
             };
 
-            TestUtility.AssertTableContent(table, expectedData, 1, 30);
+            TestUtility.AssertTableContent(table, expectedData, 1, 31);
 
             var cellsProperties = table.CellsAttributes;
             Assert.AreEqual(28, cellsProperties.Count);

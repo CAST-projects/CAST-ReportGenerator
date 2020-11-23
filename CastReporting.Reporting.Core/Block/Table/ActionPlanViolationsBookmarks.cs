@@ -17,6 +17,7 @@ namespace CastReporting.Reporting.Block.Table
 
             int nbLimitTop = options.GetOption("COUNT") == "ALL" ? -1 : options.GetIntOption("COUNT", 10);
             string filter = options.GetOption("FILTER", "ALL").ToUpper();
+            bool tag = options.GetBoolOption("TAG", true);
 
             List<string> rowData = new List<string>();
             // cellProps will contains the properties of the cell (background color) linked to the data by position in the list stored with cellidx.
@@ -51,7 +52,8 @@ namespace CastReporting.Reporting.Block.Table
                 if (_violations.Length != 0)
                 {
                     MetricsUtility.ViolationsBookmarksProperties violationsBookmarksProperties =
-                        new MetricsUtility.ViolationsBookmarksProperties(_violations, 0, rowData, string.Empty, false, reportData.CurrentSnapshot.DomainId, reportData.CurrentSnapshot.Id.ToString(), string.Empty);
+                        new MetricsUtility.ViolationsBookmarksProperties(_violations, 0, rowData, tag ? "actionPlan" : "actionPlanPriority", false, reportData.CurrentSnapshot.DomainId, 
+                        reportData.CurrentSnapshot.Id.ToString(), tag ? "actionPlan" : "actionPlanPriority");
                     MetricsUtility.PopulateViolationsBookmarks(reportData, violationsBookmarksProperties, cellidx, cellProps, true);
                 }
                 else
