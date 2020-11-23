@@ -9,25 +9,23 @@ using System.Linq;
 
 namespace CastReporting.Reporting.Block.Table
 {
-    [Block("ACTION_PLAN_VIOLATIONS")]
-    public class ActionPlanViolations : TableBlock
+    [Block("ACTION_PLAN_BOOKMARKS")]
+    public class ActionPlanViolationsBookmarks : TableBlock
     {
         public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
-            List<string> rowData = new List<string>();
 
-            bool shortName = options.GetOption("NAME", "FULL") == "SHORT";
             int nbLimitTop = options.GetOption("COUNT") == "ALL" ? -1 : options.GetIntOption("COUNT", 10);
-            string filter = options.GetOption("FILTER", "ALL");
+            string filter = options.GetOption("FILTER", "ALL").ToUpper();
             bool tag = options.GetBoolOption("TAG", true);
-            int nbRows;
 
-            rowData.Add(Labels.RuleName);
-            rowData.Add(Labels.ObjectName);
-            rowData.Add(Labels.Comment);
-            rowData.Add(Labels.Priority);
-            rowData.Add(Labels.Status);
-            rowData.Add(Labels.LastUpdated);
+            List<string> rowData = new List<string>();
+            // cellProps will contains the properties of the cell (background color) linked to the data by position in the list stored with cellidx.
+            List<CellAttributes> cellProps = new List<CellAttributes>();
+            int cellidx = 0;
+
+            rowData.Add(Labels.ViolationsInActionPlan);
+            cellidx++;
 
             IEnumerable<Violation> results = reportData.SnapshotExplorer.GetViolationsInActionPlan(reportData.CurrentSnapshot.Href, -1);
             if (results != null)
@@ -45,40 +43,22 @@ namespace CastReporting.Reporting.Block.Table
                         results = results.Where(_ => _.RemedialAction.Status.Equals("solved"));
                         break;
                 }
-                
                 if (nbLimitTop != -1)
                 {
                     results = results.Take(nbLimitTop);
                 }
 
-                var _violations = results as IList<Violation> ?? results.ToList();
-                if (_violations.Count != 0)
+                var _violations = results as Violation[] ?? results.ToArray();
+                if (_violations.Length != 0)
                 {
-                    foreach (Violation _violation in _violations)
-                    {
-                        rowData.Add(_violation.RulePattern.Name ?? Constants.No_Value);
-                        rowData.Add(shortName ? _violation.Component.ShortName : _violation.Component.Name ?? Constants.No_Value);
-                        rowData.Add(_violation.RemedialAction.Comment ?? Constants.No_Value);
-                        if (tag)
-                        {
-                            rowData.Add(_violation.RemedialAction.Tag ?? Constants.No_Value);
-                        } else
-                        {
-                            rowData.Add(_violation.RemedialAction.Priority ?? Constants.No_Value);
-                        }
-                        rowData.Add(_violation.RemedialAction.Status ?? Constants.No_Value);
-                        rowData.Add(_violation.RemedialAction.Dates.Updated.DateSnapShot?.ToString(Labels.FORMAT_LONG_DATE) ?? Constants.No_Value);
-                    }
-                    nbRows = _violations.Count + 1;
+                    MetricsUtility.ViolationsBookmarksProperties violationsBookmarksProperties =
+                        new MetricsUtility.ViolationsBookmarksProperties(_violations, 0, rowData, tag ? "actionPlan" : "actionPlanPriority", false, reportData.CurrentSnapshot.DomainId, 
+                        reportData.CurrentSnapshot.Id.ToString(), tag ? "actionPlan" : "actionPlanPriority");
+                    MetricsUtility.PopulateViolationsBookmarks(reportData, violationsBookmarksProperties, cellidx, cellProps, true);
                 }
                 else
                 {
                     rowData.Add(Labels.NoItem);
-                    for (int i = 1; i < 6; i++)
-                    {
-                        rowData.Add(string.Empty);
-                    }
-                    nbRows = 2;
                 }
             }
             else
@@ -88,16 +68,16 @@ namespace CastReporting.Reporting.Block.Table
                 {
                     rowData.Add(string.Empty);
                 }
-                nbRows = 2;
             }
 
             var table = new TableDefinition
             {
                 HasRowHeaders = false,
                 HasColumnHeaders = true,
-                NbRows = nbRows,
-                NbColumns = 6,
-                Data = rowData
+                NbRows = rowData.Count,
+                NbColumns = 1,
+                Data = rowData,
+                CellsAttributes = cellProps
             };
 
             return table;

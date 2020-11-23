@@ -67,6 +67,7 @@ namespace CastReporting.Reporting.Block.Text
             else if (string.IsNullOrEmpty(metricId)) return Constants.No_Value;
 
             SimpleResult res = MetricsUtility.GetMetricNameAndResult(reportData, snapshot, metricId, module, techno, true);
+            if (res == null) return Constants.No_Value;
             return res.result.HasValue ? res.result.Value.ToString(_format) : Constants.No_Value;
 
         }
