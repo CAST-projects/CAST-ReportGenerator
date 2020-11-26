@@ -29,8 +29,6 @@ namespace CastReporting.Domain.Interfaces
 
         IEnumerable<CommonCategories> GetCommonCategories(WSConnection connection);
 
-        string GetCommonCategoriesJson(WSConnection connection);
-
         IEnumerable<Result> GetBackgroundFacts(string snapshotHref, string backgroundFacts);
         IEnumerable<Result> GetBackgroundFacts(string snapshotHref, string backgroundFacts, bool modules, bool technologies);
 

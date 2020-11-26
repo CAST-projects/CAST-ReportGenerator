@@ -105,28 +105,6 @@ namespace CastReporting.BLL
             return applications.OrderBy(_ => _.Name).ToList();
         }
 
-        [SuppressMessage("ReSharper", "InconsistentNaming")]
-        public class CommonTags
-        {
-            public Application application { get; set; }
-            public Tagg[] commonTags { get; set; }
-        }
-
-        [SuppressMessage("ReSharper", "InconsistentNaming")]
-        public class CommonCategoriess
-        {
-            public string key { get; set; }
-            public string label { get; set; }
-            public Tagg[] tags { get; set; }
-        }
-
-        [SuppressMessage("ReSharper", "InconsistentNaming")]
-        public class Tagg
-        {
-            public string key { get; set; }
-            public string label { get; set; }
-        }
-
         public static List<Snapshot> GetAllSnapshots(Application[] applications)
         {
             List<Snapshot> _snapshots = new List<Snapshot>();
@@ -144,46 +122,36 @@ namespace CastReporting.BLL
         }
 
 
-        public List<Application> GetCommonTaggedApplications(string strSelectedTag)
+        public List<Application> GetCommonTaggedApplications(string strSelectedTag, string strSelectedCategoy)
         {
             List<Application> _commonTaggedApplications = new List<Application>();
-            if (strSelectedTag == null)
+            List<Application> applications = GetApplications();
+            if (strSelectedTag == null && strSelectedCategoy == null)
             {
-                using (var castRepository = GetRepository())
-                {
-                    string strCommonTagsJson = castRepository.GetCommonTagsJson();
-                    if (strCommonTagsJson == null || strCommonTagsJson.Equals(string.Empty))
-                    {
-                        return _commonTaggedApplications;
-                    }
-                    var _commonTagsss3 = new DataContractJsonSerializer(typeof(CommonTags[]));
-                    using (MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(strCommonTagsJson)))
-                    {
-                        var _commonTags = _commonTagsss3.ReadObject(ms) as CommonTags[];
-
-                        if (_commonTags == null || !_commonTags.Any()) return _commonTaggedApplications;
-                        _commonTaggedApplications.AddRange(_commonTags.Select(ct => GetApplications().First(_ => _.Href == ct.application.Href)));
-                    }
-                }
+                return applications;
             }
             else
             {
+                List<Tag> strTags = GetTags(strSelectedCategoy);
                 using (var castRepository = GetRepository())
                 {
-                    string strCommonTagsJson = castRepository.GetCommonTagsJson();
-                    if (strCommonTagsJson == null) return _commonTaggedApplications;
-
-                    var _commonTagsss3 = new DataContractJsonSerializer(typeof(CommonTags[]));
-                    using (MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(strCommonTagsJson)))
+                    List<CommonTaggedApplications> commonTaggedApplications = castRepository.GetCommonTaggedApplications().ToList();
+                    if (strTags.Count() == 0 || commonTaggedApplications.Count() == 0)
                     {
-                        var _commonTags = _commonTagsss3.ReadObject(ms) as CommonTags[];
-
-                        if (_commonTags == null || !_commonTags.Any()) return _commonTaggedApplications;
-                        foreach (var ct in _commonTags)
+                        return _commonTaggedApplications;
+                    }
+                    foreach (Tag _tag in strTags)
+                    {
+                        if (_tag.Label != strSelectedTag) continue;
+                        foreach (CommonTaggedApplications taggedApplications in commonTaggedApplications)
                         {
-                            Application app = GetApplications().First(_ => _.Href == ct.application.Href);
-                            Tagg[] tags = ct.commonTags;
-                            _commonTaggedApplications.AddRange(from tag in tags select string.IsNullOrEmpty(tag.label) ? " " : tag.label into strTagLabel where strTagLabel == strSelectedTag select app);
+                            foreach(Tag t in taggedApplications.Tags)
+                            {
+                                if (t.Key.Equals(_tag.Key))
+                                {
+                                   _commonTaggedApplications.Add(applications.Where(a => a.Href == taggedApplications.TaggedApplication.Href).First());
+                                }
+                            }
                         }
                     }
                 }
@@ -191,33 +159,20 @@ namespace CastReporting.BLL
             return _commonTaggedApplications;
         }
 
-        public List<string> GetTags(string strCategory)
+        public List<Tag> GetTags(string strCategory)
         {
-            List<string> _tags = new List<string>();
+            List<Tag> _tags = new List<Tag>();
 
             using (var castRepository = GetRepository())
             {
-                string _commonCategoriesJson = castRepository.GetCommonCategoriesJson();
-                if (_commonCategoriesJson == "") return _tags;
-                var _commonTagsss3 = new DataContractJsonSerializer(typeof(CommonCategoriess[]));
-                using (MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(_commonCategoriesJson)))
+                List<CommonCategories> _commonCategories = castRepository.GetCommonCategories().ToList();
+                if (_commonCategories.Count == 0) return _tags;
+                foreach(CommonCategories cat in _commonCategories)
                 {
-                    var _commonCategorys = _commonTagsss3.ReadObject(ms) as CommonCategoriess[];
-
-                    if (_commonCategorys == null || !_commonCategorys.Any()) return _tags;
-                    foreach (var _category in _commonCategorys)
-                    {
-                        string strLabelled = string.IsNullOrEmpty(_category.label) ? " " : _category.label;
-                        if (strCategory != strLabelled) continue;
-                        Tagg[] tags = _category.tags;
-                        if (tags.Length > 0)
-                        {
-                            _tags.AddRange(tags.Select(tag => string.IsNullOrEmpty(tag.label) ? " " : tag.label));
-                        }
-                    }
+                    if (strCategory != cat.Name) continue;
+                    _tags.AddRange(cat.Tags.ToList());
                 }
             }
-
             return _tags;
         }
 

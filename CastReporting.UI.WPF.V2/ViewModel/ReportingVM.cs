@@ -415,7 +415,8 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                 {
                     using (CastDomainBLL castDomainBLL = new CastDomainBLL(ActiveConnection))
                     {
-                        Tags = castDomainBLL.GetTags(SelectedCategory);
+                        List<Tag> _tags = castDomainBLL.GetTags(SelectedCategory);
+                        Tags = _tags.Select(t => t.Label).ToList();
                     }
                 }
                 catch (Exception ex)
@@ -608,7 +609,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                         {
                             using (CastDomainBLL castDomainBLL = new CastDomainBLL(ActiveConnection))
                             {
-                                Apps = castDomainBLL.GetCommonTaggedApplications(SelectedTag);
+                                Apps = castDomainBLL.GetCommonTaggedApplications(SelectedTag, SelectedCategory);
                             }
                         }
                         catch (Exception ex)

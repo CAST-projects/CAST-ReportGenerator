@@ -207,7 +207,7 @@ namespace CastReporting.Console
                     {
                         using (CastDomainBLL castDomainBLL = new CastDomainBLL(connection))
                         {
-                            _apps = castDomainBLL.GetCommonTaggedApplications(arguments.Tag?.Name);
+                            _apps = castDomainBLL.GetCommonTaggedApplications(arguments.Tag?.Name, arguments.Category?.Name);
                         }
                     }
                     catch (Exception ex)

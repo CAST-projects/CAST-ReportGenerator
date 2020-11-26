@@ -389,23 +389,6 @@ namespace CastReporting.BLL
 
         }
 
-        public string GetCommonCategoriesJson(WSConnection connection)
-        {
-            try
-            {
-                using (var castRepsitory = GetRepository(connection))
-                {
-                    return castRepsitory.GetCommonCategoriesJson();
-                }
-            }
-            catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
-            {
-                LogHelper.LogInfo(ex.Message);
-                return null;
-            }
-
-        }
-
         /// <summary>
         /// 
         /// </summary>
