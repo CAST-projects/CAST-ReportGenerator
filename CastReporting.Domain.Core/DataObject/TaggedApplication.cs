@@ -13,22 +13,20 @@
  * limitations under the License.
  *
  */
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace CastReporting.Domain
 {
-    [DataContract(Name = "common-categories")]
-    public class CommonCategories
+    [DataContract(Name = "application")]
+    public class TaggedApplication
     {
-        [DataMember(Name = "key")]
-        // ReSharper disable once InconsistentNaming
-        public string key { get; set; }
+        [DataMember(Name = "href")]
+        public string Href { get; set; }
 
-        [DataMember(Name = "label")]
+        [DataMember(Name = "name")]
         public string Name { get; set; }
 
-        [DataMember(Name = "tags")]
-        public Tag[] Tags { get; set; }
+        [DataMember(Name = "adgDatabase")]
+        public string AdgDatabase { get; set; }
     }
 }

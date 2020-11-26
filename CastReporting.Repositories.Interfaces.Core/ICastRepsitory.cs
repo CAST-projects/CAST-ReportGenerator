@@ -202,11 +202,7 @@ namespace CastReporting.Repositories.Interfaces
         /// </summary>
         /// <returns></returns>
         IEnumerable<CommonCategories> GetCommonCategories();
-
-        string GetCommonCategoriesJson();
-
-
-        string GetCommonTagsJson();
+        IEnumerable<CommonTaggedApplications> GetCommonTaggedApplications();
 
         /// <summary>
         /// 

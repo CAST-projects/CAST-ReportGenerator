@@ -297,19 +297,11 @@ namespace CastReporting.Repositories
             return CallWS<IEnumerable<CommonCategories>>(requestUrl, RequestComplexity.Standard);
         }
 
-        string ICastRepsitory.GetCommonCategoriesJson()
-        {
-            var requestUrl = string.Format(_query_common_categories, "");
-
-            return CallWSJsonOnly(requestUrl, RequestComplexity.Standard);
-        }
-
-        string ICastRepsitory.GetCommonTagsJson()
+        IEnumerable<CommonTaggedApplications> ICastRepsitory.GetCommonTaggedApplications()
         {
             var requestUrl = string.Format(_query_tags, "");
 
-            return CallWSJsonOnly(requestUrl, RequestComplexity.Standard);
-
+            return CallWS<IEnumerable<CommonTaggedApplications>>(requestUrl, RequestComplexity.Standard);
         }
 
         IEnumerable<IfpugFunction> ICastRepsitory.GetIfpugFunctions(string snapshotHref, int count)
