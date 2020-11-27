@@ -82,6 +82,26 @@ namespace CastReporting.BLL
             return applications.OrderBy(_ => _.Name).ToList();
         }
 
+        public List<Application> GetAadApplications()
+        {
+            List<Application> applications = new List<Application>();
+
+            CastDomain aad = GetDomains().Where(d => d.DBType.Equals("AAD")).First();
+
+            using (var castRepsitory = GetRepository())
+            {
+                List<Application> domainApps = castRepsitory.GetApplicationsByDomain(aad.Href)?.ToList();
+                if (domainApps == null) return applications;
+                foreach (Application application in domainApps.Where(_ => string.IsNullOrEmpty(_.Version)))
+                {
+                    application.Version = aad.Version;
+                }
+                applications.AddRange(domainApps);
+            }
+
+            return applications.OrderBy(_ => _.Name).ToList();
+        }
+
         public List<Application> GetAdgApplications()
         {
             List<Application> applications = new List<Application>();
@@ -125,7 +145,7 @@ namespace CastReporting.BLL
         public List<Application> GetCommonTaggedApplications(string strSelectedTag, string strSelectedCategoy)
         {
             List<Application> _commonTaggedApplications = new List<Application>();
-            List<Application> applications = GetApplications();
+            List<Application> applications = GetAadApplications();
             if (strSelectedTag == null && strSelectedCategoy == null)
             {
                 return applications;
