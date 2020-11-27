@@ -74,6 +74,7 @@ namespace CastReporting.UI.WPF.Core
                 currentException = e.Exception;
 
             LogHelper.LogError(Messages.msgGenericError, currentException);
+            LogHelper.LogError(currentException.StackTrace);
 
             IMessageManager messageManager = MainWindow?.DataContext as IMessageManager;
             messageManager?.OnErrorOccured(currentException);
