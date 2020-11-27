@@ -1278,7 +1278,7 @@ namespace CastReporting.Reporting.Helper
                             {
                                 _row.Set(Labels.Priority, _violation.RemedialAction.Priority);
                             }
-                            _row.Set(Labels.AssociatedValue, string.Join(',', associatedValue.Values));
+                            _row.Set(Labels.AssociatedValue, associatedValue.Values == null ? " " : string.Join(',', associatedValue.Values));
                             _row.Set(Labels.FilePath, _.Item1);
                             _row.Set(Labels.StartLine, _.Item2.ToString());
                             _row.Set(Labels.EndLine, _.Item3.ToString());
