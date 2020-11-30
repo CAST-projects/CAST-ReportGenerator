@@ -206,15 +206,20 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                 if (value.Name.Equals("zh-CN"))
                 {
                     string previousTemplatePath = Setting.ReportingParameter.TemplatePath;
-                    TemplatePath = previousTemplatePath + "\\zh-CN";
-
+                    if (!previousTemplatePath.EndsWith("\\zh-CN"))
+                    {
+                        TemplatePath = previousTemplatePath + "\\zh-CN";
+                    }
                 }
 
                 if (previousCulture != null && previousCulture.Equals("zh-CN"))
                 {
                     string previousTemplatePath = Setting.ReportingParameter.TemplatePath;
-                    int idxToKeep = previousTemplatePath.Length - "\\zh-CN".Length;
-                    TemplatePath = previousTemplatePath.Substring(0, idxToKeep);
+                    if (previousTemplatePath.EndsWith("\\zh-CN"))
+                    {
+                        int idxToKeep = previousTemplatePath.Length - "\\zh-CN".Length;
+                        TemplatePath = previousTemplatePath.Substring(0, idxToKeep);
+                    }
                 }
 
                 OnPropertyChanged("Culture");
