@@ -7,6 +7,7 @@ using CastReporting.Reporting.Core.Languages;
 using CastReporting.Reporting.ReportingModel;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace CastReporting.Reporting.Block.Table
@@ -57,9 +58,9 @@ namespace CastReporting.Reporting.Block.Table
                         row.Add(string.IsNullOrEmpty(omgFunction.ObjectFullName) ? Constants.No_Data : omgFunction.ObjectFullName);
                         row.Add(string.IsNullOrEmpty(omgFunction.ObjectType) ? Constants.No_Data : omgFunction.ObjectType);
                         row.Add(string.IsNullOrEmpty(omgFunction.ObjectStatus) ? Constants.No_Data : omgFunction.ObjectStatus);
-                        row.Add(string.IsNullOrEmpty(omgFunction.EffortComplexity) ? Constants.No_Data : omgFunction.EffortComplexity.FormatStringDoubleIntoString());
-                        row.Add(string.IsNullOrEmpty(omgFunction.EquivalenceRatio) ? Constants.No_Data : omgFunction.EquivalenceRatio.FormatStringDoubleIntoString());
-                        row.Add(string.IsNullOrEmpty(omgFunction.AepCount) ? Constants.No_Data : omgFunction.AepCount?.FormatStringDoubleIntoString());
+                        row.Add(string.IsNullOrEmpty(omgFunction.EffortComplexity) ? Constants.No_Data : FormatDouble(omgFunction.EffortComplexity));
+                        row.Add(string.IsNullOrEmpty(omgFunction.EquivalenceRatio) ? Constants.No_Data : FormatDouble(omgFunction.EquivalenceRatio));
+                        row.Add(string.IsNullOrEmpty(omgFunction.AepCount) ? Constants.No_Data : FormatDouble(omgFunction.AepCount));
                         rowData.AddRange(row);
                         nbRows += 1;
                     }
@@ -86,6 +87,19 @@ namespace CastReporting.Reporting.Block.Table
             return resultTable;
         }
 
+        private string FormatDouble(string doubleToFormat)
+        {
+            if (doubleToFormat == null) return Constants.No_Value;
+            try
+            {
+                double var = double.Parse(doubleToFormat, new CultureInfo("en-US"));
+                return var.ToString("N2");
+            } catch (FormatException)
+            {
+                return doubleToFormat;
+            }
+        }
+        
 
     }
 }
