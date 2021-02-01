@@ -52,7 +52,7 @@
 
   <ItemGroup>
     <PackageReference Include="Expression.Interaction" Version="3.0.40218" />
-    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="log4net" Version="2.0.10" />
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="3.0.1" />
     <PackageReference Include="PresentationFramework" Version="4.6.0" />
     <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
