@@ -31,7 +31,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
             var expectedData = new List<string>();
             expectedData.AddRange(new List<string> { " ", "TQI", "Robustness", "Efficiency", "Security", "Transferability", "Changeability" });
-            expectedData.AddRange(new List<string> { "CoCRestAPI - 8.3.ra", " ", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "8.3.ra - Snap4_CAIP-8.3ra_RG-1.5.a", " ", " ", " ", " ", " ", " " });
             expectedData.AddRange(new List<string> { "AAD-Admin", "2.77", "3.20", "1.83", "3.09", "2.89", "2.76" });
             expectedData.AddRange(new List<string> { "AED-Admin", "2.91", "3.41", "1.87", "3.24", "2.98", "2.89" });
             expectedData.AddRange(new List<string> { "ReportGenerator", "2.79", "3.18", "2.66", "3.21", "2.89", "1.87" });
@@ -57,12 +57,12 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
             var expectedData = new List<string>();
             expectedData.AddRange(new List<string> { " ", "TQI", "Robustness", "Efficiency", "Security", "Transferability", "Changeability" });
-            expectedData.AddRange(new List<string> { "CoCRestAPI - 8.3.ra", " ", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "8.3.ra - Snap4_CAIP-8.3ra_RG-1.5.a", " ", " ", " ", " ", " ", " " });
             expectedData.AddRange(new List<string> { "AAD-Admin", "2.77", "3.20", "1.83", "3.09", "2.89", "2.76" });
             expectedData.AddRange(new List<string> { "AED-Admin", "2.91", "3.41", "1.87", "3.24", "2.98", "2.89" });
             expectedData.AddRange(new List<string> { "ReportGenerator", "2.79", "3.18", "2.66", "3.21", "2.89", "1.87" });
             expectedData.AddRange(new List<string> { " ", " ", " ", " ", " ", " ", " " });
-            expectedData.AddRange(new List<string> { "CoCRestAPI - 8.2.4", " ", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "8.2.4 - Snap3_CAIP-8.2.4_RG-1.4.1", " ", " ", " ", " ", " ", " " });
             expectedData.AddRange(new List<string> { "AAD-Admin", "2.76", "3.17", "1.82", "3.05", "2.87", "2.78" });
             expectedData.AddRange(new List<string> { "AED-Admin", "2.92", "3.40", "1.87", "3.24", "3.06", "2.89" });
             expectedData.AddRange(new List<string> { "ReportGenerator", "2.65", "2.91", "2.69", "2.74", "2.95", "1.93" });
@@ -94,7 +94,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
             var expectedData = new List<string>();
             expectedData.AddRange(new List<string> { " ", "TQI", "Robu.", "Efcy", "Secu.", "Trans.", "Chang." });
-            expectedData.AddRange(new List<string> { "CoCRestAPI - 8.3.ra", " ", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "8.3.ra - Snap4_CAIP-8.3ra_RG-1.5.a", " ", " ", " ", " ", " ", " " });
             expectedData.AddRange(new List<string> { "AAD-Admin", "2.77", "3.20", "1.83", "3.09", "2.89", "2.76" });
             expectedData.AddRange(new List<string> { "AED-Admin", "2.91", "3.41", "1.87", "3.24", "2.98", "2.89" });
             expectedData.AddRange(new List<string> { "ReportGenerator", "2.79", "3.18", "2.66", "3.21", "2.89", "1.87" });
