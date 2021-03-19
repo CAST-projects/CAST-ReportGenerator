@@ -108,7 +108,7 @@ namespace CastReporting.Domain
         /// <returns></returns>
         public override string ToString()
         {
-            return $"{Name} - {(Annotation != null ? Annotation.Version : string.Empty)}";
+            return $"{(Annotation != null ? Annotation.Version : string.Empty)} - {(Annotation != null ? Annotation.Name : string.Empty)}";
         }
 
         public long Id => long.TryParse(Href.Split('/').LastOrDefault(), out long id) ? id : 0;
