@@ -82,6 +82,7 @@ Name: "{commondesktop}\{#MyAppShortName} {#MyAppVersion}"; Filename: "{app}\{#My
 
 [Dirs]
 Name: "{code:GetSettingsPath}"; Permissions: users-full
+Name: "{code:GetReportsPath}"; Permissions: users-full
 
 [Run]
 Filename: "{app}\install_dotnet_core.bat"; Description: "Install dotnet core sdk 3.1.102 (mandatory for running CAST-ReportGenerator)"; Flags: postinstall
@@ -91,23 +92,41 @@ Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChang
 // Variables Globales
 var
   PageParam: TInputDirWizardPage;
+  PageParam2: TInputDirWizardPage;
 
 // Creer les Pages Personnalis�es
-procedure CreateTheWizardPages;
+procedure CreateTemplateFolderPages;
 begin
   PageParam := CreateInputDirPage(wpSelectDir,
-		'Select Templates Destination location',
+		'Select Templates destination location',
 		'Where should Template documents be located?',
 		'Setup will store Template documents into a sub folder "Templates" of the following folder'#13#10#13#10 +
 			'To continue, click Next. If you would like to select a different folder, click Browse.',
 		False, 'New Folder');
 
-	// Ajouter un �l�ment (avec une valeur vide)
+	// Ajouter un element (avec une valeur vide)
 	PageParam.Add('');
 	
-	// Initialiser les valeurs par d�faut (optional)
+	// Initialiser les valeurs par defaut (optional)
 	PageParam.Values[0] := ExpandConstant('{commonappdata}')+'\CAST\ReportGenerator\' + '{#MyAppVersion}';
+    
+end;
+
+procedure CreateReportsFolderPages;
+begin
+  PageParam2 := CreateInputDirPage(wpSelectDir,
+		'Select Reports destination location',
+		'Where should the generated reports be located by default?',
+		'Setup will store generated reports into the following folder'#13#10#13#10 +
+			'To continue, click Next. If you would like to select a different folder, click Browse.',
+	False, 'New Folder');
+
+	// Ajouter un element (avec une valeur vide)
+	PageParam2.Add('');
 	
+	// Initialiser les valeurs par defaut (optional)
+	PageParam2.Values[0] := ExpandConstant('{commonappdata}')+'\CAST\ReportGenerator\' + '{#MyAppVersion}' + '\Reports';
+
 end;
 
 // Functions added to be able to save the settings in UTF-8 without bom for chinese and japanese OS
@@ -161,6 +180,11 @@ begin
     Result := PageParam.Values[0];
 end;
 
+function GetReportsPath(Param: String): String;
+begin
+    Result := PageParam2.Values[0];
+end;
+
 function GetSettingsPath(Param: String): String;
 begin
     //Settings dir name as used in C# report generator program
@@ -169,11 +193,12 @@ end;
 
 procedure SaveSettings();
 var
-  S1, S2 : String;
+  S1, S2, S3 : String;
 begin
     FileReplace(GetSettingsPath(S1) + '\CastReportingSetting.xml','<TemplatePath></TemplatePath>','<TemplatePath>' + GetTempPath(S2) + '\Templates</TemplatePath>'); 
     FileReplace(GetSettingsPath(S1) + '\CastReportingSetting.xml','<PortfolioFolderNamePath></PortfolioFolderNamePath>','<PortfolioFolderNamePath>' + GetTempPath(S2) + '\Templates\Portfolio</PortfolioFolderNamePath>'); 
     FileReplace(GetSettingsPath(S1) + '\CastReportingSetting.xml','<ApplicationFolderNamePath></ApplicationFolderNamePath>','<ApplicationFolderNamePath>' + GetTempPath(S2) + '\Templates\Application</ApplicationFolderNamePath>'); 
+    FileReplace(GetSettingsPath(S1) + '\CastReportingSetting.xml','<GeneratedFilePath></GeneratedFilePath>','<GeneratedFilePath>' + GetReportsPath(S3) + '</GeneratedFilePath>'); 
 end;
 
 // Update ReadyMemo
@@ -187,6 +212,8 @@ begin
   S := S + NewLine + MemoGroupInfo + NewLine;
   S := S + NewLine + 'Templates Destination location :' + NewLine;
   S := S + Space + GetTempPath(S1) + NewLine;
+  S := S + NewLine + 'Generated Reports Destination location :' + NewLine;
+  S := S + Space + GetReportsPath(S1) + NewLine;
   S := S + NewLine + MemoTasksInfo + NewLine;
   Result := S;
 end;
@@ -242,6 +269,7 @@ end;
 
 procedure InitializeWizard;
 begin
-  CreateTheWizardPages;
+  CreateReportsFolderPages;
+  CreateTemplateFolderPages;
 end;
 

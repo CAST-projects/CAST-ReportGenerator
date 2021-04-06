@@ -10,6 +10,7 @@
 		<ApplicationQualityGood>3.5</ApplicationQualityGood>
 		<NbResultDefault>5</NbResultDefault>
 		<TemplatePath></TemplatePath>
+    <GeneratedFilePath></GeneratedFilePath>
     <PortfolioFolderNamePath></PortfolioFolderNamePath>
 	  <ApplicationFolderNamePath></ApplicationFolderNamePath>
     <CultureName>en-US</CultureName>

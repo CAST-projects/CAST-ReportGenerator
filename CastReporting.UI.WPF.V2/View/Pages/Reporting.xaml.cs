@@ -177,9 +177,9 @@ namespace CastReporting.UI.WPF.Core.View
 
             var settings = SettingsBLL.GetSetting();
 
-            if (string.IsNullOrEmpty(settings.ReportingParameter.TemplatePath) || !Directory.Exists(settings.ReportingParameter.TemplatePath))
+            if (string.IsNullOrEmpty(settings.ReportingParameter.GeneratedFilePath) || !Directory.Exists(settings.ReportingParameter.GeneratedFilePath))
             {
-                dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             }
             else
             {
