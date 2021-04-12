@@ -964,7 +964,11 @@ namespace CastReporting.Reporting.Helper
             {
                 var r = ExecuteScript(reportData, options, lstParams, snapshot, expr, module, technology);
                 double? res = (double)r.ReturnValue;
-                return res.Value.Equals(double.NaN) ? metricFormat.Equals("graph") ? "0" : Labels.NoData : res.Value.ToString(metricFormat);
+                if (metricFormat.Equals("graph"))
+                {
+                    return res.Value.Equals(double.NaN) ? "0" : res.Value.ToString();
+                }
+                return res.Value.Equals(double.NaN) ? Labels.NoData : res.Value.ToString(metricFormat);
             }
             catch (Exception ex) when (ex is CompilationErrorException || ex is ArgumentException || ex is AggregateException)
             {

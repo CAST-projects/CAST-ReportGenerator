@@ -405,12 +405,15 @@ namespace CastReporting.Reporting.Helper
                             switch (snapshotParam)
                             {
                                 case "CURRENT":
-                                    string curValueC = MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, _metricFormat, null, string.Empty);
+                                    string curValueC = format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, _metricFormat, null, string.Empty)
+                                        : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, "graph", null, string.Empty);
                                     if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.CurrentSnapshot);
                                     results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), curValueC);
                                     break;
                                 case "PREVIOUS":
-                                    string prevValueP = reportData.PreviousSnapshot != null ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, null, string.Empty) : Labels.NoData;
+                                    string prevValueP = reportData.PreviousSnapshot != null ? format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, null, string.Empty)
+                                        : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, "graph", null, string.Empty) 
+                                        : format ? Labels.NoData : "0";
                                     if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.PreviousSnapshot);
                                     results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), prevValueP);
                                     break;
@@ -617,12 +620,15 @@ namespace CastReporting.Reporting.Helper
                                 switch (snapshotParam)
                                 {
                                     case "CURRENT":
-                                        string curValueC = MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, _metricFormat, module, string.Empty);
+                                        string curValueC = format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, _metricFormat, module, string.Empty)
+                                            : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, "graph", module, string.Empty);
                                         if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.CurrentSnapshot);
                                         results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), curValueC);
                                         break;
                                     case "PREVIOUS":
-                                        string prevValueP = reportData.PreviousSnapshot != null ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, module, string.Empty) : Labels.NoData;
+                                        string prevValueP = reportData.PreviousSnapshot != null ? format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, module, string.Empty)
+                                            : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, "graph", module, string.Empty)
+                                            : format ? Labels.NoData : "0";
                                         if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.PreviousSnapshot);
                                         results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), prevValueP);
                                         break;
@@ -841,12 +847,15 @@ namespace CastReporting.Reporting.Helper
                                 switch (snapshotParam)
                                 {
                                     case "CURRENT":
-                                        string curValueC = MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, _metricFormat, null, techno);
+                                        string curValueC = format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, _metricFormat, null, techno)
+                                            : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, "graph", null, techno);
                                         if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.CurrentSnapshot);
                                         results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), curValueC);
                                         break;
                                     case "PREVIOUS":
-                                        string prevValueP = reportData.PreviousSnapshot != null ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, null, techno) : Labels.NoData;
+                                        string prevValueP = reportData.PreviousSnapshot != null ? format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, null, techno)
+                                            : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, "graph", null, techno) 
+                                            : format ? Labels.NoData : "0";
                                         if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.PreviousSnapshot);
                                         results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), prevValueP);
                                         break;
@@ -1073,12 +1082,15 @@ namespace CastReporting.Reporting.Helper
                                     switch (snapshotParam)
                                     {
                                         case "CURRENT":
-                                            string curValueC = MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, _metricFormat, module, techno);
+                                            string curValueC = format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, _metricFormat, module, techno)
+                                                : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, "graph", module, techno);
                                             if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.CurrentSnapshot);
                                             results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), curValueC);
                                             break;
                                         case "PREVIOUS":
-                                            string prevValueP = reportData.PreviousSnapshot != null ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, module, techno) : Labels.NoData;
+                                            string prevValueP = reportData.PreviousSnapshot != null ? format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, module, techno) 
+                                                : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, "graph", module, techno) 
+                                                :  format ? Labels.NoData : "0";
                                             if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.PreviousSnapshot);
                                             results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), prevValueP);
                                             break;
