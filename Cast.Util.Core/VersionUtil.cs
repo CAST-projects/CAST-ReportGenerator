@@ -21,7 +21,9 @@ namespace Cast.Util.Version
         private static bool IsVersionCompatible(string targetVersion, string serviceVersion)
         {
             if ("X.X.X-XXX".Equals(serviceVersion)) return false;
-            return new System.Version(serviceVersion).CompareTo(new System.Version(targetVersion)) >= 0;
+            // due to new version format of rest api since 2.0, the '-' lead to an input string exception for System.Version
+            string checkedVersion = serviceVersion.Replace('-', '.');
+            return new System.Version(checkedVersion).CompareTo(new System.Version(targetVersion)) >= 0;
         }
 
         public static bool IsAdgVersion833Compliant(string version)
