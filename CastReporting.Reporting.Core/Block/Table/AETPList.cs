@@ -5,6 +5,7 @@ using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
 using CastReporting.Reporting.ReportingModel;
+using CastReporting.Reporting.Helper;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -17,11 +18,8 @@ namespace CastReporting.Reporting.Block.Table
     {
         public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
-            int nbLimitTop;
-            if (null == options || !options.ContainsKey("COUNT") || !int.TryParse(options["COUNT"], out nbLimitTop))
-            {
-                nbLimitTop = 10;
-            }
+            string _metricFormat = options.GetOption("FORMAT", "N2");
+            int nbLimitTop = options.GetIntOption("COUNT", 10);
 
             List<string> rowData = new List<string>();
             rowData.AddRange(new[] { Labels.ObjectName, Labels.ObjectFullName, Labels.IFPUG_ObjectType, Labels.Status, Labels.EffortComplexity, Labels.EquivalenceRatio, Labels.AEP });
@@ -58,9 +56,9 @@ namespace CastReporting.Reporting.Block.Table
                         row.Add(string.IsNullOrEmpty(omgFunction.ObjectFullName) ? Constants.No_Data : omgFunction.ObjectFullName);
                         row.Add(string.IsNullOrEmpty(omgFunction.ObjectType) ? Constants.No_Data : omgFunction.ObjectType);
                         row.Add(string.IsNullOrEmpty(omgFunction.ObjectStatus) ? Constants.No_Data : omgFunction.ObjectStatus);
-                        row.Add(string.IsNullOrEmpty(omgFunction.EffortComplexity) ? Constants.No_Data : FormatDouble(omgFunction.EffortComplexity));
-                        row.Add(string.IsNullOrEmpty(omgFunction.EquivalenceRatio) ? Constants.No_Data : FormatDouble(omgFunction.EquivalenceRatio));
-                        row.Add(string.IsNullOrEmpty(omgFunction.AepCount) ? Constants.No_Data : FormatDouble(omgFunction.AepCount));
+                        row.Add(string.IsNullOrEmpty(omgFunction.EffortComplexity) ? Constants.No_Data : FormatDouble(omgFunction.EffortComplexity, _metricFormat));
+                        row.Add(string.IsNullOrEmpty(omgFunction.EquivalenceRatio) ? Constants.No_Data : FormatDouble(omgFunction.EquivalenceRatio, _metricFormat));
+                        row.Add(string.IsNullOrEmpty(omgFunction.AepCount) ? Constants.No_Data : FormatDouble(omgFunction.AepCount, _metricFormat));
                         rowData.AddRange(row);
                         nbRows += 1;
                     }
@@ -87,13 +85,13 @@ namespace CastReporting.Reporting.Block.Table
             return resultTable;
         }
 
-        private string FormatDouble(string doubleToFormat)
+        private string FormatDouble(string doubleToFormat, string optFormat)
         {
             if (doubleToFormat == null) return Constants.No_Value;
             try
             {
                 double var = double.Parse(doubleToFormat, new CultureInfo("en-US"));
-                return var.ToString("N2");
+                return var.ToString(optFormat);
             } catch (FormatException)
             {
                 return doubleToFormat;
