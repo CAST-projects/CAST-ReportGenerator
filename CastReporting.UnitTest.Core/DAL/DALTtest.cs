@@ -15,6 +15,7 @@ namespace CastReporting.UnitTest.Repositories
     ///This is a test class for CRContextTest and is intended
     ///to contain all CRContextTest Unit Tests
     ///</summary>
+    [Ignore]
     [TestClass()]
     public class CRContextTest
     {
