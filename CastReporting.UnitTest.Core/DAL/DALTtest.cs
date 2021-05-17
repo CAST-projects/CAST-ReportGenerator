@@ -15,6 +15,7 @@ namespace CastReporting.UnitTest.Repositories
     ///This is a test class for CRContextTest and is intended
     ///to contain all CRContextTest Unit Tests
     ///</summary>
+    [Ignore]
     [TestClass()]
     public class CRContextTest
     {
@@ -24,7 +25,7 @@ namespace CastReporting.UnitTest.Repositories
         private readonly WSConnection _connection = new WSConnection
         {
             // if using demo-eu-aed, use domain AED1, if using localhost, domain is AED
-            Url = "https://demo-us.castsoftware.com/Engineering/rest/",
+            Url = "https://demo-eu.castsoftware.com/Engineering/rest/",
             // Url = "http://localhost:8585/CAST-AAD-AED/rest/",
             Login = "cio",
             Password = "cast",
