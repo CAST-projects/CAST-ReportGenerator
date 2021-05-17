@@ -21,8 +21,10 @@ namespace Cast.Util.Version
         private static bool IsVersionCompatible(string targetVersion, string serviceVersion)
         {
             if ("X.X.X-XXX".Equals(serviceVersion)) return false;
-            // due to new version format of rest api since 2.0, the '-' lead to an input string exception for System.Version
-            string checkedVersion = serviceVersion.Replace('-', '.');
+            // due to new version format of rest api since 2.0, the '-' lead to an input string exception for System.Version, and also the 'SNAPSHOT' added after
+            int idx = serviceVersion.IndexOf("-");
+            
+            string checkedVersion = idx != -1 ? serviceVersion.Substring(0, idx) : serviceVersion;
             return new System.Version(checkedVersion).CompareTo(new System.Version(targetVersion)) >= 0;
         }
 
