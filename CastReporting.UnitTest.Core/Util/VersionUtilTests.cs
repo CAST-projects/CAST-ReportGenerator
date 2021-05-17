@@ -51,5 +51,13 @@ namespace CastReporting.UnitTest
             Assert.IsTrue(VersionUtil.Is17Compatible("1.7.0.355"));
             Assert.IsFalse(VersionUtil.Is17Compatible("1.6.0.355"));
         }
+
+        [TestMethod]
+        public void Test200Compliant()
+        {
+            Assert.IsTrue(VersionUtil.Is17Compatible("2.0.0-258"));
+            Assert.IsTrue(VersionUtil.Is17Compatible("2.0.0-SNAPSHOT-258"));
+            Assert.IsTrue(VersionUtil.Is17Compatible("2.0.0-SNAPSHOT-DEV"));
+        }
     }
 }
