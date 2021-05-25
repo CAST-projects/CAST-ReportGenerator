@@ -172,5 +172,40 @@ namespace CastReporting.UnitTest.Reporting.Tables
             TestUtility.AssertTableContent(table, expectedData, 7, 2);
         }
 
+        [TestMethod]
+        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@".\Data\CurrentBCTCmodules.json", "Data")]
+        [DeploymentItem(@".\Data\OmgFunctionsTechnical.csv", "Data")]
+        public void TestAETPCountFormat()
+        {
+            CastDate currentDate = new CastDate { Time = 1492984800000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+                @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+                null, null, null, null, null, null);
+            WSConnection connection = new WSConnection
+            {
+                Url = "http://tests/CAST-RESTAPI/rest/",
+                Login = "admin",
+                Password = "cast",
+                IsActive = true,
+                Name = "Default"
+            };
+            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
+
+            var component = new AETPList();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                { "COUNT", "3"},
+                { "FORMAT", "N5" }
+            };
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>();
+            expectedData.AddRange(new List<string> { "Object Name", "Object full name", "Object Type", "Status", "Effort complexity", "Equivalence ratio", "AEP" });
+            expectedData.AddRange(new List<string> { "browserid.js", "[C:\\jenkins7_slave\\workspace\\CAIP_Trunk_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\IFPUG\\Sol2005\\solution_complete_for_stats\\WebApplicationVB\\appli_web_asp\\browserid.js]", "eFile", "added", "0.05000", "45.42553", "2.27128" });
+            expectedData.AddRange(new List<string> { "browserID", "[C:\\jenkins7_slave\\workspace\\CAIP_Trunk_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\IFPUG\\Sol2005\\solution_complete_for_stats\\WebApplicationVB\\appli_web_asp\\browserid.js].browserID", "eFunction", "added", "0.05000", "45.42553", "2.27128" });
+            expectedData.AddRange(new List<string> { "drawCal", "[C:\\jenkins7_slave\\workspace\\CAIP_Trunk_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\IFPUG\\Sol2005\\solution_complete_for_stats\\WebApplicationVB\\appli_web_asp\\calendar.htc].drawCal", "eFunction", "added", "0.05000", "45.42553", "2.27128" });
+            TestUtility.AssertTableContent(table, expectedData, 7, 4);
+        }
     }
 }
