@@ -98,7 +98,7 @@ namespace CastReporting.Reporting.Block.Table
                         : ifpugFunction.NbOfFPs);
                     if (previous)
                     {
-                        var prevFunction = prevFunctions.Where(f => f.ObjectName.Equals(ifpugFunction.ObjectName) && f.ObjectType.Equals(ifpugFunction.ObjectType)).FirstOrDefault();
+                        var prevFunction = prevFunctions.Where(f => f.ObjectName.Equals(ifpugFunction.ObjectName) && f.ObjectType.Equals(ifpugFunction.ObjectType) && f.ElementType.Equals(ifpugFunction.ElementType)).FirstOrDefault();
                         if (prevFunction != null)
                         {
                             rowData.Add(string.IsNullOrEmpty(prevFunction.NbOfFPs) ?
