@@ -276,5 +276,6 @@ namespace CastReporting.Repositories.Interfaces
         IEnumerable<OmgFunctionTechnical> GetOmgFunctionsTechnical(string snapshotHref, int count);
 
         IEnumerable<DeltaComponent> GetDeltaComponents(string levelHRef, string snapshotId, string previousSnapshotId, string status, string technology);
+        IEnumerable<Result> GetOmgTechnicalDebt(string hRef, string indexId, string snapshotsParam);
     }
 }

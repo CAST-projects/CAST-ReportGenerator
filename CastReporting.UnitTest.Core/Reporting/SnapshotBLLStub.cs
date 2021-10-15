@@ -425,5 +425,15 @@ namespace CastReporting.UnitTest.Reporting
         {
             return new List<Tuple<string, int, int>>() { new Tuple<string, int, int>("C:\\jenkins6_slave\\workspace\\CAIP_8.3.3_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Dream Team\\DssAdmin\\DssAdmin\\MetricTree.cpp", 2, 6) };
         }
+
+        public OmgTechnicalDebt GetOmgTechnicalDebt(string snapshotHref, string indexId, string snapshotId)
+        {
+            OmgTechnicalDebt omgTD = new OmgTechnicalDebt();
+            omgTD.Total = 117269;
+            omgTD.Added = 117269;
+            omgTD.Removed = 0;
+            omgTD.NumberOccurrences = 1908;
+            return omgTD;
+        }
     }
 }

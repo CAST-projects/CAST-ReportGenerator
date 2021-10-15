@@ -53,5 +53,11 @@ namespace CastReporting.Domain
         [DataMember(Name = "evolutionSummary")]
         public EvolutionSummary EvolutionSummary { get; set; }
 
+        [DataMember(Name = "score")]
+        public double? Score { get; set; }
+
+        [DataMember(Name = "omgTechnicalDebt")]
+        public OmgTechnicalDebt OmgTechnicalDebt { get; set; }
+
     }
 }

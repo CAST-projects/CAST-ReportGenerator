@@ -807,4 +807,7 @@
   <data name="ViolationsInActionPlan" xml:space="preserve">
     <value>Verletzungen im Aktionsplan</value>
   </data>
+  <data name="Days" xml:space="preserve">
+    <value>Tage</value>
+  </data>
 </root>

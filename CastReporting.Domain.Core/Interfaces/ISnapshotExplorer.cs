@@ -84,5 +84,7 @@ namespace CastReporting.Domain.Interfaces
         TypedComponent GetTypedComponent(string domainId, string componentId, string snapshotId);
 
         List<Tuple<string, int, int>> GetComponentFilePath(string domainId, string componentId, string snapshotId);
+
+        OmgTechnicalDebt GetOmgTechnicalDebt(string snapshotHref, string indexId, string snapshotId);
     }
 }

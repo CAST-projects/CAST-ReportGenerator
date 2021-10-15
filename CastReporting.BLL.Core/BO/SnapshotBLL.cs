@@ -463,6 +463,23 @@ namespace CastReporting.BLL
 
         }
 
+        public OmgTechnicalDebt GetOmgTechnicalDebt(string snapshotHref, string indexId, string snapshotId)
+        {
+            try
+            {
+                using (var castRepository = GetRepository())
+                {
+                    IEnumerable<Result> result = castRepository.GetOmgTechnicalDebt(snapshotHref, indexId, snapshotId);
+                    return result.FirstOrDefault()?.ApplicationResults.FirstOrDefault()?.DetailResult?.OmgTechnicalDebt;
+                }
+            }
+            catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
+            {
+                LogHelper.LogInfo(ex.Message);
+                return null;
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
