@@ -29,23 +29,10 @@ namespace CastReporting.Reporting.Block.Text
         #region METHODS
         public override string Content(ReportData reportData, Dictionary<string, string> options)
         {
-            OmgTechnicalDebt omgTechDebt = new OmgTechnicalDebt();
             string index = options.GetOption("ID", "ISO");
             Snapshot snapshot = options.GetOption("SNAPSHOT", "CURRENT").ToUpper().Equals("PREVIOUS") ? reportData.PreviousSnapshot ?? null : reportData.CurrentSnapshot ?? null;
             if (snapshot == null) return Constants.No_Value;
-            switch (index)
-            {
-                case "CISQ":
-                    omgTechDebt = reportData.SnapshotExplorer.GetOmgTechnicalDebt(reportData.Application.Href, "1062100", snapshot.GetId());
-                    break;
-                case "AIP":
-                    omgTechDebt = reportData.SnapshotExplorer.GetOmgTechnicalDebt(reportData.Application.Href, "60017", snapshot.GetId());
-                    break;
-                default:
-                    // default is ISO
-                    omgTechDebt = reportData.SnapshotExplorer.GetOmgTechnicalDebt(reportData.Application.Href, "1061000", snapshot.GetId());
-                    break;
-            }
+            OmgTechnicalDebt omgTechDebt = reportData.SnapshotExplorer.GetOmgTechnicalDebt(reportData.Application.Href, index, snapshot.GetId());
 
             if (omgTechDebt?.Total != null)
             {

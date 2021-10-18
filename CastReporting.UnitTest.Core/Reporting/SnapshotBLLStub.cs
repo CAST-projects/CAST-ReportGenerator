@@ -393,7 +393,7 @@ namespace CastReporting.UnitTest.Reporting
         [DeploymentItem(@".\Data\Transactions60016WebGoat.json", "Data")]
         public IEnumerable<Transaction> GetTransactions(string snapshotHref, string businessCriteria, int count)
         {
-            IEnumerable<Transaction> res = null;
+            IEnumerable<Transaction> res;
             switch (businessCriteria)
             {
                 case "60016":
@@ -428,12 +428,29 @@ namespace CastReporting.UnitTest.Reporting
 
         public OmgTechnicalDebt GetOmgTechnicalDebt(string snapshotHref, string indexId, string snapshotId)
         {
-            OmgTechnicalDebt omgTD = new OmgTechnicalDebt();
-            omgTD.Total = 117269;
-            omgTD.Added = 117269;
-            omgTD.Removed = 0;
-            omgTD.NumberOccurrences = 1908;
+            OmgTechnicalDebt omgTD = new OmgTechnicalDebt
+            {
+                Total = 117269,
+                Added = 117269,
+                Removed = 0,
+                NumberOccurrences = 1908
+            };
             return omgTD;
+        }
+
+        [DeploymentItem(@".\Data\OmgTechnicalDebts.json", "Data")]
+        [DeploymentItem(@".\Data\OmgTechnicalDebtsOnlyOne.json", "Data")]
+        public IEnumerable<Result> GetOmgTechnicalDebtForSnapshots(string snapshotHref, string indexId, string snapshotIds)
+        {
+            if (snapshotIds.Equals("2"))
+            {
+                return TestUtility.GetSampleResult<Result>(@".\Data\OmgTechnicalDebtsOnlyOne.json").ToList();
+            }
+            if (snapshotIds.Equals("2,1") || snapshotIds.Equals("1,2"))
+            {
+                return TestUtility.GetSampleResult<Result>(@".\Data\OmgTechnicalDebts.json").ToList();
+            }
+            return null;
         }
     }
 }
