@@ -469,8 +469,25 @@ namespace CastReporting.BLL
             {
                 using (var castRepository = GetRepository())
                 {
-                    IEnumerable<Result> result = castRepository.GetOmgTechnicalDebt(appHRef, GetOmgIndex(indexId), snapshotId);
+                    IEnumerable<Result> result = castRepository.GetOmgTechnicalDebt(appHRef, GetOmgIndex(indexId).ToString(), snapshotId);
                     return result.FirstOrDefault()?.ApplicationResults.FirstOrDefault()?.DetailResult?.OmgTechnicalDebt;
+                }
+            }
+            catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
+            {
+                LogHelper.LogInfo(ex.Message);
+                return null;
+            }
+        }
+
+        public OmgTechnicalDebt GetOmgTechnicalDebtForModule(string moduleHRef, string indexId)
+        {
+            try
+            {
+                using (var castRepository = GetRepository())
+                {
+                    IEnumerable<Result> result = castRepository.GetOmgTechnicalDebt(moduleHRef, GetOmgIndex(indexId).ToString(), null);
+                    return result.FirstOrDefault()?.ApplicationResults.FirstOrDefault()?.ModulesResult.FirstOrDefault().DetailResult?.OmgTechnicalDebt;
                 }
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
@@ -486,7 +503,7 @@ namespace CastReporting.BLL
             {
                 using (var castRepository = GetRepository())
                 {
-                    return castRepository.GetOmgTechnicalDebt(appHRef, GetOmgIndex(indexId), snapshotIds);
+                    return castRepository.GetOmgTechnicalDebt(appHRef, GetOmgIndex(indexId).ToString(), snapshotIds);
                 }
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
@@ -496,22 +513,22 @@ namespace CastReporting.BLL
             }
         }
 
-        private static string GetOmgIndex(string indexId)
+        public int GetOmgIndex(string indexId)
         {
-            string idx;
+            int idx;
             switch (indexId)
             {
                 case "CISQ":
-                    idx = "1062100";
+                    idx = 1062100;
                     break;
                 case "AIP":
-                    idx = "60017";
+                    idx = 60017;
                     break;
                 case "ISO":
-                    idx = "1061000";
+                    idx = 1061000;
                     break;
                 default:
-                    idx = indexId;
+                    idx = int.TryParse(indexId, out int id) ? id : 0;
                     break;
             }
 

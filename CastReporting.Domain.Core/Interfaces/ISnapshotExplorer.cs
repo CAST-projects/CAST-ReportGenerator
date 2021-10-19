@@ -86,6 +86,9 @@ namespace CastReporting.Domain.Interfaces
         List<Tuple<string, int, int>> GetComponentFilePath(string domainId, string componentId, string snapshotId);
 
         OmgTechnicalDebt GetOmgTechnicalDebt(string appHRef, string indexId, string snapshotId);
+        OmgTechnicalDebt GetOmgTechnicalDebtForModule(string moduleHRef, string indexId);
         IEnumerable<Result> GetOmgTechnicalDebtForSnapshots(string appHRef, string indexId, string snapshotIds);
+
+        int GetOmgIndex(string indexId);
     }
 }

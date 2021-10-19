@@ -27,10 +27,10 @@ namespace CastReporting.UnitTest
                 BusinessCriteriaResults = TestUtility.GetSampleResult<ApplicationResult>(@".\Data\ComputingTest1.json")
             };
 
-            var result = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(selectedSnapshot, Constants.BusinessCriteria.TechnicalQualityIndex, true);
+            var result = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(selectedSnapshot, Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode(), true);
             if (result == null) Assert.Fail();
             Assert.AreEqual(3.4, result.Value);
-            result = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(selectedSnapshot, Constants.BusinessCriteria.TechnicalQualityIndex, false);
+            result = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(selectedSnapshot, Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode(), false);
             Assert.AreEqual("3.40", result?.ToString("N2"));
         }
 

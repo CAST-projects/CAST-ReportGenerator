@@ -82,7 +82,7 @@ namespace CastReporting.Reporting.Block.Table
                     if (_snapshot == null) continue;
                     string strAppName = _app.Name;
                     double? _cv = RulesViolationUtility.GetBCEvolutionSummary(_snapshot, metricId).FirstOrDefault()?.TotalCriticalViolations;
-                    double? strCurrentBCGrade = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(_snapshot, (Constants.BusinessCriteria)metricId, false);
+                    double? strCurrentBCGrade = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(_snapshot, metricId, false);
 
                     if (_snapshot.Annotation.Date.DateSnapShot != null)
                     {

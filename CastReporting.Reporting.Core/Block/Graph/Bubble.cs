@@ -57,13 +57,13 @@ namespace CastReporting.Reporting.Block.Graph
                 if (moduleId > 0)
                 {
 
-                    _tqiValue = BusinessCriteriaUtility.GetBusinessCriteriaModuleGrade(reportData.CurrentSnapshot, moduleId, Constants.BusinessCriteria.TechnicalQualityIndex, true);
+                    _tqiValue = BusinessCriteriaUtility.GetBusinessCriteriaModuleGrade(reportData.CurrentSnapshot, moduleId, Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode(), true);
                     _techDebtValue = MeasureUtility.GetSizingMeasureModule(reportData.CurrentSnapshot, moduleId, Constants.SizingInformations.TechnicalDebt.GetHashCode());
                     _colValue = MeasureUtility.GetSizingMeasureModule(reportData.CurrentSnapshot, moduleId, Constants.SizingInformations.CodeLineNumber.GetHashCode());
                 }
                 else
                 {
-                    _tqiValue = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(reportData.CurrentSnapshot, Constants.BusinessCriteria.TechnicalQualityIndex, true);
+                    _tqiValue = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(reportData.CurrentSnapshot, Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode(), true);
                     _techDebtValue = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, Constants.SizingInformations.TechnicalDebt);
                     _colValue = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, Constants.SizingInformations.CodeLineNumber);
                 }

@@ -426,7 +426,19 @@ namespace CastReporting.UnitTest.Reporting
             return new List<Tuple<string, int, int>>() { new Tuple<string, int, int>("C:\\jenkins6_slave\\workspace\\CAIP_8.3.3_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Dream Team\\DssAdmin\\DssAdmin\\MetricTree.cpp", 2, 6) };
         }
 
-        public OmgTechnicalDebt GetOmgTechnicalDebt(string snapshotHref, string indexId, string snapshotId)
+        public OmgTechnicalDebt GetOmgTechnicalDebt(string appHref, string indexId, string snapshotId)
+        {
+            OmgTechnicalDebt omgTD = new OmgTechnicalDebt
+            {
+                Total = 117269,
+                Added = 117269,
+                Removed = 0,
+                NumberOccurrences = 1908
+            };
+            return omgTD;
+        }
+
+        public OmgTechnicalDebt GetOmgTechnicalDebtForModule(string moduleHref, string indexId)
         {
             OmgTechnicalDebt omgTD = new OmgTechnicalDebt
             {
@@ -451,6 +463,28 @@ namespace CastReporting.UnitTest.Reporting
                 return TestUtility.GetSampleResult<Result>(@".\Data\OmgTechnicalDebts.json").ToList();
             }
             return null;
+        }
+
+        public int GetOmgIndex(string indexId)
+        {
+            int idx;
+            switch (indexId)
+            {
+                case "CISQ":
+                    idx = 1062100;
+                    break;
+                case "AIP":
+                    idx = 60017;
+                    break;
+                case "ISO":
+                    idx = 1061000;
+                    break;
+                default:
+                    idx = int.TryParse(indexId, out int id) ? id : 0;
+                    break;
+            }
+
+            return idx;
         }
     }
 }
