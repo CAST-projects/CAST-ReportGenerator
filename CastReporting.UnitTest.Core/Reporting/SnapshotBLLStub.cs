@@ -486,5 +486,11 @@ namespace CastReporting.UnitTest.Reporting
 
             return idx;
         }
+
+        [DeploymentItem(@".\Data\OmgTechDebtDetails.json", "Data")]
+        public IEnumerable<Result> GetOmgTechnicalDebtDetailsForSnapshots(string appHRef, string indexId, string snapshotIds)
+        {
+            return TestUtility.GetSampleResult<Result>(@".\Data\OmgTechDebtDetails.json").ToList();
+        }
     }
 }

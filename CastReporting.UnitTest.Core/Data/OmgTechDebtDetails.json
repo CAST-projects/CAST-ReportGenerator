@@ -1,0 +1,90 @@
+﻿[
+  {
+    "number": 3,
+    "date": {
+      "time": 1634118240000,
+      "isoDate": "2021-10-13"
+    },
+    "version": "V3",
+    "application": {
+      "href": "STD_SECU/applications/3",
+      "name": "QaStdSecu",
+      "adgDatabase": "qastdsecu_central"
+    },
+    "applicationSnapshot": {
+      "href": "STD_SECU/applications/3/snapshots/3",
+      "name": "QaStdSecu"
+    },
+    "applicationResults": [
+      {
+        "type": "technical-criteria",
+        "reference": {
+          "href": "STD_SECU/quality-indicators/1061010/snapshots/3",
+          "name": "CWE-22 - Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+          "shortName": "CWE-22",
+          "key": "1061010",
+          "critical": false
+        },
+        "result": {
+          "grade": 2.5,
+          "score": 0.9722222222222222,
+          "omgTechnicalDebt": {
+            "total": 2100,
+            "numberOccurrences": 35,
+            "added": 0,
+            "removed": 2100
+          }
+        },
+        "technologyResults": [],
+        "moduleResults": [],
+        "transactionResults": []
+      },
+      {
+        "type": "technical-criteria",
+        "reference": {
+          "href": "STD_SECU/quality-indicators/1061011/snapshots/3",
+          "name": "CWE-23 - Relative Path Traversal",
+          "shortName": "CWE-23",
+          "key": "1061011",
+          "critical": false
+        },
+        "result": {
+          "grade": 2.5,
+          "score": 0.9722222222222222,
+          "omgTechnicalDebt": {
+            "total": 2100,
+            "numberOccurrences": 35,
+            "added": 0,
+            "removed": 2100
+          }
+        },
+        "technologyResults": [],
+        "moduleResults": [],
+        "transactionResults": []
+      },
+      {
+        "type": "technical-criteria",
+        "reference": {
+          "href": "STD_SECU/quality-indicators/1061012/snapshots/3",
+          "name": "CWE-36 - Absolute Path Traversal",
+          "shortName": "CWE-36",
+          "key": "1061012",
+          "critical": false
+        },
+        "result": {
+          "grade": 2.5,
+          "score": 0.9722222222222222,
+          "omgTechnicalDebt": {
+            "total": 2100,
+            "numberOccurrences": 35,
+            "added": 0,
+            "removed": 2100
+          }
+        },
+        "technologyResults": [],
+        "moduleResults": [],
+        "transactionResults": []
+      }
+    ]
+  }
+]

@@ -163,6 +163,9 @@
     <None Update="Data\cocraFuncWeightPrevious.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\OmgTechDebtDetails.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\OmgTechnicalDebtsOnlyOne.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

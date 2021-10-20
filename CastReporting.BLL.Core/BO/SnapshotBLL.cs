@@ -535,6 +535,22 @@ namespace CastReporting.BLL
             return idx;
         }
 
+        public IEnumerable<Result> GetOmgTechnicalDebtDetailsForSnapshots(string appHRef, string indexId, string snapshotIds)
+        {
+            try
+            {
+                using (var castRepository = GetRepository())
+                {
+                    return castRepository.GetOmgTechnicalDebtDetails(appHRef, GetOmgIndex(indexId).ToString(), snapshotIds);
+                }
+            }
+            catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
+            {
+                LogHelper.LogInfo(ex.Message);
+                return null;
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>

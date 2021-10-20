@@ -72,7 +72,8 @@ namespace CastReporting.Repositories
         private const string _query_quality_standards_doc_applicability = "{0}/quality-standards-categories/{1}";
         private const string _query_removed_violations_by_bcid = "{0}/removed-violations?";
         private const string _query_delta_components = "{0}/components/65005?snapshot-ids=({1},{2})&status={3}";
-        private const string _query_omg_technical_debt = "{0}/results/?quality-indicators={1}&select=omgTechnicalDebt";
+        private const string _query_omg_technical_debt = "{0}/results/?quality-indicators={1}&select=(omgTechnicalDebt)";
+        private const string _query_omg_technical_debt_details = "{0}/results/?quality-indicators=(c:{1})&select=(omgTechnicalDebt)";
 
         #endregion CONSTANTS
 
@@ -673,6 +674,22 @@ namespace CastReporting.Repositories
         IEnumerable<Result> ICastRepsitory.GetOmgTechnicalDebt(string hRef, string indexId, string snapshotId)
         {
             string query = _query_omg_technical_debt;
+
+            if (!string.IsNullOrEmpty(snapshotId))
+                query = query + "&snapshot-ids=({2})";
+
+            string relativeURL = string.Format(query, hRef, indexId, snapshotId);
+
+            return CallWS<IEnumerable<Result>>(relativeURL, RequestComplexity.Long);
+        }
+
+        /// <summary>
+        /// hRef is application href
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<Result> ICastRepsitory.GetOmgTechnicalDebtDetails(string hRef, string indexId, string snapshotId)
+        {
+            string query = _query_omg_technical_debt_details;
 
             if (!string.IsNullOrEmpty(snapshotId))
                 query = query + "&snapshot-ids=({2})";
