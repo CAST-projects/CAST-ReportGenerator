@@ -57,21 +57,27 @@ namespace CastReporting.Reporting.Block.Graph
                     
                     foreach (Snapshot snapshot in _snapshots)
                     {
-                        OmgTechnicalDebt snapshotTechDebt = omgDebtsResults
+                        double? snapshotDate = snapshot.Annotation.Date.DateSnapShot?.ToOADate() ?? 0;
+                        rowData.Add(snapshotDate.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));
+                        OmgTechnicalDebt snapshotTechDebt = omgDebtsResults?
                             .Where(r => r.Snapshot.GetId().Equals(snapshot.GetId()))
                             .Select(r => r.ApplicationResults.FirstOrDefault().DetailResult.OmgTechnicalDebt)
                             .FirstOrDefault();
                         if (snapshotTechDebt != null)
                         {
-                            double? snapshotDate = snapshot.Annotation.Date.DateSnapShot?.ToOADate() ?? 0;
                             double? omgTechDebtRemoved = (double) snapshotTechDebt.Removed / 8 / 60 * -1;
                             double? omgTechDebtAdded = (double) snapshotTechDebt.Added / 8 / 60;
                             double? omgTechDebtValue = (double) snapshotTechDebt.Total / 8 / 60;
 
-                            rowData.Add(snapshotDate.GetValueOrDefault().ToString(CultureInfo.CurrentCulture)) ;
                             rowData.Add(omgTechDebtRemoved.GetValueOrDefault().ToString("N1"));
                             rowData.Add(omgTechDebtAdded.GetValueOrDefault().ToString("N1"));
                             rowData.Add(omgTechDebtValue.GetValueOrDefault().ToString("N1"));
+                        } 
+                        else
+                        {
+                            rowData.Add("0");
+                            rowData.Add("0");
+                            rowData.Add("0");
                         }
                     }
                     count = nbSnapshots;
