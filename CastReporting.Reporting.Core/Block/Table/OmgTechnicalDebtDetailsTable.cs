@@ -48,19 +48,23 @@ namespace CastReporting.Reporting.Block.Table
             if (snapshot != null)
             {
                 Result res = reportData.SnapshotExplorer.GetOmgTechnicalDebtDetailsForSnapshots(reportData.Application.Href, index, snapshot.GetId()).FirstOrDefault();
-                foreach(ApplicationResult appRes in res.ApplicationResults) {
-                    var dataRow = headers.CreateDataRow();
-                    dataRow.Set(Labels.TechnicalCriterion, appRes.Reference.Name);
-                    OmgTechnicalDebt omgTechDebt = appRes.DetailResult.OmgTechnicalDebt;
-                    if (omgTechDebt != null)
+                if (res != null)
+                {
+                    foreach (ApplicationResult appRes in res.ApplicationResults)
                     {
-                        double? techDebt = (double?)omgTechDebt?.Total / 8 / 60;
-                        dataRow.Set(techDebtLabel, techDebt.HasValue ? techDebt.Value.ToString("N1") : Constants.No_Value);
-                        double? techDebtAdded = (double?)omgTechDebt?.Added / 8 / 60;
-                        dataRow.Set(techDebtAddedLabel, techDebtAdded.HasValue ? techDebtAdded.Value.ToString("N1") : Constants.No_Value);
-                        double? techDebtRemoved = (double?)omgTechDebt?.Removed / 8 / 60;
-                        dataRow.Set(techDebtRemovedLabel, techDebtRemoved.HasValue ? techDebtRemoved.Value.ToString("N1") : Constants.No_Value);
-                        data.AddRange(dataRow);
+                        var dataRow = headers.CreateDataRow();
+                        dataRow.Set(Labels.TechnicalCriterion, appRes.Reference.Name);
+                        OmgTechnicalDebt omgTechDebt = appRes.DetailResult?.OmgTechnicalDebt;
+                        if (omgTechDebt != null)
+                        {
+                            double? techDebt = (double?)omgTechDebt?.Total / 8 / 60;
+                            dataRow.Set(techDebtLabel, techDebt.HasValue ? techDebt.Value.ToString("N1") : Constants.No_Value);
+                            double? techDebtAdded = (double?)omgTechDebt?.Added / 8 / 60;
+                            dataRow.Set(techDebtAddedLabel, techDebtAdded.HasValue ? techDebtAdded.Value.ToString("N1") : Constants.No_Value);
+                            double? techDebtRemoved = (double?)omgTechDebt?.Removed / 8 / 60;
+                            dataRow.Set(techDebtRemovedLabel, techDebtRemoved.HasValue ? techDebtRemoved.Value.ToString("N1") : Constants.No_Value);
+                            data.AddRange(dataRow);
+                        }
                     }
                 }
             }

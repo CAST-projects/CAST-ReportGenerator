@@ -490,6 +490,10 @@ namespace CastReporting.UnitTest.Reporting
         [DeploymentItem(@".\Data\OmgTechDebtDetails.json", "Data")]
         public IEnumerable<Result> GetOmgTechnicalDebtDetailsForSnapshots(string appHRef, string indexId, string snapshotIds)
         {
+            if (snapshotIds.Equals("6"))
+            {
+                return null;
+            }
             return TestUtility.GetSampleResult<Result>(@".\Data\OmgTechDebtDetails.json").ToList();
         }
     }

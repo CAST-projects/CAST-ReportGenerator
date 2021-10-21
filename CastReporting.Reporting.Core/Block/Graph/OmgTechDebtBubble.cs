@@ -83,6 +83,10 @@ namespace CastReporting.Reporting.Block.Graph
                 rowData.Add(_locValue.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));
                 
             }
+            else
+            {
+                rowData.AddRange(new[] { "0", "0.0", "0" });
+            }
 
             TableDefinition resultTable = new TableDefinition
             {

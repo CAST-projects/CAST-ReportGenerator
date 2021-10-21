@@ -82,5 +82,39 @@ namespace CastReporting.UnitTest.Reporting.Graph
             TestUtility.AssertTableContent(table, expectedData, 3, 2);
 
         }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\DreamTeamSnap4Metrics2.json", "Data")]
+        public void TestNoSnapshot()
+        {
+            CastDate currentDate = new CastDate { Time = 1492984800000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("Dream Team",
+                null, @".\Data\DreamTeamSnap4Metrics2.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4", currentDate,
+                null, null, null, null, null, null);
+
+            var component = new OmgTechDebtBubble();
+            WSConnection connection = new WSConnection
+            {
+                Url = "http://tests/CAST-RESTAPI/rest/",
+                Login = "admin",
+                Password = "cast",
+                IsActive = true,
+                Name = "Default"
+            };
+            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"ID", "AIP" },
+                {"SNAPSHOT", "PREVIOUS" }
+            };
+
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>();
+            expectedData.AddRange(new List<string> { "Grade", "Technical Debt (Days)", "Size (kLoC)" });
+            expectedData.AddRange(new List<string> { "0", "0.0", "0" });
+            TestUtility.AssertTableContent(table, expectedData, 3, 2);
+
+        }
     }
 }
