@@ -20,6 +20,7 @@ using CastReporting.Reporting.Helper;
 using System.Collections.Generic;
 using CastReporting.Domain;
 using CastReporting.Reporting.Core.Languages;
+using CastReporting.BLL.Computing;
 
 namespace CastReporting.Reporting.Block.Text
 {
@@ -32,12 +33,11 @@ namespace CastReporting.Reporting.Block.Text
             string index = options.GetOption("ID", "ISO");
             Snapshot snapshot = options.GetOption("SNAPSHOT", "CURRENT").ToUpper().Equals("PREVIOUS") ? reportData.PreviousSnapshot ?? null : reportData.CurrentSnapshot ?? null;
             if (snapshot == null) return Constants.No_Value;
-            OmgTechnicalDebt omgTechDebt = reportData.SnapshotExplorer.GetOmgTechnicalDebt(reportData.Application.Href, index, snapshot.GetId());
 
-            if (omgTechDebt?.Total != null)
+            OmgTechnicalDebtIdDTO omgTechDebt = OmgTechnicalDebtUtility.GetOmgTechDebt(snapshot, index);
+            if (omgTechDebt != null)
             {
-                double? result = (double) omgTechDebt.Total / 8 / 60;
-                return result.HasValue ? $"{result.Value:N1} {Labels.Days}" : Constants.No_Value;
+                return omgTechDebt.Total.HasValue ? $"{omgTechDebt.Total.Value:N1} {Labels.Days}" : Constants.No_Value;
             }
             return Constants.No_Value;
         }

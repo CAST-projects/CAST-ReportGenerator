@@ -24,15 +24,6 @@ namespace CastReporting.UnitTest.Reporting.Tables
                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                null, null, null, null, null, null);
             var component = new OmgTechnicalDebtTable();
-            WSConnection connection = new WSConnection
-            {
-                Url = "http://tests/CAST-RESTAPI/rest/",
-                Login = "admin",
-                Password = "cast",
-                IsActive = true,
-                Name = "Default"
-            };
-            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
             Dictionary<string, string> config = new Dictionary<string, string>
             {
                 {"ID", "AIP" }
@@ -42,9 +33,9 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
             var expectedData = new List<string>();
             expectedData.AddRange(new List<string> { "Name", "Value" });
-            expectedData.AddRange(new List<string> { "Technical Debt (Days)", "244.3" });
-            expectedData.AddRange(new List<string> { "Technical Debt Added (Days)", "244.3" });
-            expectedData.AddRange(new List<string> { "Technical Debt Removed (Days)", "0.0" });
+            expectedData.AddRange(new List<string> { "Technical Debt (Days)", "766.0" });
+            expectedData.AddRange(new List<string> { "Technical Debt Added (Days)", "0.3" });
+            expectedData.AddRange(new List<string> { "Technical Debt Removed (Days)", "28.0" });
             TestUtility.AssertTableContent(table, expectedData, 2, 3);
         }
 
@@ -57,18 +48,9 @@ namespace CastReporting.UnitTest.Reporting.Tables
                 null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             var component = new OmgTechnicalDebtTable();
-            WSConnection connection = new WSConnection
-            {
-                Url = "http://tests/CAST-RESTAPI/rest/",
-                Login = "admin",
-                Password = "cast",
-                IsActive = true,
-                Name = "Default"
-            };
-            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
             Dictionary<string, string> config = new Dictionary<string, string>
             {
-                {"ID", "AIP" },
+                {"ID", "ISO" },
                 {"HEADER","SHORT" }
             };
 
@@ -77,8 +59,8 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var expectedData = new List<string>();
             expectedData.AddRange(new List<string> { "Name", "Value" });
             expectedData.AddRange(new List<string> { "Debt", "244.3" });
-            expectedData.AddRange(new List<string> { "Debt Added", "244.3" });
-            expectedData.AddRange(new List<string> { "Debt Removed", "0.0" });
+            expectedData.AddRange(new List<string> { "Debt Added", "0.2" });
+            expectedData.AddRange(new List<string> { "Debt Removed", "10.6" });
             TestUtility.AssertTableContent(table, expectedData, 2, 3);
         }
 
@@ -91,15 +73,6 @@ namespace CastReporting.UnitTest.Reporting.Tables
                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                null, null, null, null, null, null);
             var component = new OmgTechnicalDebtTable();
-            WSConnection connection = new WSConnection
-            {
-                Url = "http://tests/CAST-RESTAPI/rest/",
-                Login = "admin",
-                Password = "cast",
-                IsActive = true,
-                Name = "Default"
-            };
-            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
             Dictionary<string, string> config = new Dictionary<string, string>
             {
                 {"ID", "AIP" },

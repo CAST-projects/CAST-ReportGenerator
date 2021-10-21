@@ -24,15 +24,6 @@ namespace CastReporting.UnitTest.Reporting.Graph
                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/2", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                null, null, null, null, null, null);
             var component = new TrendOmgTechDebt();
-            WSConnection connection = new WSConnection
-            {
-                Url = "http://tests/CAST-RESTAPI/rest/",
-                Login = "admin",
-                Password = "cast",
-                IsActive = true,
-                Name = "Default"
-            };
-            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
             Dictionary<string, string> config = new Dictionary<string, string>
             {
                 {"ID", "ISO" }
@@ -42,7 +33,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
 
             var expectedData = new List<string>();
             expectedData.AddRange(new List<string> { " ", "Debt Removed (Days)", "Debt Added (Days)", "Debt (Days)" });
-            expectedData.AddRange(new List<string> { "42756", "-0.2", "10.8", "228.7" });
+            expectedData.AddRange(new List<string> { "42756", "-10.6", "0.2", "244.3" });
             TestUtility.AssertTableContent(table, expectedData, 4, 2);
 
             Assert.IsNull(table.GraphOptions);
@@ -57,18 +48,9 @@ namespace CastReporting.UnitTest.Reporting.Graph
                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                null, null, null, null, null, null);
             var component = new TrendOmgTechDebt();
-            WSConnection connection = new WSConnection
-            {
-                Url = "http://tests/CAST-RESTAPI/rest/",
-                Login = "admin",
-                Password = "cast",
-                IsActive = true,
-                Name = "Default"
-            };
-            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
             Dictionary<string, string> config = new Dictionary<string, string>
             {
-                {"ID", "ISO" }
+                {"ID", "12345" }
             };
 
             var table = component.Content(reportData, config);
@@ -93,15 +75,6 @@ namespace CastReporting.UnitTest.Reporting.Graph
                 null, @".\Data\PreviousBCresults.json", "AED/applications/3/snapshots/1", "PreVersion 1.4.1 before release", "V-1.4.1", previousDate);
 
             var component = new TrendOmgTechDebt();
-            WSConnection connection = new WSConnection
-            {
-                Url = "http://tests/CAST-RESTAPI/rest/",
-                Login = "admin",
-                Password = "cast",
-                IsActive = true,
-                Name = "Default"
-            };
-            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
             Dictionary<string, string> config = new Dictionary<string, string>
             {
                 {"ID", "ISO" }
@@ -111,8 +84,8 @@ namespace CastReporting.UnitTest.Reporting.Graph
 
             var expectedData = new List<string>();
             expectedData.AddRange(new List<string> { " ", "Debt Removed (Days)", "Debt Added (Days)", "Debt (Days)" });
-            expectedData.AddRange(new List<string> { "42755", "-0.0", "218.1", "218.1" });
-            expectedData.AddRange(new List<string> { "42756", "-0.2", "10.8", "228.7" });
+            expectedData.AddRange(new List<string> { "42755", "-0.2", "10.6", "254.7" });
+            expectedData.AddRange(new List<string> { "42756", "-10.6", "0.2", "244.3" });
             TestUtility.AssertTableContent(table, expectedData, 4, 3);
 
             Assert.IsNull(table.GraphOptions);

@@ -1,6 +1,6 @@
 ﻿
 /*
- *   Copyright (c) 2019 CAST
+ *   Copyright (c) 2021 CAST
  *
  * Licensed under a custom license, Version 1.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  *
  */
 
+using CastReporting.BLL.Computing;
 using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
@@ -35,6 +36,7 @@ namespace CastReporting.Reporting.Block.Table
 
             bool displayShortHeader = options.GetOption("HEADER","DAYS").ToUpper().Equals("SHORT");
             string index = options.GetOption("ID", "ISO");
+            int indexId = OmgTechnicalDebtUtility.GetOmgIndex(index);
             Snapshot snapshot = options.GetOption("SNAPSHOT", "CURRENT").ToUpper().Equals("PREVIOUS") ? reportData.PreviousSnapshot ?? null : reportData.CurrentSnapshot ?? null;
 
             List<string> rowData = new List<string>();
@@ -42,9 +44,9 @@ namespace CastReporting.Reporting.Block.Table
 
             if (snapshot != null)
             {
-                OmgTechnicalDebt omgTechnicalDebt = reportData.SnapshotExplorer.GetOmgTechnicalDebt(reportData.Application.Href, index, snapshot.GetId());
+                OmgTechnicalDebtIdDTO omgTechnicalDebt = OmgTechnicalDebtUtility.GetOmgTechDebt(snapshot, indexId);
                 //Build Debt row          
-                double? technicalDebtBuild = (double?) omgTechnicalDebt?.Total / 8 / 60 ?? null;
+                double? technicalDebtBuild = omgTechnicalDebt?.Total ?? null;
                 rowData.AddRange(new[] {
                     displayShortHeader ? Labels.Debt : Labels.TechnicalDebt  + " (" + Labels.Days + ")",
                    technicalDebtBuild?.ToString(numberFormat) ?? Constants.No_Value
@@ -52,14 +54,14 @@ namespace CastReporting.Reporting.Block.Table
 
 
                 //Build Debt added row            
-                double? technicalDebtadded = (double?) omgTechnicalDebt?.Added / 8 / 60 ?? null;
+                double? technicalDebtadded = omgTechnicalDebt?.Added ?? null;
                 rowData.AddRange(new[] {
                      displayShortHeader ? Labels.DebtAdded : Labels.TechnicalDebtAdded + " (" + Labels.Days + ")",
                    technicalDebtadded?.ToString(numberFormat) ?? Constants.No_Value
                 });
 
                 //Build Debt removed row            
-                double? technicalDebtremoved = (double?) omgTechnicalDebt?.Removed / 8 / 60 ?? null;
+                double? technicalDebtremoved = omgTechnicalDebt?.Removed ?? null;
                 rowData.AddRange(new[] {
                      displayShortHeader ? Labels.DebtRemoved : Labels.TechnicalDebtRemoved + " (" + Labels.Days + ")",
                    technicalDebtremoved?.ToString(numberFormat) ?? Constants.No_Value

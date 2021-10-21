@@ -25,15 +25,6 @@ namespace CastReporting.UnitTest.Reporting.Graph
                 null, null, null, null, null, null);
 
             var component = new OmgTechDebtBubble();
-            WSConnection connection = new WSConnection
-            {
-                Url = "http://tests/CAST-RESTAPI/rest/",
-                Login = "admin",
-                Password = "cast",
-                IsActive = true,
-                Name = "Default"
-            };
-            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
             Dictionary<string, string> config = new Dictionary<string, string>
             {
                 {"ID", "AIP" }
@@ -43,7 +34,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
 
             var expectedData = new List<string>();
             expectedData.AddRange(new List<string> { "Grade", "Technical Debt (Days)", "Size (kLoC)" });
-            expectedData.AddRange(new List<string> { "2.1", "244.3", "104851" });
+            expectedData.AddRange(new List<string> { "2.1", "766.0", "104851" });
             TestUtility.AssertTableContent(table, expectedData, 3, 2);
 
         }
@@ -59,15 +50,6 @@ namespace CastReporting.UnitTest.Reporting.Graph
                null, null, null, null, null, null);
 
             var component = new OmgTechDebtBubble();
-            WSConnection connection = new WSConnection
-            {
-                Url = "http://tests/CAST-RESTAPI/rest/",
-                Login = "admin",
-                Password = "cast",
-                IsActive = true,
-                Name = "Default"
-            };
-            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
             Dictionary<string, string> config = new Dictionary<string, string>
             {
                 {"M", "5"},
@@ -78,7 +60,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
 
             var expectedData = new List<string>();
             expectedData.AddRange(new List<string> { "Grade", "Technical Debt (Days)", "Size (kLoC)" });
-            expectedData.AddRange(new List<string> { "2.68", "244.3", "12345" });
+            expectedData.AddRange(new List<string> { "2.68", "766.0", "12345" });
             TestUtility.AssertTableContent(table, expectedData, 3, 2);
 
         }
@@ -93,15 +75,6 @@ namespace CastReporting.UnitTest.Reporting.Graph
                 null, null, null, null, null, null);
 
             var component = new OmgTechDebtBubble();
-            WSConnection connection = new WSConnection
-            {
-                Url = "http://tests/CAST-RESTAPI/rest/",
-                Login = "admin",
-                Password = "cast",
-                IsActive = true,
-                Name = "Default"
-            };
-            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
             Dictionary<string, string> config = new Dictionary<string, string>
             {
                 {"ID", "AIP" },

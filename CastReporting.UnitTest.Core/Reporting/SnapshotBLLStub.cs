@@ -438,57 +438,8 @@ namespace CastReporting.UnitTest.Reporting
             return omgTD;
         }
 
-        public OmgTechnicalDebt GetOmgTechnicalDebtForModule(string moduleHref, string indexId)
-        {
-            OmgTechnicalDebt omgTD = new OmgTechnicalDebt
-            {
-                Total = 117269,
-                Added = 117269,
-                Removed = 0,
-                NumberOccurrences = 1908
-            };
-            return omgTD;
-        }
-
-        [DeploymentItem(@".\Data\OmgTechnicalDebts.json", "Data")]
-        [DeploymentItem(@".\Data\OmgTechnicalDebtsOnlyOne.json", "Data")]
-        public IEnumerable<Result> GetOmgTechnicalDebtForSnapshots(string snapshotHref, string indexId, string snapshotIds)
-        {
-            if (snapshotIds.Equals("2"))
-            {
-                return TestUtility.GetSampleResult<Result>(@".\Data\OmgTechnicalDebtsOnlyOne.json").ToList();
-            }
-            if (snapshotIds.Equals("2,1") || snapshotIds.Equals("1,2"))
-            {
-                return TestUtility.GetSampleResult<Result>(@".\Data\OmgTechnicalDebts.json").ToList();
-            }
-            return null;
-        }
-
-        public int GetOmgIndex(string indexId)
-        {
-            int idx;
-            switch (indexId)
-            {
-                case "CISQ":
-                    idx = 1062100;
-                    break;
-                case "AIP":
-                    idx = 60017;
-                    break;
-                case "ISO":
-                    idx = 1061000;
-                    break;
-                default:
-                    idx = int.TryParse(indexId, out int id) ? id : 0;
-                    break;
-            }
-
-            return idx;
-        }
-
         [DeploymentItem(@".\Data\OmgTechDebtDetails.json", "Data")]
-        public IEnumerable<Result> GetOmgTechnicalDebtDetailsForSnapshots(string appHRef, string indexId, string snapshotIds)
+        public IEnumerable<Result> GetOmgTechnicalDebtDetailsForSnapshots(string appHRef, int indexId, string snapshotIds)
         {
             if (snapshotIds.Equals("6"))
             {

@@ -463,85 +463,13 @@ namespace CastReporting.BLL
 
         }
 
-        public OmgTechnicalDebt GetOmgTechnicalDebt(string appHRef, string indexId, string snapshotId)
+        public IEnumerable<Result> GetOmgTechnicalDebtDetailsForSnapshots(string appHRef, int indexId, string snapshotIds)
         {
             try
             {
                 using (var castRepository = GetRepository())
                 {
-                    IEnumerable<Result> result = castRepository.GetOmgTechnicalDebt(appHRef, GetOmgIndex(indexId).ToString(), snapshotId);
-                    return result.FirstOrDefault()?.ApplicationResults.FirstOrDefault()?.DetailResult?.OmgTechnicalDebt;
-                }
-            }
-            catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
-            {
-                LogHelper.LogInfo(ex.Message);
-                return null;
-            }
-        }
-
-        public OmgTechnicalDebt GetOmgTechnicalDebtForModule(string moduleHRef, string indexId)
-        {
-            try
-            {
-                using (var castRepository = GetRepository())
-                {
-                    IEnumerable<Result> result = castRepository.GetOmgTechnicalDebt(moduleHRef, GetOmgIndex(indexId).ToString(), null);
-                    return result.FirstOrDefault()?.ApplicationResults.FirstOrDefault()?.ModulesResult.FirstOrDefault().DetailResult?.OmgTechnicalDebt;
-                }
-            }
-            catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
-            {
-                LogHelper.LogInfo(ex.Message);
-                return null;
-            }
-        }
-
-        public IEnumerable<Result> GetOmgTechnicalDebtForSnapshots(string appHRef, string indexId, string snapshotIds)
-        {
-            try
-            {
-                using (var castRepository = GetRepository())
-                {
-                    return castRepository.GetOmgTechnicalDebt(appHRef, GetOmgIndex(indexId).ToString(), snapshotIds);
-                }
-            }
-            catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
-            {
-                LogHelper.LogInfo(ex.Message);
-                return null;
-            }
-        }
-
-        public int GetOmgIndex(string indexId)
-        {
-            int idx;
-            switch (indexId)
-            {
-                case "CISQ":
-                    idx = 1062100;
-                    break;
-                case "AIP":
-                    idx = 60017;
-                    break;
-                case "ISO":
-                    idx = 1061000;
-                    break;
-                default:
-                    idx = int.TryParse(indexId, out int id) ? id : 0;
-                    break;
-            }
-
-            return idx;
-        }
-
-        public IEnumerable<Result> GetOmgTechnicalDebtDetailsForSnapshots(string appHRef, string indexId, string snapshotIds)
-        {
-            try
-            {
-                using (var castRepository = GetRepository())
-                {
-                    return castRepository.GetOmgTechnicalDebtDetails(appHRef, GetOmgIndex(indexId).ToString(), snapshotIds);
+                    return castRepository.GetOmgTechnicalDebtDetails(appHRef, indexId.ToString(), snapshotIds);
                 }
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)

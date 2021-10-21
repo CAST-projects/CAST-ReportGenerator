@@ -47,7 +47,7 @@ namespace CastReporting.Reporting.Block.Graph
 
             if (snapshot != null)
             {
-                int idxId = reportData.SnapshotExplorer.GetOmgIndex(index);
+                int idxId = OmgTechnicalDebtUtility.GetOmgIndex(index);
                 double? _idxValue = 0;
                 double? _omgTechDebtValue = 0;
                 double? _locValue = 0;
@@ -58,22 +58,22 @@ namespace CastReporting.Reporting.Block.Graph
                     if (module != null)
                     {
                         // snapshot is already in the module href, we have to send null as snapshot id (to avoid exception)
-                        OmgTechnicalDebt omgTechDebt = reportData.SnapshotExplorer.GetOmgTechnicalDebtForModule(module.Href, index);
+                        OmgTechnicalDebtIdDTO omgTechDebt = OmgTechnicalDebtUtility.GetOmgTechDebtModule(snapshot, module.Id, idxId);
                         if (omgTechDebt != null)
                         {
                             _idxValue = BusinessCriteriaUtility.GetBusinessCriteriaModuleGrade(snapshot, moduleId, idxId, true);
-                            _omgTechDebtValue = (double)omgTechDebt.Total / 8 / 60;
+                            _omgTechDebtValue = omgTechDebt.Total ?? 0;
                             _locValue = MeasureUtility.GetSizingMeasureModule(snapshot, moduleId, Constants.SizingInformations.CodeLineNumber.GetHashCode());
                         }
                     }
                 }
                 else
                 {
-                    OmgTechnicalDebt omgTechDebt = reportData.SnapshotExplorer.GetOmgTechnicalDebt(reportData.Application.Href, index, snapshot.GetId());
+                    OmgTechnicalDebtIdDTO omgTechDebt = OmgTechnicalDebtUtility.GetOmgTechDebt(snapshot, idxId);
                     if (omgTechDebt != null)
                     {
                         _idxValue = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(snapshot, idxId, true);
-                        _omgTechDebtValue = (double)omgTechDebt.Total / 8 / 60;
+                        _omgTechDebtValue = omgTechDebt.Total ?? 0;
                         _locValue = MeasureUtility.GetSizingMeasure(snapshot, Constants.SizingInformations.CodeLineNumber);
                     }
                 }

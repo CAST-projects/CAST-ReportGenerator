@@ -1,6 +1,6 @@
 ﻿
 /*
- *   Copyright (c) 2019 CAST
+ *   Copyright (c) 2021 CAST
  *
  * Licensed under a custom license, Version 1.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  *
  */
 
+using CastReporting.BLL.Computing;
 using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
@@ -32,6 +33,7 @@ namespace CastReporting.Reporting.Block.Table
         public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             string index = options.GetOption("ID", "ISO");
+            int indexId = OmgTechnicalDebtUtility.GetOmgIndex(index);
             Snapshot snapshot = options.GetOption("SNAPSHOT", "CURRENT").ToUpper().Equals("PREVIOUS") ? reportData.PreviousSnapshot ?? null : reportData.CurrentSnapshot ?? null;
 
             var headers = new HeaderDefinition();
@@ -47,7 +49,7 @@ namespace CastReporting.Reporting.Block.Table
 
             if (snapshot != null)
             {
-                Result res = reportData.SnapshotExplorer.GetOmgTechnicalDebtDetailsForSnapshots(reportData.Application.Href, index, snapshot.GetId()).FirstOrDefault();
+                Result res = reportData.SnapshotExplorer.GetOmgTechnicalDebtDetailsForSnapshots(reportData.Application.Href, indexId, snapshot.GetId()).FirstOrDefault();
                 if (res != null)
                 {
                     foreach (ApplicationResult appRes in res.ApplicationResults)

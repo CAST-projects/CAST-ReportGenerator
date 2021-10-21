@@ -1,6 +1,6 @@
 ﻿
 /*
- *   Copyright (c) 2019 CAST
+ *   Copyright (c) 2021 CAST
  *
  * Licensed under a custom license, Version 1.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
  * limitations under the License.
  *
  */
+using CastReporting.BLL.Computing;
 using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
@@ -35,7 +36,7 @@ namespace CastReporting.Reporting.Block.Graph
         public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             string index = options.GetOption("ID", "ISO");
-
+            int indexId = OmgTechnicalDebtUtility.GetOmgIndex(index);
             int count = 0;
             var rowData = new List<string>();
             rowData.AddRange(new[] {
@@ -53,21 +54,17 @@ namespace CastReporting.Reporting.Block.Graph
                 if (_snapshots != null)
                 {
                     List<string> listIds = _snapshots.Select(s => s.GetId()).ToList();
-                    IEnumerable<Result> omgDebtsResults = reportData.SnapshotExplorer.GetOmgTechnicalDebtForSnapshots(reportData.Application.Href, index, string.Join(",", listIds));
                     
                     foreach (Snapshot snapshot in _snapshots)
                     {
                         double? snapshotDate = snapshot.Annotation.Date.DateSnapShot?.ToOADate() ?? 0;
                         rowData.Add(snapshotDate.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));
-                        OmgTechnicalDebt snapshotTechDebt = omgDebtsResults?
-                            .Where(r => r.Snapshot.GetId().Equals(snapshot.GetId()))
-                            .Select(r => r.ApplicationResults.FirstOrDefault().DetailResult.OmgTechnicalDebt)
-                            .FirstOrDefault();
+                        OmgTechnicalDebtIdDTO snapshotTechDebt = OmgTechnicalDebtUtility.GetOmgTechDebt(snapshot, indexId);
                         if (snapshotTechDebt != null)
                         {
-                            double? omgTechDebtRemoved = (double) snapshotTechDebt.Removed / 8 / 60 * -1;
-                            double? omgTechDebtAdded = (double) snapshotTechDebt.Added / 8 / 60;
-                            double? omgTechDebtValue = (double) snapshotTechDebt.Total / 8 / 60;
+                            double? omgTechDebtRemoved = snapshotTechDebt.Removed * -1;
+                            double? omgTechDebtAdded = snapshotTechDebt.Added;
+                            double? omgTechDebtValue = snapshotTechDebt.Total;
 
                             rowData.Add(omgTechDebtRemoved.GetValueOrDefault().ToString("N1"));
                             rowData.Add(omgTechDebtAdded.GetValueOrDefault().ToString("N1"));
