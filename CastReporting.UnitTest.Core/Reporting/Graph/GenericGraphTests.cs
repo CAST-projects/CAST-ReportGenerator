@@ -956,5 +956,69 @@ namespace CastReporting.UnitTest.Reporting.Graph
             expectedData.AddRange(new List<string> { "Business Value", "3" });
             TestUtility.AssertTableContent(table, expectedData, 2, 2);
         }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\ModulesDreamTeam.json", "Data")]
+        [DeploymentItem(@".\Data\DreamTeamSnap4Sample10.json", "Data")]
+        public void TestTechDebtModules()
+        {
+            /*
+             * Configuration : TABLE;GENERIC_GRAPH;COL1=MODULES,ROW1=OMG_TECHNICAL_DEBT,
+             * METRICS=60017,OMG_TECHNICAL_DEBT=ALL,MODULES=ALL
+             */
+            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+             @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap4Sample10.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+             null, null, null, null, null);
+
+            var component = new GenericGraph();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"COL1", "MODULES"},
+                {"ROW1", "OMG_TECHNICAL_DEBT"},
+                {"METRICS", "60017" },
+                {"OMG_TECHNICAL_DEBT", "ALL" },
+                {"MODULES", "ALL"}
+            };
+            TestUtility.SetCulture("en-US");
+            var table = component.Content(reportData, config);
+            var expectedData = new List<string>();
+            expectedData.AddRange(new List<string> { "Technical Debt (Days)", "Adg", "Central", "DssAdmin", "Pchit" });
+            expectedData.AddRange(new List<string> { "Technical Debt (Days)", "257.2", "55.3", "213.2", "205" });
+            expectedData.AddRange(new List<string> { "Technical Debt Added (Days)", "10.2", "5.3", "3", "2.4" });
+            expectedData.AddRange(new List<string> { "Technical Debt Removed (Days)", "25.7", "7", "31", "2.8" });
+            TestUtility.AssertTableContent(table, expectedData, 5, 4);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\DreamTeamSnap4Sample9.json", "Data")]
+        public void TestTechDebtMissingData()
+        {
+            /*
+             * Configuration :TABLE;GENERIC_GRAPH;COL1=METRICS,ROW1=CRITICAL_VIOLATIONS,SNAPSHOTS=CURRENT
+             * DreamTeamSnap4Sample9.json : AED3/applications/7/snapshots/15/results?quality-indicators=(business-criteria)&select=(evolutionSummary)
+             */
+            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+              null, @".\Data\DreamTeamSnap4Sample10.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+              null, null, null, null, null);
+
+            var component = new GenericGraph();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"COL1", "METRICS"},
+                {"ROW1", "OMG_TECHNICAL_DEBT"},
+                {"SNAPSHOTS", "CURRENT"},
+                {"METRICS", "60017|60012" }
+            };
+
+            TestUtility.SetCulture("en-US");
+            var table = component.Content(reportData, config);
+            var expectedData = new List<string>();
+            expectedData.AddRange(new List<string> { "Technical Debt (Days)", "Total Quality Index", "Changeability" });
+            expectedData.AddRange(new List<string> { "Technical Debt (Days)", "244.3", "0" });
+            expectedData.AddRange(new List<string> { "Technical Debt Added (Days)", "24.1", "0" });
+            expectedData.AddRange(new List<string> { "Technical Debt Removed (Days)", "132.8", "0" });
+            TestUtility.AssertTableContent(table, expectedData, 3, 4);
+        }
+
     }
 }

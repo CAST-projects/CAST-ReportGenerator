@@ -580,7 +580,7 @@ namespace CastReporting.Repositories
                 query = query + "&technologies=({4})";
 
             if (evolutionSummary)
-                query = query + "&select=(violationRatio,evolutionSummary)";
+                query = query + "&select=(violationRatio,evolutionSummary,omgTechnicalDebt)";
 
             string relativeURL = string.Format(query, hRef, stgTagParam, modulesParam, technologiesParam);
 

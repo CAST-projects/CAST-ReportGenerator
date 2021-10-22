@@ -35,6 +35,12 @@
 						"totalViolations": 25328,
 						"addedViolations": 1040,
 						"removedViolations": 452
+					},
+					"omgTechnicalDebt": {
+						"total": 367696,
+						"numberOccurrences": 6627,
+						"added": 128,
+						"removed": 13435
 					}
 				},
 				"technologyResults": [
@@ -49,6 +55,12 @@
 								"totalViolations": 256,
 								"addedViolations": 111,
 								"removedViolations": 31
+							},
+							"omgTechnicalDebt": {
+								"total": 26544,
+								"numberOccurrences": 6627,
+								"added": 2544,
+								"removed": 3360
 							}
 						}
 					},
@@ -77,6 +89,12 @@
 								"totalViolations": 20765,
 								"addedViolations": 915,
 								"removedViolations": 375
+							},
+							"omgTechnicalDebt": {
+								"total": 98400,
+								"numberOccurrences": 6627,
+								"added": 1152,
+								"removed": 1344
 							}
 						}
 					},
@@ -450,6 +468,12 @@
 						"totalViolations": 2452,
 						"addedViolations": 181,
 						"removedViolations": 132
+					},
+					"omgTechnicalDebt": {
+						"total": 367696,
+						"numberOccurrences": 6627,
+						"added": 128,
+						"removed": 13435
 					}
 				},
 				"technologyResults": [
@@ -464,6 +488,12 @@
 								"totalViolations": 78,
 								"addedViolations": 35,
 								"removedViolations": 9
+							},
+							"omgTechnicalDebt": {
+								"total": 98400,
+								"numberOccurrences": 6627,
+								"added": 1152,
+								"removed": 1344
 							}
 						}
 					},
@@ -478,6 +508,12 @@
 								"totalViolations": 851,
 								"addedViolations": 2,
 								"removedViolations": 19
+							},
+							"omgTechnicalDebt": {
+								"total": 102336,
+								"numberOccurrences": 6627,
+								"added": 1440,
+								"removed": 14880
 							}
 						}
 					},
@@ -492,6 +528,12 @@
 								"totalViolations": 1394,
 								"addedViolations": 144,
 								"removedViolations": 104
+							},
+							"omgTechnicalDebt": {
+								"total": 26544,
+								"numberOccurrences": 6627,
+								"added": 2544,
+								"removed": 3360
 							}
 						}
 					},
@@ -506,6 +548,12 @@
 								"totalViolations": 129,
 								"addedViolations": 0,
 								"removedViolations": 0
+							},
+							"omgTechnicalDebt": {
+								"total": 123456,
+								"numberOccurrences": 6627,
+								"added": 4896,
+								"removed": 12336
 							}
 						}
 					}

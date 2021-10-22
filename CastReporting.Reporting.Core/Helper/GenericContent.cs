@@ -12,6 +12,10 @@ namespace CastReporting.Reporting.Helper
 {
     public static class GenericContent
     {
+        static string TechnicalDebtLabel = Labels.TechnicalDebt + " (" + Labels.Days + ")";
+        static string TechnicalDebtAddedLabel = Labels.TechnicalDebtAdded + " (" + Labels.Days + ")";
+        static string TechnicalDebtRemovedLabel = Labels.TechnicalDebtRemoved + " (" + Labels.Days + ")";
+
         public class ObjConfig
         {
             public string Type { get; set; }
@@ -36,6 +40,8 @@ namespace CastReporting.Reporting.Helper
                     return Labels.ViolationsCritical;
                 case "CUSTOM_EXPRESSIONS":
                     return Labels.Value;
+                case "OMG_TECHNICAL_DEBT":
+                    return TechnicalDebtLabel;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -90,6 +96,18 @@ namespace CastReporting.Reporting.Helper
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
+                case "OMG_TECHNICAL_DEBT":
+                    switch (item)
+                    {
+                        case "ADDED":
+                            return TechnicalDebtAddedLabel;
+                        case "REMOVED":
+                            return TechnicalDebtRemovedLabel;
+                        case "TOTAL":
+                            return TechnicalDebtLabel;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -112,6 +130,8 @@ namespace CastReporting.Reporting.Helper
             int positionTechnologies = -1;
             List<string> violations = new List<string>();
             int positionViolations = -1;
+            List<string> omgTechDebt = new List<string>();
+            int positionOmgTechDebt = -1;
             List<string> criticalViolations = new List<string>();
             int positionCriticalViolations = -1;
             List<string> customExpressions = new List<string>();
@@ -285,6 +305,18 @@ namespace CastReporting.Reporting.Helper
                             customExprFormat = new[] { "N2" };
                         }
                         break;
+                    case "OMG_TECHNICAL_DEBT":
+                        positionOmgTechDebt = i;
+                        if (_posConfig[i].Parameters.Length == 0 || _posConfig[i].Parameters.Contains("ALL"))
+                        {
+                            omgTechDebt.AddRange(new[] { "TOTAL", "ADDED", "REMOVED" });
+                            _posConfig[i].Parameters = omgTechDebt.ToArray();
+                        }
+                        else
+                        {
+                            omgTechDebt.AddRange(_posConfig[i].Parameters);
+                        }
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -347,7 +379,7 @@ namespace CastReporting.Reporting.Helper
                 string[] _posResults = { string.Empty, string.Empty, string.Empty, string.Empty };
 
                 // case grade (quality indicator) or value (sizing measure or background fact)
-                if (violations.Count == 0 && criticalViolations.Count == 0 && customExpressions.Count == 0)
+                if (violations.Count == 0 && criticalViolations.Count == 0 && customExpressions.Count == 0 && omgTechDebt.Count == 0)
                 {
                     foreach (string _metricId in metrics)
                     {
@@ -392,7 +424,7 @@ namespace CastReporting.Reporting.Helper
                 }
 
                 // case custom expressions
-                if (violations.Count == 0 && criticalViolations.Count == 0 && customExpressions.Count != 0)
+                if (violations.Count == 0 && criticalViolations.Count == 0 && customExpressions.Count != 0 && omgTechDebt.Count == 0)
                 {
                     foreach (string expr in customExpressions)
                     {
@@ -439,8 +471,56 @@ namespace CastReporting.Reporting.Helper
                     }
                 }
 
+                // case omg technical debt
+                if (violations.Count == 0 && criticalViolations.Count == 0 && customExpressions.Count == 0 && omgTechDebt.Count != 0)
+                {
+                    foreach (string _metricId in metrics)
+                    {
+                        foreach (Snapshot _snapshot in snapshots)
+                        {
+                            // _metricId should be a quality indicator, if not, return null
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
+                            string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
+                            if (name == Constants.No_Value) continue;
+                            if (positionMetrics != -1) _posResults[positionMetrics] = name;
+                            OmgTechnicalDebtIdDTO stat = OmgTechnicalDebtUtility.GetOmgTechDebt(_snapshot, int.Parse(_metricId));
+                            foreach (string _omgTechDebt in omgTechDebt)
+                            {
+                                string value;
+                                switch (_omgTechDebt)
+                                {
+                                    case "TOTAL":
+                                        _posResults[positionOmgTechDebt] = TechnicalDebtLabel;
+                                        value = format ? stat?.Total?.ToString("N1") ?? Constants.No_Value : stat?.Total?.ToString() ?? "0";
+                                        break;
+                                    case "ADDED":
+                                        _posResults[positionOmgTechDebt] = TechnicalDebtAddedLabel;
+                                        value = format ? stat?.Added?.ToString("N1") ?? Constants.No_Value : stat?.Added?.ToString() ?? "0";
+                                        break;
+                                    case "REMOVED":
+                                        _posResults[positionOmgTechDebt] = TechnicalDebtRemovedLabel;
+                                        value = format ? stat?.Removed?.ToString("N1") ?? Constants.No_Value : stat?.Removed?.ToString() ?? "0";
+                                        break;
+                                    default:
+                                        throw new ArgumentOutOfRangeException();
+                                }
+                                try
+                                {
+                                    results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), value);
+                                }
+                                catch (ArgumentException e)
+                                {
+                                    // When this exception occurs, this is because a metric with same name already exists.
+                                    LogHelper.LogDebug(e.Message);
+                                    metricsToRemove.Add(_metricId);
+                                }
+                            }
+                        }
+                    }
+                }
+
                 // case violations
-                if (violations.Count != 0 && criticalViolations.Count == 0)
+                if (violations.Count != 0 && criticalViolations.Count == 0 && customExpressions.Count == 0 && omgTechDebt.Count == 0)
                 {
                     foreach (string _metricId in metrics)
                     {
@@ -488,7 +568,7 @@ namespace CastReporting.Reporting.Helper
                 }
 
                 // case critical violations
-                if (violations.Count == 0 && criticalViolations.Count != 0)
+                if (violations.Count == 0 && criticalViolations.Count != 0 && customExpressions.Count == 0 && omgTechDebt.Count == 0)
                 {
                     foreach (string _metricId in metrics)
                     {
@@ -550,7 +630,7 @@ namespace CastReporting.Reporting.Helper
             {
                 string[] _posResults = { string.Empty, string.Empty, string.Empty, string.Empty };
                 // case grade
-                if (violations.Count == 0 && criticalViolations.Count == 0 && customExpressions.Count == 0)
+                if (violations.Count == 0 && criticalViolations.Count == 0 && customExpressions.Count == 0 && omgTechDebt.Count == 0)
                 {
                     foreach (string _metricId in metrics)
                     {
@@ -604,7 +684,7 @@ namespace CastReporting.Reporting.Helper
 
 
                 // case custom expressions
-                if (violations.Count == 0 && criticalViolations.Count == 0 && customExpressions.Count != 0)
+                if (violations.Count == 0 && criticalViolations.Count == 0 && customExpressions.Count != 0 && omgTechDebt.Count == 0)
                 {
                     foreach (string expr in customExpressions)
                     {
@@ -655,8 +735,62 @@ namespace CastReporting.Reporting.Helper
                     }
                 }
 
+                // case omg tech debt
+                if (violations.Count == 0 && criticalViolations.Count == 0 && customExpressions.Count == 0 && omgTechDebt.Count != 0)
+                {
+                    // _metricId should be a quality indicator, if not, return null
+                    foreach (string _metricId in metrics)
+                    {
+                        foreach (Snapshot _snapshot in snapshots)
+                        {
+                            // _metricId should be a quality indicator, if not, return null
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
+                            string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
+                            if (name == Constants.No_Value) continue;
+                            if (positionMetrics != -1) _posResults[positionMetrics] = name;
+                            foreach (Module _module in modules)
+                            {
+                                _posResults[positionModules] = _module.Name;
+                                OmgTechnicalDebtIdDTO stat = OmgTechnicalDebtUtility.GetOmgTechDebtModule(_snapshot, _module.Id, int.Parse(_metricId));
+                                foreach (string _omgTechDebt in omgTechDebt)
+                                {
+                                    string value;
+                                    switch (_omgTechDebt)
+                                    {
+                                        case "TOTAL":
+                                            _posResults[positionOmgTechDebt] = TechnicalDebtLabel;
+                                            value = format ? stat?.Total?.ToString("N1") ?? Constants.No_Value : stat?.Total?.ToString() ?? "0";
+                                            break;
+                                        case "ADDED":
+                                            _posResults[positionOmgTechDebt] = TechnicalDebtAddedLabel;
+                                            value = format ? stat?.Added?.ToString("N1") ?? Constants.No_Value : stat?.Added?.ToString() ?? "0";
+                                            break;
+                                        case "REMOVED":
+                                            _posResults[positionOmgTechDebt] = TechnicalDebtRemovedLabel;
+                                            value = format ? stat?.Removed?.ToString("N1") ?? Constants.No_Value : stat?.Removed?.ToString() ?? "0";
+                                            break;
+                                        default:
+                                            throw new ArgumentOutOfRangeException();
+                                    }
+                                    try
+                                    {
+                                        results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), value);
+                                    }
+                                    catch (ArgumentException e)
+                                    {
+                                        // When this exception occurs, this is because a metric with same name already exists.
+                                        LogHelper.LogDebug(e.Message);
+                                        metricsToRemove.Add(_metricId);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+
                 // case violations
-                if (violations.Count != 0 && criticalViolations.Count == 0)
+                if (violations.Count != 0 && criticalViolations.Count == 0 && customExpressions.Count == 0 && omgTechDebt.Count == 0)
                 {
                     // _metricId should be a quality indicator, if not, return null
                     foreach (string _metricId in metrics)
@@ -710,7 +844,7 @@ namespace CastReporting.Reporting.Helper
                 }
 
                 // case critical violations
-                if (violations.Count == 0 && criticalViolations.Count != 0)
+                if (violations.Count == 0 && criticalViolations.Count != 0 && customExpressions.Count == 0 && omgTechDebt.Count == 0)
                 {
                     // _metricId should be a quality indicator, if not, return null
                     foreach (string _metricId in metrics)
@@ -777,7 +911,7 @@ namespace CastReporting.Reporting.Helper
             {
                 string[] _posResults = { string.Empty, string.Empty, string.Empty, string.Empty };
                 // case grade
-                if (violations.Count == 0 && criticalViolations.Count == 0 && customExpressions.Count == 0)
+                if (violations.Count == 0 && criticalViolations.Count == 0 && customExpressions.Count == 0 && omgTechDebt.Count == 0)
                 {
                     foreach (string _metricId in metrics)
                     {
@@ -830,7 +964,7 @@ namespace CastReporting.Reporting.Helper
                 }
 
                 // case custom expressions
-                if (violations.Count == 0 && criticalViolations.Count == 0 && customExpressions.Count != 0)
+                if (violations.Count == 0 && criticalViolations.Count == 0 && customExpressions.Count != 0 && omgTechDebt.Count == 0)
                 {
                     foreach (string expr in customExpressions)
                     {
@@ -882,8 +1016,63 @@ namespace CastReporting.Reporting.Helper
                     }
                 }
 
+                // case omg technical debt
+                if (violations.Count == 0 && criticalViolations.Count == 0 && customExpressions.Count == 0 && omgTechDebt.Count != 0)
+                {
+                    // _metricId should be a quality indicator, if not, return null
+                    foreach (string _metricId in metrics)
+                    {
+                        foreach (Snapshot _snapshot in snapshots)
+                        {
+                            // _metricId should be a quality indicator, if not, return null
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
+                            string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
+                            if (name == Constants.No_Value) continue;
+                            if (positionMetrics != -1) _posResults[positionMetrics] = name;
+                            foreach (string techno in technologies)
+                            {
+                                _posResults[positionTechnologies] = techno;
+                                OmgTechnicalDebtIdDTO stat = OmgTechnicalDebtUtility.GetOmgTechDebtTechno(_snapshot, techno, int.Parse(_metricId));
+                                foreach (string _omgTechDebt in omgTechDebt)
+                                {
+                                    string value;
+                                    switch (_omgTechDebt)
+                                    {
+                                        case "TOTAL":
+                                            _posResults[positionOmgTechDebt] = TechnicalDebtLabel;
+                                            value = format ? stat?.Total?.ToString("N1") ?? Constants.No_Value : stat?.Total?.ToString() ?? "0";
+                                            break;
+                                        case "ADDED":
+                                            _posResults[positionOmgTechDebt] = TechnicalDebtAddedLabel;
+                                            value = format ? stat?.Added?.ToString("N1") ?? Constants.No_Value : stat?.Added?.ToString() ?? "0";
+                                            break;
+                                        case "REMOVED":
+                                            _posResults[positionOmgTechDebt] = TechnicalDebtRemovedLabel;
+                                            value = format ? stat?.Removed?.ToString("N1") ?? Constants.No_Value : stat?.Removed?.ToString() ?? "0";
+                                            break;
+                                        default:
+                                            throw new ArgumentOutOfRangeException();
+                                    }
+                                    try
+                                    {
+                                        results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), value);
+                                    }
+                                    catch (ArgumentException e)
+                                    {
+                                        // When this exception occurs, this is because a metric with same name already exists.
+                                        LogHelper.LogDebug(e.Message);
+                                        metricsToRemove.Add(_metricId);
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+
+                }
+
                 // case violations
-                if (violations.Count != 0 && criticalViolations.Count == 0)
+                if (violations.Count != 0 && criticalViolations.Count == 0 && customExpressions.Count == 0 && omgTechDebt.Count == 0)
                 {
                     // _metricId should be a quality indicator, if not, return null
                     foreach (string _metricId in metrics)
@@ -938,7 +1127,7 @@ namespace CastReporting.Reporting.Helper
                 }
 
                 // case critical violations
-                if (violations.Count == 0 && criticalViolations.Count != 0)
+                if (violations.Count == 0 && criticalViolations.Count != 0 && customExpressions.Count == 0 && omgTechDebt.Count == 0)
                 {
                     // _metricId should be a quality indicator, if not, return null
                     foreach (string _metricId in metrics)
@@ -1005,7 +1194,7 @@ namespace CastReporting.Reporting.Helper
             {
                 string[] _posResults = { string.Empty, string.Empty, string.Empty, string.Empty };
                 // case grade
-                if (violations.Count == 0 && criticalViolations.Count == 0 && customExpressions.Count == 0)
+                if (violations.Count == 0 && criticalViolations.Count == 0 && customExpressions.Count == 0 && omgTechDebt.Count == 0)
                 {
                     foreach (string _metricId in metrics)
                     {
@@ -1062,7 +1251,7 @@ namespace CastReporting.Reporting.Helper
                 }
 
                 // case custom expressions
-                if (violations.Count == 0 && criticalViolations.Count == 0 && customExpressions.Count != 0)
+                if (violations.Count == 0 && criticalViolations.Count == 0 && customExpressions.Count != 0 && omgTechDebt.Count == 0)
                 {
                     foreach (string expr in customExpressions)
                     {
@@ -1118,8 +1307,66 @@ namespace CastReporting.Reporting.Helper
                     }
                 }
 
+                // case omg technical debt
+                if (violations.Count == 0 && criticalViolations.Count == 0 && customExpressions.Count == 0 && omgTechDebt.Count != 0)
+                {
+                    // _metricId should be a quality indicator, if not, return null
+                    foreach (string _metricId in metrics)
+                    {
+                        foreach (Snapshot _snapshot in snapshots)
+                        {
+                            // _metricId should be a quality indicator, if not, return null
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
+                            string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
+                            if (name == Constants.No_Value) continue;
+                            if (positionMetrics != -1) _posResults[positionMetrics] = name;
+                            foreach (Module _module in modules)
+                            {
+                                _posResults[positionModules] = _module.Name;
+                                foreach (string techno in technologies)
+                                {
+                                    _posResults[positionTechnologies] = techno;
+                                    OmgTechnicalDebtIdDTO stat = OmgTechnicalDebtUtility.GetOmgTechDebtModuleTechno(_snapshot, _module.Id, techno, int.Parse(_metricId));
+                                    foreach (string _omgTechDebt in omgTechDebt)
+                                    {
+                                        string value;
+                                        switch (_omgTechDebt)
+                                        {
+                                            case "TOTAL":
+                                                _posResults[positionOmgTechDebt] = TechnicalDebtLabel;
+                                                value = format ? stat?.Total?.ToString("N1") ?? Constants.No_Value : stat?.Total?.ToString() ?? "0";
+                                                break;
+                                            case "ADDED":
+                                                _posResults[positionOmgTechDebt] = TechnicalDebtAddedLabel;
+                                                value = format ? stat?.Added?.ToString("N1") ?? Constants.No_Value : stat?.Added?.ToString() ?? "0";
+                                                break;
+                                            case "REMOVED":
+                                                _posResults[positionOmgTechDebt] = TechnicalDebtRemovedLabel;
+                                                value = format ? stat?.Removed?.ToString("N1") ?? Constants.No_Value : stat?.Removed?.ToString() ?? "0";
+                                                break;
+                                            default:
+                                                throw new ArgumentOutOfRangeException();
+                                        }
+                                        try
+                                        {
+                                            results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), value);
+                                        }
+                                        catch (ArgumentException e)
+                                        {
+                                            // When this exception occurs, this is because a metric with same name already exists.
+                                            LogHelper.LogDebug(e.Message);
+                                            metricsToRemove.Add(_metricId);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+
                 // case violations
-                if (violations.Count != 0 && criticalViolations.Count == 0)
+                if (violations.Count != 0 && criticalViolations.Count == 0 && customExpressions.Count == 0 && omgTechDebt.Count == 0)
                 {
                     // _metricId should be a quality indicator, if not, return null
                     foreach (string _metricId in metrics)
@@ -1177,7 +1424,7 @@ namespace CastReporting.Reporting.Helper
                 }
 
                 // case critical violations
-                if (violations.Count == 0 && criticalViolations.Count != 0)
+                if (violations.Count == 0 && criticalViolations.Count != 0 && customExpressions.Count == 0 && omgTechDebt.Count == 0)
                 {
                     // _metricId should be a quality indicator, if not, return null
                     foreach (string _metricId in metrics)
@@ -1275,7 +1522,8 @@ namespace CastReporting.Reporting.Helper
              * -------------------- results[Tuple.Create(itemcol1, itemcol11, itemrow1, itemrow11)] (3)
              * if col11 is null replace itemcol11 by "", idem for itemrow11 if row11 is null
              * 
-             * (1) create a function get type name, switching in the different possibilities : SNAPSHOTS, METRICS, MODULES, TECHNOLOGIES, VIOLATIONS, CRITICAL_VIOLATIONS, to get a proper name by language
+             * (1) create a function get type name, switching in the different possibilities : 
+             * SNAPSHOTS, METRICS, MODULES, TECHNOLOGIES, VIOLATIONS, CRITICAL_VIOLATIONS, CUSTOM_EXPRESSIONS and OMG_TECHNICAL_DEBT to get a proper name by language
              * (2) here we have to reconstitute the name depending on the type and the value
              * (3) be careful, the item should correspond to those that have been used to save the data, depending on the type, perhaps use the name and change the _metricId by the metric name lines 173, 184, 213
              */
@@ -1459,6 +1707,21 @@ namespace CastReporting.Reporting.Helper
             {
                 metrics.Remove("TECHNICAL_DEBT");
                 metrics.AddRange(reportData.CurrentSnapshot.SizingMeasuresResults.Where(_ => _.Type == "technical-debt-statistics").Select(_ => _.Reference.Key.ToString()));
+            }
+            if (metrics.Contains("AIP"))
+            {
+                metrics.Remove("AIP");
+                metrics.Add("60017");
+            }
+            if (metrics.Contains("ISO"))
+            {
+                metrics.Remove("ISO");
+                metrics.Add("1061000");
+            }
+            if (metrics.Contains("CISQ"))
+            {
+                metrics.Remove("CISQ");
+                metrics.Add("1062100");
             }
             if (metrics.Contains("VIOLATION"))
             {
