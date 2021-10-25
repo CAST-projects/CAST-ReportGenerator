@@ -1,5 +1,5 @@
 ﻿/*
- *   Copyright (c) 2019 CAST
+ *   Copyright (c) 2021 CAST
  *
  * Licensed under a custom license, Version 1.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +46,7 @@ namespace CastReporting.Reporting.Block.Text
                 {
                     Snapshot _snapshot = _app.Snapshots.OrderByDescending(_ => _.Annotation.Date.DateSnapShot).First();
                     if (_snapshot == null) continue;
-                    OmgTechnicalDebtIdDTO omgTechDebt = OmgTechnicalDebtUtility.GetOmgTechDebt(_snapshot, OmgTechnicalDebtUtility.GetOmgIndex(index));
+                    OmgTechnicalDebtIdDTO omgTechDebt = OmgTechnicalDebtUtility.GetOmgTechDebt(_snapshot, index);
                     double? result = omgTechDebt?.Total;
                     if (result != null)
                     {
