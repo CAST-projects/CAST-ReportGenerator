@@ -9,7 +9,7 @@ using System.Linq;
 namespace CastReporting.UnitTest.Reporting.Text
 {
     [TestClass]
-    public class OmgTechDebtVsafpPortfolioTests
+    public class OmgTechDebtVsKlocPortfolioTests
     {
         [TestInitialize()]
         public void Initialize()
@@ -48,13 +48,14 @@ namespace CastReporting.UnitTest.Reporting.Text
             _snapshots[1] = _snap1;
             reportData.Snapshots = _snapshots;
 
-            var component = new OmgTechDebtVsafpPortfolio();
+            var component = new OmgTechDebtVsKlocPortfolio();
             Dictionary<string, string> config = new Dictionary<string, string>
             {
                 {"ID", "AIP" }
             };
+
             var str = component.Content(reportData, config);
-            Assert.AreEqual("0.8 Days", str);
+            Assert.AreEqual("10.5 Days", str);
         }
 
         [TestMethod]
@@ -87,19 +88,20 @@ namespace CastReporting.UnitTest.Reporting.Text
             _snapshots[1] = _snap1;
             reportData.Snapshots = _snapshots;
 
-            var component = new OmgTechDebtVsafpPortfolio();
+            var component = new OmgTechDebtVsKlocPortfolio();
             Dictionary<string, string> config = new Dictionary<string, string>
             {
                 {"ID", "AIP" }
             };
+
             var str = component.Content(reportData, config);
-            Assert.AreEqual("0.5 Days", str);
+            Assert.AreEqual("5.8 Days", str);
         }
 
         [TestMethod]
         public void TestNoResult()
         {
-            var component = new OmgTechDebtVsafpPortfolio();
+            var component = new OmgTechDebtVsKlocPortfolio();
             Dictionary<string, string> config = new Dictionary<string, string>();
             var str = component.Content(null, config);
             Assert.AreEqual("n/a", str);

@@ -95,7 +95,7 @@
 						"removedViolations": 229
 					},
 					"omgTechnicalDebt": {
-						"total": 470400,
+						"total": 940800,
 						"numberOccurrences": 6627,
 						"added": 4896,
 						"removed": 12336
