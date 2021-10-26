@@ -93,7 +93,7 @@ namespace CastReporting.UnitTest.Reporting
             {
                 Parameter = new ReportingParameter(),
                 CurrencySymbol = "$",
-                ServerVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString()
+                ServerVersion = "2.3.1-80"
             };
 
             if (currentJson == null) return null;

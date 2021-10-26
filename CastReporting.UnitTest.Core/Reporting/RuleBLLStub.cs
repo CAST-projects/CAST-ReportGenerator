@@ -99,6 +99,11 @@ namespace CastReporting.UnitTest.Reporting
         {
             switch (technicalCriteria)
             {
+                case "60017":
+                    return new List<Contributor>
+                    {
+                        new Contributor {Key = 61001, Critical = false}
+                    };
                 case "66070":
                     return new List<Contributor>
                     {
