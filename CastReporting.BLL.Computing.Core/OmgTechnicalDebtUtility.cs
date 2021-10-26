@@ -1,4 +1,5 @@
 ﻿using CastReporting.Domain;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CastReporting.BLL.Computing
@@ -188,6 +189,58 @@ namespace CastReporting.BLL.Computing
             }
 
             return null;
+        }
+
+        public static OmgTechnicalDebtIdDTO GetAggregatedOmgTechDebt(Dictionary<Application, Snapshot> snapshotList, int metricId)
+        {
+            // Aggregator is SUM for omg tech debt
+            double? totalTD = 0;
+            double? addedTD = 0;
+            double? removedTD = 0;
+
+            foreach (Application _application in snapshotList.Keys)
+            {
+                OmgTechnicalDebtIdDTO appRes = GetOmgTechDebt(snapshotList[_application], metricId);
+                if (appRes != null)
+                {
+                    totalTD += appRes.Total;
+                    addedTD += appRes.Added;
+                    removedTD += appRes.Removed;
+                }
+            }
+            return new OmgTechnicalDebtIdDTO
+            {
+                Id = metricId,
+                Total = totalTD,
+                Added = addedTD,
+                Removed = removedTD
+            };
+        }
+
+        public static OmgTechnicalDebtIdDTO GetAggregatedOmgTechDebtTechno(Dictionary<Application, Snapshot> snapshotList, string techno, int metricId)
+        {
+            // Aggregator is SUM for omg tech debt
+            double? totalTD = 0;
+            double? addedTD = 0;
+            double? removedTD = 0;
+
+            foreach (Application _application in snapshotList.Keys)
+            {
+                OmgTechnicalDebtIdDTO appRes = GetOmgTechDebtTechno(snapshotList[_application], techno, metricId);
+                if (appRes != null)
+                {
+                    totalTD += appRes.Total;
+                    addedTD += appRes.Added;
+                    removedTD += appRes.Removed;
+                }
+            }
+            return new OmgTechnicalDebtIdDTO
+            {
+                Id = metricId,
+                Total = totalTD,
+                Added = addedTD,
+                Removed = removedTD
+            };
         }
 
         public static int GetOmgIndex(string indexId)

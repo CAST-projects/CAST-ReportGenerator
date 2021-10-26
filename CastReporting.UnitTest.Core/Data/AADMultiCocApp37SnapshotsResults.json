@@ -423,6 +423,12 @@
             "totalViolations": 3716,
             "addedViolations": 1698,
             "removedViolations": 1508
+          },
+          "omgTechnicalDebt": {
+            "total": 611520,
+            "numberOccurrences": 6627,
+            "added": 11568,
+            "removed": 63744
           }
         },
         "technologyResults": [
@@ -437,6 +443,12 @@
                 "totalViolations": 3615,
                 "addedViolations": 1690,
                 "removedViolations": 1503
+              },
+              "omgTechnicalDebt": {
+                "total": 246912,
+                "numberOccurrences": 6627,
+                "added": 9792,
+                "removed": 24672
               }
             }
           },
@@ -451,6 +463,12 @@
                 "totalViolations": 101,
                 "addedViolations": 8,
                 "removedViolations": 5
+              },
+              "omgTechnicalDebt": {
+                "total": 234528,
+                "numberOccurrences": 6627,
+                "added": 23136,
+                "removed": 127488
               }
             }
           }
@@ -881,6 +899,12 @@
             "totalViolations": 3526,
             "addedViolations": 810,
             "removedViolations": 143
+          },
+          "omgTechnicalDebt": {
+            "total": 611520,
+            "numberOccurrences": 6627,
+            "added": 11568,
+            "removed": 63744
           }
         },
         "technologyResults": [],
