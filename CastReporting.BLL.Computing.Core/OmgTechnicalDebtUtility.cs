@@ -249,12 +249,16 @@ namespace CastReporting.BLL.Computing
             switch (indexId)
             {
                 case "CISQ":
+                case "CISQ-Index":
                     idx = 1062100;
                     break;
                 case "AIP":
+                case "TQI":
                     idx = 60017;
                     break;
                 case "ISO":
+                case "ISO-5055":
+                case "ISO-5055-Index":
                     idx = 1061000;
                     break;
                 default:
