@@ -325,144 +325,349 @@
 	]
 	},
 	{
-	"href": "castRG/rule-patterns/7748",
-	"key": "7748",
-	"name": "Avoid OS command injection vulnerabilities",
-	"description": "The software constructs all or part of an OS command using externally-influenced input from an upstream component, but it does not neutralize or incorrectly neutralizes special elements that could modify the intended OS command when it is sent to a downstream component.\n\nUsing CAST data-flow engine, this metric detects paths from user input methods down to system call API methods, paths which are open vulnerabilities to operating system injection flaws.",
-	"technologies": [
-		"C#",
-		"JEE",
-		"VB.NET"
-	],
-	"rationale": "The software constructs all or part of an OS command using externally-influenced input from an upstream component, but it does not neutralize or incorrectly neutralizes special elements that could modify the intended OS command when it is sent to a downstream component.\nThis could allow attackers to execute unexpected, dangerous commands directly on the operating system. This weakness can lead to a vulnerability in environments in which the attacker does not have direct access to the operating system, such as in web applications.",
-	"reference": "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')\nhttps://cwe.mitre.org/data/definitions/78.html\n\nOpen Web Application Security Project (OWASP) \nhttps://www.owasp.org/index.php/Top_10_2007\n\nCISQ rule: ASCSM-CWE-078.",
-	"remediation": "Assume all input is malicious. \nAvoid using inputs. If it is not possible, use an \"accept known good\" input validation strategy, i.e., use stringent white-lists that limit the character set based on the expected value of the parameter in the request. This will indirectly limit the scope of an attack.",
-	"output": "List all methods that miss calling the required input validation calls\n\nIt provides the following information:\n - Method full name\n - Call stack from user input source down to the target OS command execution method.",
-	"associatedValueName": "Call stack from user input source down to the target OS command execution method",
-	"total": "Number of potentially vulnerable methods",
-	"sample": "Sample 1:\npublic String coordinateTransformLatLonToUTM(String coordinates)\n{\nString utmCoords = null;\ntry {\nString latlonCoords = coordinates;\nRuntime rt = Runtime.getRuntime();\nProcess exec = rt.exec(\"cmd.exe /C latlon2utm.exe -\" + latlonCoords);\n// process results of coordinate transform \n\n// ... \n}\ncatch(Exception e) {...}\nreturn utmCoords;\n}\n\nSample 2:\nString script = System.getProperty(\"SCRIPTNAME\");\nif (script != null)\nSystem.exec(script);",
-	"remediationSample": "Sample 1:\npublic String coordinateTransformLatLonToUTM(String coordinates)\n{\nString utmCoords = null;\ntry {\nString latlonCoords = coordinates;\nRuntime rt = Runtime.getRuntime();\n//insert a validation code for rt\nProcess exec = rt.exec(\"cmd.exe /C latlon2utm.exe -\" + latlonCoords);\n// process results of coordinate transform \n\n// ... \n}\ncatch(Exception e) {...}\nreturn utmCoords;\n}\n\n\nSample 2:\nString script = System.getProperty(\"SCRIPTNAME\");\n//Insert a validation code\nif (script != null)\nSystem.exec(script);",
-	"qualityStandards": [
-		{
-			"standard": "OWASP",
-			"id": "A1-2013",
-			"name": "Injection",
-			"reference": null,
-			"description": null,
-			"applicable": true
-		},
-		{
-			"standard": "OWASP",
-			"id": "A1-2017",
-			"name": "Injection",
-			"reference": null,
-			"description": null,
-			"applicable": true
-		},
-		{
-			"standard": "AIP",
-			"id": "AIP-CAST-LITE",
-			"name": "Rule implemented in CAST Lite product",
-			"reference": null,
-			"description": null,
-			"applicable": true
-		},
-		{
-			"standard": "AIP",
-			"id": "AIP-CR-SECURITY",
-			"name": "CloudReady - focus on security",
-			"reference": null,
-			"description": null,
-			"applicable": true
-		},
-		{
-			"standard": "AIP",
-			"id": "AIP-GDPR",
-			"name": "General Data Protection Regulation",
-			"reference": null,
-			"description": null,
-			"applicable": true
-		},
-		{
-			"standard": "AIP",
-			"id": "AIP-HA-THREATS",
-			"name": "HA - external threats mitigation",
-			"reference": null,
-			"description": null,
-			"applicable": true
-		},
-		{
-			"standard": "CISQ",
-			"id": "ASCSM-CWE-78",
-			"name": "OS Command Injection Improper Input Neutralization",
-			"reference": null,
-			"description": null,
-			"applicable": true
-		},
-		{
-			"standard": "AIP",
-			"id": "COMMAND-INJECTION",
-			"name": "OS/LDAP Command Injection or Expression evaluation injection",
-			"reference": null,
-			"description": null,
-			"applicable": true
-		},
-		{
-			"standard": "CWE",
-			"id": "CWE-78",
-			"name": "Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
-			"reference": null,
-			"description": null,
-			"applicable": true
-		},
-		{
-			"standard": "OMG-ASCQM",
-			"id": "CWE-78",
-			"name": "Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
-			"reference": null,
-			"description": null,
-			"applicable": true
-		},
-		{
-			"standard": "CWE",
-			"id": "CWE-88",
-			"name": "Argument Injection or Modification",
-			"reference": null,
-			"description": null,
-			"applicable": true
-		},
-		{
-			"standard": "OMG-ASCQM",
-			"id": "CWE-88",
-			"name": "Argument Injection or Modification",
-			"reference": null,
-			"description": null,
-			"applicable": true
-		},
-		{
-			"standard": "NIST-SP-800-53R4",
-			"id": "NIST-SI-10",
-			"name": "Information Input Validation",
-			"reference": null,
-			"description": null,
-			"applicable": true
-		},
-		{
-			"standard": "PCI-DSS-V3.1",
-			"id": "PCI-Requirement-6.5.1",
-			"name": "Injection flaws, particularly SQL injection. Also consider OS Command Injection, LDAP and XPath injection flaws as well as other injection flaws.",
-			"reference": null,
-			"description": null,
-			"applicable": true
-		},
-		{
-			"standard": "STIG-V4R8",
-			"id": "STIG-V-70261",
-			"name": "The application must protect from command injection.",
-			"reference": null,
-			"description": null,
-			"applicable": true
-		}
-	]
+		"href": "castRG/rule-patterns/7748",
+		"key": "7748",
+		"name": "Avoid OS command injection vulnerabilities",
+		"description": "The software constructs all or part of an OS command using externally-influenced input from an upstream component, but it does not neutralize or incorrectly neutralizes special elements that could modify the intended OS command when it is sent to a downstream component.\n\nUsing CAST data-flow engine, this metric detects paths from user input methods down to system call API methods, paths which are open vulnerabilities to operating system injection flaws.",
+		"technologies": [
+			"C#",
+			"JEE",
+			"VB.NET"
+		],
+		"rationale": "The software constructs all or part of an OS command using externally-influenced input from an upstream component, but it does not neutralize or incorrectly neutralizes special elements that could modify the intended OS command when it is sent to a downstream component.\nThis could allow attackers to execute unexpected, dangerous commands directly on the operating system. This weakness can lead to a vulnerability in environments in which the attacker does not have direct access to the operating system, such as in web applications.",
+		"reference": "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')\nhttps://cwe.mitre.org/data/definitions/78.html\n\nOpen Web Application Security Project (OWASP) \nhttps://www.owasp.org/index.php/Top_10_2007\n\nCISQ rule: ASCSM-CWE-078.",
+		"remediation": "Assume all input is malicious. \nAvoid using inputs. If it is not possible, use an \"accept known good\" input validation strategy, i.e., use stringent white-lists that limit the character set based on the expected value of the parameter in the request. This will indirectly limit the scope of an attack.",
+		"output": "List all methods that miss calling the required input validation calls\n\nIt provides the following information:\n - Method full name\n - Call stack from user input source down to the target OS command execution method.",
+		"associatedValueName": "Call stack from user input source down to the target OS command execution method",
+		"total": "Number of potentially vulnerable methods",
+		"sample": "Sample 1:\npublic String coordinateTransformLatLonToUTM(String coordinates)\n{\nString utmCoords = null;\ntry {\nString latlonCoords = coordinates;\nRuntime rt = Runtime.getRuntime();\nProcess exec = rt.exec(\"cmd.exe /C latlon2utm.exe -\" + latlonCoords);\n// process results of coordinate transform \n\n// ... \n}\ncatch(Exception e) {...}\nreturn utmCoords;\n}\n\nSample 2:\nString script = System.getProperty(\"SCRIPTNAME\");\nif (script != null)\nSystem.exec(script);",
+		"remediationSample": "Sample 1:\npublic String coordinateTransformLatLonToUTM(String coordinates)\n{\nString utmCoords = null;\ntry {\nString latlonCoords = coordinates;\nRuntime rt = Runtime.getRuntime();\n//insert a validation code for rt\nProcess exec = rt.exec(\"cmd.exe /C latlon2utm.exe -\" + latlonCoords);\n// process results of coordinate transform \n\n// ... \n}\ncatch(Exception e) {...}\nreturn utmCoords;\n}\n\n\nSample 2:\nString script = System.getProperty(\"SCRIPTNAME\");\n//Insert a validation code\nif (script != null)\nSystem.exec(script);",
+		"qualityStandards": [
+			{
+				"standard": "OWASP",
+				"id": "A1-2013",
+				"name": "Injection",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "OWASP",
+				"id": "A1-2017",
+				"name": "Injection",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "AIP",
+				"id": "AIP-CAST-LITE",
+				"name": "Rule implemented in CAST Lite product",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "AIP",
+				"id": "AIP-CR-SECURITY",
+				"name": "CloudReady - focus on security",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "AIP",
+				"id": "AIP-GDPR",
+				"name": "General Data Protection Regulation",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "AIP",
+				"id": "AIP-HA-THREATS",
+				"name": "HA - external threats mitigation",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "CISQ",
+				"id": "ASCSM-CWE-78",
+				"name": "OS Command Injection Improper Input Neutralization",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "AIP",
+				"id": "COMMAND-INJECTION",
+				"name": "OS/LDAP Command Injection or Expression evaluation injection",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "CWE",
+				"id": "CWE-78",
+				"name": "Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "OMG-ASCQM",
+				"id": "CWE-78",
+				"name": "Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "CWE",
+				"id": "CWE-88",
+				"name": "Argument Injection or Modification",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "OMG-ASCQM",
+				"id": "CWE-88",
+				"name": "Argument Injection or Modification",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "NIST-SP-800-53R4",
+				"id": "NIST-SI-10",
+				"name": "Information Input Validation",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "PCI-DSS-V3.1",
+				"id": "PCI-Requirement-6.5.1",
+				"name": "Injection flaws, particularly SQL injection. Also consider OS Command Injection, LDAP and XPath injection flaws as well as other injection flaws.",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "STIG-V4R8",
+				"id": "STIG-V-70261",
+				"name": "The application must protect from command injection.",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			}
+		]
+	},
+	{
+		"href": "STD_SECU/rule-patterns/7752",
+		"key": "7752",
+		"name": "Avoid file path manipulation",
+		"description": "Using CAST data-flow engine, this metric detects execution paths from user input methods down to file creation methods, paths which are open vulnerabilities to operating system injection flaws.",
+		"technologies": [
+			"C#",
+			"JEE",
+			"VB.NET"
+		],
+		"rationale": "The software does not properly neutralize special elements that are part of paths or file names used in file system operations. This could allow an attacker to access or modify system files or other files that are critical to the application.",
+		"reference": "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')\nhttps://cwe.mitre.org/data/definitions/22.html\n\nCWE-73: External Control of File Name or Path\nhttps://cwe.mitre.org/data/definitions/73.html\n\nCWE-434: Unrestricted Upload of File with Dangerous Type\nhttps://cwe.mitre.org/data/definitions/434.html\n\nOpen Web Application Security Project (OWASP) \nhttps://www.owasp.org/index.php/Top_10-2017_A5-Broken_Access_Control\n\nCISQ rule: ASCSM-CWE-078.",
+		"remediation": "Assume all input is malicious.",
+		"output": "List all methods that make resource calls forged by user input\n\nIt provides the following information:\n - Method full name\n - Call stack from user input source down to the target file path command method.",
+		"associatedValueName": "Call stack from user input source down to the target file path command method",
+		"total": "Number of potentially vulnerable methods",
+		"sample": "The following code uses input from a configuration file to determine which file to open and echo back to the user. If the program runs with privileges and malicious users can change the configuration file, they can use the program to read any file on the system that ends with the extension .txt.\n\nfis = new FileInputStream(cfg.getProperty(\"sub\")+\".txt\");\namt = fis.read(arr);\nout.println(arr);",
+		"remediationSample": "fis = new FileInputStream(cfg.getProperty(\"sub\")+\".txt\");\n//code a validate function for the input recieved \"sub\"\namt = fis.read(arr);\nout.println(arr);",
+		"qualityStandards": [
+			{
+				"standard": "OWASP",
+				"id": "A5-2017",
+				"name": "Broken Access Control",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "OWASP",
+				"id": "A7-2013",
+				"name": "Missing Function Level Access Control",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "AIP",
+				"id": "AIP-CORE-RULE",
+				"name": "RESERVED TAG - DO NOT USE",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "AIP",
+				"id": "AIP-CR-SECURITY",
+				"name": "CloudReady - focus on security",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "AIP",
+				"id": "AIP-GDPR",
+				"name": "General Data Protection Regulation",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "AIP",
+				"id": "AIP-HA-THREATS",
+				"name": "HA - external threats mitigation",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "CISQ",
+				"id": "ASCSM-CWE-22",
+				"name": "Path Traversal Improper Input Neutralization",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "CWE",
+				"id": "CWE-22",
+				"name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "ISO-5055",
+				"id": "CWE-22",
+				"name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "OMG-ASCQM",
+				"id": "CWE-22",
+				"name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "CWE",
+				"id": "CWE-23",
+				"name": "Relative Path Traversal",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "ISO-5055",
+				"id": "CWE-23",
+				"name": "Relative Path Traversal",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "OMG-ASCQM",
+				"id": "CWE-23",
+				"name": "Relative Path Traversal",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "CWE",
+				"id": "CWE-36",
+				"name": "Absolute Path Traversal",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "ISO-5055",
+				"id": "CWE-36",
+				"name": "Absolute Path Traversal",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "OMG-ASCQM",
+				"id": "CWE-36",
+				"name": "Absolute Path Traversal",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "CWE",
+				"id": "CWE-73",
+				"name": "External Control of File Name or Path",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "NIST-SP-800-53R4",
+				"id": "NIST-AC-3",
+				"name": "Access Enforcement",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "NIST-SP-800-53R4",
+				"id": "NIST-SI-10",
+				"name": "Information Input Validation",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "PCI-DSS-V3.1",
+				"id": "PCI-Requirement-6.5.1",
+				"name": "Injection flaws, particularly SQL injection. Also consider OS Command Injection, LDAP and XPath injection flaws as well as other injection flaws.",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "PCI-DSS-V3.2.1",
+				"id": "PCI-Requirement-6.5.1",
+				"name": "Injection flaws, particularly SQL injection. Also consider OS Command Injection, LDAP and XPath injection flaws as well as other injection flaws.",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "PCI-DSS-V3.1",
+				"id": "PCI-Requirement-6.5.8",
+				"name": "Improper access control (such as insecure direct object references, failure to restrict URL access, directory traversal, and failure to restrict user access to functions).",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			},
+			{
+				"standard": "PCI-DSS-V3.2.1",
+				"id": "PCI-Requirement-6.5.8",
+				"name": "Improper access control (such as insecure direct object references, failure to restrict URL access, directory traversal, and failure to restrict user access to functions).",
+				"reference": null,
+				"description": null,
+				"applicable": true
+			}
+		]
 	}
 ]

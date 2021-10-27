@@ -33,7 +33,7 @@ namespace CastReporting.Reporting.Block.Table
     {
         public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
-            string index = options.GetOption("ID");
+            string index = options.GetOption("ID","ISO");
             bool detail = options.GetOption("MORE", "false").ToLower().Equals("true");
             string displayAddedRemoved = reportData.PreviousSnapshot != null ? "true" : "false";
             bool displayEvolution = options.GetOption("EVOLUTION", displayAddedRemoved).ToLower().Equals("true");

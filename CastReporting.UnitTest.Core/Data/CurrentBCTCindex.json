@@ -1321,21 +1321,27 @@
 					"key": "7752",
 					"critical": true
 				},
-				"result": {
-					"grade": 4,
-					"violationRatio": {
-						"totalChecks": 30,
-						"failedChecks": 10,
-						"successfulChecks": 20,
-						"ratio": 0.33
-					},
-					"evolutionSummary": {
-						"addedCriticalViolations": 5,
-						"removedCriticalViolations": 2,
-						"addedViolations": 7,
-						"removedViolations": 3
-					}
-				},
+        "result": {
+          "grade": 4,
+          "violationRatio": {
+            "totalChecks": 30,
+            "failedChecks": 10,
+            "successfulChecks": 20,
+            "ratio": 0.33
+          },
+          "evolutionSummary": {
+            "addedCriticalViolations": 5,
+            "removedCriticalViolations": 2,
+            "addedViolations": 7,
+            "removedViolations": 3
+          },
+          "omgTechnicalDebt": {
+            "total": 2100,
+            "numberOccurrences": 35,
+            "added": 0,
+            "removed": 2100
+          }
+        },
 				"technologyResults": [],
 				"moduleResults": [],
 				"transactionResults": []
