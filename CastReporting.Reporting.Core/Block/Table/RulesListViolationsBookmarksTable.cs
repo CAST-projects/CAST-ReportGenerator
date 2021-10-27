@@ -20,16 +20,9 @@ namespace CastReporting.Reporting.Block.Table
             var headers = new HeaderDefinition();
 
             List<string> metrics = options.GetOption("METRICS").Trim().Split('|').ToList();
-            bool critical;
-            if (options == null || !options.ContainsKey("CRITICAL"))
-            {
-                critical = false;
-            }
-            else
-            {
-                critical = options.GetOption("CRITICAL").Equals("true");
-            }
+            bool critical = options.GetOption("CRITICAL", "false").ToLower().Equals("true");
             bool displayHeader = !options.GetOption("HEADER", "YES").ToUpper().Equals("NO");
+            bool omg = options.GetOption("OMG", "false").ToLower().Equals("true");
 
             if (!VersionUtil.Is111Compatible(reportData.ServerVersion))
             {
@@ -60,7 +53,7 @@ namespace CastReporting.Reporting.Block.Table
             headers.Append(Labels.StartLine);
             headers.Append(Labels.EndLine);
 
-            List<string> qualityRules = MetricsUtility.BuildRulesList(reportData, metrics, critical);
+            List<string> qualityRules = MetricsUtility.BuildRulesList(reportData, metrics, critical, omg);
             if (qualityRules.Count > 0)
             {
                 const string bcId = "60017";

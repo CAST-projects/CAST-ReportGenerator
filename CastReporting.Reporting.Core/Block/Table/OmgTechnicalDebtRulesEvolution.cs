@@ -119,7 +119,7 @@ namespace CastReporting.Reporting.Block.Table
                 // Case of BC
                 List<int?> technicalCriterionIds = reportData.RuleExplorer.GetCriteriaContributors(reportData.CurrentSnapshot.DomainId, metricBcIdFromName.ToString(), reportData.CurrentSnapshot.Id).Select(_ => _.Key).ToList();
                 List<ApplicationResult> tcResults = technicalCriterionIds.Count > 0 ?
-                    reportData.CurrentSnapshot.TechnicalCriteriaResults.Where(_ => technicalCriterionIds.Contains(_.Reference.Key)).OrderByDescending(_ => _.DetailResult.OmgTechnicalDebt?.Total).ToList()
+                    reportData.CurrentSnapshot.TechnicalCriteriaResults.Where(_ => technicalCriterionIds.Contains(_.Reference.Key) && _.DetailResult.OmgTechnicalDebt != null).OrderByDescending(_ => _.DetailResult.OmgTechnicalDebt?.Total).ToList()
                     : null;
                 if (tcResults?.Count > 0)
                 {
