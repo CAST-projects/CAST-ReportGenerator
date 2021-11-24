@@ -31,7 +31,7 @@ namespace CastReporting.UnitTest.Reporting
             }
             else
             {
-                CultureInfo ci = new CultureInfo(cultureName);
+                CultureInfo ci = CultureInfo.CreateSpecificCulture(cultureName);
                 System.Threading.Thread.CurrentThread.CurrentCulture = ci;
                 System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
                 Labels.Culture = ci;
