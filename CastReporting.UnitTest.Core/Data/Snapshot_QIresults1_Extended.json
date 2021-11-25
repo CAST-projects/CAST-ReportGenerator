@@ -951,7 +951,13 @@
 					"critical": "N/A"
 				},
 				"result": {
-					"grade": 2.519249954675259
+					"grade": 2.519249954675259,
+					"omgTechnicalDebt": {
+						"total": 367696,
+						"numberOccurrences": 6627,
+						"added": 128,
+						"removed": 13435
+					}
 				},
 				"technologyResults": [
 					{
@@ -1011,7 +1017,13 @@
 							"name": "sm-core/AppliAEPtran/Shopizer_src content"
 						},
 						"result": {
-							"grade": 2.6830427661461664
+							"grade": 2.6830427661461664,
+							"omgTechnicalDebt": {
+								"total": 367696,
+								"numberOccurrences": 6627,
+								"added": 128,
+								"removed": 13435
+							}
 						},
 						"technologyResults": [
 							{

@@ -1293,6 +1293,141 @@ namespace CastReporting.UnitTest.Reporting.Tables
             TestUtility.AssertTableContent(table, expectedData, 2, 21);
         }
 
+        [TestMethod]
+        [DeploymentItem(@".\Data\DreamTeamSnap4Sample11.json", "Data")]
+        public void TestTechDebtTechnoAddedRemoved()
+        {
+            /*
+             * Configuration : TABLE;GENERIC_TABLE;COL1=METRICS,ROW1=TECHNOLOGIES,ROW11=CRITICAL_VIOLATIONS,
+             * METRICS=HEALTH_FACTOR,CRITICAL_VIOLATIONS =ADDED|REMOVED,TECHNOLOGIES=ALL,SNAPSHOTS=CURRENT
+             * DreamTeamSnap4Sample11.json : AED3/applications/7/snapshots/15/results?quality-indicators=(business-criteria)&select=(evolutionSummary)&technologies=$all
+             */
+            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            null, @".\Data\DreamTeamSnap4Sample11.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+            null, null, null, null, null);
+            reportData.CurrentSnapshot.Technologies = new[] { "JEE", "PL/SQL", "C++", ".NET" };
+
+            var component = new GenericTable();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"COL1", "METRICS"},
+                {"ROW1", "TECHNOLOGIES"},
+                {"ROW11", "OMG_TECHNICAL_DEBT"},
+                {"METRICS", "HEALTH_FACTOR" },
+                {"OMG_TECHNICAL_DEBT", "ADDED|REMOVED" },
+                {"TECHNOLOGIES", "ALL"},
+                {"SNAPSHOTS", "CURRENT"}
+            };
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>();
+            expectedData.AddRange(new List<string> { "Technologies", "Transferability", "Changeability", "Robustness", "Efficiency", "Security" });
+            expectedData.AddRange(new List<string> { "JEE", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "    Technical Debt Added (Days)", "2.4", "n/a", "n/a", "n/a", "5.3" });
+            expectedData.AddRange(new List<string> { "    Technical Debt Removed (Days)", "2.8", "n/a", "n/a", "n/a", "7.0" });
+            expectedData.AddRange(new List<string> { "PL/SQL", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "    Technical Debt Added (Days)", "n/a", "n/a", "n/a", "n/a", "10.2" });
+            expectedData.AddRange(new List<string> { "    Technical Debt Removed (Days)", "n/a", "n/a", "n/a", "n/a", "25.7" });
+            expectedData.AddRange(new List<string> { "C++", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "    Technical Debt Added (Days)", "n/a", "n/a", "n/a", "n/a", "3.0" });
+            expectedData.AddRange(new List<string> { "    Technical Debt Removed (Days)", "n/a", "n/a", "n/a", "n/a", "31.0" });
+            expectedData.AddRange(new List<string> { ".NET", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "    Technical Debt Added (Days)", "5.3", "n/a", "n/a", "n/a", "2.4" });
+            expectedData.AddRange(new List<string> { "    Technical Debt Removed (Days)", "7.0", "n/a", "n/a", "n/a", "2.8" });
+            TestUtility.AssertTableContent(table, expectedData, 6, 13);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\ModulesDreamTeam.json", "Data")]
+        [DeploymentItem(@".\Data\DreamTeamSnap4Sample10.json", "Data")]
+        public void TestTechDebtModules()
+        {
+            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+             @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap4Sample10.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+             null, null, null, null, null);
+
+            var component = new GenericTable();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"COL1", "MODULES"},
+                {"ROW1", "OMG_TECHNICAL_DEBT"},
+                {"METRICS", "60017" },
+                {"OMG_TECHNICAL_DEBT", "ALL" },
+                {"MODULES", "ALL"}
+            };
+            var table = component.Content(reportData, config);
+            var expectedData = new List<string>();
+            expectedData.AddRange(new List<string> { "Technical Debt (Days)", "Adg", "Central", "DssAdmin", "Pchit" });
+            expectedData.AddRange(new List<string> { "Technical Debt (Days)", "257.2", "55.3", "213.2", "205.0" });
+            expectedData.AddRange(new List<string> { "Technical Debt Added (Days)", "10.2", "5.3", "3.0", "2.4" });
+            expectedData.AddRange(new List<string> { "Technical Debt Removed (Days)", "25.7", "7.0", "31.0", "2.8" });
+            TestUtility.AssertTableContent(table, expectedData, 5, 4);
+
+        }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\ModulesDreamTeam.json", "Data")]
+        [DeploymentItem(@".\Data\DreamTeamSnap4Sample7.json", "Data")]
+        [DeploymentItem(@".\Data\DreamTeamSnap1Sample7.json", "Data")]
+        public void TestOmgTechDebtModulesTechnos()
+        {
+            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+               @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap4Sample7.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+               @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap1Sample7.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
+            reportData.CurrentSnapshot.Technologies = new[] { "JEE", "PL/SQL", "C++", ".NET" };
+            reportData.PreviousSnapshot.Technologies = new[] { "JEE", "PL/SQL", "C++", ".NET" };
+            var component = new GenericTable();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"COL1", "MODULES"},
+                {"COL11", "METRICS"},
+                {"ROW1", "OMG_TECHNICAL_DEBT"},
+                {"ROW11", "TECHNOLOGIES"},
+                {"METRICS", "60017|60014"},
+                {"SNAPSHOTS", "PREVIOUS"},
+                {"MODULES", "ALL"},
+                {"TECHNOLOGIES", "ALL"},
+                {"OMG_TECHNICAL_DEBT", "REMOVED" }
+            };
+            var table = component.Content(reportData, config);
+            var expectedData = new List<string>();
+            expectedData.AddRange(new List<string> { "Technical Debt (Days)",
+                "Adg - Total Quality Index","Adg - Efficiency",
+                "Central - Total Quality Index","Central - Efficiency",
+                "DssAdmin - Total Quality Index","DssAdmin - Efficiency",
+                "Pchit - Total Quality Index", "Pchit - Efficiency"  });
+            expectedData.AddRange(new List<string> { "Technical Debt Removed (Days)", " ", " ", " ", " ", " ", " ", " ", " " });
+            expectedData.AddRange(new List<string> { "    JEE", "2.8", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a" });
+            expectedData.AddRange(new List<string> { "    PL/SQL", "n/a", "n/a", "7.0", "n/a", "n/a", "n/a", "n/a", "n/a" });
+            expectedData.AddRange(new List<string> { "    C++", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a" });
+            expectedData.AddRange(new List<string> { "    .NET", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a" });
+            TestUtility.AssertTableContent(table, expectedData, 9, 6);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\Sample1Current.json", "Data")]
+        public void TestTechDebt()
+        {
+            ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
+                null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
+                null, null, null, null, null);
+            var component = new GenericTable();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"COL1", "METRICS"},
+                {"ROW1", "OMG_TECHNICAL_DEBT"},
+                {"METRICS", "60017"},
+                {"OMG_TECHNICAL_DEBT", "ALL"}
+            };
+            var table = component.Content(reportData, config);
+            var expectedData = new List<string>();
+            expectedData.AddRange(new List<string> { "Technical Debt (Days)", "Total Quality Index" });
+            expectedData.AddRange(new List<string> { "Technical Debt (Days)", "55.3" });
+            expectedData.AddRange(new List<string> { "Technical Debt Added (Days)", "5.3" });
+            expectedData.AddRange(new List<string> { "Technical Debt Removed (Days)", "7.0" });
+            TestUtility.AssertTableContent(table, expectedData, 2, 4);
+        }
+
     }
 }
 

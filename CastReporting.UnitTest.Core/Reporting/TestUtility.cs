@@ -31,7 +31,7 @@ namespace CastReporting.UnitTest.Reporting
             }
             else
             {
-                CultureInfo ci = new CultureInfo(cultureName);
+                CultureInfo ci = CultureInfo.CreateSpecificCulture(cultureName);
                 System.Threading.Thread.CurrentThread.CurrentCulture = ci;
                 System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
                 Labels.Culture = ci;
@@ -93,7 +93,7 @@ namespace CastReporting.UnitTest.Reporting
             {
                 Parameter = new ReportingParameter(),
                 CurrencySymbol = "$",
-                ServerVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString()
+                ServerVersion = "2.3.1-80"
             };
 
             if (currentJson == null) return null;
@@ -297,7 +297,7 @@ namespace CastReporting.UnitTest.Reporting
 
         public static ReportData AddSameCriticalRuleViolationsForAllBC(ReportData reportData, string currentJsonCriticalRuleViolations, string previousJsonCriticalRuleViolations)
         {
-            int[] bizCrit = { 60011, 60012, 60013, 60014, 60015, 60016, 60017, 66031, 66032, 66033 };
+            int[] bizCrit = { 60011, 60012, 60013, 60014, 60015, 60016, 60017, 66031, 66032, 66033, 1061000, 1062100 };
             foreach (int bizId in bizCrit)
             {
                 reportData = AddCriticalRuleViolations(reportData, bizId, currentJsonCriticalRuleViolations, previousJsonCriticalRuleViolations);

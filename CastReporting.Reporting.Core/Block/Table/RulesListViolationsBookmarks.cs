@@ -18,7 +18,7 @@ namespace CastReporting.Reporting.Block.Table
     {
         private const string ColorWhite = "White";
         private const string ColorGray = "Gray";
-        private const string ColorLightGray = "LightGrey";
+
         public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             List<string> rowData = new List<string>();
@@ -27,17 +27,10 @@ namespace CastReporting.Reporting.Block.Table
             // cellProps will contains the properties of the cell (background color) linked to the data by position in the list stored with cellidx.
 
             List<string> metrics = options.GetOption("METRICS").Trim().Split('|').ToList();
-            bool critical;
-            if (options == null || !options.ContainsKey("CRITICAL"))
-            {
-                critical = false;
-            }
-            else
-            {
-                critical = options.GetOption("CRITICAL").Equals("true");
-            }
+            bool critical = options.GetOption("CRITICAL", "false").ToLower().Equals("true");
             bool displayHeader = !options.GetOption("HEADER", "YES").ToUpper().Equals("NO");
             string showDescription = options.GetOption("DESC", "simple").ToLower();
+            bool omg = options.GetOption("OMG", "false").ToLower().Equals("true");
 
             if (!VersionUtil.Is111Compatible(reportData.ServerVersion))
             {
@@ -54,7 +47,7 @@ namespace CastReporting.Reporting.Block.Table
                 };
             }
 
-            List<string> qualityRules = MetricsUtility.BuildRulesList(reportData, metrics, critical);
+            List<string> qualityRules = MetricsUtility.BuildRulesList(reportData, metrics, critical, omg);
 
             if (displayHeader)
             {

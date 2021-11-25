@@ -32,7 +32,7 @@ namespace CastReporting.Reporting.Block.Text
         public override string Content(ReportData reportData, Dictionary<string, string> options)
         {
             if (reportData?.CurrentSnapshot == null) return Constants.No_Value;
-            double? tqi = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(reportData.CurrentSnapshot, Constants.BusinessCriteria.TechnicalQualityIndex, true);
+            double? tqi = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(reportData.CurrentSnapshot, Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode(), true);
 
             return tqi.HasValue ? GetApplicationQualification(reportData, tqi.Value) : Constants.No_Value;
         }

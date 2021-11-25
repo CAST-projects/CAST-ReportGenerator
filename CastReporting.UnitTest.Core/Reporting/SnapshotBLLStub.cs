@@ -393,7 +393,7 @@ namespace CastReporting.UnitTest.Reporting
         [DeploymentItem(@".\Data\Transactions60016WebGoat.json", "Data")]
         public IEnumerable<Transaction> GetTransactions(string snapshotHref, string businessCriteria, int count)
         {
-            IEnumerable<Transaction> res = null;
+            IEnumerable<Transaction> res;
             switch (businessCriteria)
             {
                 case "60016":
@@ -424,6 +424,28 @@ namespace CastReporting.UnitTest.Reporting
         public List<Tuple<string, int, int>> GetComponentFilePath(string domainId, string componentId, string snapshotId)
         {
             return new List<Tuple<string, int, int>>() { new Tuple<string, int, int>("C:\\jenkins6_slave\\workspace\\CAIP_8.3.3_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Dream Team\\DssAdmin\\DssAdmin\\MetricTree.cpp", 2, 6) };
+        }
+
+        public OmgTechnicalDebt GetOmgTechnicalDebt(string appHref, string indexId, string snapshotId)
+        {
+            OmgTechnicalDebt omgTD = new OmgTechnicalDebt
+            {
+                Total = 117269,
+                Added = 117269,
+                Removed = 0,
+                NumberOccurrences = 1908
+            };
+            return omgTD;
+        }
+
+        [DeploymentItem(@".\Data\OmgTechDebtDetails.json", "Data")]
+        public IEnumerable<Result> GetOmgTechnicalDebtDetailsForSnapshots(string appHRef, int indexId, string snapshotIds)
+        {
+            if (snapshotIds.Equals("6"))
+            {
+                return null;
+            }
+            return TestUtility.GetSampleResult<Result>(@".\Data\OmgTechDebtDetails.json").ToList();
         }
     }
 }

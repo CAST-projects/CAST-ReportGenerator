@@ -592,6 +592,15 @@ namespace CastReporting.Reporting.Core.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Days.
+        /// </summary>
+        public static string Days {
+            get {
+                return ResourceManager.GetString("Days", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Debt.
         /// </summary>
         public static string Debt {

@@ -63,5 +63,10 @@ namespace Cast.Util.Version
             return IsVersionCompatible("1.7.0.000", serviceVersion);
         }
 
+        public static bool Is231Compatible(string serviceVersion)
+        {
+            return IsVersionCompatible("2.3.1", serviceVersion);
+        }
+
     }
 }

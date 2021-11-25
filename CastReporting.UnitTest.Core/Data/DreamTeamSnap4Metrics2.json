@@ -77,23 +77,23 @@
 				"moduleResults": [],
 				"transactionResults": []
 			},
-      {
-        "type": "business-criteria",
-        "reference": {
-          "href": "AED3/quality-indicators/60014/snapshots/15",
-          "name": "Efficiency",
-          "shortName": "Efcy",
-          "key": "60014",
-          "critical": "N/A"
-        },
-        "result": {
-          "grade": 1.7034874398555175
-        },
-        "technologyResults": [ ],
-        "moduleResults": [ ],
-        "transactionResults": [ ]
-      },
-      {
+			{
+				"type": "business-criteria",
+				"reference": {
+					"href": "AED3/quality-indicators/60014/snapshots/15",
+					"name": "Efficiency",
+					"shortName": "Efcy",
+					"key": "60014",
+					"critical": "N/A"
+				},
+				"result": {
+					"grade": 1.7034874398555175
+				},
+				"technologyResults": [],
+				"moduleResults": [],
+				"transactionResults": []
+			},
+			{
 				"type": "business-criteria",
 				"reference": {
 					"href": "AED3/quality-indicators/60017/snapshots/15",
@@ -103,11 +103,17 @@
 					"critical": "N/A"
 				},
 				"result": {
-					"grade": 2.0959690052169186
-					},
-        "technologyResults": [ ],
-        "moduleResults": [ ],
-        "transactionResults": [ ]
+					"grade": 2.0959690052169186,
+					"omgTechnicalDebt": {
+						"total": 367696,
+						"numberOccurrences": 6627,
+						"added": 128,
+						"removed": 13435
+					}
+				},
+				"technologyResults": [],
+				"moduleResults": [],
+				"transactionResults": []
 			},
 			{
 				"type": "technical-criteria",
@@ -165,6 +171,52 @@
 				},
 				"result": {
 					"value": 1503963.75
+				},
+				"technologyResults": [],
+				"moduleResults": [],
+				"transactionResults": []
+			},
+			{
+				"type": "business-criteria",
+				"reference": {
+					"href": "STD_SECU/quality-indicators/1061000/snapshots/3",
+					"name": "ISO-5055-Index",
+					"shortName": "ISO-5055",
+					"key": "1061000",
+					"critical": "N/A"
+				},
+				"result": {
+					"grade": 3.3228400234065965,
+					"score": 0.9350583652204645,
+					"omgTechnicalDebt": {
+						"total": 117269,
+						"numberOccurrences": 1908,
+						"added": 80,
+						"removed": 5067
+					}
+				},
+				"technologyResults": [],
+				"moduleResults": [],
+				"transactionResults": []
+			},
+			{
+				"type": "business-criteria",
+				"reference": {
+					"href": "STD_SECU/quality-indicators/1062100/snapshots/3",
+					"name": "CISQ-Index",
+					"shortName": "CISQ",
+					"key": "1062100",
+					"critical": "N/A"
+				},
+				"result": {
+					"grade": 3.3466102804159816,
+					"score": 0.9303756657632608,
+					"omgTechnicalDebt": {
+						"total": 104677,
+						"numberOccurrences": 1719,
+						"added": 80,
+						"removed": 5167
+					}
 				},
 				"technologyResults": [],
 				"moduleResults": [],

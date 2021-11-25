@@ -13,7 +13,6 @@
  * limitations under the License.
  *
  */
-using CastReporting.BLL.Computing;
 using CastReporting.BLL.Computing.DTO;
 using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
@@ -21,7 +20,6 @@ using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Helper;
 using CastReporting.Reporting.ReportingModel;
 using System.Collections.Generic;
-using System.Linq;
 // ReSharper disable InconsistentNaming
 
 namespace CastReporting.Reporting.Block.Text

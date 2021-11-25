@@ -807,4 +807,7 @@
   <data name="ViolationsInActionPlan" xml:space="preserve">
     <value>违反行动计划</value>
   </data>
+  <data name="Days" xml:space="preserve">
+    <value>十天内</value>
+  </data>
 </root>

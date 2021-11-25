@@ -557,6 +557,11 @@ namespace CastReporting.Reporting.Helper
 
         public static List<string> BuildRulesList(ReportData reportData, List<string> metrics, bool critical)
         {
+            return BuildRulesList(reportData, metrics, critical, false);
+        }
+
+        public static List<string> BuildRulesList(ReportData reportData, List<string> metrics, bool critical, bool omg)
+        {
             List<string> qualityRules = new List<string>();
 
             foreach (string _metric in metrics)
@@ -570,7 +575,16 @@ namespace CastReporting.Reporting.Helper
                     if (metricBcIdFromShortName != 0)
                     {
                         List<RuleDetails> rules = reportData.RuleExplorer.GetRulesDetails(snapshot.DomainId, metricBcIdFromShortName, snapshot.Id).ToList();
-                        qualityRules.AddRange(critical ? rules.Where(_ => _.Critical).Select(_ => _.Key.ToString()).ToList() : rules.Select(_ => _.Key.ToString()).ToList());
+                        if (omg)
+                        {
+                            qualityRules.AddRange(rules.Where(_ =>
+                            reportData.CurrentSnapshot.QualityRulesResults.Where(qr => qr.Reference.Key == _.Key && qr.DetailResult.OmgTechnicalDebt != null) != null)
+                                .Select(_ => _.Key.ToString()).ToList());
+                        } 
+                        else
+                        {
+                            qualityRules.AddRange(critical ? rules.Where(_ => _.Critical).Select(_ => _.Key.ToString()).ToList() : rules.Select(_ => _.Key.ToString()).ToList());
+                        }
                     }
                     else
                     {
@@ -578,7 +592,16 @@ namespace CastReporting.Reporting.Helper
                         if (metricTcIdFromShortName != 0)
                         {
                             List<Contributor> rules = reportData.RuleExplorer.GetCriteriaContributors(snapshot.DomainId, metricTcIdFromShortName.ToString(), snapshot.Id).ToList();
-                            qualityRules.AddRange(critical ? rules.Where(_ => _.Critical).Select(_ => _.Key.ToString()).ToList() : rules.Select(_ => _.Key.ToString()).ToList());
+                            if (omg)
+                            {
+                                qualityRules.AddRange(rules.Where(_ =>
+                                reportData.CurrentSnapshot.QualityRulesResults.Where(qr => qr.Reference.Key == _.Key && qr.DetailResult.OmgTechnicalDebt != null) != null)
+                                    .Select(_ => _.Key.ToString()).ToList());
+                            }
+                            else
+                            {
+                                qualityRules.AddRange(critical ? rules.Where(_ => _.Critical).Select(_ => _.Key.ToString()).ToList() : rules.Select(_ => _.Key.ToString()).ToList());
+                            }
                         }
                         else
                         {

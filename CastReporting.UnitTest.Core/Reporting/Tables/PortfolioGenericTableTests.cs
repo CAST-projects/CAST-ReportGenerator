@@ -795,5 +795,131 @@ namespace CastReporting.UnitTest.Reporting.Tables
             expectedData.AddRange(new List<string> { "    AADAEDAdmin", "No data found" });
             TestUtility.AssertTableContent(table, expectedData, 2, 10);
         }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        public void TestOmgTechDebtSample1()
+        {
+            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+
+            var component = new PortfolioGenericTable();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"COL1", "OMG_TECHNICAL_DEBT"},
+                {"ROW1", "APPLICATIONS"},
+                {"METRICS", "AIP"}
+            };
+
+            var table = component.Content(reportData, config);
+            var expectedData = new List<string>();
+            expectedData.AddRange(new List<string> { "Applications", "Technical Debt (Days)", "Technical Debt Added (Days)", "Technical Debt Removed (Days)" });
+            expectedData.AddRange(new List<string> { "2 Applications", "3,234.0", "34.3", "158.5" });
+            TestUtility.AssertTableContent(table, expectedData, 4, 2);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        public void TestOmgTechDebtApp()
+        {
+            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+
+            var component = new PortfolioGenericTable();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"COL1", "OMG_TECHNICAL_DEBT"},
+                {"ROW1", "APPLICATIONS"},
+                {"APPLICATIONS", "EACH"},
+                {"OMG_TECHNICAL_DEBT", "ADDED|REMOVED"},
+                {"METRICS", "AIP"}
+            };
+
+            var table = component.Content(reportData, config);
+            var expectedData = new List<string>();
+            expectedData.AddRange(new List<string> { "Applications", "Technical Debt Added (Days)", "Technical Debt Removed (Days)" });
+            expectedData.AddRange(new List<string> { "ReportGenerator", "10.2", "25.7" });
+            expectedData.AddRange(new List<string> { "AADAEDAdmin", "24.1", "132.8" });
+            TestUtility.AssertTableContent(table, expectedData, 3, 3);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        public void TestTechnoOmgTechDebt()
+        {
+            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+
+            reportData.Applications[0].Technologies = new[] { ".NET" };
+            reportData.Applications[1].Technologies = new[] { "JEE", "SQL Analyzer" };
+
+            var component = new PortfolioGenericTable();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"COL1", "OMG_TECHNICAL_DEBT"},
+                {"ROW1", "TECHNOLOGIES"},
+                {"OMG_TECHNICAL_DEBT", "ALL"},
+                {"TECHNOLOGIES", "EACH"}
+            };
+
+            var table = component.Content(reportData, config);
+            var expectedData = new List<string>();
+            expectedData.AddRange(new List<string> { "Technologies", "Technical Debt (Days)", "Technical Debt Added (Days)", "Technical Debt Removed (Days)" });
+            expectedData.AddRange(new List<string> { ".NET", "1,960.0", "10.2", "25.7" });
+            expectedData.AddRange(new List<string> { "JEE", "514.4", "20.4", "51.4" });
+            expectedData.AddRange(new List<string> { "SQL Analyzer", "488.6", "48.2", "265.6" });
+            TestUtility.AssertTableContent(table, expectedData, 4, 4);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        public void TestAppTechnoOmgTechDebt()
+        {
+            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+
+            reportData.Applications[0].Technologies = new[] { ".NET" };
+            reportData.Applications[1].Technologies = new[] { "JEE", "SQL Analyzer" };
+
+            var component = new PortfolioGenericTable();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"COL1", "APPLICATIONS"},
+                {"ROW1", "OMG_TECHNICAL_DEBT"},
+                {"ROW11", "TECHNOLOGIES"},
+                {"OMG_TECHNICAL_DEBT", "ADDED"},
+                {"TECHNOLOGIES", "EACH"},
+                {"APPLICATIONS", "EACH"}
+            };
+
+            var table = component.Content(reportData, config);
+            var expectedData = new List<string>();
+            expectedData.AddRange(new List<string> { "Technical Debt (Days)", "ReportGenerator", "AADAEDAdmin" });
+            expectedData.AddRange(new List<string> { "Technical Debt Added (Days)", " ", " " });
+            expectedData.AddRange(new List<string> { "    .NET", "10.2", "n/a" });
+            expectedData.AddRange(new List<string> { "    JEE", "n/a", "20.4" });
+            expectedData.AddRange(new List<string> { "    SQL Analyzer", "n/a", "48.2" });
+            TestUtility.AssertTableContent(table, expectedData, 3, 5);
+        }
     }
 }

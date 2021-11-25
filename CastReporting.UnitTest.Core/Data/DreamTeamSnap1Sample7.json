@@ -181,7 +181,13 @@
 							{
 								"technology": "JEE",
 								"result": {
-									"grade": 2.426662148640319
+									"grade": 2.426662148640319,
+									"omgTechnicalDebt": {
+										"total": 98400,
+										"numberOccurrences": 6627,
+										"added": 1152,
+										"removed": 1344
+									}
 								}
 							}
 						]
@@ -199,7 +205,13 @@
 							{
 								"technology": "PL/SQL",
 								"result": {
-									"grade": 2.4026268621590487
+									"grade": 2.4026268621590487,
+									"omgTechnicalDebt": {
+										"total": 26544,
+										"numberOccurrences": 6627,
+										"added": 2544,
+										"removed": 3360
+									}
 								}
 							}
 						]
