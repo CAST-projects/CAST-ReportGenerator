@@ -1433,7 +1433,8 @@ namespace CastReporting.Reporting.Helper
         private static int FormatStringWithLinesBreak(List<string> rowData, List<CellAttributes> cellProps, int cellidx, string desc, string ColorWhite)
         {
             string[] sampleFragments = desc.Split("\n");
-            for (int i = 0; i < sampleFragments.Count(); i++)
+            int nbFragments = sampleFragments.Count();
+            for (int i = 0; i < nbFragments; i++)
             {
                 rowData.Add(sampleFragments[i]);
                 cellProps.Add(new CellAttributes(cellidx, ColorWhite));
