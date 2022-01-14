@@ -97,7 +97,7 @@ namespace CastReporting.Reporting.Block.Table
                         continue;
                     }
                     SimpleResult previousRes = null;
-                    if (previousApplicationSnapshots.Count() > 0)
+                    if (previousApplicationSnapshots.Any())
                     {
                         previousRes = MetricsUtility.GetAggregatedMetric(reportData, previousApplicationSnapshots, _metricId, string.Empty, "AVERAGE", true);
                     }

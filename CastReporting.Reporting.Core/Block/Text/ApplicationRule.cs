@@ -57,7 +57,7 @@ namespace CastReporting.Reporting.Block.Text
             }
 
             if (snapshot == null) return Constants.No_Value;
-            if (lstParams.Length > 0 && _expr != string.Empty)
+            if (lstParams.Length > 0 && !string.IsNullOrEmpty(_expr))
             {
                 double? exprRes = MetricsUtility.CustomExpressionDoubleEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, _expr, module, techno);
                 return exprRes.HasValue ? exprRes.Value.ToString(_format) : Constants.No_Value;

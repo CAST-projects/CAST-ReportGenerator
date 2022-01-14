@@ -715,7 +715,7 @@ namespace CastReporting.Reporting.Helper
                 if (hasPreviousSnapshot)
                 { 
                     // if ruleName is empty, this is a violation in action plan
-                    string status = ruleName != string.Empty ? _violation.Diagnosis.Status : _violation.RemedialAction.Status;
+                    string status = !string.IsNullOrEmpty(ruleName) ? _violation.Diagnosis.Status : _violation.RemedialAction.Status;
                     rowData.Add($"{Labels.Status}: {status}");
                     cellProps.Add(new CellAttributes(cellidx, ColorWhite));
                     cellidx++;

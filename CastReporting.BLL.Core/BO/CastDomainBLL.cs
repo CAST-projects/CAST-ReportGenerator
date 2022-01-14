@@ -156,7 +156,7 @@ namespace CastReporting.BLL
                 using (var castRepository = GetRepository())
                 {
                     List<CommonTaggedApplications> commonTaggedApplications = castRepository.GetCommonTaggedApplications().ToList();
-                    if (strTags.Count() == 0 || commonTaggedApplications.Count() == 0)
+                    if (!strTags.Any() || !commonTaggedApplications.Any())
                     {
                         return _commonTaggedApplications;
                     }

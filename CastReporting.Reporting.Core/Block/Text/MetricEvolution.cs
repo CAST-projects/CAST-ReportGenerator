@@ -55,7 +55,7 @@ namespace CastReporting.Reporting.Block.Text
             }
 
             EvolutionResult result = null;
-            if (lstParams.Length > 0 && _expr != string.Empty)
+            if (lstParams.Length > 0 && !string.IsNullOrEmpty(_expr))
             {
                 double? curResult = MetricsUtility.CustomExpressionDoubleEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, _expr, module, techno);
                 double? prevResult = MetricsUtility.CustomExpressionDoubleEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, _expr, module, techno);
