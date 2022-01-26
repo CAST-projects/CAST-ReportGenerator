@@ -17,7 +17,7 @@ namespace CastReporting.BLL.Computing
 
         public static OmgTechnicalDebtIdDTO GetOmgTechDebt(Snapshot snapshot, int metricId)
         {
-            ApplicationResult resbc = snapshot.BusinessCriteriaResults.FirstOrDefault(_ => _.Reference.Key == metricId);
+            ApplicationResult resbc = snapshot.BusinessCriteriaResults?.FirstOrDefault(_ => _.Reference.Key == metricId);
             OmgTechnicalDebt omgTdBc = resbc?.DetailResult?.OmgTechnicalDebt;
             if (omgTdBc != null)
             {
@@ -30,7 +30,7 @@ namespace CastReporting.BLL.Computing
                 };
             }
 
-            ApplicationResult restc = snapshot.TechnicalCriteriaResults.FirstOrDefault(_ => _.Reference.Key == metricId);
+            ApplicationResult restc = snapshot.TechnicalCriteriaResults?.FirstOrDefault(_ => _.Reference.Key == metricId);
             OmgTechnicalDebt omgTdTc = restc?.DetailResult?.OmgTechnicalDebt;
             if (omgTdTc != null)
             {
@@ -43,7 +43,7 @@ namespace CastReporting.BLL.Computing
                 };
             }
 
-            ApplicationResult resqr = snapshot.QualityRulesResults.FirstOrDefault(_ => _.Reference.Key == metricId);
+            ApplicationResult resqr = snapshot.QualityRulesResults?.FirstOrDefault(_ => _.Reference.Key == metricId);
             OmgTechnicalDebt omgTdQr = resqr?.DetailResult?.OmgTechnicalDebt;
             if (omgTdQr != null)
             {
@@ -61,7 +61,7 @@ namespace CastReporting.BLL.Computing
 
         public static OmgTechnicalDebtIdDTO GetOmgTechDebtModule(Snapshot snapshot, int modId, int metricId)
         {
-            ApplicationResult resbc = snapshot.BusinessCriteriaResults.FirstOrDefault(_ => _.Reference.Key == metricId);
+            ApplicationResult resbc = snapshot.BusinessCriteriaResults?.FirstOrDefault(_ => _.Reference.Key == metricId);
             OmgTechnicalDebt omgTdBc = resbc?.ModulesResult?.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult?.OmgTechnicalDebt;
             if (omgTdBc != null)
             {
@@ -74,7 +74,7 @@ namespace CastReporting.BLL.Computing
                 };
             }
 
-            ApplicationResult restc = snapshot.TechnicalCriteriaResults.FirstOrDefault(_ => _.Reference.Key == metricId);
+            ApplicationResult restc = snapshot.TechnicalCriteriaResults?.FirstOrDefault(_ => _.Reference.Key == metricId);
             OmgTechnicalDebt omgTdTc = restc?.ModulesResult?.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult?.OmgTechnicalDebt;
             if (omgTdTc != null)
             {
@@ -87,7 +87,7 @@ namespace CastReporting.BLL.Computing
                 };
             }
 
-            ApplicationResult resqr = snapshot.QualityRulesResults.FirstOrDefault(_ => _.Reference.Key == metricId);
+            ApplicationResult resqr = snapshot.QualityRulesResults?.FirstOrDefault(_ => _.Reference.Key == metricId);
             OmgTechnicalDebt omgTdQr = resqr?.ModulesResult?.FirstOrDefault(m => m.Module.Id == modId)?.DetailResult?.OmgTechnicalDebt;
             if (omgTdQr != null)
             {
@@ -105,7 +105,7 @@ namespace CastReporting.BLL.Computing
 
         public static OmgTechnicalDebtIdDTO GetOmgTechDebtTechno(Snapshot snapshot, string techno, int metricId)
         {
-            ApplicationResult resbc = snapshot.BusinessCriteriaResults.FirstOrDefault(_ => _.Reference.Key == metricId);
+            ApplicationResult resbc = snapshot.BusinessCriteriaResults?.FirstOrDefault(_ => _.Reference.Key == metricId);
             OmgTechnicalDebt omgTdBc = resbc?.TechnologyResult?.FirstOrDefault(t => t.Technology == techno)?.DetailResult?.OmgTechnicalDebt;
             if (omgTdBc != null)
             {
@@ -118,7 +118,7 @@ namespace CastReporting.BLL.Computing
                 };
             }
 
-            ApplicationResult restc = snapshot.TechnicalCriteriaResults.FirstOrDefault(_ => _.Reference.Key == metricId);
+            ApplicationResult restc = snapshot.TechnicalCriteriaResults?.FirstOrDefault(_ => _.Reference.Key == metricId);
             OmgTechnicalDebt omgTdTc = restc?.TechnologyResult?.FirstOrDefault(t => t.Technology == techno)?.DetailResult?.OmgTechnicalDebt;
             if (omgTdTc != null)
             {
@@ -131,7 +131,7 @@ namespace CastReporting.BLL.Computing
                 };
             }
 
-            ApplicationResult resqr = snapshot.QualityRulesResults.FirstOrDefault(_ => _.Reference.Key == metricId);
+            ApplicationResult resqr = snapshot.QualityRulesResults?.FirstOrDefault(_ => _.Reference.Key == metricId);
             OmgTechnicalDebt omgTdQr = resqr?.TechnologyResult?.FirstOrDefault(t => t.Technology == techno)?.DetailResult?.OmgTechnicalDebt;
             if (omgTdQr != null)
             {
@@ -149,7 +149,7 @@ namespace CastReporting.BLL.Computing
 
         public static OmgTechnicalDebtIdDTO GetOmgTechDebtModuleTechno(Snapshot snapshot, int modId, string techno, int metricId)
         {
-            ApplicationResult resbc = snapshot.BusinessCriteriaResults.FirstOrDefault(_ => _.Reference.Key == metricId);
+            ApplicationResult resbc = snapshot.BusinessCriteriaResults?.FirstOrDefault(_ => _.Reference.Key == metricId);
             OmgTechnicalDebt omgTdBc = resbc?.ModulesResult?.FirstOrDefault(m => m.Module.Id == modId)?.TechnologyResults?.FirstOrDefault(t => t.Technology == techno)?.DetailResult?.OmgTechnicalDebt;
             if (omgTdBc != null)
             {
@@ -162,7 +162,7 @@ namespace CastReporting.BLL.Computing
                 };
             }
 
-            ApplicationResult restc = snapshot.TechnicalCriteriaResults.FirstOrDefault(_ => _.Reference.Key == metricId);
+            ApplicationResult restc = snapshot.TechnicalCriteriaResults?.FirstOrDefault(_ => _.Reference.Key == metricId);
             OmgTechnicalDebt omgTdTc = restc?.ModulesResult?.FirstOrDefault(m => m.Module.Id == modId)?.TechnologyResults?.FirstOrDefault(t => t.Technology == techno)?.DetailResult?.OmgTechnicalDebt;
             if (omgTdTc != null)
             {
@@ -175,7 +175,7 @@ namespace CastReporting.BLL.Computing
                 };
             }
 
-            ApplicationResult resqr = snapshot.QualityRulesResults.FirstOrDefault(_ => _.Reference.Key == metricId);
+            ApplicationResult resqr = snapshot.QualityRulesResults?.FirstOrDefault(_ => _.Reference.Key == metricId);
             OmgTechnicalDebt omgTdQr = resqr?.ModulesResult?.FirstOrDefault(m => m.Module.Id == modId)?.TechnologyResults?.FirstOrDefault(t => t.Technology == techno)?.DetailResult?.OmgTechnicalDebt;
             if (omgTdQr != null)
             {

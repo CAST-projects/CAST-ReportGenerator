@@ -33,11 +33,11 @@ namespace CastReporting.Reporting.Helper
         /// <returns></returns>
         public static string GetMetricName(ReportData reportData, Snapshot snapshot, string metricId)
         {
-            string name = ((snapshot.BusinessCriteriaResults.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault() ??
-                            snapshot.TechnicalCriteriaResults.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault()) ??
-                           snapshot.QualityRulesResults.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault()) ??
-                          snapshot.SizingMeasuresResults.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault();
-            if (snapshot.QualityRulesResults.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault() != null)
+            string name = ((snapshot.BusinessCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault() ??
+                            snapshot.TechnicalCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault()) ??
+                           snapshot.QualityRulesResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault()) ??
+                          snapshot.SizingMeasuresResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault();
+            if (snapshot.QualityRulesResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault() != null)
             {
                 name = name + " (" + metricId + ")";
             }
@@ -66,24 +66,24 @@ namespace CastReporting.Reporting.Helper
             double? result = null;
             string resStr = string.Empty;
 
-            string name = snapshot.BusinessCriteriaResults.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault();
+            string name = snapshot.BusinessCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault();
             if (name != null) type = MetricType.BusinessCriteria;
             // if metricId is not a Business Criteria
             if (name == null)
             {
-                name = snapshot.TechnicalCriteriaResults.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault();
+                name = snapshot.TechnicalCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault();
                 if (name != null) type = MetricType.TechnicalCriteria;
             }
             // if metricId is not a technical criteria
             if (name == null)
             {
-                name = snapshot.QualityRulesResults.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault();
+                name = snapshot.QualityRulesResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault();
                 if (name != null) type = MetricType.QualityRule;
             }
             // if metricId is not a quality rule
             if (name == null)
             {
-                name = snapshot.SizingMeasuresResults.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault();
+                name = snapshot.SizingMeasuresResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault();
                 if (name != null) type = MetricType.SizingMeasure;
             }
             // if metricId is not a sizing measure, perhaps a category
@@ -571,10 +571,10 @@ namespace CastReporting.Reporting.Helper
                 {
                     // From 8.3.21 and new index extensions, a quality standard can be a BC or TC (as shortName)
                     Snapshot snapshot = reportData.CurrentSnapshot;
-                    int metricBcIdFromShortName = snapshot.BusinessCriteriaResults.Where(_ => _.Reference.Name == _metric).Select(_ => _.Reference.Key).FirstOrDefault();
-                    if (metricBcIdFromShortName != 0)
+                    int? metricBcIdFromShortName = snapshot.BusinessCriteriaResults?.Where(_ => _.Reference.Name == _metric).Select(_ => _.Reference.Key).FirstOrDefault();
+                    if (metricBcIdFromShortName != null && metricBcIdFromShortName != 0)
                     {
-                        List<RuleDetails> rules = reportData.RuleExplorer.GetRulesDetails(snapshot.DomainId, metricBcIdFromShortName, snapshot.Id).ToList();
+                        List<RuleDetails> rules = reportData.RuleExplorer.GetRulesDetails(snapshot.DomainId, metricBcIdFromShortName.Value, snapshot.Id).ToList();
                         if (omg)
                         {
                             qualityRules.AddRange(rules.Where(_ =>
@@ -588,8 +588,8 @@ namespace CastReporting.Reporting.Helper
                     }
                     else
                     {
-                        int metricTcIdFromShortName = snapshot.TechnicalCriteriaResults.Where(_ => _.Reference.ShortName == _metric).Select(_ => _.Reference.Key).FirstOrDefault();
-                        if (metricTcIdFromShortName != 0)
+                        int? metricTcIdFromShortName = snapshot.TechnicalCriteriaResults?.Where(_ => _.Reference.ShortName == _metric).Select(_ => _.Reference.Key).FirstOrDefault();
+                        if (metricTcIdFromShortName != null && metricTcIdFromShortName != 0)
                         {
                             List<Contributor> rules = reportData.RuleExplorer.GetCriteriaContributors(snapshot.DomainId, metricTcIdFromShortName.ToString(), snapshot.Id).ToList();
                             if (omg)
@@ -614,7 +614,7 @@ namespace CastReporting.Reporting.Helper
                 {
                     Snapshot snapshot = reportData.CurrentSnapshot;
                     int metricId = int.Parse(_metric);
-                    string name = snapshot.BusinessCriteriaResults.Where(_ => _.Reference.Key == metricId).Select(_ => _.Reference.Name).FirstOrDefault();
+                    string name = snapshot.BusinessCriteriaResults?.Where(_ => _.Reference.Key == metricId).Select(_ => _.Reference.Name).FirstOrDefault();
 
                     if (name != null)
                     {
@@ -625,7 +625,7 @@ namespace CastReporting.Reporting.Helper
                     else
                     {
                         // if metricId is not a Business Criteria
-                        name = snapshot.TechnicalCriteriaResults.Where(_ => _.Reference.Key == metricId).Select(_ => _.Reference.Name).FirstOrDefault();
+                        name = snapshot.TechnicalCriteriaResults?.Where(_ => _.Reference.Key == metricId).Select(_ => _.Reference.Name).FirstOrDefault();
                         if (name != null)
                         {
                             // This is a Technical criteria
@@ -635,7 +635,7 @@ namespace CastReporting.Reporting.Helper
                         else
                         {
                             // if metricId is not a Technical Criteria
-                            name = snapshot.QualityRulesResults.Where(_ => _.Reference.Key == metricId).Select(_ => _.Reference.Name).FirstOrDefault();
+                            name = snapshot.QualityRulesResults?.Where(_ => _.Reference.Key == metricId).Select(_ => _.Reference.Name).FirstOrDefault();
                             if (name != null)
                             {
                                 qualityRules.Add(_metric);
