@@ -44,8 +44,12 @@ namespace CastReporting.UnitTest.Reporting
         }
 
         [DeploymentItem(@".\Data\OmgFunctionsEvolutions.csv", "Data")]
+        [DeploymentItem(@".\Data\OmgFunctionsEvolutionsZero.csv", "Data")]
         public IEnumerable<OmgFunction> GetOmgFunctionsEvolutions(string snapshotHref, int count)
         {
+            if (snapshotHref.Equals("AED/applications/3/snapshots/33")) {
+                return TestUtility.GetCsvSampleResult<OmgFunction>(@".\Data\OmgFunctionsEvolutionsZero.csv", count, null).ToList();
+            }
             return TestUtility.GetCsvSampleResult<OmgFunction>(@".\Data\OmgFunctionsEvolutions.csv", count, null).ToList();
         }
 

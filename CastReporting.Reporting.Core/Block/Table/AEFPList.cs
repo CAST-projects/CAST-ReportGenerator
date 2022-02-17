@@ -62,6 +62,7 @@ namespace CastReporting.Reporting.Block.Table
                 }
             }
             bool displayPrevious = options.GetBoolOption("PREVIOUS", false);
+            bool displayZero = options.GetBoolOption("ZERO", true);
 
             List<string> rowData = new List<string>();
             if (type.Equals(string.Empty))
@@ -119,6 +120,14 @@ namespace CastReporting.Reporting.Block.Table
                 if (!string.IsNullOrEmpty(status))
                 {
                     exportedList = exportedList.Where(f => f.ElementType.Contains(status));
+                }
+                if (!displayZero)
+                {
+                    exportedList = exportedList.Where(f => {
+                        if (f.NoOfFPs != null) return int.Parse(f.NoOfFPs) > 0;
+                        if (f.Aeps != null) return int.Parse(f.Aeps) > 0;
+                        return false;
+                    });
                 }
                 if (nbLimitTop > 0)
                 {

@@ -278,7 +278,7 @@ namespace CastReporting.BLL.Computing
                                                          from codeLineNumber in snapshot.SizingMeasuresResults
                                                          where codeLineNumber.Reference.Key == Constants.SizingInformations.CodeLineNumber.GetHashCode() &&
                                                                codeLineNumber.DetailResult?.Value > 0 &&
-                                                               codeLineNumber.TechnologyResult.Count(_ => _.Technology.Equals(techno)) != 0
+                                                               codeLineNumber.TechnologyResult.Any(_ => _.Technology.Equals(techno))
                                                          select new TechnologyResultDTO
                                                          {
                                                              Name = techno,
