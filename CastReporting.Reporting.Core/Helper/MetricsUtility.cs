@@ -1118,6 +1118,27 @@ namespace CastReporting.Reporting.Helper
                         if (bookmarks == null || !bookmarks.Any())
                         {
                             List<Tuple<string, int, int>> paths = reportData.SnapshotExplorer.GetComponentFilePath(domainId, _violation.Component.GetComponentId(), snapshotId);
+                            if (paths.Count == 0)
+                            {
+                                var _row = headers.CreateDataRow();
+                                _row.Set(Labels.RuleName, ruleName);
+                                _row.Set(Labels.ObjectName, _violation.Component.Name);
+                                _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
+                                _row.Set(Labels.Status, status);
+                                if (ruleId == "actionPlan")
+                                {
+                                    _row.Set(Labels.Priority, _violation.RemedialAction.Tag);
+                                }
+                                else if (ruleId == ("actionPlanPriority"))
+                                {
+                                    _row.Set(Labels.Priority, _violation.RemedialAction.Priority);
+                                }
+                                _row.Set(Labels.AssociatedValue, assoValue);
+                                _row.Set(Labels.FilePath, string.Empty);
+                                _row.Set(Labels.StartLine, string.Empty);
+                                _row.Set(Labels.EndLine, string.Empty);
+                                rowData.AddRange(_row);
+                            }
                             paths.ForEach(_path =>
                             {
                                 var _row = headers.CreateDataRow();
