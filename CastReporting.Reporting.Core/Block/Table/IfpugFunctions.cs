@@ -42,7 +42,7 @@ namespace CastReporting.Reporting.Block.Table
             bool displayZero = options.GetBoolOption("ZERO", true);
 
             IEnumerable<IfpugFunction> functions = reportData.SnapshotExplorer.GetIfpugFunctions(reportData.CurrentSnapshot.Href, string.IsNullOrEmpty(type) || displayZero ? nbLimitTop : -1)?.ToList();
-            if (!displayZero)
+            if (!displayZero && functions != null)
             {
                 functions = functions.Where(f => {
                     if (f.NbOfFPs != null) return int.Parse(f.NbOfFPs) > 0;
