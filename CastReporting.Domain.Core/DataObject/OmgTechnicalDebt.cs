@@ -22,15 +22,15 @@ namespace CastReporting.Domain
     public class OmgTechnicalDebt
     {
         [DataMember(Name = "total")]
-        public int? Total { get; set; }
+        public long? Total { get; set; }
 
         [DataMember(Name = "numberOccurrences")]
-        public int? NumberOccurrences { get; set; }
+        public long? NumberOccurrences { get; set; }
 
         [DataMember(Name = "added")]
-        public int? Added { get; set; }
+        public long? Added { get; set; }
 
         [DataMember(Name = "removed")]
-        public int? Removed { get; set; }
+        public long? Removed { get; set; }
     }
 }
