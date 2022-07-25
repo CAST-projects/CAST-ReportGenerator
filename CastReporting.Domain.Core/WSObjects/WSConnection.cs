@@ -16,6 +16,7 @@
 using Cast.Util.Security;
 using System;
 using System.Xml.Serialization;
+using System.Security.Cryptography;
 
 namespace CastReporting.Domain
 {
@@ -106,7 +107,11 @@ namespace CastReporting.Domain
             {
                 if (string.IsNullOrWhiteSpace(_login) && CryptedLogin != null)
                 {
-                    _login = CryptoHelper.DecryptStringFromBytes(CryptedLogin);
+                    using (AesCryptoServiceProvider myAes = new AesCryptoServiceProvider())
+                    {
+                        // Decrypt the bytes to a string.
+                        _login = CryptoHelper.DecryptStringFromBytes_Aes(CryptedLogin);
+                    }
                 }
 
                 return _login;
@@ -115,7 +120,11 @@ namespace CastReporting.Domain
             {
                 if (!string.IsNullOrWhiteSpace(value))
                 {
-                    CryptedLogin = CryptoHelper.EncryptStringToBytes(value);
+                    using (AesCryptoServiceProvider myAes = new AesCryptoServiceProvider())
+                    {
+                        CryptedLogin = CryptoHelper.EncryptStringToBytes_Aes(value);
+
+                    }
                 }
             }
         }
@@ -145,7 +154,11 @@ namespace CastReporting.Domain
             {
                 if (string.IsNullOrWhiteSpace(_password) && CryptedPassword != null)
                 {
-                    _password = CryptoHelper.DecryptStringFromBytes(CryptedPassword);
+                    using (AesCryptoServiceProvider myAes = new AesCryptoServiceProvider())
+                    {
+                        // Decrypt the bytes to a string.
+                        _password = CryptoHelper.DecryptStringFromBytes_Aes(CryptedPassword);
+                    }
                 }
 
                 return _password;
@@ -154,7 +167,11 @@ namespace CastReporting.Domain
             {
                 if (!string.IsNullOrWhiteSpace(value))
                 {
-                    CryptedPassword = CryptoHelper.EncryptStringToBytes(value);
+                    using (AesCryptoServiceProvider myAes = new AesCryptoServiceProvider())
+                    {
+                        CryptedPassword = CryptoHelper.EncryptStringToBytes_Aes(value);
+
+                    }
                 }
             }
         }

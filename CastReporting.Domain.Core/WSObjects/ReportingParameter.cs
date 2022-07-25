@@ -111,5 +111,48 @@ namespace CastReporting.Domain
 
             ExtendUrl = "https://extend.castsoftware.com";
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is ReportingParameter parameter &&
+                   ApplicationSizeLimitSupSmall == parameter.ApplicationSizeLimitSupSmall &&
+                   ApplicationSizeLimitSupMedium == parameter.ApplicationSizeLimitSupMedium &&
+                   ApplicationSizeLimitSupLarge == parameter.ApplicationSizeLimitSupLarge &&
+                   ApplicationQualityVeryLow == parameter.ApplicationQualityVeryLow &&
+                   ApplicationQualityLow == parameter.ApplicationQualityLow &&
+                   ApplicationQualityMedium == parameter.ApplicationQualityMedium &&
+                   ApplicationQualityGood == parameter.ApplicationQualityGood &&
+                   NbResultDefault == parameter.NbResultDefault &&
+                   GeneratedFilePath == parameter.GeneratedFilePath &&
+                   TemplatePath == parameter.TemplatePath &&
+                   PortfolioFolderNamePath == parameter.PortfolioFolderNamePath &&
+                   ApplicationFolderNamePath == parameter.ApplicationFolderNamePath &&
+                   AADURL == parameter.AADURL &&
+                   CultureName == parameter.CultureName &&
+                   ServerCertificateValidation == parameter.ServerCertificateValidation &&
+                   ExtendUrl == parameter.ExtendUrl;
+        }
+
+        public override int GetHashCode()
+        {
+            HashCode hash = new HashCode();
+            hash.Add(ApplicationSizeLimitSupSmall);
+            hash.Add(ApplicationSizeLimitSupMedium);
+            hash.Add(ApplicationSizeLimitSupLarge);
+            hash.Add(ApplicationQualityVeryLow);
+            hash.Add(ApplicationQualityLow);
+            hash.Add(ApplicationQualityMedium);
+            hash.Add(ApplicationQualityGood);
+            hash.Add(NbResultDefault);
+            hash.Add(GeneratedFilePath);
+            hash.Add(TemplatePath);
+            hash.Add(PortfolioFolderNamePath);
+            hash.Add(ApplicationFolderNamePath);
+            hash.Add(AADURL);
+            hash.Add(CultureName);
+            hash.Add(ServerCertificateValidation);
+            hash.Add(ExtendUrl);
+            return hash.ToHashCode();
+        }
     }
 }

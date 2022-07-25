@@ -17,6 +17,17 @@ namespace CastReporting.Console.Argument
         [XmlAttribute("name")]
         public string Name { get; set; }
 
+        public override bool Equals(object obj)
+        {
+            return obj is XmlTagName name &&
+                   Name == name.Name;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Name);
+        }
+
         #endregion
 
         #region Method
@@ -29,6 +40,7 @@ namespace CastReporting.Console.Argument
         {
             return Name;
         }
+
 
         #endregion
     }
