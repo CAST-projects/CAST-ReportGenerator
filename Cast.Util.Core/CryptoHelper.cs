@@ -34,9 +34,9 @@ namespace Cast.Util.Security
                 throw new ArgumentNullException("plainText");
             byte[] encrypted;
 
-            // Create an AesCryptoServiceProvider object
+            // Create an Aes object
             // with the specified key and IV.
-            using (AesCryptoServiceProvider aesAlg = new AesCryptoServiceProvider())
+            using (Aes aesAlg = Aes.Create())
             {
                 aesAlg.Padding = PaddingMode.PKCS7;
                 aesAlg.Key = Key;
@@ -76,7 +76,7 @@ namespace Cast.Util.Security
 
             // Create an AesCryptoServiceProvider object
             // with the specified key and IV.
-            using (AesCryptoServiceProvider aesAlg = new AesCryptoServiceProvider())
+            using (Aes aesAlg = Aes.Create())
             {
                 aesAlg.Padding = PaddingMode.PKCS7;
                 aesAlg.Key = Key;

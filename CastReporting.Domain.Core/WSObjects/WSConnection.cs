@@ -107,7 +107,7 @@ namespace CastReporting.Domain
             {
                 if (string.IsNullOrWhiteSpace(_login) && CryptedLogin != null)
                 {
-                    using (AesCryptoServiceProvider myAes = new AesCryptoServiceProvider())
+                    using (Aes myAes = Aes.Create())
                     {
                         // Decrypt the bytes to a string.
                         _login = CryptoHelper.DecryptStringFromBytes_Aes(CryptedLogin);
@@ -120,7 +120,7 @@ namespace CastReporting.Domain
             {
                 if (!string.IsNullOrWhiteSpace(value))
                 {
-                    using (AesCryptoServiceProvider myAes = new AesCryptoServiceProvider())
+                    using (Aes myAes = Aes.Create())
                     {
                         CryptedLogin = CryptoHelper.EncryptStringToBytes_Aes(value);
 
@@ -154,7 +154,7 @@ namespace CastReporting.Domain
             {
                 if (string.IsNullOrWhiteSpace(_password) && CryptedPassword != null)
                 {
-                    using (AesCryptoServiceProvider myAes = new AesCryptoServiceProvider())
+                    using (Aes myAes = Aes.Create())
                     {
                         // Decrypt the bytes to a string.
                         _password = CryptoHelper.DecryptStringFromBytes_Aes(CryptedPassword);
@@ -167,7 +167,7 @@ namespace CastReporting.Domain
             {
                 if (!string.IsNullOrWhiteSpace(value))
                 {
-                    using (AesCryptoServiceProvider myAes = new AesCryptoServiceProvider())
+                    using (Aes myAes = Aes.Create())
                     {
                         CryptedPassword = CryptoHelper.EncryptStringToBytes_Aes(value);
 
