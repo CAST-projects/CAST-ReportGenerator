@@ -1569,7 +1569,7 @@ namespace CastReporting.Reporting.Helper
                             .First();
                     list.Add(_application, _previous);
                 }
-                catch (InvalidOperationException e)
+                catch (InvalidOperationException)
                 {
                     LogHelper.LogWarn("No snapshots in previous quarter");
                 }
