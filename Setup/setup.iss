@@ -60,11 +60,11 @@ source: "../CastReporting.Console.Core/bin/Release/net6.0/*.exe";DestDir: "{app}
 source: "../CastReporting.Console.Core/bin/Release/net6.0/*.dll";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
 source: "../CastReporting.Console.Core/bin/Release/net6.0/CastReporting.Console.Core.runtimeconfig.json";DestDir: "{app}"; Flags: ignoreversion
 source: "../CastReporting.Console.Core/bin/Release/net6.0/CastReporting.Console.Core.deps.json";DestDir: "{app}"; Flags: ignoreversion
-source: "../CastReporting.UI.WPF.V2/bin/Release/net6.0/*.dll";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
-source: "../CastReporting.UI.WPF.V2/bin/Release/net6.0/*.exe";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
-source: "../CastReporting.UI.WPF.V2/bin/Release/net6.0/*.config";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
-source: "../CastReporting.UI.WPF.V2/bin/Release/net6.0/CastReporting.UI.WPF.Core.runtimeconfig.json";DestDir: "{app}"; Flags: ignoreversion
-source: "../CastReporting.UI.WPF.V2/bin/Release/net6.0/CastReporting.UI.WPF.Core.deps.json";DestDir: "{app}"; Flags: ignoreversion
+source: "../CastReporting.UI.WPF.V2/bin/Release/net6.0-windows/*.dll";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+source: "../CastReporting.UI.WPF.V2/bin/Release/net6.0-windows/*.exe";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+source: "../CastReporting.UI.WPF.V2/bin/Release/net6.0-windows/*.config";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+source: "../CastReporting.UI.WPF.V2/bin/Release/net6.0-windows/CastReporting.UI.WPF.Core.runtimeconfig.json";DestDir: "{app}"; Flags: ignoreversion
+source: "../CastReporting.UI.WPF.V2/bin/Release/net6.0-windows/CastReporting.UI.WPF.Core.deps.json";DestDir: "{app}"; Flags: ignoreversion
 source: "../CastReporting.Console.Core/bin/Release/net6.0/Parameters/*.xml";DestDir: "{app}"; Flags: ignoreversion
 Source: "../CastReporting.Reporting.Core/Templates/*"; DestDir: "{code:GetTempPath}\Templates"; Flags: ignoreversion recursesubdirs
 source: "../CastReporting.Repositories.Core/CastReportingSetting.xml"; DestDir: "{code:GetSettingsPath}"; Flags: ignoreversion; AfterInstall:SaveSettings()
