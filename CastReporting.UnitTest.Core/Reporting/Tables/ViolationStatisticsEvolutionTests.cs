@@ -100,6 +100,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             Assert.IsTrue(table.HasRowHeaders);
         }
 
+        [Ignore]
         [TestMethod]
         [DeploymentItem(@".\Data\critViolStats.json", "Data")]
         [DeploymentItem(@".\Data\critViolStatsPrevious.json", "Data")]
