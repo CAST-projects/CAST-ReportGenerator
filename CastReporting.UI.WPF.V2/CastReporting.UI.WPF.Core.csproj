@@ -1,13 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <ApplicationIcon>Resources\Images\cast.ico</ApplicationIcon>
     <OutputType>WinExe</OutputType>
-    <StartupObject />
+    <StartupObject>CastReporting.UI.WPF.Core.App</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -52,8 +52,8 @@
 
   <ItemGroup>
     <PackageReference Include="Expression.Interaction" Version="3.0.40218" />
-    <PackageReference Include="log4net" Version="2.0.10" />
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="3.0.1" />
+    <PackageReference Include="log4net" Version="2.0.14" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
     <PackageReference Include="PresentationFramework" Version="4.6.0" />
     <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
   </ItemGroup>
