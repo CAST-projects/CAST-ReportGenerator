@@ -1,7 +1,7 @@
 @echo off
 SetLocal EnableDelayedExpansion
 
-set DOTNETCORENAME=dotnet-sdk-6.0.302-win-x64
+set DOTNETCORENAME=dotnet-sdk-6.0.202-win-x64
 set PACKPATH=%TEMP%\%DOTNETCORENAME%.exe 
 set LOGPATH=%TEMP%\%DOTNETCORENAME%.log
 
@@ -11,7 +11,7 @@ echo =================================================================
 echo Downloading .NET package ...
 echo =================================================================
 echo =================================================================
-C:\Windows\System32\curl.exe -o %PACKPATH% https://download.visualstudio.microsoft.com/download/pr/c246f2b8-da39-4b12-b87d-bf89b6b51298/2d43d4ded4b6a0c4d1a0b52f0b9a3b30/%DOTNETCORENAME%.exe
+C:\Windows\System32\curl.exe -o %PACKPATH% https://download.visualstudio.microsoft.com/download/pr/e4f4bbac-5660-45a9-8316-0ffc10765179/8ade57de09ce7f12d6411ed664f74eca/%DOTNETCORENAME%.exe
 if not exist %PACKPATH% (
     echo.
     echo ERROR during download of .NET package
