@@ -66,208 +66,216 @@ namespace CastReporting.Reporting.Helper
             double? result = null;
             string resStr = string.Empty;
 
-            string name = snapshot.BusinessCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault();
-            if (name != null) type = MetricType.BusinessCriteria;
-            // if metricId is not a Business Criteria
-            if (name == null)
+            try
             {
-                name = snapshot.TechnicalCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault();
-                if (name != null) type = MetricType.TechnicalCriteria;
-            }
-            // if metricId is not a technical criteria
-            if (name == null)
-            {
-                name = snapshot.QualityRulesResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault();
-                if (name != null) type = MetricType.QualityRule;
-            }
-            // if metricId is not a quality rule
-            if (name == null)
-            {
-                name = snapshot.SizingMeasuresResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault();
-                if (name != null) type = MetricType.SizingMeasure;
-            }
-            // if metricId is not a sizing measure, perhaps a category
-            if (name == null)
-            {
-                name = CastComplexityUtility.GetCategoryName(snapshot, int.Parse(metricId));
-                if (name != null) type = MetricType.Category;
-            }
-            // if metricId is not a category, perhaps a background fact
-            if (name == null)
-            {
-                bfResult = reportData.SnapshotExplorer.GetBackgroundFacts(snapshot.Href, metricId, true, true).FirstOrDefault();
-                if (bfResult == null || !bfResult.ApplicationResults.Any()) return null;
-                name = bfResult.ApplicationResults[0].Reference.Name;
-                if (name != null) type = MetricType.BackgroundFact;
-            }
-            // we don't know what is this metric
-            if (name == null) return null;
+                string name = snapshot.BusinessCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault();
+                if (name != null) type = MetricType.BusinessCriteria;
+                // if metricId is not a Business Criteria
+                if (name == null)
+                {
+                    name = snapshot.TechnicalCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault();
+                    if (name != null) type = MetricType.TechnicalCriteria;
+                }
+                // if metricId is not a technical criteria
+                if (name == null)
+                {
+                    name = snapshot.QualityRulesResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault();
+                    if (name != null) type = MetricType.QualityRule;
+                }
+                // if metricId is not a quality rule
+                if (name == null)
+                {
+                    name = snapshot.SizingMeasuresResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault();
+                    if (name != null) type = MetricType.SizingMeasure;
+                }
+                // if metricId is not a sizing measure, perhaps a category
+                if (name == null)
+                {
+                    name = CastComplexityUtility.GetCategoryName(snapshot, int.Parse(metricId));
+                    if (name != null) type = MetricType.Category;
+                }
+                // if metricId is not a category, perhaps a background fact
+                if (name == null)
+                {
+                    bfResult = reportData.SnapshotExplorer.GetBackgroundFacts(snapshot.Href, metricId, true, true).FirstOrDefault();
+                    if (bfResult == null || !bfResult.ApplicationResults.Any()) return null;
+                    name = bfResult.ApplicationResults[0].Reference.Name;
+                    if (name != null) type = MetricType.BackgroundFact;
+                }
+                // we don't know what is this metric
+                if (name == null) return null;
 
-            switch (type)
-            {
-                case MetricType.BusinessCriteria:
-                    if (module == null && string.IsNullOrEmpty(technology))
-                    {
-                        result = snapshot.BusinessCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId))
-                            .Select(_ => _.DetailResult.Grade).FirstOrDefault();
-                    }
-                    else if (module != null && string.IsNullOrEmpty(technology))
-                    {
-                        result = snapshot.BusinessCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.ModulesResult != null)
-                            .SelectMany(_ => _.ModulesResult)
-                            .FirstOrDefault(_ => _.Module.Id == module.Id && _.DetailResult != null)?.DetailResult.Grade;
-                    }
-                    else if (module == null && !string.IsNullOrEmpty(technology))
-                    {
-                        result = snapshot.BusinessCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.TechnologyResult != null)
-                            .SelectMany(_ => _.TechnologyResult)
-                            .FirstOrDefault(_ => _.Technology == technology && _.DetailResult != null)?.DetailResult.Grade;
-                    }
-                    else if (module != null && !string.IsNullOrEmpty(technology))
-                    {
-                        result = snapshot.BusinessCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.ModulesResult != null)
-                            .SelectMany(_ => _.ModulesResult)
-                            .FirstOrDefault(_ => _.Module.Id == module.Id && _.TechnologyResults != null)?.TechnologyResults
-                            .FirstOrDefault(_ => _.Technology == technology && _.DetailResult != null)?.DetailResult.Grade;
-                    }
-                    resStr = result?.ToString("N2") ?? (format ? Constants.No_Value : "0");
-                    break;
-                case MetricType.TechnicalCriteria:
-                    if (module == null && string.IsNullOrEmpty(technology))
-                    {
-                        result = snapshot.TechnicalCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId))
-                            .Select(_ => _.DetailResult.Grade).FirstOrDefault();
-                    }
-                    else if (module != null && string.IsNullOrEmpty(technology))
-                    {
-                        result = snapshot.TechnicalCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.ModulesResult != null)
-                            .SelectMany(_ => _.ModulesResult)
-                            .FirstOrDefault(_ => _.Module.Id == module.Id && _.DetailResult != null)?.DetailResult.Grade;
-                    }
-                    else if (module == null && !string.IsNullOrEmpty(technology))
-                    {
-                        result = snapshot.TechnicalCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.TechnologyResult != null)
-                            .SelectMany(_ => _.TechnologyResult)
-                            .FirstOrDefault(_ => _.Technology == technology && _.DetailResult != null)?.DetailResult.Grade;
-                    }
-                    else if (module != null && !string.IsNullOrEmpty(technology))
-                    {
-                        result = snapshot.TechnicalCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.ModulesResult != null)
-                            .SelectMany(_ => _.ModulesResult)
-                            .FirstOrDefault(_ => _.Module.Id == module.Id && _.TechnologyResults != null)?.TechnologyResults
-                            .FirstOrDefault(_ => _.Technology == technology && _.DetailResult != null)?.DetailResult.Grade;
-                    }
-                    resStr = result?.ToString("N2") ?? (format ? Constants.No_Value : "0");
-                    break;
-                case MetricType.QualityRule:
-                    if (module == null && string.IsNullOrEmpty(technology))
-                    {
-                        result = snapshot.QualityRulesResults?.Where(_ => _.Reference.Key == int.Parse(metricId))
-                            .Select(_ => _.DetailResult.Grade).FirstOrDefault();
-                    }
-                    else if (module != null && string.IsNullOrEmpty(technology))
-                    {
-                        result = snapshot.QualityRulesResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.ModulesResult != null)
-                            .SelectMany(_ => _.ModulesResult)
-                            .FirstOrDefault(_ => _.Module.Id == module.Id && _.DetailResult != null)?.DetailResult.Grade;
-                    }
-                    else if (module == null && !string.IsNullOrEmpty(technology))
-                    {
-                        result = snapshot.QualityRulesResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.TechnologyResult != null)
-                            .SelectMany(_ => _.TechnologyResult)
-                            .FirstOrDefault(_ => _.Technology == technology && _.DetailResult != null)?.DetailResult.Grade;
-                    }
-                    else if (module != null && !string.IsNullOrEmpty(technology))
-                    {
-                        result = snapshot.QualityRulesResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.ModulesResult != null)
-                            .SelectMany(_ => _.ModulesResult)
-                            .FirstOrDefault(_ => _.Module.Id == module.Id && _.TechnologyResults != null)?.TechnologyResults
-                            .FirstOrDefault(_ => _.Technology == technology && _.DetailResult != null)?.DetailResult.Grade;
-                    }
-                    resStr = result?.ToString("N2") ?? (format ? Constants.No_Value : "0");
+                switch (type)
+                {
+                    case MetricType.BusinessCriteria:
+                        if (module == null && string.IsNullOrEmpty(technology))
+                        {
+                            result = snapshot.BusinessCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId))
+                                .Select(_ => _.DetailResult.Grade).FirstOrDefault();
+                        }
+                        else if (module != null && string.IsNullOrEmpty(technology))
+                        {
+                            result = snapshot.BusinessCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.ModulesResult != null)
+                                .SelectMany(_ => _.ModulesResult)
+                                .FirstOrDefault(_ => _.Module.Id == module.Id && _.DetailResult != null)?.DetailResult.Grade;
+                        }
+                        else if (module == null && !string.IsNullOrEmpty(technology))
+                        {
+                            result = snapshot.BusinessCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.TechnologyResult != null)
+                                .SelectMany(_ => _.TechnologyResult)
+                                .FirstOrDefault(_ => _.Technology == technology && _.DetailResult != null)?.DetailResult.Grade;
+                        }
+                        else if (module != null && !string.IsNullOrEmpty(technology))
+                        {
+                            result = snapshot.BusinessCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.ModulesResult != null)
+                                .SelectMany(_ => _.ModulesResult)
+                                .FirstOrDefault(_ => _.Module.Id == module.Id && _.TechnologyResults != null)?.TechnologyResults
+                                .FirstOrDefault(_ => _.Technology == technology && _.DetailResult != null)?.DetailResult.Grade;
+                        }
+                        resStr = result?.ToString("N2") ?? (format ? Constants.No_Value : "0");
+                        break;
+                    case MetricType.TechnicalCriteria:
+                        if (module == null && string.IsNullOrEmpty(technology))
+                        {
+                            result = snapshot.TechnicalCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId))
+                                .Select(_ => _.DetailResult.Grade).FirstOrDefault();
+                        }
+                        else if (module != null && string.IsNullOrEmpty(technology))
+                        {
+                            result = snapshot.TechnicalCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.ModulesResult != null)
+                                .SelectMany(_ => _.ModulesResult)
+                                .FirstOrDefault(_ => _.Module.Id == module.Id && _.DetailResult != null)?.DetailResult.Grade;
+                        }
+                        else if (module == null && !string.IsNullOrEmpty(technology))
+                        {
+                            result = snapshot.TechnicalCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.TechnologyResult != null)
+                                .SelectMany(_ => _.TechnologyResult)
+                                .FirstOrDefault(_ => _.Technology == technology && _.DetailResult != null)?.DetailResult.Grade;
+                        }
+                        else if (module != null && !string.IsNullOrEmpty(technology))
+                        {
+                            result = snapshot.TechnicalCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.ModulesResult != null)
+                                .SelectMany(_ => _.ModulesResult)
+                                .FirstOrDefault(_ => _.Module.Id == module.Id && _.TechnologyResults != null)?.TechnologyResults
+                                .FirstOrDefault(_ => _.Technology == technology && _.DetailResult != null)?.DetailResult.Grade;
+                        }
+                        resStr = result?.ToString("N2") ?? (format ? Constants.No_Value : "0");
+                        break;
+                    case MetricType.QualityRule:
+                        if (module == null && string.IsNullOrEmpty(technology))
+                        {
+                            result = snapshot.QualityRulesResults?.Where(_ => _.Reference.Key == int.Parse(metricId))
+                                .Select(_ => _.DetailResult.Grade).FirstOrDefault();
+                        }
+                        else if (module != null && string.IsNullOrEmpty(technology))
+                        {
+                            result = snapshot.QualityRulesResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.ModulesResult != null)
+                                .SelectMany(_ => _.ModulesResult)
+                                .FirstOrDefault(_ => _.Module.Id == module.Id && _.DetailResult != null)?.DetailResult.Grade;
+                        }
+                        else if (module == null && !string.IsNullOrEmpty(technology))
+                        {
+                            result = snapshot.QualityRulesResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.TechnologyResult != null)
+                                .SelectMany(_ => _.TechnologyResult)
+                                .FirstOrDefault(_ => _.Technology == technology && _.DetailResult != null)?.DetailResult.Grade;
+                        }
+                        else if (module != null && !string.IsNullOrEmpty(technology))
+                        {
+                            result = snapshot.QualityRulesResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.ModulesResult != null)
+                                .SelectMany(_ => _.ModulesResult)
+                                .FirstOrDefault(_ => _.Module.Id == module.Id && _.TechnologyResults != null)?.TechnologyResults
+                                .FirstOrDefault(_ => _.Technology == technology && _.DetailResult != null)?.DetailResult.Grade;
+                        }
+                        resStr = result?.ToString("N2") ?? (format ? Constants.No_Value : "0");
 
-                    break;
-                case MetricType.SizingMeasure:
-                    if (module == null && string.IsNullOrEmpty(technology))
-                    {
-                        result = snapshot.SizingMeasuresResults?.Where(_ => _.Reference.Key == int.Parse(metricId))
-                            .Select(_ => _.DetailResult.Value).FirstOrDefault();
-                    }
-                    else if (module != null && string.IsNullOrEmpty(technology))
-                    {
-                        result = snapshot.SizingMeasuresResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.ModulesResult != null)
-                            .SelectMany(_ => _.ModulesResult)
-                            .FirstOrDefault(_ => _.Module.Id == module.Id && _.DetailResult != null)?.DetailResult.Value;
-                    }
-                    else if (module == null && !string.IsNullOrEmpty(technology))
-                    {
-                        result = snapshot.SizingMeasuresResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.TechnologyResult != null)
-                            .SelectMany(_ => _.TechnologyResult)
-                            .FirstOrDefault(_ => _.Technology == technology && _.DetailResult != null)?.DetailResult.Value;
-                    }
-                    else if (module != null && !string.IsNullOrEmpty(technology))
-                    {
-                        result = snapshot.SizingMeasuresResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.ModulesResult != null)
-                            .SelectMany(_ => _.ModulesResult)
-                            .FirstOrDefault(_ => _.Module.Id == module.Id && _.TechnologyResults != null)?.TechnologyResults
-                            .FirstOrDefault(_ => _.Technology == technology && _.DetailResult != null)?.DetailResult.Value;
-                    }
-                    resStr = format ? result?.ToString("N0") ?? Constants.No_Value : result?.ToString() ?? "0";
-                    break;
-                case MetricType.Category:
-                    if (module == null && string.IsNullOrEmpty(technology))
-                    {
-                        result = CastComplexityUtility.GetCategoryValue(snapshot, int.Parse(metricId));
-                    }
-                    else if (module != null && string.IsNullOrEmpty(technology))
-                    {
-                        result = CastComplexityUtility.GetModuleCategoryValue(snapshot, int.Parse(metricId), module);
-                    }
-                    else if (module == null && !string.IsNullOrEmpty(technology))
-                    {
-                        result = CastComplexityUtility.GetTechnoCategoryValue(snapshot, int.Parse(metricId), technology);
-                    }
-                    else if (module != null && !string.IsNullOrEmpty(technology))
-                    {
-                        result = CastComplexityUtility.GetModuleTechnoCategoryValue(snapshot, int.Parse(metricId), module, technology);
-                    }
-                    resStr = format ? result?.ToString("N0") ?? Constants.No_Value : result?.ToString() ?? "0";
-                    break;
-                case MetricType.BackgroundFact:
-                    if (module == null && string.IsNullOrEmpty(technology))
-                    {
-                        result = bfResult?.ApplicationResults[0].DetailResult.Value;
-                    }
-                    else if (module != null && string.IsNullOrEmpty(technology))
-                    {
-                        result = bfResult?.ApplicationResults[0].ModulesResult.FirstOrDefault(_ => _.Module.Id == module.Id)?
-                            .DetailResult.Value;
-                    }
-                    else if (module == null && !string.IsNullOrEmpty(technology))
-                    {
-                        result = bfResult?.ApplicationResults[0].TechnologyResult.FirstOrDefault(_ => _.Technology == technology)?
-                            .DetailResult.Value;
-                    }
-                    else if (module != null && !string.IsNullOrEmpty(technology))
-                    {
-                        result = bfResult?.ApplicationResults[0].ModulesResult.FirstOrDefault(_ => _.Module.Id == module.Id)?
-                            .TechnologyResults.FirstOrDefault(_ => _.Technology == technology)?
-                            .DetailResult.Value;
-                    }
-                    resStr = format ? result?.ToString("N0") ?? Constants.No_Value : result?.ToString() ?? "0";
-                    break;
-                case MetricType.NotKnown:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                        break;
+                    case MetricType.SizingMeasure:
+                        if (module == null && string.IsNullOrEmpty(technology))
+                        {
+                            result = snapshot.SizingMeasuresResults?.Where(_ => _.Reference.Key == int.Parse(metricId))
+                                .Select(_ => _.DetailResult.Value).FirstOrDefault();
+                        }
+                        else if (module != null && string.IsNullOrEmpty(technology))
+                        {
+                            result = snapshot.SizingMeasuresResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.ModulesResult != null)
+                                .SelectMany(_ => _.ModulesResult)
+                                .FirstOrDefault(_ => _.Module.Id == module.Id && _.DetailResult != null)?.DetailResult.Value;
+                        }
+                        else if (module == null && !string.IsNullOrEmpty(technology))
+                        {
+                            result = snapshot.SizingMeasuresResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.TechnologyResult != null)
+                                .SelectMany(_ => _.TechnologyResult)
+                                .FirstOrDefault(_ => _.Technology == technology && _.DetailResult != null)?.DetailResult.Value;
+                        }
+                        else if (module != null && !string.IsNullOrEmpty(technology))
+                        {
+                            result = snapshot.SizingMeasuresResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.ModulesResult != null)
+                                .SelectMany(_ => _.ModulesResult)
+                                .FirstOrDefault(_ => _.Module.Id == module.Id && _.TechnologyResults != null)?.TechnologyResults
+                                .FirstOrDefault(_ => _.Technology == technology && _.DetailResult != null)?.DetailResult.Value;
+                        }
+                        resStr = format ? result?.ToString("N0") ?? Constants.No_Value : result?.ToString() ?? "0";
+                        break;
+                    case MetricType.Category:
+                        if (module == null && string.IsNullOrEmpty(technology))
+                        {
+                            result = CastComplexityUtility.GetCategoryValue(snapshot, int.Parse(metricId));
+                        }
+                        else if (module != null && string.IsNullOrEmpty(technology))
+                        {
+                            result = CastComplexityUtility.GetModuleCategoryValue(snapshot, int.Parse(metricId), module);
+                        }
+                        else if (module == null && !string.IsNullOrEmpty(technology))
+                        {
+                            result = CastComplexityUtility.GetTechnoCategoryValue(snapshot, int.Parse(metricId), technology);
+                        }
+                        else if (module != null && !string.IsNullOrEmpty(technology))
+                        {
+                            result = CastComplexityUtility.GetModuleTechnoCategoryValue(snapshot, int.Parse(metricId), module, technology);
+                        }
+                        resStr = format ? result?.ToString("N0") ?? Constants.No_Value : result?.ToString() ?? "0";
+                        break;
+                    case MetricType.BackgroundFact:
+                        if (module == null && string.IsNullOrEmpty(technology))
+                        {
+                            result = bfResult?.ApplicationResults[0].DetailResult.Value;
+                        }
+                        else if (module != null && string.IsNullOrEmpty(technology))
+                        {
+                            result = bfResult?.ApplicationResults[0].ModulesResult.FirstOrDefault(_ => _.Module.Id == module.Id)?
+                                .DetailResult.Value;
+                        }
+                        else if (module == null && !string.IsNullOrEmpty(technology))
+                        {
+                            result = bfResult?.ApplicationResults[0].TechnologyResult.FirstOrDefault(_ => _.Technology == technology)?
+                                .DetailResult.Value;
+                        }
+                        else if (module != null && !string.IsNullOrEmpty(technology))
+                        {
+                            result = bfResult?.ApplicationResults[0].ModulesResult.FirstOrDefault(_ => _.Module.Id == module.Id)?
+                                .TechnologyResults.FirstOrDefault(_ => _.Technology == technology)?
+                                .DetailResult.Value;
+                        }
+                        resStr = format ? result?.ToString("N0") ?? Constants.No_Value : result?.ToString() ?? "0";
+                        break;
+                    case MetricType.NotKnown:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
 
-            if (MetricType.QualityRule == type)
+                if (MetricType.QualityRule == type)
+                {
+                    name = name + " (" + metricId + ")";
+                }
+                SimpleResult res = new SimpleResult { name = name, type = type, result = result, resultStr = resStr };
+                return res;
+            } catch (NullReferenceException e)
             {
-                name = name + " (" + metricId + ")";
+                // for linux
+                System.Console.WriteLine(e.Message);
+                return null;
             }
-            SimpleResult res = new SimpleResult { name = name, type = type, result = result, resultStr = resStr };
-            return res;
         }
 
         /// <summary>
@@ -962,7 +970,6 @@ namespace CastReporting.Reporting.Helper
                 if (_value == null) continue;
 
                 dictionary.Add(param, _value);
-
             }
 
             // setup references needed
