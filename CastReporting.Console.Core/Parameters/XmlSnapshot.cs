@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace CastReporting.Console.Argument
@@ -35,6 +36,22 @@ namespace CastReporting.Console.Argument
         [XmlElement("previousId")]
         public XmlTagName PreviousId { get; set; }
 
+        public override bool Equals(object obj)
+        {
+            return obj is XmlSnapshot snapshot &&
+                   EqualityComparer<XmlTagName>.Default.Equals(Current, snapshot.Current) &&
+                   EqualityComparer<XmlTagName>.Default.Equals(Previous, snapshot.Previous) &&
+                   EqualityComparer<XmlTagName>.Default.Equals(CurrentId, snapshot.CurrentId) &&
+                   EqualityComparer<XmlTagName>.Default.Equals(PreviousId, snapshot.PreviousId);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Current, Previous, CurrentId, PreviousId);
+        }
+
+
+
         #endregion
 
         #region Method
@@ -52,6 +69,8 @@ namespace CastReporting.Console.Argument
                 , Previous != null ? Previous.Name ?? "?" : "?"
                 );
         }
+
+
 
         #endregion
     }

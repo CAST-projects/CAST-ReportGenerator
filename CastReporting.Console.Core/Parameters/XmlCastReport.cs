@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
@@ -133,8 +134,7 @@ namespace CastReporting.Console.Argument
         /// <param name="pOutputPath"></param>
         public void SaveXML(string pOutputPath)
         {
-            if (string.IsNullOrEmpty(pOutputPath))
-                // ReSharper disable once UseNameofExpression
+            if (!isValidPath(pOutputPath, false))
                 throw new ArgumentNullException("pOutputPath");
             using (TextWriter tr = new StreamWriter(pOutputPath, false, Encoding.UTF8))
             {
@@ -149,8 +149,7 @@ namespace CastReporting.Console.Argument
         /// <param name="pInputPath"></param>
         public static XmlCastReport LoadXML(string pInputPath)
         {
-            if (string.IsNullOrEmpty(pInputPath))
-                // ReSharper disable once UseNameofExpression
+            if (!isValidPath(pInputPath, true))
                 throw new ArgumentNullException("pInputPath");
 
             XmlCastReport report;
@@ -161,6 +160,38 @@ namespace CastReporting.Console.Argument
             }
             return report;
         }
+
+        private static bool isValidPath(String fileName, bool checkExists)
+        {
+            if (string.IsNullOrEmpty(fileName))
+                return false;
+
+            FileInfo fi = null;
+            try
+            {
+                fi = new System.IO.FileInfo(fileName);
+            }
+            catch (ArgumentException) { }
+            catch (PathTooLongException) { }
+            catch (NotSupportedException) { }
+            if (ReferenceEquals(fi, null))
+            {
+                // file name is not valid
+                return false;
+            }
+            else
+            {
+                // file name is valid... May check for existence by calling fi.Exists.
+                if (!checkExists) return true;
+
+                if (fi.Exists)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
 
         /// <summary>
         /// Check 
@@ -207,6 +238,53 @@ namespace CastReporting.Console.Argument
             {
                 return base.ToString();
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is XmlCastReport report &&
+                   EqualityComparer<XmlTagName>.Default.Equals(ExtendPackId, report.ExtendPackId) &&
+                   EqualityComparer<XmlTagName>.Default.Equals(ExtendVersionId, report.ExtendVersionId) &&
+                   EqualityComparer<XmlTagName>.Default.Equals(ExtendUrl, report.ExtendUrl) &&
+                   EqualityComparer<XmlTagName>.Default.Equals(ExtendKey, report.ExtendKey) &&
+                   EqualityComparer<XmlTagName>.Default.Equals(ReportType, report.ReportType) &&
+                   EqualityComparer<XmlTagName>.Default.Equals(Webservice, report.Webservice) &&
+                   EqualityComparer<XmlTagName>.Default.Equals(Username, report.Username) &&
+                   EqualityComparer<XmlTagName>.Default.Equals(Password, report.Password) &&
+                   EqualityComparer<XmlTagName>.Default.Equals(ApiKey, report.ApiKey) &&
+                   EqualityComparer<XmlTagName>.Default.Equals(Application, report.Application) &&
+                   EqualityComparer<XmlTagName>.Default.Equals(Template, report.Template) &&
+                   EqualityComparer<XmlTagName>.Default.Equals(Database, report.Database) &&
+                   EqualityComparer<XmlTagName>.Default.Equals(Domain, report.Domain) &&
+                   EqualityComparer<XmlSnapshot>.Default.Equals(Snapshot, report.Snapshot) &&
+                   EqualityComparer<XmlTagName>.Default.Equals(File, report.File) &&
+                   EqualityComparer<XmlTagName>.Default.Equals(Category, report.Category) &&
+                   EqualityComparer<XmlTagName>.Default.Equals(Tag, report.Tag) &&
+                   EqualityComparer<XmlTagName>.Default.Equals(Culture, report.Culture);
+        }
+
+        public override int GetHashCode()
+        {
+            HashCode hash = new HashCode();
+            hash.Add(ExtendPackId);
+            hash.Add(ExtendVersionId);
+            hash.Add(ExtendUrl);
+            hash.Add(ExtendKey);
+            hash.Add(ReportType);
+            hash.Add(Webservice);
+            hash.Add(Username);
+            hash.Add(Password);
+            hash.Add(ApiKey);
+            hash.Add(Application);
+            hash.Add(Template);
+            hash.Add(Database);
+            hash.Add(Domain);
+            hash.Add(Snapshot);
+            hash.Add(File);
+            hash.Add(Category);
+            hash.Add(Tag);
+            hash.Add(Culture);
+            return hash.ToHashCode();
         }
         #endregion
     }

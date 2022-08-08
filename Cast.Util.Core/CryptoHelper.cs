@@ -23,26 +23,29 @@ namespace Cast.Util.Security
 {
     public static class CryptoHelper
     {
-        private static readonly byte[] DesKey = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 };
-        private static readonly byte[] DesIv = { 1, 2, 3, 4, 5, 6, 7, 8 };
+        private static readonly byte[] Key = { 1, 3, 5, 7, 9, 13, 42, 18, 254, 65, 12, 11, 89, 71, 47, 36, 1, 3, 5, 7, 9, 13, 42, 18, 254, 65, 12, 11, 89, 71, 47, 36 };
+        private static readonly byte[] Iv = { 1, 3, 5, 7, 9, 13, 42, 18, 254, 65, 12, 11, 89, 71, 47, 36 };
 
-        public static byte[] EncryptStringToBytes(string plainText)
+
+        public static byte[] EncryptStringToBytes_Aes(string plainText)
         {
-            // Check arguments. 
+            // Check arguments.
             if (plainText == null || plainText.Length <= 0)
-                throw new ArgumentNullException(nameof(plainText));
+                throw new ArgumentNullException("plainText");
             byte[] encrypted;
-            // Create an TripleDESCryptoServiceProvider object 
-            // with the specified key and IV. 
-            using (TripleDESCryptoServiceProvider tdsAlg = new TripleDESCryptoServiceProvider())
+
+            // Create an Aes object
+            // with the specified key and IV.
+            using (Aes aesAlg = Aes.Create())
             {
-                tdsAlg.Key = DesKey;
-                tdsAlg.IV = DesIv;
+                aesAlg.Padding = PaddingMode.PKCS7;
+                aesAlg.Key = Key;
+                aesAlg.IV = Iv;
 
-                // Create a decrytor to perform the stream transform.
-                ICryptoTransform encryptor = tdsAlg.CreateEncryptor(tdsAlg.Key, tdsAlg.IV);
+                // Create an encryptor to perform the stream transform.
+                ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
 
-                // Create the streams used for encryption. 
+                // Create the streams used for encryption.
                 using (MemoryStream msEncrypt = new MemoryStream())
                 {
                     using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
@@ -57,45 +60,45 @@ namespace Cast.Util.Security
                 }
             }
 
-            // Return the encrypted bytes from the memory stream. 
-            //Encoding.UTF8.GetString(encrypted);
+            // Return the encrypted bytes from the memory stream.
             return encrypted;
         }
 
-        public static string DecryptStringFromBytes(byte[] cipherText)
+        public static string DecryptStringFromBytes_Aes(byte[] cipherText)
         {
-            // Check arguments. 
+            // Check arguments.
             if (cipherText == null || cipherText.Length <= 0)
-                throw new ArgumentNullException(nameof(cipherText));
+                throw new ArgumentNullException("cipherText");
 
-            // Declare the string used to hold 
-            // the decrypted text. 
-            string plaintext;
+            // Declare the string used to hold
+            // the decrypted text.
+            string plaintext = null;
 
-            // Create an TripleDESCryptoServiceProvider object 
-            // with the specified key and IV. 
-            using (TripleDESCryptoServiceProvider tdsAlg = new TripleDESCryptoServiceProvider())
+            // Create an AesCryptoServiceProvider object
+            // with the specified key and IV.
+            using (Aes aesAlg = Aes.Create())
             {
-                tdsAlg.Key = DesKey;
-                tdsAlg.IV = DesIv;
+                aesAlg.Padding = PaddingMode.PKCS7;
+                aesAlg.Key = Key;
+                aesAlg.IV = Iv;
 
-                // Create a decrytor to perform the stream transform.
-                ICryptoTransform decryptor = tdsAlg.CreateDecryptor(tdsAlg.Key, tdsAlg.IV);
+                // Create a decryptor to perform the stream transform.
+                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
 
-                // Create the streams used for decryption. 
+                // Create the streams used for decryption.
                 using (MemoryStream msDecrypt = new MemoryStream(cipherText))
                 {
                     using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
                     {
                         using (StreamReader srDecrypt = new StreamReader(csDecrypt))
                         {
-                            // Read the decrypted bytes from the decrypting stream 
+
+                            // Read the decrypted bytes from the decrypting stream
                             // and place them in a string.
                             plaintext = srDecrypt.ReadToEnd();
                         }
                     }
                 }
-
             }
 
             return plaintext;

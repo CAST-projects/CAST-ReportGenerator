@@ -64,7 +64,7 @@ set SIGNDIR=%ENGTOOLS%\certificates
 set PATH=%PATH%;C:\CAST-Caches\Win64
 set INNODIR=%WORKSPACE%\InnoSetup
 
-set VERSION=1.23.2
+set VERSION=1.24.0
 set ID=com.castsoftware.aip.reportgenerator
 set ID2=com.castsoftware.aip.reportgeneratorfordashboard
 
@@ -214,7 +214,7 @@ echo Preparing package for Report Generator for Dashboard ...
 echo ==============================================
 pushd %WORKSPACE%
 set REPORTINGDIR=%SRCDIR%/CastReporting.Reporting.Core
-set CONSOLEDIR=%SRCDIR%/CastReporting.Console.Core/bin/Release/netcoreapp3.1
+set CONSOLEDIR=%SRCDIR%/CastReporting.Console.Core/bin/Release/net6.0
 
 robocopy /njh /s %CONSOLEDIR% %WORK% *.dll
 if errorlevel 8 exit /b 1

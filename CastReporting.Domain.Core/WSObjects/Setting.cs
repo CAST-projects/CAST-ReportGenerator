@@ -66,5 +66,17 @@ namespace CastReporting.Domain
             WSConnection newActiveConnection = WSConnections.FirstOrDefault(_ => _.Url.Equals(newActiveUrl));
             if (newActiveConnection != null) newActiveConnection.IsActive = true;
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Setting setting &&
+                   EqualityComparer<ReportingParameter>.Default.Equals(_reportingParameter, setting._reportingParameter) &&
+                   EqualityComparer<List<WSConnection>>.Default.Equals(_wsConnections, setting._wsConnections);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(_reportingParameter, _wsConnections);
+        }
     }
 }
