@@ -958,10 +958,17 @@ namespace CastReporting.Reporting.Helper
                 if (string.IsNullOrEmpty(_id))
                     continue;
 
-                double? _value = GetMetricNameAndResult(reportData, snapshot, _id, module, technology, true)?.result;
-                if (_value == null) continue;
+                try
+                {
+                    double? _value = GetMetricNameAndResult(reportData, snapshot, _id, module, technology, true)?.result;
+                    if (_value == null) continue;
 
-                dictionary.Add(param, _value);
+                    dictionary.Add(param, _value);
+                } catch (NullReferenceException e)
+                {
+                    System.Console.WriteLine(e.Message);
+                    System.Console.WriteLine(e.InnerException.Message);
+                }
 
             }
 
