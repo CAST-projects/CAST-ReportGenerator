@@ -966,8 +966,8 @@ namespace CastReporting.Reporting.Helper
                     dictionary.Add(param, _value);
                 } catch (NullReferenceException e)
                 {
+                    // error on linux
                     System.Console.WriteLine(e.Message);
-                    System.Console.WriteLine(e.InnerException.Message);
                 }
 
             }
