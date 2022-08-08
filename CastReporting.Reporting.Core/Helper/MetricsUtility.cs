@@ -275,7 +275,7 @@ namespace CastReporting.Reporting.Helper
                 // for linux
                 if (snapshot != null && metricId != null)
                 {
-                    LogHelper.LogInfo("No data for snapshot " + snapshot.Name + " and metric id " + metricId);
+                    LogHelper.LogInfo("No data for snapshot " + snapshot.ToString() + " and metric id " + metricId);
                 }
                 LogHelper.LogWarn(e.Message);
                 return null;
