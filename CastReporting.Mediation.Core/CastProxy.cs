@@ -201,7 +201,7 @@ namespace CastReporting.Mediation
                 Headers.Add(HttpRequestHeader.Accept, mimeType);
                 var culture = Thread.CurrentThread.CurrentCulture;
                 Headers.Remove(HttpRequestHeader.AcceptLanguage);
-                Headers.Add(HttpRequestHeader.AcceptLanguage, culture.Name.Equals("zh-CN") ? "zh" : "en");
+                Headers.Add(HttpRequestHeader.AcceptLanguage, culture.Name.Equals("zh-Hans") ? "zh" : "en");
 
                 // For RestAPI audit trail 
                 Headers.Remove("X-Client");
