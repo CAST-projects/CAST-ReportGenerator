@@ -273,7 +273,11 @@ namespace CastReporting.Reporting.Helper
             } catch (NullReferenceException e)
             {
                 // for linux
-                System.Console.WriteLine(e.Message);
+                if (snapshot != null && metricId != null)
+                {
+                    LogHelper.LogInfo("No data for snapshot " + snapshot.Name + " and metric id " + metricId);
+                }
+                LogHelper.LogWarn(e.Message);
                 return null;
             }
         }
