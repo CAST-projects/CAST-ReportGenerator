@@ -293,7 +293,6 @@ namespace CastReporting.UnitTest.Repositories
         }
 
 
-        [Ignore]
         [TestMethod()]
         public void GetConfQualityRuleChinese()
         {
@@ -307,7 +306,7 @@ namespace CastReporting.UnitTest.Repositories
                 Name = "Default"
             };
 
-            TestUtility.SetCulture("zh-CN");
+            TestUtility.SetCulture("zh-Hans");
             ICastRepsitory ccontext = new CastRepository(_connection3, null);
 
             bool valid = ccontext.IsServiceValid();

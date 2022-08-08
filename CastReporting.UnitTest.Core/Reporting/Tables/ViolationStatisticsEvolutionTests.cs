@@ -100,7 +100,6 @@ namespace CastReporting.UnitTest.Reporting.Tables
             Assert.IsTrue(table.HasRowHeaders);
         }
 
-        [Ignore]
         [TestMethod]
         [DeploymentItem(@".\Data\critViolStats.json", "Data")]
         [DeploymentItem(@".\Data\critViolStatsPrevious.json", "Data")]
@@ -108,7 +107,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         [DeploymentItem(@".\Data\ComplexitySnapPrevious.json", "Data")]
         public void TestContentInChinese()
         {
-            TestUtility.SetCulture("zh-CN");
+            TestUtility.SetCulture("zh-Hans");
             CastDate currentDate = new CastDate { Time = 1496959200000 };
             CastDate previousDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",

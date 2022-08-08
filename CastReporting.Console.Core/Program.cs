@@ -75,7 +75,7 @@ namespace CastReporting.Console
             switch (language)
             {
                 case "zh":
-                    cultureName = "zh-CN";
+                    cultureName = "zh-Hans";
                     break;
                 case "de":
                     cultureName = "DE-de";
