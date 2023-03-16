@@ -720,7 +720,13 @@ namespace CastReporting.Reporting.Helper
                 cellidx++;
 
                 TypedComponent objectComponent = reportData.SnapshotExplorer.GetTypedComponent(reportData.CurrentSnapshot.DomainId, _violation.Component.GetComponentId(), reportData.CurrentSnapshot.GetId());
-                rowData.Add($"{Labels.IFPUG_ObjectType}: {objectComponent.Type.Label}");
+                if (objectComponent != null)
+                {
+                    rowData.Add($"{Labels.IFPUG_ObjectType}: {objectComponent.Type.Label}");
+                } else
+                {
+                    rowData.Add("");
+                }
                 cellProps.Add(new CellAttributes(cellidx, ColorWhite));
                 cellidx++;
 
@@ -827,7 +833,7 @@ namespace CastReporting.Reporting.Helper
                                 if (withCodeLines)
                                 {
                                     Dictionary<int, string> codeLines = reportData.SnapshotExplorer.GetSourceCodeBookmark(domainId, _bookval, 0);
-
+                                    if (codeLines == null) continue;
                                     foreach (KeyValuePair<int, string> codeLine in codeLines)
                                     {
                                         rowData.Add($"{codeLine.Key} : {codeLine.Value}");
@@ -836,7 +842,6 @@ namespace CastReporting.Reporting.Helper
                                             : new CellAttributes(cellidx, ColorWhite));
                                         cellidx++;
                                     }
-
                                 }
                                 else
                                 {
