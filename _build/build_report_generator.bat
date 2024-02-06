@@ -64,7 +64,7 @@ set SIGNDIR=%ENGTOOLS%\certificates
 set PATH=%PATH%;C:\CAST-Caches\Win64
 set INNODIR=%WORKSPACE%\InnoSetup
 
-set VERSION=1.24.2
+set VERSION=1.25.0
 set ID=com.castsoftware.aip.reportgenerator
 set ID2=com.castsoftware.aip.reportgeneratorfordashboard
 
