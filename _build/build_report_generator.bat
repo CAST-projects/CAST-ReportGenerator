@@ -282,12 +282,14 @@ if not exist %PACKPATHFD% (
 set GROOVYEXE=groovy
 %GROOVYEXE% --version 2>nul
 if errorlevel 1 set GROOVYEXE="%GROOVY_HOME%\bin\groovy"
+echo test1-abd
+echo %GROOVYEXE%
 %GROOVYEXE% --version 2>nul
 if errorlevel 1 (
 	echo ERROR: no groovy executable available, need one!
 	goto endclean
 )
-
+echo test2-abd
 :: ========================================================================================
 :: Nuget checking reportgeneratorfordashboard
 :: ========================================================================================
@@ -297,8 +299,8 @@ echo %CMD%
 call %CMD%
 if errorlevel 1 goto endclean
 
-echo End of build with success.
-set RETCODE=0
+:: echo End of build with success.
+:: set RETCODE=0
 
 echo.
 echo ==============================================
@@ -307,6 +309,7 @@ echo ==============================================
 xcopy /f /y %SRCDIR%\_build\plugin.nuspec %RESDIRRG%
 if errorlevel 1 goto endclean
 
+echo test3-abd
 sed -i 's/_THE_VERSION_/%VERSION%/' %RESDIRRG%/plugin.nuspec
 if errorlevel 1 goto endclean
 sed -i 's/_THE_SHORT_VERSION_/%SHORT_VERSION%/' %RESDIRRG%/plugin.nuspec
@@ -351,8 +354,8 @@ echo %CMD%
 call %CMD%
 if errorlevel 1 goto endclean
 
-echo End of build with success.
-set RETCODE=0
+:: echo End of build with success.
+:: set RETCODE=0
 
 
 :: pushd %WORKSPACE%
@@ -431,6 +434,7 @@ echo End of build with success.
 set RETCODE=0
 
 :endclean
+echo test endclean
 cd /d %CURRENTPWD%
 exit /b %RETCODE%
 
