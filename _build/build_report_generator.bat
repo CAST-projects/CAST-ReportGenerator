@@ -101,7 +101,7 @@ echo ====================================
 robocopy /mir /nc /nfl /ndl %ENGTOOLS%\external_tools\InnoSetup\6.0.3 %INNODIR%
 if errorlevel 8 exit /b 1
 
-robocopy /mir /nc /nfl /ndl %ENGTOOLS%\external_tools\Groovy\groovy-4.0.16 %GROOVYDIR%
+robocopy /mir /nc /nfl /ndl %ENGTOOLS%\external_tools\Groovy\groovy-4.0.6 %GROOVYDIR%
 if errorlevel 8 exit /b 1
 
 echo.
@@ -283,17 +283,17 @@ if not exist %PACKPATHFD% (
 	goto endclean
 )
 
-echo test1-abd
 set GROOVYEXE="%GROOVYDIR%\bin\groovy"
+echo %GROOVYEXE%
 %GROOVYEXE% --version 2>nul
 if errorlevel 1 (
 	echo ERROR: no groovy executable available, need one!
 	goto endclean
 )
-echo test2-abd
-:: ========================================================================================
-:: Nuget checking reportgeneratorfordashboard
-:: ========================================================================================
+echo .
+echo ========================================================================================
+echo Nuget checking reportgeneratorfordashboard
+echo ========================================================================================
 set CMD=%GROOVYEXE% %BUILDDIR%\nuget_package_verification.groovy --packpath=%PACKPATHFD%
 echo Executing command:
 echo %CMD%
@@ -310,7 +310,6 @@ echo ==============================================
 xcopy /f /y %SRCDIR%\_build\plugin.nuspec %RESDIRRG%
 if errorlevel 1 goto endclean
 
-echo test3-abd
 sed -i 's/_THE_VERSION_/%VERSION%/' %RESDIRRG%/plugin.nuspec
 if errorlevel 1 goto endclean
 sed -i 's/_THE_SHORT_VERSION_/%SHORT_VERSION%/' %RESDIRRG%/plugin.nuspec
@@ -435,7 +434,7 @@ echo End of build with success.
 set RETCODE=0
 
 :endclean
-echo test endclean
+echo endclean
 cd /d %CURRENTPWD%
 exit /b %RETCODE%
 
