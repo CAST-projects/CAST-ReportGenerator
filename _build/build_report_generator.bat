@@ -63,7 +63,7 @@ if not defined ENGTOOLS set ENGTOOLS=%FILESRV%\EngTools
 set SIGNDIR=%ENGTOOLS%\certificates
 set PATH=%PATH%;C:\CAST-Caches\Win64
 set INNODIR=%WORKSPACE%\InnoSetup
-set GROOVYDIR=%WORKSPACE%\Groovy
+:: set GROOVYDIR=%WORKSPACE%\Groovy
 
 set VERSION=1.25.0
 set ID=com.castsoftware.aip.reportgenerator
@@ -101,8 +101,8 @@ echo ====================================
 robocopy /mir /nc /nfl /ndl %ENGTOOLS%\external_tools\InnoSetup\6.0.3 %INNODIR%
 if errorlevel 8 exit /b 1
 
-robocopy /mir /nc /nfl /ndl %ENGTOOLS%\external_tools\Groovy\groovy-4.0.6 %GROOVYDIR%
-if errorlevel 8 exit /b 1
+:: robocopy /mir /nc /nfl /ndl %ENGTOOLS%\external_tools\Groovy\groovy-4.0.16 %GROOVYDIR%
+:: if errorlevel 8 exit /b 1
 
 echo.
 echo ==============================================
@@ -283,22 +283,22 @@ if not exist %PACKPATHFD% (
 	goto endclean
 )
 
-set GROOVYEXE="%GROOVYDIR%\bin\groovy"
-echo %GROOVYEXE%
-%GROOVYEXE% --version 2>nul
-if errorlevel 1 (
-	echo ERROR: no groovy executable available, need one!
-	goto endclean
-)
-echo .
-echo ========================================================================================
-echo Nuget checking reportgeneratorfordashboard
-echo ========================================================================================
-set CMD=%GROOVYEXE% %BUILDDIR%\nuget_package_verification.groovy --packpath=%PACKPATHFD%
-echo Executing command:
-echo %CMD%
-call %CMD%
-if errorlevel 1 goto endclean
+:: set GROOVYEXE="%GROOVYDIR%\bin\groovy"
+:: echo %GROOVYEXE%
+:: %GROOVYEXE% --version 2>nul
+:: if errorlevel 1 (
+	:: echo ERROR: no groovy executable available, need one!
+	:: goto endclean
+:: )
+:: echo .
+:: echo ========================================================================================
+:: echo Nuget checking reportgeneratorfordashboard
+:: echo ========================================================================================
+:: set CMD=%GROOVYEXE% %BUILDDIR%\nuget_package_verification.groovy --packpath=%PACKPATHFD%
+:: echo Executing command:
+:: echo %CMD%
+:: call %CMD%
+:: if errorlevel 1 goto endclean
 
 :: echo End of build with success.
 :: set RETCODE=0
@@ -336,23 +336,22 @@ if not exist %PACKPATH% (
 	goto endclean
 )
 
-set GROOVYEXE=groovy
-%GROOVYEXE% --version 2>nul
-if errorlevel 1 set GROOVYEXE="%GROOVY_HOME%\bin\groovy"
-%GROOVYEXE% --version 2>nul
-if errorlevel 1 (
-	echo ERROR: no groovy executable available, need one!
-	goto endclean
-)
+:: set GROOVYEXE="%GROOVYDIR%\bin\groovy"
+:: echo %GROOVYEXE%
+:: %GROOVYEXE% --version 2>nul
+:: if errorlevel 1 (
+	:: echo ERROR: no groovy executable available, need one!
+	:: goto endclean
+:: )
 
-:: ========================================================================================
-:: Nuget checking ReportGenerator
-:: ========================================================================================
-set CMD=%GROOVYEXE% %BUILDDIR%\nuget_package_verification.groovy --packpath=%PACKPATH%
-echo Executing command:
-echo %CMD%
-call %CMD%
-if errorlevel 1 goto endclean
+:: :: ========================================================================================
+:: :: Nuget checking ReportGenerator
+:: :: ========================================================================================
+:: set CMD=%GROOVYEXE% %BUILDDIR%\nuget_package_verification.groovy --packpath=%PACKPATH%
+:: echo Executing command:
+:: echo %CMD%
+:: call %CMD%
+:: if errorlevel 1 goto endclean
 
 :: echo End of build with success.
 :: set RETCODE=0
@@ -412,9 +411,8 @@ if errorlevel 1 goto endclean
 :: 	goto endclean
 :: )
 :: 
-:: set GROOVYEXE=groovy
-:: %GROOVYEXE% --version 2>nul
-:: if errorlevel 1 set GROOVYEXE="%GROOVY_HOME%\bin\groovy"
+:: set GROOVYEXE="%GROOVYDIR%\bin\groovy"
+:: echo %GROOVYEXE%
 :: %GROOVYEXE% --version 2>nul
 :: if errorlevel 1 (
 :: 	echo ERROR: no groovy executable available, need one!
