@@ -63,6 +63,7 @@ if not defined ENGTOOLS set ENGTOOLS=%FILESRV%\EngTools
 set SIGNDIR=%ENGTOOLS%\certificates
 set PATH=%PATH%;C:\CAST-Caches\Win64
 set INNODIR=%WORKSPACE%\InnoSetup
+set GROOVYDIR=%WORKSPACE%\Groovy
 
 set VERSION=1.25.0
 set ID=com.castsoftware.aip.reportgenerator
@@ -98,6 +99,9 @@ echo ====================================
 echo Get externals tools
 echo ====================================
 robocopy /mir /nc /nfl /ndl %ENGTOOLS%\external_tools\InnoSetup\6.0.3 %INNODIR%
+if errorlevel 8 exit /b 1
+
+robocopy /mir /nc /nfl /ndl %ENGTOOLS%\external_tools\Groovy\groovy-4.0.16 %GROOVYDIR%
 if errorlevel 8 exit /b 1
 
 echo.
@@ -279,11 +283,8 @@ if not exist %PACKPATHFD% (
 	goto endclean
 )
 
-set GROOVYEXE=groovy
-%GROOVYEXE% --version 2>nul
-if errorlevel 1 set GROOVYEXE="%GROOVY_HOME%\bin\groovy"
 echo test1-abd
-echo %GROOVYEXE%
+set GROOVYEXE="%GROOVYDIR%\bin\groovy"
 %GROOVYEXE% --version 2>nul
 if errorlevel 1 (
 	echo ERROR: no groovy executable available, need one!
