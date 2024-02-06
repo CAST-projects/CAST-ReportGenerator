@@ -63,9 +63,8 @@ if not defined ENGTOOLS set ENGTOOLS=%FILESRV%\EngTools
 set SIGNDIR=%ENGTOOLS%\certificates
 set PATH=%PATH%;C:\CAST-Caches\Win64
 set INNODIR=%WORKSPACE%\InnoSetup
-:: set GROOVYDIR=%WORKSPACE%\Groovy
 
-set VERSION=1.25.0
+set VERSION=1.24.2
 set ID=com.castsoftware.aip.reportgenerator
 set ID2=com.castsoftware.aip.reportgeneratorfordashboard
 
@@ -100,9 +99,6 @@ echo Get externals tools
 echo ====================================
 robocopy /mir /nc /nfl /ndl %ENGTOOLS%\external_tools\InnoSetup\6.0.3 %INNODIR%
 if errorlevel 8 exit /b 1
-
-:: robocopy /mir /nc /nfl /ndl %ENGTOOLS%\external_tools\Groovy\groovy-4.0.16 %GROOVYDIR%
-:: if errorlevel 8 exit /b 1
 
 echo.
 echo ==============================================
@@ -283,25 +279,26 @@ if not exist %PACKPATHFD% (
 	goto endclean
 )
 
-:: set GROOVYEXE="%GROOVYDIR%\bin\groovy"
-:: echo %GROOVYEXE%
-:: %GROOVYEXE% --version 2>nul
-:: if errorlevel 1 (
-	:: echo ERROR: no groovy executable available, need one!
-	:: goto endclean
-:: )
-:: echo .
-:: echo ========================================================================================
-:: echo Nuget checking reportgeneratorfordashboard
-:: echo ========================================================================================
-:: set CMD=%GROOVYEXE% %BUILDDIR%\nuget_package_verification.groovy --packpath=%PACKPATHFD%
-:: echo Executing command:
-:: echo %CMD%
-:: call %CMD%
-:: if errorlevel 1 goto endclean
+set GROOVYEXE=groovy
+call %GROOVYEXE% --version 2>nul
+if errorlevel 1 set GROOVYEXE="%GROOVY_HOME%\bin\groovy"
+call %GROOVYEXE% --version 2>nul
+if errorlevel 1 (
+	echo ERROR: no groovy executable available, need one!
+	goto endclean
+)
 
-:: echo End of build with success.
-:: set RETCODE=0
+:: ========================================================================================
+:: Nuget checking reportgeneratorfordashboard
+:: ========================================================================================
+set CMD=%GROOVYEXE% %BUILDDIR%\nuget_package_verification.groovy --packpath=%PACKPATHFD%
+echo Executing command:
+echo %CMD%
+call %CMD%
+if errorlevel 1 goto endclean
+
+echo End of build with success.
+set RETCODE=0
 
 echo.
 echo ==============================================
@@ -336,25 +333,26 @@ if not exist %PACKPATH% (
 	goto endclean
 )
 
-:: set GROOVYEXE="%GROOVYDIR%\bin\groovy"
-:: echo %GROOVYEXE%
-:: %GROOVYEXE% --version 2>nul
-:: if errorlevel 1 (
-	:: echo ERROR: no groovy executable available, need one!
-	:: goto endclean
-:: )
+set GROOVYEXE=groovy
+call %GROOVYEXE% --version 2>nul
+if errorlevel 1 set GROOVYEXE="%GROOVY_HOME%\bin\groovy"
+call %GROOVYEXE% --version 2>nul
+if errorlevel 1 (
+	echo ERROR: no groovy executable available, need one!
+	goto endclean
+)
 
-:: :: ========================================================================================
-:: :: Nuget checking ReportGenerator
-:: :: ========================================================================================
-:: set CMD=%GROOVYEXE% %BUILDDIR%\nuget_package_verification.groovy --packpath=%PACKPATH%
-:: echo Executing command:
-:: echo %CMD%
-:: call %CMD%
-:: if errorlevel 1 goto endclean
+:: ========================================================================================
+:: Nuget checking ReportGenerator
+:: ========================================================================================
+set CMD=%GROOVYEXE% %BUILDDIR%\nuget_package_verification.groovy --packpath=%PACKPATH%
+echo Executing command:
+echo %CMD%
+call %CMD%
+if errorlevel 1 goto endclean
 
-:: echo End of build with success.
-:: set RETCODE=0
+echo End of build with success.
+set RETCODE=0
 
 
 :: pushd %WORKSPACE%
@@ -411,9 +409,10 @@ if not exist %PACKPATH% (
 :: 	goto endclean
 :: )
 :: 
-:: set GROOVYEXE="%GROOVYDIR%\bin\groovy"
-:: echo %GROOVYEXE%
-:: %GROOVYEXE% --version 2>nul
+:: set GROOVYEXE=groovy
+:: call %GROOVYEXE% --version 2>nul
+:: if errorlevel 1 set GROOVYEXE="%GROOVY_HOME%\bin\groovy"
+:: call %GROOVYEXE% --version 2>nul
 :: if errorlevel 1 (
 :: 	echo ERROR: no groovy executable available, need one!
 :: 	goto endclean
@@ -432,7 +431,6 @@ echo End of build with success.
 set RETCODE=0
 
 :endclean
-echo endclean
 cd /d %CURRENTPWD%
 exit /b %RETCODE%
 
