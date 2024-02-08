@@ -1,4 +1,4 @@
-﻿using CastReporting.Domain;
+﻿using Cast.Util;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -42,7 +42,7 @@ namespace CastReporting.Reporting.Block.Table
             {
                 if (nbLimitTop > 0 && rowCount >= nbLimitTop) continue;
                 rowData.Add(snap.Annotation.Version);
-                rowData.Add(snap.Annotation.Date.DateSnapShot?.ToString(dateFormat) ?? Constants.No_Value);
+                rowData.Add(snap.Annotation.Date.DateSnapShot?.ToString(dateFormat) ?? FormatHelper.No_Value);
                 rowCount++;
             }
 

@@ -17,6 +17,7 @@
 using Cast.Util.Log;
 using Cast.Util.Version;
 using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -41,7 +42,7 @@ namespace CastReporting.BLL
         /// </summary>
         /// <param name="connection"></param>
         /// <param name="application"></param>
-        public ApplicationBLL(WSConnection connection, Application application)
+        public ApplicationBLL(WSImagingConnection connection, Application application)
             : base(connection)
         {
 
@@ -156,7 +157,7 @@ namespace CastReporting.BLL
         /// 
         /// </summary>
         [SuppressMessage("ReSharper", "AccessToDisposedClosure")]
-        public static void BuildApplicationResult(WSConnection connection, Application application)
+        public static void BuildApplicationResult(WSImagingConnection connection, Application application)
         {
             //Build Quality Indicators
             using (ApplicationBLL applicationBLL = new ApplicationBLL(connection, application))

@@ -1,5 +1,5 @@
 ﻿using Cast.Util.Date;
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Block.Graph;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

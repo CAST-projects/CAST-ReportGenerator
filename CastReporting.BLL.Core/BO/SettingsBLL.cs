@@ -138,7 +138,7 @@ namespace CastReporting.BLL
         /// 
         /// </summary>
         /// <returns></returns>
-        public static Setting AddConnection(WSConnection connection, bool isActive, out StatesEnum state)
+        public static Setting AddConnection(WSImagingConnection connection, bool isActive, out StatesEnum state)
         {
             using (ISettingRepository settingRepository = new SettingsRepository())
             {
@@ -156,7 +156,7 @@ namespace CastReporting.BLL
                 }
                 else
                 {
-                    WSConnection existing = setting.WSConnections?.Where(x => x.Equals(connection)).FirstOrDefault();
+                    WSImagingConnection existing = setting.WSConnections?.Where(x => x.Equals(connection)).FirstOrDefault();
                     if (existing?.Login == connection.Login && existing?.Password == connection.Password && existing?.ApiKey == connection.ApiKey)
                     {
                         // ReSharper disable once RedundantAssignment
@@ -192,7 +192,7 @@ namespace CastReporting.BLL
         /// 
         /// </summary>
         /// <returns></returns>
-        public static Setting RemoveConnection(WSConnection connection)
+        public static Setting RemoveConnection(WSImagingConnection connection)
         {
             using (ISettingRepository setttingRepository = new SettingsRepository())
             {

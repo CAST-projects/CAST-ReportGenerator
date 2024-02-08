@@ -1,5 +1,6 @@
-﻿using CastReporting.BLL.Computing;
-using CastReporting.Domain;
+﻿using Cast.Util;
+using CastReporting.BLL.Computing;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -56,7 +57,7 @@ namespace CastReporting.Reporting.Block.Table
 
             if (previous && !hasPreviousSnapshot)
             {
-                rowData.Add(Constants.No_Data);
+                rowData.Add(FormatHelper.No_Data);
             }
             else
             {

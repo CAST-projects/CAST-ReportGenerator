@@ -13,9 +13,10 @@
  * limitations under the License.
  *
  */
+using Cast.Util;
 using Cast.Util.Log;
 using CastReporting.BLL.Computing.DTO;
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -119,7 +120,7 @@ namespace CastReporting.Reporting.Block.Table
                     }
                     rowData.AddRange(new[] {
                         currentRes.name,
-                        previousRes != null ? previousRes.resultStr : Constants.No_Data,
+                        previousRes != null ? previousRes.resultStr : FormatHelper.No_Data,
                         target.ToString("N2"),
                         currentRes.resultStr,
                         metricSla });

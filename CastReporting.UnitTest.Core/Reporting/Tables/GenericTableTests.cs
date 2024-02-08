@@ -839,7 +839,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             };
 
             // Needed for background facts, as there are retrieved one by one by url request
-            WSConnection connection = new WSConnection
+            WSImagingConnection connection = new WSImagingConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -882,7 +882,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
                 {"SNAPSHOTS", "CURRENT|PREVIOUS"},
                 {"MODULES", "ALL"}
             };
-            WSConnection connection = new WSConnection
+            WSImagingConnection connection = new WSImagingConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -930,7 +930,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
                 {"d", "556"},
                 {"SNAPSHOTS", "CURRENT|PREVIOUS"}
             };
-            WSConnection connection = new WSConnection
+            WSImagingConnection connection = new WSImagingConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -971,7 +971,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
                 {"FORMAT", "N0" },
                 {"SNAPSHOTS", "CURRENT|PREVIOUS"}
             };
-            WSConnection connection = new WSConnection
+            WSImagingConnection connection = new WSImagingConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -1012,7 +1012,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
                 {"MODULES", "ALL"},
                 {"SNAPSHOTS", "CURRENT"}
             };
-            WSConnection connection = new WSConnection
+            WSImagingConnection connection = new WSImagingConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -1057,7 +1057,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
                 {"MODULES", "ALL"},
                 {"SNAPSHOTS", "CURRENT"}
             };
-            WSConnection connection = new WSConnection
+            WSImagingConnection connection = new WSImagingConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -1101,7 +1101,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
                 {"TECHNOLOGIES", "ALL"},
                 {"SNAPSHOTS", "CURRENT"}
             };
-            WSConnection connection = new WSConnection
+            WSImagingConnection connection = new WSImagingConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -1146,7 +1146,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
                 {"TECHNOLOGIES", "ALL"},
                 {"SNAPSHOTS", "CURRENT"}
             };
-            WSConnection connection = new WSConnection
+            WSImagingConnection connection = new WSImagingConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -1158,7 +1158,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             reportData.RuleExplorer = new RuleBLLStub();
             var table = component.Content(reportData, config);
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> { "Technologies", "a+b"});
+            expectedData.AddRange(new List<string> { "Technologies", "a+b" });
             expectedData.AddRange(new List<string> { "JEE", "64" });
             expectedData.AddRange(new List<string> { "PL/SQL", "0" });
             expectedData.AddRange(new List<string> { "C++", "61" });
@@ -1193,7 +1193,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
                 {"MODULES", "ALL"},
                 {"SNAPSHOTS", "PREVIOUS"}
             };
-            WSConnection connection = new WSConnection
+            WSImagingConnection connection = new WSImagingConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -1257,7 +1257,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
                     {"MODULES", "ALL"},
                     {"SNAPSHOTS", "PREVIOUS"}
                 };
-            WSConnection connection = new WSConnection
+            WSImagingConnection connection = new WSImagingConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -1270,7 +1270,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
             var expectedData = new List<string>();
             expectedData.AddRange(new List<string> { "Modules", "a+b" });
-            expectedData.AddRange(new List<string> { "Adg", " "});
+            expectedData.AddRange(new List<string> { "Adg", " " });
             expectedData.AddRange(new List<string> { "    JEE", "64" });
             expectedData.AddRange(new List<string> { "    PL/SQL", "No data found" });
             expectedData.AddRange(new List<string> { "    C++", "No data found" });

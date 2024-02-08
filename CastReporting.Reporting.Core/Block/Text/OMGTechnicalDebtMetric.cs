@@ -13,12 +13,13 @@
  * limitations under the License.
  *
  */
+using Cast.Util;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.ReportingModel;
 using CastReporting.Reporting.Helper;
 using System.Collections.Generic;
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Core.Languages;
 using CastReporting.BLL.Computing;
 
@@ -32,14 +33,14 @@ namespace CastReporting.Reporting.Block.Text
         {
             string index = options.GetOption("ID", "ISO");
             Snapshot snapshot = options.GetOption("SNAPSHOT", "CURRENT").ToUpper().Equals("PREVIOUS") ? reportData.PreviousSnapshot ?? null : reportData.CurrentSnapshot ?? null;
-            if (snapshot == null) return Constants.No_Value;
+            if (snapshot == null) return FormatHelper.No_Value;
 
             OmgTechnicalDebtIdDTO omgTechDebt = OmgTechnicalDebtUtility.GetOmgTechDebt(snapshot, index);
             if (omgTechDebt != null)
             {
-                return omgTechDebt.Total.HasValue ? $"{omgTechDebt.Total.Value:N1} {Labels.Days}" : Constants.No_Value;
+                return omgTechDebt.Total.HasValue ? $"{omgTechDebt.Total.Value:N1} {Labels.Days}" : FormatHelper.No_Value;
             }
-            return Constants.No_Value;
+            return FormatHelper.No_Value;
         }
         #endregion METHODS
     }

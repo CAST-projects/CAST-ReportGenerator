@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.ReportingModel;
 
 namespace CastReporting.UnitTest.Reporting.Tables
@@ -25,7 +26,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                null, @".\Data\PreviousBCresults.json", "AED/applications/3/snapshots/5", "PreVersion 1.5.0 sprint 2 shot 1", "V-1.5.0_Sprint 2_1", previousDate);
-            WSConnection connection = new WSConnection
+            WSImagingConnection connection = new WSImagingConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -80,7 +81,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                null, @".\Data\PreviousBCresults.json", "AED/applications/3/snapshots/5", "PreVersion 1.5.0 sprint 2 shot 1", "V-1.5.0_Sprint 2_1", previousDate);
-            WSConnection connection = new WSConnection
+            WSImagingConnection connection = new WSImagingConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -124,7 +125,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                null, @".\Data\PreviousBCresults.json", "AED/applications/3/snapshots/5", "PreVersion 1.5.0 sprint 2 shot 1", "V-1.5.0_Sprint 2_1", previousDate);
-            WSConnection connection = new WSConnection
+            WSImagingConnection connection = new WSImagingConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",

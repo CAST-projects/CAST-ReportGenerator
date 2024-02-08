@@ -1,4 +1,4 @@
-﻿using CastReporting.Domain;
+﻿using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Block.Table;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

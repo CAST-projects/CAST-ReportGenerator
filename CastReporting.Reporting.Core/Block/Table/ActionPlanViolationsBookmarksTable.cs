@@ -1,4 +1,4 @@
-﻿using CastReporting.Domain;
+﻿using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -17,7 +17,7 @@ namespace CastReporting.Reporting.Block.Table
 
             int nbLimitTop = options.GetOption("COUNT") == "ALL" ? -1 : options.GetIntOption("COUNT", 10);
             string filter = options.GetOption("FILTER", "ALL").ToUpper();
-            bool displayHeader = options.GetBoolOption("HEADER",true);
+            bool displayHeader = options.GetBoolOption("HEADER", true);
             bool tag = options.GetBoolOption("TAG", true);
 
             List<string> rowData = new List<string>();

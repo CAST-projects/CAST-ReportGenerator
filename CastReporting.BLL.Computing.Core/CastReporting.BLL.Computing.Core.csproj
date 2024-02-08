@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Cast.Util.Core\Cast.Util.Core.csproj" />
     <ProjectReference Include="..\CastReporting.Domain.Core\CastReporting.Domain.Core.csproj" />
   </ItemGroup>
 

@@ -1,4 +1,5 @@
 ﻿using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Block.Graph;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -25,7 +26,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
                null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4", currentDate,
                null, null, null, null, null, null);
 
-            WSConnection connection = new WSConnection
+            WSImagingConnection connection = new WSImagingConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -61,7 +62,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
                null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4", currentDate,
                null, null, null, null, null, null);
 
-            WSConnection connection = new WSConnection
+            WSImagingConnection connection = new WSImagingConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -98,7 +99,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
                null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4", currentDate,
                null, null, null, null, null, null);
 
-            WSConnection connection = new WSConnection
+            WSImagingConnection connection = new WSImagingConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -135,7 +136,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
                null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4", currentDate,
                null, null, null, null, null, null);
 
-            WSConnection connection = new WSConnection
+            WSImagingConnection connection = new WSImagingConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -172,7 +173,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
                null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4", currentDate,
                null, null, null, null, null, null);
 
-            WSConnection connection = new WSConnection
+            WSImagingConnection connection = new WSImagingConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -209,7 +210,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
                null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
                null, @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
 
-            WSConnection connection = new WSConnection
+            WSImagingConnection connection = new WSImagingConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",

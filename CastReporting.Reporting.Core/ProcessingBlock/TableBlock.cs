@@ -13,8 +13,8 @@
  * limitations under the License.
  *
  */
+using Cast.Util;
 using Cast.Util.Log;
-using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Helper;
 using CastReporting.Reporting.ReportingModel;

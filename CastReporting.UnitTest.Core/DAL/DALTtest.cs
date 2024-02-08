@@ -1,4 +1,5 @@
 ﻿using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Repositories;
 using CastReporting.Repositories.Interfaces;
 using CastReporting.UnitTest.Reporting;
@@ -22,7 +23,7 @@ namespace CastReporting.UnitTest.Repositories
         /// <summary>
         /// 
         /// </summary>
-        private readonly WSConnection _connection = new WSConnection
+        private readonly WSImagingConnection _connection = new WSImagingConnection
         {
             // if using demo-eu-aed, use domain AED1, if using localhost, domain is AED
             Url = "https://demo-eu.castsoftware.com/Engineering/rest/",
@@ -39,7 +40,7 @@ namespace CastReporting.UnitTest.Repositories
         [TestMethod()]
         public void IsServiceValidTest()
         {
-            ICastRepsitory context = new CastRepository(_connection, null);
+            IImagingRepository context = new ImagingRepository(_connection, null);
 
             bool result = context.IsServiceValid();
 
@@ -52,7 +53,7 @@ namespace CastReporting.UnitTest.Repositories
         [TestMethod()]
         public void GetDomainsTest()
         {
-            ICastRepsitory context = new CastRepository(_connection, null);
+            IImagingRepository context = new ImagingRepository(_connection, null);
             IEnumerable<CastDomain> result = context.GetDomains();
 
             Assert.IsNotNull(result);
@@ -67,7 +68,7 @@ namespace CastReporting.UnitTest.Repositories
         {
             string domainHref = "AED1";
 
-            ICastRepsitory context = new CastRepository(_connection, null);
+            IImagingRepository context = new ImagingRepository(_connection, null);
             IEnumerable<Application> result = context.GetApplicationsByDomain(domainHref);
             Assert.IsNotNull(result);
         }
@@ -78,7 +79,7 @@ namespace CastReporting.UnitTest.Repositories
         [TestMethod()]
         public void GetApplicationTest()
         {
-            ICastRepsitory context = new CastRepository(_connection, null);
+            IImagingRepository context = new ImagingRepository(_connection, null);
             string appilcationId = "AED1/applications/3";
             Application result = context.GetApplication(appilcationId);
             Assert.IsNotNull(result);
@@ -91,7 +92,7 @@ namespace CastReporting.UnitTest.Repositories
         [TestMethod()]
         public void GetSnapshotsByApplicationTest()
         {
-            ICastRepsitory context = new CastRepository(_connection, null);
+            IImagingRepository context = new ImagingRepository(_connection, null);
             string appilcationId = "AED1/applications/3";
             var result = context.GetSnapshotsByApplication(appilcationId);
             Assert.IsNotNull(result);
@@ -104,7 +105,7 @@ namespace CastReporting.UnitTest.Repositories
         [TestMethod()]
         public void GetSnapshotTest()
         {
-            ICastRepsitory context = new CastRepository(_connection, null);
+            IImagingRepository context = new ImagingRepository(_connection, null);
             string snapshotId = "AED1/applications/3/snapshots/2";
             Snapshot result = context.GetSnapshot(snapshotId);
             Assert.IsNotNull(result);
@@ -116,7 +117,7 @@ namespace CastReporting.UnitTest.Repositories
         [TestMethod()]
         public void GetModulesByApplicationTest()
         {
-            ICastRepsitory context = new CastRepository(_connection, null);
+            IImagingRepository context = new ImagingRepository(_connection, null);
             string appilcationId = "AED1/applications/3";
             var result = context.GetModules(appilcationId);
             Assert.IsNotNull(result);
@@ -130,7 +131,7 @@ namespace CastReporting.UnitTest.Repositories
         [TestMethod()]
         public void GetModulesBySnapshotTest()
         {
-            ICastRepsitory context = new CastRepository(_connection, null);
+            IImagingRepository context = new ImagingRepository(_connection, null);
             string appilcationId = "AED1/applications/3/snapshots/2";
             var result = context.GetModules(appilcationId);
             Assert.IsNotNull(result);
@@ -144,7 +145,7 @@ namespace CastReporting.UnitTest.Repositories
         [TestMethod()]
         public void GetModuleTest()
         {
-            ICastRepsitory context = new CastRepository(_connection, null);
+            IImagingRepository context = new ImagingRepository(_connection, null);
             string moduleId = "AED1/modules/4";
             Module result = context.GetModule(moduleId);
             Assert.IsNotNull(result);
@@ -157,7 +158,7 @@ namespace CastReporting.UnitTest.Repositories
         [TestMethod()]
         public void GetQualityIndicatorsByApplicationTest()
         {
-            ICastRepsitory context = new CastRepository(_connection, null);
+            IImagingRepository context = new ImagingRepository(_connection, null);
             const string appilcationRef = "AED1/applications/3";
 
             int[] businessCriterias = (int[])Enum.GetValues(typeof(Constants.BusinessCriteria));
@@ -178,7 +179,7 @@ namespace CastReporting.UnitTest.Repositories
         [TestMethod()]
         public void GetQualityIndicatorsBySnapshotTest()
         {
-            ICastRepsitory context = new CastRepository(_connection, null);
+            IImagingRepository context = new ImagingRepository(_connection, null);
             const string snapshotRef = "AED1/applications/3/snapshots/2";
 
             int[] businessCriterias = (int[])Enum.GetValues(typeof(Constants.BusinessCriteria));
@@ -200,7 +201,7 @@ namespace CastReporting.UnitTest.Repositories
         [TestMethod()]
         public void GetQualityIndicatorsByModuleTest()
         {
-            ICastRepsitory context = new CastRepository(_connection, null);
+            IImagingRepository context = new ImagingRepository(_connection, null);
             const string moduleRef = "AED1/modules/4";
 
             int[] businessCriterias = (int[])Enum.GetValues(typeof(Constants.BusinessCriteria));
@@ -223,7 +224,7 @@ namespace CastReporting.UnitTest.Repositories
         [TestMethod()]
         public void GetSizingMeasuresByApplicationTest()
         {
-            ICastRepsitory context = new CastRepository(_connection, null);
+            IImagingRepository context = new ImagingRepository(_connection, null);
             const string snapshotRef = "AED1/applications/3";
 
             int[] sizingMeasures = (int[])Enum.GetValues(typeof(Constants.SizingInformations));
@@ -244,7 +245,7 @@ namespace CastReporting.UnitTest.Repositories
         [TestMethod()]
         public void GetSizingMeasuresBySnapshotTest()
         {
-            ICastRepsitory context = new CastRepository(_connection, null);
+            IImagingRepository context = new ImagingRepository(_connection, null);
             const string snapshotRef = "AED1/applications/3/snapshots/2";
 
             int[] sizingMeasures = (int[])Enum.GetValues(typeof(Constants.SizingInformations));
@@ -267,7 +268,7 @@ namespace CastReporting.UnitTest.Repositories
         public void GetConfBusinessCriteriaBySnapshot()
         {
 
-            ICastRepsitory context = new CastRepository(_connection, null);
+            IImagingRepository context = new ImagingRepository(_connection, null);
             const string domainHref = "AED1";
             const int snapshotId = 1;
 
@@ -284,7 +285,7 @@ namespace CastReporting.UnitTest.Repositories
         public void GetConfBusinessCriteria()
         {
 
-            ICastRepsitory context = new CastRepository(_connection, null);
+            IImagingRepository context = new ImagingRepository(_connection, null);
             const string domainHref = "AED1/quality-indicators/61001/snapshots/2";
 
             var result = context.GetConfBusinessCriteria(domainHref);
@@ -297,7 +298,7 @@ namespace CastReporting.UnitTest.Repositories
         public void GetConfQualityRuleChinese()
         {
             if (!"ABD".Equals(Environment.UserName)) return;
-            WSConnection _connection3 = new WSConnection
+            WSImagingConnection _connection3 = new WSImagingConnection
             {
                 Url = "http://dash-aed-tomcat:8585/CAST-Health-Engineering/rest/",
                 Login = "cio",
@@ -307,7 +308,7 @@ namespace CastReporting.UnitTest.Repositories
             };
 
             TestUtility.SetCulture("zh-Hans");
-            ICastRepsitory ccontext = new CastRepository(_connection3, null);
+            IImagingRepository ccontext = new ImagingRepository(_connection3, null);
 
             bool valid = ccontext.IsServiceValid();
             Assert.IsTrue(valid);
@@ -317,7 +318,7 @@ namespace CastReporting.UnitTest.Repositories
             Assert.AreEqual("避免工件的已注释掉代码行/代码行的比率过高", result.Name);
 
             TestUtility.SetCulture("en-US");
-            ICastRepsitory ccontext2 = new CastRepository(_connection3, null);
+            IImagingRepository ccontext2 = new ImagingRepository(_connection3, null);
             const string cdomainHref2 = "AAD/quality-indicators/7126/snapshots/1";
             var result2 = ccontext2.GetConfBusinessCriteria(cdomainHref2);
             Assert.AreEqual("Avoid Artifacts with high Commented-out Code Lines/Code Lines ratio", result2.Name);

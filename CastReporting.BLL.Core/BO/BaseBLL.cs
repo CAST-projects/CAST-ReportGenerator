@@ -27,23 +27,23 @@ namespace CastReporting.BLL
         // <summary>
         //
         // </summary>
-        protected WSConnection Connection { get; set; }
+        protected WSImagingConnection Connection { get; set; }
 
-        protected static ICastProxy Client;
+        protected static IImagingProxy Client;
 
         /// <summary>
         /// 
         /// </summary>
-        protected ICastRepsitory GetRepository()
+        protected IImagingRepository GetRepository()
         {
-            CastRepository repo = new CastRepository(Connection, Client);
+            ImagingRepository repo = new ImagingRepository(Connection, Client);
             Client = repo.GetClient();
             return repo;
         }
 
-        protected static ICastRepsitory GetRepository(WSConnection connection, bool dropCookie = false)
+        protected static IImagingRepository GetRepository(WSImagingConnection connection, bool dropCookie = false)
         {
-            CastRepository repo = dropCookie ? new CastRepository(connection, null) : new CastRepository(connection, Client);
+            ImagingRepository repo = dropCookie ? new ImagingRepository(connection, null) : new ImagingRepository(connection, Client);
             Client = repo.GetClient();
             return repo;
         }
@@ -70,7 +70,7 @@ namespace CastReporting.BLL
         /// 
         /// </summary>
         /// <param name="connection"></param>
-        protected BaseBLL(WSConnection connection)
+        protected BaseBLL(WSImagingConnection connection)
         {
             Connection = connection;
         }

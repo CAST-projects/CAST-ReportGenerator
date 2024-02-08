@@ -13,7 +13,7 @@
  * limitations under the License.
  *
  */
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 
 namespace CastReporting.UI.WPF.Core
 {

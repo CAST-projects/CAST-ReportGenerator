@@ -42,9 +42,9 @@ namespace CastReporting.Reporting.Block.Table
                 var source = options["SRC"];
                 switch (source)
                 {
-                    case "PERF": { businessCriteria = (int)Domain.Constants.BusinessCriteria.Performance; } break;
-                    case "ROB": { businessCriteria = (int)Domain.Constants.BusinessCriteria.Robustness; } break;
-                    case "SEC": { businessCriteria = (int)Domain.Constants.BusinessCriteria.Security; } break;
+                    case "PERF": { businessCriteria = (int)Domain.Imaging.Constants.BusinessCriteria.Performance; } break;
+                    case "ROB": { businessCriteria = (int)Domain.Imaging.Constants.BusinessCriteria.Robustness; } break;
+                    case "SEC": { businessCriteria = (int)Domain.Imaging.Constants.BusinessCriteria.Security; } break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

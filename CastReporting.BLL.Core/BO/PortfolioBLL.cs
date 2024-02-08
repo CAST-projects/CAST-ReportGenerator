@@ -1,6 +1,7 @@
 ﻿using Cast.Util.Log;
 using Cast.Util.Version;
 using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -19,7 +20,7 @@ namespace CastReporting.BLL
         /// </summary>
         /// <param name="connection"></param>
         /// <param name="applications"></param>
-        public PortfolioBLL(WSConnection connection, Application[] applications)
+        public PortfolioBLL(WSImagingConnection connection, Application[] applications)
             : base(connection)
         {
 
@@ -180,7 +181,7 @@ namespace CastReporting.BLL
         /// <summary>
         /// 
         /// </summary>
-        public static string[] BuildPortfolioResult(WSConnection connection, Application[] application)
+        public static string[] BuildPortfolioResult(WSImagingConnection connection, Application[] application)
         {
             //Build Quality Indicators
             using (PortfolioBLL applicationBLL = new PortfolioBLL(connection, application))

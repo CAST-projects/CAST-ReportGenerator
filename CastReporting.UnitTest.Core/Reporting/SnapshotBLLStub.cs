@@ -1,6 +1,7 @@
 ﻿using CastReporting.BLL;
 using CastReporting.Domain;
-using CastReporting.Domain.Interfaces;
+using CastReporting.Domain.Imaging;
+using CastReporting.Domain.Imaging.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace CastReporting.UnitTest.Reporting
         // ReSharper disable once NotAccessedField.Local
         private readonly Snapshot _Snapshot;
 
-        public SnapshotBLLStub(WSConnection connection, Snapshot snapshot)
+        public SnapshotBLLStub(WSImagingConnection connection, Snapshot snapshot)
             : base(connection)
         {
             _Snapshot = snapshot;
@@ -47,7 +48,8 @@ namespace CastReporting.UnitTest.Reporting
         [DeploymentItem(@".\Data\OmgFunctionsEvolutionsZero.csv", "Data")]
         public IEnumerable<OmgFunction> GetOmgFunctionsEvolutions(string snapshotHref, int count)
         {
-            if (snapshotHref.Equals("AED/applications/3/snapshots/33")) {
+            if (snapshotHref.Equals("AED/applications/3/snapshots/33"))
+            {
                 return TestUtility.GetCsvSampleResult<OmgFunction>(@".\Data\OmgFunctionsEvolutionsZero.csv", count, null).ToList();
             }
             return TestUtility.GetCsvSampleResult<OmgFunction>(@".\Data\OmgFunctionsEvolutions.csv", count, null).ToList();
@@ -59,12 +61,12 @@ namespace CastReporting.UnitTest.Reporting
             return TestUtility.GetCsvSampleResult<OmgFunctionTechnical>(@".\Data\OmgFunctionsTechnical.csv", count, null).ToList();
         }
 
-        public IEnumerable<CommonCategories> GetCommonCategories(WSConnection connection)
+        public IEnumerable<CommonCategories> GetCommonCategories(WSImagingConnection connection)
         {
             throw new NotImplementedException();
         }
 
-        public string GetCommonCategoriesJson(WSConnection connection)
+        public string GetCommonCategoriesJson(WSImagingConnection connection)
         {
             throw new NotImplementedException();
         }

@@ -1,4 +1,5 @@
-﻿using CastReporting.Domain;
+﻿using Cast.Util;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -45,7 +46,7 @@ namespace CastReporting.Reporting.Block.Table
                         results = results.Where(_ => _.RemedialAction.Status.Equals("solved"));
                         break;
                 }
-                
+
                 if (nbLimitTop != -1)
                 {
                     results = results.Take(nbLimitTop);
@@ -56,18 +57,19 @@ namespace CastReporting.Reporting.Block.Table
                 {
                     foreach (Violation _violation in _violations)
                     {
-                        rowData.Add(_violation.RulePattern.Name ?? Constants.No_Value);
-                        rowData.Add(shortName ? _violation.Component.ShortName : _violation.Component.Name ?? Constants.No_Value);
-                        rowData.Add(_violation.RemedialAction.Comment ?? Constants.No_Value);
+                        rowData.Add(_violation.RulePattern.Name ?? FormatHelper.No_Value);
+                        rowData.Add(shortName ? _violation.Component.ShortName : _violation.Component.Name ?? FormatHelper.No_Value);
+                        rowData.Add(_violation.RemedialAction.Comment ?? FormatHelper.No_Value);
                         if (tag)
                         {
-                            rowData.Add(_violation.RemedialAction.Tag ?? Constants.No_Value);
-                        } else
-                        {
-                            rowData.Add(_violation.RemedialAction.Priority ?? Constants.No_Value);
+                            rowData.Add(_violation.RemedialAction.Tag ?? FormatHelper.No_Value);
                         }
-                        rowData.Add(_violation.RemedialAction.Status ?? Constants.No_Value);
-                        rowData.Add(_violation.RemedialAction.Dates.Updated.DateSnapShot?.ToString(Labels.FORMAT_LONG_DATE) ?? Constants.No_Value);
+                        else
+                        {
+                            rowData.Add(_violation.RemedialAction.Priority ?? FormatHelper.No_Value);
+                        }
+                        rowData.Add(_violation.RemedialAction.Status ?? FormatHelper.No_Value);
+                        rowData.Add(_violation.RemedialAction.Dates.Updated.DateSnapShot?.ToString(Labels.FORMAT_LONG_DATE) ?? FormatHelper.No_Value);
                     }
                     nbRows = _violations.Count + 1;
                 }

@@ -377,7 +377,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
                 {"TECHNOLOGIES", "EACH" }
             };
 
-            WSConnection connection = new WSConnection
+            WSImagingConnection connection = new WSImagingConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",

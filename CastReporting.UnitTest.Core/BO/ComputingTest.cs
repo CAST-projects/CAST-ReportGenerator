@@ -1,5 +1,5 @@
 ﻿using CastReporting.BLL.Computing;
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.UnitTest.Reporting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

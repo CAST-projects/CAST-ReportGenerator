@@ -13,6 +13,7 @@
  * limitations under the License.
  *
  */
+using Cast.Util;
 using Cast.Util.Version;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
@@ -30,7 +31,7 @@ namespace CastReporting.Reporting.Block.Text
         {
             var ver = VersionUtil.GetRGVersion(Assembly.GetExecutingAssembly());
             if (string.IsNullOrEmpty(ver))
-                ver = Domain.Constants.No_Value;
+                ver = FormatHelper.No_Value;
 
             return ver;
         }

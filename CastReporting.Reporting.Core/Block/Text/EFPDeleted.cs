@@ -13,6 +13,7 @@
  * limitations under the License.
  *
  */
+using Cast.Util;
 using CastReporting.BLL.Computing;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
@@ -27,9 +28,9 @@ namespace CastReporting.Reporting.Block.Text
         #region METHODS
         public override string Content(ReportData reportData, Dictionary<string, string> options)
         {
-            if (reportData?.CurrentSnapshot == null) return Domain.Constants.No_Value;
+            if (reportData?.CurrentSnapshot == null) return FormatHelper.No_Value;
             double? result = MeasureUtility.GetDeletedFunctionPoint(reportData.CurrentSnapshot);
-            return result?.ToString("N0") ?? Domain.Constants.No_Value;
+            return result?.ToString("N0") ?? FormatHelper.No_Value;
         }
         #endregion METHODS
     }

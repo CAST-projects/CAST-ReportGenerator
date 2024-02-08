@@ -13,8 +13,8 @@
  * limitations under the License.
  *
  */
+using Cast.Util;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -68,7 +68,7 @@ namespace CastReporting.Reporting.Block.Table
 
             #endregion CastComputing
 
-            const string noData = Constants.No_Value;
+            const string noData = FormatHelper.No_Value;
             const string metricFormat = "N0";
 
             var rowData = new List<string>

@@ -1,4 +1,5 @@
 ﻿using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Block.Text;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -149,7 +150,7 @@ namespace CastReporting.UnitTest.Reporting.Text
             reportData.Snapshots = _snapshots;
 
 
-            WSConnection connection = new WSConnection
+            WSImagingConnection connection = new WSImagingConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -204,7 +205,7 @@ namespace CastReporting.UnitTest.Reporting.Text
             _snapshots[1] = _snap1;
             reportData.Snapshots = _snapshots;
 
-            WSConnection connection = new WSConnection
+            WSImagingConnection connection = new WSImagingConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",

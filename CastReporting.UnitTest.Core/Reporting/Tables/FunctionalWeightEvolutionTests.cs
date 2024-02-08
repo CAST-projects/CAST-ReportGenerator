@@ -1,4 +1,5 @@
-﻿using CastReporting.Domain;
+﻿using Cast.Util;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Block.Table;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -54,9 +55,9 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
             var expectedData = new List<string>();
             expectedData.AddRange(new List<string> { "Name", "Current", "Previous", "Evolution", "% Evolution" });
-            expectedData.AddRange(new List<string> { "Automated Function Points", "5,667", Constants.No_Value, Constants.No_Value, Constants.No_Value });
-            expectedData.AddRange(new List<string> { "Decision Points (total CC)", "11,964", Constants.No_Value, Constants.No_Value, Constants.No_Value });
-            expectedData.AddRange(new List<string> { "Backfired Function Points", "418", Constants.No_Value, Constants.No_Value, Constants.No_Value });
+            expectedData.AddRange(new List<string> { "Automated Function Points", "5,667", FormatHelper.No_Value, FormatHelper.No_Value, FormatHelper.No_Value });
+            expectedData.AddRange(new List<string> { "Decision Points (total CC)", "11,964", FormatHelper.No_Value, FormatHelper.No_Value, FormatHelper.No_Value });
+            expectedData.AddRange(new List<string> { "Backfired Function Points", "418", FormatHelper.No_Value, FormatHelper.No_Value, FormatHelper.No_Value });
             TestUtility.AssertTableContent(table, expectedData, 5, 4);
             Assert.IsTrue(table.HasColumnHeaders);
         }

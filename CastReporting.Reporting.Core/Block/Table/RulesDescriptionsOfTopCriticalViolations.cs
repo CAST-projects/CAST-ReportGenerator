@@ -13,7 +13,8 @@
  * limitations under the License.
  *
  */
-using CastReporting.Domain;
+using Cast.Util;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -77,7 +78,7 @@ namespace CastReporting.Reporting.Block.Table
                         Labels.RuleName, violation.Reference.Name,
                         Labels.Rationale, ruleDescription.Rationale,
                         Labels.Description, ruleDescription.Description,
-                        Labels.Remediation, string.IsNullOrWhiteSpace(ruleDescription.Remediation) ? Constants.No_Value : ruleDescription.Remediation,
+                        Labels.Remediation, string.IsNullOrWhiteSpace(ruleDescription.Remediation) ? FormatHelper.No_Value : ruleDescription.Remediation,
                         Labels.ViolationsCount, violation.DetailResult.ViolationRatio.FailedChecks.ToString(),
                         " "," "
                     });

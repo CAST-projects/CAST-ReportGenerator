@@ -1,4 +1,5 @@
 ﻿using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Core.Languages;
 using CastReporting.Reporting.ReportingModel;
 using CastReporting.Repositories;
@@ -9,10 +10,9 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.Serialization.Json;
 using System.Text;
-using Module = CastReporting.Domain.Module;
+using Module = CastReporting.Domain.Imaging.Module;
 
 namespace CastReporting.UnitTest.Reporting
 {
@@ -224,11 +224,11 @@ namespace CastReporting.UnitTest.Reporting
 
         }
 
-        public static ReportData AddPortfolioComplexity(ReportData reportData, string currentJsonComplexity) 
+        public static ReportData AddPortfolioComplexity(ReportData reportData, string currentJsonComplexity)
         {
             var currentComplexityResultsList = new List<ApplicationResult>();
             currentComplexityResultsList.AddRange(GetSampleResult<Result>(currentJsonComplexity).SelectMany(_ => _.ApplicationResults));
-            foreach(Snapshot snapshot in reportData.Snapshots)
+            foreach (Snapshot snapshot in reportData.Snapshots)
             {
                 snapshot.CostComplexityResults = currentComplexityResultsList;
             }

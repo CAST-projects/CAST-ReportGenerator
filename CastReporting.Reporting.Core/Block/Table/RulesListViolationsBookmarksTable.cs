@@ -1,6 +1,6 @@
 ﻿using Cast.Util.Log;
 using Cast.Util.Version;
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -61,7 +61,7 @@ namespace CastReporting.Reporting.Block.Table
 
                 foreach (string _metric in qualityRules)
                 {
-                if (!int.TryParse(_metric, out int metricId)) continue;
+                    if (!int.TryParse(_metric, out int metricId)) continue;
                     List<Violation> results = reportData.SnapshotExplorer.GetViolationsListIDbyBC(reportData.CurrentSnapshot.Href, _metric, bcId, nbLimitTop, "$all").ToList();
                     if (results == null || results.Count < 1) continue;
                     rowData.AddRange(MetricsUtility.PopulateViolationsBookmarksRow(reportData, results, headers, _metric));

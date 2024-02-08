@@ -13,9 +13,10 @@
  * limitations under the License.
  *
  */
+using Cast.Util;
 using Cast.Util.Log;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -32,7 +33,7 @@ namespace CastReporting.Reporting.Block.Text
         #region METHODS
         public override string Content(ReportData reportData, Dictionary<string, string> options)
         {
-            if (reportData?.Applications == null) return Constants.No_Value;
+            if (reportData?.Applications == null) return FormatHelper.No_Value;
             Application[] _allApps = reportData.Applications;
             double? _allTechDebt = 0;
             double? _allLoc = 0;

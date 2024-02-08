@@ -1,4 +1,4 @@
-﻿using CastReporting.Domain;
+﻿using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -52,7 +52,7 @@ namespace CastReporting.Reporting.Block.Table
                 if (_violations.Length != 0)
                 {
                     MetricsUtility.ViolationsBookmarksProperties violationsBookmarksProperties =
-                        new MetricsUtility.ViolationsBookmarksProperties(_violations, 0, rowData, tag ? "actionPlan" : "actionPlanPriority", false, reportData.CurrentSnapshot.DomainId, 
+                        new MetricsUtility.ViolationsBookmarksProperties(_violations, 0, rowData, tag ? "actionPlan" : "actionPlanPriority", false, reportData.CurrentSnapshot.DomainId,
                         reportData.CurrentSnapshot.Id.ToString(), tag ? "actionPlan" : "actionPlanPriority");
                     MetricsUtility.PopulateViolationsBookmarks(reportData, violationsBookmarksProperties, cellidx, cellProps, true);
                 }

@@ -13,6 +13,8 @@
  * limitations under the License.
  *
  */
+using Cast.Util;
+using CastReporting.Domain.Imaging;
 using CastReporting.BLL.Computing;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
@@ -44,12 +46,12 @@ namespace CastReporting.Reporting.Block.Table
             rowData.AddRange(new[] { Labels.Statistics, Labels.CurrentScore, Labels.PreviousScore });
 
 
-            double? currentTqi = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(reportData.CurrentSnapshot, Domain.Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode(), true);
-            double? previousTqi = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(reportData.PreviousSnapshot, Domain.Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode(), true);
+            double? currentTqi = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(reportData.CurrentSnapshot, Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode(), true);
+            double? previousTqi = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(reportData.PreviousSnapshot, Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode(), true);
 
             rowData.AddRange(new[] { Labels.TQI,
                                        currentTqi?.ToString(MetricFormat) ?? string.Empty,
-                                       previousTqi?.ToString(MetricFormat) ?? Domain.Constants.No_Value});
+                                       previousTqi?.ToString(MetricFormat) ?? FormatHelper.No_Value});
 
             var resultTable = new TableDefinition
             {

@@ -13,8 +13,9 @@
  * limitations under the License.
  *
  */
+using Cast.Util;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -69,10 +70,10 @@ namespace CastReporting.Reporting.Block.Table
 
 
             rowData.AddRange(new[] { Labels.Complexity, Labels.Artifacts, Labels.WithViolations });
-            rowData.AddRange(new[] { Labels.CplxExtreme, nbArtifactVeryHigh?.ToString(numberFormat) ?? Constants.No_Value, nbViolationVeryHigh?.ToString(numberFormat) ?? Constants.No_Value });
-            rowData.AddRange(new[] { Labels.CplxHigh, nbArtifactHigh?.ToString(numberFormat) ?? Constants.No_Value, nbViolationHigh?.ToString(numberFormat) ?? Constants.No_Value });
-            rowData.AddRange(new[] { Labels.CplxAverage, nbArtifactAve?.ToString(numberFormat) ?? Constants.No_Value, nbViolationAve?.ToString(numberFormat) ?? Constants.No_Value });
-            rowData.AddRange(new[] { Labels.CplxLow, nbArtifactLow?.ToString(numberFormat) ?? Constants.No_Value, nbViolationLow?.ToString(numberFormat) ?? Constants.No_Value });
+            rowData.AddRange(new[] { Labels.CplxExtreme, nbArtifactVeryHigh?.ToString(numberFormat) ?? FormatHelper.No_Value, nbViolationVeryHigh?.ToString(numberFormat) ?? FormatHelper.No_Value });
+            rowData.AddRange(new[] { Labels.CplxHigh, nbArtifactHigh?.ToString(numberFormat) ?? FormatHelper.No_Value, nbViolationHigh?.ToString(numberFormat) ?? FormatHelper.No_Value });
+            rowData.AddRange(new[] { Labels.CplxAverage, nbArtifactAve?.ToString(numberFormat) ?? FormatHelper.No_Value, nbViolationAve?.ToString(numberFormat) ?? FormatHelper.No_Value });
+            rowData.AddRange(new[] { Labels.CplxLow, nbArtifactLow?.ToString(numberFormat) ?? FormatHelper.No_Value, nbViolationLow?.ToString(numberFormat) ?? FormatHelper.No_Value });
 
             #endregion Data
 

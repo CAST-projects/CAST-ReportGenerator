@@ -1,5 +1,6 @@
 ﻿
 using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Block.Graph;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -43,7 +44,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
                 {"SID", "10151"},
                 {"BID", "66061"}
             };
-            WSConnection connection = new WSConnection
+            WSImagingConnection connection = new WSImagingConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -85,7 +86,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
                 {"SID", "10151|10107|10152|67210|67011"}
             };
 
-            WSConnection connection = new WSConnection
+            WSImagingConnection connection = new WSImagingConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",

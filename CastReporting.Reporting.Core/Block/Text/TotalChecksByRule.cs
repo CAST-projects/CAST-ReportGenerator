@@ -14,8 +14,9 @@
  *
  */
 
+using Cast.Util;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Helper;
@@ -34,7 +35,7 @@ namespace CastReporting.Reporting.Block.Text
             string strRuleId = options.GetOption("RULID", string.Empty);
             string _snapshot = options.GetOption("SNAPSHOT", "CURRENT");
 
-            if (reportData?.CurrentSnapshot == null || string.IsNullOrEmpty(strRuleId)) return Constants.No_Value;
+            if (reportData?.CurrentSnapshot == null || string.IsNullOrEmpty(strRuleId)) return FormatHelper.No_Value;
             Result violations;
             int? _totalChecks = null;
 
@@ -52,7 +53,7 @@ namespace CastReporting.Reporting.Block.Text
                 _totalChecks = RulesViolationUtility.GetTotalChecks(violations);
             }
 
-            return _totalChecks?.ToString("N0") ?? Constants.No_Value;
+            return _totalChecks?.ToString("N0") ?? FormatHelper.No_Value;
         }
         #endregion METHODS
     }

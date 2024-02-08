@@ -38,10 +38,10 @@ namespace CastReporting.Domain
         /// <summary>
         /// 
         /// </summary>
-        private List<WSConnection> _wsConnections;
-        public List<WSConnection> WSConnections
+        private List<WSImagingConnection> _wsConnections;
+        public List<WSImagingConnection> WSConnections
         {
-            get => _wsConnections ?? (_wsConnections = new List<WSConnection>());
+            get => _wsConnections ?? (_wsConnections = new List<WSImagingConnection>());
             set => _wsConnections = value;
         }
 
@@ -49,7 +49,7 @@ namespace CastReporting.Domain
         /// 
         /// </summary>
         /// <returns></returns>
-        public WSConnection GetActiveConnection()
+        public WSImagingConnection GetActiveConnection()
         {
             return WSConnections.FirstOrDefault(_ => _.IsActive);
         }
@@ -60,10 +60,10 @@ namespace CastReporting.Domain
         /// </summary>
         public void ChangeActiveConnection(string newActiveUrl)
         {
-            WSConnection previousActiveconnection = WSConnections.FirstOrDefault(_ => _.IsActive);
+            WSImagingConnection previousActiveconnection = WSConnections.FirstOrDefault(_ => _.IsActive);
             if (previousActiveconnection != null) previousActiveconnection.IsActive = false;
 
-            WSConnection newActiveConnection = WSConnections.FirstOrDefault(_ => _.Url.Equals(newActiveUrl));
+            WSImagingConnection newActiveConnection = WSConnections.FirstOrDefault(_ => _.Url.Equals(newActiveUrl));
             if (newActiveConnection != null) newActiveConnection.IsActive = true;
         }
 
@@ -71,7 +71,7 @@ namespace CastReporting.Domain
         {
             return obj is Setting setting &&
                    EqualityComparer<ReportingParameter>.Default.Equals(_reportingParameter, setting._reportingParameter) &&
-                   EqualityComparer<List<WSConnection>>.Default.Equals(_wsConnections, setting._wsConnections);
+                   EqualityComparer<List<WSImagingConnection>>.Default.Equals(_wsConnections, setting._wsConnections);
         }
 
         public override int GetHashCode()

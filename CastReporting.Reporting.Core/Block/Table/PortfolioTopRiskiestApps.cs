@@ -15,7 +15,7 @@
  */
 using Cast.Util.Log;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;

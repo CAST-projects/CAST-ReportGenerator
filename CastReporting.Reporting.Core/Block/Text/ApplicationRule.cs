@@ -13,8 +13,9 @@
  * limitations under the License.
  *
  */
+using Cast.Util;
 using CastReporting.BLL.Computing.DTO;
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Helper;
@@ -56,17 +57,17 @@ namespace CastReporting.Reporting.Block.Text
                 }
             }
 
-            if (snapshot == null) return Constants.No_Value;
+            if (snapshot == null) return FormatHelper.No_Value;
             if (lstParams.Length > 0 && !string.IsNullOrEmpty(_expr))
             {
                 double? exprRes = MetricsUtility.CustomExpressionDoubleEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, _expr, module, techno);
-                return exprRes.HasValue ? exprRes.Value.ToString(_format) : Constants.No_Value;
+                return exprRes.HasValue ? exprRes.Value.ToString(_format) : FormatHelper.No_Value;
             }
-            else if (string.IsNullOrEmpty(metricId)) return Constants.No_Value;
+            else if (string.IsNullOrEmpty(metricId)) return FormatHelper.No_Value;
 
             SimpleResult res = MetricsUtility.GetMetricNameAndResult(reportData, snapshot, metricId, module, techno, true);
-            if (res == null) return Constants.No_Value;
-            return res.result.HasValue ? res.result.Value.ToString(_format) : Constants.No_Value;
+            if (res == null) return FormatHelper.No_Value;
+            return res.result.HasValue ? res.result.Value.ToString(_format) : FormatHelper.No_Value;
 
         }
         #endregion METHODS

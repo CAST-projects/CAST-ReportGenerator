@@ -3,6 +3,7 @@ using Cast.Util.Log;
 using CastReporting.BLL;
 using CastReporting.Console.Argument;
 using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Builder;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.Office.Interop.PowerPoint;
@@ -14,7 +15,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
-using Application = CastReporting.Domain.Application;
+using Application = CastReporting.Domain.Imaging.Application;
 
 namespace CastReporting.Console
 {
@@ -184,7 +185,7 @@ namespace CastReporting.Console
 
                     //Initialize Web services
 
-                    var connection = new WSConnection(arguments.Webservice.Name, arguments.Username.Name, arguments.Password.Name, string.Empty)
+                    var connection = new WSImagingConnection(arguments.Webservice.Name, arguments.Username.Name, arguments.Password.Name, string.Empty)
                     {
                         ApiKey = arguments.ApiKey?.Name.Equals("true") ?? false,
                         ServerCertificateValidation = SettingsBLL.GetCertificateValidationStrategy()
@@ -440,7 +441,7 @@ namespace CastReporting.Console
                     }
                     //Initialize Web services
 
-                    var connection = new WSConnection(arguments.Webservice.Name, arguments.Username.Name, arguments.Password.Name, string.Empty)
+                    var connection = new WSImagingConnection(arguments.Webservice.Name, arguments.Username.Name, arguments.Password.Name, string.Empty)
                     {
                         ApiKey = arguments.ApiKey?.Name.Equals("true") ?? false,
                         ServerCertificateValidation = SettingsBLL.GetCertificateValidationStrategy()
@@ -675,7 +676,7 @@ namespace CastReporting.Console
         /// <param name="connection"></param>
         /// <param name="application"></param>
         /// <returns></returns>
-        private static void SetSnapshots(WSConnection connection, Application application)
+        private static void SetSnapshots(WSImagingConnection connection, Application application)
         {
             using (ApplicationBLL applicationBLL = new ApplicationBLL(connection, application))
             {
@@ -689,7 +690,7 @@ namespace CastReporting.Console
         /// <param name="arguments"></param>
         /// <param name="connection"></param>
         /// <returns></returns>
-        private static Application GetApplication(XmlCastReport arguments, WSConnection connection)
+        private static Application GetApplication(XmlCastReport arguments, WSImagingConnection connection)
         {
             List<Application> applications;
 

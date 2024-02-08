@@ -17,7 +17,8 @@
 using Cast.Util.Log;
 using Cast.Util.Version;
 using CastReporting.Domain;
-using CastReporting.Domain.Interfaces;
+using CastReporting.Domain.Imaging;
+using CastReporting.Domain.Imaging.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,7 @@ namespace CastReporting.BLL
         /// </summary>
         /// <param name="connection"></param>
         /// <param name="snapshot"></param>
-        public SnapshotBLL(WSConnection connection, Snapshot snapshot)
+        public SnapshotBLL(WSImagingConnection connection, Snapshot snapshot)
             : base(connection)
         {
             _Snapshot = snapshot;
@@ -166,7 +167,7 @@ namespace CastReporting.BLL
         /// </summary>
         public void SetComplexity()
         {
-            var values = (int[])Enum.GetValues(typeof(Constants.QualityDistribution));
+            var values = (int[])Enum.GetValues(typeof(Domain.Imaging.Constants.QualityDistribution));
 
             List<ApplicationResult> results = new List<ApplicationResult>();
 
@@ -372,7 +373,7 @@ namespace CastReporting.BLL
         /// <param name="connection"></param>
         /// <returns></returns>
         /// 
-        public IEnumerable<CommonCategories> GetCommonCategories(WSConnection connection)
+        public IEnumerable<CommonCategories> GetCommonCategories(WSImagingConnection connection)
         {
             try
             {
@@ -717,7 +718,7 @@ namespace CastReporting.BLL
         /// <param name="connection"></param>
         /// <param name="withActionPlan"></param>
         /// <returns></returns>
-        public static void BuildSnapshotResult(WSConnection connection, Snapshot snapshot, bool withActionPlan)
+        public static void BuildSnapshotResult(WSImagingConnection connection, Snapshot snapshot, bool withActionPlan)
         {
             //Build modules
             using (SnapshotBLL snapshotBll = new SnapshotBLL(connection, snapshot))

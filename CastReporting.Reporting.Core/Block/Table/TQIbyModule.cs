@@ -14,6 +14,7 @@
  *
  */
 
+using Cast.Util;
 using CastReporting.BLL.Computing;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
@@ -75,9 +76,9 @@ namespace CastReporting.Reporting.Block.Table
                 {
                     rowData.AddRange(new[] {
                             result.Name,
-                            result.TqiCurrent?.ToString(MetricFormat) ?? Domain.Constants.No_Value,
-                            result.TqiPrevious?.ToString(MetricFormat) ?? Domain.Constants.No_Value,
-                            result.PercentVariation.HasValue ? FormatPercent(result.PercentVariation):Domain.Constants.No_Value
+                            result.TqiCurrent?.ToString(MetricFormat) ?? FormatHelper.No_Value,
+                            result.TqiPrevious?.ToString(MetricFormat) ??FormatHelper.No_Value,
+                            result.PercentVariation.HasValue ? FormatPercent(result.PercentVariation):FormatHelper.No_Value
                         });
                     count++;
                 }
