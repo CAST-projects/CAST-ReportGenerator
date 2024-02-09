@@ -1,4 +1,5 @@
-﻿using CastReporting.Domain;
+﻿using Cast.Util;
+using CastReporting.Domain;
 /*
  *   Copyright (c) 2019 CAST
  *
@@ -36,7 +37,7 @@ namespace CastReporting.Reporting.Block.Table
         /// <param name="reportData"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             string strRuleId = options != null && options.ContainsKey("RULID") ? options["RULID"] : null;
 
@@ -55,10 +56,10 @@ namespace CastReporting.Reporting.Block.Table
             {
                 rowData.AddRange(new[] {
                                 rule.Name, null,
-                    Labels.Rationale, string.IsNullOrWhiteSpace(rule.Rationale) ? Constants.No_Value : rule.Rationale,
+                    Labels.Rationale, string.IsNullOrWhiteSpace(rule.Rationale) ? FormatHelper.No_Value : rule.Rationale,
                     Labels.Description, rule.Description,
-                    Labels.Remediation, string.IsNullOrWhiteSpace(rule.Remediation) ? Constants.No_Value : rule.Remediation,
-                    Labels.ViolationsCount, failedChecks?.ToString("N0") ?? Constants.No_Value
+                    Labels.Remediation, string.IsNullOrWhiteSpace(rule.Remediation) ? FormatHelper.No_Value : rule.Remediation,
+                    Labels.ViolationsCount, failedChecks?.ToString("N0") ?? FormatHelper.No_Value
                             });
             }
 

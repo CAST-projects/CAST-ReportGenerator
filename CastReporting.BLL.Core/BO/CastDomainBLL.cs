@@ -16,13 +16,10 @@
 
 using Cast.Util.Log;
 using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Json;
-using System.Text;
 
 namespace CastReporting.BLL
 {
@@ -36,7 +33,7 @@ namespace CastReporting.BLL
         /// 
         /// </summary>
         /// <param name="connection"></param>
-        public CastDomainBLL(WSConnection connection)
+        public CastDomainBLL(WSImagingConnection connection)
             : base(connection)
         {
         }
@@ -165,11 +162,11 @@ namespace CastReporting.BLL
                         if (_tag.Label != strSelectedTag) continue;
                         foreach (CommonTaggedApplications taggedApplications in commonTaggedApplications)
                         {
-                            foreach(Tag t in taggedApplications.Tags)
+                            foreach (Tag t in taggedApplications.Tags)
                             {
                                 if (t.Key.Equals(_tag.Key))
                                 {
-                                   _commonTaggedApplications.Add(applications.Where(a => a.Href == taggedApplications.TaggedApplication.Href).First());
+                                    _commonTaggedApplications.Add(applications.Where(a => a.Href == taggedApplications.TaggedApplication.Href).First());
                                 }
                             }
                         }
@@ -187,7 +184,7 @@ namespace CastReporting.BLL
             {
                 List<CommonCategories> _commonCategories = castRepository.GetCommonCategories().ToList();
                 if (_commonCategories.Count == 0) return _tags;
-                foreach(CommonCategories cat in _commonCategories)
+                foreach (CommonCategories cat in _commonCategories)
                 {
                     if (strCategory != cat.Name) continue;
                     _tags.AddRange(cat.Tags.ToList());

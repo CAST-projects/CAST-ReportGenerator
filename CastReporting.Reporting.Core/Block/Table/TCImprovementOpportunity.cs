@@ -13,8 +13,9 @@
  * limitations under the License.
  *
  */
+using Cast.Util;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -27,7 +28,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("TC_IMPROVEMENT_OPPORTUNITY")]
     public class TCImprovementOpportunity : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             int rowCount = 0;
             List<string> rowData = new List<string>();
@@ -59,9 +60,9 @@ namespace CastReporting.Reporting.Block.Table
                     rowData.AddRange(new[]
                                     {
                                           item.Name
-                                        , item.TotalFailed?.ToString("N0") ?? Constants.No_Value
-                                        , item.TotalChecks?.ToString("N0") ?? Constants.No_Value
-                                        , item.Grade?.ToString("N2") ?? Constants.No_Value
+                                        , item.TotalFailed?.ToString("N0") ?? FormatHelper.No_Value
+                                        , item.TotalChecks?.ToString("N0") ?? FormatHelper.No_Value
+                                        , item.Grade?.ToString("N2") ?? FormatHelper.No_Value
                                    }
                                    );
                 }

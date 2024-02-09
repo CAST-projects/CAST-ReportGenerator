@@ -15,8 +15,9 @@
  *
  */
 
+using Cast.Util;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -28,7 +29,7 @@ namespace CastReporting.Reporting.Block.Graph
     [Block("RADAR_HEALTH_FACTOR_2_LAST_SNAPSHOTS"), Block("RADAR_HEALTH_FACTOR_2_SNAPSHOTS")]
     public class RadarHealthFactor2LastSnapshots : GraphBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
 
             string prevSnapshotLabel = string.Empty;
@@ -55,7 +56,7 @@ namespace CastReporting.Reporting.Block.Graph
 
 
             var rowData = new List<string> { null, currSnapshotLabel };
-            if (prevSnapshotBCResult != null) { rowData.Add(prevSnapshotLabel ?? Constants.No_Value); }
+            if (prevSnapshotBCResult != null) { rowData.Add(prevSnapshotLabel ?? FormatHelper.No_Value); }
 
 
             #region Transferability

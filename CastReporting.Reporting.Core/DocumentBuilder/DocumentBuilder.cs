@@ -35,7 +35,7 @@ namespace CastReporting.Reporting.Builder
         {
             ReportData = reportData;
 
-            Package = GetPackage(reportData.FileName, ReportData.ReportType);
+            Package = GetPackage(reportData.FileName, reportData.ReportType);
         }
         #endregion CONSTRUCTORS
 
@@ -204,18 +204,9 @@ namespace CastReporting.Reporting.Builder
             {
                 switch (reportType)
                 {
-                    case FormatType.Word:
-                        {
-                            return WordprocessingDocument.Open(pPath, true);
-                        }
-                    case FormatType.PowerPoint:
-                        {
-                            return PresentationDocument.Open(pPath, true);
-                        }
-                    case FormatType.Excel:
-                        {
-                            return SpreadsheetDocument.Open(pPath, true);
-                        }
+                    case FormatType.Word: return WordprocessingDocument.Open(pPath, true);
+                    case FormatType.PowerPoint: return PresentationDocument.Open(pPath, true);
+                    case FormatType.Excel: return SpreadsheetDocument.Open(pPath, true);
                 }
             }
             catch (OpenXmlPackageException e)
@@ -225,7 +216,6 @@ namespace CastReporting.Reporting.Builder
                     LogHelper.LogWarn(e.Message);
                     LogHelper.LogWarn("Trying to repair the uri to open the template document.");
 
-
                     FileInfo fileInfo = new FileInfo(pPath);
                     string newFileName = fileInfo.FullName + ".fixed" + fileInfo.Extension;
                     FileInfo newFileInfo = new FileInfo(newFileName);
@@ -234,7 +224,7 @@ namespace CastReporting.Reporting.Builder
                         newFileInfo.Delete();
 
                     File.Copy(pPath, newFileName);
-                    
+
                     using (FileStream fs = new FileStream(newFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite))
                     {
                         UriFixer.FixInvalidUri(fs, brokenUri => FixUri(brokenUri));
@@ -272,13 +262,11 @@ namespace CastReporting.Reporting.Builder
         /// </summary>
         public virtual void Dispose()
         {
-            if (Package == null) return;
-            Package.Close();
-            Package.Dispose();
+            Package?.Dispose();
         }
 
         #endregion Inherited
-        
+
         private static Uri FixUri(string brokenUri)
         {
             return new Uri("http://broken-link/");

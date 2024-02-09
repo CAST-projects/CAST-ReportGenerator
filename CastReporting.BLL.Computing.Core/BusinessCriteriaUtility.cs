@@ -14,7 +14,7 @@
  *
  */
 
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using System.Collections.Generic;
 using System.Linq;
 

@@ -30,7 +30,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("RULES_LIST_LARGEST_VARIATION")]
     public class RulesListLargestVariation : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             int rowCount = 0;
             List<string> rowData = new List<string>();

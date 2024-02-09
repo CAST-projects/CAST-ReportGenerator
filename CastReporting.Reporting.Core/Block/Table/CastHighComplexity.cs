@@ -13,8 +13,9 @@
  * limitations under the License.
  *
  */
+using Cast.Util;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -30,7 +31,7 @@ namespace CastReporting.Reporting.Block.Table
         private const string MetricFormat = "N0";
 
 
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             TableDefinition back = new TableDefinition();
             List<string> rowData = new List<string>();
@@ -79,10 +80,10 @@ namespace CastReporting.Reporting.Block.Table
 
             rowData.AddRange(new[]
             { Labels.ComplexityHighAndVeryHigh
-                , selectedHttVal?.ToString(MetricFormat) ?? Constants.No_Value
-                , previousHttVal?.ToString(MetricFormat) ?? Constants.No_Value
-                , variation.HasValue? FormatEvolution(variation.Value): Constants.No_Value
-                , selectedHttVal.HasValue && selectedTotal.HasValue && selectedTotal.Value>0? FormatPercent(selectedHttVal.Value / selectedTotal.Value, false): Constants.No_Value
+                , selectedHttVal?.ToString(MetricFormat) ?? FormatHelper.No_Value
+                , previousHttVal?.ToString(MetricFormat) ?? FormatHelper.No_Value
+                , variation.HasValue? FormatEvolution(variation.Value): FormatHelper.No_Value
+                , selectedHttVal.HasValue && selectedTotal.HasValue && selectedTotal.Value>0? FormatPercent(selectedHttVal.Value / selectedTotal.Value, false): FormatHelper.No_Value
             });
             #endregion Data
 

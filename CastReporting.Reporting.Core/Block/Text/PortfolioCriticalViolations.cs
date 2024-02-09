@@ -13,9 +13,10 @@
  * limitations under the License.
  *
  */
+using Cast.Util;
 using Cast.Util.Log;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -31,13 +32,13 @@ namespace CastReporting.Reporting.Block.Text
     public class PortfolioCriticalViolations : TextBlock
     {
         #region METHODS
-        public override string Content(ReportData reportData, Dictionary<string, string> options)
+        public override string Content(ImagingData reportData, Dictionary<string, string> options)
         {
             #region Item BCID
             int metricId = options.GetIntOption("BCID", (int)Constants.BusinessCriteria.TechnicalQualityIndex);
             #endregion Item BCID
 
-            if (reportData?.Applications == null || null == reportData.Snapshots) return Constants.No_Value;
+            if (reportData?.Applications == null || null == reportData.Snapshots) return FormatHelper.No_Value;
             double? _cv = 0;
 
             Application[] _allApps = reportData.Applications;

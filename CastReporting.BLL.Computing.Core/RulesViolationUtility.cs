@@ -1,5 +1,5 @@
-﻿using CastReporting.Domain;
-using CastReporting.Domain.Interfaces;
+﻿using CastReporting.Domain.Imaging;
+using CastReporting.Domain.Imaging.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 

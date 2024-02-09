@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -29,7 +29,7 @@ namespace CastReporting.Reporting.Block.Table
 
         #region METHODS
 
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             List<string> rowData = new List<string>();
             rowData.AddRange(new[] { Labels.Name, Labels.Id });

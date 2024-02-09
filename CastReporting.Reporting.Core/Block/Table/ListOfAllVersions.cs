@@ -1,4 +1,4 @@
-﻿using CastReporting.Domain;
+﻿using Cast.Util;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -11,7 +11,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("LIST_OF_ALL_VERSIONS")]
     public class ListOfAllVersions : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             int rowCount = 0;
             if (options == null || !options.ContainsKey("COUNT") || !int.TryParse(options["COUNT"], out int nbLimitTop))
@@ -42,7 +42,7 @@ namespace CastReporting.Reporting.Block.Table
             {
                 if (nbLimitTop > 0 && rowCount >= nbLimitTop) continue;
                 rowData.Add(snap.Annotation.Version);
-                rowData.Add(snap.Annotation.Date.DateSnapShot?.ToString(dateFormat) ?? Constants.No_Value);
+                rowData.Add(snap.Annotation.Date.DateSnapShot?.ToString(dateFormat) ?? FormatHelper.No_Value);
                 rowCount++;
             }
 

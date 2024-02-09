@@ -1,5 +1,6 @@
-﻿using CastReporting.BLL.Computing;
-using CastReporting.Domain;
+﻿using Cast.Util;
+using CastReporting.BLL.Computing;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -13,7 +14,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("QUALITY_RULE_VIOLATIONS")]
     public class QualityRuleViolations : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             List<string> rowData = new List<string>();
 
@@ -56,7 +57,7 @@ namespace CastReporting.Reporting.Block.Table
 
             if (previous && !hasPreviousSnapshot)
             {
-                rowData.Add(Constants.No_Data);
+                rowData.Add(FormatHelper.No_Data);
             }
             else
             {

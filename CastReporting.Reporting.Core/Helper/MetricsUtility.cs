@@ -1,7 +1,9 @@
-﻿using Cast.Util.Log;
+﻿
+using Cast.Util;
+using Cast.Util.Log;
 using CastReporting.BLL.Computing;
 using CastReporting.BLL.Computing.DTO;
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Core.Languages;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.CodeAnalysis;
@@ -12,7 +14,7 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Reflection;
-using Module = CastReporting.Domain.Module;
+using Module = CastReporting.Domain.Imaging.Module;
 
 namespace CastReporting.Reporting.Helper
 {
@@ -31,7 +33,7 @@ namespace CastReporting.Reporting.Helper
         /// <param name="snapshot"></param>
         /// <param name="metricId"></param>
         /// <returns></returns>
-        public static string GetMetricName(ReportData reportData, Snapshot snapshot, string metricId)
+        public static string GetMetricName(ImagingData reportData, Snapshot snapshot, string metricId)
         {
             string name = ((snapshot.BusinessCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault() ??
                             snapshot.TechnicalCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault()) ??
@@ -43,8 +45,8 @@ namespace CastReporting.Reporting.Helper
             }
             if (name != null) return name;
             var bfResult = reportData.SnapshotExplorer.GetBackgroundFacts(snapshot.Href, metricId, true, true).FirstOrDefault();
-            if (bfResult == null || !bfResult.ApplicationResults.Any()) return Constants.No_Value;
-            name = bfResult.ApplicationResults[0].Reference.Name ?? Constants.No_Value;
+            if (bfResult == null || !bfResult.ApplicationResults.Any()) return FormatHelper.No_Value;
+            name = bfResult.ApplicationResults[0].Reference.Name ?? FormatHelper.No_Value;
             return name;
         }
 
@@ -59,7 +61,7 @@ namespace CastReporting.Reporting.Helper
         /// <param name="technology"></param>
         /// <param name="format"></param> should be false for graph component
         /// <returns></returns>
-        public static SimpleResult GetMetricNameAndResult(ReportData reportData, Snapshot snapshot, string metricId, Module module, string technology, bool format)
+        public static SimpleResult GetMetricNameAndResult(ImagingData reportData, Snapshot snapshot, string metricId, Module module, string technology, bool format)
         {
             MetricType type = MetricType.NotKnown;
             Result bfResult = null;
@@ -132,7 +134,7 @@ namespace CastReporting.Reporting.Helper
                                 .FirstOrDefault(_ => _.Module.Id == module.Id && _.TechnologyResults != null)?.TechnologyResults
                                 .FirstOrDefault(_ => _.Technology == technology && _.DetailResult != null)?.DetailResult.Grade;
                         }
-                        resStr = result?.ToString("N2") ?? (format ? Constants.No_Value : "0");
+                        resStr = result?.ToString("N2") ?? (format ? FormatHelper.No_Value : "0");
                         break;
                     case MetricType.TechnicalCriteria:
                         if (module == null && string.IsNullOrEmpty(technology))
@@ -159,7 +161,7 @@ namespace CastReporting.Reporting.Helper
                                 .FirstOrDefault(_ => _.Module.Id == module.Id && _.TechnologyResults != null)?.TechnologyResults
                                 .FirstOrDefault(_ => _.Technology == technology && _.DetailResult != null)?.DetailResult.Grade;
                         }
-                        resStr = result?.ToString("N2") ?? (format ? Constants.No_Value : "0");
+                        resStr = result?.ToString("N2") ?? (format ? FormatHelper.No_Value : "0");
                         break;
                     case MetricType.QualityRule:
                         if (module == null && string.IsNullOrEmpty(technology))
@@ -186,7 +188,7 @@ namespace CastReporting.Reporting.Helper
                                 .FirstOrDefault(_ => _.Module.Id == module.Id && _.TechnologyResults != null)?.TechnologyResults
                                 .FirstOrDefault(_ => _.Technology == technology && _.DetailResult != null)?.DetailResult.Grade;
                         }
-                        resStr = result?.ToString("N2") ?? (format ? Constants.No_Value : "0");
+                        resStr = result?.ToString("N2") ?? (format ? FormatHelper.No_Value : "0");
 
                         break;
                     case MetricType.SizingMeasure:
@@ -214,7 +216,7 @@ namespace CastReporting.Reporting.Helper
                                 .FirstOrDefault(_ => _.Module.Id == module.Id && _.TechnologyResults != null)?.TechnologyResults
                                 .FirstOrDefault(_ => _.Technology == technology && _.DetailResult != null)?.DetailResult.Value;
                         }
-                        resStr = format ? result?.ToString("N0") ?? Constants.No_Value : result?.ToString() ?? "0";
+                        resStr = format ? result?.ToString("N0") ?? FormatHelper.No_Value : result?.ToString() ?? "0";
                         break;
                     case MetricType.Category:
                         if (module == null && string.IsNullOrEmpty(technology))
@@ -233,7 +235,7 @@ namespace CastReporting.Reporting.Helper
                         {
                             result = CastComplexityUtility.GetModuleTechnoCategoryValue(snapshot, int.Parse(metricId), module, technology);
                         }
-                        resStr = format ? result?.ToString("N0") ?? Constants.No_Value : result?.ToString() ?? "0";
+                        resStr = format ? result?.ToString("N0") ?? FormatHelper.No_Value : result?.ToString() ?? "0";
                         break;
                     case MetricType.BackgroundFact:
                         if (module == null && string.IsNullOrEmpty(technology))
@@ -256,7 +258,7 @@ namespace CastReporting.Reporting.Helper
                                 .TechnologyResults.FirstOrDefault(_ => _.Technology == technology)?
                                 .DetailResult.Value;
                         }
-                        resStr = format ? result?.ToString("N0") ?? Constants.No_Value : result?.ToString() ?? "0";
+                        resStr = format ? result?.ToString("N0") ?? FormatHelper.No_Value : result?.ToString() ?? "0";
                         break;
                     case MetricType.NotKnown:
                         break;
@@ -270,7 +272,8 @@ namespace CastReporting.Reporting.Helper
                 }
                 SimpleResult res = new SimpleResult { name = name, type = type, result = result, resultStr = resStr };
                 return res;
-            } catch (NullReferenceException e)
+            }
+            catch (NullReferenceException e)
             {
                 // for linux
                 if (snapshot != null && metricId != null)
@@ -295,7 +298,7 @@ namespace CastReporting.Reporting.Helper
         /// <param name="technology"></param>
         /// <param name="format"></param> format is true for table component and false for graph component
         /// <returns></returns>
-        public static EvolutionResult GetMetricEvolution(ReportData reportData, Snapshot curSnapshot, Snapshot prevSnapshot, string metricId, bool evol, Module module, string technology, bool format)
+        public static EvolutionResult GetMetricEvolution(ImagingData reportData, Snapshot curSnapshot, Snapshot prevSnapshot, string metricId, bool evol, Module module, string technology, bool format)
         {
             SimpleResult curResult = null;
             SimpleResult prevResult = null;
@@ -304,25 +307,25 @@ namespace CastReporting.Reporting.Helper
             if (prevSnapshot != null) prevResult = GetMetricNameAndResult(reportData, prevSnapshot, metricId, module, technology, format);
             if (!evol && (curResult?.result != null || prevResult?.result != null))
             {
-                string name = curResult?.name ?? prevResult?.name ?? Constants.No_Value;
+                string name = curResult?.name ?? prevResult?.name ?? FormatHelper.No_Value;
                 MetricType type = curResult?.type ?? prevResult.type;
-                string curRes = format ? Constants.No_Value : "0";
-                string prevRes = format ? Constants.No_Value : "0";
+                string curRes = format ? FormatHelper.No_Value : "0";
+                string prevRes = format ? FormatHelper.No_Value : "0";
                 switch (type)
                 {
                     case MetricType.BusinessCriteria:
                     case MetricType.TechnicalCriteria:
                     case MetricType.QualityRule:
-                        curRes = curResult?.result?.ToString("N2") ?? (format ? Constants.No_Value : "0");
-                        prevRes = prevResult?.result?.ToString("N2") ?? (format ? Constants.No_Value : "0");
+                        curRes = curResult?.result?.ToString("N2") ?? (format ? FormatHelper.No_Value : "0");
+                        prevRes = prevResult?.result?.ToString("N2") ?? (format ? FormatHelper.No_Value : "0");
                         break;
                     case MetricType.SizingMeasure:
                     case MetricType.Category:
                     case MetricType.BackgroundFact:
                         if (format)
                         {
-                            curRes = curResult?.result?.ToString("N0") ?? Constants.No_Value;
-                            prevRes = prevResult?.result?.ToString("N0") ?? Constants.No_Value;
+                            curRes = curResult?.result?.ToString("N0") ?? FormatHelper.No_Value;
+                            prevRes = prevResult?.result?.ToString("N0") ?? FormatHelper.No_Value;
                         }
                         else
                         {
@@ -342,32 +345,32 @@ namespace CastReporting.Reporting.Helper
                     type = type,
                     curResult = curRes,
                     prevResult = prevRes,
-                    evolution = format ? Constants.No_Value : "0",
-                    evolutionPercent = format ? Constants.No_Value : "0"
+                    evolution = format ? FormatHelper.No_Value : "0",
+                    evolutionPercent = format ? FormatHelper.No_Value : "0"
                 };
             }
 
             if (curResult?.result == null || prevResult?.result == null)
             {
-                string name = curResult?.name ?? prevResult?.name ?? Constants.No_Value;
+                string name = curResult?.name ?? prevResult?.name ?? FormatHelper.No_Value;
                 MetricType type = curResult?.type ?? prevResult?.type ?? MetricType.NotKnown;
-                string curRes = format ? Constants.No_Value : "0";
-                string prevRes = format ? Constants.No_Value : "0";
+                string curRes = format ? FormatHelper.No_Value : "0";
+                string prevRes = format ? FormatHelper.No_Value : "0";
                 switch (type)
                 {
                     case MetricType.BusinessCriteria:
                     case MetricType.TechnicalCriteria:
                     case MetricType.QualityRule:
-                        curRes = curResult?.result?.ToString("N2") ?? (format ? Constants.No_Value : "0");
-                        prevRes = prevResult?.result?.ToString("N2") ?? (format ? Constants.No_Value : "0");
+                        curRes = curResult?.result?.ToString("N2") ?? (format ? FormatHelper.No_Value : "0");
+                        prevRes = prevResult?.result?.ToString("N2") ?? (format ? FormatHelper.No_Value : "0");
                         break;
                     case MetricType.SizingMeasure:
                     case MetricType.Category:
                     case MetricType.BackgroundFact:
                         if (format)
                         {
-                            curRes = curResult?.result?.ToString("N0") ?? Constants.No_Value;
-                            prevRes = prevResult?.result?.ToString("N0") ?? Constants.No_Value;
+                            curRes = curResult?.result?.ToString("N0") ?? FormatHelper.No_Value;
+                            prevRes = prevResult?.result?.ToString("N0") ?? FormatHelper.No_Value;
                         }
                         else
                         {
@@ -387,8 +390,8 @@ namespace CastReporting.Reporting.Helper
                     type = type,
                     curResult = curRes,
                     prevResult = prevRes,
-                    evolution = format ? Constants.No_Value : "0",
-                    evolutionPercent = format ? Constants.No_Value : "0"
+                    evolution = format ? FormatHelper.No_Value : "0",
+                    evolutionPercent = format ? FormatHelper.No_Value : "0"
                 };
 
             }
@@ -409,14 +412,14 @@ namespace CastReporting.Reporting.Helper
                         finalPrevRes = prevResult.result.Value.ToString("N2");
                         evolution = (curResult.result - prevResult.result).Value.ToString("N2");
                         evp = Math.Abs((double)prevResult.result) > 0.0 ? (curResult.result - prevResult.result) / prevResult.result : null;
-                        evolPercent = evp != null ? evp.FormatPercent() : format ? Constants.No_Value : "0";
+                        evolPercent = evp != null ? evp.FormatPercent() : format ? FormatHelper.No_Value : "0";
                     }
                     else
                     {
-                        finalCurRes = format ? Constants.No_Value : "0";
-                        finalPrevRes = format ? Constants.No_Value : "0";
-                        evolution = format ? Constants.No_Value : "0";
-                        evolPercent = format ? Constants.No_Value : "0";
+                        finalCurRes = format ? FormatHelper.No_Value : "0";
+                        finalPrevRes = format ? FormatHelper.No_Value : "0";
+                        evolution = format ? FormatHelper.No_Value : "0";
+                        evolPercent = format ? FormatHelper.No_Value : "0";
                     }
                     break;
                 case MetricType.SizingMeasure:
@@ -437,21 +440,21 @@ namespace CastReporting.Reporting.Helper
                             evolution = (curResult.result - prevResult.result).ToString();
                         }
                         evp = Math.Abs((double)prevResult.result) > 0.0 ? (curResult.result - prevResult.result) / prevResult.result : null;
-                        evolPercent = evp != null ? evp.FormatPercent() : format ? Constants.No_Value : "0";
+                        evolPercent = evp != null ? evp.FormatPercent() : format ? FormatHelper.No_Value : "0";
                     }
                     else
                     {
-                        finalCurRes = format ? Constants.No_Value : "0";
-                        finalPrevRes = format ? Constants.No_Value : "0";
-                        evolution = format ? Constants.No_Value : "0";
-                        evolPercent = format ? Constants.No_Value : "0";
+                        finalCurRes = format ? FormatHelper.No_Value : "0";
+                        finalPrevRes = format ? FormatHelper.No_Value : "0";
+                        evolution = format ? FormatHelper.No_Value : "0";
+                        evolPercent = format ? FormatHelper.No_Value : "0";
                     }
                     break;
                 case MetricType.NotKnown:
-                    finalCurRes = format ? Constants.No_Value : "0";
-                    finalPrevRes = format ? Constants.No_Value : "0";
-                    evolution = format ? Constants.No_Value : "0";
-                    evolPercent = format ? Constants.No_Value : "0";
+                    finalCurRes = format ? FormatHelper.No_Value : "0";
+                    finalPrevRes = format ? FormatHelper.No_Value : "0";
+                    evolution = format ? FormatHelper.No_Value : "0";
+                    evolPercent = format ? FormatHelper.No_Value : "0";
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -468,7 +471,7 @@ namespace CastReporting.Reporting.Helper
             };
         }
 
-        public static SimpleResult GetAggregatedMetric(ReportData reportData, Dictionary<Application, Snapshot> lastSnapshotList, string metricId, string techno, string aggregator, bool format)
+        public static SimpleResult GetAggregatedMetric(ImagingData reportData, Dictionary<Application, Snapshot> lastSnapshotList, string metricId, string techno, string aggregator, bool format)
         {
 
             List<SimpleResult> results = new List<SimpleResult>();
@@ -544,15 +547,15 @@ namespace CastReporting.Reporting.Helper
                 case MetricType.BusinessCriteria:
                 case MetricType.TechnicalCriteria:
                 case MetricType.QualityRule:
-                    res = curResult?.ToString("N2") ?? (format ? Constants.No_Value : "0");
+                    res = curResult?.ToString("N2") ?? (format ? FormatHelper.No_Value : "0");
                     break;
                 case MetricType.SizingMeasure:
                 case MetricType.Category:
                 case MetricType.BackgroundFact:
-                    res = format ? curResult?.ToString("N0") ?? Constants.No_Value : curResult?.ToString() ?? "0";
+                    res = format ? curResult?.ToString("N0") ?? FormatHelper.No_Value : curResult?.ToString() ?? "0";
                     break;
                 case MetricType.NotKnown:
-                    res = curResult?.ToString() ?? (format ? Constants.No_Value : "0");
+                    res = curResult?.ToString() ?? (format ? FormatHelper.No_Value : "0");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -567,12 +570,12 @@ namespace CastReporting.Reporting.Helper
             };
         }
 
-        public static List<string> BuildRulesList(ReportData reportData, List<string> metrics, bool critical)
+        public static List<string> BuildRulesList(ImagingData reportData, List<string> metrics, bool critical)
         {
             return BuildRulesList(reportData, metrics, critical, false);
         }
 
-        public static List<string> BuildRulesList(ReportData reportData, List<string> metrics, bool critical, bool omg)
+        public static List<string> BuildRulesList(ImagingData reportData, List<string> metrics, bool critical, bool omg)
         {
             List<string> qualityRules = new List<string>();
 
@@ -592,7 +595,7 @@ namespace CastReporting.Reporting.Helper
                             qualityRules.AddRange(rules.Where(_ =>
                             reportData.CurrentSnapshot.QualityRulesResults.Where(qr => qr.Reference.Key == _.Key && qr.DetailResult.OmgTechnicalDebt != null) != null)
                                 .Select(_ => _.Key.ToString()).ToList());
-                        } 
+                        }
                         else
                         {
                             qualityRules.AddRange(critical ? rules.Where(_ => _.Critical).Select(_ => _.Key.ToString()).ToList() : rules.Select(_ => _.Key.ToString()).ToList());
@@ -686,7 +689,7 @@ namespace CastReporting.Reporting.Helper
             }
         }
 
-        public static int PopulateViolationsBookmarks(ReportData reportData, ViolationsBookmarksProperties violationsBookmarksProperties, int cellidx, List<CellAttributes> cellProps, bool withCodeLines)
+        public static int PopulateViolationsBookmarks(ImagingData reportData, ViolationsBookmarksProperties violationsBookmarksProperties, int cellidx, List<CellAttributes> cellProps, bool withCodeLines)
         {
             Violation[] violations = violationsBookmarksProperties.Violations;
             int violationCounter = violationsBookmarksProperties.ViolationCounter;
@@ -705,7 +708,8 @@ namespace CastReporting.Reporting.Helper
                 {
                     string[] fragments = _violation.RulePattern.Href.Split('/');
                     key = fragments[fragments.Length - 1];
-                } else
+                }
+                else
                 {
                     key = metric;
                 }
@@ -723,7 +727,8 @@ namespace CastReporting.Reporting.Helper
                 if (objectComponent != null)
                 {
                     rowData.Add($"{Labels.IFPUG_ObjectType}: {objectComponent.Type.Label}");
-                } else
+                }
+                else
                 {
                     rowData.Add("");
                 }
@@ -731,7 +736,7 @@ namespace CastReporting.Reporting.Helper
                 cellidx++;
 
                 if (hasPreviousSnapshot)
-                { 
+                {
                     // if ruleName is empty, this is a violation in action plan
                     string status = !string.IsNullOrEmpty(ruleName) ? _violation.Diagnosis.Status : _violation.RemedialAction.Status;
                     rowData.Add($"{Labels.Status}: {status}");
@@ -890,7 +895,7 @@ namespace CastReporting.Reporting.Helper
             return cellidx;
         }
 
-        private static int AddSourceCode(ReportData reportData, List<string> rowData, int cellidx, List<CellAttributes> cellProps, string domainId, string snapshotId, Violation violation, bool withCodeLines)
+        private static int AddSourceCode(ImagingData reportData, List<string> rowData, int cellidx, List<CellAttributes> cellProps, string domainId, string snapshotId, Violation violation, bool withCodeLines)
         {
             List<Tuple<string, Dictionary<int, string>>> codes = reportData.SnapshotExplorer.GetSourceCode(domainId, snapshotId, violation.Component.GetComponentId(), 6, withCodeLines);
             if (codes == null) return cellidx;
@@ -961,7 +966,7 @@ namespace CastReporting.Reporting.Helper
             public dynamic _ { get; set; }
         }
 
-        private static ScriptState<object> ExecuteScript(ReportData reportData, Dictionary<string, string> options, string[] lstParams, Snapshot snapshot, string expr, Module module, string technology)
+        private static ScriptState<object> ExecuteScript(ImagingData reportData, Dictionary<string, string> options, string[] lstParams, Snapshot snapshot, string expr, Module module, string technology)
         {
             dynamic expando = new ExpandoObject();
             var dictionary = (IDictionary<string, object>)expando;
@@ -997,7 +1002,7 @@ namespace CastReporting.Reporting.Helper
             return script.RunAsync(g).Result;
         }
 
-        public static string CustomExpressionEvaluation(ReportData reportData, Dictionary<string, string> options, string[] lstParams, Snapshot snapshot, string expr, string metricFormat, Module module, string technology, bool portfolio = false)
+        public static string CustomExpressionEvaluation(ImagingData reportData, Dictionary<string, string> options, string[] lstParams, Snapshot snapshot, string expr, string metricFormat, Module module, string technology, bool portfolio = false)
         {
             try
             {
@@ -1017,7 +1022,7 @@ namespace CastReporting.Reporting.Helper
             }
         }
 
-        public static double? CustomExpressionDoubleEvaluation(ReportData reportData, Dictionary<string, string> options, string[] lstParams, Snapshot snapshot, string expr, Module module, string technology)
+        public static double? CustomExpressionDoubleEvaluation(ImagingData reportData, Dictionary<string, string> options, string[] lstParams, Snapshot snapshot, string expr, Module module, string technology)
         {
             try
             {
@@ -1031,7 +1036,7 @@ namespace CastReporting.Reporting.Helper
             }
         }
 
-        public static string CustomExpressionEvaluationAggregated(ReportData reportData, Dictionary<string, string> options, string[] lstParams, List<Snapshot> snapshots, string expr, string metricFormat, Module module, string technology, string aggregator)
+        public static string CustomExpressionEvaluationAggregated(ImagingData reportData, Dictionary<string, string> options, string[] lstParams, List<Snapshot> snapshots, string expr, string metricFormat, Module module, string technology, string aggregator)
         {
             List<double?> results = snapshots.Select(snapshot => CustomExpressionDoubleEvaluation(reportData, options, lstParams, snapshot, expr, module, technology)).ToList();
             double? res = AggregateValues(aggregator, results);
@@ -1067,7 +1072,7 @@ namespace CastReporting.Reporting.Helper
             return res;
         }
 
-        public static List<string> PopulateViolationsBookmarksRow(ReportData reportData, List<Violation> results, HeaderDefinition headers, string ruleId)
+        public static List<string> PopulateViolationsBookmarksRow(ImagingData reportData, List<Violation> results, HeaderDefinition headers, string ruleId)
         {
             List<string> rowData = new List<string>();
             string metric = ruleId;
@@ -1106,7 +1111,7 @@ namespace CastReporting.Reporting.Helper
                     if (ruleId == "actionPlan")
                     {
                         _row.Set(Labels.Priority, _violation.RemedialAction.Tag);
-                    } 
+                    }
                     else if (ruleId == ("actionPlanPriority"))
                     {
                         _row.Set(Labels.Priority, _violation.RemedialAction.Priority);

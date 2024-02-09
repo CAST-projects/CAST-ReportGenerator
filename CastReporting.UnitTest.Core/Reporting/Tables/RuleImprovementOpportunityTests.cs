@@ -1,4 +1,4 @@
-﻿using CastReporting.Domain;
+﻿using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
@@ -25,7 +25,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484866800000 };
-            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                 null, @".\Data\CurrentBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, @".\Data\PreviousBCTC.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1", previousDate);
             reportData = TestUtility.AddCriticalRuleViolations(reportData, 60011, @".\Data\cc60011.json", @".\Data\cc60011previous.json");
@@ -60,7 +60,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484866800000 };
-            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                 null, @".\Data\CurrentBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, @".\Data\PreviousBCTC.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1", previousDate);
             reportData = TestUtility.AddCriticalRuleViolations(reportData, 60011, @".\Data\cc60011.json", @".\Data\cc60011previous.json");
@@ -94,7 +94,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484866800000 };
-            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                 null, @".\Data\CurrentBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, @".\Data\PreviousBCTC.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1", previousDate);
             reportData = TestUtility.AddCriticalRuleViolations(reportData, 60011, @".\Data\cc60011.json", @".\Data\cc60011previous.json");

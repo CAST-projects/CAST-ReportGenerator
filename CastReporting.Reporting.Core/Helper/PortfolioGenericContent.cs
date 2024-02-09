@@ -1,8 +1,9 @@
-﻿using Cast.Util.Date;
+﻿using Cast.Util;
+using Cast.Util.Date;
 using Cast.Util.Log;
 using CastReporting.BLL.Computing;
 using CastReporting.BLL.Computing.DTO;
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Core.Languages;
 using CastReporting.Reporting.ReportingModel;
 using System;
@@ -46,7 +47,7 @@ namespace CastReporting.Reporting.Helper
             }
         }
 
-        public static string GetItemName(string type, string item, ReportData reportData)
+        public static string GetItemName(string type, string item, ImagingData reportData)
         {
             switch (type)
             {
@@ -55,9 +56,9 @@ namespace CastReporting.Reporting.Helper
                     foreach (Application app in reportData.Applications)
                     {
                         name = MetricsUtility.GetMetricName(reportData, app.Snapshots.FirstOrDefault(), item);
-                        if (name != Constants.No_Value) break;
+                        if (name != FormatHelper.No_Value) break;
                     }
-                    return name ?? Constants.No_Value;
+                    return name ?? FormatHelper.No_Value;
                 case "APPLICATIONS":
                 case "TECHNOLOGIES":
                 case "CUSTOM_EXPRESSIONS":
@@ -106,7 +107,7 @@ namespace CastReporting.Reporting.Helper
         /*
          * the bool format parameter is true for table component, and false for graph component
          */
-        public static TableDefinition Content(ReportData reportData, Dictionary<string, string> options, bool format)
+        public static TableDefinition Content(ImagingData reportData, Dictionary<string, string> options, bool format)
         {
             var rowData = new List<string>();
             ObjConfig[] _posConfig = new ObjConfig[4];
@@ -305,7 +306,7 @@ namespace CastReporting.Reporting.Helper
                         // Need to define methods to get the aggregation of metrics for the different kind of metrics => to do when building the metric lists
                         string _aggregator = metricsAggregated[_metricId];
                         SimpleResult res = MetricsUtility.GetAggregatedMetric(reportData, lastApplicationSnapshots, _metricId, string.Empty, _aggregator, format);
-                        if (res.name == Constants.No_Value) continue;
+                        if (res.name == FormatHelper.No_Value) continue;
                         if (positionMetrics != -1) _posResults[positionMetrics] = res.name;
                         try
                         {
@@ -349,7 +350,7 @@ namespace CastReporting.Reporting.Helper
                         foreach (Application app in lastApplicationSnapshots.Keys)
                         {
                             name = MetricsUtility.GetMetricName(reportData, lastApplicationSnapshots[app], _metricId);
-                            if (name != Constants.No_Value) break;
+                            if (name != FormatHelper.No_Value) break;
                         }
                         if (positionMetrics != -1) _posResults[positionMetrics] = name;
 
@@ -361,15 +362,15 @@ namespace CastReporting.Reporting.Helper
                             {
                                 case "TOTAL":
                                     _posResults[positionOmgTechDebt] = TechnicalDebtLabel;
-                                    value = format ? stat?.Total?.ToString("N1") ?? Constants.No_Value : stat?.Total?.ToString() ?? "0";
+                                    value = format ? stat?.Total?.ToString("N1") ?? FormatHelper.No_Value : stat?.Total?.ToString() ?? "0";
                                     break;
                                 case "ADDED":
                                     _posResults[positionOmgTechDebt] = TechnicalDebtAddedLabel;
-                                    value = format ? stat?.Added?.ToString("N1") ?? Constants.No_Value : stat?.Added?.ToString() ?? "0";
+                                    value = format ? stat?.Added?.ToString("N1") ?? FormatHelper.No_Value : stat?.Added?.ToString() ?? "0";
                                     break;
                                 case "REMOVED":
                                     _posResults[positionOmgTechDebt] = TechnicalDebtRemovedLabel;
-                                    value = format ? stat?.Removed?.ToString("N1") ?? Constants.No_Value : stat?.Removed?.ToString() ?? "0";
+                                    value = format ? stat?.Removed?.ToString("N1") ?? FormatHelper.No_Value : stat?.Removed?.ToString() ?? "0";
                                     break;
                                 default:
                                     throw new ArgumentOutOfRangeException();
@@ -398,7 +399,7 @@ namespace CastReporting.Reporting.Helper
                         foreach (Application app in lastApplicationSnapshots.Keys)
                         {
                             name = MetricsUtility.GetMetricName(reportData, lastApplicationSnapshots[app], _metricId);
-                            if (name != Constants.No_Value) break;
+                            if (name != FormatHelper.No_Value) break;
                         }
                         if (positionMetrics != -1) _posResults[positionMetrics] = name;
 
@@ -410,15 +411,15 @@ namespace CastReporting.Reporting.Helper
                             {
                                 case "TOTAL":
                                     _posResults[positionViolations] = Labels.TotalViolations;
-                                    value = format ? stat?.TotalViolations?.ToString("N0") ?? Constants.No_Value : stat?.TotalViolations?.ToString() ?? Constants.No_Value;
+                                    value = format ? stat?.TotalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.TotalViolations?.ToString() ?? FormatHelper.No_Value;
                                     break;
                                 case "ADDED":
                                     _posResults[positionViolations] = Labels.AddedViolations;
-                                    value = format ? stat?.AddedViolations?.ToString("N0") ?? Constants.No_Value : stat?.AddedViolations?.ToString() ?? Constants.No_Value;
+                                    value = format ? stat?.AddedViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.AddedViolations?.ToString() ?? FormatHelper.No_Value;
                                     break;
                                 case "REMOVED":
                                     _posResults[positionViolations] = Labels.RemovedViolations;
-                                    value = format ? stat?.RemovedViolations?.ToString("N0") ?? Constants.No_Value : stat?.RemovedViolations?.ToString() ?? Constants.No_Value;
+                                    value = format ? stat?.RemovedViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.RemovedViolations?.ToString() ?? FormatHelper.No_Value;
                                     break;
                                 default:
                                     throw new ArgumentOutOfRangeException();
@@ -447,7 +448,7 @@ namespace CastReporting.Reporting.Helper
                         foreach (Application app in lastApplicationSnapshots.Keys)
                         {
                             name = MetricsUtility.GetMetricName(reportData, lastApplicationSnapshots[app], _metricId);
-                            if (name != Constants.No_Value) break;
+                            if (name != FormatHelper.No_Value) break;
                         }
                         if (positionMetrics != -1) _posResults[positionMetrics] = name;
 
@@ -459,15 +460,15 @@ namespace CastReporting.Reporting.Helper
                             {
                                 case "TOTAL":
                                     _posResults[positionCriticalViolations] = Labels.TotalCriticalViolations;
-                                    value = format ? stat?.TotalCriticalViolations?.ToString("N0") ?? Constants.No_Value : stat?.TotalCriticalViolations?.ToString() ?? Constants.No_Value;
+                                    value = format ? stat?.TotalCriticalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.TotalCriticalViolations?.ToString() ?? FormatHelper.No_Value;
                                     break;
                                 case "ADDED":
                                     _posResults[positionCriticalViolations] = Labels.AddedCriticalViolations;
-                                    value = format ? stat?.AddedCriticalViolations?.ToString("N0") ?? Constants.No_Value : stat?.AddedCriticalViolations?.ToString() ?? Constants.No_Value;
+                                    value = format ? stat?.AddedCriticalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.AddedCriticalViolations?.ToString() ?? FormatHelper.No_Value;
                                     break;
                                 case "REMOVED":
                                     _posResults[positionCriticalViolations] = Labels.RemovedCriticalViolations;
-                                    value = format ? stat?.RemovedCriticalViolations?.ToString("N0") ?? Constants.No_Value : stat?.RemovedCriticalViolations?.ToString() ?? Constants.No_Value;
+                                    value = format ? stat?.RemovedCriticalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.RemovedCriticalViolations?.ToString() ?? FormatHelper.No_Value;
                                     break;
                                 default:
                                     throw new ArgumentOutOfRangeException();
@@ -511,7 +512,7 @@ namespace CastReporting.Reporting.Helper
                             _posResults[positionApplications] = application.Name;
                             SimpleResult res = MetricsUtility.GetMetricNameAndResult(reportData, lastApplicationSnapshots[application], _metricId, null, string.Empty, format);
                             if (res == null) continue;
-                            if (res.name == Constants.No_Value) continue;
+                            if (res.name == FormatHelper.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = res.name;
                             try
                             {
@@ -559,7 +560,7 @@ namespace CastReporting.Reporting.Helper
                         foreach (Application _application in applications)
                         {
                             name = MetricsUtility.GetMetricName(reportData, lastApplicationSnapshots[_application], _metricId);
-                            if (string.IsNullOrEmpty(name) || name == Constants.No_Value) continue;
+                            if (string.IsNullOrEmpty(name) || name == FormatHelper.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
                             _posResults[positionApplications] = _application.Name;
                             OmgTechnicalDebtIdDTO stat = OmgTechnicalDebtUtility.GetOmgTechDebt(lastApplicationSnapshots[_application], int.Parse(_metricId));
@@ -570,15 +571,15 @@ namespace CastReporting.Reporting.Helper
                                 {
                                     case "TOTAL":
                                         _posResults[positionOmgTechDebt] = TechnicalDebtLabel;
-                                        value = format ? stat?.Total?.ToString("N1") ?? Constants.No_Value : stat?.Total?.ToString() ?? "0";
+                                        value = format ? stat?.Total?.ToString("N1") ?? FormatHelper.No_Value : stat?.Total?.ToString() ?? "0";
                                         break;
                                     case "ADDED":
                                         _posResults[positionOmgTechDebt] = TechnicalDebtAddedLabel;
-                                        value = format ? stat?.Added?.ToString("N1") ?? Constants.No_Value : stat?.Added?.ToString() ?? "0";
+                                        value = format ? stat?.Added?.ToString("N1") ?? FormatHelper.No_Value : stat?.Added?.ToString() ?? "0";
                                         break;
                                     case "REMOVED":
                                         _posResults[positionOmgTechDebt] = TechnicalDebtRemovedLabel;
-                                        value = format ? stat?.Removed?.ToString("N1") ?? Constants.No_Value : stat?.Removed?.ToString() ?? "0";
+                                        value = format ? stat?.Removed?.ToString("N1") ?? FormatHelper.No_Value : stat?.Removed?.ToString() ?? "0";
                                         break;
                                     default:
                                         throw new ArgumentOutOfRangeException();
@@ -610,7 +611,7 @@ namespace CastReporting.Reporting.Helper
                         foreach (Application _application in applications)
                         {
                             name = MetricsUtility.GetMetricName(reportData, lastApplicationSnapshots[_application], _metricId);
-                            if (string.IsNullOrEmpty(name) || name == Constants.No_Value) continue;
+                            if (string.IsNullOrEmpty(name) || name == FormatHelper.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
                             _posResults[positionApplications] = _application.Name;
                             ViolStatMetricIdDTO stat = RulesViolationUtility.GetViolStat(lastApplicationSnapshots[_application], int.Parse(_metricId));
@@ -621,15 +622,15 @@ namespace CastReporting.Reporting.Helper
                                 {
                                     case "TOTAL":
                                         _posResults[positionViolations] = Labels.TotalViolations;
-                                        value = format ? stat?.TotalViolations?.ToString("N0") ?? Constants.No_Value : stat?.TotalViolations?.ToString() ?? Constants.No_Value;
+                                        value = format ? stat?.TotalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.TotalViolations?.ToString() ?? FormatHelper.No_Value;
                                         break;
                                     case "ADDED":
                                         _posResults[positionViolations] = Labels.AddedViolations;
-                                        value = format ? stat?.AddedViolations?.ToString("N0") ?? Constants.No_Value : stat?.AddedViolations?.ToString() ?? Constants.No_Value;
+                                        value = format ? stat?.AddedViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.AddedViolations?.ToString() ?? FormatHelper.No_Value;
                                         break;
                                     case "REMOVED":
                                         _posResults[positionViolations] = Labels.RemovedViolations;
-                                        value = format ? stat?.RemovedViolations?.ToString("N0") ?? Constants.No_Value : stat?.RemovedViolations?.ToString() ?? Constants.No_Value;
+                                        value = format ? stat?.RemovedViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.RemovedViolations?.ToString() ?? FormatHelper.No_Value;
                                         break;
                                     default:
                                         throw new ArgumentOutOfRangeException();
@@ -662,7 +663,7 @@ namespace CastReporting.Reporting.Helper
                         foreach (Application _application in applications)
                         {
                             name = MetricsUtility.GetMetricName(reportData, lastApplicationSnapshots[_application], _metricId);
-                            if (string.IsNullOrEmpty(name) || name == Constants.No_Value) continue;
+                            if (string.IsNullOrEmpty(name) || name == FormatHelper.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
                             _posResults[positionApplications] = _application.Name;
                             ViolStatMetricIdDTO stat = RulesViolationUtility.GetViolStat(lastApplicationSnapshots[_application], int.Parse(_metricId));
@@ -673,15 +674,15 @@ namespace CastReporting.Reporting.Helper
                                 {
                                     case "TOTAL":
                                         _posResults[positionCriticalViolations] = Labels.TotalCriticalViolations;
-                                        value = format ? stat?.TotalCriticalViolations?.ToString("N0") ?? Constants.No_Value : stat?.TotalCriticalViolations?.ToString() ?? Constants.No_Value;
+                                        value = format ? stat?.TotalCriticalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.TotalCriticalViolations?.ToString() ?? FormatHelper.No_Value;
                                         break;
                                     case "ADDED":
                                         _posResults[positionCriticalViolations] = Labels.AddedCriticalViolations;
-                                        value = format ? stat?.AddedCriticalViolations?.ToString("N0") ?? Constants.No_Value : stat?.AddedCriticalViolations?.ToString() ?? Constants.No_Value;
+                                        value = format ? stat?.AddedCriticalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.AddedCriticalViolations?.ToString() ?? FormatHelper.No_Value;
                                         break;
                                     case "REMOVED":
                                         _posResults[positionCriticalViolations] = Labels.RemovedCriticalViolations;
-                                        value = format ? stat?.RemovedCriticalViolations?.ToString("N0") ?? Constants.No_Value : stat?.RemovedCriticalViolations?.ToString() ?? Constants.No_Value;
+                                        value = format ? stat?.RemovedCriticalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.RemovedCriticalViolations?.ToString() ?? FormatHelper.No_Value;
                                         break;
                                     default:
                                         throw new ArgumentOutOfRangeException();
@@ -727,7 +728,7 @@ namespace CastReporting.Reporting.Helper
                             string _aggregator = metricsAggregated[_metricId];
                             SimpleResult res = MetricsUtility.GetAggregatedMetric(reportData, lastApplicationSnapshots, _metricId, techno, _aggregator, format);
                             if (res == null) continue;
-                            if (res.name == Constants.No_Value) continue;
+                            if (res.name == FormatHelper.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = res.name;
                             try
                             {
@@ -786,15 +787,15 @@ namespace CastReporting.Reporting.Helper
                                 {
                                     case "TOTAL":
                                         if (positionOmgTechDebt != -1) _posResults[positionOmgTechDebt] = TechnicalDebtLabel;
-                                        value = format ? stat?.Total?.ToString("N1") ?? Constants.No_Value : stat?.Total?.ToString() ?? "0";
+                                        value = format ? stat?.Total?.ToString("N1") ?? FormatHelper.No_Value : stat?.Total?.ToString() ?? "0";
                                         break;
                                     case "ADDED":
                                         if (positionOmgTechDebt != -1) _posResults[positionOmgTechDebt] = TechnicalDebtAddedLabel;
-                                        value = format ? stat?.Added?.ToString("N1") ?? Constants.No_Value : stat?.Added?.ToString() ?? "0";
+                                        value = format ? stat?.Added?.ToString("N1") ?? FormatHelper.No_Value : stat?.Added?.ToString() ?? "0";
                                         break;
                                     case "REMOVED":
                                         if (positionOmgTechDebt != -1) _posResults[positionOmgTechDebt] = TechnicalDebtRemovedLabel;
-                                        value = format ? stat?.Removed?.ToString("N1") ?? Constants.No_Value : stat?.Removed?.ToString() ?? "0";
+                                        value = format ? stat?.Removed?.ToString("N1") ?? FormatHelper.No_Value : stat?.Removed?.ToString() ?? "0";
                                         break;
                                     default:
                                         throw new ArgumentOutOfRangeException();
@@ -833,15 +834,15 @@ namespace CastReporting.Reporting.Helper
                                 {
                                     case "TOTAL":
                                         if (positionViolations != -1) _posResults[positionViolations] = Labels.TotalViolations;
-                                        value = format ? stat?.TotalViolations?.ToString("N0") ?? Constants.No_Value : stat?.TotalViolations?.ToString() ?? Constants.No_Value;
+                                        value = format ? stat?.TotalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.TotalViolations?.ToString() ?? FormatHelper.No_Value;
                                         break;
                                     case "ADDED":
                                         if (positionViolations != -1) _posResults[positionViolations] = Labels.AddedViolations;
-                                        value = format ? stat?.AddedViolations?.ToString("N0") ?? Constants.No_Value : stat?.AddedViolations?.ToString() ?? Constants.No_Value;
+                                        value = format ? stat?.AddedViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.AddedViolations?.ToString() ?? FormatHelper.No_Value;
                                         break;
                                     case "REMOVED":
                                         if (positionViolations != -1) _posResults[positionViolations] = Labels.RemovedViolations;
-                                        value = format ? stat?.RemovedViolations?.ToString("N0") ?? Constants.No_Value : stat?.RemovedViolations?.ToString() ?? Constants.No_Value;
+                                        value = format ? stat?.RemovedViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.RemovedViolations?.ToString() ?? FormatHelper.No_Value;
                                         break;
                                     default:
                                         throw new ArgumentOutOfRangeException();
@@ -879,15 +880,15 @@ namespace CastReporting.Reporting.Helper
                                 {
                                     case "TOTAL":
                                         if (positionCriticalViolations != -1) _posResults[positionCriticalViolations] = Labels.TotalCriticalViolations;
-                                        value = format ? stat?.TotalCriticalViolations?.ToString("N0") ?? Constants.No_Value : stat?.TotalCriticalViolations?.ToString() ?? Constants.No_Value;
+                                        value = format ? stat?.TotalCriticalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.TotalCriticalViolations?.ToString() ?? FormatHelper.No_Value;
                                         break;
                                     case "ADDED":
                                         if (positionCriticalViolations != -1) _posResults[positionCriticalViolations] = Labels.AddedCriticalViolations;
-                                        value = format ? stat?.AddedCriticalViolations?.ToString("N0") ?? Constants.No_Value : stat?.AddedCriticalViolations?.ToString() ?? Constants.No_Value;
+                                        value = format ? stat?.AddedCriticalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.AddedCriticalViolations?.ToString() ?? FormatHelper.No_Value;
                                         break;
                                     case "REMOVED":
                                         if (positionCriticalViolations != -1) _posResults[positionCriticalViolations] = Labels.RemovedCriticalViolations;
-                                        value = format ? stat?.RemovedCriticalViolations?.ToString("N0") ?? Constants.No_Value : stat?.RemovedCriticalViolations?.ToString() ?? Constants.No_Value;
+                                        value = format ? stat?.RemovedCriticalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.RemovedCriticalViolations?.ToString() ?? FormatHelper.No_Value;
                                         break;
                                     default:
                                         throw new ArgumentOutOfRangeException();
@@ -933,7 +934,7 @@ namespace CastReporting.Reporting.Helper
                                 if (positionTechnologies != -1) _posResults[positionTechnologies] = techno;
                                 SimpleResult res = MetricsUtility.GetMetricNameAndResult(reportData, lastApplicationSnapshots[_app], _metricId, null, techno, format);
                                 if (res == null) continue;
-                                if (res.name == Constants.No_Value) continue;
+                                if (res.name == FormatHelper.No_Value) continue;
                                 if (positionMetrics != -1) _posResults[positionMetrics] = res.name;
                                 try
                                 {
@@ -966,7 +967,7 @@ namespace CastReporting.Reporting.Helper
                             foreach (string techno in technologies)
                             {
                                 _posResults[positionTechnologies] = techno;
-                                string value = format ? 
+                                string value = format ?
                                     MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, lastApplicationSnapshots[_app], expr, _metricFormat, null, techno)
                                     : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, lastApplicationSnapshots[_app], expr, "graph", null, techno);
                                 results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), value);
@@ -998,15 +999,15 @@ namespace CastReporting.Reporting.Helper
                                     {
                                         case "TOTAL":
                                             if (positionOmgTechDebt != -1) _posResults[positionOmgTechDebt] = TechnicalDebtLabel;
-                                            value = format ? stat?.Total?.ToString("N1") ?? Constants.No_Value : stat?.Total?.ToString() ?? "0";
+                                            value = format ? stat?.Total?.ToString("N1") ?? FormatHelper.No_Value : stat?.Total?.ToString() ?? "0";
                                             break;
                                         case "ADDED":
                                             if (positionOmgTechDebt != -1) _posResults[positionOmgTechDebt] = TechnicalDebtAddedLabel;
-                                            value = format ? stat?.Added?.ToString("N1") ?? Constants.No_Value : stat?.Added?.ToString() ?? "0";
+                                            value = format ? stat?.Added?.ToString("N1") ?? FormatHelper.No_Value : stat?.Added?.ToString() ?? "0";
                                             break;
                                         case "REMOVED":
                                             if (positionOmgTechDebt != -1) _posResults[positionOmgTechDebt] = TechnicalDebtRemovedLabel;
-                                            value = format ? stat?.Removed?.ToString("N1") ?? Constants.No_Value : stat?.Removed?.ToString() ?? "0";
+                                            value = format ? stat?.Removed?.ToString("N1") ?? FormatHelper.No_Value : stat?.Removed?.ToString() ?? "0";
                                             break;
                                         default:
                                             throw new ArgumentOutOfRangeException();
@@ -1050,15 +1051,15 @@ namespace CastReporting.Reporting.Helper
                                     {
                                         case "TOTAL":
                                             if (positionViolations != -1) _posResults[positionViolations] = Labels.TotalViolations;
-                                            value = format ? stat?.TotalViolations?.ToString("N0") ?? Constants.No_Value : stat?.TotalViolations?.ToString() ?? Constants.No_Value;
+                                            value = format ? stat?.TotalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.TotalViolations?.ToString() ?? FormatHelper.No_Value;
                                             break;
                                         case "ADDED":
                                             if (positionViolations != -1) _posResults[positionViolations] = Labels.AddedViolations;
-                                            value = format ? stat?.AddedViolations?.ToString("N0") ?? Constants.No_Value : stat?.AddedViolations?.ToString() ?? Constants.No_Value;
+                                            value = format ? stat?.AddedViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.AddedViolations?.ToString() ?? FormatHelper.No_Value;
                                             break;
                                         case "REMOVED":
                                             if (positionViolations != -1) _posResults[positionViolations] = Labels.RemovedViolations;
-                                            value = format ? stat?.RemovedViolations?.ToString("N0") ?? Constants.No_Value : stat?.RemovedViolations?.ToString() ?? Constants.No_Value;
+                                            value = format ? stat?.RemovedViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.RemovedViolations?.ToString() ?? FormatHelper.No_Value;
                                             break;
                                         default:
                                             throw new ArgumentOutOfRangeException();
@@ -1100,15 +1101,15 @@ namespace CastReporting.Reporting.Helper
                                     {
                                         case "TOTAL":
                                             if (positionCriticalViolations != -1) _posResults[positionCriticalViolations] = Labels.TotalCriticalViolations;
-                                            value = format ? stat?.TotalCriticalViolations?.ToString("N0") ?? Constants.No_Value : stat?.TotalCriticalViolations?.ToString() ?? Constants.No_Value;
+                                            value = format ? stat?.TotalCriticalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.TotalCriticalViolations?.ToString() ?? FormatHelper.No_Value;
                                             break;
                                         case "ADDED":
                                             if (positionCriticalViolations != -1) _posResults[positionCriticalViolations] = Labels.AddedCriticalViolations;
-                                            value = format ? stat?.AddedCriticalViolations?.ToString("N0") ?? Constants.No_Value : stat?.AddedCriticalViolations?.ToString() ?? Constants.No_Value;
+                                            value = format ? stat?.AddedCriticalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.AddedCriticalViolations?.ToString() ?? FormatHelper.No_Value;
                                             break;
                                         case "REMOVED":
                                             if (positionCriticalViolations != -1) _posResults[positionCriticalViolations] = Labels.RemovedCriticalViolations;
-                                            value = format ? stat?.RemovedCriticalViolations?.ToString("N0") ?? Constants.No_Value : stat?.RemovedCriticalViolations?.ToString() ?? Constants.No_Value;
+                                            value = format ? stat?.RemovedCriticalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.RemovedCriticalViolations?.ToString() ?? FormatHelper.No_Value;
                                             break;
                                         default:
                                             throw new ArgumentOutOfRangeException();
@@ -1171,7 +1172,7 @@ namespace CastReporting.Reporting.Helper
             foreach (var itemrow1 in _posConfig[2].Parameters)
             {
                 string itemrow1Name = GetItemName(type2, itemrow1, reportData);
-                if (itemrow1Name == Constants.No_Value) continue;
+                if (itemrow1Name == FormatHelper.No_Value) continue;
                 rowData.Add(itemrow1Name);
                 if (_posConfig[3] != null)
                 {
@@ -1183,7 +1184,7 @@ namespace CastReporting.Reporting.Helper
                     foreach (var itemrow11 in _posConfig[3].Parameters)
                     {
                         string itemrow11Name = GetItemName(type3, itemrow11, reportData);
-                        if (itemrow11Name == Constants.No_Value) continue;
+                        if (itemrow11Name == FormatHelper.No_Value) continue;
                         rowData.Add("    " + itemrow11Name);
 
                         foreach (var itemcol1 in _posConfig[0].Parameters)
@@ -1201,7 +1202,7 @@ namespace CastReporting.Reporting.Helper
                                     }
                                     catch (KeyNotFoundException)
                                     {
-                                        data = Constants.No_Value;
+                                        data = FormatHelper.No_Value;
                                     }
                                     rowData.Add(data);
                                 }
@@ -1216,7 +1217,7 @@ namespace CastReporting.Reporting.Helper
                                 }
                                 catch (KeyNotFoundException)
                                 {
-                                    data = Constants.No_Value;
+                                    data = FormatHelper.No_Value;
                                 }
                                 rowData.Add(data);
                             }
@@ -1241,7 +1242,7 @@ namespace CastReporting.Reporting.Helper
                                 }
                                 catch (KeyNotFoundException)
                                 {
-                                    data = Constants.No_Value;
+                                    data = FormatHelper.No_Value;
                                 }
                                 rowData.Add(data);
                             }
@@ -1256,7 +1257,7 @@ namespace CastReporting.Reporting.Helper
                             }
                             catch (KeyNotFoundException)
                             {
-                                data = Constants.No_Value;
+                                data = FormatHelper.No_Value;
                             }
                             rowData.Add(data);
                         }
@@ -1279,7 +1280,7 @@ namespace CastReporting.Reporting.Helper
 
         }
 
-        public static void BuildAggregatedMetricsList(ReportData reportData, Dictionary<string, string> metricsAggregated, List<string> metrics, string[] aggregators)
+        public static void BuildAggregatedMetricsList(ImagingData reportData, Dictionary<string, string> metricsAggregated, List<string> metrics, string[] aggregators)
         {
 
             if (metrics.Contains("HEALTH_FACTOR"))
@@ -1545,7 +1546,7 @@ namespace CastReporting.Reporting.Helper
         }
 
 
-        public static void BuildApplicationSnapshots(Dictionary<Application, Snapshot> list, ReportData reportData)
+        public static void BuildApplicationSnapshots(Dictionary<Application, Snapshot> list, ImagingData reportData)
         {
             foreach (Application _application in reportData.Applications)
             {
@@ -1553,7 +1554,7 @@ namespace CastReporting.Reporting.Helper
             }
         }
 
-        public static void BuildApplicationPreviousQuarterSnapshots(Dictionary<Application, Snapshot> list, ReportData reportData)
+        public static void BuildApplicationPreviousQuarterSnapshots(Dictionary<Application, Snapshot> list, ImagingData reportData)
         {
             DateTime _dateNow = DateTime.Now;
             int previousQuarter = DateUtil.GetPreviousQuarter(_dateNow);

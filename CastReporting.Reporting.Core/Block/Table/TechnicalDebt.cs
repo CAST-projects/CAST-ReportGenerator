@@ -15,8 +15,9 @@
  *
  */
 
+using Cast.Util;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -29,7 +30,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("TECHNICAL_DEBT")]
     public class TechnicalDebt : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             const string numberFormat = "N0";
 
@@ -46,7 +47,7 @@ namespace CastReporting.Reporting.Block.Table
                 rowData.AddRange(new[] { Labels.Name, Labels.Value });
                 rowData.AddRange(new[] {
                     displayShortHeader ? Labels.Debt : Labels.TechnicalDebt  + " (" + reportData.CurrencySymbol + ")",
-                   technicalDebtBuild?.ToString(numberFormat) ?? Constants.No_Value
+                   technicalDebtBuild?.ToString(numberFormat) ?? FormatHelper.No_Value
                 });
 
 
@@ -55,7 +56,7 @@ namespace CastReporting.Reporting.Block.Table
 
                 rowData.AddRange(new[] {
                      displayShortHeader ? Labels.DebtAdded : Labels.TechnicalDebtAdded + " (" + reportData.CurrencySymbol + ")",
-                   technicalDebtadded?.ToString(numberFormat) ?? Constants.No_Value
+                   technicalDebtadded?.ToString(numberFormat) ?? FormatHelper.No_Value
                 });
 
                 //Build Debt removed row            
@@ -63,7 +64,7 @@ namespace CastReporting.Reporting.Block.Table
 
                 rowData.AddRange(new[] {
                      displayShortHeader ? Labels.DebtRemoved : Labels.TechnicalDebtRemoved + " (" + reportData.CurrencySymbol + ")",
-                   technicalDebtremoved?.ToString(numberFormat) ?? Constants.No_Value
+                   technicalDebtremoved?.ToString(numberFormat) ?? FormatHelper.No_Value
                 });
             }
 

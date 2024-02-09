@@ -15,8 +15,9 @@
  *
  */
 
+using Cast.Util;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -30,11 +31,11 @@ namespace CastReporting.Reporting.Block.Table
     [Block("OMG_TECHNICAL_DEBT_TABLE")]
     public class OmgTechnicalDebtTable : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             const string numberFormat = "N1";
 
-            bool displayShortHeader = options.GetOption("HEADER","DAYS").ToUpper().Equals("SHORT");
+            bool displayShortHeader = options.GetOption("HEADER", "DAYS").ToUpper().Equals("SHORT");
             string index = options.GetOption("ID", "ISO");
             int indexId = OmgTechnicalDebtUtility.GetOmgIndex(index);
             Snapshot snapshot = options.GetOption("SNAPSHOT", "CURRENT").ToUpper().Equals("PREVIOUS") ? reportData.PreviousSnapshot ?? null : reportData.CurrentSnapshot ?? null;
@@ -49,7 +50,7 @@ namespace CastReporting.Reporting.Block.Table
                 double? technicalDebtBuild = omgTechnicalDebt?.Total ?? null;
                 rowData.AddRange(new[] {
                     displayShortHeader ? Labels.Debt : Labels.TechnicalDebt  + " (" + Labels.Days + ")",
-                   technicalDebtBuild?.ToString(numberFormat) ?? Constants.No_Value
+                   technicalDebtBuild?.ToString(numberFormat) ?? FormatHelper.No_Value
                 });
 
 
@@ -57,21 +58,21 @@ namespace CastReporting.Reporting.Block.Table
                 double? technicalDebtadded = omgTechnicalDebt?.Added ?? null;
                 rowData.AddRange(new[] {
                      displayShortHeader ? Labels.DebtAdded : Labels.TechnicalDebtAdded + " (" + Labels.Days + ")",
-                   technicalDebtadded?.ToString(numberFormat) ?? Constants.No_Value
+                   technicalDebtadded?.ToString(numberFormat) ?? FormatHelper.No_Value
                 });
 
                 //Build Debt removed row            
                 double? technicalDebtremoved = omgTechnicalDebt?.Removed ?? null;
                 rowData.AddRange(new[] {
                      displayShortHeader ? Labels.DebtRemoved : Labels.TechnicalDebtRemoved + " (" + Labels.Days + ")",
-                   technicalDebtremoved?.ToString(numberFormat) ?? Constants.No_Value
+                   technicalDebtremoved?.ToString(numberFormat) ?? FormatHelper.No_Value
                 });
             }
             if (rowData.Count == 2)
             {
-                rowData.AddRange(new[] { displayShortHeader ? Labels.Debt : Labels.TechnicalDebt  + " (" + Labels.Days + ")", Constants.No_Value });
-                rowData.AddRange(new[] { displayShortHeader ? Labels.DebtAdded : Labels.TechnicalDebtAdded + " (" + Labels.Days + ")", Constants.No_Value });
-                rowData.AddRange(new[] { displayShortHeader ? Labels.DebtRemoved : Labels.TechnicalDebtRemoved + " (" + Labels.Days + ")", Constants.No_Value });
+                rowData.AddRange(new[] { displayShortHeader ? Labels.Debt : Labels.TechnicalDebt + " (" + Labels.Days + ")", FormatHelper.No_Value });
+                rowData.AddRange(new[] { displayShortHeader ? Labels.DebtAdded : Labels.TechnicalDebtAdded + " (" + Labels.Days + ")", FormatHelper.No_Value });
+                rowData.AddRange(new[] { displayShortHeader ? Labels.DebtRemoved : Labels.TechnicalDebtRemoved + " (" + Labels.Days + ")", FormatHelper.No_Value });
 
             }
 

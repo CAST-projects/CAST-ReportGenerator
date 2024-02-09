@@ -13,7 +13,8 @@
  * limitations under the License.
  *
  */
-using CastReporting.Domain;
+using Cast.Util;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -38,7 +39,7 @@ namespace CastReporting.Reporting.Block.Table
             return detailResult;
         }
 
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             int nbLimit = options.GetIntOption("COUNT", reportData.Parameter.NbResultDefault); // Max number of rows; -1 correspond to all results
             bool perModule = options.GetBoolOption("MODULES"); // module or application mode
@@ -102,15 +103,15 @@ namespace CastReporting.Reporting.Block.Table
                             }
                             if (showFailedChecks)
                             {
-                                dataRow.Set(Labels.ViolationsCount, (bool)detailResult.ViolationRatio?.FailedChecks.HasValue ? detailResult.ViolationRatio?.FailedChecks.Value.ToString("N0") : Constants.No_Value);
+                                dataRow.Set(Labels.ViolationsCount, (bool)detailResult.ViolationRatio?.FailedChecks.HasValue ? detailResult.ViolationRatio?.FailedChecks.Value.ToString("N0") : FormatHelper.No_Value);
                             }
                             if (showSuccessfulChecks)
                             {
-                                dataRow.Set(Labels.TotalOk, (bool)detailResult.ViolationRatio?.SuccessfulChecks.HasValue ? detailResult.ViolationRatio?.SuccessfulChecks.Value.ToString("N0") : Constants.No_Value);
+                                dataRow.Set(Labels.TotalOk, (bool)detailResult.ViolationRatio?.SuccessfulChecks.HasValue ? detailResult.ViolationRatio?.SuccessfulChecks.Value.ToString("N0") : FormatHelper.No_Value);
                             }
                             if (showTotal)
                             {
-                                dataRow.Set(Labels.TotalChecks, (bool)detailResult.ViolationRatio?.TotalChecks.HasValue ? detailResult.ViolationRatio?.TotalChecks.Value.ToString("N0") : Constants.No_Value);
+                                dataRow.Set(Labels.TotalChecks, (bool)detailResult.ViolationRatio?.TotalChecks.HasValue ? detailResult.ViolationRatio?.TotalChecks.Value.ToString("N0") : FormatHelper.No_Value);
                             }
                             if (showCompliance)
                             {

@@ -13,6 +13,7 @@
  * limitations under the License.
  *
  */
+using Cast.Util;
 using CastReporting.BLL.Computing;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
@@ -27,7 +28,7 @@ namespace CastReporting.Reporting.Block.Table
     {
         #region METHODS
 
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             if (reportData?.CurrentSnapshot == null) return null;
             double? automatedFPoints = MeasureUtility.GetAutomatedIFPUGFunction(reportData.CurrentSnapshot);
@@ -37,9 +38,9 @@ namespace CastReporting.Reporting.Block.Table
             const string metricFormat = "N0";
             var rowData = new List<string>
             {  Labels.Name, Labels.Total
-                , Labels.AutomatedFP, automatedFPoints?.ToString(metricFormat) ?? Domain.Constants.No_Value
-                , Labels.DecisionP,decisionPoints?.ToString(metricFormat) ?? Domain.Constants.No_Value
-                , Labels.BackfiredFP, backFiredFPoints?.ToString(metricFormat) ?? Domain.Constants.No_Value
+                , Labels.AutomatedFP, automatedFPoints?.ToString(metricFormat) ?? FormatHelper.No_Value
+                , Labels.DecisionP,decisionPoints?.ToString(metricFormat) ?? FormatHelper.No_Value
+                , Labels.BackfiredFP, backFiredFPoints?.ToString(metricFormat) ?? FormatHelper.No_Value
             };
             var resultTable = new TableDefinition
             {

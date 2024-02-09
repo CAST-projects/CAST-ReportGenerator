@@ -13,8 +13,9 @@
  * limitations under the License.
  *
  */
+using Cast.Util;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -28,7 +29,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("CAST_COMPLEXITY")]
     public class CastComplexity : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
 
             TableDefinition back = new TableDefinition();
@@ -87,7 +88,7 @@ namespace CastReporting.Reporting.Block.Table
             List<string> rowData = new List<string>();
             rowData.AddRange(new[] { Labels.Complexity, Labels.Current, Labels.Previous, Labels.Evol, Labels.EvolPercent, Labels.TotalPercent });
 
-            const string noData = Constants.No_Value;
+            const string noData = FormatHelper.No_Value;
 
             rowData.AddRange(new[]
             { Labels.ComplexityLow

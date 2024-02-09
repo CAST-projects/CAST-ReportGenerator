@@ -14,6 +14,7 @@
  *
  */
 
+using Cast.Util;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
@@ -34,7 +35,7 @@ namespace CastReporting.Reporting.Block.Table
     {
         #region METHODS
 
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             TableDefinition resultTable = null;
             if (reportData?.CurrentSnapshot == null) return resultTable;
@@ -61,7 +62,7 @@ namespace CastReporting.Reporting.Block.Table
 
             #endregion
 
-            const string noData = Constants.No_Value;
+            const string noData = FormatHelper.No_Value;
             const string metricFormat = "N0";
 
             var rowData = new List<string>

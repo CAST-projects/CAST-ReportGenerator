@@ -19,6 +19,7 @@ using Cast.Util;
 using Cast.Util.Log;
 using CastReporting.BLL;
 using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Builder;
 using CastReporting.Reporting.ReportingModel;
 using CastReporting.UI.WPF.Core.Common;
@@ -342,8 +343,8 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// <summary>
         /// 
         /// </summary>
-        private WSConnection _ActiveConnection;
-        public WSConnection ActiveConnection
+        private WSImagingConnection _ActiveConnection;
+        public WSImagingConnection ActiveConnection
         {
             get
             {
@@ -407,7 +408,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
             if (SelectedCategory != null)
             {
                 //GetActive Connection           
-                ActiveConnection = Setting?.GetActiveConnection();
+                ActiveConnection = Setting?.GetActiveImagingConnection();
 
                 //Get list of domains
                 if (_ActiveConnection == null) return;
@@ -590,7 +591,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                 Stopwatch stopWatchStep = new Stopwatch();
                 Stopwatch stopWatchGlobal = new Stopwatch();
 
-                List<Domain.Application> Apps = new List<Domain.Application>();
+                List<Domain.Imaging.Application> Apps = new List<Domain.Imaging.Application>();
                 List<Snapshot> Snapshots = new List<Snapshot>();
 
                 try
@@ -600,7 +601,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
 
 
                     //GetActive Connection           
-                    ActiveConnection = Setting?.GetActiveConnection();
+                    ActiveConnection = Setting?.GetActiveImagingConnection();
 
                     //Get list of domains
                     if (_ActiveConnection != null)
@@ -623,7 +624,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
 
                     if (Apps.Count > 0)
                     {
-                        Domain.Application[] SelectedApps = Apps.ToArray<Domain.Application>();
+                        Domain.Imaging.Application[] SelectedApps = Apps.ToArray<Domain.Imaging.Application>();
 
                         //Set culture for the new thread
                         if (!string.IsNullOrEmpty(Setting?.ReportingParameter.CultureName))
@@ -639,9 +640,9 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                         stopWatchStep.Stop();
                         System.Windows.Application.Current.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep, Messages.msgBuildPortfolioResults, stopWatchStep.Elapsed);
 
-                        List<Domain.Application> N_Apps = new List<Domain.Application>();
+                        List<Domain.Imaging.Application> N_Apps = new List<Domain.Imaging.Application>();
                         //Remove from Array the Ignored Apps
-                        foreach (Domain.Application app in SelectedApps)
+                        foreach (Domain.Imaging.Application app in SelectedApps)
                         {
                             int intAppYes = 0;
                             foreach (string s in AppsToIgnorePortfolioResult)
@@ -660,10 +661,10 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                             }
                         }
 
-                        Domain.Application[] N_SelectedApps = N_Apps.ToArray();
+                        Domain.Imaging.Application[] N_SelectedApps = N_Apps.ToArray();
 
                         //GetActive Connection           
-                        ActiveConnection = Setting?.GetActiveConnection();
+                        ActiveConnection = Setting?.GetActiveImagingConnection();
 
                         //Get list of domains
                         if (_ActiveConnection != null)
@@ -824,14 +825,17 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                 ReportData reportData = new ReportData
                 {
                     FileName = tmpReportFile,
-                    Application = SelectedApplication.Application,
-                    CurrentSnapshot = SelectedSnapshot,
-                    PreviousSnapshot = PreviousSnapshot,
-                    Parameter = Setting.ReportingParameter,
-                    RuleExplorer = new RuleBLL(ActiveConnection),
-                    SnapshotExplorer = new SnapshotBLL(ActiveConnection, SelectedSnapshot),
-                    CurrencySymbol = "$",
-                    ServerVersion = CommonBLL.GetServiceVersion(ActiveConnection)
+                    ImagingData = new ImagingData
+                    {
+                        Application = SelectedApplication.Application,
+                        CurrentSnapshot = SelectedSnapshot,
+                        PreviousSnapshot = PreviousSnapshot,
+                        Parameter = Setting.ReportingParameter,
+                        RuleExplorer = new RuleBLL(ActiveConnection),
+                        SnapshotExplorer = new SnapshotBLL(ActiveConnection, SelectedSnapshot),
+                        CurrencySymbol = "$",
+                        ServerVersion = CommonBLL.GetServiceVersion(ActiveConnection),
+                    },
                 };
 
 
@@ -927,7 +931,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// <summary>
         /// 
         /// </summary>
-        private void GenerateReportPortfolio(Domain.Application[] ApplicationsArray, Snapshot[] ApplicationsSnapshots, string[] IgnoredApps, string[] IgnoredSnapshots)
+        private void GenerateReportPortfolio(Domain.Imaging.Application[] ApplicationsArray, Snapshot[] ApplicationsSnapshots, string[] IgnoredApps, string[] IgnoredSnapshots)
         {
             string tmpReportFile = string.Empty;
             string tmpReportFileFlexi = string.Empty;
@@ -946,20 +950,23 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                 ReportData reportData = new ReportData
                 {
                     FileName = tmpReportFile,
-                    Application = null,
-                    CurrentSnapshot = null,
-                    PreviousSnapshot = null,
-                    Parameter = Setting.ReportingParameter,
-                    RuleExplorer = new RuleBLL(ActiveConnection),
-                    SnapshotExplorer = new SnapshotBLL(ActiveConnection, SelectedSnapshot),
-                    CurrencySymbol = "$",
-                    ServerVersion = CommonBLL.GetServiceVersion(ActiveConnection),
-                    Applications = ApplicationsArray,
-                    Category = SelectedCategory,
-                    Tag = SelectedTag,
-                    Snapshots = ApplicationsSnapshots,
-                    IgnoresApplications = IgnoredApps,
-                    IgnoresSnapshots = IgnoredSnapshots
+                    ImagingData = new ImagingData
+                    {
+                        Application = null,
+                        CurrentSnapshot = null,
+                        PreviousSnapshot = null,
+                        Parameter = Setting.ReportingParameter,
+                        RuleExplorer = new RuleBLL(ActiveConnection),
+                        SnapshotExplorer = new SnapshotBLL(ActiveConnection, SelectedSnapshot),
+                        CurrencySymbol = "$",
+                        ServerVersion = CommonBLL.GetServiceVersion(ActiveConnection),
+                        Applications = ApplicationsArray,
+                        Category = SelectedCategory,
+                        Tag = SelectedTag,
+                        Snapshots = ApplicationsSnapshots,
+                        IgnoresApplications = IgnoredApps,
+                        IgnoresSnapshots = IgnoredSnapshots,
+                    },
                 };
 
 
@@ -998,7 +1005,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         public void InitializeFromWS()
         {
             //GetActive Connection           
-            ActiveConnection = Setting?.GetActiveConnection();
+            ActiveConnection = Setting?.GetActiveImagingConnection();
 
             //Get list of domains
             if (_ActiveConnection?.Password == null || _ActiveConnection?.Login == null) return;
@@ -1020,7 +1027,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// 
         /// </summary>
         /// <param name="connection"></param>
-        public void ActiveCurrentWebService(WSConnection connection)
+        public void ActiveCurrentWebService(WSImagingConnection connection)
         {
             StatesEnum state;
             Setting = SettingsBLL.AddConnection(connection, true, out state);

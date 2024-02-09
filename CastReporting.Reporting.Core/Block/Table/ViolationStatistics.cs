@@ -14,8 +14,9 @@
  *
  */
 
+using Cast.Util;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -30,7 +31,7 @@ namespace CastReporting.Reporting.Block.Table
     {
         #region METHODS
 
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             if (reportData?.CurrentSnapshot == null) return null;
 
@@ -66,9 +67,9 @@ namespace CastReporting.Reporting.Block.Table
             string numCritPerFileIfNegative;
             // ReSharper disable once CompareOfFloatsByEqualityOperator -- special case
             if (numCritPerFile == -1)
-                numCritPerFileIfNegative = Constants.No_Value;
+                numCritPerFileIfNegative = FormatHelper.No_Value;
             else
-                numCritPerFileIfNegative = numCritPerFile?.ToString(metricFormatPrecision) ?? Constants.No_Value;
+                numCritPerFileIfNegative = numCritPerFile?.ToString(metricFormatPrecision) ?? FormatHelper.No_Value;
 
             var rowData = new List<string>
             {
@@ -76,19 +77,19 @@ namespace CastReporting.Reporting.Block.Table
                 , Labels.Value
 
                 , Labels.ViolationsCritical
-                , criticalViolation?.ToString(metricFormat) ?? Constants.No_Value
+                , criticalViolation?.ToString(metricFormat) ?? FormatHelper.No_Value
 
                 , "  " + Labels.PerFile
                 , numCritPerFileIfNegative
 
                 , "  " + Labels.PerkLoC
-                , _numCritPerKloc?.ToString(metricFormatPrecision) ?? Constants.No_Value
+                , _numCritPerKloc?.ToString(metricFormatPrecision) ?? FormatHelper.No_Value
 
                 , Labels.ComplexObjects
-                , nbComplexityArtefacts?.ToString(metricFormat) ?? Constants.No_Value
+                , nbComplexityArtefacts?.ToString(metricFormat) ?? FormatHelper.No_Value
 
                 , "  " + Labels.WithViolations
-                , nbComplexityArtefactsViolation?.ToString(metricFormat) ?? Constants.No_Value
+                , nbComplexityArtefactsViolation?.ToString(metricFormat) ?? FormatHelper.No_Value
             };
 
             var resultTable = new TableDefinition

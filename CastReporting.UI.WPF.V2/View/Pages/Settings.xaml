@@ -6,7 +6,6 @@
       xmlns:label="clr-namespace:CastReporting.UI.WPF.Core.Resources.Languages"
       xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"      
       xmlns:commands="clr-namespace:CastReporting.UI.WPF.Core.Commands"
-      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="700"
       Width="Auto"

@@ -13,6 +13,7 @@
  * limitations under the License.
  *
  */
+using Cast.Util;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
@@ -34,7 +35,7 @@ namespace CastReporting.Reporting.Block.Table
         /// <param name="reportData"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             string srBusinessCriterias = options != null && options.ContainsKey("PAR") ? options["PAR"] : null;
             int count;
@@ -71,8 +72,8 @@ namespace CastReporting.Reporting.Block.Table
                 rowData.Add(item.TechnicalCriteraiName);
                 rowData.Add(item.Rule.Name);
 
-                rowData.Add(item.TotalFailed?.ToString("N0") ?? Constants.No_Value);
-                rowData.Add(item.TotalChecks?.ToString("N0") ?? Constants.No_Value);
+                rowData.Add(item.TotalFailed?.ToString("N0") ?? FormatHelper.No_Value);
+                rowData.Add(item.TotalChecks?.ToString("N0") ?? FormatHelper.No_Value);
 
                 nbRows++;
             }

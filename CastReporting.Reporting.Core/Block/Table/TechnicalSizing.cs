@@ -13,8 +13,8 @@
  * limitations under the License.
  *
  */
+using Cast.Util;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -26,7 +26,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("TECHNICAL_SIZING")]
     public class TechnicalSizing : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             #region METHODS
 
@@ -37,7 +37,7 @@ namespace CastReporting.Reporting.Block.Table
             double? sqlArtifactNumber = MeasureUtility.GetSqlArtifactNumber(reportData.CurrentSnapshot);
             double? tableNumber = MeasureUtility.GetTableNumber(reportData.CurrentSnapshot);
 
-            const string noData = Constants.No_Value;
+            const string noData = FormatHelper.No_Value;
             const string metricFormat = "N0";
 
             var rowData = new List<string>();

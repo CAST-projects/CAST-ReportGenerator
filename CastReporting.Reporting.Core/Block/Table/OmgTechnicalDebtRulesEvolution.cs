@@ -14,10 +14,11 @@
  *
  */
 
+using Cast.Util;
 using Cast.Util.Log;
 using Cast.Util.Version;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -31,7 +32,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("OMG_TECHNICAL_DEBT_RULES_EVOLUTION")]
     public class OmgTechnicalDebtRulesEvolution : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             string standard = options.GetOption("ID", "ISO");
             string lbltotal = Labels.TechnicalDebt + " (" + Labels.Days + ")";
@@ -171,13 +172,13 @@ namespace CastReporting.Reporting.Block.Table
             dataRow.Set(indicatorName, tcName);
             FormatTableHelper.AddGrayOrBold(true, cellProps, cellidx, _totalNotNull);
             cellidx++;
-            dataRow.Set(lbltotal, tcOmgTechDebt.Total != null ? tcOmgTechDebt.Total.Value.ToString("N1") : Constants.No_Value);
+            dataRow.Set(lbltotal, tcOmgTechDebt.Total != null ? tcOmgTechDebt.Total.Value.ToString("N1") : FormatHelper.No_Value);
             FormatTableHelper.AddGrayOrBold(true, cellProps, cellidx, _totalNotNull);
             cellidx++;
-            dataRow.Set(lbladded, tcOmgTechDebt.Added != null ? tcOmgTechDebt.Added.Value.ToString("N1") : Constants.No_Value);
+            dataRow.Set(lbladded, tcOmgTechDebt.Added != null ? tcOmgTechDebt.Added.Value.ToString("N1") : FormatHelper.No_Value);
             FormatTableHelper.AddGrayOrBold(true, cellProps, cellidx, _totalNotNull);
             cellidx++;
-            dataRow.Set(lblremoved, tcOmgTechDebt.Removed != null ? tcOmgTechDebt.Removed.Value.ToString("N1") : Constants.No_Value);
+            dataRow.Set(lblremoved, tcOmgTechDebt.Removed != null ? tcOmgTechDebt.Removed.Value.ToString("N1") : FormatHelper.No_Value);
             FormatTableHelper.AddGrayOrBold(true, cellProps, cellidx, _totalNotNull);
             cellidx++;
             if (showDescription)
@@ -193,7 +194,7 @@ namespace CastReporting.Reporting.Block.Table
             return cellidx;
         }
 
-        private static int AddRowsForRules(ReportData reportData, string indicatorName, string lbltotal, string lbladded, string lblremoved, bool showDescription, List<CellAttributes> cellProps, int cellidx, HeaderDefinition headers, List<string> data, List<ApplicationResult> rulesResults)
+        private static int AddRowsForRules(ImagingData reportData, string indicatorName, string lbltotal, string lbladded, string lblremoved, bool showDescription, List<CellAttributes> cellProps, int cellidx, HeaderDefinition headers, List<string> data, List<ApplicationResult> rulesResults)
         {
             if (rulesResults?.Count > 0)
             {
@@ -207,13 +208,13 @@ namespace CastReporting.Reporting.Block.Table
                     _ruleDr.Set(indicatorName, "    " + ruleName);
                     FormatTableHelper.AddGrayOrBold(false, cellProps, cellidx, _totalNotNull);
                     cellidx++;
-                    _ruleDr.Set(lbltotal, _resultDetail.Total != null ? _resultDetail.Total.Value.ToString("N1") : Constants.No_Value);
+                    _ruleDr.Set(lbltotal, _resultDetail.Total != null ? _resultDetail.Total.Value.ToString("N1") : FormatHelper.No_Value);
                     FormatTableHelper.AddGrayOrBold(false, cellProps, cellidx, _totalNotNull);
                     cellidx++;
-                    _ruleDr.Set(lbladded, _resultDetail.Added != null ? _resultDetail.Added.Value.ToString("N1") : Constants.No_Value);
+                    _ruleDr.Set(lbladded, _resultDetail.Added != null ? _resultDetail.Added.Value.ToString("N1") : FormatHelper.No_Value);
                     FormatTableHelper.AddGrayOrBold(false, cellProps, cellidx, _totalNotNull);
                     cellidx++;
-                    _ruleDr.Set(lblremoved, _resultDetail.Removed != null ? _resultDetail.Removed.Value.ToString("N1") : Constants.No_Value);
+                    _ruleDr.Set(lblremoved, _resultDetail.Removed != null ? _resultDetail.Removed.Value.ToString("N1") : FormatHelper.No_Value);
                     FormatTableHelper.AddGrayOrBold(false, cellProps, cellidx, _totalNotNull);
                     cellidx++;
                     if (showDescription)

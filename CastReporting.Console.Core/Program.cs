@@ -3,6 +3,7 @@ using Cast.Util.Log;
 using CastReporting.BLL;
 using CastReporting.Console.Argument;
 using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Builder;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.Office.Interop.PowerPoint;
@@ -14,7 +15,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
-using Application = CastReporting.Domain.Application;
+using Application = CastReporting.Domain.Imaging.Application;
 
 namespace CastReporting.Console
 {
@@ -184,7 +185,7 @@ namespace CastReporting.Console
 
                     //Initialize Web services
 
-                    var connection = new WSConnection(arguments.Webservice.Name, arguments.Username.Name, arguments.Password.Name, string.Empty)
+                    var connection = new WSImagingConnection(arguments.Webservice.Name, arguments.Username.Name, arguments.Password.Name, string.Empty)
                     {
                         ApiKey = arguments.ApiKey?.Name.Equals("true") ?? false,
                         ServerCertificateValidation = SettingsBLL.GetCertificateValidationStrategy()
@@ -290,19 +291,22 @@ namespace CastReporting.Console
                                 reportData = new ReportData
                                 {
                                     FileName = tmpReportFile,
-                                    Application = null,
-                                    CurrentSnapshot = null,
-                                    PreviousSnapshot = null,
-                                    RuleExplorer = new RuleBLL(connection),
-                                    CurrencySymbol = "$",
-                                    ServerVersion = CommonBLL.GetServiceVersion(connection),
-                                    Applications = n_selectedApps,
-                                    Category = arguments.Category.Name,
-                                    Tag = arguments.Tag.Name,
-                                    Snapshots = n_selectedApps_snapshots,
-                                    IgnoresApplications = _appsToIgnorePortfolioResult,
-                                    IgnoresSnapshots = _snapsToIgnore,
-                                    Parameter = settings.ReportingParameter
+                                    ImagingData = new ImagingData
+                                    {
+                                        Application = null,
+                                        CurrentSnapshot = null,
+                                        PreviousSnapshot = null,
+                                        RuleExplorer = new RuleBLL(connection),
+                                        CurrencySymbol = "$",
+                                        ServerVersion = CommonBLL.GetServiceVersion(connection),
+                                        Applications = n_selectedApps,
+                                        Category = arguments.Category.Name,
+                                        Tag = arguments.Tag.Name,
+                                        Snapshots = n_selectedApps_snapshots,
+                                        IgnoresApplications = _appsToIgnorePortfolioResult,
+                                        IgnoresSnapshots = _snapsToIgnore,
+                                        Parameter = settings.ReportingParameter,
+                                    },
                                 };
                             }
                             else if (arguments.Category != null && arguments.Tag == null)
@@ -310,19 +314,23 @@ namespace CastReporting.Console
                                 reportData = new ReportData
                                 {
                                     FileName = tmpReportFile,
-                                    Application = null,
-                                    CurrentSnapshot = null,
-                                    PreviousSnapshot = null,
-                                    RuleExplorer = new RuleBLL(connection),
-                                    CurrencySymbol = "$",
-                                    ServerVersion = CommonBLL.GetServiceVersion(connection),
-                                    Applications = n_selectedApps,
-                                    Category = arguments.Category.Name,
-                                    Tag = null,
-                                    Snapshots = n_selectedApps_snapshots,
-                                    IgnoresApplications = _appsToIgnorePortfolioResult,
-                                    IgnoresSnapshots = _snapsToIgnore,
-                                    Parameter = settings.ReportingParameter
+                                    ImagingData = new ImagingData
+                                    {
+
+                                        Application = null,
+                                        CurrentSnapshot = null,
+                                        PreviousSnapshot = null,
+                                        RuleExplorer = new RuleBLL(connection),
+                                        CurrencySymbol = "$",
+                                        ServerVersion = CommonBLL.GetServiceVersion(connection),
+                                        Applications = n_selectedApps,
+                                        Category = arguments.Category.Name,
+                                        Tag = null,
+                                        Snapshots = n_selectedApps_snapshots,
+                                        IgnoresApplications = _appsToIgnorePortfolioResult,
+                                        IgnoresSnapshots = _snapsToIgnore,
+                                        Parameter = settings.ReportingParameter,
+                                    },
                                 };
                             }
                             else if (arguments.Category == null && arguments.Tag != null)
@@ -330,19 +338,22 @@ namespace CastReporting.Console
                                 reportData = new ReportData
                                 {
                                     FileName = tmpReportFile,
-                                    Application = null,
-                                    CurrentSnapshot = null,
-                                    PreviousSnapshot = null,
-                                    RuleExplorer = new RuleBLL(connection),
-                                    CurrencySymbol = "$",
-                                    ServerVersion = CommonBLL.GetServiceVersion(connection),
-                                    Applications = n_selectedApps,
-                                    Category = null,
-                                    Tag = arguments.Tag.Name,
-                                    Snapshots = n_selectedApps_snapshots,
-                                    IgnoresApplications = _appsToIgnorePortfolioResult,
-                                    IgnoresSnapshots = _snapsToIgnore,
-                                    Parameter = settings.ReportingParameter
+                                    ImagingData = new ImagingData
+                                    {
+                                        Application = null,
+                                        CurrentSnapshot = null,
+                                        PreviousSnapshot = null,
+                                        RuleExplorer = new RuleBLL(connection),
+                                        CurrencySymbol = "$",
+                                        ServerVersion = CommonBLL.GetServiceVersion(connection),
+                                        Applications = n_selectedApps,
+                                        Category = null,
+                                        Tag = arguments.Tag.Name,
+                                        Snapshots = n_selectedApps_snapshots,
+                                        IgnoresApplications = _appsToIgnorePortfolioResult,
+                                        IgnoresSnapshots = _snapsToIgnore,
+                                        Parameter = settings.ReportingParameter,
+                                    },
                                 };
                             }
                             else
@@ -350,19 +361,22 @@ namespace CastReporting.Console
                                 reportData = new ReportData
                                 {
                                     FileName = tmpReportFile,
-                                    Application = null,
-                                    CurrentSnapshot = null,
-                                    PreviousSnapshot = null,
-                                    RuleExplorer = new RuleBLL(connection),
-                                    CurrencySymbol = "$",
-                                    ServerVersion = CommonBLL.GetServiceVersion(connection),
-                                    Applications = n_selectedApps,
-                                    Category = null,
-                                    Tag = null,
-                                    Snapshots = n_selectedApps_snapshots,
-                                    IgnoresApplications = _appsToIgnorePortfolioResult,
-                                    IgnoresSnapshots = _snapsToIgnore,
-                                    Parameter = settings.ReportingParameter
+                                    ImagingData = new ImagingData
+                                    {
+                                        Application = null,
+                                        CurrentSnapshot = null,
+                                        PreviousSnapshot = null,
+                                        RuleExplorer = new RuleBLL(connection),
+                                        CurrencySymbol = "$",
+                                        ServerVersion = CommonBLL.GetServiceVersion(connection),
+                                        Applications = n_selectedApps,
+                                        Category = null,
+                                        Tag = null,
+                                        Snapshots = n_selectedApps_snapshots,
+                                        IgnoresApplications = _appsToIgnorePortfolioResult,
+                                        IgnoresSnapshots = _snapsToIgnore,
+                                        Parameter = settings.ReportingParameter,
+                                    },
                                 };
                             }
 
@@ -440,7 +454,7 @@ namespace CastReporting.Console
                     }
                     //Initialize Web services
 
-                    var connection = new WSConnection(arguments.Webservice.Name, arguments.Username.Name, arguments.Password.Name, string.Empty)
+                    var connection = new WSImagingConnection(arguments.Webservice.Name, arguments.Username.Name, arguments.Password.Name, string.Empty)
                     {
                         ApiKey = arguments.ApiKey?.Name.Equals("true") ?? false,
                         ServerCertificateValidation = SettingsBLL.GetCertificateValidationStrategy()
@@ -530,14 +544,17 @@ namespace CastReporting.Console
                     ReportData reportData = new ReportData
                     {
                         FileName = tmpReportFile,
-                        Application = application,
-                        CurrentSnapshot = currentSnapshot,
-                        PreviousSnapshot = prevSnapshot,
-                        Parameter = settings.ReportingParameter,
-                        RuleExplorer = new RuleBLL(connection),
-                        SnapshotExplorer = new SnapshotBLL(connection, currentSnapshot),
-                        CurrencySymbol = "$",
-                        ServerVersion = CommonBLL.GetServiceVersion(connection)
+                        ImagingData = new ImagingData
+                        {
+                            Application = application,
+                            CurrentSnapshot = currentSnapshot,
+                            PreviousSnapshot = prevSnapshot,
+                            Parameter = settings.ReportingParameter,
+                            RuleExplorer = new RuleBLL(connection),
+                            SnapshotExplorer = new SnapshotBLL(connection, currentSnapshot),
+                            CurrencySymbol = "$",
+                            ServerVersion = CommonBLL.GetServiceVersion(connection),
+                        },
                     };
 
                     using (IDocumentBuilder docBuilder = BuilderFactory.CreateBuilder(reportData, tmpReportFileFlexi))
@@ -675,7 +692,7 @@ namespace CastReporting.Console
         /// <param name="connection"></param>
         /// <param name="application"></param>
         /// <returns></returns>
-        private static void SetSnapshots(WSConnection connection, Application application)
+        private static void SetSnapshots(WSImagingConnection connection, Application application)
         {
             using (ApplicationBLL applicationBLL = new ApplicationBLL(connection, application))
             {
@@ -689,7 +706,7 @@ namespace CastReporting.Console
         /// <param name="arguments"></param>
         /// <param name="connection"></param>
         /// <returns></returns>
-        private static Application GetApplication(XmlCastReport arguments, WSConnection connection)
+        private static Application GetApplication(XmlCastReport arguments, WSImagingConnection connection)
         {
             List<Application> applications;
 

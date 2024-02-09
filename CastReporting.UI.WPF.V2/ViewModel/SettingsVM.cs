@@ -261,6 +261,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
 
             MessageManager.OnSettingsSaved();
 
+            if (string.IsNullOrEmpty(Setting.ReportingParameter.CultureName)) return;
             if (Thread.CurrentThread.CurrentCulture.Name.Equals(Setting.ReportingParameter.CultureName)) return;
             Thread.CurrentThread.CurrentCulture = Culture;
             Thread.CurrentThread.CurrentUICulture = Culture;

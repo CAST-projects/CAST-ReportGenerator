@@ -1,4 +1,4 @@
-﻿using CastReporting.Domain;
+﻿using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Helper;
@@ -12,7 +12,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("IFPUG_FUNCTIONS")]
     public class IfpugFunctions : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             int nbLimitTop;
             if (null == options || !options.ContainsKey("COUNT") || !int.TryParse(options["COUNT"], out nbLimitTop))
@@ -44,12 +44,13 @@ namespace CastReporting.Reporting.Block.Table
             IEnumerable<IfpugFunction> functions = reportData.SnapshotExplorer.GetIfpugFunctions(reportData.CurrentSnapshot.Href, string.IsNullOrEmpty(type) || displayZero ? nbLimitTop : -1)?.ToList();
             if (!displayZero && functions != null)
             {
-                functions = functions.Where(f => {
+                functions = functions.Where(f =>
+                {
                     if (f.NbOfFPs != null) return int.Parse(f.NbOfFPs) > 0;
                     if (f.NoOfFPs != null) return int.Parse(f.NoOfFPs) > 0;
                     if (f.Afps != null) return int.Parse(f.Afps) > 0;
                     return false;
-                    });
+                });
             }
             bool previous = displayPrevious && reportData.PreviousSnapshot != null;
 
@@ -71,7 +72,7 @@ namespace CastReporting.Reporting.Block.Table
                 {
                     rowData.AddRange(new[] { Labels.IFPUG_ElementType, Labels.ObjectName, Labels.IFPUG_NoOfFPs, Labels.IFPUG_FPDetails, Labels.IFPUG_ObjectType, Labels.ModuleName, Labels.Technology });
                 }
-                
+
             }
 
             int nbRows = 0;

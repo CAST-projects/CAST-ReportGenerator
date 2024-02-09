@@ -27,7 +27,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("TOP_RISKIEST_TRANSACTIONS")]
     public class TopRiskiestTransactions : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             const string metricFormat = "N0";
             int nbLimitTop;
@@ -42,9 +42,9 @@ namespace CastReporting.Reporting.Block.Table
                 var source = options["SRC"];
                 switch (source)
                 {
-                    case "PERF": { businessCriteria = (int)Domain.Constants.BusinessCriteria.Performance; } break;
-                    case "ROB": { businessCriteria = (int)Domain.Constants.BusinessCriteria.Robustness; } break;
-                    case "SEC": { businessCriteria = (int)Domain.Constants.BusinessCriteria.Security; } break;
+                    case "PERF": { businessCriteria = (int)Domain.Imaging.Constants.BusinessCriteria.Performance; } break;
+                    case "ROB": { businessCriteria = (int)Domain.Imaging.Constants.BusinessCriteria.Robustness; } break;
+                    case "SEC": { businessCriteria = (int)Domain.Imaging.Constants.BusinessCriteria.Security; } break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

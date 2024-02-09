@@ -15,7 +15,7 @@
  */
 using Cast.Util.Log;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -32,7 +32,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("PF_TOP_RISKIEST_APPS")]
     public class PortfolioTopRiskiestApps : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             int metricId = options.GetIntOption("ALT", (int)Constants.BusinessCriteria.TechnicalQualityIndex);
             int nbLimitTop = options.GetIntOption("COUNT", reportData.Parameter.NbResultDefault);

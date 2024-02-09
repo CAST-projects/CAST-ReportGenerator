@@ -15,6 +15,7 @@
  *
  */
 
+using Cast.Util;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
@@ -35,7 +36,7 @@ namespace CastReporting.Reporting.Block.Table
         /// <param name="reportData"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             const string metricFormat = "N2";
 
@@ -58,12 +59,12 @@ namespace CastReporting.Reporting.Block.Table
             {
                 rowData.AddRange(new[] {
                             result.Name,
-                            result.TQI?.ToString(metricFormat) ?? Constants.No_Value,
-                            result.Robustness?.ToString(metricFormat) ?? Constants.No_Value,
-                            result.Performance?.ToString(metricFormat) ?? Constants.No_Value,
-                            result.Security?.ToString(metricFormat) ?? Constants.No_Value,
-                            result.Transferability?.ToString(metricFormat) ?? Constants.No_Value,
-                            result.Changeability?.ToString(metricFormat) ?? Constants.No_Value
+                            result.TQI?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                            result.Robustness?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                            result.Performance?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                            result.Security?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                            result.Transferability?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                            result.Changeability?.ToString(metricFormat) ?? FormatHelper.No_Value
                         });
             }
 
@@ -81,12 +82,12 @@ namespace CastReporting.Reporting.Block.Table
                 {
                     rowData.AddRange(new[] {
                                 result.Name,
-                            result.TQI?.ToString(metricFormat) ?? Constants.No_Value,
-                            result.Robustness?.ToString(metricFormat) ?? Constants.No_Value,
-                            result.Performance?.ToString(metricFormat) ?? Constants.No_Value,
-                            result.Security?.ToString(metricFormat) ?? Constants.No_Value,
-                            result.Transferability?.ToString(metricFormat) ?? Constants.No_Value,
-                            result.Changeability?.ToString(metricFormat) ?? Constants.No_Value
+                            result.TQI?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                            result.Robustness?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                            result.Performance?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                            result.Security?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                            result.Transferability?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                            result.Changeability?.ToString(metricFormat) ?? FormatHelper.No_Value
                             });
                 }
 

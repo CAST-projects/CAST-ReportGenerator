@@ -13,6 +13,7 @@
  * limitations under the License.
  *
  */
+using Cast.Util;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.ReportingModel;
@@ -24,9 +25,9 @@ namespace CastReporting.Reporting.Block.Text
     public class PortfolioTagName : TextBlock
     {
         #region METHODS
-        public override string Content(ReportData reportData, Dictionary<string, string> options)
+        public override string Content(ImagingData reportData, Dictionary<string, string> options)
         {
-            return reportData != null ? reportData.Tag ?? "All" : Domain.Constants.No_Value;
+            return reportData != null ? reportData.Tag ?? "All" : FormatHelper.No_Value;
         }
         #endregion METHODS
     }

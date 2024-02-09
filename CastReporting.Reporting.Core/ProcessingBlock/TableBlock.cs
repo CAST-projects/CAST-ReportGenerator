@@ -13,8 +13,8 @@
  * limitations under the License.
  *
  */
+using Cast.Util;
 using Cast.Util.Log;
-using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Helper;
 using CastReporting.Reporting.ReportingModel;
@@ -37,7 +37,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
     public abstract class TableBlock
     {
         #region ABSTRACTS - To be implemented by Inherited children
-        public abstract TableDefinition Content(ReportData client, Dictionary<string, string> options);
+        public abstract TableDefinition Content(ImagingData client, Dictionary<string, string> options);
         #endregion ABSTRACTS - To be implemented by Inherited children
 
         #region PROPERTIES
@@ -55,11 +55,11 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
             return BlockTypeName.Equals(blockType);
         }
 
-        public TableDefinition GetContent(ReportData client, Dictionary<string, string> options)
+        public TableDefinition GetContent(ImagingData client, Dictionary<string, string> options)
         {
             return Content(client, options);
         }
-        public static TableDefinition GetContent(string blockName, ReportData client, Dictionary<string, string> options)
+        public static TableDefinition GetContent(string blockName, ImagingData client, Dictionary<string, string> options)
         {
             TableBlock instance = BlockHelper.GetAssociatedBlockInstance<TableBlock>(blockName);
             return instance?.Content(client, options);
@@ -71,7 +71,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
 
             LogHelper.LogDebugFormat("Start TableBlock generation : Type {0}", blockName);
             Stopwatch treatmentWatch = Stopwatch.StartNew();
-            TableDefinition content = instance.Content(client, options);
+            TableDefinition content = instance.Content(client.ImagingData, options);
             if (null != content)
             {
                 ApplyContent(client, container, block, content, options);
@@ -495,14 +495,23 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
                         {
                             OXD.Extension init_ext = init_extlst.Descendants<OXD.Extension>().FirstOrDefault();
                             OpenXmlUnknownElement init_rowId = init_ext?.GetFirstChild<OpenXmlUnknownElement>();
-                            OpenXmlUnknownElement new_rowId = init_rowId?.CloneNode(true) as OpenXmlUnknownElement;
-                            if (new_rowId != null)
+
+                            if (init_rowId != null)
                             {
-                                OpenXmlAttribute val = new_rowId.GetAttributes().FirstOrDefault();
-                                val.Value = randomValue.Next().ToString();
-                                new_rowId.SetAttribute(val);
-                                init_ext.ReplaceChild(new_rowId, init_rowId);
+                                var init_val = init_rowId.GetAttributes().FirstOrDefault();
+                                var new_val = new OpenXmlAttribute(init_val.Prefix, init_val.LocalName, init_val.NamespaceUri, randomValue.Next().ToString());
+                                init_rowId.RemoveAttribute(init_val.LocalName, init_val.NamespaceUri);
+                                init_rowId.SetAttribute(new_val);
                             }
+
+                            // OpenXmlUnknownElement new_rowId = init_rowId?.CloneNode(true) as OpenXmlUnknownElement;
+                            // if (new_rowId != null)
+                            // {
+                            //     OpenXmlAttribute val = new_rowId.GetAttributes().FirstOrDefault();
+                            //     val.Value = randomValue.Next().ToString();
+                            //     new_rowId.SetAttribute(val);
+                            //     init_ext.ReplaceChild(new_rowId, init_rowId);
+                            // }
                         }
 
                         idx = ++idx % content.NbColumns;
@@ -555,14 +564,23 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
             {
                 OXD.Extension init_ext = init_extlst.Descendants<OXD.Extension>().FirstOrDefault();
                 OpenXmlUnknownElement init_colId = init_ext?.GetFirstChild<OpenXmlUnknownElement>();
-                OpenXmlUnknownElement new_colId = init_colId?.CloneNode(true) as OpenXmlUnknownElement;
-                if (new_colId != null)
+
+                if (init_colId != null)
                 {
-                    OpenXmlAttribute val = new_colId.GetAttributes().FirstOrDefault();
-                    val.Value = new Random().Next().ToString();
-                    new_colId.SetAttribute(val);
-                    init_ext.ReplaceChild(new_colId, init_colId);
+                    var init_val = init_colId.GetAttributes().FirstOrDefault();
+                    var new_val = new OpenXmlAttribute(init_val.Prefix, init_val.LocalName, init_val.NamespaceUri, new Random().Next().ToString());
+                    init_colId.RemoveAttribute(init_val.LocalName, init_val.NamespaceUri);
+                    init_colId.SetAttribute(new_val);
                 }
+
+                // OpenXmlUnknownElement new_colId = init_colId?.CloneNode(true) as OpenXmlUnknownElement;
+                // if (new_colId != null)
+                // {
+                //     OpenXmlAttribute val = new_colId.GetAttributes().FirstOrDefault();
+                //     val.Value = new Random().Next().ToString();
+                //     new_colId.SetAttribute(val);
+                //     init_ext.ReplaceChild(new_colId, init_colId);
+                // }
             }
             tableGrid.InsertAfter(newcol, columns.Last());
             headerRow.InsertAfter((OXD.TableCell)headerLastCell.CloneNode(true), headerLastCell);

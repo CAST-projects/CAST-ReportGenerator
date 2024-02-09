@@ -13,6 +13,7 @@
  * limitations under the License.
  *
  */
+using Cast.Util;
 using CastReporting.BLL.Computing;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
@@ -28,12 +29,12 @@ namespace CastReporting.Reporting.Block.Text
 
 
         #region METHODS
-        public override string Content(ReportData reportData, Dictionary<string, string> options)
+        public override string Content(ImagingData reportData, Dictionary<string, string> options)
         {
-            if (reportData?.CurrentSnapshot == null) return Domain.Constants.No_Value;
+            if (reportData?.CurrentSnapshot == null) return FormatHelper.No_Value;
             double? codeLineNumber = MeasureUtility.GetCodeLineNumber(reportData.CurrentSnapshot);
 
-            return codeLineNumber.HasValue ? GetApplicationQualification(reportData, codeLineNumber.Value) : Domain.Constants.No_Value;
+            return codeLineNumber.HasValue ? GetApplicationQualification(reportData, codeLineNumber.Value) : FormatHelper.No_Value;
         }
 
 
@@ -43,7 +44,7 @@ namespace CastReporting.Reporting.Block.Text
         /// <param name="reportData"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        private static string GetApplicationQualification(ReportData reportData, double value)
+        private static string GetApplicationQualification(ImagingData reportData, double value)
         {
             if (value < reportData.Parameter.ApplicationSizeLimitSupSmall)
                 return Labels.SizeS;

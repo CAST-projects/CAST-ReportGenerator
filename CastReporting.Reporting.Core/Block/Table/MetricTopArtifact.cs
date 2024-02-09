@@ -13,7 +13,7 @@
  * limitations under the License.
  *
  */
-using CastReporting.Domain;
+using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -27,7 +27,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("METRIC_TOP_ARTEFACT")]
     public class MetricTopArtifact : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             List<string> rowData = new List<string>();
             int nbLimitTop;
@@ -72,7 +72,7 @@ namespace CastReporting.Reporting.Block.Table
             if (criticalRuleViolations != null)
                 foreach (var violation in criticalRuleViolations)
                 {
-                    IEnumerable<Domain.MetricTopArtifact> metricTopArtefact = reportData.SnapshotExplorer.GetMetricTopArtefact(reportData.CurrentSnapshot.Href, violation.Reference.Key.ToString(), -1)?.ToList();
+                    IEnumerable<Domain.Imaging.MetricTopArtifact> metricTopArtefact = reportData.SnapshotExplorer.GetMetricTopArtefact(reportData.CurrentSnapshot.Href, violation.Reference.Key.ToString(), -1)?.ToList();
 
                     int nbArtefactsDisp = 0;
                     int nbArtefactsCount = 0;
