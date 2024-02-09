@@ -213,7 +213,7 @@ namespace CastReporting.Domain
         /// <returns></returns>
         public override bool Equals(object obj)
         {
-            var connection = obj as WSImagingConnection;
+            var connection = obj as WSHighlightConnection;
             return connection != null && Uri.Equals(connection.Uri);
         }
 

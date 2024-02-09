@@ -30,14 +30,10 @@ namespace CastReporting.Reporting.Builder
         {
             switch (client.ReportType)
             {
-                case FormatType.Word:
-                    return new WordDocumentBuilder(client);
-                case FormatType.PowerPoint:
-                    return new PowerpointDocumentBuilder(client);
-                case FormatType.Excel:
-                    return new ExcelDocumentBuilder(client, tmpReportFile);
-                default:
-                    return null;
+                case FormatType.Word: return new WordDocumentBuilder(client);
+                case FormatType.PowerPoint: return new PowerpointDocumentBuilder(client);
+                case FormatType.Excel: return new ExcelDocumentBuilder(client, tmpReportFile);
+                default: return null;
             }
         }
     }
