@@ -31,7 +31,7 @@ namespace CastReporting.Reporting.Block.Text
     public class TechDebtVslocPortfolio : TextBlock
     {
         #region METHODS
-        public override string Content(ReportData reportData, Dictionary<string, string> options)
+        public override string Content(ImagingData reportData, Dictionary<string, string> options)
         {
             if (reportData?.Applications == null) return FormatHelper.No_Value;
             Application[] _allApps = reportData.Applications;

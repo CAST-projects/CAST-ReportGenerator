@@ -12,7 +12,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("IFPUG_FUNCTIONS")]
     public class IfpugFunctions : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             int nbLimitTop;
             if (null == options || !options.ContainsKey("COUNT") || !int.TryParse(options["COUNT"], out nbLimitTop))

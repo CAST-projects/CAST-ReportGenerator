@@ -26,7 +26,7 @@ namespace CastReporting.Reporting.Block.Text
     public class EFPDeleted : TextBlock
     {
         #region METHODS
-        public override string Content(ReportData reportData, Dictionary<string, string> options)
+        public override string Content(ImagingData reportData, Dictionary<string, string> options)
         {
             if (reportData?.CurrentSnapshot == null) return FormatHelper.No_Value;
             double? result = MeasureUtility.GetDeletedFunctionPoint(reportData.CurrentSnapshot);

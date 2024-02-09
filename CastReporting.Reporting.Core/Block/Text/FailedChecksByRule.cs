@@ -31,7 +31,7 @@ namespace CastReporting.Reporting.Block.Text
     public class FailedChecksByRule : TextBlock
     {
         #region METHODS
-        public override string Content(ReportData reportData, Dictionary<string, string> options)
+        public override string Content(ImagingData reportData, Dictionary<string, string> options)
         {
             string strRuleId = options.GetOption("RULID", string.Empty);
             string _snapshot = options.GetOption("SNAPSHOT", "CURRENT");

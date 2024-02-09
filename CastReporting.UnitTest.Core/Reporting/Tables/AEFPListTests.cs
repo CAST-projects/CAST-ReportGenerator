@@ -23,7 +23,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestAEFPDefaultConfig()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                null, null, null, null, null, null);
             WSImagingConnection connection = new WSImagingConnection
@@ -62,7 +62,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestAEFPAddedDataFunction()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                 null, null, null, null, null, null);
             WSImagingConnection connection = new WSImagingConnection
@@ -98,7 +98,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestAEFPModifiedTransactional()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                 null, null, null, null, null, null);
             WSImagingConnection connection = new WSImagingConnection
@@ -135,7 +135,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             CastDate previousDate = new CastDate { Time = 1492984700000 };
-            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                 @".\Data\ModulesCoCRA.json", @".\Data\PreviousBCTCmodules.json", "AED/applications/3/snapshots/3", "Snap3_CAIP-8.3ra_RG-1.5.a", "8.3.ra", previousDate);
             WSImagingConnection connection = new WSImagingConnection
@@ -172,7 +172,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestAEFPAllDeleted()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                 null, null, null, null, null, null);
             WSImagingConnection connection = new WSImagingConnection
@@ -211,7 +211,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestAEFPBadVersion()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                 null, null, null, null, null, null);
             reportData.ServerVersion = "1.8.0.456";
@@ -245,7 +245,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestAEFPWithZeroConfig()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/33", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                null, null, null, null, null, null);
             WSImagingConnection connection = new WSImagingConnection
@@ -284,7 +284,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestAEFPNoZeroConfig()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/33", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                null, null, null, null, null, null);
             WSImagingConnection connection = new WSImagingConnection

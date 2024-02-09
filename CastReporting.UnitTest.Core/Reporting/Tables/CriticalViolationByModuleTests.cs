@@ -21,7 +21,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestOneSnapshot()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
-            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                null, null, null, null, null, null);
 

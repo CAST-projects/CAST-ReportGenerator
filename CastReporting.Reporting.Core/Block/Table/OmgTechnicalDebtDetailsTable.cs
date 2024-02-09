@@ -31,7 +31,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("OMG_TECHNICAL_DEBT_DETAILS_TABLE")]
     public class OmgTechnicalDebtDetailsTable : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             string index = options.GetOption("ID", "ISO");
             int indexId = OmgTechnicalDebtUtility.GetOmgIndex(index);

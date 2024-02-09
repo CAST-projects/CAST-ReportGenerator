@@ -23,7 +23,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestBadServerVersion()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
-            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                 null, @".\Data\CurrentBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             reportData = TestUtility.AddStandardTags(reportData, @".\Data\StandardTags.json");
@@ -62,7 +62,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestTagsDocForOneCategory()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
-            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                 null, @".\Data\CurrentBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             reportData = TestUtility.AddStandardTags(reportData, @".\Data\StandardTags.json");
@@ -106,7 +106,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestTagsDocForSeveralCategories()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
-            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                 null, @".\Data\CurrentBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             reportData = TestUtility.AddStandardTags(reportData, @".\Data\StandardTags.json");

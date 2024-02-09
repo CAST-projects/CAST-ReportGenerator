@@ -32,7 +32,7 @@ namespace CastReporting.Reporting.Block.Table
     {
         #region METHODS
 
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             bool hasPrevious = reportData.PreviousSnapshot != null;
             if (reportData?.CurrentSnapshot == null) return null;

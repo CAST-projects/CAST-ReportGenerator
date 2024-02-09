@@ -19,7 +19,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         [DeploymentItem(@".\Data\AADApplications.json", "Data")]
         public void TestIgnoredSnapshots()
         {
-            ReportData reportData = TestUtility.PrepaEmptyPortfolioReportData();
+            ImagingData reportData = TestUtility.PrepaEmptyPortfolioReportData();
 
             var component = new PF_IgnoredSnapshots();
             Dictionary<string, string> config = new Dictionary<string, string>();
@@ -43,7 +43,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         {
             List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json", @".\Data\AADApplication2Snap.json" };
             List<string> snapResultsList = new List<string> { @".\Data\AADApplication1SnapResults.json", @".\Data\AADApplication2SnapResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
+            ImagingData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
 
             var component = new PF_IgnoredSnapshots();
             Dictionary<string, string> config = new Dictionary<string, string>();

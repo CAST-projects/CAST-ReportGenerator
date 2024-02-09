@@ -23,7 +23,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
              * @".\Data\Sample1Current.json" => http://localhost:7070/CAST-AAD-AED/rest/AED/applications/3/snapshots/6/results?quality-indicators=(60013,60014,60017)
              */
 
-            ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
+            ImagingData reportData = TestUtility.PrepaReportData("ReportGenerator",
                 null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
                 null, null, null, null, null);
             var component = new RadarMetricId();
@@ -50,7 +50,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
             * @".\Data\Sample1Current.json" => http://localhost:7070/CAST-AAD-AED/rest/AED/applications/3/snapshots/6/results?quality-indicators=(60013,60014,60017)
             * @".\Data\Sample1Previous.json" => http://localhost:7070/CAST-AAD-AED/rest/AED/applications/3/snapshots/3/results?quality-indicators=(60013,60014,60017)
             */
-            ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
+            ImagingData reportData = TestUtility.PrepaReportData("ReportGenerator",
                 null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
                 null, @".\Data\Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
 
@@ -78,7 +78,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
             * @".\Data\Sample1Current.json" => http://localhost:7070/CAST-AAD-AED/rest/AED/applications/3/snapshots/6/results?quality-indicators=(60013,60014,60017)
             * @".\Data\Sample1Previous.json" => http://localhost:7070/CAST-AAD-AED/rest/AED/applications/3/snapshots/3/results?quality-indicators=(60013,60014,60017)
             */
-            ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
+            ImagingData reportData = TestUtility.PrepaReportData("ReportGenerator",
                 null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
                 null, @".\Data\Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
 
@@ -106,7 +106,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
             * @".\Data\Sample1Current.json" => http://localhost:7070/CAST-AAD-AED/rest/AED/applications/3/snapshots/6/results?quality-indicators=(60013,60014,60017)
             * @".\Data\Sample1Previous.json" => http://localhost:7070/CAST-AAD-AED/rest/AED/applications/3/snapshots/3/results?quality-indicators=(60013,60014,60017)
             */
-            ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
+            ImagingData reportData = TestUtility.PrepaReportData("ReportGenerator",
                 null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
                 null, @".\Data\Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
 
@@ -134,7 +134,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
              * @".\Data\Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
              */
 
-            ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
+            ImagingData reportData = TestUtility.PrepaReportData("AppliAEP",
                 null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
                 null, @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
             var component = new RadarMetricId();
@@ -162,7 +162,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
              * @".\Data\Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
              */
 
-            ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
+            ImagingData reportData = TestUtility.PrepaReportData("AppliAEP",
                 null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
                 null, @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
             var component = new RadarMetricId();
@@ -190,7 +190,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
              * @".\Data\Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
              */
 
-            ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
+            ImagingData reportData = TestUtility.PrepaReportData("AppliAEP",
                 null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
                 null, @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
             var component = new RadarMetricId();
@@ -216,7 +216,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
              * DreamTeamSnap4Metrics.json : AED3/applications/7/snapshots/15/results?quality-indicators=(60014,61004,550)&sizing-measures=(10151,68001,10202,67210,67011)
              */
 
-            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
                 null, @".\Data\DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 null, null, null, null, null);
             var component = new RadarMetricId();

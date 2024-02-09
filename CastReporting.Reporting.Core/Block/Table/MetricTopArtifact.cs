@@ -27,7 +27,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("METRIC_TOP_ARTEFACT")]
     public class MetricTopArtifact : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             List<string> rowData = new List<string>();
             int nbLimitTop;

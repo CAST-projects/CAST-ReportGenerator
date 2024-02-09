@@ -26,7 +26,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("TECHNICAL_SIZING")]
     public class TechnicalSizing : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             #region METHODS
 

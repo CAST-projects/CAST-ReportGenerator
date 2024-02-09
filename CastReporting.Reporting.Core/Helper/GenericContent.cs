@@ -48,7 +48,7 @@ namespace CastReporting.Reporting.Helper
             }
         }
 
-        public static string GetItemName(string type, string item, ReportData reportData)
+        public static string GetItemName(string type, string item, ImagingData reportData)
         {
             switch (type)
             {
@@ -117,7 +117,7 @@ namespace CastReporting.Reporting.Helper
         /*
          * the bool format parameter is true for table component, and false for graph component
          */
-        public static TableDefinition Content(ReportData reportData, Dictionary<string, string> options, bool format)
+        public static TableDefinition Content(ImagingData reportData, Dictionary<string, string> options, bool format)
         {
             var rowData = new List<string>();
             ObjConfig[] _posConfig = new ObjConfig[4];
@@ -1666,7 +1666,7 @@ namespace CastReporting.Reporting.Helper
 
         }
 
-        public static List<string> BuildMetricsList(ReportData reportData, List<string> metrics)
+        public static List<string> BuildMetricsList(ImagingData reportData, List<string> metrics)
         {
             if (metrics.Contains("HEALTH_FACTOR"))
             {

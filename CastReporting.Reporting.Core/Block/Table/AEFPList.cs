@@ -15,7 +15,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("AEFP_LIST")]
     public class AEFPList : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             int nbLimitTop;
             int nbColumns = 0;

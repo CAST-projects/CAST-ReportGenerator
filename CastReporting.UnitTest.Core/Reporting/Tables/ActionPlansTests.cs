@@ -24,7 +24,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * @".\Data\ActionPlanSummaryApp3.json" => AED/applications/3/snapshots/6/action-plan/summary
              */
 
-            ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
+            ImagingData reportData = TestUtility.PrepaReportData("ReportGenerator",
                 null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
                 null, null, null, null, null);
             reportData = TestUtility.AddApplicationActionPlan(reportData, @".\Data\ActionPlanSummaryApp3.json", null);
@@ -53,7 +53,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * @".\Data\ActionPlanSummaryApp3.json" => AED/applications/3/snapshots/6/action-plan/summary
              */
 
-            ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
+            ImagingData reportData = TestUtility.PrepaReportData("ReportGenerator",
                 null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
                 null, @".\Data\Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
             reportData = TestUtility.AddApplicationActionPlan(reportData, @".\Data\ActionPlanSummaryApp3.json", @".\Data\ActionPlanSummaryApp3Previous.json");

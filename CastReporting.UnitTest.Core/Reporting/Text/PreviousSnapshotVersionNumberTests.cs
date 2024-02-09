@@ -23,7 +23,7 @@ namespace CastReporting.UnitTest.Reporting.Text
         {
             CastDate currentDate = new CastDate { Time = 1496959200000 };
             CastDate previousDate = new CastDate { Time = 1484953200000 };
-            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                 null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, @".\Data\PreviousBCresults.json", "AED/applications/3/snapshots/5", "Version 1.4.1", "V-1.4.1", previousDate);
 
@@ -37,7 +37,7 @@ namespace CastReporting.UnitTest.Reporting.Text
         [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
         public void TestNoResult()
         {
-            ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
+            ImagingData reportData = TestUtility.PrepaReportData("ReportGenerator",
                 null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
                 null, null, null, null, null);
 

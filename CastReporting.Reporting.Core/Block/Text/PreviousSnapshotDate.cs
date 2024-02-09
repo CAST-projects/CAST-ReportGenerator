@@ -28,7 +28,7 @@ namespace CastReporting.Reporting.Block.Text
     public class PreviousSnapshotDate : TextBlock
     {
         #region METHODS
-        public override string Content(ReportData reportData, Dictionary<string, string> options)
+        public override string Content(ImagingData reportData, Dictionary<string, string> options)
         {
             string res = string.Empty;
             if (reportData?.PreviousSnapshot == null) return string.IsNullOrEmpty(res) ? FormatHelper.No_Value : res;

@@ -47,7 +47,7 @@ namespace CastReporting.Reporting.Helper
             }
         }
 
-        public static string GetItemName(string type, string item, ReportData reportData)
+        public static string GetItemName(string type, string item, ImagingData reportData)
         {
             switch (type)
             {
@@ -107,7 +107,7 @@ namespace CastReporting.Reporting.Helper
         /*
          * the bool format parameter is true for table component, and false for graph component
          */
-        public static TableDefinition Content(ReportData reportData, Dictionary<string, string> options, bool format)
+        public static TableDefinition Content(ImagingData reportData, Dictionary<string, string> options, bool format)
         {
             var rowData = new List<string>();
             ObjConfig[] _posConfig = new ObjConfig[4];
@@ -1280,7 +1280,7 @@ namespace CastReporting.Reporting.Helper
 
         }
 
-        public static void BuildAggregatedMetricsList(ReportData reportData, Dictionary<string, string> metricsAggregated, List<string> metrics, string[] aggregators)
+        public static void BuildAggregatedMetricsList(ImagingData reportData, Dictionary<string, string> metricsAggregated, List<string> metrics, string[] aggregators)
         {
 
             if (metrics.Contains("HEALTH_FACTOR"))
@@ -1546,7 +1546,7 @@ namespace CastReporting.Reporting.Helper
         }
 
 
-        public static void BuildApplicationSnapshots(Dictionary<Application, Snapshot> list, ReportData reportData)
+        public static void BuildApplicationSnapshots(Dictionary<Application, Snapshot> list, ImagingData reportData)
         {
             foreach (Application _application in reportData.Applications)
             {
@@ -1554,7 +1554,7 @@ namespace CastReporting.Reporting.Helper
             }
         }
 
-        public static void BuildApplicationPreviousQuarterSnapshots(Dictionary<Application, Snapshot> list, ReportData reportData)
+        public static void BuildApplicationPreviousQuarterSnapshots(Dictionary<Application, Snapshot> list, ImagingData reportData)
         {
             DateTime _dateNow = DateTime.Now;
             int previousQuarter = DateUtil.GetPreviousQuarter(_dateNow);

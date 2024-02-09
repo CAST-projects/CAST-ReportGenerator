@@ -27,7 +27,7 @@ namespace CastReporting.Reporting.Block.Text
     public class RepGenVersion : TextBlock
     {
         #region METHODS
-        public override string Content(ReportData reportData, Dictionary<string, string> options)
+        public override string Content(ImagingData reportData, Dictionary<string, string> options)
         {
             var ver = VersionUtil.GetRGVersion(Assembly.GetExecutingAssembly());
             if (string.IsNullOrEmpty(ver))

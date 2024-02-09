@@ -31,7 +31,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("RULES_LIST_STATISTICS_RATIO")]
     public class RulesListStatisticsRatio : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             List<string> metrics = options.GetOption("METRICS").Trim().Split('|').ToList();
 

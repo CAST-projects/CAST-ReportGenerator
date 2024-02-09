@@ -25,7 +25,7 @@ namespace CastReporting.Reporting.Block.Text
     public class SystemName : TextBlock
     {
         #region METHODS
-        public override string Content(ReportData reportData, Dictionary<string, string> options)
+        public override string Content(ImagingData reportData, Dictionary<string, string> options)
         {
             return reportData != null ? reportData.Application.SystemNames : FormatHelper.No_Value;
         }

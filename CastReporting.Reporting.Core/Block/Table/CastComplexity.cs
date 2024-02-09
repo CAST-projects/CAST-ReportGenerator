@@ -29,7 +29,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("CAST_COMPLEXITY")]
     public class CastComplexity : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
 
             TableDefinition back = new TableDefinition();

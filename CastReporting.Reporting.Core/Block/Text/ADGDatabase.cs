@@ -26,7 +26,7 @@ namespace CastReporting.Reporting.Block.Text
     {
 
         #region METHODS
-        public override string Content(ReportData reportData, Dictionary<string, string> options)
+        public override string Content(ImagingData reportData, Dictionary<string, string> options)
         {
             return reportData?.Application?.AdgDatabase ?? FormatHelper.No_Value;
         }

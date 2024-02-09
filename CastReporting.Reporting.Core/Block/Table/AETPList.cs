@@ -17,7 +17,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("AETP_LIST")]
     public class AETPList : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             string _metricFormat = options.GetOption("FORMAT", "N2");
             int nbLimitTop = options.GetIntOption("COUNT", 10);

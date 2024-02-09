@@ -32,7 +32,7 @@ namespace CastReporting.Reporting.Block.Text
     public class PortfolioCriticalViolations : TextBlock
     {
         #region METHODS
-        public override string Content(ReportData reportData, Dictionary<string, string> options)
+        public override string Content(ImagingData reportData, Dictionary<string, string> options)
         {
             #region Item BCID
             int metricId = options.GetIntOption("BCID", (int)Constants.BusinessCriteria.TechnicalQualityIndex);

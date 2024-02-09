@@ -12,7 +12,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("QUALITY_RULE_VIOLATIONS_BOOKMARKS")]
     public class QualityRuleViolationsBookmarks : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             List<string> rowData = new List<string>();
             List<CellAttributes> cellProps = new List<CellAttributes>();

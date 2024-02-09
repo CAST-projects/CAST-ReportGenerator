@@ -28,7 +28,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("RULE_NAME_DESCRIPTION_TOPCRITVIOL"), Block("METRIC_NAME_DESCRIPTION")]
     public class RulesDescriptionsOfTopCriticalViolations : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             List<string> rowData = new List<string>();
             int nbLimitTop;

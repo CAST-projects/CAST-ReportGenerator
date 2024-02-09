@@ -27,7 +27,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("CAST_COMPLEXITY_WITH_VIOL")]
     public class CastComplexityWithViolation : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             TableDefinition back = new TableDefinition();
             List<string> rowData = new List<string>();

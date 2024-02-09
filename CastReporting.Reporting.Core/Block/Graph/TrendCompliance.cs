@@ -35,7 +35,7 @@ namespace CastReporting.Reporting.Block.Graph
 
         #region METHODS
 
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             double minValy = short.MaxValue;
             double maxValy = 0;

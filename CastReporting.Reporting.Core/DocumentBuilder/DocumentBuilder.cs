@@ -35,7 +35,7 @@ namespace CastReporting.Reporting.Builder
         {
             ReportData = reportData;
 
-            Package = GetPackage(reportData.FileName, ReportData.ReportType);
+            Package = GetPackage(reportData.FileName, reportData.ReportType);
         }
         #endregion CONSTRUCTORS
 
@@ -234,7 +234,7 @@ namespace CastReporting.Reporting.Builder
                         newFileInfo.Delete();
 
                     File.Copy(pPath, newFileName);
-                    
+
                     using (FileStream fs = new FileStream(newFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite))
                     {
                         UriFixer.FixInvalidUri(fs, brokenUri => FixUri(brokenUri));
@@ -278,7 +278,7 @@ namespace CastReporting.Reporting.Builder
         }
 
         #endregion Inherited
-        
+
         private static Uri FixUri(string brokenUri)
         {
             return new Uri("http://broken-link/");

@@ -22,7 +22,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestOneSnapshot()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
-            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                null, null, null, null, null, null);
             reportData = TestUtility.AddSameCriticalRuleViolationsForAllBC(reportData, @".\Data\cc60017.json", null);
@@ -50,7 +50,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484866800000 };
-            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                 null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, @".\Data\PreviousBCresults.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1", previousDate);
             reportData = TestUtility.AddSameCriticalRuleViolationsForAllBC(reportData, @".\Data\cc60017.json", @".\Data\cc60017Previous.json");
@@ -78,7 +78,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484866800000 };
-            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                 null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, @".\Data\PreviousBCresults.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1", previousDate);
             reportData = TestUtility.AddSameCriticalRuleViolationsForAllBC(reportData, @".\Data\cc60017.json", @".\Data\cc60017Previous.json");

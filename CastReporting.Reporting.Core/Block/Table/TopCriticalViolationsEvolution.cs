@@ -29,7 +29,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("TOP_CRITICAL_VIOLATIONS_EVOLUTION")]
     public class TopCriticalViolationsEvolution : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             int rowCount = 0;
             int nbLimitTop;

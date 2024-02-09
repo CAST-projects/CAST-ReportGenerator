@@ -13,22 +13,18 @@
  * limitations under the License.
  *
  */
-using Cast.Util;
-using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.ReportingModel;
-using System.Collections.Generic;
+using System;
 
-namespace CastReporting.Reporting.Block.Text
+namespace CastReporting.Reporting.ReportingModel
 {
-    [Block("APPLICATION_NAME")]
-    public class ApplicationName : TextBlock
+    /// <summary>
+    /// 
+    /// </summary>
+    public class HighlightData : IDisposable
     {
-        #region METHODS
-        public override string Content(ImagingData reportData, Dictionary<string, string> options)
+        public void Dispose()
         {
-            return reportData != null ? reportData.Application.Name ?? FormatHelper.No_Value : FormatHelper.No_Value;
+            GC.SuppressFinalize(this);
         }
-        #endregion METHODS
     }
 }

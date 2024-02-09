@@ -31,7 +31,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("OMG_TECHNICAL_DEBT_TABLE")]
     public class OmgTechnicalDebtTable : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             const string numberFormat = "N1";
 

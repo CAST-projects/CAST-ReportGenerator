@@ -15,7 +15,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("REMOVED_VIOLATIONS_LIST")]
     public class RemovedViolationsListByBC : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             List<string> rowData = new List<string>();
 

@@ -32,7 +32,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("PF_BC_RELEASE_PERFORMANCE")]
     public class PortfolioReleasePerformance : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             string strTargets = options.GetOption("BF", string.Empty);
             string _strSla = options.GetOption("SLA", string.Empty);

@@ -34,7 +34,7 @@ namespace CastReporting.Reporting.Block.Graph
 
         #region METHODS
 
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             int nbLimitTop = options.GetIntOption("COUNT", 20);
             string filteringBc = options.GetOption("FILTER", "ROB");
@@ -110,7 +110,7 @@ namespace CastReporting.Reporting.Block.Graph
             return resultTable;
         }
 
-        private List<TransactionDetailsDTO> getTransactionsDetails(ReportData reportData, int nbLimitTop, string bc, List<TransactionDetailsDTO> transactionsDetails, Snapshot snapshot)
+        private List<TransactionDetailsDTO> getTransactionsDetails(ImagingData reportData, int nbLimitTop, string bc, List<TransactionDetailsDTO> transactionsDetails, Snapshot snapshot)
         {
             // Get the transactions list
             List<Transaction> transactions = reportData.SnapshotExplorer.GetTransactions(snapshot.Href, bc, nbLimitTop)?.ToList();
