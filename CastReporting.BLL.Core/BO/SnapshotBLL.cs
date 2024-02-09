@@ -18,6 +18,7 @@ using Cast.Util.Log;
 using Cast.Util.Version;
 using CastReporting.Domain;
 using CastReporting.Domain.Imaging;
+using CastReporting.Domain.Imaging.Constants;
 using CastReporting.Domain.Imaging.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -167,7 +168,7 @@ namespace CastReporting.BLL
         /// </summary>
         public void SetComplexity()
         {
-            var values = (int[])Enum.GetValues(typeof(Domain.Imaging.Constants.QualityDistribution));
+            var values = (int[])Enum.GetValues(typeof(QualityDistribution));
 
             List<ApplicationResult> results = new List<ApplicationResult>();
 
@@ -513,7 +514,7 @@ namespace CastReporting.BLL
         /// <param name="count"></param>
         /// <param name="technos"></param>
         /// <returns></returns>
-        public IEnumerable<Violation> GetViolationsListIDbyBC(string snapshotHref, string ruleId, string bcId, int count, string technos)
+        public IEnumerable<Violation> GetViolationsListIDbyBC(string snapshotHref, string ruleId, int bcId, int count, string technos)
         {
             try
             {

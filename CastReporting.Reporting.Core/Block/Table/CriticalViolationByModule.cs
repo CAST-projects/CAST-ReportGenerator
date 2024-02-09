@@ -16,6 +16,7 @@
 using Cast.Util;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain.Imaging;
+using CastReporting.Domain.Imaging.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -42,17 +43,17 @@ namespace CastReporting.Reporting.Block.Table
             {
                 rowData.AddRange(new[] {
                           resultModule.ModuleName,
-                          resultModule[Constants.BusinessCriteria.TechnicalQualityIndex]?.TotalCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value,
+                          resultModule[BusinessCriteria.TechnicalQualityIndex]?.TotalCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value,
 
-                          resultModule[Constants.BusinessCriteria.Robustness]?.TotalCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value ,
+                          resultModule[BusinessCriteria.Robustness]?.TotalCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value ,
 
-                          resultModule[Constants.BusinessCriteria.Performance]?.TotalCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value ,
+                          resultModule[BusinessCriteria.Performance]?.TotalCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value ,
 
-                          resultModule[Constants.BusinessCriteria.Security]?.TotalCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value ,
+                          resultModule[BusinessCriteria.Security]?.TotalCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value ,
 
-                          resultModule[Constants.BusinessCriteria.Transferability]?.TotalCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value ,
+                          resultModule[BusinessCriteria.Transferability]?.TotalCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value ,
 
-                          resultModule[Constants.BusinessCriteria.Changeability]?.TotalCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value
+                          resultModule[BusinessCriteria.Changeability]?.TotalCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value
 
                         });
 
@@ -64,17 +65,17 @@ namespace CastReporting.Reporting.Block.Table
             {
                 rowData.AddRange(new[] {
                           resultModule.ModuleName,
-                          resultModule[Constants.BusinessCriteria.TechnicalQualityIndex]?.AddedCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value,
+                          resultModule[BusinessCriteria.TechnicalQualityIndex]?.AddedCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value,
 
-                          resultModule[Constants.BusinessCriteria.Robustness]?.AddedCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value ,
+                          resultModule[BusinessCriteria.Robustness]?.AddedCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value ,
 
-                          resultModule[Constants.BusinessCriteria.Performance]?.AddedCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value ,
+                          resultModule[BusinessCriteria.Performance]?.AddedCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value ,
 
-                          resultModule[Constants.BusinessCriteria.Security]?.AddedCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value ,
+                          resultModule[BusinessCriteria.Security]?.AddedCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value ,
 
-                          resultModule[Constants.BusinessCriteria.Transferability]?.AddedCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value ,
+                          resultModule[BusinessCriteria.Transferability]?.AddedCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value ,
 
-                          resultModule[Constants.BusinessCriteria.Changeability]?.AddedCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value
+                          resultModule[BusinessCriteria.Changeability]?.AddedCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value
 
                         });
 
@@ -85,17 +86,17 @@ namespace CastReporting.Reporting.Block.Table
             {
                 rowData.AddRange(new[] {
                           resultModule.ModuleName,
-                          resultModule[Constants.BusinessCriteria.TechnicalQualityIndex]?.RemovedCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value,
+                          resultModule[BusinessCriteria.TechnicalQualityIndex]?.RemovedCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value,
 
-                          resultModule[Constants.BusinessCriteria.Robustness]?.RemovedCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value ,
+                          resultModule[BusinessCriteria.Robustness]?.RemovedCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value ,
 
-                          resultModule[Constants.BusinessCriteria.Performance]?.RemovedCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value ,
+                          resultModule[BusinessCriteria.Performance]?.RemovedCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value ,
 
-                          resultModule[Constants.BusinessCriteria.Security]?.RemovedCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value ,
+                          resultModule[BusinessCriteria.Security]?.RemovedCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value ,
 
-                          resultModule[Constants.BusinessCriteria.Transferability]?.RemovedCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value ,
+                          resultModule[BusinessCriteria.Transferability]?.RemovedCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value ,
 
-                          resultModule[Constants.BusinessCriteria.Changeability]?.RemovedCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value
+                          resultModule[BusinessCriteria.Changeability]?.RemovedCriticalViolations?.ToString(MetricFormat) ?? FormatHelper.No_Value
 
                         });
 

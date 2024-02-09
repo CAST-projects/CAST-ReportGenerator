@@ -18,6 +18,7 @@
 using Cast.Util;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain.Imaging;
+using CastReporting.Domain.Imaging.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -52,7 +53,7 @@ namespace CastReporting.Reporting.Block.Table
 
 
                 //Build Debt added row            
-                double? technicalDebtadded = MeasureUtility.SumDeltaIndicator(reportData.CurrentSnapshot, reportData.PreviousSnapshot, reportData.Application, Constants.SizingInformations.AddedViolationsTechnicalDebt);
+                double? technicalDebtadded = MeasureUtility.SumDeltaIndicator(reportData.CurrentSnapshot, reportData.PreviousSnapshot, reportData.Application, SizingInformations.AddedViolationsTechnicalDebt);
 
                 rowData.AddRange(new[] {
                      displayShortHeader ? Labels.DebtAdded : Labels.TechnicalDebtAdded + " (" + reportData.CurrencySymbol + ")",
@@ -60,7 +61,7 @@ namespace CastReporting.Reporting.Block.Table
                 });
 
                 //Build Debt removed row            
-                double? technicalDebtremoved = MeasureUtility.SumDeltaIndicator(reportData.CurrentSnapshot, reportData.PreviousSnapshot, reportData.Application, Constants.SizingInformations.RemovedViolationsTechnicalDebt);
+                double? technicalDebtremoved = MeasureUtility.SumDeltaIndicator(reportData.CurrentSnapshot, reportData.PreviousSnapshot, reportData.Application, SizingInformations.RemovedViolationsTechnicalDebt);
 
                 rowData.AddRange(new[] {
                      displayShortHeader ? Labels.DebtRemoved : Labels.TechnicalDebtRemoved + " (" + reportData.CurrencySymbol + ")",

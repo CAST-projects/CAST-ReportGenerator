@@ -260,7 +260,7 @@ namespace CastReporting.Repositories.Interfaces
         /// <param name="count"></param>
         /// <param name="technos"></param>
         /// <returns></returns>
-        IEnumerable<Violation> GetViolationsListIDbyBC(string snapshotHref, string ruleId, string bcId, int count, string technos);
+        IEnumerable<Violation> GetViolationsListIDbyBC(string snapshotHref, string ruleId, int bcId, int count, string technos);
         IEnumerable<Violation> GetViolationsInActionPlan(string snapshotHref, int count);
 
         AssociatedValue GetAssociatedValue(string domainHRef, string snapshotId, string objectId, string metricId);

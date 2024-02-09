@@ -15,6 +15,7 @@
  */
 using CastReporting.BLL.Computing;
 using CastReporting.Domain.Imaging;
+using CastReporting.Domain.Imaging.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -45,10 +46,10 @@ namespace CastReporting.Reporting.Block.Table
             if (reportData?.CurrentSnapshot != null)
             {
                 //Compute nb objectives
-                int? nbObjectives = RulesViolationUtility.GetNbRuleWithViolations(reportData.CurrentSnapshot, Constants.RulesViolation.CriticalRulesViolation, 0, false);
+                int? nbObjectives = RulesViolationUtility.GetNbRuleWithViolations(reportData.CurrentSnapshot, RulesViolation.CriticalRulesViolation, 0, false);
 
                 //Compute nb acchiveemnt for the whole applcation
-                int? nbRuleWithViolations = RulesViolationUtility.GetNbRuleWithViolations(reportData.CurrentSnapshot, Constants.RulesViolation.CriticalRulesViolation, 0, true);
+                int? nbRuleWithViolations = RulesViolationUtility.GetNbRuleWithViolations(reportData.CurrentSnapshot, RulesViolation.CriticalRulesViolation, 0, true);
                 int? nbAchievement = nbObjectives.HasValue && nbRuleWithViolations.HasValue ? nbObjectives.Value - nbRuleWithViolations.Value : (int?)null;
 
                 double? achievementRatio = nbAchievement.HasValue && nbObjectives.Value != 0 ? (double)nbAchievement.Value / nbObjectives.Value : (double?)null;

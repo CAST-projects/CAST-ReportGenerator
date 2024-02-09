@@ -56,9 +56,9 @@ namespace CastReporting.Reporting.Helper
                     switch (item)
                     {
                         case "CURRENT":
-                            return SnapshotUtility.GetSnapshotNameVersion(reportData.CurrentSnapshot);
+                            return reportData.CurrentSnapshot.GetSnapshotNameVersion();
                         case "PREVIOUS":
-                            return SnapshotUtility.GetSnapshotNameVersion(reportData.PreviousSnapshot);
+                            return reportData.PreviousSnapshot.GetSnapshotNameVersion();
                         case "EVOL":
                             return Labels.Evolution;
                         case "EVOL_PERCENT":
@@ -395,11 +395,11 @@ namespace CastReporting.Reporting.Helper
                                 switch (param)
                                 {
                                     case "CURRENT":
-                                        if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.CurrentSnapshot);
+                                        if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.CurrentSnapshot.GetSnapshotNameVersion();
                                         results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), res.curResult);
                                         break;
                                     case "PREVIOUS":
-                                        if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.PreviousSnapshot);
+                                        if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.PreviousSnapshot.GetSnapshotNameVersion();
                                         results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), res.prevResult);
                                         break;
                                     case "EVOL":
@@ -440,14 +440,14 @@ namespace CastReporting.Reporting.Helper
                                 case "CURRENT":
                                     string curValueC = format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, _metricFormat, null, string.Empty)
                                         : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, "graph", null, string.Empty);
-                                    if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.CurrentSnapshot);
+                                    if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.CurrentSnapshot.GetSnapshotNameVersion();
                                     results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), curValueC);
                                     break;
                                 case "PREVIOUS":
                                     string prevValueP = reportData.PreviousSnapshot != null ? format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, null, string.Empty)
                                         : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, "graph", null, string.Empty)
                                         : format ? Labels.NoData : "0";
-                                    if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.PreviousSnapshot);
+                                    if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.PreviousSnapshot.GetSnapshotNameVersion();
                                     results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), prevValueP);
                                     break;
                                 case "EVOL":
@@ -480,7 +480,7 @@ namespace CastReporting.Reporting.Helper
                         foreach (Snapshot _snapshot in snapshots)
                         {
                             // _metricId should be a quality indicator, if not, return null
-                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = _snapshot.GetSnapshotNameVersion();
                             string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
                             if (name == FormatHelper.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
@@ -528,7 +528,7 @@ namespace CastReporting.Reporting.Helper
                         foreach (Snapshot _snapshot in snapshots)
                         {
                             // _metricId should be a quality indicator, if not, return null
-                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = _snapshot.GetSnapshotNameVersion();
                             string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
                             if (name == FormatHelper.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
@@ -576,7 +576,7 @@ namespace CastReporting.Reporting.Helper
                         foreach (Snapshot _snapshot in snapshots)
                         {
                             // _metricId should be a quality indicator, if not, return null
-                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = _snapshot.GetSnapshotNameVersion();
                             string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
                             if (name == FormatHelper.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
@@ -649,12 +649,12 @@ namespace CastReporting.Reporting.Helper
                                     switch (param)
                                     {
                                         case "CURRENT":
-                                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.CurrentSnapshot);
+                                            if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.CurrentSnapshot.GetSnapshotNameVersion();
                                             results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), res.curResult);
                                             break;
 
                                         case "PREVIOUS":
-                                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.PreviousSnapshot);
+                                            if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.PreviousSnapshot.GetSnapshotNameVersion();
                                             results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), res.prevResult);
                                             break;
 
@@ -703,14 +703,14 @@ namespace CastReporting.Reporting.Helper
                                     case "CURRENT":
                                         string curValueC = format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, _metricFormat, module, string.Empty)
                                             : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, "graph", module, string.Empty);
-                                        if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.CurrentSnapshot);
+                                        if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.CurrentSnapshot.GetSnapshotNameVersion();
                                         results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), curValueC);
                                         break;
                                     case "PREVIOUS":
                                         string prevValueP = reportData.PreviousSnapshot != null ? format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, module, string.Empty)
                                             : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, "graph", module, string.Empty)
                                             : format ? Labels.NoData : "0";
-                                        if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.PreviousSnapshot);
+                                        if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.PreviousSnapshot.GetSnapshotNameVersion();
                                         results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), prevValueP);
                                         break;
                                     case "EVOL":
@@ -745,7 +745,7 @@ namespace CastReporting.Reporting.Helper
                         foreach (Snapshot _snapshot in snapshots)
                         {
                             // _metricId should be a quality indicator, if not, return null
-                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = _snapshot.GetSnapshotNameVersion();
                             string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
                             if (name == FormatHelper.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
@@ -799,7 +799,7 @@ namespace CastReporting.Reporting.Helper
                         foreach (Snapshot _snapshot in snapshots)
                         {
                             // _metricId should be a quality indicator, if not, return null
-                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = _snapshot.GetSnapshotNameVersion();
                             string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
                             if (name == FormatHelper.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
@@ -853,7 +853,7 @@ namespace CastReporting.Reporting.Helper
                         foreach (Snapshot _snapshot in snapshots)
                         {
                             // _metricId should be a quality indicator, if not, return null
-                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = _snapshot.GetSnapshotNameVersion();
                             string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
                             if (name == FormatHelper.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
@@ -930,12 +930,12 @@ namespace CastReporting.Reporting.Helper
                                     switch (param)
                                     {
                                         case "CURRENT":
-                                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.CurrentSnapshot);
+                                            if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.CurrentSnapshot.GetSnapshotNameVersion();
                                             results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), res.curResult);
                                             break;
 
                                         case "PREVIOUS":
-                                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.PreviousSnapshot);
+                                            if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.PreviousSnapshot.GetSnapshotNameVersion();
                                             results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), res.prevResult);
                                             break;
 
@@ -984,14 +984,14 @@ namespace CastReporting.Reporting.Helper
                                     case "CURRENT":
                                         string curValueC = format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, _metricFormat, null, techno)
                                             : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, "graph", null, techno);
-                                        if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.CurrentSnapshot);
+                                        if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.CurrentSnapshot.GetSnapshotNameVersion();
                                         results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), curValueC);
                                         break;
                                     case "PREVIOUS":
                                         string prevValueP = reportData.PreviousSnapshot != null ? format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, null, techno)
                                             : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, "graph", null, techno)
                                             : format ? Labels.NoData : "0";
-                                        if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.PreviousSnapshot);
+                                        if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.PreviousSnapshot.GetSnapshotNameVersion();
                                         results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), prevValueP);
                                         break;
                                     case "EVOL":
@@ -1026,7 +1026,7 @@ namespace CastReporting.Reporting.Helper
                         foreach (Snapshot _snapshot in snapshots)
                         {
                             // _metricId should be a quality indicator, if not, return null
-                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = _snapshot.GetSnapshotNameVersion();
                             string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
                             if (name == FormatHelper.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
@@ -1081,7 +1081,7 @@ namespace CastReporting.Reporting.Helper
                         foreach (Snapshot _snapshot in snapshots)
                         {
                             // _metricId should be a quality indicator, if not, return null
-                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = _snapshot.GetSnapshotNameVersion();
                             string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
                             if (name == FormatHelper.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
@@ -1136,7 +1136,7 @@ namespace CastReporting.Reporting.Helper
                         foreach (Snapshot _snapshot in snapshots)
                         {
                             // _metricId should be a quality indicator, if not, return null
-                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = _snapshot.GetSnapshotNameVersion();
                             string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
                             if (name == FormatHelper.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
@@ -1216,12 +1216,12 @@ namespace CastReporting.Reporting.Helper
                                         switch (param)
                                         {
                                             case "CURRENT":
-                                                if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.CurrentSnapshot);
+                                                if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.CurrentSnapshot.GetSnapshotNameVersion();
                                                 results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), res.curResult);
                                                 break;
 
                                             case "PREVIOUS":
-                                                if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.PreviousSnapshot);
+                                                if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.PreviousSnapshot.GetSnapshotNameVersion();
                                                 results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), res.prevResult);
                                                 break;
 
@@ -1274,14 +1274,14 @@ namespace CastReporting.Reporting.Helper
                                         case "CURRENT":
                                             string curValueC = format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, _metricFormat, module, techno)
                                                 : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, "graph", module, techno);
-                                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.CurrentSnapshot);
+                                            if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.CurrentSnapshot.GetSnapshotNameVersion();
                                             results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), curValueC);
                                             break;
                                         case "PREVIOUS":
                                             string prevValueP = reportData.PreviousSnapshot != null ? format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, module, techno)
                                                 : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, "graph", module, techno)
                                                 : format ? Labels.NoData : "0";
-                                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.PreviousSnapshot);
+                                            if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.PreviousSnapshot.GetSnapshotNameVersion();
                                             results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), prevValueP);
                                             break;
                                         case "EVOL":
@@ -1317,7 +1317,7 @@ namespace CastReporting.Reporting.Helper
                         foreach (Snapshot _snapshot in snapshots)
                         {
                             // _metricId should be a quality indicator, if not, return null
-                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = _snapshot.GetSnapshotNameVersion();
                             string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
                             if (name == FormatHelper.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
@@ -1375,7 +1375,7 @@ namespace CastReporting.Reporting.Helper
                         foreach (Snapshot _snapshot in snapshots)
                         {
                             // _metricId should be a quality indicator, if not, return null
-                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = _snapshot.GetSnapshotNameVersion();
                             string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
                             if (name == FormatHelper.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
@@ -1433,7 +1433,7 @@ namespace CastReporting.Reporting.Helper
                         foreach (Snapshot _snapshot in snapshots)
                         {
                             // _metricId should be a quality indicator, if not, return null
-                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = _snapshot.GetSnapshotNameVersion();
                             string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
                             if (name == FormatHelper.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;

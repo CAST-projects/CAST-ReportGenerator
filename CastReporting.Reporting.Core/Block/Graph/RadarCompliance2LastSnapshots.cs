@@ -34,21 +34,21 @@ namespace CastReporting.Reporting.Block.Graph
             BusinessCriteriaDTO prevSnapshotBCResult = null;
 
             if (reportData?.CurrentSnapshot == null) return null;
-            string currSnapshotLabel = SnapshotUtility.GetSnapshotVersionNumber(reportData.CurrentSnapshot);
-            BusinessCriteriaDTO _currSnapshotBcdto = BusinessCriteriaUtility.GetBusinessCriteriaGradesSnapshot(reportData.CurrentSnapshot, true);
+            string currSnapshotLabel = reportData.CurrentSnapshot.GetSnapshotVersionNumber();
+            BusinessCriteriaDTO _currSnapshotBcdto = reportData.CurrentSnapshot.GetBusinessCriteriaGradesSnapshot(true);
 
             if (reportData.PreviousSnapshot != null)
             {
-                prevSnapshotLabel = SnapshotUtility.GetSnapshotVersionNumber(reportData.PreviousSnapshot);
-                prevSnapshotBCResult = BusinessCriteriaUtility.GetBusinessCriteriaGradesSnapshot(reportData.PreviousSnapshot, true);
+                prevSnapshotLabel = reportData.PreviousSnapshot.GetSnapshotVersionNumber();
+                prevSnapshotBCResult = reportData.PreviousSnapshot.GetBusinessCriteriaGradesSnapshot(true);
             }
             else
             {
                 Snapshot _previousSnapshot = reportData.Application.Snapshots?.FirstOrDefault(_ => _.Annotation.Date.DateSnapShot < reportData.CurrentSnapshot.Annotation.Date.DateSnapShot);
                 if (_previousSnapshot != null)
                 {
-                    prevSnapshotLabel = SnapshotUtility.GetSnapshotVersionNumber(_previousSnapshot);
-                    prevSnapshotBCResult = BusinessCriteriaUtility.GetBusinessCriteriaGradesSnapshot(_previousSnapshot, true);
+                    prevSnapshotLabel = _previousSnapshot.GetSnapshotVersionNumber();
+                    prevSnapshotBCResult = _previousSnapshot.GetBusinessCriteriaGradesSnapshot(true);
                 }
             }
 

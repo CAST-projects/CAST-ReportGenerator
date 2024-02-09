@@ -17,6 +17,7 @@ using Cast.Util;
 using Cast.Util.Log;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain.Imaging;
+using CastReporting.Domain.Imaging.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -35,7 +36,7 @@ namespace CastReporting.Reporting.Block.Text
         public override string Content(ImagingData reportData, Dictionary<string, string> options)
         {
             #region Item BCID
-            int metricId = options.GetIntOption("BCID", (int)Constants.BusinessCriteria.TechnicalQualityIndex);
+            int metricId = options.GetIntOption("BCID", (int)BusinessCriteria.TechnicalQualityIndex);
             #endregion Item BCID
 
             if (reportData?.Applications == null || null == reportData.Snapshots) return FormatHelper.No_Value;

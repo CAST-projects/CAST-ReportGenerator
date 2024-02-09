@@ -16,6 +16,7 @@
 
 using CastReporting.BLL.Computing;
 using CastReporting.Domain.Imaging;
+using CastReporting.Domain.Imaging.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -52,8 +53,8 @@ namespace CastReporting.Reporting.Block.Table
                     metricId = 0;
 
                 var rulesViolation = RulesViolationUtility.GetRuleViolations(reportData.CurrentSnapshot,
-                                                                                     Constants.RulesViolation.CriticalRulesViolation,
-                                                                                     (Constants.BusinessCriteria)metricId,
+                                                                                     RulesViolation.CriticalRulesViolation,
+                                                                                     (BusinessCriteria)metricId,
                                                                                      true,
                                                                                      nbLimitTop);
 

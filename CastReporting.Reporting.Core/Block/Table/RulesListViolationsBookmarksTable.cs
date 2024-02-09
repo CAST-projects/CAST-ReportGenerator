@@ -1,6 +1,7 @@
 ﻿using Cast.Util.Log;
 using Cast.Util.Version;
 using CastReporting.Domain.Imaging;
+using CastReporting.Domain.Imaging.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -56,7 +57,7 @@ namespace CastReporting.Reporting.Block.Table
             List<string> qualityRules = MetricsUtility.BuildRulesList(reportData, metrics, critical, omg);
             if (qualityRules.Count > 0)
             {
-                const string bcId = "60017";
+                const int bcId = (int)BusinessCriteria.TechnicalQualityIndex;
                 int nbLimitTop = options.GetIntOption("COUNT", 5);
 
                 foreach (string _metric in qualityRules)

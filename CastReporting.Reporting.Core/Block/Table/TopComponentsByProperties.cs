@@ -102,7 +102,7 @@ namespace CastReporting.Reporting.Block.Table
             }
             else
             {
-                if (SnapshotUtility.IsLatestSnapshot(reportData.Application, reportData.CurrentSnapshot))
+                if (reportData.Application.IsLatestSnapshot(reportData.CurrentSnapshot))
                 {
                     IEnumerable<ComponentWithProperties> components = reportData.SnapshotExplorer.GetComponentsByProperties(reportData.CurrentSnapshot.Href, 60017, prop1, prop2, order1, order2, nbSet);
                     if (lower1 != null)

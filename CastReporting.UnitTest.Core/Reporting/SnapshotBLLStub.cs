@@ -276,7 +276,7 @@ namespace CastReporting.UnitTest.Reporting
         [DeploymentItem(@".\Data\CriticalViolationsList_60016.json", "Data")]
         [DeploymentItem(@".\Data\CriticalViolationsList_60016_module.json", "Data")]
         [DeploymentItem(@".\Data\CriticalViolationsList_60017.json", "Data")]
-        public IEnumerable<Violation> GetViolationsListIDbyBC(string snapshotHref, string ruleId, string bcId, int count, string technos)
+        public IEnumerable<Violation> GetViolationsListIDbyBC(string snapshotHref, string ruleId, int bcId, int count, string technos)
         {
             IEnumerable<Violation> res;
             switch (ruleId)
@@ -305,20 +305,12 @@ namespace CastReporting.UnitTest.Reporting
                 case "(critical-rules)":
                     switch (bcId)
                     {
-                        case "60012":
-                            res = TestUtility.GetSampleResult<Violation>(@".\Data\CriticalViolationsList_60012.json").ToList();
-                            break;
-                        case "60013":
-                            res = TestUtility.GetSampleResult<Violation>(@".\Data\CriticalViolationsList_60013.json").ToList();
-                            break;
-                        case "60014":
-                            res = TestUtility.GetSampleResult<Violation>(@".\Data\CriticalViolationsList_60014.json").ToList();
-                            break;
-                        case "60016":
-                            res = TestUtility.GetSampleResult<Violation>(@".\Data\CriticalViolationsList_60016.json").ToList();
-                            break;
-                        case "60017":
-                            res = TestUtility.GetSampleResult<Violation>(@".\Data\CriticalViolationsList_60017.json").ToList();
+                        case 60012:
+                        case 60013:
+                        case 60014:
+                        case 60016:
+                        case 60017:
+                            res = TestUtility.GetSampleResult<Violation>($@".\Data\CriticalViolationsList_{bcId}.json").ToList();
                             break;
                         default:
                             res = new List<Violation>();

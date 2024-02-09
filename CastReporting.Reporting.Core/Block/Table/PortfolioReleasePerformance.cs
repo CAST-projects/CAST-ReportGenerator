@@ -87,7 +87,7 @@ namespace CastReporting.Reporting.Block.Table
                         if (_snapshot != null)
                         {
                             nbCurrentSnapshots = nbCurrentSnapshots + 1;
-                            BusinessCriteriaDTO currSnapshotBisCriDTO = BusinessCriteriaUtility.GetBusinessCriteriaGradesSnapshot(_snapshot, false);
+                            BusinessCriteriaDTO currSnapshotBisCriDTO = _snapshot.GetBusinessCriteriaGradesSnapshot(false);
 
                             double? strCurrentArchDesign = currSnapshotBisCriDTO.ArchitecturalDesign ?? 0;
                             double? strCurrentRobu = currSnapshotBisCriDTO.Robustness ?? 0;
@@ -119,7 +119,7 @@ namespace CastReporting.Reporting.Block.Table
 
                         if (_previous == null) continue;
                         nbPreviousSnapshots = nbPreviousSnapshots + 1;
-                        BusinessCriteriaDTO prevSnapshotBisCriDTO = BusinessCriteriaUtility.GetBusinessCriteriaGradesSnapshot(_previous, false);
+                        BusinessCriteriaDTO prevSnapshotBisCriDTO = _previous.GetBusinessCriteriaGradesSnapshot(false);
 
                         double? strPreviousArchDesign = prevSnapshotBisCriDTO.ArchitecturalDesign.HasValue ? MathUtility.GetRound(prevSnapshotBisCriDTO.ArchitecturalDesign.Value) : 0;
                         double? strPreviousRobu = prevSnapshotBisCriDTO.Robustness.HasValue ? MathUtility.GetRound(prevSnapshotBisCriDTO.Robustness.Value) : 0;

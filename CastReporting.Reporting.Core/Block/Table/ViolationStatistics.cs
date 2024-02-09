@@ -17,6 +17,7 @@
 using Cast.Util;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain.Imaging;
+using CastReporting.Domain.Imaging.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -35,31 +36,25 @@ namespace CastReporting.Reporting.Block.Table
         {
             if (reportData?.CurrentSnapshot == null) return null;
 
-            double? criticalViolation = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, Constants.SizingInformations.ViolationsToCriticalQualityRulesNumber);
-            double? numCritPerFile = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, Constants.SizingInformations.ViolationsToCriticalQualityRulesPerFileNumber);
-            double? _numCritPerKloc = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, Constants.SizingInformations.ViolationsToCriticalQualityRulesPerKLOCNumber);
+            double? criticalViolation = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, SizingInformations.ViolationsToCriticalQualityRulesNumber);
+            double? numCritPerFile = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, SizingInformations.ViolationsToCriticalQualityRulesPerFileNumber);
+            double? _numCritPerKloc = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, SizingInformations.ViolationsToCriticalQualityRulesPerKLOCNumber);
 
-            double? veryHighCostComplexityViolations = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot, Constants.
-                    QualityDistribution.DistributionOfDefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.GetHashCode(),
-                Constants.DefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.CostComplexityDefects_VeryHigh.GetHashCode());
+            double? veryHighCostComplexityViolations = reportData.CurrentSnapshot.GetCostComplexityGrade(QualityDistribution.DistributionOfDefectsToCriticalDiagnosticBasedMetricsPerCostComplexity,
+                DefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.CostComplexityDefects_VeryHigh);
 
-            double? highCostComplexityViolations = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                Constants.QualityDistribution.DistributionOfDefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.GetHashCode(),
-                Constants.DefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.CostComplexityDefects_High.GetHashCode());
+            double? highCostComplexityViolations = reportData.CurrentSnapshot.GetCostComplexityGrade(QualityDistribution.DistributionOfDefectsToCriticalDiagnosticBasedMetricsPerCostComplexity,
+                DefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.CostComplexityDefects_High);
 
-            double? veryHighCostComplexityArtefacts = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                Constants.CostComplexity.CostComplexityArtifacts_VeryHigh.GetHashCode());
+            double? veryHighCostComplexityArtefacts = reportData.CurrentSnapshot.GetCostComplexityGrade(QualityDistribution.CostComplexityDistribution,
+                CostComplexity.CostComplexityArtifacts_VeryHigh);
 
-            double? highCostComplexityArtefacts = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                Constants.CostComplexity.CostComplexityArtifacts_High.GetHashCode());
+            double? highCostComplexityArtefacts = reportData.CurrentSnapshot.GetCostComplexityGrade(QualityDistribution.CostComplexityDistribution,
+                CostComplexity.CostComplexityArtifacts_High);
 
 
             double? nbComplexityArtefacts = MathUtility.GetSum(veryHighCostComplexityArtefacts, highCostComplexityArtefacts);
             double? nbComplexityArtefactsViolation = MathUtility.GetSum(veryHighCostComplexityViolations, highCostComplexityViolations);
-
-
 
             const string metricFormat = "N0";
             const string metricFormatPrecision = "N2";

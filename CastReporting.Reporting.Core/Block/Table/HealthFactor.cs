@@ -50,15 +50,11 @@ namespace CastReporting.Reporting.Block.Table
             if (reportData?.CurrentSnapshot?.BusinessCriteriaResults == null) return null;
             bool hasPreviousSnapshot = null != reportData.PreviousSnapshot;
 
-            #region currSnapshot
-            string currSnapshotLabel = SnapshotUtility.GetSnapshotVersionNumber(reportData.CurrentSnapshot);
-            BusinessCriteriaDTO currSnapshotBisCriDTO = BusinessCriteriaUtility.GetBusinessCriteriaGradesSnapshot(reportData.CurrentSnapshot, false);
-            #endregion  currSnapshot
+            string currSnapshotLabel = reportData.CurrentSnapshot.GetSnapshotVersionNumber();
+            BusinessCriteriaDTO currSnapshotBisCriDTO = reportData.CurrentSnapshot.GetBusinessCriteriaGradesSnapshot(false);
 
-            #region prevSnapshot
-            string prevSnapshotLabel = hasPreviousSnapshot ? SnapshotUtility.GetSnapshotVersionNumber(reportData.PreviousSnapshot) : FormatHelper.No_Value;
-            BusinessCriteriaDTO prevSnapshotBisCriDTO = hasPreviousSnapshot ? BusinessCriteriaUtility.GetBusinessCriteriaGradesSnapshot(reportData.PreviousSnapshot, false) : null;
-            #endregion  prevSnapshot
+            string prevSnapshotLabel = reportData.PreviousSnapshot.GetSnapshotVersionNumber();
+            BusinessCriteriaDTO prevSnapshotBisCriDTO = reportData.PreviousSnapshot.GetBusinessCriteriaGradesSnapshot(false);
 
             List<string> rowData = new List<string>();
             rowData.AddRange(displayShortHeader
