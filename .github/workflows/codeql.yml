@@ -74,7 +74,13 @@ jobs:
     #   If the Autobuild fails above, remove it and uncomment the following three lines.
     #   modify them (or add more) to build your code if your project, please refer to the EXAMPLE below for guidance.
 
-    - run: |
+    - name: Install .NET Core 6.0.202
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.202
+
+    - name: Build CastReporting.Console.Core
+      run: |
         echo "Run, Build Application using script"
         dotnet build ./CastReporting.Console.Core/CastReporting.Console.Core.csproj
 
