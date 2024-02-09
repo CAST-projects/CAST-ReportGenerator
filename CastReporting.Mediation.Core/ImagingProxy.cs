@@ -15,6 +15,7 @@
  */
 
 using Cast.Util.Log;
+using Cast.Util.Security;
 using CastReporting.Mediation.Core;
 using CastReporting.Mediation.Interfaces;
 using System;
@@ -91,7 +92,7 @@ namespace CastReporting.Mediation
             }
             else
             {
-                string credentials = CreateBasicAuthenticationCredentials(login, password);
+                string credentials = AuthHelper.CreateBasicAuthenticationCredentials(login, password);
                 Headers.Add(HttpRequestHeader.Authorization, credentials);
             }
         }
@@ -344,36 +345,12 @@ namespace CastReporting.Mediation
             // ReSharper disable once SwitchStatementMissingSomeCases
             switch (pComplexity)
             {
-                case RequestComplexity.Long:
-                    {
-                        return Settings.Default.TimoutLong;
-                    }
-                case RequestComplexity.Soft:
-                    {
-                        return Settings.Default.TimeoutQuick;
-                    }
-                //case RequestComplexity.Standard:
-                default:
-                    {
-                        return Settings.Default.TimeoutStandard;
-                    }
+                case RequestComplexity.Long: return Settings.Default.TimoutLong;
+                case RequestComplexity.Soft: return Settings.Default.TimeoutQuick;
+                // case RequestComplexity.Standard:
+                default: return Settings.Default.TimeoutStandard;
             }
 
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        private static string CreateBasicAuthenticationCredentials(string userName, string password)
-        {
-            string base64UsernamePassword = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{userName}:{password}"));
-
-            var returnValue = $"Basic {base64UsernamePassword}";
-
-            return returnValue;
         }
 
         #endregion METHODS

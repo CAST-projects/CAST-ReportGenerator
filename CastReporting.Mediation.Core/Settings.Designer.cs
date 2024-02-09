@@ -8,44 +8,54 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CastReporting.Mediation.Core {
-    
-    
+namespace CastReporting.Mediation.Core
+{
+
+
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-        
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase
+    {
+
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
-        
-        public static Settings Default {
-            get {
+
+        public static Settings Default
+        {
+            get
+            {
                 return defaultInstance;
             }
         }
-        
+
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("180000")]
-        public int TimeoutQuick {
-            get {
+        public int TimeoutQuick
+        {
+            get
+            {
                 return ((int)(this["TimeoutQuick"]));
             }
         }
-        
+
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("320000")]
-        public int TimeoutStandard {
-            get {
+        public int TimeoutStandard
+        {
+            get
+            {
                 return ((int)(this["TimeoutStandard"]));
             }
         }
-        
+
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("560000")]
-        public int TimoutLong {
-            get {
+        public int TimoutLong
+        {
+            get
+            {
                 return ((int)(this["TimoutLong"]));
             }
         }

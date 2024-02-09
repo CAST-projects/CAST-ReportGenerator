@@ -1,7 +1,6 @@
-﻿using CastReporting.Domain.Imaging;
-using System;
+﻿using System;
 using System.Collections.Generic;
-
+using CastReporting.Domain.Highlight;
 
 namespace CastReporting.Repositories.Interfaces
 {
@@ -19,5 +18,9 @@ namespace CastReporting.Repositories.Interfaces
         bool IsServiceValid();
 
         string GetServerVersion();
+
+        Company GetCompany(string companyId);
+        HLDomain GetDomain(string domainId);
+        IList<AppId> GetDomainAppIds(string domainId);
     }
 }
