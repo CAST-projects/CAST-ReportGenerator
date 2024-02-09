@@ -408,7 +408,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
             if (SelectedCategory != null)
             {
                 //GetActive Connection           
-                ActiveConnection = Setting?.GetActiveConnection();
+                ActiveConnection = Setting?.GetActiveImagingConnection();
 
                 //Get list of domains
                 if (_ActiveConnection == null) return;
@@ -601,7 +601,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
 
 
                     //GetActive Connection           
-                    ActiveConnection = Setting?.GetActiveConnection();
+                    ActiveConnection = Setting?.GetActiveImagingConnection();
 
                     //Get list of domains
                     if (_ActiveConnection != null)
@@ -664,7 +664,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                         Domain.Imaging.Application[] N_SelectedApps = N_Apps.ToArray();
 
                         //GetActive Connection           
-                        ActiveConnection = Setting?.GetActiveConnection();
+                        ActiveConnection = Setting?.GetActiveImagingConnection();
 
                         //Get list of domains
                         if (_ActiveConnection != null)
@@ -1005,7 +1005,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         public void InitializeFromWS()
         {
             //GetActive Connection           
-            ActiveConnection = Setting?.GetActiveConnection();
+            ActiveConnection = Setting?.GetActiveImagingConnection();
 
             //Get list of domains
             if (_ActiveConnection?.Password == null || _ActiveConnection?.Login == null) return;

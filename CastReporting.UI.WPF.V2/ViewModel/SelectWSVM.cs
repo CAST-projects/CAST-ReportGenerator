@@ -164,7 +164,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
 
             ActiveCommand = new CommandHandler(ExecuteActiveCommand, null);
 
-            WSConnections = new ObservableCollection<WSImagingConnection>(Setting.WSConnections);
+            WSConnections = new ObservableCollection<WSImagingConnection>(Setting.WSImagingConnections);
 
         }
 
@@ -181,7 +181,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
 
                 if (state == StatesEnum.ConnectionAddedAndActivated || state == StatesEnum.ConnectionAddedSuccessfully)
                 {
-                    WSConnections = new ObservableCollection<WSImagingConnection>(Setting.WSConnections);
+                    WSConnections = new ObservableCollection<WSImagingConnection>(Setting.WSImagingConnections);
 
                     NewConnectionUrl = NewConnectionLogin = NewConnectionPassword = string.Empty;
                 }
@@ -204,7 +204,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
             string tmpUrl = SelectedWSConnection.Url;
 
             Setting = SettingsBLL.RemoveConnection(SelectedWSConnection);
-            WSConnections = new ObservableCollection<WSImagingConnection>(Setting.WSConnections);
+            WSConnections = new ObservableCollection<WSImagingConnection>(Setting.WSImagingConnections);
 
             MessageManager.OnServiceRemoved(tmpUrl);
         }
@@ -216,13 +216,13 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         private void ExecuteActiveCommand(object prameter)
         {
             if (SelectedWSConnection == null) return;
-            Setting.ChangeActiveConnection(SelectedWSConnection.Url);
+            Setting.ChangeActiveImagingConnection(SelectedWSConnection.Url);
 
             SettingsBLL.SaveSetting(Setting);
 
             MessageManager.OnServiceActivated(SelectedWSConnection.Url);
 
-            WSConnections = new ObservableCollection<WSImagingConnection>(Setting.WSConnections);
+            WSConnections = new ObservableCollection<WSImagingConnection>(Setting.WSImagingConnections);
         }
 
     }

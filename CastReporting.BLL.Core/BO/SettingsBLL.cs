@@ -150,13 +150,13 @@ namespace CastReporting.BLL
                     return setting;
                 }
 
-                if (!setting.WSConnections.Any(x => x.Equals(connection)))
+                if (!setting.WSImagingConnections.Any(x => x.Equals(connection)))
                 {
-                    setting.WSConnections.Add(connection);
+                    setting.WSImagingConnections.Add(connection);
                 }
                 else
                 {
-                    WSImagingConnection existing = setting.WSConnections?.Where(x => x.Equals(connection)).FirstOrDefault();
+                    WSImagingConnection existing = setting.WSImagingConnections?.Where(x => x.Equals(connection)).FirstOrDefault();
                     if (existing?.Login == connection.Login && existing?.Password == connection.Password && existing?.ApiKey == connection.ApiKey)
                     {
                         // ReSharper disable once RedundantAssignment
@@ -164,8 +164,8 @@ namespace CastReporting.BLL
                     }
                     else
                     {
-                        setting.WSConnections.Remove(existing);
-                        setting.WSConnections.Add(connection);
+                        setting.WSImagingConnections.Remove(existing);
+                        setting.WSImagingConnections.Add(connection);
                     }
 
                 }
@@ -173,7 +173,7 @@ namespace CastReporting.BLL
 
                 if (isActive)
                 {
-                    setting.ChangeActiveConnection(connection.Uri.ToString());
+                    setting.ChangeActiveImagingConnection(connection.Uri.ToString());
                     state = StatesEnum.ConnectionAddedAndActivated;
                 }
                 else
@@ -197,7 +197,7 @@ namespace CastReporting.BLL
             using (ISettingRepository setttingRepository = new SettingsRepository())
             {
                 var setting = setttingRepository.GetSeting();
-                setting.WSConnections.Remove(connection);
+                setting.WSImagingConnections.Remove(connection);
                 setttingRepository.SaveSetting(setting);
 
                 return setting;
