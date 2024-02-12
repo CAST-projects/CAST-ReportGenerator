@@ -9,12 +9,13 @@
 #define App1240Id "{{63B0C2BF-F4A5-43BA-AE1A-B30C88E3E369}"
 #define App1241Id "{{B6666179-BB8B-4521-94A5-63A2372EF8E3}"
 #define App1242Id "{{77BD0877-2C3E-4EAA-8C1F-DFDA45FF47A4}"
+#define App200Id "{{4A97836E-6EBF-446A-B2F9-FED8688CEC61}"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={#App1242Id}
+AppId={#App200Id}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppVerName={#MyAppName} {#MyAppVersion}
@@ -62,11 +63,11 @@ source: "../CastReporting.Console.Core/bin/Release/net6.0/*.exe";DestDir: "{app}
 source: "../CastReporting.Console.Core/bin/Release/net6.0/*.dll";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
 source: "../CastReporting.Console.Core/bin/Release/net6.0/CastReporting.Console.Core.runtimeconfig.json";DestDir: "{app}"; Flags: ignoreversion
 source: "../CastReporting.Console.Core/bin/Release/net6.0/CastReporting.Console.Core.deps.json";DestDir: "{app}"; Flags: ignoreversion
-source: "../CastReporting.UI.WPF.V2/bin/Release/net6.0-windows/*.dll";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
-source: "../CastReporting.UI.WPF.V2/bin/Release/net6.0-windows/*.exe";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
-source: "../CastReporting.UI.WPF.V2/bin/Release/net6.0-windows/*.config";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
-source: "../CastReporting.UI.WPF.V2/bin/Release/net6.0-windows/CastReporting.UI.WPF.Core.runtimeconfig.json";DestDir: "{app}"; Flags: ignoreversion
-source: "../CastReporting.UI.WPF.V2/bin/Release/net6.0-windows/CastReporting.UI.WPF.Core.deps.json";DestDir: "{app}"; Flags: ignoreversion
+source: "../CastReporting.UI.WPF.V2/bin/Release/net6.0-windows7.0/*.dll";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+source: "../CastReporting.UI.WPF.V2/bin/Release/net6.0-windows7.0/*.exe";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+source: "../CastReporting.UI.WPF.V2/bin/Release/net6.0-windows7.0/*.config";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+source: "../CastReporting.UI.WPF.V2/bin/Release/net6.0-windows7.0/CastReporting.UI.WPF.Core.runtimeconfig.json";DestDir: "{app}"; Flags: ignoreversion
+source: "../CastReporting.UI.WPF.V2/bin/Release/net6.0-windows7.0/CastReporting.UI.WPF.Core.deps.json";DestDir: "{app}"; Flags: ignoreversion
 source: "../CastReporting.Console.Core/bin/Release/net6.0/Parameters/*.xml";DestDir: "{app}"; Flags: ignoreversion
 Source: "../CastReporting.Reporting.Core/Templates/*"; DestDir: "{code:GetTempPath}\Templates"; Flags: ignoreversion recursesubdirs
 source: "../CastReporting.Repositories.Core/CastReportingSetting.xml"; DestDir: "{code:GetSettingsPath}"; Flags: ignoreversion; AfterInstall:SaveSettings()

@@ -15,6 +15,7 @@
  */
 using Cast.Util;
 using CastReporting.Domain.Imaging;
+using CastReporting.Domain.Imaging.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -73,13 +74,13 @@ namespace CastReporting.Reporting.Block.Table
             {
                 Dictionary<int, RuleDetails> targetRules =
                     reportData.RuleExplorer
-                    .GetRulesDetails(reportData.CurrentSnapshot.DomainId, Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode(), reportData.CurrentSnapshot.Id)
+                    .GetRulesDetails(reportData.CurrentSnapshot.DomainId, (int)BusinessCriteria.TechnicalQualityIndex, reportData.CurrentSnapshot.Id)
                     .Where(rd => rd.Key.HasValue && (showCritical && rd.Critical || showNonCritical && rd.Critical == false))
                     .ToDictionary(rd => rd.Key.Value);
 
                 var sourceResults = reportData.CurrentSnapshot.QualityRulesResults.Where(qr => targetRules.ContainsKey(qr.Reference.Key)).ToList();
 
-                var modules = (perModule ? reportData.CurrentSnapshot.Modules : new List<Module>(new Module[] { null }).AsEnumerable()).OrderBy(m => m == null ? string.Empty : m.Name);
+                var modules = (perModule ? reportData.CurrentSnapshot.Modules : new List<Module>(new Module[] { null })).OrderBy(m => m == null ? string.Empty : m.Name);
 
                 foreach (var module in modules)
                 {

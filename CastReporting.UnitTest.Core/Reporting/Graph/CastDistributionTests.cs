@@ -1,4 +1,5 @@
 ﻿using CastReporting.BLL.Computing;
+using CastReporting.Domain.Imaging.Constants;
 using CastReporting.Reporting.Block.Graph;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -483,7 +484,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
                 null, null, null, null, null);
             reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", null);
 
-            double? res = CastComplexityUtility.GetCategoryValue(reportData.CurrentSnapshot, 67002);
+            double? res = reportData.CurrentSnapshot.GetCategoryValue((int)CostComplexity.CostComplexityArtifacts_VeryHigh);
             Assert.AreEqual(71, res);
         }
 

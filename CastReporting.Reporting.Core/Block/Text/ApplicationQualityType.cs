@@ -16,6 +16,7 @@
 using Cast.Util;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain.Imaging;
+using CastReporting.Domain.Imaging.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -33,7 +34,7 @@ namespace CastReporting.Reporting.Block.Text
         public override string Content(ImagingData reportData, Dictionary<string, string> options)
         {
             if (reportData?.CurrentSnapshot == null) return FormatHelper.No_Value;
-            double? tqi = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(reportData.CurrentSnapshot, Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode(), true);
+            double? tqi = reportData.CurrentSnapshot.GetSnapshotBusinessCriteriaGrade(BusinessCriteria.TechnicalQualityIndex, true);
 
             return tqi.HasValue ? GetApplicationQualification(reportData, tqi.Value) : FormatHelper.No_Value;
         }

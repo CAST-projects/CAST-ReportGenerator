@@ -44,8 +44,9 @@ namespace CastReporting.Reporting.Block.Graph
                 foreach (string id in qidList)
                 {
                     if (names.Keys.Contains(id)) continue;
-                    if (string.IsNullOrEmpty(BusinessCriteriaUtility.GetMetricName(reportData.CurrentSnapshot, int.Parse(id)))) continue;
-                    names[id] = BusinessCriteriaUtility.GetMetricName(reportData.CurrentSnapshot, int.Parse(id));
+                    var name = reportData.CurrentSnapshot.GetMetricName(int.Parse(id));
+                    if (string.IsNullOrEmpty(name)) continue;
+                    names[id] = name;
                 }
             }
             if (sidList != null)
@@ -53,8 +54,9 @@ namespace CastReporting.Reporting.Block.Graph
                 foreach (string id in sidList)
                 {
                     if (names.Keys.Contains(id)) continue;
-                    if (string.IsNullOrEmpty(MeasureUtility.GetSizingMeasureName(reportData.CurrentSnapshot, int.Parse(id)))) continue;
-                    names[id] = MeasureUtility.GetSizingMeasureName(reportData.CurrentSnapshot, int.Parse(id));
+                    var name = MeasureUtility.GetSizingMeasureName(reportData.CurrentSnapshot, int.Parse(id));
+                    if (string.IsNullOrEmpty(name)) continue;
+                    names[id] = name;
                 }
             }
 

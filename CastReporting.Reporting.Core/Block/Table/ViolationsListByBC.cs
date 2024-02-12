@@ -1,6 +1,7 @@
 ﻿using Cast.Util;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain.Imaging;
+using CastReporting.Domain.Imaging.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -18,14 +19,17 @@ namespace CastReporting.Reporting.Block.Table
         {
             List<string> rowData = new List<string>();
 
-            string[] bcIds = options.GetOption("BCID") != null ? options.GetOption("BCID").Trim().Split('|') : new[] { "60016" }; // by default, security
+            int[] bcIds = options.GetOption("BCID") != null ? options.GetOption("BCID").Trim().Split('|').Select(int.Parse).ToArray() : new[] { (int)BusinessCriteria.Security }; // by default, security
             int nbLimitTop = options.GetOption("COUNT") == "ALL" ? -1 : options.GetIntOption("COUNT", 10);
             bool shortName = options.GetOption("NAME", "FULL").Equals("SHORT");
-            bool hasPri = bcIds.Contains("60013") || bcIds.Contains("60014") || bcIds.Contains("60016");
             string[] filter = options.GetOption("FILTER", "ALL").Trim().Split('|');
             bool critical = options.GetOption("VIOLATIONS", "CRITICAL").Equals("CRITICAL");
             string module = options.GetOption("MODULE");
             string[] technos = options.GetOption("TECHNOLOGIES") != null && !options.GetOption("TECHNOLOGIES").Equals("ALL") ? options.GetOption("TECHNOLOGIES").Trim().Split('|') : new[] { "$all" };
+
+            bool hasPri = bcIds.Contains((int)BusinessCriteria.Robustness)
+                            || bcIds.Contains((int)BusinessCriteria.Performance)
+                            || bcIds.Contains((int)BusinessCriteria.Security);
 
             rowData.Add(Labels.ViolationStatus);
             if (hasPri) rowData.Add(Labels.PRI);
@@ -41,16 +45,16 @@ namespace CastReporting.Reporting.Block.Table
             List<Violation> results = new List<Violation>();
 
 
-            foreach (string _bcid in bcIds)
+            foreach (int bcId in bcIds)
             {
                 Module mod = module != null ? reportData.CurrentSnapshot.Modules.FirstOrDefault(m => m.Name.Equals(module)) : null;
                 string href = mod == null ? reportData.CurrentSnapshot.Href : mod.Href;
 
                 string technologies = technos.Aggregate(string.Empty, (current, techno) => current.Equals(string.Empty) ? techno : current + "," + techno);
 
-                IEnumerable<Violation> bcresults = critical ?
-                    reportData.SnapshotExplorer.GetViolationsListIDbyBC(href, "(critical-rules)", _bcid, -1, "(" + technologies + ")").ToList()
-                    : reportData.SnapshotExplorer.GetViolationsListIDbyBC(href, "(nc:" + _bcid + ",cc:" + _bcid + ")", _bcid, -1, "(" + technologies + ")").ToList();
+                IEnumerable<Violation> bcresults = reportData.SnapshotExplorer.GetViolationsListIDbyBC(href,
+                    critical ? "(critical-rules)" : $"(nc:{bcId},cc:{bcId})",
+                    bcId, -1, $"({technologies})").ToList();
 
                 List<Violation> filterResults = new List<Violation>();
                 if (!bcresults.Any()) continue;
@@ -75,7 +79,7 @@ namespace CastReporting.Reporting.Block.Table
                 var _violations = filterResults.ToList();
                 foreach (Violation _bcresult in _violations)
                 {
-                    _bcresult.Component.PriBusinessCriterion = BusinessCriteriaUtility.GetMetricName(reportData.CurrentSnapshot, int.Parse(_bcid));
+                    _bcresult.Component.PriBusinessCriterion = reportData.CurrentSnapshot.GetMetricName(bcId);
                 }
                 results.AddRange(_violations);
             }

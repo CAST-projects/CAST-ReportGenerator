@@ -1,4 +1,5 @@
 ﻿using CastReporting.Domain.Imaging;
+using CastReporting.Domain.Imaging.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -20,7 +21,7 @@ namespace CastReporting.Reporting.Block.Table
             // cellProps will contains the properties of the cell (background color) linked to the data by position in the list stored with cellidx.
 
             string ruleId = options.GetOption("ID", "7788");
-            const string bcId = "60017";
+            const int bcId = (int)BusinessCriteria.TechnicalQualityIndex;
             int nbLimitTop = options.GetIntOption("COUNT", 5);
             string showDescription = options.GetOption("DESC", "no").ToLower();
 

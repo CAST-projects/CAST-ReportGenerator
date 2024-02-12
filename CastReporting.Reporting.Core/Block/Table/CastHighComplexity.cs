@@ -16,6 +16,7 @@
 using Cast.Util;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain.Imaging;
+using CastReporting.Domain.Imaging.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -40,18 +41,14 @@ namespace CastReporting.Reporting.Block.Table
             if (null == reportData) return back;
 
             #region Selected Snapshot
-            double? selectedLowVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                Constants.CostComplexity.CostComplexityArtifacts_Low.GetHashCode());
-            double? selectedAveVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                Constants.CostComplexity.CostComplexityArtifacts_Average.GetHashCode());
-            double? selectedHigVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                Constants.CostComplexity.CostComplexityArtifacts_High.GetHashCode());
-            double? selectedVhiVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                Constants.CostComplexity.CostComplexityArtifacts_VeryHigh.GetHashCode());
+            double? selectedLowVal = reportData.CurrentSnapshot.GetCostComplexityGrade(QualityDistribution.CostComplexityDistribution,
+                CostComplexity.CostComplexityArtifacts_Low);
+            double? selectedAveVal = reportData.CurrentSnapshot.GetCostComplexityGrade(QualityDistribution.CostComplexityDistribution,
+                CostComplexity.CostComplexityArtifacts_Average);
+            double? selectedHigVal = reportData.CurrentSnapshot.GetCostComplexityGrade(QualityDistribution.CostComplexityDistribution,
+                CostComplexity.CostComplexityArtifacts_High);
+            double? selectedVhiVal = reportData.CurrentSnapshot.GetCostComplexityGrade(QualityDistribution.CostComplexityDistribution,
+                CostComplexity.CostComplexityArtifacts_VeryHigh);
 
             double? selectedTotal = selectedLowVal.HasValue && selectedAveVal.HasValue && selectedHigVal.HasValue && selectedVhiVal.HasValue ? selectedLowVal.Value + selectedAveVal.Value + selectedHigVal.Value + selectedVhiVal.Value : (double?)null;
             double? selectedHttVal = selectedHigVal.HasValue && selectedVhiVal.HasValue ? selectedHigVal.Value + selectedVhiVal.Value : (double?)null;
@@ -62,12 +59,10 @@ namespace CastReporting.Reporting.Block.Table
 
             if (reportData.PreviousSnapshot != null)
             {
-                var previousHigVal = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
-                    Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                    Constants.CostComplexity.CostComplexityArtifacts_High.GetHashCode());
-                var previousVhiVal = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
-                    Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                    Constants.CostComplexity.CostComplexityArtifacts_VeryHigh.GetHashCode());
+                var previousHigVal = reportData.PreviousSnapshot.GetCostComplexityGrade(QualityDistribution.CostComplexityDistribution,
+                    CostComplexity.CostComplexityArtifacts_High);
+                var previousVhiVal = reportData.PreviousSnapshot.GetCostComplexityGrade(QualityDistribution.CostComplexityDistribution,
+                    CostComplexity.CostComplexityArtifacts_VeryHigh);
                 previousHttVal = previousHigVal.HasValue && previousVhiVal.HasValue ? previousHigVal.Value + previousVhiVal.Value : (double?)null;
             }
             #endregion Previous Snapshot

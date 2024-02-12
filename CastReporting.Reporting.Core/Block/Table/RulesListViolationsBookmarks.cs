@@ -2,6 +2,7 @@
 using Cast.Util.Version;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain.Imaging;
+using CastReporting.Domain.Imaging.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -70,7 +71,7 @@ namespace CastReporting.Reporting.Block.Table
 
             if (qualityRules.Count > 0)
             {
-                const string bcId = "60017";
+                const int bcId = (int)BusinessCriteria.TechnicalQualityIndex;
                 int nbLimitTop = options.GetIntOption("COUNT", 5);
                 bool hasPreviousSnapshot = reportData.PreviousSnapshot != null;
                 bool displaySourceCode = options.GetOption("WITHCODELINES", "Y").Equals("Y");

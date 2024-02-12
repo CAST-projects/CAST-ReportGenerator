@@ -16,6 +16,7 @@
  */
 using CastReporting.BLL.Computing;
 using CastReporting.Domain.Imaging;
+using CastReporting.Domain.Imaging.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -61,9 +62,9 @@ namespace CastReporting.Reporting.Block.Graph
                         OmgTechnicalDebtIdDTO omgTechDebt = OmgTechnicalDebtUtility.GetOmgTechDebtModule(snapshot, module.Id, idxId);
                         if (omgTechDebt != null)
                         {
-                            _idxValue = BusinessCriteriaUtility.GetBusinessCriteriaModuleGrade(snapshot, moduleId, idxId, true);
+                            _idxValue = snapshot.GetBusinessCriteriaModuleGrade(moduleId, (BusinessCriteria)idxId, true);
                             _omgTechDebtValue = omgTechDebt.Total ?? 0;
-                            _locValue = MeasureUtility.GetSizingMeasureModule(snapshot, moduleId, Constants.SizingInformations.CodeLineNumber.GetHashCode());
+                            _locValue = MeasureUtility.GetSizingMeasureModule(snapshot, moduleId, SizingInformations.CodeLineNumber);
                         }
                     }
                 }
@@ -72,9 +73,9 @@ namespace CastReporting.Reporting.Block.Graph
                     OmgTechnicalDebtIdDTO omgTechDebt = OmgTechnicalDebtUtility.GetOmgTechDebt(snapshot, idxId);
                     if (omgTechDebt != null)
                     {
-                        _idxValue = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(snapshot, idxId, true);
+                        _idxValue = snapshot.GetSnapshotBusinessCriteriaGrade((BusinessCriteria)idxId, true);
                         _omgTechDebtValue = omgTechDebt.Total ?? 0;
-                        _locValue = MeasureUtility.GetSizingMeasure(snapshot, Constants.SizingInformations.CodeLineNumber);
+                        _locValue = MeasureUtility.GetSizingMeasure(snapshot, SizingInformations.CodeLineNumber);
                     }
                 }
 

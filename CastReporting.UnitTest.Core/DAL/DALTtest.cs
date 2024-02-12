@@ -1,5 +1,6 @@
 ﻿using CastReporting.Domain;
 using CastReporting.Domain.Imaging;
+using CastReporting.Domain.Imaging.Constants;
 using CastReporting.Repositories;
 using CastReporting.Repositories.Interfaces;
 using CastReporting.UnitTest.Reporting;
@@ -161,7 +162,7 @@ namespace CastReporting.UnitTest.Repositories
             IImagingRepository context = new ImagingRepository(_connection, null);
             const string appilcationRef = "AED1/applications/3";
 
-            int[] businessCriterias = (int[])Enum.GetValues(typeof(Constants.BusinessCriteria));
+            int[] businessCriterias = (int[])Enum.GetValues(typeof(BusinessCriteria));
             string strBusinessCriterias = string.Join(",", businessCriterias);
 
             var result = context.GetResultsQualityIndicators(appilcationRef, strBusinessCriterias, "$all", string.Empty, string.Empty);
@@ -182,7 +183,7 @@ namespace CastReporting.UnitTest.Repositories
             IImagingRepository context = new ImagingRepository(_connection, null);
             const string snapshotRef = "AED1/applications/3/snapshots/2";
 
-            int[] businessCriterias = (int[])Enum.GetValues(typeof(Constants.BusinessCriteria));
+            int[] businessCriterias = (int[])Enum.GetValues(typeof(BusinessCriteria));
             string strBusinessCriterias = string.Join(",", businessCriterias);
 
             var result = context.GetResultsQualityIndicators(snapshotRef, strBusinessCriterias, string.Empty, "$all", "$all");
@@ -204,7 +205,7 @@ namespace CastReporting.UnitTest.Repositories
             IImagingRepository context = new ImagingRepository(_connection, null);
             const string moduleRef = "AED1/modules/4";
 
-            int[] businessCriterias = (int[])Enum.GetValues(typeof(Constants.BusinessCriteria));
+            int[] businessCriterias = (int[])Enum.GetValues(typeof(BusinessCriteria));
             string strBusinessCriterias = string.Join(",", businessCriterias);
 
             var result = context.GetResultsQualityIndicators(moduleRef, strBusinessCriterias, string.Empty, string.Empty, string.Empty);
@@ -227,7 +228,7 @@ namespace CastReporting.UnitTest.Repositories
             IImagingRepository context = new ImagingRepository(_connection, null);
             const string snapshotRef = "AED1/applications/3";
 
-            int[] sizingMeasures = (int[])Enum.GetValues(typeof(Constants.SizingInformations));
+            int[] sizingMeasures = (int[])Enum.GetValues(typeof(SizingInformations));
             string strSizingMeasures = string.Join(",", sizingMeasures);
 
             var result = context.GetResultsSizingMeasures(snapshotRef, strSizingMeasures, "$all", "$all", "$all");
@@ -248,7 +249,7 @@ namespace CastReporting.UnitTest.Repositories
             IImagingRepository context = new ImagingRepository(_connection, null);
             const string snapshotRef = "AED1/applications/3/snapshots/2";
 
-            int[] sizingMeasures = (int[])Enum.GetValues(typeof(Constants.SizingInformations));
+            int[] sizingMeasures = (int[])Enum.GetValues(typeof(SizingInformations));
             string strSizingMeasures = string.Join(",", sizingMeasures);
 
             var result = context.GetResultsSizingMeasures(snapshotRef, strSizingMeasures, string.Empty, "$all", "$all");

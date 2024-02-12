@@ -1,4 +1,5 @@
 ﻿using CastReporting.Domain.Imaging;
+using CastReporting.Domain.Imaging.Constants;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -250,16 +251,16 @@ namespace CastReporting.BLL.Computing
             {
                 case "CISQ":
                 case "CISQ-Index":
-                    idx = 1062100;
+                    idx = (int)BusinessCriteria.CISQIndex;
                     break;
                 case "AIP":
                 case "TQI":
-                    idx = 60017;
+                    idx = (int)BusinessCriteria.TechnicalQualityIndex;
                     break;
                 case "ISO":
                 case "ISO-5055":
                 case "ISO-5055-Index":
-                    idx = 1061000;
+                    idx = (int)BusinessCriteria.ISO5055Index;
                     break;
                 default:
                     idx = int.TryParse(indexId, out int id) ? id : 0;

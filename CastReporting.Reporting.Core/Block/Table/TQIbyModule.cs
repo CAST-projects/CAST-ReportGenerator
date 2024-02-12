@@ -50,8 +50,8 @@ namespace CastReporting.Reporting.Block.Table
                 ? new[] { " ", Labels.TQICur, Labels.TQIPrev, Labels.Var }
                 : new[] { " ", Labels.TQICurrent, Labels.TQIPrevious, Labels.Variation });
 
-            var resultCurrentSnapshot = BusinessCriteriaUtility.GetBusinessCriteriaGradesModules(reportData.CurrentSnapshot, false);
-            var resultPreviousSnapshot = BusinessCriteriaUtility.GetBusinessCriteriaGradesModules(reportData.PreviousSnapshot, false);
+            var resultCurrentSnapshot = reportData.CurrentSnapshot.GetBusinessCriteriaGradesModules(false);
+            var resultPreviousSnapshot = reportData.PreviousSnapshot.GetBusinessCriteriaGradesModules(false);
 
             int count = 0;
             if (resultCurrentSnapshot != null)

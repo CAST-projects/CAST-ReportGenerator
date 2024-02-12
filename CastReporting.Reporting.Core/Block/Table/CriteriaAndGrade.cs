@@ -44,12 +44,12 @@ namespace CastReporting.Reporting.Block.Table
             if (reportData.CurrentSnapshot != null)
             {
                 //Result of current snapshot - the count is taken into account in the method to return results (if -1 return all results)
-                var technicalCriteriasResults = BusinessCriteriaUtility.GetTechnicalCriteriasByBusinessCriterias(reportData.CurrentSnapshot, strMetricId, count);
+                var technicalCriteriasResults = reportData.CurrentSnapshot.GetTechnicalCriteriasByBusinessCriterias(strMetricId, count);
 
                 //Result of previous snapshot
                 List<TechnicalCriteriaResultDTO> prevTechnicalCriteriasResults = null;
                 if (reportData.PreviousSnapshot != null)
-                    prevTechnicalCriteriasResults = BusinessCriteriaUtility.GetTechnicalCriteriasByBusinessCriterias(reportData.PreviousSnapshot, strMetricId, count)?.ToList();
+                    prevTechnicalCriteriasResults = reportData.PreviousSnapshot.GetTechnicalCriteriasByBusinessCriterias(strMetricId, count)?.ToList();
 
                 if (prevTechnicalCriteriasResults != null && prevTechnicalCriteriasResults.Count != 0)
                 {

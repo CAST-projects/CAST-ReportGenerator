@@ -30,13 +30,13 @@ namespace CastReporting.Reporting.Block.Graph
 
             if (_version == "CURRENT" || _version == "BOTH")
             {
-                string currSnapshotLabel = SnapshotUtility.GetSnapshotVersionNumber(reportData.CurrentSnapshot);
+                string currSnapshotLabel = reportData.CurrentSnapshot.GetSnapshotVersionNumber();
                 rowData.Add(currSnapshotLabel);
             }
 
             if (reportData.PreviousSnapshot != null && (_version == "PREVIOUS" || _version == "BOTH"))
             {
-                string prevSnapshotLabel = SnapshotUtility.GetSnapshotVersionNumber(reportData.PreviousSnapshot);
+                string prevSnapshotLabel = reportData.PreviousSnapshot.GetSnapshotVersionNumber();
                 rowData.Add(prevSnapshotLabel ?? FormatHelper.No_Value);
             }
 
@@ -53,33 +53,33 @@ namespace CastReporting.Reporting.Block.Graph
                     switch (_version)
                     {
                         case "CURRENT":
-                            qidName = BusinessCriteriaUtility.GetMetricName(reportData.CurrentSnapshot, id, true);
+                            qidName = reportData.CurrentSnapshot.GetMetricName(id, true);
                             if (string.IsNullOrEmpty(qidName)) continue;
                             rowData.Add(qidName);
-                            curRes = BusinessCriteriaUtility.GetMetricValue(reportData.CurrentSnapshot, id);
+                            curRes = reportData.CurrentSnapshot.GetMetricValue(id);
                             rowData.Add(curRes?.ToString() ?? FormatHelper.Zero);
                             nbRow++;
                             break;
                         case "PREVIOUS":
                             if (reportData.PreviousSnapshot != null)
                             {
-                                qidName = BusinessCriteriaUtility.GetMetricName(reportData.PreviousSnapshot, id, true);
+                                qidName = reportData.PreviousSnapshot.GetMetricName(id, true);
                                 if (string.IsNullOrEmpty(qidName)) continue;
                                 rowData.Add(qidName);
-                                prevRes = BusinessCriteriaUtility.GetMetricValue(reportData.PreviousSnapshot, id);
+                                prevRes = reportData.PreviousSnapshot.GetMetricValue(id);
                                 rowData.Add(prevRes?.ToString() ?? FormatHelper.Zero);
                                 nbRow++;
                             }
                             break;
                         default:
-                            qidName = BusinessCriteriaUtility.GetMetricName(reportData.CurrentSnapshot, id, true);
+                            qidName = reportData.CurrentSnapshot.GetMetricName(id, true);
                             if (string.IsNullOrEmpty(qidName)) continue;
                             rowData.Add(qidName);
-                            curRes = BusinessCriteriaUtility.GetMetricValue(reportData.CurrentSnapshot, id);
+                            curRes = reportData.CurrentSnapshot.GetMetricValue(id);
                             rowData.Add(curRes?.ToString() ?? FormatHelper.Zero);
                             if (reportData.PreviousSnapshot != null)
                             {
-                                prevRes = BusinessCriteriaUtility.GetMetricValue(reportData.PreviousSnapshot, id);
+                                prevRes = reportData.PreviousSnapshot.GetMetricValue(id);
                                 rowData.Add(prevRes?.ToString() ?? FormatHelper.Zero);
                             }
                             nbRow++;

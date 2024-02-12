@@ -16,6 +16,7 @@
 using Cast.Util;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain.Imaging;
+using CastReporting.Domain.Imaging.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -63,14 +64,14 @@ namespace CastReporting.Reporting.Block.Table
             if (reportData?.CurrentSnapshot != null && metricId.HasValue)
             {
                 var currentCriticalRulesViolation = RulesViolationUtility.GetAllRuleViolations(reportData.CurrentSnapshot,
-                                                                                            Constants.RulesViolation.All,
-                                                                                            (Constants.BusinessCriteria)metricId,
+                                                                                            RulesViolation.All,
+                                                                                            (BusinessCriteria)metricId,
                                                                                             true);
 
 
                 var previousCriticalRulesViolation = reportData.PreviousSnapshot != null ? RulesViolationUtility.GetAllRuleViolations(reportData.PreviousSnapshot,
-                                                                                                                                     Constants.RulesViolation.All,
-                                                                                                                                    (Constants.BusinessCriteria)metricId,
+                                                                                                                                     RulesViolation.All,
+                                                                                                                                    (BusinessCriteria)metricId,
                                                                                                                                      false)
                                                                                            : null;
 

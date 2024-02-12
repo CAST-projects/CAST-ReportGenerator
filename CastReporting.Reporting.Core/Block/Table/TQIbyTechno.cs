@@ -15,6 +15,7 @@
  */
 using Cast.Util;
 using CastReporting.Domain.Imaging;
+using CastReporting.Domain.Imaging.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -45,7 +46,7 @@ namespace CastReporting.Reporting.Block.Table
         {
             int nbTot = 0;
             List<string> rowData = new List<string>();
-            int? metricId = options != null && options.ContainsKey("ID") ? Convert.ToInt32(options["ID"]) : (int?)Constants.BusinessCriteria.TechnicalQualityIndex;
+            int? metricId = options != null && options.ContainsKey("ID") ? Convert.ToInt32(options["ID"]) : (int?)BusinessCriteria.TechnicalQualityIndex;
 
             var result = reportData?.CurrentSnapshot?.BusinessCriteriaResults.FirstOrDefault(r => r.Reference.Key == metricId);
 
@@ -75,16 +76,16 @@ namespace CastReporting.Reporting.Block.Table
             // Begin the switch.
             switch (value)
             {
-                case (int)Constants.BusinessCriteria.TechnicalQualityIndex: return Labels.TQI;
-                case (int)Constants.BusinessCriteria.ArchitecturalDesign: return Labels.ArchitecturalDesign;
-                case (int)Constants.BusinessCriteria.Changeability: return Labels.Changeability;
-                case (int)Constants.BusinessCriteria.Documentation: return Labels.Documentation;
-                case (int)Constants.BusinessCriteria.Performance: return Labels.Efficiency;
-                case (int)Constants.BusinessCriteria.ProgrammingPractices: return Labels.ProgrammingPractices;
-                case (int)Constants.BusinessCriteria.Robustness: return Labels.Robustness;
-                case (int)Constants.BusinessCriteria.Security: return Labels.Security;
-                case (int)Constants.BusinessCriteria.SEIMaintainability: return Labels.SEIMaintainability;
-                case (int)Constants.BusinessCriteria.Transferability: return Labels.Transferability;
+                case (int)BusinessCriteria.TechnicalQualityIndex: return Labels.TQI;
+                case (int)BusinessCriteria.ArchitecturalDesign: return Labels.ArchitecturalDesign;
+                case (int)BusinessCriteria.Changeability: return Labels.Changeability;
+                case (int)BusinessCriteria.Documentation: return Labels.Documentation;
+                case (int)BusinessCriteria.Performance: return Labels.Efficiency;
+                case (int)BusinessCriteria.ProgrammingPractices: return Labels.ProgrammingPractices;
+                case (int)BusinessCriteria.Robustness: return Labels.Robustness;
+                case (int)BusinessCriteria.Security: return Labels.Security;
+                case (int)BusinessCriteria.SEIMaintainability: return Labels.SEIMaintainability;
+                case (int)BusinessCriteria.Transferability: return Labels.Transferability;
                 default: return FormatHelper.No_Value + " (" + value + ")";
             }
         }

@@ -14,6 +14,7 @@
  *
  */
 using CastReporting.Domain.Imaging;
+using CastReporting.Domain.Imaging.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -48,8 +49,7 @@ namespace CastReporting.Reporting.Block.Table
             {
                 foreach (var par in options["PAR"].Split('|'))
                 {
-                    int id;
-                    if (int.TryParse(par, out id))
+                    if (int.TryParse(par, out int id))
                     {
                         bcId.Add(id);
                     }
@@ -57,7 +57,7 @@ namespace CastReporting.Reporting.Block.Table
             }
             if (bcId.Count == 0)
             {
-                bcId.Add(Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode());
+                bcId.Add((int)BusinessCriteria.TechnicalQualityIndex);
             }
 
             ApplicationResult bc = reportData.CurrentSnapshot.BusinessCriteriaResults.FirstOrDefault(_ => bcId.Contains(_.Reference.Key));

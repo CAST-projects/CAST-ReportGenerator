@@ -28,7 +28,7 @@ namespace CastReporting.Reporting.Block.Text
         #region METHODS
         public override string Content(ImagingData reportData, Dictionary<string, string> options)
         {
-            return reportData?.PreviousSnapshot != null ? SnapshotUtility.GetSnapshotVersionNumber(reportData.PreviousSnapshot) : FormatHelper.No_Value;
+            return reportData?.PreviousSnapshot.GetSnapshotVersionNumber();
         }
         #endregion METHODS
     }

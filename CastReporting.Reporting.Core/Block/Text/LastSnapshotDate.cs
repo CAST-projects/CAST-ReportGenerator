@@ -33,7 +33,7 @@ namespace CastReporting.Reporting.Block.Text
             if (reportData?.CurrentSnapshot == null) return FormatHelper.No_Value;
 
             string res = string.Empty;
-            DateTime? d = SnapshotUtility.GetSnapshotDate(reportData.CurrentSnapshot);
+            DateTime? d = reportData.CurrentSnapshot.GetSnapshotDate();
             if (d.HasValue) res = d.Value.ToString(Labels.FORMAT_LONG_DATE);
 
             return string.IsNullOrEmpty(res) ? FormatHelper.No_Value : res;

@@ -16,6 +16,7 @@
  */
 using CastReporting.BLL.Computing;
 using CastReporting.Domain.Imaging;
+using CastReporting.Domain.Imaging.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -47,18 +48,14 @@ namespace CastReporting.Reporting.Block.Graph
                 #region Selected Snapshot
 
                 var selectedName = reportData.CurrentSnapshot.Annotation.Version;
-                var selectedLowVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                    Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                    Constants.CostComplexity.CostComplexityArtifacts_Low.GetHashCode());
-                var selectedAveVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                    Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                    Constants.CostComplexity.CostComplexityArtifacts_Average.GetHashCode());
-                var selectedHigVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                    Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                    Constants.CostComplexity.CostComplexityArtifacts_High.GetHashCode());
-                var selectedVhiVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                    Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                    Constants.CostComplexity.CostComplexityArtifacts_VeryHigh.GetHashCode());
+                var selectedLowVal = reportData.CurrentSnapshot.GetCostComplexityGrade(QualityDistribution.CostComplexityDistribution,
+                    CostComplexity.CostComplexityArtifacts_Low);
+                var selectedAveVal = reportData.CurrentSnapshot.GetCostComplexityGrade(QualityDistribution.CostComplexityDistribution,
+                    CostComplexity.CostComplexityArtifacts_Average);
+                var selectedHigVal = reportData.CurrentSnapshot.GetCostComplexityGrade(QualityDistribution.CostComplexityDistribution,
+                    CostComplexity.CostComplexityArtifacts_High);
+                var selectedVhiVal = reportData.CurrentSnapshot.GetCostComplexityGrade(QualityDistribution.CostComplexityDistribution,
+                    CostComplexity.CostComplexityArtifacts_VeryHigh);
 
                 #endregion Selected Snapshot
 
@@ -68,18 +65,14 @@ namespace CastReporting.Reporting.Block.Graph
 
                 if (hasPreviousSnapshot)
                 {
-                    previousLowVal = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
-                                                                                          Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                                                                                          Constants.CostComplexity.CostComplexityArtifacts_Low.GetHashCode());
-                    previousAveVal = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
-                                                                                          Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                                                                                          Constants.CostComplexity.CostComplexityArtifacts_Average.GetHashCode());
-                    previousHigVal = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
-                                                                                          Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                                                                                          Constants.CostComplexity.CostComplexityArtifacts_High.GetHashCode());
-                    previousVhiVal = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
-                                                                                          Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                                                                                          Constants.CostComplexity.CostComplexityArtifacts_VeryHigh.GetHashCode());
+                    previousLowVal = reportData.PreviousSnapshot.GetCostComplexityGrade(QualityDistribution.CostComplexityDistribution,
+                        CostComplexity.CostComplexityArtifacts_Low);
+                    previousAveVal = reportData.PreviousSnapshot.GetCostComplexityGrade(QualityDistribution.CostComplexityDistribution,
+                        CostComplexity.CostComplexityArtifacts_Average);
+                    previousHigVal = reportData.PreviousSnapshot.GetCostComplexityGrade(QualityDistribution.CostComplexityDistribution,
+                        CostComplexity.CostComplexityArtifacts_High);
+                    previousVhiVal = reportData.PreviousSnapshot.GetCostComplexityGrade(QualityDistribution.CostComplexityDistribution,
+                        CostComplexity.CostComplexityArtifacts_VeryHigh);
                 }
                 #endregion Previous Snapshot
 

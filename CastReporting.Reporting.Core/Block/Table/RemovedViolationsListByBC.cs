@@ -2,6 +2,7 @@
 using Cast.Util.Log;
 using Cast.Util.Version;
 using CastReporting.Domain.Imaging;
+using CastReporting.Domain.Imaging.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -19,7 +20,7 @@ namespace CastReporting.Reporting.Block.Table
         {
             List<string> rowData = new List<string>();
 
-            string bcId = options.GetOption("BCID", "60017"); // by default, TQI
+            int bcId = options.GetIntOption("BCID", (int)BusinessCriteria.TechnicalQualityIndex); // by default, TQI
             int nbLimitTop = options.GetIntOption("COUNT", 50); // -1 for all removed violations
             int nbRows;
             string criticity = options.GetOption("CRITICITY", "all"); // should be "c" for critical, "nc" for non critical, and any other thing for both
@@ -44,9 +45,9 @@ namespace CastReporting.Reporting.Block.Table
                 return ReturnEmptyTableDefinition(rowData);
             }
 
-            List<Violation> removedViolations = reportData.SnapshotExplorer.GetRemovedViolationsbyBC(reportData.CurrentSnapshot.Href, bcId, nbLimitTop, criticity).ToList();
+            List<Violation> removedViolations = reportData.SnapshotExplorer.GetRemovedViolationsbyBC(reportData.CurrentSnapshot.Href, bcId.ToString(), nbLimitTop, criticity).ToList();
 
-            List<RuleDetails> rulesDetails = reportData.RuleExplorer.GetRulesDetails(reportData.CurrentSnapshot.DomainId, int.Parse(bcId), reportData.CurrentSnapshot.Id).ToList();
+            List<RuleDetails> rulesDetails = reportData.RuleExplorer.GetRulesDetails(reportData.CurrentSnapshot.DomainId, bcId, reportData.CurrentSnapshot.Id).ToList();
 
             if (removedViolations.Count != 0)
             {

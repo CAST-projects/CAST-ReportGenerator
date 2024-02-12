@@ -41,18 +41,16 @@ namespace CastReporting.Reporting.Block.Table
             if (reportData?.CurrentSnapshot?.BusinessCriteriaResults == null) return resultTable;
 
             bool hasPreviousSnapshot = reportData.PreviousSnapshot?.BusinessCriteriaResults != null;
-            string currSnapshotLabel = SnapshotUtility.GetSnapshotVersionNumber(reportData.CurrentSnapshot);
-            BusinessCriteriaDTO currSnapshotBisCriDTO = BusinessCriteriaUtility.GetBusinessCriteriaGradesSnapshot(reportData.CurrentSnapshot, false);
+            string currSnapshotLabel = reportData.CurrentSnapshot.GetSnapshotVersionNumber();
+            BusinessCriteriaDTO currSnapshotBisCriDTO = reportData.CurrentSnapshot.GetBusinessCriteriaGradesSnapshot(false);
 
 
-            string prevSnapshotLabel = hasPreviousSnapshot ? SnapshotUtility.GetSnapshotVersionNumber(reportData.PreviousSnapshot) : FormatHelper.No_Value;
-            BusinessCriteriaDTO prevSnapshotBisCriDTO = hasPreviousSnapshot ? BusinessCriteriaUtility.GetBusinessCriteriaGradesSnapshot(reportData.PreviousSnapshot, false) : null;
-
+            string prevSnapshotLabel = reportData.PreviousSnapshot.GetSnapshotVersionNumber();
+            BusinessCriteriaDTO prevSnapshotBisCriDTO = reportData.PreviousSnapshot.GetBusinessCriteriaGradesSnapshot(false);
 
             double? currProgrammingPracticesValue = currSnapshotBisCriDTO.ProgrammingPractices ?? 1;
             double? currArchitecturalDesignValue = currSnapshotBisCriDTO.ArchitecturalDesign ?? 1;
             double? currDocumentationValue = currSnapshotBisCriDTO.Documentation ?? 1;
-
 
             double? prevProgrammingPracticesValue = hasPreviousSnapshot ? prevSnapshotBisCriDTO.ProgrammingPractices : 0;
             double? prevArchitecturalDesignValue = hasPreviousSnapshot ? prevSnapshotBisCriDTO.ArchitecturalDesign : 0;

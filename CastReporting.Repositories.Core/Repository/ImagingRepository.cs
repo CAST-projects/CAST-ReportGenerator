@@ -340,7 +340,7 @@ namespace CastReporting.Repositories
             return CallCsvWS<MetricTopArtifact>(requestUrl, RequestComplexity.Long, count);
         }
 
-        IEnumerable<Violation> IImagingRepository.GetViolationsListIDbyBC(string snapshotHref, string RuleId, string bcId, int count, string technos)
+        IEnumerable<Violation> IImagingRepository.GetViolationsListIDbyBC(string snapshotHref, string RuleId, int bcId, int count, string technos)
         {
             var requestUrl = count != -1 ? string.Format(_query_violations_list_by_rule_bcid, snapshotHref, RuleId, bcId, count, technos)
                     : string.Format(_query_violations_list_by_rule_bcid, snapshotHref, RuleId, bcId, "$all", technos);

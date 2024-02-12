@@ -93,7 +93,7 @@ namespace CastReporting.Reporting.Helper
                 // if metricId is not a sizing measure, perhaps a category
                 if (name == null)
                 {
-                    name = CastComplexityUtility.GetCategoryName(snapshot, int.Parse(metricId));
+                    name = snapshot.GetCategoryName(int.Parse(metricId));
                     if (name != null) type = MetricType.Category;
                 }
                 // if metricId is not a category, perhaps a background fact
@@ -221,19 +221,19 @@ namespace CastReporting.Reporting.Helper
                     case MetricType.Category:
                         if (module == null && string.IsNullOrEmpty(technology))
                         {
-                            result = CastComplexityUtility.GetCategoryValue(snapshot, int.Parse(metricId));
+                            result = snapshot.GetCategoryValue(int.Parse(metricId));
                         }
                         else if (module != null && string.IsNullOrEmpty(technology))
                         {
-                            result = CastComplexityUtility.GetModuleCategoryValue(snapshot, int.Parse(metricId), module);
+                            result = snapshot.GetModuleCategoryValue(int.Parse(metricId), module);
                         }
                         else if (module == null && !string.IsNullOrEmpty(technology))
                         {
-                            result = CastComplexityUtility.GetTechnoCategoryValue(snapshot, int.Parse(metricId), technology);
+                            result = snapshot.GetTechnoCategoryValue(int.Parse(metricId), technology);
                         }
                         else if (module != null && !string.IsNullOrEmpty(technology))
                         {
-                            result = CastComplexityUtility.GetModuleTechnoCategoryValue(snapshot, int.Parse(metricId), module, technology);
+                            result = snapshot.GetModuleTechnoCategoryValue(int.Parse(metricId), module, technology);
                         }
                         resStr = format ? result?.ToString("N0") ?? FormatHelper.No_Value : result?.ToString() ?? "0";
                         break;

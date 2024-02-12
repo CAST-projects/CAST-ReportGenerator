@@ -14,6 +14,7 @@
  *
  */
 
+using CastReporting.Domain.Imaging.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -35,20 +36,18 @@ namespace CastReporting.Reporting.Block.Table
             List<string> rowData = new List<string>(new[] { Labels.TransactionEP, Labels.TRI });
 
             // Default Options
-            int businessCriteria = 0;
-            if (options != null &&
-                options.ContainsKey("SRC"))
+            BusinessCriteria businessCriteria = BusinessCriteria.Robustness;
+            if (options != null && options.TryGetValue("SRC", out string source))
             {
-                var source = options["SRC"];
                 switch (source)
                 {
-                    case "PERF": { businessCriteria = (int)Domain.Imaging.Constants.BusinessCriteria.Performance; } break;
-                    case "ROB": { businessCriteria = (int)Domain.Imaging.Constants.BusinessCriteria.Robustness; } break;
-                    case "SEC": { businessCriteria = (int)Domain.Imaging.Constants.BusinessCriteria.Security; } break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                    case "PERF": businessCriteria = BusinessCriteria.Performance; break;
+                    case "ROB": businessCriteria = BusinessCriteria.Robustness; break;
+                    case "SEC": businessCriteria = BusinessCriteria.Security; break;
+                    default: throw new ArgumentOutOfRangeException("SRC");
                 }
             }
+
             if (options == null ||
                 !options.ContainsKey("COUNT") ||
                 !int.TryParse(options["COUNT"], out nbLimitTop))
@@ -56,7 +55,7 @@ namespace CastReporting.Reporting.Block.Table
                 nbLimitTop = 10;
             }
 
-            var bc = reportData.CurrentSnapshot.BusinessCriteriaResults.FirstOrDefault(_ => _.Reference.Key == businessCriteria);
+            var bc = reportData.CurrentSnapshot.BusinessCriteriaResults.FirstOrDefault(_ => _.Reference.Key == (int)businessCriteria);
 
             if (bc != null)
             {
