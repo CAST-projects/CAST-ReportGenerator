@@ -6,7 +6,7 @@ namespace CastReporting.BLL.Computing
     {
         public RuleDetailsDTO Rule { get; set; }
 
-        public string TechnicalCriteraiName { get; set; }
+        public string TechnicalCriteriaName { get; set; }
 
         public int? TotalChecks { get; set; }
 
