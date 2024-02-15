@@ -35,6 +35,7 @@ namespace CastReporting.BLL.Computing.DTO
         QualityRule,
         SizingMeasure,
         BackgroundFact,
+        Distribution,
         Category,
         NotKnown
     }
