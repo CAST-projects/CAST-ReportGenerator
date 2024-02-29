@@ -13,10 +13,8 @@
  * limitations under the License.
  *
  */
-using Cast.Util;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Constants;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -29,32 +27,36 @@ namespace CastReporting.Reporting.Block.Table
     [Block("VIOLATION_STATISTICS_EVOLUTION")]
     public class ViolationStatisticsEvolution : TableBlock
     {
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             const string metricFormat = "N0";
             if (reportData?.CurrentSnapshot == null) return null;
 
             #region currentSnapshot
 
-            double? criticalViolation = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, SizingInformations.ViolationsToCriticalQualityRulesNumber);
-            double? numCritPerFile = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, SizingInformations.ViolationsToCriticalQualityRulesPerFileNumber);
+            double? criticalViolation = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, Constants.SizingInformations.ViolationsToCriticalQualityRulesNumber);
+            double? numCritPerFile = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, Constants.SizingInformations.ViolationsToCriticalQualityRulesPerFileNumber);
             string numCritPerFileIfNegative;
             // ReSharper disable once CompareOfFloatsByEqualityOperator -- special case
             if (numCritPerFile == -1)
-                numCritPerFileIfNegative = FormatHelper.No_Value;
+                numCritPerFileIfNegative = Constants.No_Value;
             else
-                numCritPerFileIfNegative = numCritPerFile?.ToString("N2") ?? FormatHelper.No_Value;
-            double? _numCritPerKloc = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, SizingInformations.ViolationsToCriticalQualityRulesPerKLOCNumber);
+                numCritPerFileIfNegative = numCritPerFile?.ToString("N2") ?? Constants.No_Value;
+            double? _numCritPerKloc = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, Constants.SizingInformations.ViolationsToCriticalQualityRulesPerKLOCNumber);
 
-            double? veryHighCostComplexityViolations = reportData.CurrentSnapshot.GetCostComplexityGrade(QualityDistribution.DistributionOfDefectsToCriticalDiagnosticBasedMetricsPerCostComplexity,
-                DefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.CostComplexityDefects_VeryHigh);
-            double? highCostComplexityViolations = reportData.CurrentSnapshot.GetCostComplexityGrade(QualityDistribution.DistributionOfDefectsToCriticalDiagnosticBasedMetricsPerCostComplexity,
-                DefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.CostComplexityDefects_High);
+            double? veryHighCostComplexityViolations = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot, Constants.
+                    QualityDistribution.DistributionOfDefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.GetHashCode(),
+                Constants.DefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.CostComplexityDefects_VeryHigh.GetHashCode());
+            double? highCostComplexityViolations = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
+                Constants.QualityDistribution.DistributionOfDefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.GetHashCode(),
+                Constants.DefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.CostComplexityDefects_High.GetHashCode());
 
-            double? veryHighCostComplexityArtefacts = reportData.CurrentSnapshot.GetCostComplexityGrade(QualityDistribution.CostComplexityDistribution,
-                CostComplexity.CostComplexityArtifacts_VeryHigh);
-            double? highCostComplexityArtefacts = reportData.CurrentSnapshot.GetCostComplexityGrade(QualityDistribution.CostComplexityDistribution,
-                CostComplexity.CostComplexityArtifacts_High);
+            double? veryHighCostComplexityArtefacts = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
+                Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
+                Constants.CostComplexity.CostComplexityArtifacts_VeryHigh.GetHashCode());
+            double? highCostComplexityArtefacts = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
+                Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
+                Constants.CostComplexity.CostComplexityArtifacts_High.GetHashCode());
 
             #endregion currentSnapshot
 
@@ -62,31 +64,35 @@ namespace CastReporting.Reporting.Block.Table
             #region PreviousSnapshot
 
             double? criticalViolationPrev = MeasureUtility.GetSizingMeasure(reportData.PreviousSnapshot,
-                SizingInformations.ViolationsToCriticalQualityRulesNumber);
+                Constants.SizingInformations.ViolationsToCriticalQualityRulesNumber);
 
             double? numCritPerFilePrev = MeasureUtility.GetSizingMeasure(reportData.PreviousSnapshot,
-                SizingInformations.ViolationsToCriticalQualityRulesPerFileNumber);
+                Constants.SizingInformations.ViolationsToCriticalQualityRulesPerFileNumber);
             string numCritPerFilePrevIfNegative;
             // ReSharper disable once CompareOfFloatsByEqualityOperator -- special case
             if (numCritPerFilePrev == -1)
-                numCritPerFilePrevIfNegative = FormatHelper.No_Value;
+                numCritPerFilePrevIfNegative = Constants.No_Value;
             else
-                numCritPerFilePrevIfNegative = numCritPerFilePrev?.ToString("N2") ?? FormatHelper.No_Value;
+                numCritPerFilePrevIfNegative = numCritPerFilePrev?.ToString("N2") ?? Constants.No_Value;
 
             double? _numCritPerKlocPrev = MeasureUtility.GetSizingMeasure(reportData.PreviousSnapshot,
-                SizingInformations.ViolationsToCriticalQualityRulesPerKLOCNumber);
+                Constants.SizingInformations.ViolationsToCriticalQualityRulesPerKLOCNumber);
 
-            double? veryHighCostComplexityViolationsPrev = reportData.PreviousSnapshot.GetCostComplexityGrade(QualityDistribution.DistributionOfDefectsToCriticalDiagnosticBasedMetricsPerCostComplexity,
-                DefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.CostComplexityDefects_VeryHigh);
+            double? veryHighCostComplexityViolationsPrev = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
+                Constants.QualityDistribution.DistributionOfDefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.GetHashCode(),
+                Constants.DefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.CostComplexityDefects_VeryHigh.GetHashCode());
 
-            double? highCostComplexityViolationsPrev = reportData.PreviousSnapshot.GetCostComplexityGrade(QualityDistribution.DistributionOfDefectsToCriticalDiagnosticBasedMetricsPerCostComplexity,
-                DefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.CostComplexityDefects_High);
+            double? highCostComplexityViolationsPrev = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
+                Constants.QualityDistribution.DistributionOfDefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.GetHashCode(),
+                Constants.DefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.CostComplexityDefects_High.GetHashCode());
 
-            double? veryHighCostComplexityArtefactsPrev = reportData.PreviousSnapshot.GetCostComplexityGrade(QualityDistribution.CostComplexityDistribution,
-                CostComplexity.CostComplexityArtifacts_VeryHigh);
+            double? veryHighCostComplexityArtefactsPrev = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
+                Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
+                Constants.CostComplexity.CostComplexityArtifacts_VeryHigh.GetHashCode());
 
-            double? highCostComplexityArtefactsPrev = reportData.PreviousSnapshot.GetCostComplexityGrade(QualityDistribution.CostComplexityDistribution,
-                CostComplexity.CostComplexityArtifacts_High);
+            double? highCostComplexityArtefactsPrev = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
+                Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
+                Constants.CostComplexity.CostComplexityArtifacts_High.GetHashCode());
 
             #endregion PreviousSnapshot
             #region SumMetric
@@ -114,29 +120,29 @@ namespace CastReporting.Reporting.Block.Table
                 , Labels.Previous
                 , Labels.EvolutionPercent
                 , Labels.ViolationsCritical
-                , criticalViolation?.ToString(metricFormat) ?? FormatHelper.No_Value
-                , criticalViolationPrev?.ToString(metricFormat) ?? FormatHelper.No_Value
-                , criticalViolationEvolPerc.HasValue ? FormatPercent(criticalViolationEvolPerc.Value): FormatHelper.No_Value
+                , criticalViolation?.ToString(metricFormat) ?? Constants.No_Value
+                , criticalViolationPrev?.ToString(metricFormat) ?? Constants.No_Value
+                , criticalViolationEvolPerc.HasValue ? FormatPercent(criticalViolationEvolPerc.Value): Constants.No_Value
 
                 , "  " + Labels.PerFile
                 , numCritPerFileIfNegative
                 , numCritPerFilePrevIfNegative
-                , numCritPerFileEvolPerc.HasValue ? FormatPercent(numCritPerFileEvolPerc.Value) : FormatHelper.No_Value
+                , numCritPerFileEvolPerc.HasValue ? FormatPercent(numCritPerFileEvolPerc.Value) : Constants.No_Value
 
                 , "  " + Labels.PerkLoC
-                , _numCritPerKloc?.ToString("N2") ?? FormatHelper.No_Value
-                , _numCritPerKlocPrev?.ToString("N2") ?? FormatHelper.No_Value
-                , _numCritPerKlocEvolPerc.HasValue ? FormatPercent(_numCritPerKlocEvolPerc.Value) : FormatHelper.No_Value
+                , _numCritPerKloc?.ToString("N2") ?? Constants.No_Value
+                , _numCritPerKlocPrev?.ToString("N2") ?? Constants.No_Value
+                , _numCritPerKlocEvolPerc.HasValue ? FormatPercent(_numCritPerKlocEvolPerc.Value) : Constants.No_Value
 
                 , Labels.ComplexObjects
-                , _highveryHighCostComplexityArtefacts?.ToString(metricFormat) ?? FormatHelper.No_Value
-                , _highveryHighCostComplexityArtefactsPrev?.ToString(metricFormat) ?? FormatHelper.No_Value
-                , _highveryHighCostComplexityArtefactsEvolPerc.HasValue ? FormatPercent(_highveryHighCostComplexityArtefactsEvolPerc.Value) : FormatHelper.No_Value
+                , _highveryHighCostComplexityArtefacts?.ToString(metricFormat) ?? Constants.No_Value
+                , _highveryHighCostComplexityArtefactsPrev?.ToString(metricFormat) ?? Constants.No_Value
+                , _highveryHighCostComplexityArtefactsEvolPerc.HasValue ? FormatPercent(_highveryHighCostComplexityArtefactsEvolPerc.Value) : Constants.No_Value
 
                 , "  " + Labels.WithViolations
-                , _highveryHighCostComplexityViolations?.ToString(metricFormat) ?? FormatHelper.No_Value
-                , _highveryHighCostComplexityViolationsPrev?.ToString(metricFormat) ?? FormatHelper.No_Value
-                , _highveryHighCostComplexityViolationsEvolPerc.HasValue ? FormatPercent(_highveryHighCostComplexityViolationsEvolPerc.Value) : FormatHelper.No_Value
+                , _highveryHighCostComplexityViolations?.ToString(metricFormat) ?? Constants.No_Value
+                , _highveryHighCostComplexityViolationsPrev?.ToString(metricFormat) ?? Constants.No_Value
+                , _highveryHighCostComplexityViolationsEvolPerc.HasValue ? FormatPercent(_highveryHighCostComplexityViolationsEvolPerc.Value) : Constants.No_Value
             };
 
             var resultTable = new TableDefinition

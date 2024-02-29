@@ -45,7 +45,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
         #endregion PROPERTIES
 
         #region METHODS
-        public abstract TableDefinition Content(ImagingData client, Dictionary<string, string> options);
+        public abstract TableDefinition Content(ReportData client, Dictionary<string, string> options);
 
         public static bool IsMatching(string blockType)
         {
@@ -69,7 +69,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
             if (null == instance) return;
             LogHelper.LogDebugFormat("Start GraphBlock generation : Type {0}", blockName);
             Stopwatch treatmentWatch = Stopwatch.StartNew();
-            TableDefinition content = instance.Content(client.ImagingData, options);
+            TableDefinition content = instance.Content(client, options);
             try
             {
                 if (null != content)
@@ -573,7 +573,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
                                         {
                                             var cachedCell = allCells.FirstOrDefault(x => x.Attribute(NoNamespace.idx) != null &&
                                                                                           x.Attribute(NoNamespace.idx)?.Value == indexCell.ToString());
-                                            if (cachedCell == null && previousCell == null)
+                                            if (cachedCell == null && previousCell ==null)
                                             {
                                                 indexCell += 1;
                                                 continue;

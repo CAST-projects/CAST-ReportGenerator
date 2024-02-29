@@ -138,7 +138,7 @@ namespace CastReporting.BLL
         /// 
         /// </summary>
         /// <returns></returns>
-        public static Setting AddConnection(WSImagingConnection connection, bool isActive, out StatesEnum state)
+        public static Setting AddConnection(WSConnection connection, bool isActive, out StatesEnum state)
         {
             using (ISettingRepository settingRepository = new SettingsRepository())
             {
@@ -150,13 +150,13 @@ namespace CastReporting.BLL
                     return setting;
                 }
 
-                if (!setting.WSImagingConnections.Any(x => x.Equals(connection)))
+                if (!setting.WSConnections.Any(x => x.Equals(connection)))
                 {
-                    setting.WSImagingConnections.Add(connection);
+                    setting.WSConnections.Add(connection);
                 }
                 else
                 {
-                    WSImagingConnection existing = setting.WSImagingConnections?.Where(x => x.Equals(connection)).FirstOrDefault();
+                    WSConnection existing = setting.WSConnections?.Where(x => x.Equals(connection)).FirstOrDefault();
                     if (existing?.Login == connection.Login && existing?.Password == connection.Password && existing?.ApiKey == connection.ApiKey)
                     {
                         // ReSharper disable once RedundantAssignment
@@ -164,8 +164,8 @@ namespace CastReporting.BLL
                     }
                     else
                     {
-                        setting.WSImagingConnections.Remove(existing);
-                        setting.WSImagingConnections.Add(connection);
+                        setting.WSConnections.Remove(existing);
+                        setting.WSConnections.Add(connection);
                     }
 
                 }
@@ -173,7 +173,7 @@ namespace CastReporting.BLL
 
                 if (isActive)
                 {
-                    setting.ChangeActiveImagingConnection(connection.Uri.ToString());
+                    setting.ChangeActiveConnection(connection.Uri.ToString());
                     state = StatesEnum.ConnectionAddedAndActivated;
                 }
                 else
@@ -192,12 +192,12 @@ namespace CastReporting.BLL
         /// 
         /// </summary>
         /// <returns></returns>
-        public static Setting RemoveConnection(WSImagingConnection connection)
+        public static Setting RemoveConnection(WSConnection connection)
         {
             using (ISettingRepository setttingRepository = new SettingsRepository())
             {
                 var setting = setttingRepository.GetSeting();
-                setting.WSImagingConnections.Remove(connection);
+                setting.WSConnections.Remove(connection);
                 setttingRepository.SaveSetting(setting);
 
                 return setting;

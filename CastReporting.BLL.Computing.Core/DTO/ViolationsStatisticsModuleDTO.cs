@@ -1,5 +1,4 @@
-﻿using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Constants;
+﻿using CastReporting.Domain;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,7 +13,7 @@ namespace CastReporting.BLL.Computing
 
         public List<ViolationsStatisticsDTO> Stats { get; set; }
 
-        public ViolationsStatisticsDTO this[BusinessCriteria idx]
+        public ViolationsStatisticsDTO this[Constants.BusinessCriteria idx]
         {
             get
             {
@@ -26,7 +25,7 @@ namespace CastReporting.BLL.Computing
     public class ViolationsStatisticsDTO
     {
 
-        public BusinessCriteria BusinessCriteria { get; set; }
+        public Constants.BusinessCriteria BusinessCriteria { get; set; }
 
         public int? TotalViolations { get; set; }
 

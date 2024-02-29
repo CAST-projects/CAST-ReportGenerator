@@ -13,10 +13,9 @@
  * limitations under the License.
  *
  */
-using Cast.Util;
 using Cast.Util.Log;
 using CastReporting.BLL.Computing.DTO;
-using CastReporting.Domain.Imaging;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -31,7 +30,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("PF_TABLE_RELEASE_PERFORMANCE")]
     public class PortfolioMetricsReleasePerformance : TableBlock
     {
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             List<string> metrics = options.GetOption("ID", string.Empty).Trim().Split('|').ToList();
             List<double> strTargets = options.GetOption("TARGETS", "0").Trim().Split('|').Select(_ => Convert.ToDouble(_, System.Globalization.CultureInfo.InvariantCulture)).ToList();
@@ -120,7 +119,7 @@ namespace CastReporting.Reporting.Block.Table
                     }
                     rowData.AddRange(new[] {
                         currentRes.name,
-                        previousRes != null ? previousRes.resultStr : FormatHelper.No_Data,
+                        previousRes != null ? previousRes.resultStr : Constants.No_Data,
                         target.ToString("N2"),
                         currentRes.resultStr,
                         metricSla });

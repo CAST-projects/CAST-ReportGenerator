@@ -23,7 +23,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
             * DreamTeamSnap4Metrics2.json : AED3/applications/7/snapshots/15/results?quality-indicators=(60014,60017,61004,550)&sizing-measures=(10151,68001,10202,67210,67011)
             */
 
-            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
+            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
                 null, @".\Data\DreamTeamSnap4Metrics2.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 null, null, null, null, null);
 
@@ -46,7 +46,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
             * Snapshot_QIresults1_Extended.json : extension of Snapshot_QIresults1.json with missing values for this component
             */
 
-            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
+            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
                 null, @".\Data\Snapshot_QIresults1_Extended.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 null, null, null, null, null);
 

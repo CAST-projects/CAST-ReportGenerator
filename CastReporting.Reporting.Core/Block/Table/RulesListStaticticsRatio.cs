@@ -13,10 +13,9 @@
  * limitations under the License.
  *
  */
-using Cast.Util;
 using Cast.Util.Log;
 using Cast.Util.Version;
-using CastReporting.Domain.Imaging;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -31,7 +30,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("RULES_LIST_STATISTICS_RATIO")]
     public class RulesListStatisticsRatio : TableBlock
     {
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             List<string> metrics = options.GetOption("METRICS").Trim().Split('|').ToList();
 
@@ -120,7 +119,7 @@ namespace CastReporting.Reporting.Block.Table
                         cellProps.Add(new CellAttributes(cellidx, colorBeige));
                     }
                     cellidx++;
-                    dataRow.Set(lbltotal, detailResult.ViolationRatio.FailedChecks.HasValue ? detailResult.ViolationRatio?.FailedChecks.Value.ToString("N0") : FormatHelper.No_Value);
+                    dataRow.Set(lbltotal, detailResult.ViolationRatio.FailedChecks.HasValue ? detailResult.ViolationRatio?.FailedChecks.Value.ToString("N0") : Constants.No_Value);
                     if (nbViolations > 0)
                     {
                         cellProps.Add(new CellAttributes(cellidx, colorBeige));

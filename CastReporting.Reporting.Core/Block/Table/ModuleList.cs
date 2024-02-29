@@ -26,7 +26,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("MODULE_LIST")]
     public class ModuleList : TableBlock
     {
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             if (reportData?.CurrentSnapshot?.Modules == null) return null;
             List<string> rowData = reportData.CurrentSnapshot.Modules.Select(x => x.Name).ToList();

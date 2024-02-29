@@ -14,9 +14,8 @@
  * limitations under the License.
  *
  */
-using Cast.Util;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain.Imaging;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -28,33 +27,33 @@ namespace CastReporting.Reporting.Block.Graph
     [Block("RADAR_COMPLIANCE_2_LAST_SNAPSHOTS")]
     public class RadarCompliance2LastSnapshots : GraphBlock
     {
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             string prevSnapshotLabel = string.Empty;
             BusinessCriteriaDTO prevSnapshotBCResult = null;
 
             if (reportData?.CurrentSnapshot == null) return null;
-            string currSnapshotLabel = reportData.CurrentSnapshot.GetSnapshotVersionNumber();
-            BusinessCriteriaDTO _currSnapshotBcdto = reportData.CurrentSnapshot.GetBusinessCriteriaGradesSnapshot(true);
+            string currSnapshotLabel = SnapshotUtility.GetSnapshotVersionNumber(reportData.CurrentSnapshot);
+            BusinessCriteriaDTO _currSnapshotBcdto = BusinessCriteriaUtility.GetBusinessCriteriaGradesSnapshot(reportData.CurrentSnapshot, true);
 
             if (reportData.PreviousSnapshot != null)
             {
-                prevSnapshotLabel = reportData.PreviousSnapshot.GetSnapshotVersionNumber();
-                prevSnapshotBCResult = reportData.PreviousSnapshot.GetBusinessCriteriaGradesSnapshot(true);
+                prevSnapshotLabel = SnapshotUtility.GetSnapshotVersionNumber(reportData.PreviousSnapshot);
+                prevSnapshotBCResult = BusinessCriteriaUtility.GetBusinessCriteriaGradesSnapshot(reportData.PreviousSnapshot, true);
             }
             else
             {
                 Snapshot _previousSnapshot = reportData.Application.Snapshots?.FirstOrDefault(_ => _.Annotation.Date.DateSnapShot < reportData.CurrentSnapshot.Annotation.Date.DateSnapShot);
                 if (_previousSnapshot != null)
                 {
-                    prevSnapshotLabel = _previousSnapshot.GetSnapshotVersionNumber();
-                    prevSnapshotBCResult = _previousSnapshot.GetBusinessCriteriaGradesSnapshot(true);
+                    prevSnapshotLabel = SnapshotUtility.GetSnapshotVersionNumber(_previousSnapshot);
+                    prevSnapshotBCResult = BusinessCriteriaUtility.GetBusinessCriteriaGradesSnapshot(_previousSnapshot, true);
                 }
             }
 
 
             var rowData = new List<string> { null, currSnapshotLabel };
-            if (prevSnapshotBCResult != null) { rowData.Add(prevSnapshotLabel ?? FormatHelper.No_Value); }
+            if (prevSnapshotBCResult != null) { rowData.Add(prevSnapshotLabel ?? Constants.No_Value); }
 
 
             #region Programming Practices

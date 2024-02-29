@@ -17,9 +17,7 @@
 using Cast.Util.Log;
 using Cast.Util.Version;
 using CastReporting.Domain;
-using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Constants;
-using CastReporting.Domain.Imaging.Interfaces;
+using CastReporting.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,7 +45,7 @@ namespace CastReporting.BLL
         /// </summary>
         /// <param name="connection"></param>
         /// <param name="snapshot"></param>
-        public SnapshotBLL(WSImagingConnection connection, Snapshot snapshot)
+        public SnapshotBLL(WSConnection connection, Snapshot snapshot)
             : base(connection)
         {
             _Snapshot = snapshot;
@@ -168,7 +166,7 @@ namespace CastReporting.BLL
         /// </summary>
         public void SetComplexity()
         {
-            var values = (int[])Enum.GetValues(typeof(QualityDistribution));
+            var values = (int[])Enum.GetValues(typeof(Constants.QualityDistribution));
 
             List<ApplicationResult> results = new List<ApplicationResult>();
 
@@ -374,7 +372,7 @@ namespace CastReporting.BLL
         /// <param name="connection"></param>
         /// <returns></returns>
         /// 
-        public IEnumerable<CommonCategories> GetCommonCategories(WSImagingConnection connection)
+        public IEnumerable<CommonCategories> GetCommonCategories(WSConnection connection)
         {
             try
             {
@@ -514,7 +512,7 @@ namespace CastReporting.BLL
         /// <param name="count"></param>
         /// <param name="technos"></param>
         /// <returns></returns>
-        public IEnumerable<Violation> GetViolationsListIDbyBC(string snapshotHref, string ruleId, int bcId, int count, string technos)
+        public IEnumerable<Violation> GetViolationsListIDbyBC(string snapshotHref, string ruleId, string bcId, int count, string technos)
         {
             try
             {
@@ -719,7 +717,7 @@ namespace CastReporting.BLL
         /// <param name="connection"></param>
         /// <param name="withActionPlan"></param>
         /// <returns></returns>
-        public static void BuildSnapshotResult(WSImagingConnection connection, Snapshot snapshot, bool withActionPlan)
+        public static void BuildSnapshotResult(WSConnection connection, Snapshot snapshot, bool withActionPlan)
         {
             //Build modules
             using (SnapshotBLL snapshotBll = new SnapshotBLL(connection, snapshot))

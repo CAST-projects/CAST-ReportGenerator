@@ -1,4 +1,4 @@
-﻿using CastReporting.Domain.Imaging;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Table;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -20,7 +20,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestContent()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 null, @".\Data\CurrentTechSizeResultsModTechno.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                null, null, null, null, null, null);
             reportData.CurrentSnapshot.Technologies = new[] { ".NET", "JEE", "SQL Analyzer" };
@@ -43,7 +43,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestLimitCount()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 null, @".\Data\CurrentTechSizeResultsModTechno.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                 null, null, null, null, null, null);
             reportData.CurrentSnapshot.Technologies = new[] { ".NET", "JEE", "SQL Analyzer" };
@@ -68,7 +68,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestNoSize()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 null, @".\Data\CurrentTechSizeResultsModTechno.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                 null, null, null, null, null, null);
             reportData.CurrentSnapshot.Technologies = new[] { ".NET", "JEE", "SQL Analyzer" };
@@ -94,7 +94,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestNoHeader()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 null, @".\Data\CurrentTechSizeResultsModTechno.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                null, null, null, null, null, null);
             reportData.CurrentSnapshot.Technologies = new[] { ".NET", "JEE", "SQL Analyzer" };

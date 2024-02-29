@@ -13,7 +13,6 @@
  * limitations under the License.
  *
  */
-using Cast.Util;
 using CastReporting.BLL.Computing;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
@@ -30,7 +29,7 @@ namespace CastReporting.Reporting.Block.Table
 
         #region METHODS
 
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
 
 
@@ -41,16 +40,18 @@ namespace CastReporting.Reporting.Block.Table
             if (reportData?.CurrentSnapshot?.BusinessCriteriaResults == null) return resultTable;
 
             bool hasPreviousSnapshot = reportData.PreviousSnapshot?.BusinessCriteriaResults != null;
-            string currSnapshotLabel = reportData.CurrentSnapshot.GetSnapshotVersionNumber();
-            BusinessCriteriaDTO currSnapshotBisCriDTO = reportData.CurrentSnapshot.GetBusinessCriteriaGradesSnapshot(false);
+            string currSnapshotLabel = SnapshotUtility.GetSnapshotVersionNumber(reportData.CurrentSnapshot);
+            BusinessCriteriaDTO currSnapshotBisCriDTO = BusinessCriteriaUtility.GetBusinessCriteriaGradesSnapshot(reportData.CurrentSnapshot, false);
 
 
-            string prevSnapshotLabel = reportData.PreviousSnapshot.GetSnapshotVersionNumber();
-            BusinessCriteriaDTO prevSnapshotBisCriDTO = reportData.PreviousSnapshot.GetBusinessCriteriaGradesSnapshot(false);
+            string prevSnapshotLabel = hasPreviousSnapshot ? SnapshotUtility.GetSnapshotVersionNumber(reportData.PreviousSnapshot) : Domain.Constants.No_Value;
+            BusinessCriteriaDTO prevSnapshotBisCriDTO = hasPreviousSnapshot ? BusinessCriteriaUtility.GetBusinessCriteriaGradesSnapshot(reportData.PreviousSnapshot, false) : null;
+
 
             double? currProgrammingPracticesValue = currSnapshotBisCriDTO.ProgrammingPractices ?? 1;
             double? currArchitecturalDesignValue = currSnapshotBisCriDTO.ArchitecturalDesign ?? 1;
             double? currDocumentationValue = currSnapshotBisCriDTO.Documentation ?? 1;
+
 
             double? prevProgrammingPracticesValue = hasPreviousSnapshot ? prevSnapshotBisCriDTO.ProgrammingPractices : 0;
             double? prevArchitecturalDesignValue = hasPreviousSnapshot ? prevSnapshotBisCriDTO.ArchitecturalDesign : 0;
@@ -74,9 +75,9 @@ namespace CastReporting.Reporting.Block.Table
                 new[]
                 {
                     currSnapshotLabel,
-                    currProgrammingPracticesValue?.ToString(metricFormat) ?? FormatHelper.No_Value,
-                    currArchitecturalDesignValue?.ToString(metricFormat) ?? FormatHelper.No_Value,
-                    currDocumentationValue?.ToString(metricFormat) ?? FormatHelper.No_Value
+                    currProgrammingPracticesValue?.ToString(metricFormat) ?? Domain.Constants.No_Value,
+                    currArchitecturalDesignValue?.ToString(metricFormat) ?? Domain.Constants.No_Value,
+                    currDocumentationValue?.ToString(metricFormat) ?? Domain.Constants.No_Value
                 });
             if (hasPreviousSnapshot)
             {
@@ -84,13 +85,13 @@ namespace CastReporting.Reporting.Block.Table
                     new[]
                     {
                         prevSnapshotLabel,
-                        prevProgrammingPracticesValue?.ToString(metricFormat) ?? FormatHelper.No_Value,
-                        prevArchitecturalDesignValue?.ToString(metricFormat) ?? FormatHelper.No_Value,
-                        prevDocumentationValue?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                        prevProgrammingPracticesValue?.ToString(metricFormat) ?? Domain.Constants.No_Value,
+                        prevArchitecturalDesignValue?.ToString(metricFormat) ?? Domain.Constants.No_Value,
+                        prevDocumentationValue?.ToString(metricFormat) ?? Domain.Constants.No_Value,
                         Labels.Variation,
-                        varProgrammingPractices.HasValue ? FormatPercent(varProgrammingPractices.Value): FormatHelper.No_Value,
-                        varArchitecturalDesign.HasValue ? FormatPercent(varArchitecturalDesign.Value): FormatHelper.No_Value,
-                        varDocumentation.HasValue ? FormatPercent(varDocumentation.Value): FormatHelper.No_Value
+                        varProgrammingPractices.HasValue ? FormatPercent(varProgrammingPractices.Value): Domain.Constants.No_Value,
+                        varArchitecturalDesign.HasValue ? FormatPercent(varArchitecturalDesign.Value): Domain.Constants.No_Value,
+                        varDocumentation.HasValue ? FormatPercent(varDocumentation.Value): Domain.Constants.No_Value
                     });
             }
             resultTable = new TableDefinition

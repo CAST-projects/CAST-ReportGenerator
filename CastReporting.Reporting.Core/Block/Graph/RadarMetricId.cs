@@ -4,14 +4,12 @@
  *
  */
 
-using Cast.Util;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain.Imaging;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Helper;
 using CastReporting.Reporting.ReportingModel;
-using DocumentFormat.OpenXml.Spreadsheet;
 using System.Collections.Generic;
 
 namespace CastReporting.Reporting.Block.Graph
@@ -19,7 +17,7 @@ namespace CastReporting.Reporting.Block.Graph
     [Block("RADAR_METRIC_ID")]
     public class RadarMetricId : GraphBlock
     {
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             string[] qidList = options.GetOption("ID")?.Split('|');
             string _version = options.GetOption("SNAPSHOT", "BOTH");
@@ -30,14 +28,14 @@ namespace CastReporting.Reporting.Block.Graph
 
             if (_version == "CURRENT" || _version == "BOTH")
             {
-                string currSnapshotLabel = reportData.CurrentSnapshot.GetSnapshotVersionNumber();
+                string currSnapshotLabel = SnapshotUtility.GetSnapshotVersionNumber(reportData.CurrentSnapshot);
                 rowData.Add(currSnapshotLabel);
             }
 
             if (reportData.PreviousSnapshot != null && (_version == "PREVIOUS" || _version == "BOTH"))
             {
-                string prevSnapshotLabel = reportData.PreviousSnapshot.GetSnapshotVersionNumber();
-                rowData.Add(prevSnapshotLabel ?? FormatHelper.No_Value);
+                string prevSnapshotLabel = SnapshotUtility.GetSnapshotVersionNumber(reportData.PreviousSnapshot);
+                rowData.Add(prevSnapshotLabel ?? Constants.No_Value);
             }
 
             int nbRow = 0;
@@ -53,34 +51,34 @@ namespace CastReporting.Reporting.Block.Graph
                     switch (_version)
                     {
                         case "CURRENT":
-                            qidName = reportData.CurrentSnapshot.GetMetricName(id, true);
+                            qidName = BusinessCriteriaUtility.GetMetricName(reportData.CurrentSnapshot, id, true);
                             if (string.IsNullOrEmpty(qidName)) continue;
                             rowData.Add(qidName);
-                            curRes = reportData.CurrentSnapshot.GetMetricValue(id);
-                            rowData.Add(curRes?.ToString() ?? FormatHelper.Zero);
+                            curRes = BusinessCriteriaUtility.GetMetricValue(reportData.CurrentSnapshot, id);
+                            rowData.Add(curRes?.ToString() ?? Constants.Zero);
                             nbRow++;
                             break;
                         case "PREVIOUS":
                             if (reportData.PreviousSnapshot != null)
                             {
-                                qidName = reportData.PreviousSnapshot.GetMetricName(id, true);
+                                qidName = BusinessCriteriaUtility.GetMetricName(reportData.PreviousSnapshot, id, true);
                                 if (string.IsNullOrEmpty(qidName)) continue;
                                 rowData.Add(qidName);
-                                prevRes = reportData.PreviousSnapshot.GetMetricValue(id);
-                                rowData.Add(prevRes?.ToString() ?? FormatHelper.Zero);
+                                prevRes = BusinessCriteriaUtility.GetMetricValue(reportData.PreviousSnapshot, id);
+                                rowData.Add(prevRes?.ToString() ?? Constants.Zero);
                                 nbRow++;
                             }
                             break;
                         default:
-                            qidName = reportData.CurrentSnapshot.GetMetricName(id, true);
+                            qidName = BusinessCriteriaUtility.GetMetricName(reportData.CurrentSnapshot, id, true);
                             if (string.IsNullOrEmpty(qidName)) continue;
                             rowData.Add(qidName);
-                            curRes = reportData.CurrentSnapshot.GetMetricValue(id);
-                            rowData.Add(curRes?.ToString() ?? FormatHelper.Zero);
+                            curRes = BusinessCriteriaUtility.GetMetricValue(reportData.CurrentSnapshot, id);
+                            rowData.Add(curRes?.ToString() ?? Constants.Zero);
                             if (reportData.PreviousSnapshot != null)
                             {
-                                prevRes = reportData.PreviousSnapshot.GetMetricValue(id);
-                                rowData.Add(prevRes?.ToString() ?? FormatHelper.Zero);
+                                prevRes = BusinessCriteriaUtility.GetMetricValue(reportData.PreviousSnapshot, id);
+                                rowData.Add(prevRes?.ToString() ?? Constants.Zero);
                             }
                             nbRow++;
                             break;

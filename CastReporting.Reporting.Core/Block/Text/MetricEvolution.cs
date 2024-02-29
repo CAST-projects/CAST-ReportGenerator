@@ -13,9 +13,8 @@
  * limitations under the License.
  *
  */
-using Cast.Util;
 using CastReporting.BLL.Computing.DTO;
-using CastReporting.Domain.Imaging;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -30,7 +29,7 @@ namespace CastReporting.Reporting.Block.Text
     public class MetricEvolution : TextBlock
     {
         #region METHODS
-        public override string Content(ImagingData reportData, Dictionary<string, string> options)
+        public override string Content(ReportData reportData, Dictionary<string, string> options)
         {
 
             string metricId = options.GetOption("ID", "60017");
@@ -41,7 +40,7 @@ namespace CastReporting.Reporting.Block.Text
             string[] lstParams = options.GetOption("PARAMS", string.Empty).Split(' ');
             string _expr = options.GetOption("EXPR", string.Empty);
 
-            if (reportData?.CurrentSnapshot == null || reportData?.PreviousSnapshot == null) return FormatHelper.No_Value;
+            if (reportData?.CurrentSnapshot == null || reportData?.PreviousSnapshot == null) return Constants.No_Value;
 
             Module module = null;
             if (moduleName != null)
@@ -66,7 +65,7 @@ namespace CastReporting.Reporting.Block.Text
                 }
                 string evolution = (curResult.Value - prevResult.Value).ToString("N2");
                 double? evp = Math.Abs((double)prevResult) > 0.0 ? (curResult - prevResult) / prevResult : null;
-                string evolPercent = evp != null ? evp.FormatPercent() : FormatHelper.No_Value;
+                string evolPercent = evp != null ? evp.FormatPercent() : Constants.No_Value;
                 result = new EvolutionResult()
                 {
                     name = _expr,

@@ -14,7 +14,6 @@
  *
  */
 
-using Cast.Util;
 using CastReporting.BLL.Computing;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
@@ -41,7 +40,7 @@ namespace CastReporting.Reporting.Block.Table
         /// <param name="reportData"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             bool isDisplayShortHeader = options != null && options.ContainsKey("HEADER") && "SHORT" == options["HEADER"];
 
@@ -50,8 +49,8 @@ namespace CastReporting.Reporting.Block.Table
                 ? new[] { " ", Labels.TQICur, Labels.TQIPrev, Labels.Var }
                 : new[] { " ", Labels.TQICurrent, Labels.TQIPrevious, Labels.Variation });
 
-            var resultCurrentSnapshot = reportData.CurrentSnapshot.GetBusinessCriteriaGradesModules(false);
-            var resultPreviousSnapshot = reportData.PreviousSnapshot.GetBusinessCriteriaGradesModules(false);
+            var resultCurrentSnapshot = BusinessCriteriaUtility.GetBusinessCriteriaGradesModules(reportData.CurrentSnapshot, false);
+            var resultPreviousSnapshot = BusinessCriteriaUtility.GetBusinessCriteriaGradesModules(reportData.PreviousSnapshot, false);
 
             int count = 0;
             if (resultCurrentSnapshot != null)
@@ -76,9 +75,9 @@ namespace CastReporting.Reporting.Block.Table
                 {
                     rowData.AddRange(new[] {
                             result.Name,
-                            result.TqiCurrent?.ToString(MetricFormat) ?? FormatHelper.No_Value,
-                            result.TqiPrevious?.ToString(MetricFormat) ??FormatHelper.No_Value,
-                            result.PercentVariation.HasValue ? FormatPercent(result.PercentVariation):FormatHelper.No_Value
+                            result.TqiCurrent?.ToString(MetricFormat) ?? Domain.Constants.No_Value,
+                            result.TqiPrevious?.ToString(MetricFormat) ?? Domain.Constants.No_Value,
+                            result.PercentVariation.HasValue ? FormatPercent(result.PercentVariation):Domain.Constants.No_Value
                         });
                     count++;
                 }

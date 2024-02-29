@@ -13,10 +13,8 @@
  * limitations under the License.
  *
  */
-using Cast.Util;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Constants;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -33,7 +31,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("TOP_NON_CRITICAL_VIOLATIONS_EVOLUTION")]
     public class TopNonCriticalViolationsEvolution : TableBlock
     {
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             int rowCount = 0;
             int nbLimitTop;
@@ -59,13 +57,13 @@ namespace CastReporting.Reporting.Block.Table
                 if (!metricId.HasValue) metricId = 0;
 
                 var currentNonCriticalRulesViolation = RulesViolationUtility.GetAllRuleViolations(reportData.CurrentSnapshot,
-                                                                                            RulesViolation.NonCriticalRulesViolation,
-                                                                                            (BusinessCriteria)metricId,
+                                                                                            Constants.RulesViolation.NonCriticalRulesViolation,
+                                                                                            (Constants.BusinessCriteria)metricId,
                                                                                             true);
 
 
-                var previousNonCriticalRulesViolation = reportData.PreviousSnapshot != null ? RulesViolationUtility.GetAllRuleViolations(reportData.PreviousSnapshot, RulesViolation.NonCriticalRulesViolation,
-                                                                                                                                    (BusinessCriteria)metricId,
+                var previousNonCriticalRulesViolation = reportData.PreviousSnapshot != null ? RulesViolationUtility.GetAllRuleViolations(reportData.PreviousSnapshot, Constants.RulesViolation.NonCriticalRulesViolation,
+                                                                                                                                    (Constants.BusinessCriteria)metricId,
                                                                                                                                      false)
                                                                                            : null;
 
@@ -97,10 +95,10 @@ namespace CastReporting.Reporting.Block.Table
                         rowData.AddRange(new[]
                                     {
                                           varRule.Rule.Name
-                                        , varRule.CurrentNbViolations.HasValue && varRule.CurrentNbViolations.Value != -1? varRule.CurrentNbViolations.Value.ToString("N0"): FormatHelper.No_Value
-                                        , varRule.PreviousNbViolations.HasValue && varRule.PreviousNbViolations.Value != -1? varRule.PreviousNbViolations.Value.ToString("N0"): FormatHelper.No_Value
-                                        , varRule.Variation.HasValue && !double.IsNaN(varRule.Variation.Value)? FormatEvolution((int)varRule.Variation.Value):FormatHelper.No_Value
-                                        ,  varRule.Ratio.HasValue && !double.IsNaN(varRule.Ratio.Value) ? FormatPercent(varRule.Ratio.Value) : FormatHelper.No_Value
+                                        , varRule.CurrentNbViolations.HasValue && varRule.CurrentNbViolations.Value != -1? varRule.CurrentNbViolations.Value.ToString("N0"): Constants.No_Value
+                                        , varRule.PreviousNbViolations.HasValue && varRule.PreviousNbViolations.Value != -1? varRule.PreviousNbViolations.Value.ToString("N0"): Constants.No_Value
+                                        , varRule.Variation.HasValue && !double.IsNaN(varRule.Variation.Value)? FormatEvolution((int)varRule.Variation.Value):Constants.No_Value
+                                        ,  varRule.Ratio.HasValue && !double.IsNaN(varRule.Ratio.Value) ? FormatPercent(varRule.Ratio.Value) : Constants.No_Value
                                    }
                             );
                     }

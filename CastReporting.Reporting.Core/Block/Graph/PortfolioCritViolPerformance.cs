@@ -15,8 +15,7 @@
  */
 using Cast.Util.Date;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Constants;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -34,9 +33,9 @@ namespace CastReporting.Reporting.Block.Graph
     {
         #region METHODS
 
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
-            int metricId = options.GetIntOption("BCID", (int)BusinessCriteria.TechnicalQualityIndex);
+            int metricId = options.GetIntOption("BCID", 60017);
 
             var rowData = new List<string>();
             rowData.AddRange(new[] {

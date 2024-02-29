@@ -1,8 +1,7 @@
 ﻿using Cast.Util.Log;
 using Cast.Util.Version;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Constants;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -20,7 +19,7 @@ namespace CastReporting.Reporting.Block.Table
         private const string ColorWhite = "White";
         private const string ColorGray = "Gray";
 
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             List<string> rowData = new List<string>();
             List<CellAttributes> cellProps = new List<CellAttributes>();
@@ -71,7 +70,7 @@ namespace CastReporting.Reporting.Block.Table
 
             if (qualityRules.Count > 0)
             {
-                const int bcId = (int)BusinessCriteria.TechnicalQualityIndex;
+                const string bcId = "60017";
                 int nbLimitTop = options.GetIntOption("COUNT", 5);
                 bool hasPreviousSnapshot = reportData.PreviousSnapshot != null;
                 bool displaySourceCode = options.GetOption("WITHCODELINES", "Y").Equals("Y");

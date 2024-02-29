@@ -13,10 +13,8 @@
  * limitations under the License.
  *
  */
-using Cast.Util;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Constants;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.ReportingModel;
@@ -41,7 +39,7 @@ namespace CastReporting.Reporting.Block.Table
         /// <param name="reportData"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             List<string> rowData = new List<string> { "" };
 
@@ -51,11 +49,11 @@ namespace CastReporting.Reporting.Block.Table
             //Set the result by module
             foreach (var mod in reportData.CurrentSnapshot.Modules)
             {
-                var technologyLoc = MeasureUtility.GetSizingMeasureTechnologies(reportData.CurrentSnapshot, mod.Href, SizingInformations.CodeLineNumber);
+                var technologyLoc = MeasureUtility.GetSizingMeasureTechnologies(reportData.CurrentSnapshot, mod.Href, Constants.SizingInformations.CodeLineNumber.GetHashCode());
 
                 rowData.Add(mod.Name);
 
-                rowData.AddRange(reportData.CurrentSnapshot.Technologies.Select(techName => technologyLoc.FirstOrDefault(_ => _.Name == techName)).Select(result => result != null ? result.Value?.ToString(MetricFormat) : FormatHelper.No_Value));
+                rowData.AddRange(reportData.CurrentSnapshot.Technologies.Select(techName => technologyLoc.FirstOrDefault(_ => _.Name == techName)).Select(result => result != null ? result.Value?.ToString(MetricFormat) : Constants.No_Value));
             }
 
             var resultTable = new TableDefinition

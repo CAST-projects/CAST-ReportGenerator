@@ -13,7 +13,6 @@
  * limitations under the License.
  *
  */
-using Cast.Util;
 using CastReporting.BLL.Computing;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
@@ -26,11 +25,11 @@ namespace CastReporting.Reporting.Block.Text
     public class TechnicalDebtMetric : TextBlock
     {
         #region METHODS
-        public override string Content(ImagingData reportData, Dictionary<string, string> options)
+        public override string Content(ReportData reportData, Dictionary<string, string> options)
         {
-            if (reportData?.CurrentSnapshot == null) return FormatHelper.No_Value;
+            if (reportData?.CurrentSnapshot == null) return Domain.Constants.No_Value;
             double? result = MeasureUtility.GetTechnicalDebtMetric(reportData.CurrentSnapshot);
-            return result.HasValue ? $"{result.Value:N0} {reportData.CurrencySymbol}" : FormatHelper.No_Value;
+            return result.HasValue ? $"{result.Value:N0} {reportData.CurrencySymbol}" : Domain.Constants.No_Value;
         }
         #endregion METHODS
     }

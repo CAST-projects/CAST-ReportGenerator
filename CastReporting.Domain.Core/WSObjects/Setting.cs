@@ -38,65 +38,32 @@ namespace CastReporting.Domain
         /// <summary>
         /// 
         /// </summary>
-        private List<WSImagingConnection> _wsImagingConnections;
-        public List<WSImagingConnection> WSImagingConnections
+        private List<WSConnection> _wsConnections;
+        public List<WSConnection> WSConnections
         {
-            get => _wsImagingConnections ?? (_wsImagingConnections = new List<WSImagingConnection>());
-            set => _wsImagingConnections = value;
+            get => _wsConnections ?? (_wsConnections = new List<WSConnection>());
+            set => _wsConnections = value;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public WSImagingConnection GetActiveImagingConnection()
+        public WSConnection GetActiveConnection()
         {
-            return WSImagingConnections.FirstOrDefault(_ => _.IsActive);
+            return WSConnections.FirstOrDefault(_ => _.IsActive);
         }
 
 
         /// <summary>
         /// 
         /// </summary>
-        public void ChangeActiveImagingConnection(string newActiveUrl)
+        public void ChangeActiveConnection(string newActiveUrl)
         {
-            WSImagingConnection previousActiveconnection = WSImagingConnections.FirstOrDefault(_ => _.IsActive);
+            WSConnection previousActiveconnection = WSConnections.FirstOrDefault(_ => _.IsActive);
             if (previousActiveconnection != null) previousActiveconnection.IsActive = false;
 
-            WSImagingConnection newActiveConnection = WSImagingConnections.FirstOrDefault(_ => _.Url.Equals(newActiveUrl));
-            if (newActiveConnection != null) newActiveConnection.IsActive = true;
-        }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private List<WSHighlightConnection> _wsHighlightConnections;
-        public List<WSHighlightConnection> WSHighlightConnections
-        {
-            get => _wsHighlightConnections ?? (_wsHighlightConnections = new List<WSHighlightConnection>());
-            set => _wsHighlightConnections = value;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public WSHighlightConnection GetActiveHighlightConnection()
-        {
-            return WSHighlightConnections.FirstOrDefault(_ => _.IsActive);
-        }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public void ChangeActiveHighlightConnection(string newActiveUrl)
-        {
-            WSHighlightConnection previousActiveconnection = WSHighlightConnections.FirstOrDefault(_ => _.IsActive);
-            if (previousActiveconnection != null) previousActiveconnection.IsActive = false;
-
-            WSHighlightConnection newActiveConnection = WSHighlightConnections.FirstOrDefault(_ => _.Url.Equals(newActiveUrl));
+            WSConnection newActiveConnection = WSConnections.FirstOrDefault(_ => _.Url.Equals(newActiveUrl));
             if (newActiveConnection != null) newActiveConnection.IsActive = true;
         }
 
@@ -104,13 +71,12 @@ namespace CastReporting.Domain
         {
             return obj is Setting setting &&
                    EqualityComparer<ReportingParameter>.Default.Equals(_reportingParameter, setting._reportingParameter) &&
-                   EqualityComparer<List<WSImagingConnection>>.Default.Equals(_wsImagingConnections, setting._wsImagingConnections) &&
-                   EqualityComparer<List<WSHighlightConnection>>.Default.Equals(_wsHighlightConnections, setting._wsHighlightConnections);
+                   EqualityComparer<List<WSConnection>>.Default.Equals(_wsConnections, setting._wsConnections);
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(_reportingParameter, _wsImagingConnections, _wsHighlightConnections);
+            return HashCode.Combine(_reportingParameter, _wsConnections);
         }
     }
 }

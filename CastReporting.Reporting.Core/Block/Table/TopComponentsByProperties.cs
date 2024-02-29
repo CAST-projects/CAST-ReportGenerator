@@ -17,7 +17,7 @@
 using Cast.Util.Log;
 using Cast.Util.Version;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain.Imaging;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -32,7 +32,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("TOP_COMPONENTS_BY_PROPERTIES")]
     public class TopComponentsByProperties : TableBlock
     {
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             string prop1 = options.GetOption("PROP1", "cyclomaticComplexity");
             string prop2 = options.GetOption("PROP2", "cyclomaticComplexity");
@@ -102,7 +102,7 @@ namespace CastReporting.Reporting.Block.Table
             }
             else
             {
-                if (reportData.Application.IsLatestSnapshot(reportData.CurrentSnapshot))
+                if (SnapshotUtility.IsLatestSnapshot(reportData.Application, reportData.CurrentSnapshot))
                 {
                     IEnumerable<ComponentWithProperties> components = reportData.SnapshotExplorer.GetComponentsByProperties(reportData.CurrentSnapshot.Href, 60017, prop1, prop2, order1, order2, nbSet);
                     if (lower1 != null)

@@ -24,7 +24,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
              * @".\Data\TechSizeModTechnoCurrent.json" => http://localhost:7070/CAST-RESTAPI/rest/AED/applications/3/snapshots/4/results?sizing-measures=(10151,10152)&modules=($all)&technologies=($all)
              */
 
-            ImagingData reportData = TestUtility.PrepaReportData("ReportGenerator",
+            ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
                 null, @".\Data\TechSizeModTechnoCurrent.json", "AED/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
                 null, null, null, null, null);
             reportData.CurrentSnapshot.Technologies = new[] { "JEE", "PL/SQL" };
@@ -50,7 +50,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
              * @".\Data\TechSizeModTechnoCurrent.json" => http://localhost:7070/CAST-RESTAPI/rest/AED/applications/3/snapshots/4/results?sizing-measures=(10151,10152)&modules=($all)&technologies=($all)
              */
 
-            ImagingData reportData = TestUtility.PrepaReportData("ReportGenerator",
+            ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
                 null, @".\Data\TechSizeModTechnoCurrent.json", "AED/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
                 null, null, null, null, null);
             reportData.CurrentSnapshot.Technologies = new[] { "JEE", "PL/SQL" };

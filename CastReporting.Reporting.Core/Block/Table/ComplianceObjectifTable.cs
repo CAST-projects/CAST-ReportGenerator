@@ -14,8 +14,7 @@
  *
  */
 using CastReporting.BLL.Computing;
-using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Constants;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -37,7 +36,7 @@ namespace CastReporting.Reporting.Block.Table
         /// <param name="reportData"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             List<string> rowData = new List<string>();
 
@@ -46,10 +45,10 @@ namespace CastReporting.Reporting.Block.Table
             if (reportData?.CurrentSnapshot != null)
             {
                 //Compute nb objectives
-                int? nbObjectives = RulesViolationUtility.GetNbRuleWithViolations(reportData.CurrentSnapshot, RulesViolation.CriticalRulesViolation, 0, false);
+                int? nbObjectives = RulesViolationUtility.GetNbRuleWithViolations(reportData.CurrentSnapshot, Constants.RulesViolation.CriticalRulesViolation, 0, false);
 
                 //Compute nb acchiveemnt for the whole applcation
-                int? nbRuleWithViolations = RulesViolationUtility.GetNbRuleWithViolations(reportData.CurrentSnapshot, RulesViolation.CriticalRulesViolation, 0, true);
+                int? nbRuleWithViolations = RulesViolationUtility.GetNbRuleWithViolations(reportData.CurrentSnapshot, Constants.RulesViolation.CriticalRulesViolation, 0, true);
                 int? nbAchievement = nbObjectives.HasValue && nbRuleWithViolations.HasValue ? nbObjectives.Value - nbRuleWithViolations.Value : (int?)null;
 
                 double? achievementRatio = nbAchievement.HasValue && nbObjectives.Value != 0 ? (double)nbAchievement.Value / nbObjectives.Value : (double?)null;

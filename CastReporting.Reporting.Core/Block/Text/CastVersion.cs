@@ -13,7 +13,6 @@
  * limitations under the License.
  *
  */
-using Cast.Util;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.ReportingModel;
@@ -26,11 +25,11 @@ namespace CastReporting.Reporting.Block.Text
     public class CastVersion : TextBlock
     {
         #region METHODS
-        public override string Content(ImagingData reportData, Dictionary<string, string> options)
+        public override string Content(ReportData reportData, Dictionary<string, string> options)
         {
-            if (reportData?.Application == null) return FormatHelper.No_Value;
+            if (reportData?.Application == null) return Domain.Constants.No_Value;
             string result = reportData.Application.Version;
-            return result ?? FormatHelper.No_Value;
+            return result ?? Domain.Constants.No_Value;
         }
         #endregion METHODS
     }

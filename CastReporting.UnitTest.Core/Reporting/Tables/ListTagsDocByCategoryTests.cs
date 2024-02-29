@@ -1,5 +1,4 @@
 ﻿using CastReporting.Domain;
-using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Block.Table;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -23,11 +22,11 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestBadServerVersion()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                 null, @".\Data\CurrentBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             reportData = TestUtility.AddStandardTags(reportData, @".\Data\StandardTags.json");
-            WSImagingConnection connection = new WSImagingConnection
+            WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -62,11 +61,11 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestTagsDocForOneCategory()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                 null, @".\Data\CurrentBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             reportData = TestUtility.AddStandardTags(reportData, @".\Data\StandardTags.json");
-            WSImagingConnection connection = new WSImagingConnection
+            WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -106,11 +105,11 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestTagsDocForSeveralCategories()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                 null, @".\Data\CurrentBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             reportData = TestUtility.AddStandardTags(reportData, @".\Data\StandardTags.json");
-            WSImagingConnection connection = new WSImagingConnection
+            WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",

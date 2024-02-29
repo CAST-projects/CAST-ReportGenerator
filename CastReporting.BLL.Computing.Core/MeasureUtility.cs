@@ -1,5 +1,4 @@
-﻿using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Constants;
+﻿using CastReporting.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +14,16 @@ namespace CastReporting.BLL.Computing
         /// <param name="snapshot"></param>
         /// <param name="measureId"></param>
         /// <returns></returns>
-        public static double? GetSizingMeasure(Snapshot snapshot, SizingInformations measureId)
+        public static double? GetSizingMeasure(Snapshot snapshot, Constants.SizingInformations measureId)
         {
-            var measure = snapshot?.SizingMeasuresResults?.FirstOrDefault(_ => _.Reference.Key == (int)measureId);
+            var measure = snapshot?.SizingMeasuresResults?.FirstOrDefault(_ => _.Reference.Key == measureId.GetHashCode());
             return measure?.DetailResult != null ? MathUtility.GetRound(measure.DetailResult.Value) : null;
+        }
+
+        public static double? GetSizingMeasure(Snapshot snapshot, int measureId)
+        {
+            var measure = snapshot?.SizingMeasuresResults?.FirstOrDefault(_ => _.Reference.Key == measureId);
+            return measure?.DetailResult?.Value;
         }
 
         public static string GetSizingMeasureName(Snapshot snapshot, int measureId, bool shortname = false)
@@ -28,27 +33,27 @@ namespace CastReporting.BLL.Computing
             return name;
         }
 
-        public static double? GetSizingMeasureModule(Snapshot snapshot, int moduleId, SizingInformations measureId)
+        public static double? GetSizingMeasureModule(Snapshot snapshot, int moduleId, int measureId)
         {
-            var measure = snapshot?.SizingMeasuresResults?.FirstOrDefault(_ => _.Reference.Key == (int)measureId);
+            var measure = snapshot?.SizingMeasuresResults?.FirstOrDefault(_ => _.Reference.Key == measureId);
             return measure?.ModulesResult.FirstOrDefault(_ => _.Module.Id == moduleId)?.DetailResult?.Value;
         }
 
         public static double? GetAddedFunctionPoint(Snapshot snapshot)
         {
-            return GetSizingMeasure(snapshot, SizingInformations.AddedFunctionPoints);
+            return GetSizingMeasure(snapshot, Constants.SizingInformations.AddedFunctionPoints);
         }
 
 
         public static double? GetDeletedFunctionPoint(Snapshot snapshot)
         {
-            return GetSizingMeasure(snapshot, SizingInformations.DeletedFunctionPoints);
+            return GetSizingMeasure(snapshot, Constants.SizingInformations.DeletedFunctionPoints);
         }
 
 
         public static double? GetModifiedFunctionPoint(Snapshot snapshot)
         {
-            return GetSizingMeasure(snapshot, SizingInformations.ModifiedFunctionPoints);
+            return GetSizingMeasure(snapshot, Constants.SizingInformations.ModifiedFunctionPoints);
         }
 
 
@@ -60,7 +65,7 @@ namespace CastReporting.BLL.Computing
         // ReSharper disable once InconsistentNaming
         public static double? GetAfpMetricDF(Snapshot snapshot)
         {
-            return GetSizingMeasure(snapshot, SizingInformations.UnadjustedDataFunctions);
+            return GetSizingMeasure(snapshot, Constants.SizingInformations.UnadjustedDataFunctions);
         }
 
         /// <summary>
@@ -71,7 +76,7 @@ namespace CastReporting.BLL.Computing
         // ReSharper disable once InconsistentNaming
         public static double? GetAfpMetricTF(Snapshot snapshot)
         {
-            return GetSizingMeasure(snapshot, SizingInformations.UnadjustedTransactionalFunctions);
+            return GetSizingMeasure(snapshot, Constants.SizingInformations.UnadjustedTransactionalFunctions);
         }
 
         /// <summary>
@@ -81,7 +86,7 @@ namespace CastReporting.BLL.Computing
         /// <returns></returns>
         public static double? GetTechnicalDebtMetric(Snapshot snapshot)
         {
-            return GetSizingMeasure(snapshot, SizingInformations.TechnicalDebt);
+            return GetSizingMeasure(snapshot, Constants.SizingInformations.TechnicalDebt);
         }
 
 
@@ -92,7 +97,7 @@ namespace CastReporting.BLL.Computing
         /// <returns></returns>
         public static double? GetRemovedTechDebtMetric(Snapshot snapshot)
         {
-            return GetSizingMeasure(snapshot, SizingInformations.RemovedViolationsTechnicalDebt);
+            return GetSizingMeasure(snapshot, Constants.SizingInformations.RemovedViolationsTechnicalDebt);
         }
 
 
@@ -103,7 +108,7 @@ namespace CastReporting.BLL.Computing
         /// <returns></returns>
         public static double? GetAddedTechDebtMetric(Snapshot snapshot)
         {
-            return GetSizingMeasure(snapshot, SizingInformations.AddedViolationsTechnicalDebt);
+            return GetSizingMeasure(snapshot, Constants.SizingInformations.AddedViolationsTechnicalDebt);
         }
 
 
@@ -114,7 +119,7 @@ namespace CastReporting.BLL.Computing
         /// <returns></returns>
         public static double? GetFileNumber(Snapshot snapshot)
         {
-            return GetSizingMeasure(snapshot, SizingInformations.FileNumber);
+            return GetSizingMeasure(snapshot, Constants.SizingInformations.FileNumber);
         }
 
         /// <summary>
@@ -124,7 +129,7 @@ namespace CastReporting.BLL.Computing
         /// <returns></returns>
         public static double? GetClassNumber(Snapshot snapshot)
         {
-            return GetSizingMeasure(snapshot, SizingInformations.ClassNumber);
+            return GetSizingMeasure(snapshot, Constants.SizingInformations.ClassNumber);
         }
 
         /// <summary>
@@ -134,7 +139,7 @@ namespace CastReporting.BLL.Computing
         /// <returns></returns>
         public static double? GetSqlArtifactNumber(Snapshot snapshot)
         {
-            return GetSizingMeasure(snapshot, SizingInformations.SQLArtifactNumber);
+            return GetSizingMeasure(snapshot, Constants.SizingInformations.SQLArtifactNumber);
         }
 
 
@@ -145,7 +150,7 @@ namespace CastReporting.BLL.Computing
         /// <returns></returns>
         public static double? GetTableNumber(Snapshot snapshot)
         {
-            return GetSizingMeasure(snapshot, SizingInformations.TableNumber);
+            return GetSizingMeasure(snapshot, Constants.SizingInformations.TableNumber);
         }
 
         /// <summary>
@@ -156,7 +161,7 @@ namespace CastReporting.BLL.Computing
         // ReSharper disable once InconsistentNaming
         public static double? GetAutomatedIFPUGFunction(Snapshot snapshot)
         {
-            return GetSizingMeasure(snapshot, SizingInformations.AutomatedIFPUGFunctionPointsEstimation);
+            return GetSizingMeasure(snapshot, Constants.SizingInformations.AutomatedIFPUGFunctionPointsEstimation);
         }
 
 
@@ -167,7 +172,7 @@ namespace CastReporting.BLL.Computing
         /// <returns></returns>
         public static double? GetDecisionPointsNumber(Snapshot snapshot)
         {
-            return GetSizingMeasure(snapshot, SizingInformations.DecisionPointsNumber);
+            return GetSizingMeasure(snapshot, Constants.SizingInformations.DecisionPointsNumber);
         }
 
 
@@ -179,7 +184,7 @@ namespace CastReporting.BLL.Computing
         // ReSharper disable once InconsistentNaming
         public static double? GetBackfiredIFPUGFunction(Snapshot snapshot)
         {
-            return GetSizingMeasure(snapshot, SizingInformations.BackfiredIFPUGFunctionPoints);
+            return GetSizingMeasure(snapshot, Constants.SizingInformations.BackfiredIFPUGFunctionPoints);
         }
 
         /// <summary>
@@ -189,7 +194,7 @@ namespace CastReporting.BLL.Computing
         /// <returns></returns>
         public static double? GetCodeLineNumber(Snapshot snapshot)
         {
-            return GetSizingMeasure(snapshot, SizingInformations.CodeLineNumber);
+            return GetSizingMeasure(snapshot, Constants.SizingInformations.CodeLineNumber);
         }
 
 
@@ -200,7 +205,7 @@ namespace CastReporting.BLL.Computing
         /// <returns></returns>
         public static int? GetAddedCriticalViolations(Snapshot snapshot)
         {
-            return (int?)GetSizingMeasure(snapshot, SizingInformations.CriticalQualityRulesWithViolationsNewModifiedCodeNumber);
+            return (int?)GetSizingMeasure(snapshot, Constants.SizingInformations.CriticalQualityRulesWithViolationsNewModifiedCodeNumber);
         }
 
         /// <summary>
@@ -211,7 +216,7 @@ namespace CastReporting.BLL.Computing
         /// <param name="application"></param>
         /// <param name="measureId"></param>
         /// <returns></returns>
-        public static double? SumDeltaIndicator(Snapshot currentSnapshot, Snapshot previousSnapshot, Application application, SizingInformations measureId)
+        public static double? SumDeltaIndicator(Snapshot currentSnapshot, Snapshot previousSnapshot, Application application, Constants.SizingInformations measureId)
         {
             if (application == null || currentSnapshot?.SizingMeasuresResults == null) return null;
             double? result = GetSizingMeasure(currentSnapshot, measureId);
@@ -225,7 +230,7 @@ namespace CastReporting.BLL.Computing
                                         where s.Annotation.Date.DateSnapShot > dtPrevoiusSnapshot
                                               && s.Annotation.Date.DateSnapShot < dtCurrentSnapshot
                                         from i in s.SizingMeasuresResults
-                                        where i.Reference.Key == (int)measureId
+                                        where i.Reference.Key == measureId.GetHashCode()
                                         select i;
 
             result += quryPreviusIndicators.Sum(s => s.DetailResult.Value);
@@ -241,12 +246,12 @@ namespace CastReporting.BLL.Computing
         /// <param name="hrefModule"></param>
         /// <param name="measureId"></param>
         /// <returns></returns>
-        public static List<TechnologyResultDTO> GetSizingMeasureTechnologies(Snapshot snapshot, string hrefModule, SizingInformations measureId)
+        public static List<TechnologyResultDTO> GetSizingMeasureTechnologies(Snapshot snapshot, string hrefModule, int measureId)
         {
             List<TechnologyResultDTO> result = new List<TechnologyResultDTO>();
 
             if (snapshot?.SizingMeasuresResults == null) return result;
-            ApplicationResult applicationResult = snapshot.SizingMeasuresResults.FirstOrDefault(_ => _.Reference.Key == (int)measureId && _.ModulesResult != null);
+            ApplicationResult applicationResult = snapshot.SizingMeasuresResults.FirstOrDefault(_ => _.Reference.Key == measureId && _.ModulesResult != null);
 
             ModuleResult modulesResult = null;
 
@@ -271,7 +276,7 @@ namespace CastReporting.BLL.Computing
             List<TechnologyResultDTO> technologyInfos = (from techno in snapshot.Technologies
                     .Where(_ => !(_.StartsWith("APM") && _.EndsWith("Module")))
                                                          from codeLineNumber in snapshot.SizingMeasuresResults
-                                                         where codeLineNumber.Reference.Key == (int)SizingInformations.CodeLineNumber &&
+                                                         where codeLineNumber.Reference.Key == Constants.SizingInformations.CodeLineNumber.GetHashCode() &&
                                                                codeLineNumber.DetailResult?.Value > 0 &&
                                                                codeLineNumber.TechnologyResult.Any(_ => _.Technology.Equals(techno))
                                                          select new TechnologyResultDTO
@@ -290,7 +295,7 @@ namespace CastReporting.BLL.Computing
             List<TechnologyResultDTO> technologyInfos = (from techno in snapshot.Technologies
                     .Where(_ => !(_.StartsWith("APM") && _.EndsWith("Module")))
                                                          from codeLineNumber in snapshot.SizingMeasuresResults
-                                                         where codeLineNumber.Reference.Key == (int)SizingInformations.ClassNumber &&
+                                                         where codeLineNumber.Reference.Key == Constants.SizingInformations.ClassNumber.GetHashCode() &&
                                                                codeLineNumber.DetailResult.Value > 0
                                                          select new TechnologyResultDTO
                                                          {
@@ -307,7 +312,7 @@ namespace CastReporting.BLL.Computing
             List<TechnologyResultDTO> technologyInfos = (from techno in snapshot.Technologies
                     .Where(_ => !(_.StartsWith("APM") && _.EndsWith("Module")))
                                                          from codeLineNumber in snapshot.SizingMeasuresResults
-                                                         where codeLineNumber.Reference.Key == (int)SizingInformations.DecisionPointsNumber &&
+                                                         where codeLineNumber.Reference.Key == Constants.SizingInformations.DecisionPointsNumber.GetHashCode() &&
                                                                codeLineNumber.DetailResult.Value > 0
                                                          select new TechnologyResultDTO
                                                          {
@@ -326,12 +331,12 @@ namespace CastReporting.BLL.Computing
         /// <param name="nbResult"></param>
         /// <param name="measureId"></param>
         /// <returns></returns>
-        public static List<ModuleResultDTO> GetModulesMeasure(Snapshot snapshot, int nbResult, SizingInformations measureId)
+        public static List<ModuleResultDTO> GetModulesMeasure(Snapshot snapshot, int nbResult, Constants.SizingInformations measureId)
         {
             if (snapshot?.SizingMeasuresResults != null)
             {
                 return snapshot.SizingMeasuresResults
-                               .Where(_ => _.Reference.Key == (int)measureId)
+                               .Where(_ => _.Reference.Key == measureId.GetHashCode())
                                .SelectMany(_ => _.ModulesResult)
                                .Where(m => m.DetailResult != null)
                                .Select(_ => new ModuleResultDTO { Name = _.Module.Name, Value = _.DetailResult.Value })

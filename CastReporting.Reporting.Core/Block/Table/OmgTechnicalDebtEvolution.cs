@@ -13,11 +13,10 @@
  * limitations under the License.
  *
  */
-using Cast.Util;
 using Cast.Util.Log;
 using Cast.Util.Version;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain.Imaging;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -32,9 +31,9 @@ namespace CastReporting.Reporting.Block.Table
     [Block("OMG_TECHNICAL_DEBT_EVOLUTION")]
     public class OmgTechnicalDebtEvolution : TableBlock
     {
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
-            string index = options.GetOption("ID", "ISO");
+            string index = options.GetOption("ID","ISO");
             bool detail = options.GetOption("MORE", "false").ToLower().Equals("true");
             string displayAddedRemoved = reportData.PreviousSnapshot != null ? "true" : "false";
             bool displayEvolution = options.GetOption("EVOLUTION", displayAddedRemoved).ToLower().Equals("true");
@@ -49,7 +48,7 @@ namespace CastReporting.Reporting.Block.Table
 
             if (indicatorName == null)
             {
-                return new TableDefinition
+                 return new TableDefinition
                 {
                     HasRowHeaders = false,
                     HasColumnHeaders = displayHeader,
@@ -196,15 +195,15 @@ namespace CastReporting.Reporting.Block.Table
             int total = omgTechDebt.Total > 0.0 ? 1 : 0;
             FormatTableHelper.AddGrayOrBold(detail, cellProps, cellidx, total);
             cellidx++;
-            dataRow.Set(lbltotal, omgTechDebt.Total != null ? omgTechDebt.Total.Value.ToString("N1") : FormatHelper.No_Value);
+            dataRow.Set(lbltotal, omgTechDebt.Total != null ? omgTechDebt.Total.Value.ToString("N1") : Constants.No_Value);
             FormatTableHelper.AddGrayOrBold(detail, cellProps, cellidx, total);
             cellidx++;
             if (displayEvolution)
             {
-                dataRow.Set(lbladded, omgTechDebt.Added != null ? omgTechDebt.Added.Value.ToString("N1") : FormatHelper.No_Value);
+                dataRow.Set(lbladded, omgTechDebt.Added != null ? omgTechDebt.Added.Value.ToString("N1") : Constants.No_Value);
                 FormatTableHelper.AddGrayOrBold(detail, cellProps, cellidx, total);
                 cellidx++;
-                dataRow.Set(lblremoved, omgTechDebt.Removed != null ? omgTechDebt.Removed.Value.ToString("N1") : FormatHelper.No_Value);
+                dataRow.Set(lblremoved, omgTechDebt.Removed != null ? omgTechDebt.Removed.Value.ToString("N1") : Constants.No_Value);
                 FormatTableHelper.AddGrayOrBold(detail, cellProps, cellidx, total);
                 cellidx++;
             }

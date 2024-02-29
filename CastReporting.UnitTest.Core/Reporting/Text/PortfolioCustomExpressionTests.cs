@@ -1,5 +1,4 @@
 ﻿using CastReporting.Domain;
-using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Block.Text;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -29,7 +28,7 @@ namespace CastReporting.UnitTest.Reporting.Text
         {
             List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json", @".\Data\AADApplication2Snap.json" };
             List<string> snapResultsList = new List<string> { @".\Data\AAD2App3Snap4Results.json", @".\Data\AAD2App24Snap12Results.json" };
-            ImagingData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
 
             DateTime date = new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Utc);
             Snapshot _snap0 = reportData.Applications[0].Snapshots.FirstOrDefault();
@@ -84,7 +83,7 @@ namespace CastReporting.UnitTest.Reporting.Text
         {
             List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json", @".\Data\AADApplication2Snap.json" };
             List<string> snapResultsList = new List<string> { @".\Data\AAD2App3Snap4Results.json", @".\Data\AAD2App24Snap12Results.json" };
-            ImagingData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
 
             DateTime date = new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Utc);
             Snapshot _snap0 = reportData.Applications[0].Snapshots.FirstOrDefault();
@@ -129,7 +128,7 @@ namespace CastReporting.UnitTest.Reporting.Text
         {
             List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json", @".\Data\AADApplication2Snap.json" };
             List<string> snapResultsList = new List<string> { @".\Data\AAD2App3Snap4Results.json", @".\Data\AAD2App24Snap12Results.json" };
-            ImagingData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
 
             DateTime date = new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Utc);
             Snapshot _snap0 = reportData.Applications[0].Snapshots.FirstOrDefault();
@@ -150,7 +149,7 @@ namespace CastReporting.UnitTest.Reporting.Text
             reportData.Snapshots = _snapshots;
 
 
-            WSImagingConnection connection = new WSImagingConnection
+            WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -185,7 +184,7 @@ namespace CastReporting.UnitTest.Reporting.Text
         {
             List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json", @".\Data\AADApplication2Snap.json" };
             List<string> snapResultsList = new List<string> { @".\Data\AAD2App3Snap4Results.json", @".\Data\AAD2App24Snap12Results.json" };
-            ImagingData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
 
             DateTime date = new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Utc);
             Snapshot _snap0 = reportData.Applications[0].Snapshots.FirstOrDefault();
@@ -205,7 +204,7 @@ namespace CastReporting.UnitTest.Reporting.Text
             _snapshots[1] = _snap1;
             reportData.Snapshots = _snapshots;
 
-            WSImagingConnection connection = new WSImagingConnection
+            WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -238,7 +237,7 @@ namespace CastReporting.UnitTest.Reporting.Text
         {
             List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json", @".\Data\AADApplication2Snap.json" };
             List<string> snapResultsList = new List<string> { @".\Data\AAD2App3Snap4Results.json", @".\Data\AAD2App24Snap12Results.json" };
-            ImagingData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
 
             reportData = TestUtility.AddPortfolioComplexity(reportData, @".\Data\ComplexitySnapCurrent.json");
 

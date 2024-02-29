@@ -1,8 +1,7 @@
-﻿using Cast.Util;
-using Cast.Util.Log;
+﻿using Cast.Util.Log;
 using CastReporting.BLL.Computing;
 using CastReporting.BLL.Computing.DTO;
-using CastReporting.Domain.Imaging;
+using CastReporting.Domain;
 using CastReporting.Reporting.Core.Languages;
 using CastReporting.Reporting.ReportingModel;
 using System;
@@ -48,7 +47,7 @@ namespace CastReporting.Reporting.Helper
             }
         }
 
-        public static string GetItemName(string type, string item, ImagingData reportData)
+        public static string GetItemName(string type, string item, ReportData reportData)
         {
             switch (type)
             {
@@ -56,9 +55,9 @@ namespace CastReporting.Reporting.Helper
                     switch (item)
                     {
                         case "CURRENT":
-                            return reportData.CurrentSnapshot.GetSnapshotNameVersion();
+                            return SnapshotUtility.GetSnapshotNameVersion(reportData.CurrentSnapshot);
                         case "PREVIOUS":
-                            return reportData.PreviousSnapshot.GetSnapshotNameVersion();
+                            return SnapshotUtility.GetSnapshotNameVersion(reportData.PreviousSnapshot);
                         case "EVOL":
                             return Labels.Evolution;
                         case "EVOL_PERCENT":
@@ -68,7 +67,7 @@ namespace CastReporting.Reporting.Helper
                     }
 
                 case "METRICS":
-                    return MetricsUtility.GetMetricName(reportData, reportData.CurrentSnapshot, item) ?? FormatHelper.No_Value;
+                    return MetricsUtility.GetMetricName(reportData, reportData.CurrentSnapshot, item) ?? Constants.No_Value;
                 case "CUSTOM_EXPRESSIONS":
                 case "MODULES":
                 case "TECHNOLOGIES":
@@ -117,7 +116,7 @@ namespace CastReporting.Reporting.Helper
         /*
          * the bool format parameter is true for table component, and false for graph component
          */
-        public static TableDefinition Content(ImagingData reportData, Dictionary<string, string> options, bool format)
+        public static TableDefinition Content(ReportData reportData, Dictionary<string, string> options, bool format)
         {
             var rowData = new List<string>();
             ObjConfig[] _posConfig = new ObjConfig[4];
@@ -147,13 +146,13 @@ namespace CastReporting.Reporting.Helper
             #region Get Configuration
             // get the configuration
             string type0 = options.GetOption("COL1");
-            _posConfig[0] = type0 != null ? new ObjConfig { Type = type0, Parameters = options.GetOption(type0) != null ? options.GetOption(type0).Trim().Split('|') : Array.Empty<string>() } : null;
+            _posConfig[0] = type0 != null ? new ObjConfig { Type = type0, Parameters = options.GetOption(type0) != null ? options.GetOption(type0).Trim().Split('|') : new string[] { } } : null;
             string type1 = options.GetOption("COL11");
-            _posConfig[1] = type1 != null ? new ObjConfig { Type = type1, Parameters = options.GetOption(type1) != null ? options.GetOption(type1).Split('|') : Array.Empty<string>() } : null;
+            _posConfig[1] = type1 != null ? new ObjConfig { Type = type1, Parameters = options.GetOption(type1) != null ? options.GetOption(type1).Split('|') : new string[] { } } : null;
             string type2 = options.GetOption("ROW1");
-            _posConfig[2] = type2 != null ? new ObjConfig { Type = type2, Parameters = options.GetOption(type2) != null ? options.GetOption(type2).Split('|') : Array.Empty<string>() } : null;
+            _posConfig[2] = type2 != null ? new ObjConfig { Type = type2, Parameters = options.GetOption(type2) != null ? options.GetOption(type2).Split('|') : new string[] { } } : null;
             string type3 = options.GetOption("ROW11");
-            _posConfig[3] = type3 != null ? new ObjConfig { Type = type3, Parameters = options.GetOption(type3) != null ? options.GetOption(type3).Split('|') : Array.Empty<string>() } : null;
+            _posConfig[3] = type3 != null ? new ObjConfig { Type = type3, Parameters = options.GetOption(type3) != null ? options.GetOption(type3).Split('|') : new string[] { } } : null;
 
             string[] snapshotConfiguration = options.GetOption("SNAPSHOTS")?.Split('|');
 
@@ -386,7 +385,7 @@ namespace CastReporting.Reporting.Helper
                     {
                         EvolutionResult res = MetricsUtility.GetMetricEvolution(reportData, reportData.CurrentSnapshot, reportData.PreviousSnapshot, _metricId, true, null, string.Empty, format);
                         if (res == null) continue;
-                        if (res.name == FormatHelper.No_Value) continue;
+                        if (res.name == Constants.No_Value) continue;
                         if (positionMetrics != -1) _posResults[positionMetrics] = res.name;
                         foreach (string param in snapshotConfiguration)
                         {
@@ -395,11 +394,11 @@ namespace CastReporting.Reporting.Helper
                                 switch (param)
                                 {
                                     case "CURRENT":
-                                        if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.CurrentSnapshot.GetSnapshotNameVersion();
+                                        if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.CurrentSnapshot);
                                         results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), res.curResult);
                                         break;
                                     case "PREVIOUS":
-                                        if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.PreviousSnapshot.GetSnapshotNameVersion();
+                                        if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.PreviousSnapshot);
                                         results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), res.prevResult);
                                         break;
                                     case "EVOL":
@@ -440,14 +439,14 @@ namespace CastReporting.Reporting.Helper
                                 case "CURRENT":
                                     string curValueC = format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, _metricFormat, null, string.Empty)
                                         : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, "graph", null, string.Empty);
-                                    if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.CurrentSnapshot.GetSnapshotNameVersion();
+                                    if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.CurrentSnapshot);
                                     results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), curValueC);
                                     break;
                                 case "PREVIOUS":
                                     string prevValueP = reportData.PreviousSnapshot != null ? format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, null, string.Empty)
-                                        : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, "graph", null, string.Empty)
+                                        : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, "graph", null, string.Empty) 
                                         : format ? Labels.NoData : "0";
-                                    if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.PreviousSnapshot.GetSnapshotNameVersion();
+                                    if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.PreviousSnapshot);
                                     results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), prevValueP);
                                     break;
                                 case "EVOL":
@@ -480,9 +479,9 @@ namespace CastReporting.Reporting.Helper
                         foreach (Snapshot _snapshot in snapshots)
                         {
                             // _metricId should be a quality indicator, if not, return null
-                            if (positionSnapshots != -1) _posResults[positionSnapshots] = _snapshot.GetSnapshotNameVersion();
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
                             string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
-                            if (name == FormatHelper.No_Value) continue;
+                            if (name == Constants.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
                             OmgTechnicalDebtIdDTO stat = OmgTechnicalDebtUtility.GetOmgTechDebt(_snapshot, int.Parse(_metricId));
                             foreach (string _omgTechDebt in omgTechDebt)
@@ -492,15 +491,15 @@ namespace CastReporting.Reporting.Helper
                                 {
                                     case "TOTAL":
                                         _posResults[positionOmgTechDebt] = TechnicalDebtLabel;
-                                        value = format ? stat?.Total?.ToString("N1") ?? FormatHelper.No_Value : stat?.Total?.ToString() ?? "0";
+                                        value = format ? stat?.Total?.ToString("N1") ?? Constants.No_Value : stat?.Total?.ToString() ?? "0";
                                         break;
                                     case "ADDED":
                                         _posResults[positionOmgTechDebt] = TechnicalDebtAddedLabel;
-                                        value = format ? stat?.Added?.ToString("N1") ?? FormatHelper.No_Value : stat?.Added?.ToString() ?? "0";
+                                        value = format ? stat?.Added?.ToString("N1") ?? Constants.No_Value : stat?.Added?.ToString() ?? "0";
                                         break;
                                     case "REMOVED":
                                         _posResults[positionOmgTechDebt] = TechnicalDebtRemovedLabel;
-                                        value = format ? stat?.Removed?.ToString("N1") ?? FormatHelper.No_Value : stat?.Removed?.ToString() ?? "0";
+                                        value = format ? stat?.Removed?.ToString("N1") ?? Constants.No_Value : stat?.Removed?.ToString() ?? "0";
                                         break;
                                     default:
                                         throw new ArgumentOutOfRangeException();
@@ -528,9 +527,9 @@ namespace CastReporting.Reporting.Helper
                         foreach (Snapshot _snapshot in snapshots)
                         {
                             // _metricId should be a quality indicator, if not, return null
-                            if (positionSnapshots != -1) _posResults[positionSnapshots] = _snapshot.GetSnapshotNameVersion();
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
                             string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
-                            if (name == FormatHelper.No_Value) continue;
+                            if (name == Constants.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
                             ViolStatMetricIdDTO stat = RulesViolationUtility.GetViolStat(_snapshot, int.Parse(_metricId));
                             foreach (string _violation in violations)
@@ -540,15 +539,15 @@ namespace CastReporting.Reporting.Helper
                                 {
                                     case "TOTAL":
                                         _posResults[positionViolations] = Labels.TotalViolations;
-                                        value = format ? stat?.TotalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.TotalViolations?.ToString() ?? FormatHelper.No_Value;
+                                        value = format ? stat?.TotalViolations?.ToString("N0") ?? Constants.No_Value : stat?.TotalViolations?.ToString() ?? Constants.No_Value;
                                         break;
                                     case "ADDED":
                                         _posResults[positionViolations] = Labels.AddedViolations;
-                                        value = format ? stat?.AddedViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.AddedViolations?.ToString() ?? FormatHelper.No_Value;
+                                        value = format ? stat?.AddedViolations?.ToString("N0") ?? Constants.No_Value : stat?.AddedViolations?.ToString() ?? Constants.No_Value;
                                         break;
                                     case "REMOVED":
                                         _posResults[positionViolations] = Labels.RemovedViolations;
-                                        value = format ? stat?.RemovedViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.RemovedViolations?.ToString() ?? FormatHelper.No_Value;
+                                        value = format ? stat?.RemovedViolations?.ToString("N0") ?? Constants.No_Value : stat?.RemovedViolations?.ToString() ?? Constants.No_Value;
                                         break;
                                     default:
                                         throw new ArgumentOutOfRangeException();
@@ -576,9 +575,9 @@ namespace CastReporting.Reporting.Helper
                         foreach (Snapshot _snapshot in snapshots)
                         {
                             // _metricId should be a quality indicator, if not, return null
-                            if (positionSnapshots != -1) _posResults[positionSnapshots] = _snapshot.GetSnapshotNameVersion();
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
                             string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
-                            if (name == FormatHelper.No_Value) continue;
+                            if (name == Constants.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
                             ViolStatMetricIdDTO stat = RulesViolationUtility.GetViolStat(_snapshot, int.Parse(_metricId));
                             foreach (string _violation in criticalViolations)
@@ -588,15 +587,15 @@ namespace CastReporting.Reporting.Helper
                                 {
                                     case "TOTAL":
                                         _posResults[positionCriticalViolations] = Labels.TotalCriticalViolations;
-                                        value = format ? stat?.TotalCriticalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.TotalCriticalViolations?.ToString() ?? FormatHelper.No_Value;
+                                        value = format ? stat?.TotalCriticalViolations?.ToString("N0") ?? Constants.No_Value : stat?.TotalCriticalViolations?.ToString() ?? Constants.No_Value;
                                         break;
                                     case "ADDED":
                                         _posResults[positionCriticalViolations] = Labels.AddedCriticalViolations;
-                                        value = format ? stat?.AddedCriticalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.AddedCriticalViolations?.ToString() ?? FormatHelper.No_Value;
+                                        value = format ? stat?.AddedCriticalViolations?.ToString("N0") ?? Constants.No_Value : stat?.AddedCriticalViolations?.ToString() ?? Constants.No_Value;
                                         break;
                                     case "REMOVED":
                                         _posResults[positionCriticalViolations] = Labels.RemovedCriticalViolations;
-                                        value = format ? stat?.RemovedCriticalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.RemovedCriticalViolations?.ToString() ?? FormatHelper.No_Value;
+                                        value = format ? stat?.RemovedCriticalViolations?.ToString("N0") ?? Constants.No_Value : stat?.RemovedCriticalViolations?.ToString() ?? Constants.No_Value;
                                         break;
                                     default:
                                         throw new ArgumentOutOfRangeException();
@@ -640,7 +639,7 @@ namespace CastReporting.Reporting.Helper
                             _posResults[positionModules] = module.Name;
                             EvolutionResult res = MetricsUtility.GetMetricEvolution(reportData, reportData.CurrentSnapshot, reportData.PreviousSnapshot, _metricId, true, module, string.Empty, format);
                             if (res == null) continue;
-                            if (res.name == FormatHelper.No_Value) continue;
+                            if (res.name == Constants.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = res.name;
                             foreach (string param in snapshotConfiguration)
                             {
@@ -649,12 +648,12 @@ namespace CastReporting.Reporting.Helper
                                     switch (param)
                                     {
                                         case "CURRENT":
-                                            if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.CurrentSnapshot.GetSnapshotNameVersion();
+                                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.CurrentSnapshot);
                                             results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), res.curResult);
                                             break;
 
                                         case "PREVIOUS":
-                                            if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.PreviousSnapshot.GetSnapshotNameVersion();
+                                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.PreviousSnapshot);
                                             results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), res.prevResult);
                                             break;
 
@@ -703,14 +702,14 @@ namespace CastReporting.Reporting.Helper
                                     case "CURRENT":
                                         string curValueC = format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, _metricFormat, module, string.Empty)
                                             : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, "graph", module, string.Empty);
-                                        if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.CurrentSnapshot.GetSnapshotNameVersion();
+                                        if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.CurrentSnapshot);
                                         results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), curValueC);
                                         break;
                                     case "PREVIOUS":
                                         string prevValueP = reportData.PreviousSnapshot != null ? format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, module, string.Empty)
                                             : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, "graph", module, string.Empty)
                                             : format ? Labels.NoData : "0";
-                                        if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.PreviousSnapshot.GetSnapshotNameVersion();
+                                        if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.PreviousSnapshot);
                                         results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), prevValueP);
                                         break;
                                     case "EVOL":
@@ -745,9 +744,9 @@ namespace CastReporting.Reporting.Helper
                         foreach (Snapshot _snapshot in snapshots)
                         {
                             // _metricId should be a quality indicator, if not, return null
-                            if (positionSnapshots != -1) _posResults[positionSnapshots] = _snapshot.GetSnapshotNameVersion();
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
                             string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
-                            if (name == FormatHelper.No_Value) continue;
+                            if (name == Constants.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
                             foreach (Module _module in modules)
                             {
@@ -760,15 +759,15 @@ namespace CastReporting.Reporting.Helper
                                     {
                                         case "TOTAL":
                                             _posResults[positionOmgTechDebt] = TechnicalDebtLabel;
-                                            value = format ? stat?.Total?.ToString("N1") ?? FormatHelper.No_Value : stat?.Total?.ToString() ?? "0";
+                                            value = format ? stat?.Total?.ToString("N1") ?? Constants.No_Value : stat?.Total?.ToString() ?? "0";
                                             break;
                                         case "ADDED":
                                             _posResults[positionOmgTechDebt] = TechnicalDebtAddedLabel;
-                                            value = format ? stat?.Added?.ToString("N1") ?? FormatHelper.No_Value : stat?.Added?.ToString() ?? "0";
+                                            value = format ? stat?.Added?.ToString("N1") ?? Constants.No_Value : stat?.Added?.ToString() ?? "0";
                                             break;
                                         case "REMOVED":
                                             _posResults[positionOmgTechDebt] = TechnicalDebtRemovedLabel;
-                                            value = format ? stat?.Removed?.ToString("N1") ?? FormatHelper.No_Value : stat?.Removed?.ToString() ?? "0";
+                                            value = format ? stat?.Removed?.ToString("N1") ?? Constants.No_Value : stat?.Removed?.ToString() ?? "0";
                                             break;
                                         default:
                                             throw new ArgumentOutOfRangeException();
@@ -799,9 +798,9 @@ namespace CastReporting.Reporting.Helper
                         foreach (Snapshot _snapshot in snapshots)
                         {
                             // _metricId should be a quality indicator, if not, return null
-                            if (positionSnapshots != -1) _posResults[positionSnapshots] = _snapshot.GetSnapshotNameVersion();
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
                             string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
-                            if (name == FormatHelper.No_Value) continue;
+                            if (name == Constants.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
                             foreach (Module _module in modules)
                             {
@@ -814,15 +813,15 @@ namespace CastReporting.Reporting.Helper
                                     {
                                         case "TOTAL":
                                             _posResults[positionViolations] = Labels.TotalViolations;
-                                            value = format ? stat?.TotalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.TotalViolations?.ToString() ?? FormatHelper.No_Value;
+                                            value = format ? stat?.TotalViolations?.ToString("N0") ?? Constants.No_Value : stat?.TotalViolations?.ToString() ?? Constants.No_Value;
                                             break;
                                         case "ADDED":
                                             _posResults[positionViolations] = Labels.AddedViolations;
-                                            value = format ? stat?.AddedViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.AddedViolations?.ToString() ?? FormatHelper.No_Value;
+                                            value = format ? stat?.AddedViolations?.ToString("N0") ?? Constants.No_Value : stat?.AddedViolations?.ToString() ?? Constants.No_Value;
                                             break;
                                         case "REMOVED":
                                             _posResults[positionViolations] = Labels.RemovedViolations;
-                                            value = format ? stat?.RemovedViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.RemovedViolations?.ToString() ?? FormatHelper.No_Value;
+                                            value = format ? stat?.RemovedViolations?.ToString("N0") ?? Constants.No_Value : stat?.RemovedViolations?.ToString() ?? Constants.No_Value;
                                             break;
                                         default:
                                             throw new ArgumentOutOfRangeException();
@@ -853,9 +852,9 @@ namespace CastReporting.Reporting.Helper
                         foreach (Snapshot _snapshot in snapshots)
                         {
                             // _metricId should be a quality indicator, if not, return null
-                            if (positionSnapshots != -1) _posResults[positionSnapshots] = _snapshot.GetSnapshotNameVersion();
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
                             string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
-                            if (name == FormatHelper.No_Value) continue;
+                            if (name == Constants.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
                             foreach (Module _module in modules)
                             {
@@ -868,15 +867,15 @@ namespace CastReporting.Reporting.Helper
                                     {
                                         case "TOTAL":
                                             _posResults[positionCriticalViolations] = Labels.TotalCriticalViolations;
-                                            value = format ? stat?.TotalCriticalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.TotalCriticalViolations?.ToString() ?? FormatHelper.No_Value;
+                                            value = format ? stat?.TotalCriticalViolations?.ToString("N0") ?? Constants.No_Value : stat?.TotalCriticalViolations?.ToString() ?? Constants.No_Value;
                                             break;
                                         case "ADDED":
                                             _posResults[positionCriticalViolations] = Labels.AddedCriticalViolations;
-                                            value = format ? stat?.AddedCriticalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.AddedCriticalViolations?.ToString() ?? FormatHelper.No_Value;
+                                            value = format ? stat?.AddedCriticalViolations?.ToString("N0") ?? Constants.No_Value : stat?.AddedCriticalViolations?.ToString() ?? Constants.No_Value;
                                             break;
                                         case "REMOVED":
                                             _posResults[positionCriticalViolations] = Labels.RemovedCriticalViolations;
-                                            value = format ? stat?.RemovedCriticalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.RemovedCriticalViolations?.ToString() ?? FormatHelper.No_Value;
+                                            value = format ? stat?.RemovedCriticalViolations?.ToString("N0") ?? Constants.No_Value : stat?.RemovedCriticalViolations?.ToString() ?? Constants.No_Value;
                                             break;
                                         default:
                                             throw new ArgumentOutOfRangeException();
@@ -921,7 +920,7 @@ namespace CastReporting.Reporting.Helper
                             _posResults[positionTechnologies] = techno;
                             EvolutionResult res = MetricsUtility.GetMetricEvolution(reportData, reportData.CurrentSnapshot, reportData.PreviousSnapshot, _metricId, true, null, techno, format);
                             if (res == null) continue;
-                            if (res.name == FormatHelper.No_Value) continue;
+                            if (res.name == Constants.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = res.name;
                             foreach (string param in snapshotConfiguration)
                             {
@@ -930,12 +929,12 @@ namespace CastReporting.Reporting.Helper
                                     switch (param)
                                     {
                                         case "CURRENT":
-                                            if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.CurrentSnapshot.GetSnapshotNameVersion();
+                                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.CurrentSnapshot);
                                             results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), res.curResult);
                                             break;
 
                                         case "PREVIOUS":
-                                            if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.PreviousSnapshot.GetSnapshotNameVersion();
+                                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.PreviousSnapshot);
                                             results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), res.prevResult);
                                             break;
 
@@ -984,14 +983,14 @@ namespace CastReporting.Reporting.Helper
                                     case "CURRENT":
                                         string curValueC = format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, _metricFormat, null, techno)
                                             : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, "graph", null, techno);
-                                        if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.CurrentSnapshot.GetSnapshotNameVersion();
+                                        if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.CurrentSnapshot);
                                         results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), curValueC);
                                         break;
                                     case "PREVIOUS":
                                         string prevValueP = reportData.PreviousSnapshot != null ? format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, null, techno)
-                                            : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, "graph", null, techno)
+                                            : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, "graph", null, techno) 
                                             : format ? Labels.NoData : "0";
-                                        if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.PreviousSnapshot.GetSnapshotNameVersion();
+                                        if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.PreviousSnapshot);
                                         results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), prevValueP);
                                         break;
                                     case "EVOL":
@@ -1026,9 +1025,9 @@ namespace CastReporting.Reporting.Helper
                         foreach (Snapshot _snapshot in snapshots)
                         {
                             // _metricId should be a quality indicator, if not, return null
-                            if (positionSnapshots != -1) _posResults[positionSnapshots] = _snapshot.GetSnapshotNameVersion();
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
                             string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
-                            if (name == FormatHelper.No_Value) continue;
+                            if (name == Constants.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
                             foreach (string techno in technologies)
                             {
@@ -1041,15 +1040,15 @@ namespace CastReporting.Reporting.Helper
                                     {
                                         case "TOTAL":
                                             _posResults[positionOmgTechDebt] = TechnicalDebtLabel;
-                                            value = format ? stat?.Total?.ToString("N1") ?? FormatHelper.No_Value : stat?.Total?.ToString() ?? "0";
+                                            value = format ? stat?.Total?.ToString("N1") ?? Constants.No_Value : stat?.Total?.ToString() ?? "0";
                                             break;
                                         case "ADDED":
                                             _posResults[positionOmgTechDebt] = TechnicalDebtAddedLabel;
-                                            value = format ? stat?.Added?.ToString("N1") ?? FormatHelper.No_Value : stat?.Added?.ToString() ?? "0";
+                                            value = format ? stat?.Added?.ToString("N1") ?? Constants.No_Value : stat?.Added?.ToString() ?? "0";
                                             break;
                                         case "REMOVED":
                                             _posResults[positionOmgTechDebt] = TechnicalDebtRemovedLabel;
-                                            value = format ? stat?.Removed?.ToString("N1") ?? FormatHelper.No_Value : stat?.Removed?.ToString() ?? "0";
+                                            value = format ? stat?.Removed?.ToString("N1") ?? Constants.No_Value : stat?.Removed?.ToString() ?? "0";
                                             break;
                                         default:
                                             throw new ArgumentOutOfRangeException();
@@ -1081,9 +1080,9 @@ namespace CastReporting.Reporting.Helper
                         foreach (Snapshot _snapshot in snapshots)
                         {
                             // _metricId should be a quality indicator, if not, return null
-                            if (positionSnapshots != -1) _posResults[positionSnapshots] = _snapshot.GetSnapshotNameVersion();
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
                             string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
-                            if (name == FormatHelper.No_Value) continue;
+                            if (name == Constants.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
                             foreach (string techno in technologies)
                             {
@@ -1096,15 +1095,15 @@ namespace CastReporting.Reporting.Helper
                                     {
                                         case "TOTAL":
                                             _posResults[positionViolations] = Labels.TotalViolations;
-                                            value = format ? stat?.TotalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.TotalViolations?.ToString() ?? FormatHelper.No_Value;
+                                            value = format ? stat?.TotalViolations?.ToString("N0") ?? Constants.No_Value : stat?.TotalViolations?.ToString() ?? Constants.No_Value;
                                             break;
                                         case "ADDED":
                                             _posResults[positionViolations] = Labels.AddedViolations;
-                                            value = format ? stat?.AddedViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.AddedViolations?.ToString() ?? FormatHelper.No_Value;
+                                            value = format ? stat?.AddedViolations?.ToString("N0") ?? Constants.No_Value : stat?.AddedViolations?.ToString() ?? Constants.No_Value;
                                             break;
                                         case "REMOVED":
                                             _posResults[positionViolations] = Labels.RemovedViolations;
-                                            value = format ? stat?.RemovedViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.RemovedViolations?.ToString() ?? FormatHelper.No_Value;
+                                            value = format ? stat?.RemovedViolations?.ToString("N0") ?? Constants.No_Value : stat?.RemovedViolations?.ToString() ?? Constants.No_Value;
                                             break;
                                         default:
                                             throw new ArgumentOutOfRangeException();
@@ -1136,9 +1135,9 @@ namespace CastReporting.Reporting.Helper
                         foreach (Snapshot _snapshot in snapshots)
                         {
                             // _metricId should be a quality indicator, if not, return null
-                            if (positionSnapshots != -1) _posResults[positionSnapshots] = _snapshot.GetSnapshotNameVersion();
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
                             string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
-                            if (name == FormatHelper.No_Value) continue;
+                            if (name == Constants.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
                             foreach (string techno in technologies)
                             {
@@ -1151,15 +1150,15 @@ namespace CastReporting.Reporting.Helper
                                     {
                                         case "TOTAL":
                                             _posResults[positionCriticalViolations] = Labels.TotalCriticalViolations;
-                                            value = format ? stat?.TotalCriticalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.TotalCriticalViolations?.ToString() ?? FormatHelper.No_Value;
+                                            value = format ? stat?.TotalCriticalViolations?.ToString("N0") ?? Constants.No_Value : stat?.TotalCriticalViolations?.ToString() ?? Constants.No_Value;
                                             break;
                                         case "ADDED":
                                             _posResults[positionCriticalViolations] = Labels.AddedCriticalViolations;
-                                            value = format ? stat?.AddedCriticalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.AddedCriticalViolations?.ToString() ?? FormatHelper.No_Value;
+                                            value = format ? stat?.AddedCriticalViolations?.ToString("N0") ?? Constants.No_Value : stat?.AddedCriticalViolations?.ToString() ?? Constants.No_Value;
                                             break;
                                         case "REMOVED":
                                             _posResults[positionCriticalViolations] = Labels.RemovedCriticalViolations;
-                                            value = format ? stat?.RemovedCriticalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.RemovedCriticalViolations?.ToString() ?? FormatHelper.No_Value;
+                                            value = format ? stat?.RemovedCriticalViolations?.ToString("N0") ?? Constants.No_Value : stat?.RemovedCriticalViolations?.ToString() ?? Constants.No_Value;
                                             break;
                                         default:
                                             throw new ArgumentOutOfRangeException();
@@ -1207,7 +1206,7 @@ namespace CastReporting.Reporting.Helper
                                 _posResults[positionTechnologies] = techno;
                                 EvolutionResult res = MetricsUtility.GetMetricEvolution(reportData, reportData.CurrentSnapshot, reportData.PreviousSnapshot, _metricId, true, module, techno, format);
                                 if (res == null) continue;
-                                if (res.name == FormatHelper.No_Value) continue;
+                                if (res.name == Constants.No_Value) continue;
                                 if (positionMetrics != -1) _posResults[positionMetrics] = res.name;
                                 foreach (string param in snapshotConfiguration)
                                 {
@@ -1216,12 +1215,12 @@ namespace CastReporting.Reporting.Helper
                                         switch (param)
                                         {
                                             case "CURRENT":
-                                                if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.CurrentSnapshot.GetSnapshotNameVersion();
+                                                if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.CurrentSnapshot);
                                                 results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), res.curResult);
                                                 break;
 
                                             case "PREVIOUS":
-                                                if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.PreviousSnapshot.GetSnapshotNameVersion();
+                                                if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.PreviousSnapshot);
                                                 results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), res.prevResult);
                                                 break;
 
@@ -1274,14 +1273,14 @@ namespace CastReporting.Reporting.Helper
                                         case "CURRENT":
                                             string curValueC = format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, _metricFormat, module, techno)
                                                 : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.CurrentSnapshot, expr, "graph", module, techno);
-                                            if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.CurrentSnapshot.GetSnapshotNameVersion();
+                                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.CurrentSnapshot);
                                             results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), curValueC);
                                             break;
                                         case "PREVIOUS":
-                                            string prevValueP = reportData.PreviousSnapshot != null ? format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, module, techno)
-                                                : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, "graph", module, techno)
-                                                : format ? Labels.NoData : "0";
-                                            if (positionSnapshots != -1) _posResults[positionSnapshots] = reportData.PreviousSnapshot.GetSnapshotNameVersion();
+                                            string prevValueP = reportData.PreviousSnapshot != null ? format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, module, techno) 
+                                                : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, "graph", module, techno) 
+                                                :  format ? Labels.NoData : "0";
+                                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.PreviousSnapshot);
                                             results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), prevValueP);
                                             break;
                                         case "EVOL":
@@ -1317,9 +1316,9 @@ namespace CastReporting.Reporting.Helper
                         foreach (Snapshot _snapshot in snapshots)
                         {
                             // _metricId should be a quality indicator, if not, return null
-                            if (positionSnapshots != -1) _posResults[positionSnapshots] = _snapshot.GetSnapshotNameVersion();
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
                             string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
-                            if (name == FormatHelper.No_Value) continue;
+                            if (name == Constants.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
                             foreach (Module _module in modules)
                             {
@@ -1335,15 +1334,15 @@ namespace CastReporting.Reporting.Helper
                                         {
                                             case "TOTAL":
                                                 _posResults[positionOmgTechDebt] = TechnicalDebtLabel;
-                                                value = format ? stat?.Total?.ToString("N1") ?? FormatHelper.No_Value : stat?.Total?.ToString() ?? "0";
+                                                value = format ? stat?.Total?.ToString("N1") ?? Constants.No_Value : stat?.Total?.ToString() ?? "0";
                                                 break;
                                             case "ADDED":
                                                 _posResults[positionOmgTechDebt] = TechnicalDebtAddedLabel;
-                                                value = format ? stat?.Added?.ToString("N1") ?? FormatHelper.No_Value : stat?.Added?.ToString() ?? "0";
+                                                value = format ? stat?.Added?.ToString("N1") ?? Constants.No_Value : stat?.Added?.ToString() ?? "0";
                                                 break;
                                             case "REMOVED":
                                                 _posResults[positionOmgTechDebt] = TechnicalDebtRemovedLabel;
-                                                value = format ? stat?.Removed?.ToString("N1") ?? FormatHelper.No_Value : stat?.Removed?.ToString() ?? "0";
+                                                value = format ? stat?.Removed?.ToString("N1") ?? Constants.No_Value : stat?.Removed?.ToString() ?? "0";
                                                 break;
                                             default:
                                                 throw new ArgumentOutOfRangeException();
@@ -1375,9 +1374,9 @@ namespace CastReporting.Reporting.Helper
                         foreach (Snapshot _snapshot in snapshots)
                         {
                             // _metricId should be a quality indicator, if not, return null
-                            if (positionSnapshots != -1) _posResults[positionSnapshots] = _snapshot.GetSnapshotNameVersion();
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
                             string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
-                            if (name == FormatHelper.No_Value) continue;
+                            if (name == Constants.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
                             foreach (Module _module in modules)
                             {
@@ -1393,15 +1392,15 @@ namespace CastReporting.Reporting.Helper
                                         {
                                             case "TOTAL":
                                                 _posResults[positionViolations] = Labels.TotalViolations;
-                                                value = format ? stat?.TotalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.TotalViolations?.ToString() ?? FormatHelper.No_Value;
+                                                value = format ? stat?.TotalViolations?.ToString("N0") ?? Constants.No_Value : stat?.TotalViolations?.ToString() ?? Constants.No_Value;
                                                 break;
                                             case "ADDED":
                                                 _posResults[positionViolations] = Labels.AddedViolations;
-                                                value = format ? stat?.AddedViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.AddedViolations?.ToString() ?? FormatHelper.No_Value;
+                                                value = format ? stat?.AddedViolations?.ToString("N0") ?? Constants.No_Value : stat?.AddedViolations?.ToString() ?? Constants.No_Value;
                                                 break;
                                             case "REMOVED":
                                                 _posResults[positionViolations] = Labels.RemovedViolations;
-                                                value = format ? stat?.RemovedViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.RemovedViolations?.ToString() ?? FormatHelper.No_Value;
+                                                value = format ? stat?.RemovedViolations?.ToString("N0") ?? Constants.No_Value : stat?.RemovedViolations?.ToString() ?? Constants.No_Value;
                                                 break;
                                             default:
                                                 throw new ArgumentOutOfRangeException();
@@ -1433,9 +1432,9 @@ namespace CastReporting.Reporting.Helper
                         foreach (Snapshot _snapshot in snapshots)
                         {
                             // _metricId should be a quality indicator, if not, return null
-                            if (positionSnapshots != -1) _posResults[positionSnapshots] = _snapshot.GetSnapshotNameVersion();
+                            if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(_snapshot);
                             string name = MetricsUtility.GetMetricName(reportData, _snapshot, _metricId);
-                            if (name == FormatHelper.No_Value) continue;
+                            if (name == Constants.No_Value) continue;
                             if (positionMetrics != -1) _posResults[positionMetrics] = name;
                             foreach (Module _module in modules)
                             {
@@ -1451,15 +1450,15 @@ namespace CastReporting.Reporting.Helper
                                         {
                                             case "TOTAL":
                                                 _posResults[positionCriticalViolations] = Labels.TotalCriticalViolations;
-                                                value = format ? stat?.TotalCriticalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.TotalCriticalViolations?.ToString() ?? FormatHelper.No_Value;
+                                                value = format ? stat?.TotalCriticalViolations?.ToString("N0") ?? Constants.No_Value : stat?.TotalCriticalViolations?.ToString() ?? Constants.No_Value;
                                                 break;
                                             case "ADDED":
                                                 _posResults[positionCriticalViolations] = Labels.AddedCriticalViolations;
-                                                value = format ? stat?.AddedCriticalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.AddedCriticalViolations?.ToString() ?? FormatHelper.No_Value;
+                                                value = format ? stat?.AddedCriticalViolations?.ToString("N0") ?? Constants.No_Value : stat?.AddedCriticalViolations?.ToString() ?? Constants.No_Value;
                                                 break;
                                             case "REMOVED":
                                                 _posResults[positionCriticalViolations] = Labels.RemovedCriticalViolations;
-                                                value = format ? stat?.RemovedCriticalViolations?.ToString("N0") ?? FormatHelper.No_Value : stat?.RemovedCriticalViolations?.ToString() ?? FormatHelper.No_Value;
+                                                value = format ? stat?.RemovedCriticalViolations?.ToString("N0") ?? Constants.No_Value : stat?.RemovedCriticalViolations?.ToString() ?? Constants.No_Value;
                                                 break;
                                             default:
                                                 throw new ArgumentOutOfRangeException();
@@ -1548,7 +1547,7 @@ namespace CastReporting.Reporting.Helper
             foreach (var itemrow1 in _posConfig[2].Parameters)
             {
                 string itemrow1Name = GetItemName(type2, itemrow1, reportData);
-                if (itemrow1Name == FormatHelper.No_Value) continue;
+                if (itemrow1Name == Constants.No_Value) continue;
                 rowData.Add(itemrow1Name);
                 if (_posConfig[3] != null)
                 {
@@ -1560,7 +1559,7 @@ namespace CastReporting.Reporting.Helper
                     foreach (var itemrow11 in _posConfig[3].Parameters)
                     {
                         string itemrow11Name = GetItemName(type3, itemrow11, reportData);
-                        if (itemrow11Name == FormatHelper.No_Value) continue;
+                        if (itemrow11Name == Constants.No_Value) continue;
                         rowData.Add("    " + itemrow11Name);
 
                         foreach (var itemcol1 in _posConfig[0].Parameters)
@@ -1578,7 +1577,7 @@ namespace CastReporting.Reporting.Helper
                                     }
                                     catch (KeyNotFoundException)
                                     {
-                                        data = FormatHelper.No_Value;
+                                        data = Constants.No_Value;
                                     }
                                     rowData.Add(data);
                                 }
@@ -1593,7 +1592,7 @@ namespace CastReporting.Reporting.Helper
                                 }
                                 catch (KeyNotFoundException)
                                 {
-                                    data = FormatHelper.No_Value;
+                                    data = Constants.No_Value;
                                 }
                                 rowData.Add(data);
                             }
@@ -1618,7 +1617,7 @@ namespace CastReporting.Reporting.Helper
                                 }
                                 catch (KeyNotFoundException)
                                 {
-                                    data = FormatHelper.No_Value;
+                                    data = Constants.No_Value;
                                 }
                                 rowData.Add(data);
                             }
@@ -1633,7 +1632,7 @@ namespace CastReporting.Reporting.Helper
                             }
                             catch (KeyNotFoundException)
                             {
-                                data = FormatHelper.No_Value;
+                                data = Constants.No_Value;
                             }
                             rowData.Add(data);
                         }
@@ -1666,7 +1665,7 @@ namespace CastReporting.Reporting.Helper
 
         }
 
-        public static List<string> BuildMetricsList(ImagingData reportData, List<string> metrics)
+        public static List<string> BuildMetricsList(ReportData reportData, List<string> metrics)
         {
             if (metrics.Contains("HEALTH_FACTOR"))
             {

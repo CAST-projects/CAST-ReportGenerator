@@ -1,6 +1,5 @@
 ﻿using CastReporting.BLL.Computing;
-using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Constants;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -13,7 +12,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("CRITICAL_VIOL_BY_APPLICATION")]
     public class CriticalVIolationByApplication : TableBlock
     {
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             int param;
             bool showPrevious = false;
@@ -38,12 +37,12 @@ namespace CastReporting.Reporting.Block.Table
             nbRows++;
 
             var busCrit = new[] {
-                BusinessCriteria.TechnicalQualityIndex,
-                BusinessCriteria.Robustness,
-                BusinessCriteria.Performance,
-                BusinessCriteria.Security,
-                BusinessCriteria.Transferability,
-                BusinessCriteria.Changeability
+                Constants.BusinessCriteria.TechnicalQualityIndex,
+                Constants.BusinessCriteria.Robustness,
+                Constants.BusinessCriteria.Performance,
+                Constants.BusinessCriteria.Security,
+                Constants.BusinessCriteria.Transferability,
+                Constants.BusinessCriteria.Changeability
             };
             var curVersion = new int[busCrit.Length];
             var added = new int[busCrit.Length];
@@ -51,7 +50,7 @@ namespace CastReporting.Reporting.Block.Table
 
             for (int i = 0; i < busCrit.Length; i++)
             {
-                var resbc = RulesViolationUtility.GetViolStat(reportData.CurrentSnapshot, (int)busCrit[i]);
+                var resbc = RulesViolationUtility.GetViolStat(reportData.CurrentSnapshot, busCrit[i].GetHashCode());
                 if (resbc.TotalCriticalViolations != null) curVersion[i] = resbc.TotalCriticalViolations.Value;
                 if (resbc.AddedCriticalViolations != null) added[i] = resbc.AddedCriticalViolations.Value;
                 if (resbc.RemovedCriticalViolations != null) removed[i] = resbc.RemovedCriticalViolations.Value;
@@ -74,7 +73,7 @@ namespace CastReporting.Reporting.Block.Table
                 var prevVersion = new int[busCrit.Length];
                 for (int i = 0; i < busCrit.Length; i++)
                 {
-                    var resbc = RulesViolationUtility.GetViolStat(reportData.PreviousSnapshot, (int)busCrit[i]);
+                    var resbc = RulesViolationUtility.GetViolStat(reportData.PreviousSnapshot, busCrit[i].GetHashCode());
                     if (resbc.TotalCriticalViolations != null) prevVersion[i] = resbc.TotalCriticalViolations.Value;
                 }
                 rowData.Add(Labels.VersionPrevious);

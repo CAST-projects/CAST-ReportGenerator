@@ -15,8 +15,7 @@
  */
 using Cast.Util.Log;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Constants;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -33,9 +32,9 @@ namespace CastReporting.Reporting.Block.Table
     [Block("PF_TOP_RISKIEST_APPS")]
     public class PortfolioTopRiskiestApps : TableBlock
     {
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
-            int metricId = options.GetIntOption("ALT", (int)BusinessCriteria.TechnicalQualityIndex);
+            int metricId = options.GetIntOption("ALT", (int)Constants.BusinessCriteria.TechnicalQualityIndex);
             int nbLimitTop = options.GetIntOption("COUNT", reportData.Parameter.NbResultDefault);
 
             List<string> rowData = new List<string>();
@@ -83,7 +82,7 @@ namespace CastReporting.Reporting.Block.Table
                     if (_snapshot == null) continue;
                     string strAppName = _app.Name;
                     double? _cv = RulesViolationUtility.GetBCEvolutionSummary(_snapshot, metricId).FirstOrDefault()?.TotalCriticalViolations;
-                    double? strCurrentBCGrade = _snapshot.GetSnapshotBusinessCriteriaGrade((BusinessCriteria)metricId, false);
+                    double? strCurrentBCGrade = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(_snapshot, metricId, false);
 
                     if (_snapshot.Annotation.Date.DateSnapShot != null)
                     {

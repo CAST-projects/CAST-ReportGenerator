@@ -1,8 +1,6 @@
-﻿using Cast.Util;
-using Cast.Util.Log;
+﻿using Cast.Util.Log;
 using Cast.Util.Version;
-using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Constants;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -16,11 +14,11 @@ namespace CastReporting.Reporting.Block.Table
     [Block("REMOVED_VIOLATIONS_LIST")]
     public class RemovedViolationsListByBC : TableBlock
     {
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             List<string> rowData = new List<string>();
 
-            int bcId = options.GetIntOption("BCID", (int)BusinessCriteria.TechnicalQualityIndex); // by default, TQI
+            string bcId = options.GetOption("BCID", "60017"); // by default, TQI
             int nbLimitTop = options.GetIntOption("COUNT", 50); // -1 for all removed violations
             int nbRows;
             string criticity = options.GetOption("CRITICITY", "all"); // should be "c" for critical, "nc" for non critical, and any other thing for both
@@ -45,9 +43,9 @@ namespace CastReporting.Reporting.Block.Table
                 return ReturnEmptyTableDefinition(rowData);
             }
 
-            List<Violation> removedViolations = reportData.SnapshotExplorer.GetRemovedViolationsbyBC(reportData.CurrentSnapshot.Href, bcId.ToString(), nbLimitTop, criticity).ToList();
+            List<Violation> removedViolations = reportData.SnapshotExplorer.GetRemovedViolationsbyBC(reportData.CurrentSnapshot.Href, bcId, nbLimitTop, criticity).ToList();
 
-            List<RuleDetails> rulesDetails = reportData.RuleExplorer.GetRulesDetails(reportData.CurrentSnapshot.DomainId, bcId, reportData.CurrentSnapshot.Id).ToList();
+            List<RuleDetails> rulesDetails = reportData.RuleExplorer.GetRulesDetails(reportData.CurrentSnapshot.DomainId, int.Parse(bcId), reportData.CurrentSnapshot.Id).ToList();
 
             if (removedViolations.Count != 0)
             {
@@ -57,13 +55,13 @@ namespace CastReporting.Reporting.Block.Table
                     int key = int.Parse(fragments[fragments.Length - 1]);
                     string weight = rulesDetails.FirstOrDefault(_ => _.Key == key)?.CompoundedWeight.ToString();
 
-                    rowData.Add(_violation.Diagnosis?.Status ?? FormatHelper.No_Value);
-                    rowData.Add(_violation.ExclusionRequest?.Status ?? FormatHelper.No_Value);
-                    rowData.Add(_violation.RemedialAction?.Status ?? FormatHelper.No_Value);
-                    rowData.Add(_violation.RulePattern?.Name ?? FormatHelper.No_Value);
+                    rowData.Add(_violation.Diagnosis?.Status ?? Constants.No_Value);
+                    rowData.Add(_violation.ExclusionRequest?.Status ?? Constants.No_Value);
+                    rowData.Add(_violation.RemedialAction?.Status ?? Constants.No_Value);
+                    rowData.Add(_violation.RulePattern?.Name ?? Constants.No_Value);
                     rowData.Add(weight);
-                    rowData.Add(_violation.Component?.Name ?? FormatHelper.No_Value);
-                    rowData.Add(_violation.Component?.Status ?? FormatHelper.No_Value);
+                    rowData.Add(_violation.Component?.Name ?? Constants.No_Value);
+                    rowData.Add(_violation.Component?.Status ?? Constants.No_Value);
                 }
                 nbRows = removedViolations.Count + 1;
             }

@@ -1,4 +1,4 @@
-﻿using CastReporting.Domain.Imaging;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Table;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -24,7 +24,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         {
             CastDate currentDate = new CastDate { Time = 1496959200000 };
             CastDate previousDate = new CastDate { Time = 1484953200000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 null, @".\Data\critViolStats.json", "AED/applications/3/snapshots/5", "Snap5_CAIP-8.3ra2_RG-1.6a", "8.3.ra2", currentDate,
                 null, @".\Data\critViolStatsPrevious.json", "AED/applications/3/snapshots/4", "Snap5_CAIP-8.3ra_RG-1.5.0", "8.3.ra", previousDate);
             reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", @".\Data\ComplexitySnapPrevious.json");
@@ -54,7 +54,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         {
             CastDate currentDate = new CastDate { Time = 1496959200000 };
             CastDate previousDate = new CastDate { Time = 1484953200000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 null, @".\Data\cocraCritViolStats.json", "AED/applications/3/snapshots/5", "Snap5_CAIP-8.3ra2_RG-1.6a", "8.3.ra2", currentDate,
                 null, @".\Data\cocraCritViolStatsPrevious.json", "AED/applications/3/snapshots/4", "Snap5_CAIP-8.3ra_RG-1.5.0", "8.3.ra", previousDate);
             reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", @".\Data\ComplexitySnapPrevious.json");
@@ -80,7 +80,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestOneSnapshot()
         {
             CastDate currentDate = new CastDate { Time = 1496959200000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 null, @".\Data\critViolStats.json", "AED/applications/3/snapshots/5", "Snap5_CAIP-8.3ra2_RG-1.6a", "8.3.ra2", currentDate,
                 null, null, null, null, null, null);
             reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", null);
@@ -110,7 +110,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             TestUtility.SetCulture("zh-Hans");
             CastDate currentDate = new CastDate { Time = 1496959200000 };
             CastDate previousDate = new CastDate { Time = 1484953200000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 null, @".\Data\critViolStats.json", "AED/applications/3/snapshots/5", "Snap5_CAIP-8.3ra2_RG-1.6a", "8.3.ra2", currentDate,
                 null, @".\Data\critViolStatsPrevious.json", "AED/applications/3/snapshots/4", "Snap5_CAIP-8.3ra_RG-1.5.0", "8.3.ra", previousDate);
             reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", @".\Data\ComplexitySnapPrevious.json");

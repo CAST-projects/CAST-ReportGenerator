@@ -10,7 +10,7 @@ namespace CastReporting.Reporting.Block.Graph
     [Block("GENERIC_GRAPH")]
     public class GenericGraph : GraphBlock
     {
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             // false for graph component
             return GenericContent.Content(reportData, options, false);

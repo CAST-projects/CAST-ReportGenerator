@@ -13,9 +13,7 @@
  * limitations under the License.
  *
  */
-using Cast.Util;
-using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Constants;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -29,7 +27,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("RULE_NAME_DESCRIPTION_TOPCRITVIOL"), Block("METRIC_NAME_DESCRIPTION")]
     public class RulesDescriptionsOfTopCriticalViolations : TableBlock
     {
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             List<string> rowData = new List<string>();
             int nbLimitTop;
@@ -58,7 +56,7 @@ namespace CastReporting.Reporting.Block.Table
             }
             if (bcId.Count == 0)
             {
-                bcId.Add((int)BusinessCriteria.TechnicalQualityIndex);
+                bcId.Add(Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode());
             }
 
             ApplicationResult bc = reportData.CurrentSnapshot.BusinessCriteriaResults.FirstOrDefault(_ => bcId.Contains(_.Reference.Key));
@@ -79,7 +77,7 @@ namespace CastReporting.Reporting.Block.Table
                         Labels.RuleName, violation.Reference.Name,
                         Labels.Rationale, ruleDescription.Rationale,
                         Labels.Description, ruleDescription.Description,
-                        Labels.Remediation, string.IsNullOrWhiteSpace(ruleDescription.Remediation) ? FormatHelper.No_Value : ruleDescription.Remediation,
+                        Labels.Remediation, string.IsNullOrWhiteSpace(ruleDescription.Remediation) ? Constants.No_Value : ruleDescription.Remediation,
                         Labels.ViolationsCount, violation.DetailResult.ViolationRatio.FailedChecks.ToString(),
                         " "," "
                     });

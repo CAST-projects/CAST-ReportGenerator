@@ -12,7 +12,7 @@ namespace CastReporting.Reporting.Block.Text
     {
         #region METHODS
 
-        public override string Content(ImagingData reportData, Dictionary<string, string> options)
+        public override string Content(ReportData reportData, Dictionary<string, string> options)
         {
             string _metricFormat = options.GetOption("FORMAT", "N2");
             string[] lstParams = options.GetOption("PARAMS", string.Empty).Split(' ');

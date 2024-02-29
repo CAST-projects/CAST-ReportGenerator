@@ -15,7 +15,7 @@
  *
  */
 using CastReporting.BLL.Computing;
-using CastReporting.Domain.Imaging.Constants;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -34,11 +34,11 @@ namespace CastReporting.Reporting.Block.Graph
 
         #region METHODS
 
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             List<string> rowData = new List<string>();
             int parId;
-            QualityDistribution distributionId;
+            Constants.QualityDistribution distributionId;
 
             double? previousLowVal = null;
             double? previousAveVal = null;
@@ -49,12 +49,12 @@ namespace CastReporting.Reporting.Block.Graph
             string previousName = string.Empty;
 
 
-            if (null != options && options.ContainsKey("PAR") && int.TryParse(options["PAR"], out parId) && Enum.IsDefined(typeof(QualityDistribution), parId))
+            if (null != options && options.ContainsKey("PAR") && int.TryParse(options["PAR"], out parId) && Enum.IsDefined(typeof(Constants.QualityDistribution), parId))
             {
-                distributionId = (QualityDistribution)parId;
+                distributionId = (Constants.QualityDistribution)parId;
             }
             else
-                distributionId = QualityDistribution.CostComplexityDistribution;
+                distributionId = Constants.QualityDistribution.CostComplexityDistribution;
 
 
 
@@ -64,10 +64,15 @@ namespace CastReporting.Reporting.Block.Graph
 
                 #region Selected Snapshot
 
-                var selectedLowVal = reportData.CurrentSnapshot.GetCostComplexityGrade(distributionId, CategoryType.Low);
-                var selectedAveVal = reportData.CurrentSnapshot.GetCostComplexityGrade(distributionId, CategoryType.Average);
-                var selectedHigVal = reportData.CurrentSnapshot.GetCostComplexityGrade(distributionId, CategoryType.High);
-                var selectedVhiVal = reportData.CurrentSnapshot.GetCostComplexityGrade(distributionId, CategoryType.VeryHigh);
+                var selectedLowVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
+                    distributionId.GetHashCode(), "low");
+                var selectedAveVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
+                    distributionId.GetHashCode(), "average");
+                var selectedHigVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
+                    distributionId.GetHashCode(), "high");
+                var selectedVhiVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
+                    distributionId.GetHashCode(), "very_high");
+
 
 
                 #endregion Selected Snapshot
@@ -79,10 +84,18 @@ namespace CastReporting.Reporting.Block.Graph
                 {
                     previousName = reportData.PreviousSnapshot.Annotation.Version;
 
-                    previousLowVal = reportData.PreviousSnapshot.GetCostComplexityGrade(distributionId, CategoryType.Low);
-                    previousAveVal = reportData.PreviousSnapshot.GetCostComplexityGrade(distributionId, CategoryType.Average);
-                    previousHigVal = reportData.PreviousSnapshot.GetCostComplexityGrade(distributionId, CategoryType.High);
-                    previousVhiVal = reportData.PreviousSnapshot.GetCostComplexityGrade(distributionId, CategoryType.VeryHigh);
+                    previousLowVal = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
+                                                                               distributionId.GetHashCode(),
+                                                                               "low");
+                    previousAveVal = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
+                                                                                   distributionId.GetHashCode(),
+                                                                                  "average");
+                    previousHigVal = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
+                                                                                    distributionId.GetHashCode(),
+                                                                                    "high");
+                    previousVhiVal = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
+                                                                                    distributionId.GetHashCode(),
+                                                                                    "very_high");
 
 
                 }

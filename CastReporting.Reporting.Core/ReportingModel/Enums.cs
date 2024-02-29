@@ -21,7 +21,6 @@ namespace CastReporting.Reporting.ReportingModel
     /// </summary>
     public enum FormatType
     {
-        Unknown = 0,
         Word,
         Excel,
         PowerPoint

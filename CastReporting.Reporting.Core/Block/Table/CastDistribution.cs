@@ -14,8 +14,7 @@
  *
  */
 using CastReporting.BLL.Computing;
-using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Constants;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -30,22 +29,22 @@ namespace CastReporting.Reporting.Block.Table
     [Block("CAST_DISTRIBUTION")]
     public class CastDistribution : TableBlock
     {
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             TableDefinition result = new TableDefinition();
             List<string> rowData = new List<string>();
-            QualityDistribution distributionId;
+            Constants.QualityDistribution distributionId;
             bool techno = options.GetOption("TECHNOLOGIES", "N").ToUpper().Equals("Y");
             bool module = options.GetOption("MODULES", "N").ToUpper().Equals("Y");
             int parId;
-            if (null != options && options.ContainsKey("PAR") && int.TryParse(options["PAR"], out parId) && Enum.IsDefined(typeof(QualityDistribution), parId))
+            if (null != options && options.ContainsKey("PAR") && int.TryParse(options["PAR"], out parId) && Enum.IsDefined(typeof(Constants.QualityDistribution), parId))
             {
-                distributionId = (QualityDistribution)parId;
+                distributionId = (Constants.QualityDistribution)parId;
             }
             else
-                distributionId = QualityDistribution.CostComplexityDistribution;
+                distributionId = Constants.QualityDistribution.CostComplexityDistribution;
 
-            var distributionName = reportData.CurrentSnapshot.GetCostComplexityName(distributionId);
+            var distributionName = CastComplexityUtility.GetCostComplexityName(reportData.CurrentSnapshot, distributionId.GetHashCode());
             rowData.AddRange(new[] { distributionName, Labels.Current, Labels.Previous, Labels.Evol, Labels.EvolPercent, Labels.TotalPercent });
 
 
@@ -55,18 +54,18 @@ namespace CastReporting.Reporting.Block.Table
             {
                 ComplexityValuesDTO values = new ComplexityValuesDTO
                 {
-                    SelectedLowVal = reportData.CurrentSnapshot.GetCostComplexityGrade(distributionId, CategoryType.Low),
-                    SelectedAveVal = reportData.CurrentSnapshot.GetCostComplexityGrade(distributionId, CategoryType.Average),
-                    SelectedHigVal = reportData.CurrentSnapshot.GetCostComplexityGrade(distributionId, CategoryType.High),
-                    SelectedVhiVal = reportData.CurrentSnapshot.GetCostComplexityGrade(distributionId, CategoryType.VeryHigh)
+                    SelectedLowVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot, distributionId.GetHashCode(), "low"),
+                    SelectedAveVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot, distributionId.GetHashCode(), "average"),
+                    SelectedHigVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot, distributionId.GetHashCode(), "high"),
+                    SelectedVhiVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot, distributionId.GetHashCode(), "very_high")
                 };
 
                 if (reportData.PreviousSnapshot != null)
                 {
-                    values.PreviousLowVal = reportData.PreviousSnapshot.GetCostComplexityGrade(distributionId, CategoryType.Low);
-                    values.PreviousAveVal = reportData.PreviousSnapshot.GetCostComplexityGrade(distributionId, CategoryType.Average);
-                    values.PreviousHigVal = reportData.PreviousSnapshot.GetCostComplexityGrade(distributionId, CategoryType.High);
-                    values.PreviousVhiVal = reportData.PreviousSnapshot.GetCostComplexityGrade(distributionId, CategoryType.VeryHigh);
+                    values.PreviousLowVal = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot, distributionId.GetHashCode(), "low");
+                    values.PreviousAveVal = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot, distributionId.GetHashCode(), "average");
+                    values.PreviousHigVal = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot, distributionId.GetHashCode(), "high");
+                    values.PreviousVhiVal = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot, distributionId.GetHashCode(), "very_high");
                 }
 
                 values.CalculateSelectedTotal();
@@ -81,17 +80,17 @@ namespace CastReporting.Reporting.Block.Table
                 {
                     ComplexityValuesDTO modValues = new ComplexityValuesDTO
                     {
-                        SelectedLowVal = reportData.CurrentSnapshot.GetModuleCostComplexityGrade(distributionId, CategoryType.Low, m),
-                        SelectedAveVal = reportData.CurrentSnapshot.GetModuleCostComplexityGrade(distributionId, CategoryType.Average, m),
-                        SelectedHigVal = reportData.CurrentSnapshot.GetModuleCostComplexityGrade(distributionId, CategoryType.High, m),
-                        SelectedVhiVal = reportData.CurrentSnapshot.GetModuleCostComplexityGrade(distributionId, CategoryType.VeryHigh, m)
+                        SelectedLowVal = CastComplexityUtility.GetModuleCostComplexityGrade(reportData.CurrentSnapshot, distributionId.GetHashCode(), "low", m),
+                        SelectedAveVal = CastComplexityUtility.GetModuleCostComplexityGrade(reportData.CurrentSnapshot, distributionId.GetHashCode(), "average", m),
+                        SelectedHigVal = CastComplexityUtility.GetModuleCostComplexityGrade(reportData.CurrentSnapshot, distributionId.GetHashCode(), "high", m),
+                        SelectedVhiVal = CastComplexityUtility.GetModuleCostComplexityGrade(reportData.CurrentSnapshot, distributionId.GetHashCode(), "very_high", m)
                     };
                     if (reportData.PreviousSnapshot != null)
                     {
-                        modValues.PreviousLowVal = reportData.PreviousSnapshot.GetModuleCostComplexityGrade(distributionId, CategoryType.Low, m);
-                        modValues.PreviousAveVal = reportData.PreviousSnapshot.GetModuleCostComplexityGrade(distributionId, CategoryType.Average, m);
-                        modValues.PreviousHigVal = reportData.PreviousSnapshot.GetModuleCostComplexityGrade(distributionId, CategoryType.High, m);
-                        modValues.PreviousVhiVal = reportData.PreviousSnapshot.GetModuleCostComplexityGrade(distributionId, CategoryType.VeryHigh, m);
+                        modValues.PreviousLowVal = CastComplexityUtility.GetModuleCostComplexityGrade(reportData.PreviousSnapshot, distributionId.GetHashCode(), "low", m);
+                        modValues.PreviousAveVal = CastComplexityUtility.GetModuleCostComplexityGrade(reportData.PreviousSnapshot, distributionId.GetHashCode(), "average", m);
+                        modValues.PreviousHigVal = CastComplexityUtility.GetModuleCostComplexityGrade(reportData.PreviousSnapshot, distributionId.GetHashCode(), "high", m);
+                        modValues.PreviousVhiVal = CastComplexityUtility.GetModuleCostComplexityGrade(reportData.PreviousSnapshot, distributionId.GetHashCode(), "very_high", m);
                     };
                     rowData.AddRange(new[] { " ", " ", " ", " ", " ", " " });
                     rowData.AddRange(new[] { m.Name, " ", " ", " ", " ", " " });
@@ -112,18 +111,18 @@ namespace CastReporting.Reporting.Block.Table
                     {
                         ComplexityValuesDTO moduleTechnoValues = new ComplexityValuesDTO
                         {
-                            SelectedLowVal = reportData.CurrentSnapshot.GetModuleTechnoCostComplexityGrade(distributionId, CategoryType.Low, m, technology),
-                            SelectedAveVal = reportData.CurrentSnapshot.GetModuleTechnoCostComplexityGrade(distributionId, CategoryType.Average, m, technology),
-                            SelectedHigVal = reportData.CurrentSnapshot.GetModuleTechnoCostComplexityGrade(distributionId, CategoryType.High, m, technology),
-                            SelectedVhiVal = reportData.CurrentSnapshot.GetModuleTechnoCostComplexityGrade(distributionId, CategoryType.VeryHigh, m, technology)
+                            SelectedLowVal = CastComplexityUtility.GetModuleTechnoCostComplexityGrade(reportData.CurrentSnapshot, distributionId.GetHashCode(), "low", m, technology),
+                            SelectedAveVal = CastComplexityUtility.GetModuleTechnoCostComplexityGrade(reportData.CurrentSnapshot, distributionId.GetHashCode(), "average", m, technology),
+                            SelectedHigVal = CastComplexityUtility.GetModuleTechnoCostComplexityGrade(reportData.CurrentSnapshot, distributionId.GetHashCode(), "high", m, technology),
+                            SelectedVhiVal = CastComplexityUtility.GetModuleTechnoCostComplexityGrade(reportData.CurrentSnapshot, distributionId.GetHashCode(), "very_high", m, technology)
                         };
 
                         if (reportData.PreviousSnapshot != null)
                         {
-                            moduleTechnoValues.PreviousLowVal = reportData.PreviousSnapshot.GetModuleTechnoCostComplexityGrade(distributionId, CategoryType.Low, m, technology);
-                            moduleTechnoValues.PreviousAveVal = reportData.PreviousSnapshot.GetModuleTechnoCostComplexityGrade(distributionId, CategoryType.Average, m, technology);
-                            moduleTechnoValues.PreviousHigVal = reportData.PreviousSnapshot.GetModuleTechnoCostComplexityGrade(distributionId, CategoryType.High, m, technology);
-                            moduleTechnoValues.PreviousVhiVal = reportData.PreviousSnapshot.GetModuleTechnoCostComplexityGrade(distributionId, CategoryType.VeryHigh, m, technology);
+                            moduleTechnoValues.PreviousLowVal = CastComplexityUtility.GetModuleTechnoCostComplexityGrade(reportData.PreviousSnapshot, distributionId.GetHashCode(), "low", m, technology);
+                            moduleTechnoValues.PreviousAveVal = CastComplexityUtility.GetModuleTechnoCostComplexityGrade(reportData.PreviousSnapshot, distributionId.GetHashCode(), "average", m, technology);
+                            moduleTechnoValues.PreviousHigVal = CastComplexityUtility.GetModuleTechnoCostComplexityGrade(reportData.PreviousSnapshot, distributionId.GetHashCode(), "high", m, technology);
+                            moduleTechnoValues.PreviousVhiVal = CastComplexityUtility.GetModuleTechnoCostComplexityGrade(reportData.PreviousSnapshot, distributionId.GetHashCode(), "very_high", m, technology);
                         };
                         rowData.AddRange(new[] { technology, " ", " ", " ", " ", " " });
                         moduleTechnoValues.CalculateSelectedTotal();
@@ -140,18 +139,18 @@ namespace CastReporting.Reporting.Block.Table
                 {
                     ComplexityValuesDTO technoValues = new ComplexityValuesDTO
                     {
-                        SelectedLowVal = reportData.CurrentSnapshot.GetTechnologyCostComplexityGrade(distributionId, CategoryType.Low, technology),
-                        SelectedAveVal = reportData.CurrentSnapshot.GetTechnologyCostComplexityGrade(distributionId, CategoryType.Average, technology),
-                        SelectedHigVal = reportData.CurrentSnapshot.GetTechnologyCostComplexityGrade(distributionId, CategoryType.High, technology),
-                        SelectedVhiVal = reportData.CurrentSnapshot.GetTechnologyCostComplexityGrade(distributionId, CategoryType.VeryHigh, technology)
+                        SelectedLowVal = CastComplexityUtility.GetTechnologyCostComplexityGrade(reportData.CurrentSnapshot, distributionId.GetHashCode(), "low", technology),
+                        SelectedAveVal = CastComplexityUtility.GetTechnologyCostComplexityGrade(reportData.CurrentSnapshot, distributionId.GetHashCode(), "average", technology),
+                        SelectedHigVal = CastComplexityUtility.GetTechnologyCostComplexityGrade(reportData.CurrentSnapshot, distributionId.GetHashCode(), "high", technology),
+                        SelectedVhiVal = CastComplexityUtility.GetTechnologyCostComplexityGrade(reportData.CurrentSnapshot, distributionId.GetHashCode(), "very_high", technology)
                     };
 
                     if (reportData.PreviousSnapshot != null)
                     {
-                        technoValues.PreviousLowVal = reportData.PreviousSnapshot.GetTechnologyCostComplexityGrade(distributionId, CategoryType.Low, technology);
-                        technoValues.PreviousAveVal = reportData.PreviousSnapshot.GetTechnologyCostComplexityGrade(distributionId, CategoryType.Average, technology);
-                        technoValues.PreviousHigVal = reportData.PreviousSnapshot.GetTechnologyCostComplexityGrade(distributionId, CategoryType.High, technology);
-                        technoValues.PreviousVhiVal = reportData.PreviousSnapshot.GetTechnologyCostComplexityGrade(distributionId, CategoryType.VeryHigh, technology);
+                        technoValues.PreviousLowVal = CastComplexityUtility.GetTechnologyCostComplexityGrade(reportData.PreviousSnapshot, distributionId.GetHashCode(), "low", technology);
+                        technoValues.PreviousAveVal = CastComplexityUtility.GetTechnologyCostComplexityGrade(reportData.PreviousSnapshot, distributionId.GetHashCode(), "average", technology);
+                        technoValues.PreviousHigVal = CastComplexityUtility.GetTechnologyCostComplexityGrade(reportData.PreviousSnapshot, distributionId.GetHashCode(), "high", technology);
+                        technoValues.PreviousVhiVal = CastComplexityUtility.GetTechnologyCostComplexityGrade(reportData.PreviousSnapshot, distributionId.GetHashCode(), "very_high", technology);
                     };
                     rowData.AddRange(new[] { " ", " ", " ", " ", " ", " " });
                     rowData.AddRange(new[] { technology, " ", " ", " ", " ", " " });

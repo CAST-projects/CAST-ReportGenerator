@@ -13,8 +13,6 @@
  * limitations under the License.
  *
  */
-
-using Cast.Util;
 using CastReporting.BLL.Computing;
 using CastReporting.BLL.Computing.DTO;
 using CastReporting.Reporting.Atrributes;
@@ -36,7 +34,7 @@ namespace CastReporting.Reporting.Block.Table
     {
         #region METHODS
 
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             bool hasPrevious = reportData.PreviousSnapshot != null;
             List<EvolutionSnapshots> _resultCompartTecno = null;
@@ -127,11 +125,11 @@ namespace CastReporting.Reporting.Block.Table
                 {
                     rowData.AddRange(new[] {
                                 item.name
-                                , item.curValue?.ToString("N0") ?? FormatHelper.No_Value
-                                , item.preValue?.ToString("N0") ?? FormatHelper.No_Value
-                                , item.evolValue.HasValue? FormatEvolution((int)item.evolValue.Value) : FormatHelper.No_Value
+                                , item.curValue?.ToString("N0") ?? Domain.Constants.No_Value
+                                , item.preValue?.ToString("N0") ?? Domain.Constants.No_Value
+                                , item.evolValue.HasValue? FormatEvolution((int)item.evolValue.Value) : Domain.Constants.No_Value
                                 , item.evolValue.HasValue && item.preValue.HasValue && Math.Abs(item.preValue.Value) > 0 ? FormatPercent(item.evolValue.Value/item.preValue.Value)
-                                                                                                                 : FormatHelper.No_Value
+                                                                                                                 : Domain.Constants.No_Value
                     });
                     nbRows++;
                 }

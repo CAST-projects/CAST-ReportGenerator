@@ -1,4 +1,4 @@
-﻿using CastReporting.Domain.Imaging;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Table;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -22,7 +22,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestContent()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 @".\Data\ModulesCoCRA.json", @".\Data\QRviolRatioModules.json", "AED/applications/3/snapshots/5", "Snap4_CAIP-8.3ra2_RG-1.6.a", "8.3.ra2", currentDate,
                null, null, null, null, null, null);
             reportData.RuleExplorer = new RuleBLLStub();
@@ -49,7 +49,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestModuleContent()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 @".\Data\ModulesCoCRA.json", @".\Data\QRviolRatioModules.json", "AED/applications/3/snapshots/5", "Snap4_CAIP-8.3ra2_RG-1.6.a", "8.3.ra2", currentDate,
                 null, null, null, null, null, null);
             reportData.RuleExplorer = new RuleBLLStub();
@@ -78,7 +78,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestLimitCount()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 @".\Data\ModulesCoCRA.json", @".\Data\QRviolRatioModules.json", "AED/applications/3/snapshots/5", "Snap4_CAIP-8.3ra2_RG-1.6.a", "8.3.ra2", currentDate,
                 null, null, null, null, null, null);
             reportData.RuleExplorer = new RuleBLLStub();
@@ -105,7 +105,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestNoGradeNoCritical()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 @".\Data\ModulesCoCRA.json", @".\Data\QRviolRatioModules.json", "AED/applications/3/snapshots/5", "Snap4_CAIP-8.3ra2_RG-1.6.a", "8.3.ra2", currentDate,
                 null, null, null, null, null, null);
             reportData.RuleExplorer = new RuleBLLStub();
@@ -137,7 +137,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestFailedChecks()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 @".\Data\ModulesCoCRA.json", @".\Data\QRviolRatioModules.json", "AED/applications/3/snapshots/5", "Snap4_CAIP-8.3ra2_RG-1.6.a", "8.3.ra2", currentDate,
                 null, null, null, null, null, null);
             reportData.RuleExplorer = new RuleBLLStub();
@@ -170,7 +170,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestModuleComplianceContent()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 @".\Data\ModulesCoCRA.json", @".\Data\QRviolRatioModules.json", "AED/applications/3/snapshots/5", "Snap4_CAIP-8.3ra2_RG-1.6.a", "8.3.ra2", currentDate,
                 null, null, null, null, null, null);
             reportData.RuleExplorer = new RuleBLLStub();

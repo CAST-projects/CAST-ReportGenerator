@@ -13,7 +13,6 @@
  * limitations under the License.
  *
  */
-using Cast.Util;
 using CastReporting.BLL.Computing;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
@@ -26,9 +25,9 @@ namespace CastReporting.Reporting.Block.Text
     public class PreviousSnapshotVersionNumber : TextBlock
     {
         #region METHODS
-        public override string Content(ImagingData reportData, Dictionary<string, string> options)
+        public override string Content(ReportData reportData, Dictionary<string, string> options)
         {
-            return reportData?.PreviousSnapshot.GetSnapshotVersionNumber();
+            return reportData?.PreviousSnapshot != null ? SnapshotUtility.GetSnapshotVersionNumber(reportData.PreviousSnapshot) : Domain.Constants.No_Value;
         }
         #endregion METHODS
     }

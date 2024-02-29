@@ -27,7 +27,7 @@ namespace CastReporting.BLL
         /// 
         /// </summary>
         /// <param name="connection"></param>
-        public CommonBLL(WSImagingConnection connection)
+        public CommonBLL(WSConnection connection)
             : base(connection)
         {
         }
@@ -50,7 +50,7 @@ namespace CastReporting.BLL
         /// 
         /// </summary>
         /// <returns></returns>
-        public static bool CheckService(WSImagingConnection connection)
+        public static bool CheckService(WSConnection connection)
         {
             using (var castRepsitory = GetRepository(connection, true))
             {
@@ -58,7 +58,7 @@ namespace CastReporting.BLL
             }
         }
 
-        public static string GetServiceVersion(WSImagingConnection connection)
+        public static string GetServiceVersion(WSConnection connection)
         {
             using (var castRepsitory = GetRepository(connection))
             {

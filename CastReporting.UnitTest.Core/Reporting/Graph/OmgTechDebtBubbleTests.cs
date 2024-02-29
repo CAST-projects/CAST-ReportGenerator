@@ -1,4 +1,4 @@
-﻿using CastReporting.Domain.Imaging;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Graph;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -20,7 +20,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
         public void TestContentSnapshot()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("Dream Team",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("Dream Team",
                 null, @".\Data\DreamTeamSnap4Metrics2.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4", currentDate,
                 null, null, null, null, null, null);
 
@@ -45,7 +45,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
         public void TestContentSnapshotModule()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("DreamTeam",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("DreamTeam",
                 @".\Data\Modules1.json", @".\Data\Snapshot_QIresults1_Extended.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4", currentDate,
                null, null, null, null, null, null);
 
@@ -70,7 +70,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
         public void TestNoSnapshot()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("Dream Team",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("Dream Team",
                 null, @".\Data\DreamTeamSnap4Metrics2.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4", currentDate,
                 null, null, null, null, null, null);
 

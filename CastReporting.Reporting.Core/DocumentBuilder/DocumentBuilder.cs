@@ -35,7 +35,7 @@ namespace CastReporting.Reporting.Builder
         {
             ReportData = reportData;
 
-            Package = GetPackage(reportData.FileName, reportData.ReportType);
+            Package = GetPackage(reportData.FileName, ReportData.ReportType);
         }
         #endregion CONSTRUCTORS
 
@@ -204,9 +204,18 @@ namespace CastReporting.Reporting.Builder
             {
                 switch (reportType)
                 {
-                    case FormatType.Word: return WordprocessingDocument.Open(pPath, true);
-                    case FormatType.PowerPoint: return PresentationDocument.Open(pPath, true);
-                    case FormatType.Excel: return SpreadsheetDocument.Open(pPath, true);
+                    case FormatType.Word:
+                        {
+                            return WordprocessingDocument.Open(pPath, true);
+                        }
+                    case FormatType.PowerPoint:
+                        {
+                            return PresentationDocument.Open(pPath, true);
+                        }
+                    case FormatType.Excel:
+                        {
+                            return SpreadsheetDocument.Open(pPath, true);
+                        }
                 }
             }
             catch (OpenXmlPackageException e)
@@ -215,6 +224,7 @@ namespace CastReporting.Reporting.Builder
                 {
                     LogHelper.LogWarn(e.Message);
                     LogHelper.LogWarn("Trying to repair the uri to open the template document.");
+
 
                     FileInfo fileInfo = new FileInfo(pPath);
                     string newFileName = fileInfo.FullName + ".fixed" + fileInfo.Extension;
@@ -262,7 +272,8 @@ namespace CastReporting.Reporting.Builder
         /// </summary>
         public virtual void Dispose()
         {
-            Package?.Dispose();
+            if (Package == null) return;
+            Package.Dispose();
         }
 
         #endregion Inherited

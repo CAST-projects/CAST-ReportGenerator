@@ -1,6 +1,5 @@
 ﻿using CastReporting.Domain;
-using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Interfaces;
+using CastReporting.Domain.Interfaces;
 using System.Collections.Generic;
 
 namespace CastReporting.BLL
@@ -8,7 +7,7 @@ namespace CastReporting.BLL
     public class RuleBLL : BaseBLL, IRuleExplorer
     {
 
-        public RuleBLL(WSImagingConnection connection)
+        public RuleBLL(WSConnection connection)
             : base(connection) { }
 
 

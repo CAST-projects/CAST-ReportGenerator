@@ -16,7 +16,7 @@
  */
 
 using CastReporting.BLL.Computing;
-using CastReporting.Domain.Imaging;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -35,7 +35,7 @@ namespace CastReporting.Reporting.Block.Graph
 
         #region METHODS
 
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             double minValy = short.MaxValue;
             double maxValy = 0;
@@ -68,7 +68,7 @@ namespace CastReporting.Reporting.Block.Graph
                 if (_snapshots != null)
                     foreach (Snapshot snapshot in _snapshots)
                     {
-                        BusinessCriteriaDTO bcGrade = snapshot.GetBusinessCriteriaGradesSnapshot(true);
+                        BusinessCriteriaDTO bcGrade = BusinessCriteriaUtility.GetBusinessCriteriaGradesSnapshot(snapshot, true);
                         double? locValue = MeasureUtility.GetCodeLineNumber(snapshot);
                         string prevSnapshotDate = snapshot.Annotation.Date.DateSnapShot?.ToOADate().ToString(CultureInfo.CurrentCulture) ?? string.Empty;
                         rowData.Add(prevSnapshotDate);
@@ -93,7 +93,7 @@ namespace CastReporting.Reporting.Block.Graph
             #region just 1 snapshot
             if (nbSnapshots == 1)
             {
-                BusinessCriteriaDTO bcGrade = reportData?.CurrentSnapshot.GetBusinessCriteriaGradesSnapshot(true);
+                BusinessCriteriaDTO bcGrade = BusinessCriteriaUtility.GetBusinessCriteriaGradesSnapshot(reportData?.CurrentSnapshot, true);
                 double? locValue = MeasureUtility.GetCodeLineNumber(reportData?.CurrentSnapshot);
                 string prevSnapshotDate = reportData?.CurrentSnapshot.Annotation.Date.DateSnapShot?.ToOADate().ToString(CultureInfo.CurrentCulture) ?? string.Empty;
                 rowData.AddRange

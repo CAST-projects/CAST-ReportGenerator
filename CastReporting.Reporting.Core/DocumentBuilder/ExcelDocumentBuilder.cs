@@ -33,6 +33,7 @@ namespace CastReporting.Reporting.Builder
     {
         public string StrFinalTempFile { get; set; }
         // ReSharper disable once InconsistentNaming
+        public ReportData reportData { get; set; }
 
         #region CONSTRUCTORS
 
@@ -45,6 +46,7 @@ namespace CastReporting.Reporting.Builder
             : base(client)
         {
             StrFinalTempFile = tmpRepFlexi;
+            reportData = client;
         }
         #endregion CONSTRUCTORS
 
@@ -209,7 +211,7 @@ namespace CastReporting.Reporting.Builder
                                     TextBlock instance = BlockHelper.GetAssociatedBlockInstance<TextBlock>(config.Name);
                                     if (instance != null)
                                     {
-                                        SetCellValue(cell, instance.GetContent(ReportData.ImagingData, config.Options));
+                                        SetCellValue(cell, instance.GetContent(reportData, config.Options));
                                     }
                                 }
                                 else if (TableBlock.IsMatching(config.Type))
@@ -220,7 +222,7 @@ namespace CastReporting.Reporting.Builder
                                         tableTargets.Add(new TableInfo
                                         {
                                             cell = cell,
-                                            table = instance.GetContent(ReportData.ImagingData, config.Options)
+                                            table = instance.GetContent(reportData, config.Options)
                                         });
                                     }
                                 }

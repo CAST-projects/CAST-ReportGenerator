@@ -44,7 +44,7 @@ namespace CastReporting.UI.WPF.Core.View
             var list = e.Parameter as List<object>;
             if (list != null)
             {
-                var connection = new WSImagingConnection
+                var connection = new WSConnection
                 {
                     Url = (string)list[0],
                     Login = (string)list[1],

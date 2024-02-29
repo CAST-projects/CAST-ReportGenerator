@@ -1,7 +1,6 @@
 ﻿using CastReporting.BLL;
 using CastReporting.Domain;
-using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Interfaces;
+using CastReporting.Domain.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -15,7 +14,7 @@ namespace CastReporting.UnitTest.Reporting
         // ReSharper disable once NotAccessedField.Local
         private readonly Snapshot _Snapshot;
 
-        public SnapshotBLLStub(WSImagingConnection connection, Snapshot snapshot)
+        public SnapshotBLLStub(WSConnection connection, Snapshot snapshot)
             : base(connection)
         {
             _Snapshot = snapshot;
@@ -48,8 +47,7 @@ namespace CastReporting.UnitTest.Reporting
         [DeploymentItem(@".\Data\OmgFunctionsEvolutionsZero.csv", "Data")]
         public IEnumerable<OmgFunction> GetOmgFunctionsEvolutions(string snapshotHref, int count)
         {
-            if (snapshotHref.Equals("AED/applications/3/snapshots/33"))
-            {
+            if (snapshotHref.Equals("AED/applications/3/snapshots/33")) {
                 return TestUtility.GetCsvSampleResult<OmgFunction>(@".\Data\OmgFunctionsEvolutionsZero.csv", count, null).ToList();
             }
             return TestUtility.GetCsvSampleResult<OmgFunction>(@".\Data\OmgFunctionsEvolutions.csv", count, null).ToList();
@@ -61,12 +59,12 @@ namespace CastReporting.UnitTest.Reporting
             return TestUtility.GetCsvSampleResult<OmgFunctionTechnical>(@".\Data\OmgFunctionsTechnical.csv", count, null).ToList();
         }
 
-        public IEnumerable<CommonCategories> GetCommonCategories(WSImagingConnection connection)
+        public IEnumerable<CommonCategories> GetCommonCategories(WSConnection connection)
         {
             throw new NotImplementedException();
         }
 
-        public string GetCommonCategoriesJson(WSImagingConnection connection)
+        public string GetCommonCategoriesJson(WSConnection connection)
         {
             throw new NotImplementedException();
         }
@@ -276,7 +274,7 @@ namespace CastReporting.UnitTest.Reporting
         [DeploymentItem(@".\Data\CriticalViolationsList_60016.json", "Data")]
         [DeploymentItem(@".\Data\CriticalViolationsList_60016_module.json", "Data")]
         [DeploymentItem(@".\Data\CriticalViolationsList_60017.json", "Data")]
-        public IEnumerable<Violation> GetViolationsListIDbyBC(string snapshotHref, string ruleId, int bcId, int count, string technos)
+        public IEnumerable<Violation> GetViolationsListIDbyBC(string snapshotHref, string ruleId, string bcId, int count, string technos)
         {
             IEnumerable<Violation> res;
             switch (ruleId)
@@ -305,12 +303,20 @@ namespace CastReporting.UnitTest.Reporting
                 case "(critical-rules)":
                     switch (bcId)
                     {
-                        case 60012:
-                        case 60013:
-                        case 60014:
-                        case 60016:
-                        case 60017:
-                            res = TestUtility.GetSampleResult<Violation>($@".\Data\CriticalViolationsList_{bcId}.json").ToList();
+                        case "60012":
+                            res = TestUtility.GetSampleResult<Violation>(@".\Data\CriticalViolationsList_60012.json").ToList();
+                            break;
+                        case "60013":
+                            res = TestUtility.GetSampleResult<Violation>(@".\Data\CriticalViolationsList_60013.json").ToList();
+                            break;
+                        case "60014":
+                            res = TestUtility.GetSampleResult<Violation>(@".\Data\CriticalViolationsList_60014.json").ToList();
+                            break;
+                        case "60016":
+                            res = TestUtility.GetSampleResult<Violation>(@".\Data\CriticalViolationsList_60016.json").ToList();
+                            break;
+                        case "60017":
+                            res = TestUtility.GetSampleResult<Violation>(@".\Data\CriticalViolationsList_60017.json").ToList();
                             break;
                         default:
                             res = new List<Violation>();

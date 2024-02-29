@@ -1,6 +1,5 @@
-﻿using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Constants;
-using CastReporting.Domain.Imaging.Interfaces;
+﻿using CastReporting.Domain;
+using CastReporting.Domain.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -81,7 +80,7 @@ namespace CastReporting.BLL.Computing
         /// <param name="businessCriteriaId"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        public static List<TechnicalCriteriaResultDTO> GetTechnicalCriteriaViolations(Snapshot snapshot, BusinessCriteria businessCriteriaId, int count)
+        public static List<TechnicalCriteriaResultDTO> GetTechnicalCriteriaViolations(Snapshot snapshot, Constants.BusinessCriteria businessCriteriaId, int count)
         {
             if (snapshot.QIBusinessCriterias == null || snapshot.TechnicalCriteriaResults == null) return null;
 
@@ -111,8 +110,8 @@ namespace CastReporting.BLL.Computing
         /// <param name="nbTopResult"></param>
         /// <returns></returns>
         public static List<RuleViolationResultDTO> GetRuleViolations(Snapshot snapshot,
-                                                                        RulesViolation rulesViolationType,
-                                                                        BusinessCriteria businessCriteriaId,
+                                                                        Constants.RulesViolation rulesViolationType,
+                                                                        Constants.BusinessCriteria businessCriteriaId,
                                                                         bool onlyFailedChecks,
                                                                         int nbTopResult)
         {
@@ -141,8 +140,8 @@ namespace CastReporting.BLL.Computing
         /// <param name="onlyFailedChecks"></param>
         /// <returns></returns>
         public static List<RuleViolationResultDTO> GetAllRuleViolations(Snapshot snapshot,
-                                                                        RulesViolation rulesViolationType,
-                                                                        BusinessCriteria businessCriteriaId,
+                                                                        Constants.RulesViolation rulesViolationType,
+                                                                        Constants.BusinessCriteria businessCriteriaId,
                                                                         bool onlyFailedChecks)
         {
 
@@ -169,8 +168,8 @@ namespace CastReporting.BLL.Computing
         /// <param name="onlyFailedChecks"></param>
         /// <returns></returns>
         public static int? GetNbRuleWithViolations(Snapshot snapshot,
-                                                     RulesViolation rulesViolationType,
-                                                     BusinessCriteria businessCriteriaId,
+                                                     Constants.RulesViolation rulesViolationType,
+                                                     Constants.BusinessCriteria businessCriteriaId,
                                                      bool onlyFailedChecks)
         {
 
@@ -211,8 +210,8 @@ namespace CastReporting.BLL.Computing
         /// <param name="onlyFailedChecks"></param>
         /// <returns></returns>
         private static IQueryable<ApplicationResult> GetQueryRuleViolations(Snapshot snapshot,
-                                                                            RulesViolation rulesViolationType,
-                                                                            BusinessCriteria businessCriteriaId,
+                                                                            Constants.RulesViolation rulesViolationType,
+                                                                            Constants.BusinessCriteria businessCriteriaId,
                                                                             bool onlyFailedChecks)
         {
             if (snapshot?.BusinessCriteriaResults == null) return null;
@@ -221,16 +220,16 @@ namespace CastReporting.BLL.Computing
 
             if (businessCriteriaId != 0)
             {
-                query = query.Where(_ => _.Reference.Key == (int)businessCriteriaId);
+                query = query.Where(_ => _.Reference.Key == businessCriteriaId.GetHashCode());
             }
 
             // ReSharper disable once SwitchStatementMissingSomeCases
             switch (rulesViolationType)
             {
-                case RulesViolation.CriticalRulesViolation:
+                case Constants.RulesViolation.CriticalRulesViolation:
                     query = query.SelectMany(_ => _.CriticalRulesViolation);
                     break;
-                case RulesViolation.NonCriticalRulesViolation:
+                case Constants.RulesViolation.NonCriticalRulesViolation:
                     query = query.SelectMany(_ => _.NonCriticalRulesViolation);
                     break;
                 default:
@@ -254,7 +253,7 @@ namespace CastReporting.BLL.Computing
             return snapshot?.BusinessCriteriaResults?.Where(_ => _.Reference.Key == bcid && _.DetailResult.EvolutionSummary != null)
                 .Select(_ => new ViolationsStatisticsDTO
                 {
-                    BusinessCriteria = (BusinessCriteria)bcid,
+                    BusinessCriteria = (Constants.BusinessCriteria)bcid,
                     TotalCriticalViolations = _.DetailResult.EvolutionSummary.TotalCriticalViolations,
                     AddedCriticalViolations = _.DetailResult.EvolutionSummary.AddedCriticalViolations,
                     RemovedCriticalViolations = _.DetailResult.EvolutionSummary.RemovedCriticalViolations,
@@ -277,7 +276,7 @@ namespace CastReporting.BLL.Computing
             return snapshot.BusinessCriteriaResults.Where(_ => _.ModulesResult.Any(m => m.Module != null && m.Module.Equals(module) && m.DetailResult?.EvolutionSummary != null))
                                                    .Select(_ => new ViolationsStatisticsDTO
                                                    {
-                                                       BusinessCriteria = (BusinessCriteria)_.Reference.Key,
+                                                       BusinessCriteria = (Constants.BusinessCriteria)_.Reference.Key,
                                                        TotalCriticalViolations = _.ModulesResult.FirstOrDefault(m => m.Module.Equals(module))?.DetailResult.EvolutionSummary.TotalCriticalViolations,
                                                        AddedCriticalViolations = _.ModulesResult.FirstOrDefault(m => m.Module.Equals(module))?.DetailResult.EvolutionSummary.AddedCriticalViolations,
                                                        RemovedCriticalViolations = _.ModulesResult.FirstOrDefault(m => m.Module.Equals(module))?.DetailResult.EvolutionSummary.RemovedCriticalViolations,

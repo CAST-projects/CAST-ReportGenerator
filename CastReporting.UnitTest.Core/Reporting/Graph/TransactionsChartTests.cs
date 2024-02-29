@@ -1,5 +1,4 @@
 ﻿using CastReporting.Domain;
-using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Block.Graph;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -22,11 +21,11 @@ namespace CastReporting.UnitTest.Reporting.Graph
         public void TestContent()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4", currentDate,
                null, null, null, null, null, null);
 
-            WSImagingConnection connection = new WSImagingConnection
+            WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -58,11 +57,11 @@ namespace CastReporting.UnitTest.Reporting.Graph
         public void TestFullNames()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4", currentDate,
                null, null, null, null, null, null);
 
-            WSImagingConnection connection = new WSImagingConnection
+            WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -95,11 +94,11 @@ namespace CastReporting.UnitTest.Reporting.Graph
         public void TestSecurity()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4", currentDate,
                null, null, null, null, null, null);
 
-            WSImagingConnection connection = new WSImagingConnection
+            WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -132,11 +131,11 @@ namespace CastReporting.UnitTest.Reporting.Graph
         public void TestEfficiency()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4", currentDate,
                null, null, null, null, null, null);
 
-            WSImagingConnection connection = new WSImagingConnection
+            WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -169,11 +168,11 @@ namespace CastReporting.UnitTest.Reporting.Graph
         public void TestNoSnapshot()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4", currentDate,
                null, null, null, null, null, null);
 
-            WSImagingConnection connection = new WSImagingConnection
+            WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -206,11 +205,11 @@ namespace CastReporting.UnitTest.Reporting.Graph
         [DeploymentItem(@".\Data\Transactions60013WebGoat.json", "Data")]
         public void TestPreviousRobustness()
         {
-            ImagingData reportData = TestUtility.PrepaReportData("ReportGenerator",
+            ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
                null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
                null, @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
 
-            WSImagingConnection connection = new WSImagingConnection
+            WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",

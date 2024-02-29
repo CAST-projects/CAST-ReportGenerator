@@ -1,4 +1,4 @@
-﻿using CastReporting.Domain.Imaging;
+﻿using CastReporting.Domain;
 using CastReporting.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;

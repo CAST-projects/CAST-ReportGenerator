@@ -15,8 +15,7 @@
  *
  */
 using CastReporting.BLL.Computing;
-using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Constants;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -33,7 +32,7 @@ namespace CastReporting.Reporting.Block.Graph
     {
         #region METHODS
 
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
 
 
@@ -52,7 +51,7 @@ namespace CastReporting.Reporting.Block.Graph
                 double? _idxValue = 0;
                 double? _omgTechDebtValue = 0;
                 double? _locValue = 0;
-
+                
                 if (moduleId > 0)
                 {
                     Module module = snapshot.Modules.FirstOrDefault(m => m.Id.Equals(moduleId));
@@ -62,9 +61,9 @@ namespace CastReporting.Reporting.Block.Graph
                         OmgTechnicalDebtIdDTO omgTechDebt = OmgTechnicalDebtUtility.GetOmgTechDebtModule(snapshot, module.Id, idxId);
                         if (omgTechDebt != null)
                         {
-                            _idxValue = snapshot.GetBusinessCriteriaModuleGrade(moduleId, (BusinessCriteria)idxId, true);
+                            _idxValue = BusinessCriteriaUtility.GetBusinessCriteriaModuleGrade(snapshot, moduleId, idxId, true);
                             _omgTechDebtValue = omgTechDebt.Total ?? 0;
-                            _locValue = MeasureUtility.GetSizingMeasureModule(snapshot, moduleId, SizingInformations.CodeLineNumber);
+                            _locValue = MeasureUtility.GetSizingMeasureModule(snapshot, moduleId, Constants.SizingInformations.CodeLineNumber.GetHashCode());
                         }
                     }
                 }
@@ -73,16 +72,16 @@ namespace CastReporting.Reporting.Block.Graph
                     OmgTechnicalDebtIdDTO omgTechDebt = OmgTechnicalDebtUtility.GetOmgTechDebt(snapshot, idxId);
                     if (omgTechDebt != null)
                     {
-                        _idxValue = snapshot.GetSnapshotBusinessCriteriaGrade((BusinessCriteria)idxId, true);
+                        _idxValue = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(snapshot, idxId, true);
                         _omgTechDebtValue = omgTechDebt.Total ?? 0;
-                        _locValue = MeasureUtility.GetSizingMeasure(snapshot, SizingInformations.CodeLineNumber);
+                        _locValue = MeasureUtility.GetSizingMeasure(snapshot, Constants.SizingInformations.CodeLineNumber);
                     }
                 }
 
                 rowData.Add(_idxValue.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));
                 rowData.Add(_omgTechDebtValue.GetValueOrDefault().ToString("N1"));
                 rowData.Add(_locValue.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));
-
+                
             }
             else
             {

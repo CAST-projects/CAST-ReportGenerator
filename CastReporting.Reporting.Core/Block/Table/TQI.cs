@@ -13,15 +13,12 @@
  * limitations under the License.
  *
  */
-using Cast.Util;
-using CastReporting.Domain.Imaging;
 using CastReporting.BLL.Computing;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
 using CastReporting.Reporting.ReportingModel;
 using System.Collections.Generic;
-using CastReporting.Domain.Imaging.Constants;
 
 
 namespace CastReporting.Reporting.Block.Table
@@ -41,18 +38,18 @@ namespace CastReporting.Reporting.Block.Table
         /// <param name="reportData"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             List<string> rowData = new List<string>();
             rowData.AddRange(new[] { Labels.Statistics, Labels.CurrentScore, Labels.PreviousScore });
 
 
-            double? currentTqi = reportData.CurrentSnapshot.GetSnapshotBusinessCriteriaGrade(BusinessCriteria.TechnicalQualityIndex, true);
-            double? previousTqi = reportData.PreviousSnapshot.GetSnapshotBusinessCriteriaGrade(BusinessCriteria.TechnicalQualityIndex, true);
+            double? currentTqi = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(reportData.CurrentSnapshot, Domain.Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode(), true);
+            double? previousTqi = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(reportData.PreviousSnapshot, Domain.Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode(), true);
 
             rowData.AddRange(new[] { Labels.TQI,
                                        currentTqi?.ToString(MetricFormat) ?? string.Empty,
-                                       previousTqi?.ToString(MetricFormat) ?? FormatHelper.No_Value});
+                                       previousTqi?.ToString(MetricFormat) ?? Domain.Constants.No_Value});
 
             var resultTable = new TableDefinition
             {

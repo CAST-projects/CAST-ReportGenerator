@@ -1,6 +1,6 @@
 ﻿using CastReporting.BLL;
-using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Interfaces;
+using CastReporting.Domain;
+using CastReporting.Domain.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;

@@ -15,9 +15,8 @@
  *
  */
 
-using Cast.Util;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain.Imaging;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -31,7 +30,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("OMG_TECHNICAL_DEBT_DETAILS_TABLE")]
     public class OmgTechnicalDebtDetailsTable : TableBlock
     {
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             string index = options.GetOption("ID", "ISO");
             int indexId = OmgTechnicalDebtUtility.GetOmgIndex(index);
@@ -61,11 +60,11 @@ namespace CastReporting.Reporting.Block.Table
                         if (omgTechDebt != null)
                         {
                             double? techDebt = (double?)omgTechDebt?.Total / 8 / 60;
-                            dataRow.Set(techDebtLabel, techDebt.HasValue ? techDebt.Value.ToString("N1") : FormatHelper.No_Value);
+                            dataRow.Set(techDebtLabel, techDebt.HasValue ? techDebt.Value.ToString("N1") : Constants.No_Value);
                             double? techDebtAdded = (double?)omgTechDebt?.Added / 8 / 60;
-                            dataRow.Set(techDebtAddedLabel, techDebtAdded.HasValue ? techDebtAdded.Value.ToString("N1") : FormatHelper.No_Value);
+                            dataRow.Set(techDebtAddedLabel, techDebtAdded.HasValue ? techDebtAdded.Value.ToString("N1") : Constants.No_Value);
                             double? techDebtRemoved = (double?)omgTechDebt?.Removed / 8 / 60;
-                            dataRow.Set(techDebtRemovedLabel, techDebtRemoved.HasValue ? techDebtRemoved.Value.ToString("N1") : FormatHelper.No_Value);
+                            dataRow.Set(techDebtRemovedLabel, techDebtRemoved.HasValue ? techDebtRemoved.Value.ToString("N1") : Constants.No_Value);
                             data.AddRange(dataRow);
                         }
                     }
@@ -75,10 +74,10 @@ namespace CastReporting.Reporting.Block.Table
             if (data.Count == 0)
             {
                 var dataRow = headers.CreateDataRow();
-                dataRow.Set(Labels.TechnicalCriterion, FormatHelper.No_Data);
-                dataRow.Set(techDebtLabel, FormatHelper.No_Data);
-                dataRow.Set(techDebtAddedLabel, FormatHelper.No_Data);
-                dataRow.Set(techDebtRemovedLabel, FormatHelper.No_Data);
+                dataRow.Set(Labels.TechnicalCriterion, Constants.No_Data);
+                dataRow.Set(techDebtLabel, Constants.No_Data);
+                dataRow.Set(techDebtAddedLabel, Constants.No_Data);
+                dataRow.Set(techDebtRemovedLabel, Constants.No_Data);
                 data.AddRange(dataRow);
             }
 

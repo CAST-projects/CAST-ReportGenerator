@@ -33,7 +33,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
              */
             List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json", @".\Data\AADApplication2Snap.json" };
             List<string> snapResultsList = new List<string> { @".\Data\AADApplication1SnapResults.json", @".\Data\AADApplication2SnapResults.json" };
-            ImagingData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioBarChart();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -67,7 +67,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
              */
             List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json", @".\Data\AADApplication2Snap.json" };
             List<string> snapResultsList = new List<string> { @".\Data\AADApplication1SnapResults.json", @".\Data\AADApplication2SnapResults.json" };
-            ImagingData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioBarChart();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -101,7 +101,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
              */
             List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json", @".\Data\AADApplication2Snap.json" };
             List<string> snapResultsList = new List<string> { @".\Data\AADApplication1SnapResults.json", @".\Data\AADApplication2SnapResults.json" };
-            ImagingData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioBarChart();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -134,7 +134,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
              */
             List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json", @".\Data\AADApplication2Snap.json" };
             List<string> snapResultsList = new List<string> { @".\Data\AADApplication1SnapResults.json", @".\Data\AADApplication2SnapResults.json" };
-            ImagingData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioBarChart();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -169,7 +169,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
              */
             List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json", @".\Data\AADApplication2Snap.json" };
             List<string> snapResultsList = new List<string> { @".\Data\AADApplication1SnapResults.json", @".\Data\AADApplication2SnapResults.json" };
-            ImagingData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioBarChart();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -178,7 +178,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
             };
 
             // Needed for background facts, as there are retrieved one by one by url request
-            WSImagingConnection connection = new WSImagingConnection
+            WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",

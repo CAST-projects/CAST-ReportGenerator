@@ -119,8 +119,8 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// <summary>
         /// 
         /// </summary>       
-        private ObservableCollection<WSImagingConnection> _wsConnections;
-        public ObservableCollection<WSImagingConnection> WSConnections
+        private ObservableCollection<WSConnection> _wsConnections;
+        public ObservableCollection<WSConnection> WSConnections
         {
             get
             {
@@ -138,8 +138,8 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// <summary>
         /// 
         /// </summary>
-        private WSImagingConnection _selectedWSConnection;
-        public WSImagingConnection SelectedWSConnection
+        private WSConnection _selectedWSConnection;
+        public WSConnection SelectedWSConnection
         {
             get
             {
@@ -164,14 +164,14 @@ namespace CastReporting.UI.WPF.Core.ViewModel
 
             ActiveCommand = new CommandHandler(ExecuteActiveCommand, null);
 
-            WSConnections = new ObservableCollection<WSImagingConnection>(Setting.WSImagingConnections);
+            WSConnections = new ObservableCollection<WSConnection>(Setting.WSConnections);
 
         }
 
         /// <summary>
         /// Implement Add service Command
         /// </summary>
-        public void ExecuteAddCommand(WSImagingConnection conn)
+        public void ExecuteAddCommand(WSConnection conn)
         {
             try
             {
@@ -181,7 +181,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
 
                 if (state == StatesEnum.ConnectionAddedAndActivated || state == StatesEnum.ConnectionAddedSuccessfully)
                 {
-                    WSConnections = new ObservableCollection<WSImagingConnection>(Setting.WSImagingConnections);
+                    WSConnections = new ObservableCollection<WSConnection>(Setting.WSConnections);
 
                     NewConnectionUrl = NewConnectionLogin = NewConnectionPassword = string.Empty;
                 }
@@ -204,7 +204,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
             string tmpUrl = SelectedWSConnection.Url;
 
             Setting = SettingsBLL.RemoveConnection(SelectedWSConnection);
-            WSConnections = new ObservableCollection<WSImagingConnection>(Setting.WSImagingConnections);
+            WSConnections = new ObservableCollection<WSConnection>(Setting.WSConnections);
 
             MessageManager.OnServiceRemoved(tmpUrl);
         }
@@ -216,13 +216,13 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         private void ExecuteActiveCommand(object prameter)
         {
             if (SelectedWSConnection == null) return;
-            Setting.ChangeActiveImagingConnection(SelectedWSConnection.Url);
+            Setting.ChangeActiveConnection(SelectedWSConnection.Url);
 
             SettingsBLL.SaveSetting(Setting);
 
             MessageManager.OnServiceActivated(SelectedWSConnection.Url);
 
-            WSConnections = new ObservableCollection<WSImagingConnection>(Setting.WSImagingConnections);
+            WSConnections = new ObservableCollection<WSConnection>(Setting.WSConnections);
         }
 
     }

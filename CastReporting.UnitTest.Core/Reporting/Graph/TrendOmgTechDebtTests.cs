@@ -1,4 +1,4 @@
-﻿using CastReporting.Domain.Imaging;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Block.Graph;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -20,7 +20,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
         public void TestOneSnapshot()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/2", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                null, null, null, null, null, null);
             var component = new TrendOmgTechDebt();
@@ -44,7 +44,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
         public void TestNoValue()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                null, null, null, null, null, null);
             var component = new TrendOmgTechDebt();
@@ -70,7 +70,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484866800000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                 null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/2", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, @".\Data\PreviousBCresults.json", "AED/applications/3/snapshots/1", "PreVersion 1.4.1 before release", "V-1.4.1", previousDate);
 

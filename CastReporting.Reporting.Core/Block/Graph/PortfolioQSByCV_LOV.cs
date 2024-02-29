@@ -14,8 +14,7 @@
  *
  */
 using CastReporting.BLL.Computing;
-using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Constants;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -31,7 +30,7 @@ namespace CastReporting.Reporting.Block.Graph
     {
         #region METHODS
 
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             int count = 0;
 
@@ -52,9 +51,9 @@ namespace CastReporting.Reporting.Block.Graph
                 {
                     Snapshot _snapshot = _app.Snapshots.OrderByDescending(_ => _.Annotation.Date.DateSnapShot).First();
 
-                    BusinessCriteriaDTO currSnapshotBisCriDTO = _snapshot.GetBusinessCriteriaGradesSnapshot(false);
+                    BusinessCriteriaDTO currSnapshotBisCriDTO = BusinessCriteriaUtility.GetBusinessCriteriaGradesSnapshot(_snapshot, false);
                     double? strCurrentTQI = currSnapshotBisCriDTO.TQI ?? 0;
-                    double? _numCritPerKloc = MeasureUtility.GetSizingMeasure(_snapshot, SizingInformations.ViolationsToCriticalQualityRulesPerKLOCNumber);
+                    double? _numCritPerKloc = MeasureUtility.GetSizingMeasure(_snapshot, Constants.SizingInformations.ViolationsToCriticalQualityRulesPerKLOCNumber);
                     double? result = MeasureUtility.GetAutomatedIFPUGFunction(_snapshot);
 
                     rowData.Add(strCurrentTQI.GetValueOrDefault().ToString("N2"));

@@ -1,5 +1,4 @@
 ﻿using CastReporting.Domain;
-using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Block.Table;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -23,10 +22,10 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestAllIfpugFunctions()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                null, null, null, null, null, null);
-            WSImagingConnection connection = new WSImagingConnection
+            WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -60,10 +59,10 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestIfpugDataFunctions()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                 null, null, null, null, null, null);
-            WSImagingConnection connection = new WSImagingConnection
+            WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -96,10 +95,10 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestIfpugTransactionsFunctions()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                 null, null, null, null, null, null);
-            WSImagingConnection connection = new WSImagingConnection
+            WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -133,10 +132,10 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestCountIfpugFunctions()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                 null, null, null, null, null, null);
-            WSImagingConnection connection = new WSImagingConnection
+            WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -170,10 +169,10 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestNoHeaderIfpugFunctions()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                 null, null, null, null, null, null);
-            WSImagingConnection connection = new WSImagingConnection
+            WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -210,10 +209,10 @@ namespace CastReporting.UnitTest.Reporting.Tables
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             CastDate previousDate = new CastDate { Time = 1492984700000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                 @".\Data\ModulesCoCRA.json", @".\Data\PreviousBCTCmodules.json", "AED/applications/3/snapshots/3", "Snap3_CAIP-8.3ra_RG-1.5.a", "8.3.ra", previousDate);
-            WSImagingConnection connection = new WSImagingConnection
+            WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -250,10 +249,10 @@ namespace CastReporting.UnitTest.Reporting.Tables
         public void TestNoZeroIfpugFunctions()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                null, null, null, null, null, null);
-            WSImagingConnection connection = new WSImagingConnection
+            WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -290,10 +289,10 @@ namespace CastReporting.UnitTest.Reporting.Tables
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             CastDate previousDate = new CastDate { Time = 1492984700000 };
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
                 @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "current", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                 @".\Data\ModulesCoCRA.json", @".\Data\PreviousBCTCmodules.json", "previous", "Snap3_CAIP-8.3ra_RG-1.5.a", "8.3.ra", previousDate);
-            WSImagingConnection connection = new WSImagingConnection
+            WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",

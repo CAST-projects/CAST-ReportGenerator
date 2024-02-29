@@ -14,7 +14,6 @@
  *
  */
 
-using CastReporting.Domain.Imaging.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -28,7 +27,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("TOP_RISKIEST_TRANSACTIONS")]
     public class TopRiskiestTransactions : TableBlock
     {
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             const string metricFormat = "N0";
             int nbLimitTop;
@@ -36,18 +35,20 @@ namespace CastReporting.Reporting.Block.Table
             List<string> rowData = new List<string>(new[] { Labels.TransactionEP, Labels.TRI });
 
             // Default Options
-            BusinessCriteria businessCriteria = BusinessCriteria.Robustness;
-            if (options != null && options.TryGetValue("SRC", out string source))
+            int businessCriteria = 0;
+            if (options != null &&
+                options.ContainsKey("SRC"))
             {
+                var source = options["SRC"];
                 switch (source)
                 {
-                    case "PERF": businessCriteria = BusinessCriteria.Performance; break;
-                    case "ROB": businessCriteria = BusinessCriteria.Robustness; break;
-                    case "SEC": businessCriteria = BusinessCriteria.Security; break;
-                    default: throw new ArgumentOutOfRangeException("SRC");
+                    case "PERF": { businessCriteria = (int)Domain.Constants.BusinessCriteria.Performance; } break;
+                    case "ROB": { businessCriteria = (int)Domain.Constants.BusinessCriteria.Robustness; } break;
+                    case "SEC": { businessCriteria = (int)Domain.Constants.BusinessCriteria.Security; } break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
-
             if (options == null ||
                 !options.ContainsKey("COUNT") ||
                 !int.TryParse(options["COUNT"], out nbLimitTop))
@@ -55,7 +56,7 @@ namespace CastReporting.Reporting.Block.Table
                 nbLimitTop = 10;
             }
 
-            var bc = reportData.CurrentSnapshot.BusinessCriteriaResults.FirstOrDefault(_ => _.Reference.Key == (int)businessCriteria);
+            var bc = reportData.CurrentSnapshot.BusinessCriteriaResults.FirstOrDefault(_ => _.Reference.Key == businessCriteria);
 
             if (bc != null)
             {

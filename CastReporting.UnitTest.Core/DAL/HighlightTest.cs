@@ -1,8 +1,7 @@
-using System;
 using System.Net;
-using CastReporting.Domain;
-using CastReporting.Repositories;
-using CastReporting.Repositories.Interfaces;
+using CastReporting.HL.Domain;
+using CastReporting.HL.Repositories;
+using CastReporting.HL.Repositories.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CastReporting.UnitTest.Repositories
@@ -13,16 +12,16 @@ namespace CastReporting.UnitTest.Repositories
     ///This is a test class for HLContextTest and is intended
     ///to contain all HLContextTest Unit Tests
     ///</summary>
-    [Ignore]
+    // [Ignore]
     [TestClass()]
     public class HLContextTest
     {
 
-        private readonly WSHighlightConnection _connection = new WSHighlightConnection
+        private readonly WSConnection _connection = new WSConnection
         {
             Url = "https://demo.casthighlight.com/",
-            Login = "***",
-            Password = "***",
+            Login = "trials+Green@casthighlight.com",
+            Password = "GreenC4STDemo",
             IsActive = true,
             Name = "Default"
         };
@@ -33,9 +32,7 @@ namespace CastReporting.UnitTest.Repositories
         public void IsServiceValidTest()
         {
             IHighlightRepository context = new HighlightRepository(_connection, null);
-
             bool result = context.IsServiceValid();
-
             Assert.IsTrue(result);
         }
 
@@ -43,7 +40,6 @@ namespace CastReporting.UnitTest.Repositories
         public void GetCompanyInfo()
         {
             IHighlightRepository context = new HighlightRepository(_connection, null);
-
             try
             {
                 var result = context.GetCompany(companyId);
@@ -60,10 +56,8 @@ namespace CastReporting.UnitTest.Repositories
         public void GetDomainInfo()
         {
             IHighlightRepository context = new HighlightRepository(_connection, null);
-
             // but the demo account is allowed to get the domain info :)
             var result = context.GetDomain(companyId);
-
             Assert.IsNotNull(result);
         }
 
@@ -71,9 +65,7 @@ namespace CastReporting.UnitTest.Repositories
         public void GetDomainAppInfo()
         {
             IHighlightRepository context = new HighlightRepository(_connection, null);
-
             var result = context.GetDomainAppIds(companyId);
-
             Assert.IsNotNull(result);
         }
     }

@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cast.Util.Core\Cast.Util.Core.csproj" />
+    <ProjectReference Include="..\CastReporting.HL.Mediation.Interfaces.Core\CastReporting.HL.Mediation.Interfaces.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="HighlightProxy.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+
+</Project>

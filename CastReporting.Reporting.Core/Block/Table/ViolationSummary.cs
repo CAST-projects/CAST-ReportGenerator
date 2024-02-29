@@ -13,9 +13,7 @@
  * limitations under the License.
  *
  */
-using Cast.Util;
-using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Constants;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -40,7 +38,7 @@ namespace CastReporting.Reporting.Block.Table
             return detailResult;
         }
 
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             int nbLimit = options.GetIntOption("COUNT", reportData.Parameter.NbResultDefault); // Max number of rows; -1 correspond to all results
             bool perModule = options.GetBoolOption("MODULES"); // module or application mode
@@ -74,13 +72,13 @@ namespace CastReporting.Reporting.Block.Table
             {
                 Dictionary<int, RuleDetails> targetRules =
                     reportData.RuleExplorer
-                    .GetRulesDetails(reportData.CurrentSnapshot.DomainId, (int)BusinessCriteria.TechnicalQualityIndex, reportData.CurrentSnapshot.Id)
+                    .GetRulesDetails(reportData.CurrentSnapshot.DomainId, Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode(), reportData.CurrentSnapshot.Id)
                     .Where(rd => rd.Key.HasValue && (showCritical && rd.Critical || showNonCritical && rd.Critical == false))
                     .ToDictionary(rd => rd.Key.Value);
 
                 var sourceResults = reportData.CurrentSnapshot.QualityRulesResults.Where(qr => targetRules.ContainsKey(qr.Reference.Key)).ToList();
 
-                var modules = (perModule ? reportData.CurrentSnapshot.Modules : new List<Module>(new Module[] { null })).OrderBy(m => m == null ? string.Empty : m.Name);
+                var modules = (perModule ? reportData.CurrentSnapshot.Modules : new List<Module>(new Module[] { null }).AsEnumerable()).OrderBy(m => m == null ? string.Empty : m.Name);
 
                 foreach (var module in modules)
                 {
@@ -104,15 +102,15 @@ namespace CastReporting.Reporting.Block.Table
                             }
                             if (showFailedChecks)
                             {
-                                dataRow.Set(Labels.ViolationsCount, (bool)detailResult.ViolationRatio?.FailedChecks.HasValue ? detailResult.ViolationRatio?.FailedChecks.Value.ToString("N0") : FormatHelper.No_Value);
+                                dataRow.Set(Labels.ViolationsCount, (bool)detailResult.ViolationRatio?.FailedChecks.HasValue ? detailResult.ViolationRatio?.FailedChecks.Value.ToString("N0") : Constants.No_Value);
                             }
                             if (showSuccessfulChecks)
                             {
-                                dataRow.Set(Labels.TotalOk, (bool)detailResult.ViolationRatio?.SuccessfulChecks.HasValue ? detailResult.ViolationRatio?.SuccessfulChecks.Value.ToString("N0") : FormatHelper.No_Value);
+                                dataRow.Set(Labels.TotalOk, (bool)detailResult.ViolationRatio?.SuccessfulChecks.HasValue ? detailResult.ViolationRatio?.SuccessfulChecks.Value.ToString("N0") : Constants.No_Value);
                             }
                             if (showTotal)
                             {
-                                dataRow.Set(Labels.TotalChecks, (bool)detailResult.ViolationRatio?.TotalChecks.HasValue ? detailResult.ViolationRatio?.TotalChecks.Value.ToString("N0") : FormatHelper.No_Value);
+                                dataRow.Set(Labels.TotalChecks, (bool)detailResult.ViolationRatio?.TotalChecks.HasValue ? detailResult.ViolationRatio?.TotalChecks.Value.ToString("N0") : Constants.No_Value);
                             }
                             if (showCompliance)
                             {

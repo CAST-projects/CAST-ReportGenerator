@@ -20,7 +20,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
         [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
         public void TestOneSnapshot()
         {
-            ImagingData reportData = TestUtility.PrepaReportData("ReportGenerator",
+            ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
                 null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
                 null, null, null, null, null);
             reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", null);
@@ -47,7 +47,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
         [DeploymentItem(@".\Data\ComplexitySnapPrevious.json", "Data")]
         public void TestTwoSnapshots()
         {
-            ImagingData reportData = TestUtility.PrepaReportData("ReportGenerator",
+            ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
                 null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
                 null, @".\Data\Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
             reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", @".\Data\ComplexitySnapPrevious.json");

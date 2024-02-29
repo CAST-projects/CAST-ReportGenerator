@@ -1,6 +1,6 @@
 ﻿using Cast.Util.Log;
 using Cast.Util.Version;
-using CastReporting.Domain.Imaging;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -17,7 +17,7 @@ namespace CastReporting.Reporting.Block.Table
         private int _nbRows;
         private int _nbLimit;
 
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             List<string> rowData = new List<string>();
 
@@ -117,7 +117,7 @@ namespace CastReporting.Reporting.Block.Table
             return new TableDefinition { HasRowHeaders = false, HasColumnHeaders = true, NbRows = _nbRows, NbColumns = 8, Data = rowData };
         }
 
-        private IEnumerable<string> GetDeltaComponents(ImagingData reportData, string href, string status, string currentSnapshotId, string previousSnapshotId, string complexity = "all", string technology = null)
+        private IEnumerable<string> GetDeltaComponents(ReportData reportData, string href, string status, string currentSnapshotId, string previousSnapshotId, string complexity = "all", string technology = null)
         {
             List<string> dataList = new List<string>();
             IEnumerable<DeltaComponent> components = complexity.Equals("all") || !new[] { "low", "moderate", "high", "very high" }.Contains(complexity)

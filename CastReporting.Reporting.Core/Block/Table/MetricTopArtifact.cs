@@ -13,8 +13,7 @@
  * limitations under the License.
  *
  */
-using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Constants;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -28,7 +27,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("METRIC_TOP_ARTEFACT")]
     public class MetricTopArtifact : TableBlock
     {
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             List<string> rowData = new List<string>();
             int nbLimitTop;
@@ -49,7 +48,8 @@ namespace CastReporting.Reporting.Block.Table
             {
                 foreach (var par in options["PAR"].Split('|'))
                 {
-                    if (int.TryParse(par, out int id))
+                    int id;
+                    if (int.TryParse(par, out id))
                     {
                         bcId.Add(id);
                     }
@@ -57,7 +57,7 @@ namespace CastReporting.Reporting.Block.Table
             }
             if (bcId.Count == 0)
             {
-                bcId.Add((int)BusinessCriteria.TechnicalQualityIndex);
+                bcId.Add(Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode());
             }
 
             ApplicationResult bc = reportData.CurrentSnapshot.BusinessCriteriaResults.FirstOrDefault(_ => bcId.Contains(_.Reference.Key));
@@ -72,7 +72,7 @@ namespace CastReporting.Reporting.Block.Table
             if (criticalRuleViolations != null)
                 foreach (var violation in criticalRuleViolations)
                 {
-                    IEnumerable<Domain.Imaging.MetricTopArtifact> metricTopArtefact = reportData.SnapshotExplorer.GetMetricTopArtefact(reportData.CurrentSnapshot.Href, violation.Reference.Key.ToString(), -1)?.ToList();
+                    IEnumerable<Domain.MetricTopArtifact> metricTopArtefact = reportData.SnapshotExplorer.GetMetricTopArtefact(reportData.CurrentSnapshot.Href, violation.Reference.Key.ToString(), -1)?.ToList();
 
                     int nbArtefactsDisp = 0;
                     int nbArtefactsCount = 0;

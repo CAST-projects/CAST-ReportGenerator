@@ -40,7 +40,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
         /// <param name="client"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public abstract string Content(ImagingData client, Dictionary<string, string> options);
+        public abstract string Content(ReportData client, Dictionary<string, string> options);
         #endregion ABSTRACT - To be implemented by Inherited children
 
         #region PROPERTIES
@@ -58,7 +58,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
             return BlockTypeName.Equals(blockType);
         }
 
-        public string GetContent(ImagingData client, Dictionary<string, string> options)
+        public string GetContent(ReportData client, Dictionary<string, string> options)
         {
             return Content(client, options);
         }
@@ -69,7 +69,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
             if (null == instance) return;
             LogHelper.LogDebugFormat("Start TextBlock generation : Type {0}", blockName);
             Stopwatch treatmentWatch = Stopwatch.StartNew();
-            string content = instance.Content(client.ImagingData, options);
+            string content = instance.Content(client, options);
             ApplyContent(client, container, block, content);
             treatmentWatch.Stop();
             LogHelper.LogDebugFormat

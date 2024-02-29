@@ -1,6 +1,5 @@
 ﻿
 using CastReporting.Domain;
-using CastReporting.Domain.Imaging;
 using CastReporting.Reporting.Block.Graph;
 using CastReporting.Reporting.ReportingModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -32,7 +31,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
             CastDate currentDate = new CastDate { Time = 1468360800000 };
             CastDate previousDate = new CastDate { Time = 1463090400000 };
 
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("AppliAEP",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("AppliAEP",
                 null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4", currentDate,
                 null, @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3", previousDate);
 
@@ -44,7 +43,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
                 {"SID", "10151"},
                 {"BID", "66061"}
             };
-            WSImagingConnection connection = new WSImagingConnection
+            WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",
@@ -75,7 +74,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
             CastDate currentDate = new CastDate { Time = 1468360800000 };
             CastDate previousDate = new CastDate { Time = 1463090400000 };
 
-            ImagingData reportData = TestUtility.PrepareApplicationReportData("AppliAEP",
+            ReportData reportData = TestUtility.PrepareApplicationReportData("AppliAEP",
                 null, @".\Data\DreamTeamSnap4Sample12.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4", currentDate,
                 null, @".\Data\DreamTeamSnap1Sample12.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1", previousDate);
 
@@ -86,7 +85,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
                 {"SID", "10151|10107|10152|67210|67011"}
             };
 
-            WSImagingConnection connection = new WSImagingConnection
+            WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
                 Login = "admin",

@@ -1,7 +1,6 @@
 ﻿using Cast.Util.Log;
 using Cast.Util.Version;
-using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Constants;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -15,7 +14,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("LIST_RULES_VIOLATIONS_BOOKMARKS_TABLE")]
     public class RulesListViolationsBookmarksTable : TableBlock
     {
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             List<string> rowData = new List<string>();
             var headers = new HeaderDefinition();
@@ -57,12 +56,12 @@ namespace CastReporting.Reporting.Block.Table
             List<string> qualityRules = MetricsUtility.BuildRulesList(reportData, metrics, critical, omg);
             if (qualityRules.Count > 0)
             {
-                const int bcId = (int)BusinessCriteria.TechnicalQualityIndex;
+                const string bcId = "60017";
                 int nbLimitTop = options.GetIntOption("COUNT", 5);
 
                 foreach (string _metric in qualityRules)
                 {
-                    if (!int.TryParse(_metric, out int metricId)) continue;
+                if (!int.TryParse(_metric, out int metricId)) continue;
                     List<Violation> results = reportData.SnapshotExplorer.GetViolationsListIDbyBC(reportData.CurrentSnapshot.Href, _metric, bcId, nbLimitTop, "$all").ToList();
                     if (results == null || results.Count < 1) continue;
                     rowData.AddRange(MetricsUtility.PopulateViolationsBookmarksRow(reportData, results, headers, _metric));

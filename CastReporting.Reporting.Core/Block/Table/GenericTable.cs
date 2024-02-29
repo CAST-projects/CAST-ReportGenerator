@@ -9,7 +9,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("GENERIC_TABLE")]
     public class GenericTable : TableBlock
     {
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             // true for table component
             return GenericContent.Content(reportData, options, true);

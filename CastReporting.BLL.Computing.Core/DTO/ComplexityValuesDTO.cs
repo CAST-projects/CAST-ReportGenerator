@@ -1,5 +1,5 @@
-﻿using System;
-using Cast.Util;
+﻿using CastReporting.Domain;
+using System;
 
 namespace CastReporting.BLL.Computing
 {
@@ -25,11 +25,11 @@ namespace CastReporting.BLL.Computing
         {
             return new[]
                 { lowComplexity //Labels.ComplexityLow
-                        , SelectedLowVal?.ToString("N0") ?? FormatHelper.No_Value
-                        , PreviousLowVal?.ToString("N0") ?? FormatHelper.No_Value
-                        , SelectedLowVal.HasValue && PreviousLowVal.HasValue ? FormatHelper.FormatEvolution((int)(SelectedLowVal.Value - PreviousLowVal.Value)): FormatHelper.No_Value
-                        , SelectedLowVal.HasValue && PreviousLowVal.HasValue && Math.Abs(PreviousLowVal.Value) > 0? FormatHelper.FormatPercent((SelectedLowVal - PreviousLowVal) / PreviousLowVal): FormatHelper.No_Value
-                        , SelectedLowVal.HasValue && SelectedTotal.HasValue && SelectedTotal.Value>0?FormatHelper.FormatPercent(SelectedLowVal / SelectedTotal, false): FormatHelper.No_Value
+                        , SelectedLowVal?.ToString("N0") ?? Constants.No_Value
+                        , PreviousLowVal?.ToString("N0") ?? Constants.No_Value
+                        , SelectedLowVal.HasValue && PreviousLowVal.HasValue ? FormatHelper.FormatEvolution((int)(SelectedLowVal.Value - PreviousLowVal.Value)): Constants.No_Value
+                        , SelectedLowVal.HasValue && PreviousLowVal.HasValue && Math.Abs(PreviousLowVal.Value) > 0? FormatHelper.FormatPercent((SelectedLowVal - PreviousLowVal) / PreviousLowVal): Constants.No_Value
+                        , SelectedLowVal.HasValue && SelectedTotal.HasValue && SelectedTotal.Value>0?FormatHelper.FormatPercent(SelectedLowVal / SelectedTotal, false): Constants.No_Value
                     };
             ;
         }
@@ -38,11 +38,11 @@ namespace CastReporting.BLL.Computing
         {
             return new[]
                 { averageComplexity //Labels.ComplexityAverage
-                        , SelectedAveVal?.ToString("N0") ?? FormatHelper.No_Value
-                        , PreviousAveVal?.ToString("N0") ?? FormatHelper.No_Value
-                        , SelectedAveVal.HasValue && PreviousAveVal.HasValue ? FormatHelper.FormatEvolution((int)(SelectedAveVal.Value - PreviousAveVal.Value)) : FormatHelper.No_Value
-                        , SelectedAveVal.HasValue && PreviousAveVal.HasValue && Math.Abs(PreviousAveVal.Value) > 0? FormatHelper.FormatPercent((SelectedAveVal - PreviousAveVal) / PreviousAveVal): FormatHelper.No_Value
-                        , SelectedAveVal.HasValue && SelectedTotal.HasValue && SelectedTotal.Value>0?FormatHelper.FormatPercent(SelectedAveVal / SelectedTotal, false): FormatHelper.No_Value
+                        , SelectedAveVal?.ToString("N0") ?? Constants.No_Value
+                        , PreviousAveVal?.ToString("N0") ?? Constants.No_Value
+                        , SelectedAveVal.HasValue && PreviousAveVal.HasValue ? FormatHelper.FormatEvolution((int)(SelectedAveVal.Value - PreviousAveVal.Value)) : Constants.No_Value
+                        , SelectedAveVal.HasValue && PreviousAveVal.HasValue && Math.Abs(PreviousAveVal.Value) > 0? FormatHelper.FormatPercent((SelectedAveVal - PreviousAveVal) / PreviousAveVal): Constants.No_Value
+                        , SelectedAveVal.HasValue && SelectedTotal.HasValue && SelectedTotal.Value>0?FormatHelper.FormatPercent(SelectedAveVal / SelectedTotal, false): Constants.No_Value
                     };
         }
 
@@ -50,11 +50,11 @@ namespace CastReporting.BLL.Computing
         {
             return new[]
                 { highComplexity // Labels.ComplexityHigh
-                        , SelectedHigVal?.ToString("N0") ?? FormatHelper.No_Value
-                        , PreviousHigVal?.ToString("N0") ?? FormatHelper.No_Value
-                        , PreviousHigVal.HasValue ? FormatHelper.FormatEvolution((int)(SelectedHigVal.Value - PreviousHigVal.Value)): FormatHelper.No_Value
-                        , SelectedHigVal.HasValue && PreviousHigVal.HasValue && Math.Abs(PreviousHigVal.Value) > 0? FormatHelper.FormatPercent((SelectedHigVal - PreviousHigVal) / PreviousHigVal): FormatHelper.No_Value
-                        , SelectedHigVal.HasValue && SelectedTotal.HasValue && SelectedTotal.Value>0?FormatHelper.FormatPercent(SelectedHigVal / SelectedTotal, false): FormatHelper.No_Value
+                        , SelectedHigVal?.ToString("N0") ?? Constants.No_Value
+                        , PreviousHigVal?.ToString("N0") ?? Constants.No_Value
+                        , PreviousHigVal.HasValue ? FormatHelper.FormatEvolution((int)(SelectedHigVal.Value - PreviousHigVal.Value)): Constants.No_Value
+                        , SelectedHigVal.HasValue && PreviousHigVal.HasValue && Math.Abs(PreviousHigVal.Value) > 0? FormatHelper.FormatPercent((SelectedHigVal - PreviousHigVal) / PreviousHigVal): Constants.No_Value
+                        , SelectedHigVal.HasValue && SelectedTotal.HasValue && SelectedTotal.Value>0?FormatHelper.FormatPercent(SelectedHigVal / SelectedTotal, false): Constants.No_Value
                     };
         }
 
@@ -62,11 +62,11 @@ namespace CastReporting.BLL.Computing
         {
             return new[]
                 { extremeComplexity //Labels.ComplexityExtreme
-                        , SelectedVhiVal?.ToString("N0") ?? FormatHelper.No_Value
-                        , PreviousVhiVal?.ToString("N0") ?? FormatHelper.No_Value
-                        , SelectedVhiVal.HasValue && PreviousVhiVal.HasValue ? FormatHelper.FormatEvolution((int)(SelectedVhiVal.Value - PreviousVhiVal.Value)): FormatHelper.No_Value
-                        , SelectedVhiVal.HasValue && PreviousVhiVal.HasValue && Math.Abs(PreviousVhiVal.Value) > 0? FormatHelper.FormatPercent((SelectedVhiVal - PreviousVhiVal) / PreviousVhiVal): FormatHelper.No_Value
-                        , SelectedVhiVal.HasValue && SelectedTotal.HasValue && SelectedTotal.Value>0?FormatHelper.FormatPercent(SelectedVhiVal / SelectedTotal, false): FormatHelper.No_Value
+                        , SelectedVhiVal?.ToString("N0") ?? Constants.No_Value
+                        , PreviousVhiVal?.ToString("N0") ?? Constants.No_Value
+                        , SelectedVhiVal.HasValue && PreviousVhiVal.HasValue ? FormatHelper.FormatEvolution((int)(SelectedVhiVal.Value - PreviousVhiVal.Value)): Constants.No_Value
+                        , SelectedVhiVal.HasValue && PreviousVhiVal.HasValue && Math.Abs(PreviousVhiVal.Value) > 0? FormatHelper.FormatPercent((SelectedVhiVal - PreviousVhiVal) / PreviousVhiVal): Constants.No_Value
+                        , SelectedVhiVal.HasValue && SelectedTotal.HasValue && SelectedTotal.Value>0?FormatHelper.FormatPercent(SelectedVhiVal / SelectedTotal, false): Constants.No_Value
                     };
         }
 

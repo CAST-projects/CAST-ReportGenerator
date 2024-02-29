@@ -14,8 +14,7 @@
  *
  */
 using CastReporting.BLL.Computing;
-using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Constants;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -32,7 +31,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("TOP_NON_CRITICAL_VIOLATIONS")]
     public class TopNonCriticalViolations : TableBlock
     {
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             int nbRows = 0;
             int nbLimitTop;
@@ -56,8 +55,8 @@ namespace CastReporting.Reporting.Block.Table
                     metricId = 0;
 
                 var _nonCriticalRulesViolation = RulesViolationUtility.GetRuleViolations(reportData.CurrentSnapshot,
-                                                                                        RulesViolation.NonCriticalRulesViolation,
-                                                                                       (BusinessCriteria)metricId,
+                                                                                        Constants.RulesViolation.NonCriticalRulesViolation,
+                                                                                       (Constants.BusinessCriteria)metricId,
                                                                                        true,
                                                                                        nbLimitTop);
 

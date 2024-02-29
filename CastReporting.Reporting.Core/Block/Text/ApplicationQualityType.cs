@@ -13,10 +13,8 @@
  * limitations under the License.
  *
  */
-using Cast.Util;
 using CastReporting.BLL.Computing;
-using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Constants;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -31,12 +29,12 @@ namespace CastReporting.Reporting.Block.Text
 
 
         #region METHODS
-        public override string Content(ImagingData reportData, Dictionary<string, string> options)
+        public override string Content(ReportData reportData, Dictionary<string, string> options)
         {
-            if (reportData?.CurrentSnapshot == null) return FormatHelper.No_Value;
-            double? tqi = reportData.CurrentSnapshot.GetSnapshotBusinessCriteriaGrade(BusinessCriteria.TechnicalQualityIndex, true);
+            if (reportData?.CurrentSnapshot == null) return Constants.No_Value;
+            double? tqi = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(reportData.CurrentSnapshot, Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode(), true);
 
-            return tqi.HasValue ? GetApplicationQualification(reportData, tqi.Value) : FormatHelper.No_Value;
+            return tqi.HasValue ? GetApplicationQualification(reportData, tqi.Value) : Constants.No_Value;
         }
 
 
@@ -46,7 +44,7 @@ namespace CastReporting.Reporting.Block.Text
         /// <param name="reportData"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        private static string GetApplicationQualification(ImagingData reportData, double value)
+        private static string GetApplicationQualification(ReportData reportData, double value)
         {
             if (value < reportData.Parameter.ApplicationQualityVeryLow)
                 return Labels.QualityVeryLow;

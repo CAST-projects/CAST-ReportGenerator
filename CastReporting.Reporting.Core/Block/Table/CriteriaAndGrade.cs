@@ -14,8 +14,8 @@
  * limitations under the License.
  *
  */
-using Cast.Util;
 using CastReporting.BLL.Computing;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -29,7 +29,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("CRITERIA_GRADE")]
     public class CriteriaAndGrade : TableBlock
     {
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             List<string> rowData = new List<string>();
             int count = -1, nbRows = 0, nbColumns = 0, nb;
@@ -44,12 +44,12 @@ namespace CastReporting.Reporting.Block.Table
             if (reportData.CurrentSnapshot != null)
             {
                 //Result of current snapshot - the count is taken into account in the method to return results (if -1 return all results)
-                var technicalCriteriasResults = reportData.CurrentSnapshot.GetTechnicalCriteriasByBusinessCriterias(strMetricId, count);
+                var technicalCriteriasResults = BusinessCriteriaUtility.GetTechnicalCriteriasByBusinessCriterias(reportData.CurrentSnapshot, strMetricId, count);
 
                 //Result of previous snapshot
                 List<TechnicalCriteriaResultDTO> prevTechnicalCriteriasResults = null;
                 if (reportData.PreviousSnapshot != null)
-                    prevTechnicalCriteriasResults = reportData.PreviousSnapshot.GetTechnicalCriteriasByBusinessCriterias(strMetricId, count)?.ToList();
+                    prevTechnicalCriteriasResults = BusinessCriteriaUtility.GetTechnicalCriteriasByBusinessCriterias(reportData.PreviousSnapshot, strMetricId, count)?.ToList();
 
                 if (prevTechnicalCriteriasResults != null && prevTechnicalCriteriasResults.Count != 0)
                 {
@@ -64,18 +64,18 @@ namespace CastReporting.Reporting.Block.Table
                     foreach (var grade in technicalCriteriasResults)
                     {
                         rowData.Add(grade.Name);
-                        rowData.Add(grade.Grade?.ToString("N2") ?? FormatHelper.No_Value);
+                        rowData.Add(grade.Grade?.ToString("N2") ?? Constants.No_Value);
 
 
                         var prevGrade = (from pgrade in prevTechnicalCriteriasResults
                                          where pgrade.Key == grade.Key
                                          select pgrade).FirstOrDefault();
 
-                        string evol = FormatHelper.No_Value;
+                        string evol = Constants.No_Value;
                         if (prevGrade != null)
                         {
                             double? variation = MathUtility.GetVariationPercent(grade.Grade, prevGrade.Grade);
-                            evol = variation.HasValue ? FormatPercent(variation) : FormatHelper.No_Value;
+                            evol = variation.HasValue ? FormatPercent(variation) : Constants.No_Value;
                         }
 
                         rowData.Add(evol);
@@ -94,7 +94,7 @@ namespace CastReporting.Reporting.Block.Table
                     foreach (var grade in technicalCriteriasResults)
                     {
                         rowData.Add(grade.Name);
-                        rowData.Add(grade.Grade?.ToString("N2") ?? FormatHelper.No_Value);
+                        rowData.Add(grade.Grade?.ToString("N2") ?? Constants.No_Value);
                         nbRows++;
                     }
                 }

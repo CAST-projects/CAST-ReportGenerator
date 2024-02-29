@@ -13,7 +13,6 @@
  * limitations under the License.
  *
  */
-using Cast.Util;
 using CastReporting.BLL.Computing;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
@@ -28,15 +27,15 @@ namespace CastReporting.Reporting.Block.Text
     public class CurrentSnapshotDate : TextBlock
     {
         #region METHODS
-        public override string Content(ImagingData reportData, Dictionary<string, string> options)
+        public override string Content(ReportData reportData, Dictionary<string, string> options)
         {
-            if (reportData?.CurrentSnapshot == null) return FormatHelper.No_Value;
+            if (reportData?.CurrentSnapshot == null) return Domain.Constants.No_Value;
 
             string res = string.Empty;
-            DateTime? d = reportData.CurrentSnapshot.GetSnapshotDate();
+            DateTime? d = SnapshotUtility.GetSnapshotDate(reportData.CurrentSnapshot);
             if (d.HasValue) res = d.Value.ToString(Labels.FORMAT_LONG_DATE);
 
-            return string.IsNullOrEmpty(res) ? FormatHelper.No_Value : res;
+            return string.IsNullOrEmpty(res) ? Domain.Constants.No_Value : res;
         }
         #endregion METHODS
     }

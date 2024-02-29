@@ -1,7 +1,5 @@
-﻿using Cast.Util;
-using CastReporting.BLL.Computing;
-using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Constants;
+﻿using CastReporting.BLL.Computing;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -9,29 +7,25 @@ using CastReporting.Reporting.Helper;
 using CastReporting.Reporting.ReportingModel;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Principal;
 
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("QUALITY_RULE_VIOLATIONS")]
     public class QualityRuleViolations : TableBlock
     {
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             List<string> rowData = new List<string>();
 
             string ruleId = options.GetOption("ID", "7788");
-            int bcId = options.GetIntOption("BCID", (int)BusinessCriteria.Robustness);
+            string bcId = options.GetOption("BCID", "60013");
             int nbLimitTop = options.GetIntOption("COUNT", 10);
             bool shortName = options.GetOption("NAME", "FULL") == "SHORT";
             bool previous = options.GetOption("SNAPSHOT", "CURRENT") == "PREVIOUS";
-
-            bool hasPri = bcId.Equals((int)BusinessCriteria.Robustness)
-                            || bcId.Equals((int)BusinessCriteria.Performance)
-                            || bcId.Equals((int)BusinessCriteria.Security);
+            bool hasPri = bcId.Equals("60013") || bcId.Equals("60014") || bcId.Equals("60016");
 
             bool hasPreviousSnapshot = reportData.PreviousSnapshot != null;
-            string ruleName = reportData.CurrentSnapshot.GetMetricName(int.Parse(ruleId));
+            string ruleName = BusinessCriteriaUtility.GetMetricName(reportData.CurrentSnapshot, int.Parse(ruleId));
 
             int nbCol = 1;
             rowData.Add(Labels.ObjectsInViolationForRule + " " + ruleName);
@@ -62,7 +56,7 @@ namespace CastReporting.Reporting.Block.Table
 
             if (previous && !hasPreviousSnapshot)
             {
-                rowData.Add(FormatHelper.No_Data);
+                rowData.Add(Constants.No_Data);
             }
             else
             {

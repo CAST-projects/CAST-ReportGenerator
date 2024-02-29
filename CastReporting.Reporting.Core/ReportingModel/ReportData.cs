@@ -15,8 +15,7 @@
  */
 
 using CastReporting.Domain;
-using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Interfaces;
+using CastReporting.Domain.Interfaces;
 using System;
 using System.IO;
 
@@ -27,6 +26,8 @@ namespace CastReporting.Reporting.ReportingModel
     /// </summary>
     public class ReportData : IDisposable
     {
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -39,25 +40,124 @@ namespace CastReporting.Reporting.ReportingModel
         {
             get
             {
-                switch (Path.GetExtension(FileName).ToLowerInvariant())
+                switch (Path.GetExtension(FileName))
                 {
-                    case ".docx": return FormatType.Word;
-                    case ".xlsx": return FormatType.Excel;
-                    case ".pptx": return FormatType.PowerPoint;
-                    default: return FormatType.Unknown;
+                    case ".docx":
+                        return FormatType.Word;
+
+                    case ".xlsx":
+                        return FormatType.Excel;
+
+                    case ".pptx":
+                        return FormatType.PowerPoint;
+
+                    default:
+                        return 0;
                 }
             }
+
         }
 
-        public ImagingData ImagingData { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public Application Application
+        {
+            get;
+            set;
+        }
 
-        public HighlightData HighlightData { get; set; }
+        public string Category
+        {
+            get;
+            set;
+        }
+
+        public string Tag
+        {
+            get;
+            set;
+        }
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Snapshot CurrentSnapshot
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Snapshot PreviousSnapshot
+        {
+            get;
+            set;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ReportingParameter Parameter { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public IRuleExplorer RuleExplorer { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ISnapshotExplorer SnapshotExplorer { get; set; }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string CurrencySymbol { get; set; }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Application[] Applications
+        {
+            get;
+            set;
+        }
+
+        // ReSharper disable once InconsistentNaming
+        public Snapshot[] Snapshots
+        {
+            get;
+            set;
+        }
+
+        public string[] IgnoresApplications
+        {
+            get;
+            set;
+        }
+
+        public string[] IgnoresSnapshots
+        {
+            get;
+            set;
+        }
 
         public void Dispose()
         {
-            ImagingData?.Dispose();
-            HighlightData.Dispose();
+            RuleExplorer?.Dispose();
+            SnapshotExplorer?.Dispose();
+
             GC.SuppressFinalize(this);
         }
+
+        public string ServerVersion { get; set; }
     }
 }

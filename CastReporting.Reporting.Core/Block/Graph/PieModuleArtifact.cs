@@ -15,8 +15,7 @@
  *
  */
 using CastReporting.BLL.Computing;
-using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Constants;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -35,7 +34,7 @@ namespace CastReporting.Reporting.Block.Graph
 
         #region METHODS
 
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
 
             int nbResult = reportData.Parameter.NbResultDefault, tmpNb;
@@ -46,7 +45,7 @@ namespace CastReporting.Reporting.Block.Graph
 
 
             if (reportData.CurrentSnapshot == null) return null;
-            var moduleArtifacts = MeasureUtility.GetModulesMeasure(reportData.CurrentSnapshot, nbResult, SizingInformations.ArtifactNumber);
+            var moduleArtifacts = MeasureUtility.GetModulesMeasure(reportData.CurrentSnapshot, nbResult, Constants.SizingInformations.ArtifactNumber);
 
             List<string> rowData = new List<string>();
             rowData.AddRange(new[] { Labels.Name, Labels.Artifacts });

@@ -1,5 +1,4 @@
-﻿using CastReporting.Domain.Imaging;
-using CastReporting.Domain.Imaging.Constants;
+﻿using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -13,7 +12,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("QUALITY_RULE_VIOLATIONS_BOOKMARKS")]
     public class QualityRuleViolationsBookmarks : TableBlock
     {
-        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             List<string> rowData = new List<string>();
             List<CellAttributes> cellProps = new List<CellAttributes>();
@@ -21,7 +20,7 @@ namespace CastReporting.Reporting.Block.Table
             // cellProps will contains the properties of the cell (background color) linked to the data by position in the list stored with cellidx.
 
             string ruleId = options.GetOption("ID", "7788");
-            const int bcId = (int)BusinessCriteria.TechnicalQualityIndex;
+            const string bcId = "60017";
             int nbLimitTop = options.GetIntOption("COUNT", 5);
             string showDescription = options.GetOption("DESC", "no").ToLower();
 
