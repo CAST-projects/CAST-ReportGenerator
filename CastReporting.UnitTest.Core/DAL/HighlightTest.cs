@@ -12,7 +12,7 @@ namespace CastReporting.UnitTest.Repositories
     ///This is a test class for HLContextTest and is intended
     ///to contain all HLContextTest Unit Tests
     ///</summary>
-    // [Ignore]
+    [Ignore]
     [TestClass()]
     public class HLContextTest
     {

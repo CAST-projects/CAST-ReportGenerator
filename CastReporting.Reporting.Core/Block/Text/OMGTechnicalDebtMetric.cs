@@ -25,7 +25,7 @@ using CastReporting.BLL.Computing;
 namespace CastReporting.Reporting.Block.Text
 {
     [Block("OMG_TECHNICAL_DEBT")]
-    public class OMGTechnicalDebtMetric : TextBlock
+    public class OMGTechnicalDebtMetric : TextBlock<ImagingData>
     {
         #region METHODS
         public override string Content(ImagingData reportData, Dictionary<string, string> options)

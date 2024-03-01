@@ -24,7 +24,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Text
 {
     [Block("APPLICATION_QUALITY_TYPE")]
-    public class ApplicationQualityType : TextBlock
+    public class ApplicationQualityType : TextBlock<ImagingData>
     {
 
 

@@ -28,7 +28,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("RULES_LIST_STATISTICS_RATIO")]
-    public class RulesListStatisticsRatio : TableBlock
+    public class RulesListStatisticsRatio : TableBlock<ImagingData>
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

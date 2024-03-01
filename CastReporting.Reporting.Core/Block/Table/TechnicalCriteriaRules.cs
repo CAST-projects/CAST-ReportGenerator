@@ -25,7 +25,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("TECHNICAL_CRITERIA_RULES")]
-    public class TechnicalCriteriaRules : TableBlock
+    public class TechnicalCriteriaRules : TableBlock<ImagingData>
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

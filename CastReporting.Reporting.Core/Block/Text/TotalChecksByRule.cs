@@ -26,7 +26,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Text
 {
     [Block("RULE_TOTAL_CHECKS")]
-    public class TotalChecksByRule : TextBlock
+    public class TotalChecksByRule : TextBlock<ImagingData>
     {
         #region METHODS
         public override string Content(ImagingData reportData, Dictionary<string, string> options)

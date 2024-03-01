@@ -28,7 +28,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("QUALITY_TAGS_RULES_EVOLUTION")]
-    public class QualityTagsRulesEvolution : TableBlock
+    public class QualityTagsRulesEvolution : TableBlock<ImagingData>
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

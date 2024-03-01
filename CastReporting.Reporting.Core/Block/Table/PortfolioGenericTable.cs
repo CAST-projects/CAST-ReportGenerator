@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("PF_GENERIC_TABLE")]
-    public class PortfolioGenericTable : TableBlock
+    public class PortfolioGenericTable : TableBlock<ImagingData>
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

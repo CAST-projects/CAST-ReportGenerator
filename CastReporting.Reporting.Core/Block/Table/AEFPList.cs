@@ -12,7 +12,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("AEFP_LIST")]
-    public class AEFPList : TableBlock
+    public class AEFPList : TableBlock<ImagingData>
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

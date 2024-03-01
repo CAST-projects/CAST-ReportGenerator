@@ -26,7 +26,7 @@ using System.Globalization;
 namespace CastReporting.Reporting.Block.Graph
 {
     [Block("CAST_COMPLEXITY")]
-    public class CastComplexity : GraphBlock
+    public class CastComplexity : GraphBlock<ImagingData>
     {
         #region METHODS
 

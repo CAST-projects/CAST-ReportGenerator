@@ -22,7 +22,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Text
 {
     [Block("METRIC_EFP_MODIFIED")]
-    public class EFPModified : TextBlock
+    public class EFPModified : TextBlock<ImagingData>
     {
         #region METHODS
         public override string Content(ImagingData reportData, Dictionary<string, string> options)

@@ -25,7 +25,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("CAST_HIGH_COMPLEXITY")]
-    public class CastHighComplexity : TableBlock
+    public class CastHighComplexity : TableBlock<ImagingData>
     {
         private const string MetricFormat = "N0";
 

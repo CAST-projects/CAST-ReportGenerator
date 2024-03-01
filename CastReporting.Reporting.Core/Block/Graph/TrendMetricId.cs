@@ -18,7 +18,7 @@ namespace CastReporting.Reporting.Block.Graph
 {
 
     [Block("TREND_METRIC_ID")]
-    public class TrendMetricId : GraphBlock
+    public class TrendMetricId : GraphBlock<ImagingData>
     {
 
         #region METHODS

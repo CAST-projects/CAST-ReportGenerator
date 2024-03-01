@@ -27,7 +27,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("HF_BY_MODULE")]
-    public class HFbyModule : TableBlock
+    public class HFbyModule : TableBlock<ImagingData>
     {
         /// <summary>
         /// 

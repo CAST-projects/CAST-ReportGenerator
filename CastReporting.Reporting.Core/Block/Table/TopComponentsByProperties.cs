@@ -30,7 +30,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("TOP_COMPONENTS_BY_PROPERTIES")]
-    public class TopComponentsByProperties : TableBlock
+    public class TopComponentsByProperties : TableBlock<ImagingData>
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

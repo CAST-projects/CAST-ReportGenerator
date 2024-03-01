@@ -25,7 +25,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("TOP_RISKIEST_COMPONENTS")]
-    public class TopRiskiestComponents : TableBlock
+    public class TopRiskiestComponents : TableBlock<ImagingData>
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

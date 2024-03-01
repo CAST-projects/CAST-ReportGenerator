@@ -26,7 +26,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("TQI_BY_MODULE")]
-    public class TQIbyModule : TableBlock
+    public class TQIbyModule : TableBlock<ImagingData>
     {
         /// <summary>
         /// 

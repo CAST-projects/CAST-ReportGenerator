@@ -24,7 +24,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("BC_BY_TECHNO")]
-    public class TQIbyTechno : TableBlock
+    public class TQIbyTechno : TableBlock<ImagingData>
     {
 
         /// <summary>

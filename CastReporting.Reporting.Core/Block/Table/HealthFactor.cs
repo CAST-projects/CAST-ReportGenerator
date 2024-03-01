@@ -25,7 +25,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("HEALTH_FACTOR")]
-    public class HealthFactor : TableBlock
+    public class HealthFactor : TableBlock<ImagingData>
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

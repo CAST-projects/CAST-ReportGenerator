@@ -98,17 +98,17 @@ namespace CastReporting.Reporting.Builder
                 BlockConfiguration config = GetBlockConfiguration(block);
                 try
                 {
-                    if (TextBlock.IsMatching(config.Type))
+                    if (TextBlock<ImagingData>.IsMatching(config.Type))
                     {
-                        TextBlock.BuildContent(ReportData, container, block, config.Name, config.Options);
+                        TextBlock<ImagingData>.BuildContent(ReportData, container, block, config.Name, config.Options);
                     }
-                    else if (TableBlock.IsMatching(config.Type))
+                    else if (TableBlock<ImagingData>.IsMatching(config.Type))
                     {
-                        TableBlock.BuildContent(ReportData, container, block, config.Name, config.Options);
+                        TableBlock<ImagingData>.BuildContent(ReportData, container, block, config.Name, config.Options);
                     }
-                    else if (GraphBlock.IsMatching(config.Type))
+                    else if (GraphBlock<ImagingData>.IsMatching(config.Type))
                     {
-                        GraphBlock.BuildContent(ReportData, Package, block, config.Name, config.Options);
+                        GraphBlock<ImagingData>.BuildContent(ReportData, Package, block, config.Name, config.Options);
                     }
                     else
                     {

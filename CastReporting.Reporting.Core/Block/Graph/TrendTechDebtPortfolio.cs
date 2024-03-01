@@ -28,7 +28,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Graph
 {
     [Block("PF_TREND_TECH_DEBT")]
-    public class TrendTechDebtPortfolio : GraphBlock
+    public class TrendTechDebtPortfolio : GraphBlock<ImagingData>
     {
 
         #region METHODS

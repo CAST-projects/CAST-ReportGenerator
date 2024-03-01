@@ -11,7 +11,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("VIOLATIONS_LIST")]
-    public class ViolationsListByBC : TableBlock
+    public class ViolationsListByBC : TableBlock<ImagingData>
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

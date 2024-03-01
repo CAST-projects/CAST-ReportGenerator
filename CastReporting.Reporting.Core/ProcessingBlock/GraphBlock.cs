@@ -32,13 +32,13 @@ using System.Threading;
 using System.Xml.Linq;
 using OXS = DocumentFormat.OpenXml.Spreadsheet;
 using OXW = DocumentFormat.OpenXml.Wordprocessing;
-using HL = CastReporting.Reporting.Highlight.Builder.BlockProcessing;
+using CastReporting.Reporting.Highlight.ReportingModel;
 // ReSharper disable UnusedParameter.Local
 
 namespace CastReporting.Reporting.Builder.BlockProcessing
 {
     [BlockType("GRAPH")]
-    public abstract class GenericGraphBlock<D> where D : IAppData
+    public abstract class GraphBlock<D> where D : IReportData
     {
         #region PROPERTIES
         private static string BlockTypeName => "GRAPH";
@@ -66,10 +66,10 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
             var previousCulture = Thread.CurrentThread.CurrentCulture;
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 
-            GraphBlock imgInstance = BlockHelper.GetAssociatedBlockInstance<GraphBlock>(blockName);
+            GraphBlock<ImagingData> imgInstance = BlockHelper.GetAssociatedBlockInstance<GraphBlock<ImagingData>>(blockName);
             if (imgInstance != null)
             {
-                LogHelper.LogDebugFormat("Start GraphBlock generation : Type {0}", blockName);
+                LogHelper.LogDebugFormat("Start GraphBlock<ImagingData> generation : Type {0}", blockName);
                 Stopwatch treatmentWatch = Stopwatch.StartNew();
                 TableDefinition content = imgInstance.Content(client.ImagingData, options);
                 try
@@ -85,7 +85,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
 
                     treatmentWatch.Stop();
                     LogHelper.LogDebugFormat
-                    ("End GraphBlock generation ({0}) in {1} millisecond{2}"
+                    ("End GraphBlock<ImagingData> generation ({0}) in {1} millisecond{2}"
                         , blockName
                         , treatmentWatch.ElapsedMilliseconds
                         , treatmentWatch.ElapsedMilliseconds > 1 ? "s" : string.Empty
@@ -96,10 +96,10 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
 
             if (client.HighlightData != null)
             {
-                HL.GraphBlock hlInstance = BlockHelper.GetAssociatedBlockInstance<HL.GraphBlock>(blockName);
+                GraphBlock<HighlightData> hlInstance = BlockHelper.GetAssociatedBlockInstance<GraphBlock<HighlightData>>(blockName);
                 if (hlInstance != null)
                 {
-                    LogHelper.LogDebugFormat("Start HL.GraphBlock generation : Type {0}", blockName);
+                    LogHelper.LogDebugFormat("Start GraphBlock<HighlightData> generation : Type {0}", blockName);
                     Stopwatch treatmentWatch = Stopwatch.StartNew();
                     TableDefinition content = hlInstance.Content(client.HighlightData, options);
                     try
@@ -115,7 +115,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
 
                         treatmentWatch.Stop();
                         LogHelper.LogDebugFormat
-                        ("End HL.GraphBlock generation ({0}) in {1} millisecond{2}"
+                        ("End GraphBlock<HighlightData> generation ({0}) in {1} millisecond{2}"
                             , blockName
                             , treatmentWatch.ElapsedMilliseconds
                             , treatmentWatch.ElapsedMilliseconds > 1 ? "s" : string.Empty
@@ -755,9 +755,5 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
             }
         }
         #endregion METHODS
-    }
-
-    public abstract class GraphBlock : GenericGraphBlock<ImagingData>
-    {
     }
 }

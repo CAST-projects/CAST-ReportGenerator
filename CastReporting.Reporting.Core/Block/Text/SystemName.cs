@@ -21,7 +21,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Text
 {
     [Block("SYSTEM_NAME")]
-    public class SystemName : TextBlock
+    public class SystemName : TextBlock<ImagingData>
     {
         #region METHODS
         public override string Content(ImagingData reportData, Dictionary<string, string> options)

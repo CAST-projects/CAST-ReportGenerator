@@ -29,7 +29,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("PF_BC_RELEASE_PERFORMANCE")]
-    public class PortfolioReleasePerformance : TableBlock
+    public class PortfolioReleasePerformance : TableBlock<ImagingData>
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

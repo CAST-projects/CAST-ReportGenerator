@@ -26,7 +26,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("TOP_CRITICAL_VIOLATIONS_EVOLUTION")]
-    public class TopCriticalViolationsEvolution : TableBlock
+    public class TopCriticalViolationsEvolution : TableBlock<ImagingData>
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

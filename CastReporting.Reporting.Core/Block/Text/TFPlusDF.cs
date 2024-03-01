@@ -22,7 +22,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Text
 {
     [Block("DF_TF_TOTAL_FUNCTIONS")]
-    public class TFPlusDF : TextBlock
+    public class TFPlusDF : TextBlock<ImagingData>
     {
         #region METHODS
         public override string Content(ImagingData reportData, Dictionary<string, string> options)

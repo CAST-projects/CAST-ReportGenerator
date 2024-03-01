@@ -26,7 +26,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("VIOLATION_STATISTICS")]
-    public class ViolationStatistics : TableBlock
+    public class ViolationStatistics : TableBlock<ImagingData>
     {
         #region METHODS
 

@@ -1,4 +1,4 @@
 namespace CastReporting.Reporting.ReportingModel
 {
-    public interface IAppData { }
+    public interface IReportData { }
 }

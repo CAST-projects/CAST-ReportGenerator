@@ -29,13 +29,13 @@ using System.Linq;
 using OXD = DocumentFormat.OpenXml.Drawing;
 using OXP = DocumentFormat.OpenXml.Presentation;
 using OXW = DocumentFormat.OpenXml.Wordprocessing;
-using HL = CastReporting.Reporting.Highlight.Builder.BlockProcessing;
+using CastReporting.Reporting.Highlight.ReportingModel;
 // ReSharper disable PossiblyMistakenUseOfParamsMethod
 
 namespace CastReporting.Reporting.Builder.BlockProcessing
 {
     [BlockType("TABLE")]
-    public abstract class GenericTableBlock<D> where D : IAppData
+    public abstract class TableBlock<D> where D : IReportData
     {
         #region ABSTRACTS - To be implemented by Inherited children
         public abstract TableDefinition Content(D data, Dictionary<string, string> options);
@@ -56,32 +56,33 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
             return BlockTypeName.Equals(blockType);
         }
 
-        public static TableDefinition GetContent(string blockName, ReportData client, Dictionary<string, string> options)
-        {
-            TableBlock imgInstance = BlockHelper.GetAssociatedBlockInstance<TableBlock>(blockName);
-            if (imgInstance != null)
-            {
-                return imgInstance.Content(client.ImagingData, options);
-            }
+        // public static TableDefinition GetContent(string blockName, ReportData client, Dictionary<string, string> options)
+        // {
+        //     TableBlock<ImagingData> imgInstance = BlockHelper.GetAssociatedBlockInstance<TableBlock<ImagingData>>(blockName);
+        //     if (imgInstance != null)
+        //     {
+        //         return imgInstance.Content(client.ImagingData, options);
+        //     }
 
-            if (client.HighlightData != null)
-            {
-                HL.TableBlock hlInstance = BlockHelper.GetAssociatedBlockInstance<HL.TableBlock>(blockName);
-                if (hlInstance != null)
-                {
-                    return hlInstance.Content(client.HighlightData, options);
-                }
-            }
+        //     if (client.HighlightData != null)
+        //     {
+        //         TableBlock<HighlightData> hlInstance = BlockHelper.GetAssociatedBlockInstance<TableBlock<HighlightData>>(blockName);
+        //         if (hlInstance != null)
+        //         {
+        //             return hlInstance.Content(client.HighlightData, options);
+        //         }
+        //     }
 
-            return null;
-        }
+        //     return null;
+        // }
+
         public static void BuildContent(ReportData client, OpenXmlPartContainer container, BlockItem block, string blockName, Dictionary<string, string> options)
         {
-            TableBlock imgInstance = BlockHelper.GetAssociatedBlockInstance<TableBlock>(blockName);
+            TableBlock<ImagingData> imgInstance = BlockHelper.GetAssociatedBlockInstance<TableBlock<ImagingData>>(blockName);
             if (imgInstance != null)
             {
 
-                LogHelper.LogDebugFormat("Start TableBlock generation : Type {0}", blockName);
+                LogHelper.LogDebugFormat("Start TableBlock<ImagingData> generation : Type {0}", blockName);
                 Stopwatch treatmentWatch = Stopwatch.StartNew();
                 TableDefinition content = imgInstance.Content(client.ImagingData, options);
                 if (null != content)
@@ -90,7 +91,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
                 }
                 treatmentWatch.Stop();
                 LogHelper.LogDebugFormat
-                ("End TableBlock generation ({0}) in {1} millisecond{2}"
+                ("End TableBlock<ImagingData> generation ({0}) in {1} millisecond{2}"
                     , blockName
                     , treatmentWatch.ElapsedMilliseconds.ToString()
                     , treatmentWatch.ElapsedMilliseconds > 1 ? "s" : string.Empty
@@ -100,11 +101,11 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
 
             if (client.HighlightData != null)
             {
-                HL.TableBlock hlInstance = BlockHelper.GetAssociatedBlockInstance<HL.TableBlock>(blockName);
+                TableBlock<HighlightData> hlInstance = BlockHelper.GetAssociatedBlockInstance<TableBlock<HighlightData>>(blockName);
                 if (hlInstance != null)
                 {
 
-                    LogHelper.LogDebugFormat("Start HL.TableBlock generation : Type {0}", blockName);
+                    LogHelper.LogDebugFormat("Start TableBlock<HighlightData> generation : Type {0}", blockName);
                     Stopwatch treatmentWatch = Stopwatch.StartNew();
                     TableDefinition content = hlInstance.Content(client.HighlightData, options);
                     if (null != content)
@@ -113,7 +114,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
                     }
                     treatmentWatch.Stop();
                     LogHelper.LogDebugFormat
-                    ("End HL.TableBlock generation ({0}) in {1} millisecond{2}"
+                    ("End TableBlock<HighlightData> generation ({0}) in {1} millisecond{2}"
                         , blockName
                         , treatmentWatch.ElapsedMilliseconds.ToString()
                         , treatmentWatch.ElapsedMilliseconds > 1 ? "s" : string.Empty
@@ -683,6 +684,4 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
 
         #endregion METHODS
     }
-
-    public abstract class TableBlock : GenericTableBlock<ImagingData> { }
 }

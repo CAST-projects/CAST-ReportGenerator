@@ -29,7 +29,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("OMG_TECHNICAL_DEBT_EVOLUTION")]
-    public class OmgTechnicalDebtEvolution : TableBlock
+    public class OmgTechnicalDebtEvolution : TableBlock<ImagingData>
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

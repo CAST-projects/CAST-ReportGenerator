@@ -30,7 +30,7 @@ namespace CastReporting.Reporting.Block.Table
     /// TechnicalSizingEvolution Class
     /// </summary>
     [Block("FUNCTIONAL_WEIGHT_EVOLUTION")]
-    public class FunctionalWeightEvolution : TableBlock
+    public class FunctionalWeightEvolution : TableBlock<ImagingData>
     {
         #region METHODS
 

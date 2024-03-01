@@ -21,7 +21,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Text
 {
     [Block("APPLICATION_SCHEMA")]
-    public class ADGDatabase : TextBlock
+    public class ADGDatabase : TextBlock<ImagingData>
     {
 
         #region METHODS

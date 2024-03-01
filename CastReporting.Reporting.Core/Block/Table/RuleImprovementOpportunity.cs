@@ -28,7 +28,7 @@ namespace CastReporting.Reporting.Block.Table
     /// Rule Improvement Opportunity Class
     /// </summary>
     [Block("RULE_IMPROVEMENT_OPPORTUNITY")]
-    public class RuleImprovementOpportunity : TableBlock
+    public class RuleImprovementOpportunity : TableBlock<ImagingData>
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

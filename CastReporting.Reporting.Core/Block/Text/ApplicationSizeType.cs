@@ -23,7 +23,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Text
 {
     [Block("APPLICATION_SIZE_TYPE")]
-    public class ApplicationSizeType : TextBlock
+    public class ApplicationSizeType : TextBlock<ImagingData>
     {
 
 

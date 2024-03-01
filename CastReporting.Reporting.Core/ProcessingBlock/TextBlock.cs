@@ -27,12 +27,12 @@ using System.Linq;
 using OXD = DocumentFormat.OpenXml.Drawing;
 using OXP = DocumentFormat.OpenXml.Presentation;
 using OXW = DocumentFormat.OpenXml.Wordprocessing;
-using HL = CastReporting.Reporting.Highlight.Builder.BlockProcessing;
+using CastReporting.Reporting.Highlight.ReportingModel;
 
 namespace CastReporting.Reporting.Builder.BlockProcessing
 {
     [BlockType("TEXT")]
-    public abstract class GenericTextBlock<D> where D : IAppData
+    public abstract class TextBlock<D> where D : IReportData
     {
         #region ABSTRACT - To be implemented by Inherited children
         /// <summary>
@@ -61,16 +61,16 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
 
         public static void BuildContent(ReportData client, OpenXmlPartContainer container, BlockItem block, string blockName, Dictionary<string, string> options)
         {
-            TextBlock imgInstance = BlockHelper.GetAssociatedBlockInstance<TextBlock>(blockName);
+            TextBlock<ImagingData> imgInstance = BlockHelper.GetAssociatedBlockInstance<TextBlock<ImagingData>>(blockName);
             if (imgInstance != null)
             {
-                LogHelper.LogDebugFormat("Start TextBlock generation : Type {0}", blockName);
+                LogHelper.LogDebugFormat("Start TextBlock<ImagingData> generation : Type {0}", blockName);
                 Stopwatch treatmentWatch = Stopwatch.StartNew();
                 string content = imgInstance.Content(client.ImagingData, options);
                 ApplyContent(client.ReportType, container, block, content);
                 treatmentWatch.Stop();
                 LogHelper.LogDebugFormat
-                ("End TextBlock generation ({0}) in {1} ms"
+                ("End TextBlock<ImagingData> generation ({0}) in {1} ms"
                     , blockName
                     , treatmentWatch.ElapsedMilliseconds.ToString()
                 );
@@ -79,16 +79,16 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
 
             if (client.HighlightData != null)
             {
-                HL.TextBlock hlInstance = BlockHelper.GetAssociatedBlockInstance<HL.TextBlock>(blockName);
+                TextBlock<HighlightData> hlInstance = BlockHelper.GetAssociatedBlockInstance<TextBlock<HighlightData>>(blockName);
                 if (hlInstance != null)
                 {
-                    LogHelper.LogDebugFormat("Start HL.TextBlock generation : Type {0}", blockName);
+                    LogHelper.LogDebugFormat("Start TextBlock<HighlightData> generation : Type {0}", blockName);
                     Stopwatch treatmentWatch = Stopwatch.StartNew();
                     string content = hlInstance.Content(client.HighlightData, options);
                     ApplyContent(client.ReportType, container, block, content);
                     treatmentWatch.Stop();
                     LogHelper.LogDebugFormat
-                    ("End HL.TextBlock generation ({0}) in {1} ms"
+                    ("End TextBlock<HighlightData> generation ({0}) in {1} ms"
                         , blockName
                         , treatmentWatch.ElapsedMilliseconds.ToString()
                     );
@@ -187,6 +187,4 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
         }
         #endregion METHODS
     }
-
-    public abstract class TextBlock : GenericTextBlock<ImagingData> { }
 }

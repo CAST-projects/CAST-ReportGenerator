@@ -25,7 +25,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Graph
 {
     [Block("TECHNO_LOC")]
-    public class PieTechnoLoC : GraphBlock
+    public class PieTechnoLoC : GraphBlock<ImagingData>
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

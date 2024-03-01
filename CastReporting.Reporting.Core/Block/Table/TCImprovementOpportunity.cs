@@ -25,7 +25,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("TC_IMPROVEMENT_OPPORTUNITY")]
-    public class TCImprovementOpportunity : TableBlock
+    public class TCImprovementOpportunity : TableBlock<ImagingData>
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

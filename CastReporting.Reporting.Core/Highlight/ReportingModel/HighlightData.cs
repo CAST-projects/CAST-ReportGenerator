@@ -19,7 +19,7 @@ using CastReporting.Reporting.ReportingModel;
 
 namespace CastReporting.Reporting.Highlight.ReportingModel
 {
-    public class HighlightData : IAppData
+    public class HighlightData : IReportData
     {
     }
 }

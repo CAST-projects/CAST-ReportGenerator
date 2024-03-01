@@ -10,7 +10,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("CRITICAL_VIOL_BY_APPLICATION")]
-    public class CriticalVIolationByApplication : TableBlock
+    public class CriticalVIolationByApplication : TableBlock<ImagingData>
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

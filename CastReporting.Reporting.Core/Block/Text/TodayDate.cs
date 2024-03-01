@@ -23,7 +23,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Text
 {
     [Block("TODAY_DATE")]
-    public class TodayDate : TextBlock
+    public class TodayDate : TextBlock<ImagingData>
     {
         #region METHODS
         public override string Content(ImagingData reportData, Dictionary<string, string> options)

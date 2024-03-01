@@ -24,7 +24,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("TECHNO_LOC")]
-    public class TechnoLoC : TableBlock
+    public class TechnoLoC : TableBlock<ImagingData>
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

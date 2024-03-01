@@ -28,7 +28,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Text
 {
     [Block("PF_CRITICAL_VIOLATIONS")]
-    public class PortfolioCriticalViolations : TextBlock
+    public class PortfolioCriticalViolations : TextBlock<ImagingData>
     {
         #region METHODS
         public override string Content(ImagingData reportData, Dictionary<string, string> options)

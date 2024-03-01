@@ -12,7 +12,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("LIST_TAGS_DOC_BYCAT")]
-    public class ListTagsDocByCategory : TableBlock
+    public class ListTagsDocByCategory : TableBlock<ImagingData>
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

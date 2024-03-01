@@ -14,14 +14,14 @@
  *
  */
 using CastReporting.Reporting.Atrributes;
-using CastReporting.Reporting.Highlight.Builder.BlockProcessing;
+using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Highlight.ReportingModel;
 using System.Collections.Generic;
 
 namespace CastReporting.Reporting.Highlight.Block.Text
 {
     [Block("HL_APPLICATION_NAME")]
-    public class ApplicationName : TextBlock
+    public class ApplicationName : TextBlock<HighlightData>
     {
         #region METHODS
         public override string Content(HighlightData data, Dictionary<string, string> options)

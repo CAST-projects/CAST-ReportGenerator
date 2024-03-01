@@ -28,7 +28,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Graph
 {
     [Block("OMG_TECH_DEBT_BUBBLE")]
-    public class OmgTechDebtBubble : GraphBlock
+    public class OmgTechDebtBubble : GraphBlock<ImagingData>
     {
         #region METHODS
 

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Text
 {
     [Block("CUSTOM_EXPRESSION")]
-    public class CustomExpression : TextBlock
+    public class CustomExpression : TextBlock<ImagingData>
     {
         #region METHODS
 

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Graph
 {
     [Block("GENERIC_GRAPH")]
-    public class GenericGraph : GraphBlock
+    public class GenericGraph : GraphBlock<ImagingData>
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

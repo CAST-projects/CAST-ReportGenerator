@@ -23,7 +23,7 @@ namespace CastReporting.Reporting.ReportingModel
     /// <summary>
     /// 
     /// </summary>
-    public class ImagingData : IAppData, IDisposable
+    public class ImagingData : IReportData, IDisposable
     {
         /// <summary>
         /// 

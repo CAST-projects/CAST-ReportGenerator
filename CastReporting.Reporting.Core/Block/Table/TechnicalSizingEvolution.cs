@@ -28,7 +28,7 @@ namespace CastReporting.Reporting.Block.Table
     /// TechnicalSizingEvolution Class
     /// </summary>
     [Block("TECHNICAL_SIZING_EVOLUTION")]
-    public class TechnicalSizingEvolution : TableBlock
+    public class TechnicalSizingEvolution : TableBlock<ImagingData>
     {
         #region METHODS
 

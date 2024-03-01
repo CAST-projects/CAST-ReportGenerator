@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Graph
 {
     [Block("PF_GENERIC_GRAPH")]
-    public class PortfolioGenericGraph : GraphBlock
+    public class PortfolioGenericGraph : GraphBlock<ImagingData>
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

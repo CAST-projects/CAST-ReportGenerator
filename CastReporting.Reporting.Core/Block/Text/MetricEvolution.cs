@@ -26,7 +26,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Text
 {
     [Block("METRIC_EVOLUTION")]
-    public class MetricEvolution : TextBlock
+    public class MetricEvolution : TextBlock<ImagingData>
     {
         #region METHODS
         public override string Content(ImagingData reportData, Dictionary<string, string> options)

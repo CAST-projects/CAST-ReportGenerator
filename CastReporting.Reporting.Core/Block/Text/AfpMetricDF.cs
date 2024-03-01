@@ -23,7 +23,7 @@ namespace CastReporting.Reporting.Block.Text
 {
 
     [Block("METRIC_AFP_DF"), Block("DATA_FUNCTIONS")]
-    public class AfpMetricDF : TextBlock
+    public class AfpMetricDF : TextBlock<ImagingData>
     {
         #region METHODS
         public override string Content(ImagingData reportData, Dictionary<string, string> options)

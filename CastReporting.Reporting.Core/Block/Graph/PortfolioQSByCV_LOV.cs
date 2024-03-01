@@ -26,7 +26,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Graph
 {
     [Block("PF_QS_BY_CVLOC")]
-    public class PortfolioQsbyCvLov : GraphBlock
+    public class PortfolioQsbyCvLov : GraphBlock<ImagingData>
     {
         #region METHODS
 

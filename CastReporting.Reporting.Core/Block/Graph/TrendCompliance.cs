@@ -30,7 +30,7 @@ namespace CastReporting.Reporting.Block.Graph
 {
 
     [Block("TREND_COMPLIANCE")]
-    public class TrendCompliance : GraphBlock
+    public class TrendCompliance : GraphBlock<ImagingData>
     {
 
         #region METHODS

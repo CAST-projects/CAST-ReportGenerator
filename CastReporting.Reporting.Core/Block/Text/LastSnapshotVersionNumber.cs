@@ -22,7 +22,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Text
 {
     [Block("LAST_SNAPSHOT_VERSION")]
-    public class LastSnapshotVersionNumber : TextBlock
+    public class LastSnapshotVersionNumber : TextBlock<ImagingData>
     {
         #region METHODS
         public override string Content(ImagingData reportData, Dictionary<string, string> options)

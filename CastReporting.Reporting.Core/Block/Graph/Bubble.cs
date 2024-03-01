@@ -26,7 +26,7 @@ using System.Globalization;
 namespace CastReporting.Reporting.Block.Graph
 {
     [Block("BUBBLE")]
-    public class Bubble : GraphBlock
+    public class Bubble : GraphBlock<ImagingData>
     {
         #region METHODS
 

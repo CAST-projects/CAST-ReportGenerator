@@ -201,17 +201,17 @@ namespace CastReporting.Reporting.Builder
 
                                 BlockConfiguration config = GetBlockConfiguration(strBlockTypeAndName);
 
-                                if (TextBlock.IsMatching(config.Type))
+                                if (TextBlock<ImagingData>.IsMatching(config.Type))
                                 {
-                                    TextBlock instance = BlockHelper.GetAssociatedBlockInstance<TextBlock>(config.Name);
+                                    TextBlock<ImagingData> instance = BlockHelper.GetAssociatedBlockInstance<TextBlock<ImagingData>>(config.Name);
                                     if (instance != null)
                                     {
                                         SetCellValue(cell, instance.Content(reportData.ImagingData, config.Options));
                                     }
                                 }
-                                else if (TableBlock.IsMatching(config.Type))
+                                else if (TableBlock<ImagingData>.IsMatching(config.Type))
                                 {
-                                    TableBlock instance = BlockHelper.GetAssociatedBlockInstance<TableBlock>(config.Name);
+                                    TableBlock<ImagingData> instance = BlockHelper.GetAssociatedBlockInstance<TableBlock<ImagingData>>(config.Name);
                                     if (instance != null)
                                     {
                                         tableTargets.Add(new TableInfo

@@ -23,7 +23,7 @@ namespace CastReporting.Reporting.ReportingModel
     /// <summary>
     /// 
     /// </summary>
-    public class ReportData
+    public class ReportData : IReportData
     {
 
 

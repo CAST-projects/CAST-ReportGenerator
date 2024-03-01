@@ -10,7 +10,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("QUALITY_RULE_VIOLATIONS_BOOKMARKS")]
-    public class QualityRuleViolationsBookmarks : TableBlock
+    public class QualityRuleViolationsBookmarks : TableBlock<ImagingData>
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

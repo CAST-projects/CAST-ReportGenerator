@@ -25,7 +25,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("RULES_LIST")]
-    public class RulesList : TableBlock
+    public class RulesList : TableBlock<ImagingData>
     {
 
         /// <summary>

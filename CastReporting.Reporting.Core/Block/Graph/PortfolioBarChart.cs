@@ -13,7 +13,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Graph
 {
     [Block("PF_BAR_CHART")]
-    public class PortfolioBarChart : GraphBlock
+    public class PortfolioBarChart : GraphBlock<ImagingData>
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
