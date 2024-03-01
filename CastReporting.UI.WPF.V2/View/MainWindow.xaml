@@ -16,11 +16,12 @@
     </Window.Background>
     
     <Window.CommandBindings>
-        <CommandBinding Command="{x:Static commands:MenuCommand.OpenWebServiceConfiguration}" CanExecute="CanExecute" Executed="OnCommandMenuExecuted"/>
-        <CommandBinding Command="{x:Static commands:MenuCommand.OpenReporting}"               CanExecute="CanExecute" Executed="OnCommandMenuExecuted"/>
-        <CommandBinding Command="{x:Static commands:MenuCommand.OpenSettings}"                CanExecute="CanExecute" Executed="OnCommandMenuExecuted"/>
-        <CommandBinding Command="{x:Static commands:MenuCommand.OpenHelp}"                    CanExecute="CanExecute" Executed="OnCommandMenuExecuted"/>
-        <CommandBinding Command="{x:Static commands:MenuCommand.Quit}"                        CanExecute="CanExecute" Executed="OnQuitExecuted"/>
+        <CommandBinding Command="{x:Static commands:MenuCommand.OpenWebServiceConfiguration}"   CanExecute="CanExecute" Executed="OnCommandMenuExecuted"/>
+        <CommandBinding Command="{x:Static commands:MenuCommand.OpenHLWebServiceConfiguration}" CanExecute="CanExecute" Executed="OnCommandMenuExecuted"/>
+        <CommandBinding Command="{x:Static commands:MenuCommand.OpenReporting}"                 CanExecute="CanExecute" Executed="OnCommandMenuExecuted"/>
+        <CommandBinding Command="{x:Static commands:MenuCommand.OpenSettings}"                  CanExecute="CanExecute" Executed="OnCommandMenuExecuted"/>
+        <CommandBinding Command="{x:Static commands:MenuCommand.OpenHelp}"                      CanExecute="CanExecute" Executed="OnCommandMenuExecuted"/>
+        <CommandBinding Command="{x:Static commands:MenuCommand.Quit}"                          CanExecute="CanExecute" Executed="OnQuitExecuted"/>
     </Window.CommandBindings>
     
     <Window.Resources>

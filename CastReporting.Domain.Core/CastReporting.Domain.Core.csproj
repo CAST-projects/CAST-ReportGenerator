@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Cast.Util.Core\Cast.Util.Core.csproj" />
+    <ProjectReference Include="..\CastReporting.HL.Domain.Core\CastReporting.HL.Domain.Core.csproj" />
   </ItemGroup>
 
 </Project>

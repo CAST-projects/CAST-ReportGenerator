@@ -1028,8 +1028,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         {
             StatesEnum state;
             Setting = SettingsBLL.AddConnection(connection, true, out state);
-
-            MessageManager.OnServiceAdded(connection.Uri == null ? string.Empty : connection.Uri.ToString(), state);
+            MessageManager.OnServiceAdded(state);
         }
     }
 }

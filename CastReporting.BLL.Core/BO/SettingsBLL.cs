@@ -15,6 +15,7 @@
  *
  */
 using CastReporting.Domain;
+using CastReporting.HL.Domain;
 using CastReporting.Repositories;
 using CastReporting.Repositories.Interfaces;
 using System.Collections.Generic;
@@ -173,7 +174,7 @@ namespace CastReporting.BLL
 
                 if (isActive)
                 {
-                    setting.ChangeActiveConnection(connection.Uri.ToString());
+                    setting.ChangeActiveConnection(connection);
                     state = StatesEnum.ConnectionAddedAndActivated;
                 }
                 else
@@ -187,6 +188,54 @@ namespace CastReporting.BLL
             }
         }
 
+        public static Setting AddConnection(HLWSConnection connection, bool isActive, out StatesEnum state)
+        {
+            using (ISettingRepository settingRepository = new SettingsRepository())
+            {
+                var setting = settingRepository.GetSeting();
+
+                if (!CommonBLL.CheckService(connection))
+                {
+                    state = StatesEnum.ServiceInvalid;
+                    return setting;
+                }
+
+                if (!setting.HLWSConnections.Any(x => x.Equals(connection)))
+                {
+                    setting.HLWSConnections.Add(connection);
+                }
+                else
+                {
+                    HLWSConnection existing = setting.HLWSConnections?.Where(x => x.Equals(connection)).FirstOrDefault();
+                    if (existing?.Login == connection.Login && existing?.Password == connection.Password && existing?.ApiKey == connection.ApiKey)
+                    {
+                        // ReSharper disable once RedundantAssignment
+                        state = StatesEnum.ConnectionAlreadyExist;
+                    }
+                    else
+                    {
+                        setting.HLWSConnections.Remove(existing);
+                        setting.HLWSConnections.Add(connection);
+                    }
+
+                }
+
+
+                if (isActive)
+                {
+                    setting.ChangeActiveConnection(connection);
+                    state = StatesEnum.ConnectionAddedAndActivated;
+                }
+                else
+                {
+                    state = StatesEnum.ConnectionAddedSuccessfully;
+                }
+
+                settingRepository.SaveSetting(setting);
+
+                return setting;
+            }
+        }
 
         /// <summary>
         /// 
@@ -198,6 +247,18 @@ namespace CastReporting.BLL
             {
                 var setting = setttingRepository.GetSeting();
                 setting.WSConnections.Remove(connection);
+                setttingRepository.SaveSetting(setting);
+
+                return setting;
+            }
+        }
+
+        public static Setting RemoveConnection(HLWSConnection connection)
+        {
+            using (ISettingRepository setttingRepository = new SettingsRepository())
+            {
+                var setting = setttingRepository.GetSeting();
+                setting.HLWSConnections.Remove(connection);
                 setttingRepository.SaveSetting(setting);
 
                 return setting;

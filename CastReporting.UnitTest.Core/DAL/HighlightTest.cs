@@ -17,7 +17,7 @@ namespace CastReporting.UnitTest.Repositories
     public class HLContextTest
     {
 
-        private readonly WSConnection _connection = new WSConnection
+        private readonly HLWSConnection _connection = new HLWSConnection
         {
             Url = "https://demo.casthighlight.com/",
             Login = "***",

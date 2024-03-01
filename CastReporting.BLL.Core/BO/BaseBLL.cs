@@ -14,6 +14,10 @@
  *
  */
 using CastReporting.Domain;
+using CastReporting.HL.Domain;
+using CastReporting.HL.Mediation.Interfaces;
+using CastReporting.HL.Repositories;
+using CastReporting.HL.Repositories.Interfaces;
 using CastReporting.Mediation.Interfaces;
 using CastReporting.Repositories;
 using CastReporting.Repositories.Core.Repository;
@@ -29,7 +33,11 @@ namespace CastReporting.BLL
         // </summary>
         protected WSConnection Connection { get; set; }
 
+        protected HLWSConnection HLConnection { get; set; }
+
         protected static ICastProxy Client;
+
+        protected static IHighlightProxy HLClient;
 
         /// <summary>
         /// 
@@ -45,6 +53,13 @@ namespace CastReporting.BLL
         {
             CastRepository repo = dropCookie ? new CastRepository(connection, null) : new CastRepository(connection, Client);
             Client = repo.GetClient();
+            return repo;
+        }
+
+        protected static IHighlightRepository GetRepository(HLWSConnection connection, bool dropCookie = false)
+        {
+            HighlightRepository repo = new HighlightRepository(connection, null);
+            HLClient = repo.GetClient();
             return repo;
         }
 
@@ -70,9 +85,10 @@ namespace CastReporting.BLL
         /// 
         /// </summary>
         /// <param name="connection"></param>
-        protected BaseBLL(WSConnection connection)
+        protected BaseBLL(WSConnection connection, HLWSConnection hlConnection = null)
         {
             Connection = connection;
+            HLConnection = hlConnection;
         }
 
 

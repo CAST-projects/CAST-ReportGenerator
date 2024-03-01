@@ -5,6 +5,7 @@ namespace CastReporting.UI.WPF.Core.Commands
     public static class MenuCommand
     {
         public static RoutedCommand OpenWebServiceConfiguration { get; set; }
+        public static RoutedCommand OpenHLWebServiceConfiguration { get; set; }
         public static RoutedCommand OpenReporting { get; set; }
         public static RoutedCommand OpenSettings { get; set; }
         public static RoutedCommand OpenHelp { get; set; }
@@ -13,6 +14,7 @@ namespace CastReporting.UI.WPF.Core.Commands
         static MenuCommand()
         {
             OpenWebServiceConfiguration = new RoutedCommand();
+            OpenHLWebServiceConfiguration = new RoutedCommand();
             OpenReporting = new RoutedCommand();
             OpenSettings = new RoutedCommand();
             OpenHelp = new RoutedCommand();

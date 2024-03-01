@@ -13,6 +13,8 @@
     <ProjectReference Include="..\CastReporting.Mediation.Interfaces.Core\CastReporting.Mediation.Interfaces.Core.csproj" />
     <ProjectReference Include="..\CastReporting.Repositories.Core\CastReporting.Repositories.Core.csproj" />
     <ProjectReference Include="..\CastReporting.Repositories.Interfaces.Core\CastReporting.Repositories.Interfaces.Core.csproj" />
+    <ProjectReference Include="..\CastReporting.HL.Repositories.Core\CastReporting.HL.Repositories.Core.csproj" />
+    <ProjectReference Include="..\CastReporting.HL.Repositories.Interfaces.Core\CastReporting.HL.Repositories.Interfaces.Core.csproj" />
   </ItemGroup>
 
 </Project>

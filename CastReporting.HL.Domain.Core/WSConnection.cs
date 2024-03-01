@@ -22,10 +22,10 @@ namespace CastReporting.HL.Domain;
 /// Represents a webservice connection.
 /// </summary>    
 [Serializable]
-public class WSConnection
+public class HLWSConnection
 {
 
-    public WSConnection()
+    public HLWSConnection()
     {
     }
 
@@ -36,7 +36,7 @@ public class WSConnection
     /// <param name="login"></param>
     /// <param name="password"></param>
     /// /// <param name="name"></param>
-    public WSConnection(string url, string login, string password, string name)
+    public HLWSConnection(string url, string login, string password, string name)
     {
         Url = ValidateUrl(url);
         Login = login;
@@ -86,7 +86,6 @@ public class WSConnection
     /// </summary>    
     private string? _login;
 
-    [XmlIgnore]
     public string Login
     {
         get
@@ -157,8 +156,8 @@ public class WSConnection
 
     public override bool Equals(object? obj)
     {
-        var connection = obj as WSConnection;
-        return (connection != null) && (Uri?.Equals(connection.Uri) ?? (connection.Uri == null));
+        var connection = obj as HLWSConnection;
+        return (connection != null) && (Uri?.Equals(connection.Uri) ?? (connection.Uri == null)) && (Login?.Equals(connection.Login) ?? (connection.Login == null));
     }
 
 

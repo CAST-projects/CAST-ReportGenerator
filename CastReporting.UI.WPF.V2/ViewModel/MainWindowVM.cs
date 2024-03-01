@@ -118,30 +118,29 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// <summary>
         /// Handle the message display after service added
         /// </summary>
-        /// <param name="message"></param>
         /// <param name="state"></param>
-        public void OnServiceAdded(string message, StatesEnum state)
+        public void OnServiceAdded(StatesEnum state)
         {
             switch (state)
             {
                 case StatesEnum.ServiceInvalid:
-                    MessagesList.Add(new MessageItem { Message = Messages.msgServiceAddedFailed, FileName = string.Empty });
+                    MessagesList.Add(new MessageItem { Message = Messages.msgServiceAddedFailed });
                     break;
 
                 case StatesEnum.ConnectionAlreadyExist:
-                    MessagesList.Add(new MessageItem { Message = Messages.msgServiceAddedAlreadyExist, FileName = string.Empty });
+                    MessagesList.Add(new MessageItem { Message = Messages.msgServiceAddedAlreadyExist });
                     break;
 
                 case StatesEnum.ConnectionAddedAndActivated:
-                    MessagesList.Add(new MessageItem { Message = Messages.msgServiceActivatedAddedOK, FileName = string.Empty });
+                    MessagesList.Add(new MessageItem { Message = Messages.msgServiceActivatedAddedOK });
                     break;
 
                 case StatesEnum.ConnectionAddedSuccessfully:
-                    MessagesList.Add(new MessageItem { Message = Messages.msgServiceAddedOK, FileName = string.Empty });
+                    MessagesList.Add(new MessageItem { Message = Messages.msgServiceAddedOK });
                     break;
 
                 default:
-                    MessagesList.Add(new MessageItem { Message = Messages.msgServiceAddedOK, FileName = string.Empty });
+                    MessagesList.Add(new MessageItem { Message = Messages.msgServiceAddedOK });
                     break;
 
             }
@@ -150,29 +149,26 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// <summary>
         ///  Handle the message display after service Activated
         /// </summary>
-        /// <param name="url"></param>
-        public void OnServiceActivated(string url)
+        public void OnServiceActivated()
         {
-            MessagesList.Add(new MessageItem { Message = Messages.msgServiceActivated, FileName = string.Empty });
+            MessagesList.Add(new MessageItem { Message = Messages.msgServiceActivated });
         }
 
         /// <summary>
         ///  Handle the message display after service tested (ping)
         /// </summary>
-        /// <param name="url"></param>
         /// <param name="pingOk"></param>
-        public void OnServiceChecked(string url, bool pingOk)
+        public void OnServiceChecked(bool pingOk)
         {
-            MessagesList.Add(new MessageItem { Message = pingOk ? Messages.msgPingServiceSuccess : Messages.msgPingServiceFailure, FileName = string.Empty });
+            MessagesList.Add(new MessageItem { Message = pingOk ? Messages.msgPingServiceSuccess : Messages.msgPingServiceFailure });
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="url"></param>
-        public void OnServiceRemoved(string url)
+        public void OnServiceRemoved()
         {
-            MessagesList.Add(new MessageItem { Message = Messages.msgServiceRemoved, FileName = string.Empty });
+            MessagesList.Add(new MessageItem { Message = Messages.msgServiceRemoved });
         }
 
         /// <summary>
@@ -181,7 +177,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         public void OnSettingsSaved()
         {
 
-            MessagesList.Add(new MessageItem { Message = Messages.msgSettingsSaved, FileName = string.Empty });
+            MessagesList.Add(new MessageItem { Message = Messages.msgSettingsSaved });
         }
 
         /// <summary>
@@ -191,29 +187,29 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         public void OnErrorOccured(Exception exception)
         {
             if (exception is WebException)
-                MessagesList.Add(new MessageItem { Message = Messages.msgWSError, FileName = string.Empty });
+                MessagesList.Add(new MessageItem { Message = Messages.msgWSError });
             else
             {
                 if (exception.InnerException == null)
                 {
-                    MessagesList.Add(new MessageItem { Message = exception.Message, FileName = string.Empty });
+                    MessagesList.Add(new MessageItem { Message = exception.Message });
                     return;
                 }
 
                 if (exception.InnerException.InnerException == null)
                 {
-                    MessagesList.Add(new MessageItem { Message = Messages.msgErrorGeneratingReport, FileName = string.Empty });
-                    MessagesList.Add(new MessageItem { Message = exception.InnerException.Message, FileName = string.Empty });
+                    MessagesList.Add(new MessageItem { Message = Messages.msgErrorGeneratingReport });
+                    MessagesList.Add(new MessageItem { Message = exception.InnerException.Message });
                     return;
                 }
 
-                MessagesList.Add(new MessageItem { Message = exception.InnerException.InnerException.Message, FileName = string.Empty });
+                MessagesList.Add(new MessageItem { Message = exception.InnerException.InnerException.Message });
                 WebException _webex = exception.InnerException.InnerException as WebException;
                 if (_webex == null) return;
-                MessagesList.Add(new MessageItem { Message = Messages.msgWSError, FileName = string.Empty });
+                MessagesList.Add(new MessageItem { Message = Messages.msgWSError });
                 if (_webex.Status == WebExceptionStatus.ProtocolError)
                 {
-                    MessagesList.Add(new MessageItem { Message = Messages.msgServiceShouldBeRevalidated, FileName = string.Empty });
+                    MessagesList.Add(new MessageItem { Message = Messages.msgServiceShouldBeRevalidated });
                 }
             }
 
@@ -240,12 +236,12 @@ namespace CastReporting.UI.WPF.Core.ViewModel
 #if DEBUG
             lock (MessagesList)
             {
-                MessagesList.Add(new MessageItem { Message = $"{message}({timeSpan})", FileName = string.Empty });
+                MessagesList.Add(new MessageItem { Message = $"{message} ({timeSpan})" });
             }
 #else
             lock (MessagesList)
             {
-                MessagesList.Add(new MessageItem { Message = $"{message}", FileName = string.Empty });
+                MessagesList.Add(new MessageItem { Message = message });
             }
 #endif
         }
@@ -254,7 +250,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         {
             if (!statusOk)
             {
-                MessagesList.Add(new MessageItem { Message = Messages.extendUnavailable, FileName = string.Empty });
+                MessagesList.Add(new MessageItem { Message = Messages.extendUnavailable });
             }
         }
 
@@ -267,7 +263,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
             }
             else
             {
-                MessagesList.Add(new MessageItem { Message = Messages.rgVersionUpTodate, FileName = string.Empty });
+                MessagesList.Add(new MessageItem { Message = Messages.rgVersionUpTodate });
             }
         }
 

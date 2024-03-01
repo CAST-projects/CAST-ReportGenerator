@@ -16,6 +16,7 @@
 
 using CastReporting.BLL;
 using System;
+
 namespace CastReporting.UI.WPF.Core.Common
 {
     /// <summary>
@@ -27,7 +28,6 @@ namespace CastReporting.UI.WPF.Core.Common
         /// 
         /// </summary>
         bool IsBusy { get; }
-
 
         /// <summary>
         /// 
@@ -42,33 +42,27 @@ namespace CastReporting.UI.WPF.Core.Common
         /// <param name="timeSpan"></param>
         void OnReportGenerated(string fileName, TimeSpan timeSpan);
 
-
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="message"></param>
         /// <param name="state"></param>
-        void OnServiceAdded(string message, StatesEnum state);
+        void OnServiceAdded(StatesEnum state);
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="url"></param>
-        void OnServiceActivated(string url);
-
+        void OnServiceActivated();
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="url"></param>
-        void OnServiceRemoved(string url);
+        void OnServiceRemoved();
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="url"></param>
         /// <param name="resultTest"></param>
-        void OnServiceChecked(string url, bool resultTest);
+        void OnServiceChecked(bool resultTest);
 
         /// <summary>
         /// 

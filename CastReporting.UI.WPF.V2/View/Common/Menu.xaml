@@ -35,11 +35,12 @@
             
             <Button.ContextMenu>
                 <ContextMenu >
-                    <MenuItem Foreground="Snow" Header="{Binding  Converter={StaticResource MessageConverter}, ConverterParameter=mnuReporting}"        Command="{x:Static commands:MenuCommand.OpenReporting}"                CommandParameter="Reporting.xaml"/>
-                    <MenuItem Foreground="Snow" Header="{Binding  Converter={StaticResource MessageConverter}, ConverterParameter=mnuWSConfiguration}"  Command="{x:Static commands:MenuCommand.OpenWebServiceConfiguration}"  CommandParameter="SelectWS.xaml"/>
-                    <MenuItem Foreground="Snow" Header="{Binding  Converter={StaticResource MessageConverter}, ConverterParameter=mnuSettings}"         Command="{x:Static commands:MenuCommand.OpenSettings}"                 CommandParameter="Settings.xaml"/>
-                    <MenuItem Foreground="Snow" Header="{Binding  Converter={StaticResource MessageConverter}, ConverterParameter=mnuAbout}"            Command="{x:Static commands:MenuCommand.OpenHelp}"                     CommandParameter="About.xaml"/>
-                    <MenuItem Foreground="Snow" Header="{Binding  Converter={StaticResource MessageConverter}, ConverterParameter=mnuQuit}"             Command="{x:Static commands:MenuCommand.Quit}" />
+                    <MenuItem Foreground="Snow" Header="{Binding  Converter={StaticResource MessageConverter}, ConverterParameter=mnuReporting}"          Command="{x:Static commands:MenuCommand.OpenReporting}"                  CommandParameter="Reporting.xaml"/>
+                    <MenuItem Foreground="Snow" Header="{Binding  Converter={StaticResource MessageConverter}, ConverterParameter=mnuWSConfiguration}"    Command="{x:Static commands:MenuCommand.OpenWebServiceConfiguration}"    CommandParameter="SelectWS.xaml"/>
+                    <MenuItem Foreground="Snow" Header="{Binding  Converter={StaticResource MessageConverter}, ConverterParameter=mnuHLWSConfiguration}"  Command="{x:Static commands:MenuCommand.OpenHLWebServiceConfiguration}"  CommandParameter="SelectHLWS.xaml"/>
+                    <MenuItem Foreground="Snow" Header="{Binding  Converter={StaticResource MessageConverter}, ConverterParameter=mnuSettings}"           Command="{x:Static commands:MenuCommand.OpenSettings}"                   CommandParameter="Settings.xaml"/>
+                    <MenuItem Foreground="Snow" Header="{Binding  Converter={StaticResource MessageConverter}, ConverterParameter=mnuAbout}"              Command="{x:Static commands:MenuCommand.OpenHelp}"                       CommandParameter="About.xaml"/>
+                    <MenuItem Foreground="Snow" Header="{Binding  Converter={StaticResource MessageConverter}, ConverterParameter=mnuQuit}"               Command="{x:Static commands:MenuCommand.Quit}" />
                 </ContextMenu>
             </Button.ContextMenu>
             

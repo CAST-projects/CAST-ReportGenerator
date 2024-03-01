@@ -41,7 +41,7 @@ namespace CastReporting.HL.Repositories
         /// </summary>
         /// <param name="connection"></param>
         /// <param name="client"></param>
-        public HighlightRepository(WSConnection connection, IHighlightProxy? client)
+        public HighlightRepository(HLWSConnection connection, IHighlightProxy? client)
         {
             _Client = client ?? new HighlightProxy(connection.Login, connection.Password, connection.ApiKey, connection.ServerCertificateValidation);
             CurrentConnection = connection.Url;

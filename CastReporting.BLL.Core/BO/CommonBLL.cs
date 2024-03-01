@@ -14,6 +14,7 @@
  *
  */
 using CastReporting.Domain;
+using CastReporting.HL.Domain;
 
 namespace CastReporting.BLL
 {
@@ -27,8 +28,8 @@ namespace CastReporting.BLL
         /// 
         /// </summary>
         /// <param name="connection"></param>
-        public CommonBLL(WSConnection connection)
-            : base(connection)
+        public CommonBLL(WSConnection connection, HLWSConnection hlConnection = null)
+            : base(connection, hlConnection)
         {
         }
 
@@ -55,6 +56,18 @@ namespace CastReporting.BLL
             using (var castRepsitory = GetRepository(connection, true))
             {
                 return castRepsitory.IsServiceValid();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static bool CheckService(HLWSConnection connection)
+        {
+            using (var hlRepsitory = GetRepository(connection, true))
+            {
+                return hlRepsitory.IsServiceValid();
             }
         }
 

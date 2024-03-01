@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CastReporting.HL.Domain;
 
 namespace CastReporting.Domain
 {
@@ -58,12 +59,41 @@ namespace CastReporting.Domain
         /// <summary>
         /// 
         /// </summary>
-        public void ChangeActiveConnection(string newActiveUrl)
+        private List<HLWSConnection> _hlwsConnections;
+        public List<HLWSConnection> HLWSConnections
+        {
+            get => _hlwsConnections ?? (_hlwsConnections = new List<HLWSConnection>());
+            set => _hlwsConnections = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public HLWSConnection GetActiveHLConnection()
+        {
+            return HLWSConnections.FirstOrDefault(_ => _.IsActive);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void ChangeActiveConnection(WSConnection newActiveUrl)
         {
             WSConnection previousActiveconnection = WSConnections.FirstOrDefault(_ => _.IsActive);
             if (previousActiveconnection != null) previousActiveconnection.IsActive = false;
 
-            WSConnection newActiveConnection = WSConnections.FirstOrDefault(_ => _.Url.Equals(newActiveUrl));
+            WSConnection newActiveConnection = WSConnections.FirstOrDefault(_ => _.Url.Equals(newActiveUrl.Url));
+            if (newActiveConnection != null) newActiveConnection.IsActive = true;
+        }
+
+        public void ChangeActiveConnection(HLWSConnection newActiveUrl)
+        {
+            HLWSConnection previousActiveconnection = HLWSConnections.FirstOrDefault(_ => _.IsActive);
+            if (previousActiveconnection != null) previousActiveconnection.IsActive = false;
+
+            HLWSConnection newActiveConnection = HLWSConnections.FirstOrDefault(_ => _.Url.Equals(newActiveUrl.Url) && _.Login.Equals(newActiveUrl.Login));
             if (newActiveConnection != null) newActiveConnection.IsActive = true;
         }
 
@@ -71,12 +101,13 @@ namespace CastReporting.Domain
         {
             return obj is Setting setting &&
                    EqualityComparer<ReportingParameter>.Default.Equals(_reportingParameter, setting._reportingParameter) &&
-                   EqualityComparer<List<WSConnection>>.Default.Equals(_wsConnections, setting._wsConnections);
+                   EqualityComparer<List<WSConnection>>.Default.Equals(_wsConnections, setting._wsConnections) &&
+                   EqualityComparer<List<HLWSConnection>>.Default.Equals(_hlwsConnections, setting._hlwsConnections);
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(_reportingParameter, _wsConnections);
+            return HashCode.Combine(_reportingParameter, _wsConnections, _hlwsConnections);
         }
     }
 }

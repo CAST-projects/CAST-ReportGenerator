@@ -1,5 +1,5 @@
 ﻿/*
- *   Copyright (c) 2019 CAST
+ *   Copyright (c) 2024 CAST
  *
  * Licensed under a custom license, Version 1.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 using Cast.Util.Log;
 using CastReporting.BLL;
-using CastReporting.Domain;
+using CastReporting.HL.Domain;
 using CastReporting.UI.WPF.Core.Common;
 using System;
 using System.Collections.ObjectModel;
@@ -26,7 +26,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
     /// <summary>
     /// 
     /// </summary>
-    public class SelectWSVM : ViewModelBase
+    public class SelectHLWSVM : ViewModelBase
     {
 
         /// <summary>
@@ -119,16 +119,16 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// <summary>
         /// 
         /// </summary>       
-        private ObservableCollection<WSConnection> _wsConnections;
-        public ObservableCollection<WSConnection> WSConnections
+        private ObservableCollection<HLWSConnection> _wsHLConnections;
+        public ObservableCollection<HLWSConnection> HLWSConnections
         {
             get
             {
-                return _wsConnections;
+                return _wsHLConnections;
             }
             set
             {
-                _wsConnections = value;
+                _wsHLConnections = value;
 
                 OnPropertyChanged("WSConnections");
             }
@@ -138,16 +138,16 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// <summary>
         /// 
         /// </summary>
-        private WSConnection _selectedWSConnection;
-        public WSConnection SelectedWSConnection
+        private HLWSConnection _selectedHLWSConnection;
+        public HLWSConnection SelectedHLWSConnection
         {
             get
             {
-                return _selectedWSConnection;
+                return _selectedHLWSConnection;
             }
             set
             {
-                _selectedWSConnection = value;
+                _selectedHLWSConnection = value;
 
                 OnPropertyChanged("SelectedWSConnection");
             }
@@ -157,32 +157,26 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// <summary>
         ///
         /// </summary>
-        public SelectWSVM()
+        public SelectHLWSVM()
         {
-
             RemoveCommand = new CommandHandler(ExecuteRemoveCommand, null);
-
             ActiveCommand = new CommandHandler(ExecuteActiveCommand, null);
-
-            WSConnections = new ObservableCollection<WSConnection>(Setting.WSConnections);
-
+            HLWSConnections = new ObservableCollection<HLWSConnection>(Setting.HLWSConnections);
         }
 
         /// <summary>
         /// Implement Add service Command
         /// </summary>
-        public void ExecuteAddCommand(WSConnection conn)
+        public void ExecuteAddCommand(HLWSConnection conn)
         {
             try
             {
-
                 StatesEnum state;
                 Setting = SettingsBLL.AddConnection(conn, false, out state);
 
                 if (state == StatesEnum.ConnectionAddedAndActivated || state == StatesEnum.ConnectionAddedSuccessfully)
                 {
-                    WSConnections = new ObservableCollection<WSConnection>(Setting.WSConnections);
-
+                    HLWSConnections = new ObservableCollection<HLWSConnection>(Setting.HLWSConnections);
                     NewConnectionUrl = NewConnectionLogin = NewConnectionPassword = string.Empty;
                 }
 
@@ -200,11 +194,10 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// </summary>
         private void ExecuteRemoveCommand(object prameter)
         {
-            if (SelectedWSConnection == null) return;
-            string tmpUrl = SelectedWSConnection.Url;
+            if (SelectedHLWSConnection == null) return;
 
-            Setting = SettingsBLL.RemoveConnection(SelectedWSConnection);
-            WSConnections = new ObservableCollection<WSConnection>(Setting.WSConnections);
+            Setting = SettingsBLL.RemoveConnection(SelectedHLWSConnection);
+            HLWSConnections = new ObservableCollection<HLWSConnection>(Setting.HLWSConnections);
 
             MessageManager.OnServiceRemoved();
         }
@@ -215,14 +208,14 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// </summary>
         private void ExecuteActiveCommand(object prameter)
         {
-            if (SelectedWSConnection == null) return;
-            Setting.ChangeActiveConnection(SelectedWSConnection);
+            if (SelectedHLWSConnection == null) return;
+            Setting.ChangeActiveConnection(SelectedHLWSConnection);
 
             SettingsBLL.SaveSetting(Setting);
 
             MessageManager.OnServiceActivated();
 
-            WSConnections = new ObservableCollection<WSConnection>(Setting.WSConnections);
+            HLWSConnections = new ObservableCollection<HLWSConnection>(Setting.HLWSConnections);
         }
 
     }
