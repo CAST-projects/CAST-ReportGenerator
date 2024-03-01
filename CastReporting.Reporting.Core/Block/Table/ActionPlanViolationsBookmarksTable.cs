@@ -12,12 +12,12 @@ namespace CastReporting.Reporting.Block.Table
     [Block("ACTION_PLAN_BOOKMARKS_TABLE")]
     public class ActionPlanViolationsBookmarksTable : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
 
             int nbLimitTop = options.GetOption("COUNT") == "ALL" ? -1 : options.GetIntOption("COUNT", 10);
             string filter = options.GetOption("FILTER", "ALL").ToUpper();
-            bool displayHeader = options.GetBoolOption("HEADER",true);
+            bool displayHeader = options.GetBoolOption("HEADER", true);
             bool tag = options.GetBoolOption("TAG", true);
 
             List<string> rowData = new List<string>();

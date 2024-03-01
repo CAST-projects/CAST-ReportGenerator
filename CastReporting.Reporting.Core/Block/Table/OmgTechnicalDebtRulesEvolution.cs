@@ -31,7 +31,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("OMG_TECHNICAL_DEBT_RULES_EVOLUTION")]
     public class OmgTechnicalDebtRulesEvolution : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             string standard = options.GetOption("ID", "ISO");
             string lbltotal = Labels.TechnicalDebt + " (" + Labels.Days + ")";
@@ -193,7 +193,7 @@ namespace CastReporting.Reporting.Block.Table
             return cellidx;
         }
 
-        private static int AddRowsForRules(ReportData reportData, string indicatorName, string lbltotal, string lbladded, string lblremoved, bool showDescription, List<CellAttributes> cellProps, int cellidx, HeaderDefinition headers, List<string> data, List<ApplicationResult> rulesResults)
+        private static int AddRowsForRules(ImagingData reportData, string indicatorName, string lbltotal, string lbladded, string lblremoved, bool showDescription, List<CellAttributes> cellProps, int cellidx, HeaderDefinition headers, List<string> data, List<ApplicationResult> rulesResults)
         {
             if (rulesResults?.Count > 0)
             {

@@ -12,7 +12,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("ACTION_PLAN_BOOKMARKS")]
     public class ActionPlanViolationsBookmarks : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
 
             int nbLimitTop = options.GetOption("COUNT") == "ALL" ? -1 : options.GetIntOption("COUNT", 10);
@@ -52,7 +52,7 @@ namespace CastReporting.Reporting.Block.Table
                 if (_violations.Length != 0)
                 {
                     MetricsUtility.ViolationsBookmarksProperties violationsBookmarksProperties =
-                        new MetricsUtility.ViolationsBookmarksProperties(_violations, 0, rowData, tag ? "actionPlan" : "actionPlanPriority", false, reportData.CurrentSnapshot.DomainId, 
+                        new MetricsUtility.ViolationsBookmarksProperties(_violations, 0, rowData, tag ? "actionPlan" : "actionPlanPriority", false, reportData.CurrentSnapshot.DomainId,
                         reportData.CurrentSnapshot.Id.ToString(), tag ? "actionPlan" : "actionPlanPriority");
                     MetricsUtility.PopulateViolationsBookmarks(reportData, violationsBookmarksProperties, cellidx, cellProps, true);
                 }

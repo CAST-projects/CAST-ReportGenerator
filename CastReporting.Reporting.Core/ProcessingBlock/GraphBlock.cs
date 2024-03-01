@@ -32,12 +32,13 @@ using System.Threading;
 using System.Xml.Linq;
 using OXS = DocumentFormat.OpenXml.Spreadsheet;
 using OXW = DocumentFormat.OpenXml.Wordprocessing;
+using HL = CastReporting.Reporting.Highlight.Builder.BlockProcessing;
 // ReSharper disable UnusedParameter.Local
 
 namespace CastReporting.Reporting.Builder.BlockProcessing
 {
     [BlockType("GRAPH")]
-    public abstract class GraphBlock
+    public abstract class GenericGraphBlock<D> where D : IAppData
     {
         #region PROPERTIES
         private static string BlockTypeName => "GRAPH";
@@ -45,7 +46,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
         #endregion PROPERTIES
 
         #region METHODS
-        public abstract TableDefinition Content(ReportData client, Dictionary<string, string> options);
+        public abstract TableDefinition Content(D data, Dictionary<string, string> options);
 
         public static bool IsMatching(string blockType)
         {
@@ -65,41 +66,76 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
             var previousCulture = Thread.CurrentThread.CurrentCulture;
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 
-            GraphBlock instance = BlockHelper.GetAssociatedBlockInstance<GraphBlock>(blockName);
-            if (null == instance) return;
-            LogHelper.LogDebugFormat("Start GraphBlock generation : Type {0}", blockName);
-            Stopwatch treatmentWatch = Stopwatch.StartNew();
-            TableDefinition content = instance.Content(client, options);
-            try
+            GraphBlock imgInstance = BlockHelper.GetAssociatedBlockInstance<GraphBlock>(blockName);
+            if (imgInstance != null)
             {
-                if (null != content)
+                LogHelper.LogDebugFormat("Start GraphBlock generation : Type {0}", blockName);
+                Stopwatch treatmentWatch = Stopwatch.StartNew();
+                TableDefinition content = imgInstance.Content(client.ImagingData, options);
+                try
                 {
-                    ApplyContent(client, pPackage, block, content, options);
+                    if (null != content)
+                    {
+                        ApplyContent(client.ReportType, pPackage, block, content, options);
+                    }
+                }
+                finally
+                {
+                    Thread.CurrentThread.CurrentCulture = previousCulture;
+
+                    treatmentWatch.Stop();
+                    LogHelper.LogDebugFormat
+                    ("End GraphBlock generation ({0}) in {1} millisecond{2}"
+                        , blockName
+                        , treatmentWatch.ElapsedMilliseconds
+                        , treatmentWatch.ElapsedMilliseconds > 1 ? "s" : string.Empty
+                    );
+                }
+                return;
+            }
+
+            if (client.HighlightData != null)
+            {
+                HL.GraphBlock hlInstance = BlockHelper.GetAssociatedBlockInstance<HL.GraphBlock>(blockName);
+                if (hlInstance != null)
+                {
+                    LogHelper.LogDebugFormat("Start HL.GraphBlock generation : Type {0}", blockName);
+                    Stopwatch treatmentWatch = Stopwatch.StartNew();
+                    TableDefinition content = hlInstance.Content(client.HighlightData, options);
+                    try
+                    {
+                        if (null != content)
+                        {
+                            ApplyContent(client.ReportType, pPackage, block, content, options);
+                        }
+                    }
+                    finally
+                    {
+                        Thread.CurrentThread.CurrentCulture = previousCulture;
+
+                        treatmentWatch.Stop();
+                        LogHelper.LogDebugFormat
+                        ("End HL.GraphBlock generation ({0}) in {1} millisecond{2}"
+                            , blockName
+                            , treatmentWatch.ElapsedMilliseconds
+                            , treatmentWatch.ElapsedMilliseconds > 1 ? "s" : string.Empty
+                        );
+                    }
+                    return;
                 }
             }
-            finally
-            {
-                Thread.CurrentThread.CurrentCulture = previousCulture;
-
-                treatmentWatch.Stop();
-                LogHelper.LogDebugFormat
-                ("End GraphBlock generation ({0}) in {1} millisecond{2}"
-                    , blockName
-                    , treatmentWatch.ElapsedMilliseconds
-                    , treatmentWatch.ElapsedMilliseconds > 1 ? "s" : string.Empty
-                );
-            }
         }
+
         [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
         [SuppressMessage("ReSharper", "RedundantAssignment")]
-        private static void ApplyContent(ReportData pClient, OpenXmlPackage pPackage, BlockItem pBlock, TableDefinition pContent, Dictionary<string, string> pOptions)
+        private static void ApplyContent(FormatType reportType, OpenXmlPackage pPackage, BlockItem pBlock, TableDefinition pContent, Dictionary<string, string> pOptions)
         {
 
             try
             {
                 string chartId = null;
 
-                var phElem = GetElements(pBlock.OxpBlock, pClient.ReportType)?.ToList();
+                var phElem = GetElements(pBlock.OxpBlock, reportType)?.ToList();
                 if (phElem == null || phElem.Count == 0)
                 {
                     LogHelper.LogError("No placeholder content found.");
@@ -107,7 +143,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
                 }
 
                 #region Get the block Id in document
-                var allElementInPlaceHolder = GetElementsInPlaceHolder(pClient, phElem);
+                var allElementInPlaceHolder = GetElementsInPlaceHolder(reportType, phElem);
                 XElement graphicElement = phElem.Descendants(A.graphic).FirstOrDefault() ?? phElem.FirstOrDefault(_ => A.graphic.Equals(_.Name));
                 if (null != graphicElement)
                 {
@@ -374,7 +410,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
                                         wsp.PutXDocument(shPart);
                                     }
                                     // We update cached data in Word document
-                                    UpdateCachedValues(pClient, chartPart, spreadsheetDoc, pContent);
+                                    UpdateCachedValues(chartPart, spreadsheetDoc, pContent);
                                     #endregion Associated Data File content Management
                                 }
                                 // Write the modified memory stream back
@@ -422,9 +458,9 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
 
         }
 
-        private static IEnumerable<XElement> GetElementsInPlaceHolder(ReportData pClient, IEnumerable<XElement> phElem)
+        private static IEnumerable<XElement> GetElementsInPlaceHolder(FormatType reportType, IEnumerable<XElement> phElem)
         {
-            switch (pClient.ReportType)
+            switch (reportType)
             {
                 case FormatType.Word: { return phElem.Elements(); }
                 case FormatType.PowerPoint: { return phElem; }
@@ -470,7 +506,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
             return id;
         }
         [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
-        private static void UpdateCachedValues(ReportData conf, OpenXmlPart chartPart, SpreadsheetDocument spreadsheetDoc, TableDefinition content)
+        private static void UpdateCachedValues(OpenXmlPart chartPart, SpreadsheetDocument spreadsheetDoc, TableDefinition content)
         {
             try
             {
@@ -573,7 +609,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
                                         {
                                             var cachedCell = allCells.FirstOrDefault(x => x.Attribute(NoNamespace.idx) != null &&
                                                                                           x.Attribute(NoNamespace.idx)?.Value == indexCell.ToString());
-                                            if (cachedCell == null && previousCell ==null)
+                                            if (cachedCell == null && previousCell == null)
                                             {
                                                 indexCell += 1;
                                                 continue;
@@ -719,5 +755,9 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
             }
         }
         #endregion METHODS
+    }
+
+    public abstract class GraphBlock : GenericGraphBlock<ImagingData>
+    {
     }
 }

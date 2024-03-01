@@ -22,7 +22,7 @@ namespace CastReporting.UnitTest.Reporting.Text
         public void TestVerySmallContent()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
-            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                 null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             reportData.Parameter.ApplicationSizeLimitSupLarge = 3000000;
@@ -44,7 +44,7 @@ namespace CastReporting.UnitTest.Reporting.Text
         public void TestMediumContent()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
-            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                 null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             reportData.Parameter.ApplicationSizeLimitSupLarge = 3000000;
@@ -66,7 +66,7 @@ namespace CastReporting.UnitTest.Reporting.Text
         public void TestLargeContent()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
-            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                 null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             reportData.Parameter.ApplicationSizeLimitSupLarge = 3000000;
@@ -88,7 +88,7 @@ namespace CastReporting.UnitTest.Reporting.Text
         public void TestExtraLargeContent()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
-            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                 null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             reportData.Parameter.ApplicationSizeLimitSupLarge = 3000000;
@@ -110,7 +110,7 @@ namespace CastReporting.UnitTest.Reporting.Text
         public void TestNoResult()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
-            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+            ImagingData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
                 null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
 

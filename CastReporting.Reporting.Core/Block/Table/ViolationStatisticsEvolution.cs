@@ -27,7 +27,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("VIOLATION_STATISTICS_EVOLUTION")]
     public class ViolationStatisticsEvolution : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             const string metricFormat = "N0";
             if (reportData?.CurrentSnapshot == null) return null;

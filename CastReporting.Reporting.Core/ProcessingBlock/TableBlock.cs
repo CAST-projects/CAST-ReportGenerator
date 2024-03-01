@@ -29,15 +29,16 @@ using System.Linq;
 using OXD = DocumentFormat.OpenXml.Drawing;
 using OXP = DocumentFormat.OpenXml.Presentation;
 using OXW = DocumentFormat.OpenXml.Wordprocessing;
+using HL = CastReporting.Reporting.Highlight.Builder.BlockProcessing;
 // ReSharper disable PossiblyMistakenUseOfParamsMethod
 
 namespace CastReporting.Reporting.Builder.BlockProcessing
 {
     [BlockType("TABLE")]
-    public abstract class TableBlock
+    public abstract class GenericTableBlock<D> where D : IAppData
     {
         #region ABSTRACTS - To be implemented by Inherited children
-        public abstract TableDefinition Content(ReportData client, Dictionary<string, string> options);
+        public abstract TableDefinition Content(D data, Dictionary<string, string> options);
         #endregion ABSTRACTS - To be implemented by Inherited children
 
         #region PROPERTIES
@@ -55,41 +56,79 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
             return BlockTypeName.Equals(blockType);
         }
 
-        public TableDefinition GetContent(ReportData client, Dictionary<string, string> options)
-        {
-            return Content(client, options);
-        }
         public static TableDefinition GetContent(string blockName, ReportData client, Dictionary<string, string> options)
         {
-            TableBlock instance = BlockHelper.GetAssociatedBlockInstance<TableBlock>(blockName);
-            return instance?.Content(client, options);
+            TableBlock imgInstance = BlockHelper.GetAssociatedBlockInstance<TableBlock>(blockName);
+            if (imgInstance != null)
+            {
+                return imgInstance.Content(client.ImagingData, options);
+            }
+
+            if (client.HighlightData != null)
+            {
+                HL.TableBlock hlInstance = BlockHelper.GetAssociatedBlockInstance<HL.TableBlock>(blockName);
+                if (hlInstance != null)
+                {
+                    return hlInstance.Content(client.HighlightData, options);
+                }
+            }
+
+            return null;
         }
         public static void BuildContent(ReportData client, OpenXmlPartContainer container, BlockItem block, string blockName, Dictionary<string, string> options)
         {
-            TableBlock instance = BlockHelper.GetAssociatedBlockInstance<TableBlock>(blockName);
-            if (null == instance) return;
-
-            LogHelper.LogDebugFormat("Start TableBlock generation : Type {0}", blockName);
-            Stopwatch treatmentWatch = Stopwatch.StartNew();
-            TableDefinition content = instance.Content(client, options);
-            if (null != content)
+            TableBlock imgInstance = BlockHelper.GetAssociatedBlockInstance<TableBlock>(blockName);
+            if (imgInstance != null)
             {
-                ApplyContent(client, container, block, content, options);
+
+                LogHelper.LogDebugFormat("Start TableBlock generation : Type {0}", blockName);
+                Stopwatch treatmentWatch = Stopwatch.StartNew();
+                TableDefinition content = imgInstance.Content(client.ImagingData, options);
+                if (null != content)
+                {
+                    ApplyContent(client.ReportType, container, block, content, options);
+                }
+                treatmentWatch.Stop();
+                LogHelper.LogDebugFormat
+                ("End TableBlock generation ({0}) in {1} millisecond{2}"
+                    , blockName
+                    , treatmentWatch.ElapsedMilliseconds.ToString()
+                    , treatmentWatch.ElapsedMilliseconds > 1 ? "s" : string.Empty
+                );
+                return;
             }
-            treatmentWatch.Stop();
-            LogHelper.LogDebugFormat
-            ("End TableBlock generation ({0}) in {1} millisecond{2}"
-                , blockName
-                , treatmentWatch.ElapsedMilliseconds.ToString()
-                , treatmentWatch.ElapsedMilliseconds > 1 ? "s" : string.Empty
-            );
+
+            if (client.HighlightData != null)
+            {
+                HL.TableBlock hlInstance = BlockHelper.GetAssociatedBlockInstance<HL.TableBlock>(blockName);
+                if (hlInstance != null)
+                {
+
+                    LogHelper.LogDebugFormat("Start HL.TableBlock generation : Type {0}", blockName);
+                    Stopwatch treatmentWatch = Stopwatch.StartNew();
+                    TableDefinition content = hlInstance.Content(client.HighlightData, options);
+                    if (null != content)
+                    {
+                        ApplyContent(client.ReportType, container, block, content, options);
+                    }
+                    treatmentWatch.Stop();
+                    LogHelper.LogDebugFormat
+                    ("End HL.TableBlock generation ({0}) in {1} millisecond{2}"
+                        , blockName
+                        , treatmentWatch.ElapsedMilliseconds.ToString()
+                        , treatmentWatch.ElapsedMilliseconds > 1 ? "s" : string.Empty
+                    );
+                    return;
+                }
+            }
         }
-        public static void ApplyContent(ReportData client, OpenXmlPartContainer container, BlockItem block, TableDefinition content, Dictionary<string, string> options)
+
+        public static void ApplyContent(FormatType reportType, OpenXmlPartContainer container, BlockItem block, TableDefinition content, Dictionary<string, string> options)
         {
-            var contentblock = GetTableContentBlock(client, block);
+            var contentblock = GetTableContentBlock(reportType, block);
             if (null != contentblock)
             {
-                UpdateBlock(client, container, contentblock, content, options);
+                UpdateBlock(reportType, container, contentblock, content, options);
             }
         }
 
@@ -148,20 +187,20 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
             return pValue.FormatEvolution();
         }
 
-        private static void UpdateBlock(ReportData client, OpenXmlPartContainer container, OpenXmlElement block, TableDefinition content, Dictionary<string, string> options)
+        private static void UpdateBlock(FormatType reportType, OpenXmlPartContainer container, OpenXmlElement block, TableDefinition content, Dictionary<string, string> options)
         {
-            switch (client.ReportType)
+            switch (reportType)
             {
-                case FormatType.Word: { UpdateWordBlock(client, container, block, content, options); } break;
-                case FormatType.PowerPoint: { UpdatePowerPointBlock(client, container, block, content, options); } break;
-                case FormatType.Excel: { UpdateExcelBlock(client, container, block, content, options); } break;
+                case FormatType.Word: { UpdateWordBlock(reportType, container, block, content, options); } break;
+                case FormatType.PowerPoint: { UpdatePowerPointBlock(reportType, container, block, content, options); } break;
+                case FormatType.Excel: { UpdateExcelBlock(reportType, container, block, content, options); } break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
-        private static OpenXmlElement GetTableContentBlock(ReportData client, BlockItem block)
+        private static OpenXmlElement GetTableContentBlock(FormatType reportType, BlockItem block)
         {
-            switch (client.ReportType)
+            switch (reportType)
             {
                 case FormatType.Word:
                     var tblContent = block.OxpBlock.Descendants<OXW.Table>().FirstOrDefault();
@@ -178,7 +217,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
 
         #region Word methods
         [SuppressMessage("ReSharper", "UnusedParameter.Local")]
-        private static void UpdateWordBlock(ReportData client, OpenXmlPartContainer container, OpenXmlElement block, TableDefinition content, Dictionary<string, string> options)
+        private static void UpdateWordBlock(FormatType reportType, OpenXmlPartContainer container, OpenXmlElement block, TableDefinition content, Dictionary<string, string> options)
         {
             if (null != content && block is OXW.Table)
             {
@@ -403,7 +442,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
 
         #region Powerpoint methods
         [SuppressMessage("ReSharper", "UnusedParameter.Local")]
-        private static void UpdatePowerPointBlock(ReportData client, OpenXmlPartContainer container, OpenXmlElement block, TableDefinition content, Dictionary<string, string> options)
+        private static void UpdatePowerPointBlock(FormatType reportType, OpenXmlPartContainer container, OpenXmlElement block, TableDefinition content, Dictionary<string, string> options)
         {
             if (null != content && block is OXP.GraphicFrame)
             {
@@ -635,7 +674,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
 
         #region Excel methods
         [SuppressMessage("ReSharper", "UnusedParameter.Local")]
-        private static void UpdateExcelBlock(ReportData client, OpenXmlPartContainer container, OpenXmlElement block, TableDefinition content, Dictionary<string, string> options)
+        private static void UpdateExcelBlock(FormatType reportType, OpenXmlPartContainer container, OpenXmlElement block, TableDefinition content, Dictionary<string, string> options)
         {
             // TODO : Finalize Excel alimentation
             throw new NotImplementedException();
@@ -644,4 +683,6 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
 
         #endregion METHODS
     }
+
+    public abstract class TableBlock : GenericTableBlock<ImagingData> { }
 }

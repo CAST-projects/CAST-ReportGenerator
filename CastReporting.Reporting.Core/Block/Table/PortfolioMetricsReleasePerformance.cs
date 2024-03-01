@@ -30,7 +30,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("PF_TABLE_RELEASE_PERFORMANCE")]
     public class PortfolioMetricsReleasePerformance : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             List<string> metrics = options.GetOption("ID", string.Empty).Trim().Split('|').ToList();
             List<double> strTargets = options.GetOption("TARGETS", "0").Trim().Split('|').Select(_ => Convert.ToDouble(_, System.Globalization.CultureInfo.InvariantCulture)).ToList();

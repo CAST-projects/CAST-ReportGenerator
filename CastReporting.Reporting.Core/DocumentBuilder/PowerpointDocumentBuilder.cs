@@ -53,6 +53,7 @@ namespace CastReporting.Reporting.Builder
                 ParseDocument(slidepart);
             }
         }
+
         /// <summary>
         /// Returns the block configuration of the block item given in parameter.
         /// </summary>
@@ -67,6 +68,7 @@ namespace CastReporting.Reporting.Builder
             if (null != elt) { desc = elt.Description; }
             return GetBlockConfiguration(desc);
         }
+
         /// <summary>
         /// Returns all block contained into the container given in argument.
         /// </summary>

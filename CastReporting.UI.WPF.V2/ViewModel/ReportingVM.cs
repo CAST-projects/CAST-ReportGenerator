@@ -824,17 +824,18 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                 ReportData reportData = new ReportData
                 {
                     FileName = tmpReportFile,
-                    Application = SelectedApplication.Application,
-                    CurrentSnapshot = SelectedSnapshot,
-                    PreviousSnapshot = PreviousSnapshot,
-                    Parameter = Setting.ReportingParameter,
-                    RuleExplorer = new RuleBLL(ActiveConnection),
-                    SnapshotExplorer = new SnapshotBLL(ActiveConnection, SelectedSnapshot),
-                    CurrencySymbol = "$",
-                    ServerVersion = CommonBLL.GetServiceVersion(ActiveConnection)
+                    ImagingData = new ImagingData
+                    {
+                        Application = SelectedApplication.Application,
+                        CurrentSnapshot = SelectedSnapshot,
+                        PreviousSnapshot = PreviousSnapshot,
+                        Parameter = Setting.ReportingParameter,
+                        RuleExplorer = new RuleBLL(ActiveConnection),
+                        SnapshotExplorer = new SnapshotBLL(ActiveConnection, SelectedSnapshot),
+                        CurrencySymbol = "$",
+                        ServerVersion = CommonBLL.GetServiceVersion(ActiveConnection)
+                    }
                 };
-
-
 
                 using (IDocumentBuilder docBuilder = BuilderFactory.CreateBuilder(reportData, tmpReportFileFlexi))
                 {
@@ -946,20 +947,23 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                 ReportData reportData = new ReportData
                 {
                     FileName = tmpReportFile,
-                    Application = null,
-                    CurrentSnapshot = null,
-                    PreviousSnapshot = null,
-                    Parameter = Setting.ReportingParameter,
-                    RuleExplorer = new RuleBLL(ActiveConnection),
-                    SnapshotExplorer = new SnapshotBLL(ActiveConnection, SelectedSnapshot),
-                    CurrencySymbol = "$",
-                    ServerVersion = CommonBLL.GetServiceVersion(ActiveConnection),
-                    Applications = ApplicationsArray,
-                    Category = SelectedCategory,
-                    Tag = SelectedTag,
-                    Snapshots = ApplicationsSnapshots,
-                    IgnoresApplications = IgnoredApps,
-                    IgnoresSnapshots = IgnoredSnapshots
+                    ImagingData = new ImagingData
+                    {
+                        Application = null,
+                        CurrentSnapshot = null,
+                        PreviousSnapshot = null,
+                        Parameter = Setting.ReportingParameter,
+                        RuleExplorer = new RuleBLL(ActiveConnection),
+                        SnapshotExplorer = new SnapshotBLL(ActiveConnection, SelectedSnapshot),
+                        CurrencySymbol = "$",
+                        ServerVersion = CommonBLL.GetServiceVersion(ActiveConnection),
+                        Applications = ApplicationsArray,
+                        Category = SelectedCategory,
+                        Tag = SelectedTag,
+                        Snapshots = ApplicationsSnapshots,
+                        IgnoresApplications = IgnoredApps,
+                        IgnoresSnapshots = IgnoredSnapshots
+                    }
                 };
 
 

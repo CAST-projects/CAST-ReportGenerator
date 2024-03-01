@@ -31,7 +31,7 @@ namespace CastReporting.Reporting.Helper
         /// <param name="snapshot"></param>
         /// <param name="metricId"></param>
         /// <returns></returns>
-        public static string GetMetricName(ReportData reportData, Snapshot snapshot, string metricId)
+        public static string GetMetricName(ImagingData reportData, Snapshot snapshot, string metricId)
         {
             string name = ((snapshot.BusinessCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault() ??
                             snapshot.TechnicalCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault()) ??
@@ -59,7 +59,7 @@ namespace CastReporting.Reporting.Helper
         /// <param name="technology"></param>
         /// <param name="format"></param> should be false for graph component
         /// <returns></returns>
-        public static SimpleResult GetMetricNameAndResult(ReportData reportData, Snapshot snapshot, string metricId, Module module, string technology, bool format)
+        public static SimpleResult GetMetricNameAndResult(ImagingData reportData, Snapshot snapshot, string metricId, Module module, string technology, bool format)
         {
             MetricType type = MetricType.NotKnown;
             Result bfResult = null;
@@ -270,7 +270,8 @@ namespace CastReporting.Reporting.Helper
                 }
                 SimpleResult res = new SimpleResult { name = name, type = type, result = result, resultStr = resStr };
                 return res;
-            } catch (NullReferenceException e)
+            }
+            catch (NullReferenceException e)
             {
                 // for linux
                 if (snapshot != null && metricId != null)
@@ -295,7 +296,7 @@ namespace CastReporting.Reporting.Helper
         /// <param name="technology"></param>
         /// <param name="format"></param> format is true for table component and false for graph component
         /// <returns></returns>
-        public static EvolutionResult GetMetricEvolution(ReportData reportData, Snapshot curSnapshot, Snapshot prevSnapshot, string metricId, bool evol, Module module, string technology, bool format)
+        public static EvolutionResult GetMetricEvolution(ImagingData reportData, Snapshot curSnapshot, Snapshot prevSnapshot, string metricId, bool evol, Module module, string technology, bool format)
         {
             SimpleResult curResult = null;
             SimpleResult prevResult = null;
@@ -468,7 +469,7 @@ namespace CastReporting.Reporting.Helper
             };
         }
 
-        public static SimpleResult GetAggregatedMetric(ReportData reportData, Dictionary<Application, Snapshot> lastSnapshotList, string metricId, string techno, string aggregator, bool format)
+        public static SimpleResult GetAggregatedMetric(ImagingData reportData, Dictionary<Application, Snapshot> lastSnapshotList, string metricId, string techno, string aggregator, bool format)
         {
 
             List<SimpleResult> results = new List<SimpleResult>();
@@ -567,12 +568,12 @@ namespace CastReporting.Reporting.Helper
             };
         }
 
-        public static List<string> BuildRulesList(ReportData reportData, List<string> metrics, bool critical)
+        public static List<string> BuildRulesList(ImagingData reportData, List<string> metrics, bool critical)
         {
             return BuildRulesList(reportData, metrics, critical, false);
         }
 
-        public static List<string> BuildRulesList(ReportData reportData, List<string> metrics, bool critical, bool omg)
+        public static List<string> BuildRulesList(ImagingData reportData, List<string> metrics, bool critical, bool omg)
         {
             List<string> qualityRules = new List<string>();
 
@@ -592,7 +593,7 @@ namespace CastReporting.Reporting.Helper
                             qualityRules.AddRange(rules.Where(_ =>
                             reportData.CurrentSnapshot.QualityRulesResults.Where(qr => qr.Reference.Key == _.Key && qr.DetailResult.OmgTechnicalDebt != null) != null)
                                 .Select(_ => _.Key.ToString()).ToList());
-                        } 
+                        }
                         else
                         {
                             qualityRules.AddRange(critical ? rules.Where(_ => _.Critical).Select(_ => _.Key.ToString()).ToList() : rules.Select(_ => _.Key.ToString()).ToList());
@@ -686,7 +687,7 @@ namespace CastReporting.Reporting.Helper
             }
         }
 
-        public static int PopulateViolationsBookmarks(ReportData reportData, ViolationsBookmarksProperties violationsBookmarksProperties, int cellidx, List<CellAttributes> cellProps, bool withCodeLines)
+        public static int PopulateViolationsBookmarks(ImagingData reportData, ViolationsBookmarksProperties violationsBookmarksProperties, int cellidx, List<CellAttributes> cellProps, bool withCodeLines)
         {
             Violation[] violations = violationsBookmarksProperties.Violations;
             int violationCounter = violationsBookmarksProperties.ViolationCounter;
@@ -705,7 +706,8 @@ namespace CastReporting.Reporting.Helper
                 {
                     string[] fragments = _violation.RulePattern.Href.Split('/');
                     key = fragments[fragments.Length - 1];
-                } else
+                }
+                else
                 {
                     key = metric;
                 }
@@ -723,7 +725,8 @@ namespace CastReporting.Reporting.Helper
                 if (objectComponent != null)
                 {
                     rowData.Add($"{Labels.IFPUG_ObjectType}: {objectComponent.Type.Label}");
-                } else
+                }
+                else
                 {
                     rowData.Add("");
                 }
@@ -731,7 +734,7 @@ namespace CastReporting.Reporting.Helper
                 cellidx++;
 
                 if (hasPreviousSnapshot)
-                { 
+                {
                     // if ruleName is empty, this is a violation in action plan
                     string status = !string.IsNullOrEmpty(ruleName) ? _violation.Diagnosis.Status : _violation.RemedialAction.Status;
                     rowData.Add($"{Labels.Status}: {status}");
@@ -890,7 +893,7 @@ namespace CastReporting.Reporting.Helper
             return cellidx;
         }
 
-        private static int AddSourceCode(ReportData reportData, List<string> rowData, int cellidx, List<CellAttributes> cellProps, string domainId, string snapshotId, Violation violation, bool withCodeLines)
+        private static int AddSourceCode(ImagingData reportData, List<string> rowData, int cellidx, List<CellAttributes> cellProps, string domainId, string snapshotId, Violation violation, bool withCodeLines)
         {
             List<Tuple<string, Dictionary<int, string>>> codes = reportData.SnapshotExplorer.GetSourceCode(domainId, snapshotId, violation.Component.GetComponentId(), 6, withCodeLines);
             if (codes == null) return cellidx;
@@ -961,7 +964,7 @@ namespace CastReporting.Reporting.Helper
             public dynamic _ { get; set; }
         }
 
-        private static ScriptState<object> ExecuteScript(ReportData reportData, Dictionary<string, string> options, string[] lstParams, Snapshot snapshot, string expr, Module module, string technology)
+        private static ScriptState<object> ExecuteScript(ImagingData reportData, Dictionary<string, string> options, string[] lstParams, Snapshot snapshot, string expr, Module module, string technology)
         {
             dynamic expando = new ExpandoObject();
             var dictionary = (IDictionary<string, object>)expando;
@@ -997,7 +1000,7 @@ namespace CastReporting.Reporting.Helper
             return script.RunAsync(g).Result;
         }
 
-        public static string CustomExpressionEvaluation(ReportData reportData, Dictionary<string, string> options, string[] lstParams, Snapshot snapshot, string expr, string metricFormat, Module module, string technology, bool portfolio = false)
+        public static string CustomExpressionEvaluation(ImagingData reportData, Dictionary<string, string> options, string[] lstParams, Snapshot snapshot, string expr, string metricFormat, Module module, string technology, bool portfolio = false)
         {
             try
             {
@@ -1017,7 +1020,7 @@ namespace CastReporting.Reporting.Helper
             }
         }
 
-        public static double? CustomExpressionDoubleEvaluation(ReportData reportData, Dictionary<string, string> options, string[] lstParams, Snapshot snapshot, string expr, Module module, string technology)
+        public static double? CustomExpressionDoubleEvaluation(ImagingData reportData, Dictionary<string, string> options, string[] lstParams, Snapshot snapshot, string expr, Module module, string technology)
         {
             try
             {
@@ -1031,7 +1034,7 @@ namespace CastReporting.Reporting.Helper
             }
         }
 
-        public static string CustomExpressionEvaluationAggregated(ReportData reportData, Dictionary<string, string> options, string[] lstParams, List<Snapshot> snapshots, string expr, string metricFormat, Module module, string technology, string aggregator)
+        public static string CustomExpressionEvaluationAggregated(ImagingData reportData, Dictionary<string, string> options, string[] lstParams, List<Snapshot> snapshots, string expr, string metricFormat, Module module, string technology, string aggregator)
         {
             List<double?> results = snapshots.Select(snapshot => CustomExpressionDoubleEvaluation(reportData, options, lstParams, snapshot, expr, module, technology)).ToList();
             double? res = AggregateValues(aggregator, results);
@@ -1067,7 +1070,7 @@ namespace CastReporting.Reporting.Helper
             return res;
         }
 
-        public static List<string> PopulateViolationsBookmarksRow(ReportData reportData, List<Violation> results, HeaderDefinition headers, string ruleId)
+        public static List<string> PopulateViolationsBookmarksRow(ImagingData reportData, List<Violation> results, HeaderDefinition headers, string ruleId)
         {
             List<string> rowData = new List<string>();
             string metric = ruleId;
@@ -1106,7 +1109,7 @@ namespace CastReporting.Reporting.Helper
                     if (ruleId == "actionPlan")
                     {
                         _row.Set(Labels.Priority, _violation.RemedialAction.Tag);
-                    } 
+                    }
                     else if (ruleId == ("actionPlanPriority"))
                     {
                         _row.Set(Labels.Priority, _violation.RemedialAction.Priority);

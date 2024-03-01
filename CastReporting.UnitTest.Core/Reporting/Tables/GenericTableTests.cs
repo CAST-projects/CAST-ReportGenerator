@@ -25,7 +25,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * @".\Data\Sample1Current.json" => http://localhost:7070/CAST-AAD-AED/rest/AED/applications/3/snapshots/6/results?quality-indicators=(60013,60014,60017)
              */
 
-            ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
+            ImagingData reportData = TestUtility.PrepaReportData("ReportGenerator",
                 null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
                 null, null, null, null, null);
             var component = new GenericTable();
@@ -53,7 +53,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             * @".\Data\Sample1Current.json" => http://localhost:7070/CAST-AAD-AED/rest/AED/applications/3/snapshots/6/results?quality-indicators=(60013,60014,60017)
             * @".\Data\Sample1Previous.json" => http://localhost:7070/CAST-AAD-AED/rest/AED/applications/3/snapshots/3/results?quality-indicators=(60013,60014,60017)
             */
-            ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
+            ImagingData reportData = TestUtility.PrepaReportData("ReportGenerator",
                 null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
                 null, @".\Data\Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
 
@@ -83,7 +83,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * @".\Data\Snapshot_QIresults1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/4/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
              * @".\Data\Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
              */
-            ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
+            ImagingData reportData = TestUtility.PrepaReportData("AppliAEP",
                 null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
                 null, @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
             var component = new GenericTable();
@@ -111,7 +111,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * @".\Data\Snapshot_QIresults1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/4/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
              * @".\Data\Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
              */
-            ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
+            ImagingData reportData = TestUtility.PrepaReportData("AppliAEP",
                 null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
                 null, null, null, null, null);
             var component = new GenericTable();
@@ -141,7 +141,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * @".\Data\Snapshot_QIresults1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/4/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
              * @".\Data\Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
              */
-            ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
+            ImagingData reportData = TestUtility.PrepaReportData("AppliAEP",
                 @".\Data\Modules1.json", @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
                 @".\Data\Modules1.json", @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
             var component = new GenericTable();
@@ -183,7 +183,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * @".\Data\Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
              */
 
-            ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
+            ImagingData reportData = TestUtility.PrepaReportData("AppliAEP",
                 @".\Data\Modules1.json", @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
                 @".\Data\Modules1.json", @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
             var component = new GenericTable();
@@ -227,7 +227,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * @".\Data\Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
              */
 
-            ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
+            ImagingData reportData = TestUtility.PrepaReportData("AppliAEP",
                 @".\Data\Modules1.json", @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
                 @".\Data\Modules1.json", @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
             var component = new GenericTable();
@@ -269,7 +269,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * DreamTeamSnap4Sample7.json : AED3/applications/7/snapshots/15/results?quality-indicators=(60017,60014)&modules=$all&technologies=$all
              * DreamTeamSnap1Sample7.json : AED3/applications/7/snapshots/3/results?quality-indicators=(60017,60014)&modules=$all&technologies=$all
              */
-            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
                @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap4Sample7.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap1Sample7.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
             var component = new GenericTable();
@@ -307,7 +307,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * DreamTeamSnap4Sample7.json : AED3/applications/7/snapshots/15/results?quality-indicators=(60017,60014)&modules=$all&technologies=$all
              * DreamTeamSnap1Sample7.json : AED3/applications/7/snapshots/3/results?quality-indicators=(60017,60014)&modules=$all&technologies=$all
              */
-            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
                @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap4Sample7.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap1Sample7.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
             reportData.CurrentSnapshot.Technologies = new[] { "JEE", "PL/SQL", "C++", ".NET" };
@@ -352,7 +352,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * Configuration :TABLE;GENERIC_TABLE;COL1=METRICS,ROW1=CRITICAL_VIOLATIONS,SNAPSHOTS=CURRENT
              * DreamTeamSnap4Sample9.json : AED3/applications/7/snapshots/15/results?quality-indicators=(business-criteria)&select=(evolutionSummary)
              */
-            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
               null, @".\Data\DreamTeamSnap4Sample9.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
               null, null, null, null, null);
 
@@ -393,7 +393,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * ModulesDreamTeam.json : AED3/applications/7/modules
              * DreamTeamSnap4Sample10.json : AED3/applications/7/snapshots/15/results?quality-indicators=(business-criteria)&select=(evolutionSummary)&modules=$all
              */
-            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
              @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap4Sample10.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
              null, null, null, null, null);
 
@@ -439,7 +439,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * METRICS=HEALTH_FACTOR,CRITICAL_VIOLATIONS =ADDED|REMOVED,TECHNOLOGIES=ALL,SNAPSHOTS=CURRENT
              * DreamTeamSnap4Sample11.json : AED3/applications/7/snapshots/15/results?quality-indicators=(business-criteria)&select=(evolutionSummary)&technologies=$all
              */
-            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
             null, @".\Data\DreamTeamSnap4Sample11.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
             null, null, null, null, null);
             reportData.CurrentSnapshot.Technologies = new[] { "JEE", "PL/SQL", "C++", ".NET" };
@@ -486,7 +486,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * DreamTeamSnap4Sample12.json : AED3/applications/7/snapshots/15/results?sizing-measures=(10151,10107,10152,10154,10161)
              * DreamTeamSnap1Sample12.json : AED3/applications/7/snapshots/15/results?sizing-measures=(10151,10107,10152,10154,10161)
              */
-            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
                 null, @".\Data\DreamTeamSnap4Sample12.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 null, @".\Data\DreamTeamSnap1Sample12.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
 
@@ -519,7 +519,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * DreamTeamSnap4Metrics.json : AED3/applications/7/snapshots/15/results?quality-indicators=(60014,61004,550)&sizing-measures=(10151,68001,10202,67210,67011)
              */
 
-            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
                 null, @".\Data\DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 null, null, null, null, null);
 
@@ -557,7 +557,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * DreamTeamSnap4Metrics.json : AED3/applications/7/snapshots/15/results?quality-indicators=(60014,61004,550)&sizing-measures=(10151,68001,10202,67210,67011)
              */
 
-            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
                 null, @".\Data\DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 null, null, null, null, null);
 
@@ -595,7 +595,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * DreamTeamSnap4Metrics.json : AED3/applications/7/snapshots/15/results?quality-indicators=(60014,61004,550)&sizing-measures=(10151,68001,10202,67210,67011)
              */
 
-            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
                 null, @".\Data\DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 null, null, null, null, null);
 
@@ -633,7 +633,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * DreamTeamSnap4Metrics.json : AED3/applications/7/snapshots/15/results?quality-indicators=(60014,61004,550)&sizing-measures=(10151,68001,10202,67210,67011)
              */
 
-            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
                 null, @".\Data\DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 null, null, null, null, null);
 
@@ -671,7 +671,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * DreamTeamSnap4Metrics.json : AED3/applications/7/snapshots/15/results?quality-indicators=(60014,61004,550)&sizing-measures=(10151,68001,10202,67210,67011)
              */
 
-            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
                 null, @".\Data\DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 null, null, null, null, null);
 
@@ -709,7 +709,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * DreamTeamSnap4Metrics.json : AED3/applications/7/snapshots/15/results?quality-indicators=(60014,61004,550)&sizing-measures=(10151,68001,10202,67210,67011)
              */
 
-            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
                 null, @".\Data\DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 null, null, null, null, null);
 
@@ -747,7 +747,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * DreamTeamSnap4Metrics.json : AED3/applications/7/snapshots/15/results?quality-indicators=(60014,61004,550)&sizing-measures=(10151,68001,10202,67210,67011)
              */
 
-            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
                 null, @".\Data\DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 null, null, null, null, null);
 
@@ -785,7 +785,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * DreamTeamSnap4Metrics.json : AED3/applications/7/snapshots/15/results?quality-indicators=(60014,61004,550)&sizing-measures=(10151,68001,10202,67210,67011)
              */
 
-            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
                 null, @".\Data\DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 null, null, null, null, null);
 
@@ -825,7 +825,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * DreamTeamSnap4Metrics.json : AED3/applications/7/snapshots/15/results?quality-indicators=(60014,61004,550)&sizing-measures=(10151,68001,10202,67210,67011)
              */
 
-            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
                 null, @".\Data\DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 null, null, null, null, null);
 
@@ -869,7 +869,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * @".\Data\Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
              */
 
-            ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
+            ImagingData reportData = TestUtility.PrepaReportData("AppliAEP",
                 @".\Data\Modules1.json", @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
                 @".\Data\Modules1.json", @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
             var component = new GenericTable();
@@ -914,7 +914,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         [DeploymentItem(@".\Data\DreamTeamSnap4Metrics2Previous.json", "Data")]
         public void TestCustomExpressionsForApplication()
         {
-            ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
+            ImagingData reportData = TestUtility.PrepaReportData("AppliAEP",
                 null, @".\Data\DreamTeamSnap4Metrics2.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
                 null, @".\Data\DreamTeamSnap4Metrics2Previous.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
             var component = new GenericTable();
@@ -955,7 +955,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         [DeploymentItem(@".\Data\ComplexitySnapPrevious.json", "Data")]
         public void TestCustomExpressionsForApplicationWithCategories()
         {
-            ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
+            ImagingData reportData = TestUtility.PrepaReportData("AppliAEP",
                 null, @".\Data\DreamTeamSnap4Metrics2.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
                 null, @".\Data\DreamTeamSnap4Metrics2Previous.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
             reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", @".\Data\ComplexitySnapPrevious.json");
@@ -995,7 +995,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         [DeploymentItem(@".\Data\DreamTeamSnap3MetricsCustom.json", "Data")]
         public void TestCustomExpressionsForModules()
         {
-            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
                 @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap15MetricsCustom.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap3MetricsCustom.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
             var component = new GenericTable();
@@ -1039,7 +1039,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         [DeploymentItem(@".\Data\SizeDistributionSnapCurrent.json", "Data")]
         public void TestCustomExpressionsForModulesWithCategories()
         {
-            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
                 @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap15MetricsCustom.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap3MetricsCustom.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
             reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\SizeDistributionSnapCurrent.json", null);
@@ -1083,7 +1083,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         [DeploymentItem(@".\Data\DreamTeamSnap3MetricsCustom.json", "Data")]
         public void TestCustomExpressionsForTechnologies()
         {
-            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
                 @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap15MetricsCustom.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap3MetricsCustom.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
             reportData.CurrentSnapshot.Technologies = new[] { "JEE", "PL/SQL", "C++", ".NET" };
@@ -1128,7 +1128,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         [DeploymentItem(@".\Data\SizeDistributionSnapCurrent.json", "Data")]
         public void TestCustomExpressionsForTechnologiesWithCategory()
         {
-            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
                 @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap15MetricsCustom.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap3MetricsCustom.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
             reportData.CurrentSnapshot.Technologies = new[] { "JEE", "PL/SQL", "C++", ".NET" };
@@ -1158,7 +1158,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             reportData.RuleExplorer = new RuleBLLStub();
             var table = component.Content(reportData, config);
             var expectedData = new List<string>();
-            expectedData.AddRange(new List<string> { "Technologies", "a+b"});
+            expectedData.AddRange(new List<string> { "Technologies", "a+b" });
             expectedData.AddRange(new List<string> { "JEE", "64" });
             expectedData.AddRange(new List<string> { "PL/SQL", "0" });
             expectedData.AddRange(new List<string> { "C++", "61" });
@@ -1172,7 +1172,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         [DeploymentItem(@".\Data\DreamTeamSnap3MetricsCustom.json", "Data")]
         public void TestCustomExpressionsForModulesAndTechnologies()
         {
-            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
                 @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap15MetricsCustom.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap3MetricsCustom.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
             reportData.CurrentSnapshot.Technologies = new[] { "JEE", "PL/SQL", "C++", ".NET" };
@@ -1236,7 +1236,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         [DeploymentItem(@".\Data\SizeDistributionSnapCurrent.json", "Data")]
         public void TestCustomExpressionsForModulesAndTechnologiesWithCategory()
         {
-            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
                 @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap15MetricsCustom.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap3MetricsCustom.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
             reportData.CurrentSnapshot.Technologies = new[] { "JEE", "PL/SQL", "C++", ".NET" };
@@ -1270,7 +1270,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var table = component.Content(reportData, config);
             var expectedData = new List<string>();
             expectedData.AddRange(new List<string> { "Modules", "a+b" });
-            expectedData.AddRange(new List<string> { "Adg", " "});
+            expectedData.AddRange(new List<string> { "Adg", " " });
             expectedData.AddRange(new List<string> { "    JEE", "64" });
             expectedData.AddRange(new List<string> { "    PL/SQL", "No data found" });
             expectedData.AddRange(new List<string> { "    C++", "No data found" });
@@ -1302,7 +1302,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * METRICS=HEALTH_FACTOR,CRITICAL_VIOLATIONS =ADDED|REMOVED,TECHNOLOGIES=ALL,SNAPSHOTS=CURRENT
              * DreamTeamSnap4Sample11.json : AED3/applications/7/snapshots/15/results?quality-indicators=(business-criteria)&select=(evolutionSummary)&technologies=$all
              */
-            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
             null, @".\Data\DreamTeamSnap4Sample11.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
             null, null, null, null, null);
             reportData.CurrentSnapshot.Technologies = new[] { "JEE", "PL/SQL", "C++", ".NET" };
@@ -1342,7 +1342,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         [DeploymentItem(@".\Data\DreamTeamSnap4Sample10.json", "Data")]
         public void TestTechDebtModules()
         {
-            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
              @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap4Sample10.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
              null, null, null, null, null);
 
@@ -1371,7 +1371,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         [DeploymentItem(@".\Data\DreamTeamSnap1Sample7.json", "Data")]
         public void TestOmgTechDebtModulesTechnos()
         {
-            ReportData reportData = TestUtility.PrepaReportData("Dream Team",
+            ImagingData reportData = TestUtility.PrepaReportData("Dream Team",
                @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap4Sample7.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap1Sample7.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
             reportData.CurrentSnapshot.Technologies = new[] { "JEE", "PL/SQL", "C++", ".NET" };
@@ -1408,7 +1408,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         [DeploymentItem(@".\Data\Sample1Current.json", "Data")]
         public void TestTechDebt()
         {
-            ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
+            ImagingData reportData = TestUtility.PrepaReportData("ReportGenerator",
                 null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
                 null, null, null, null, null);
             var component = new GenericTable();

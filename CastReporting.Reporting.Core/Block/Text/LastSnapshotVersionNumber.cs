@@ -25,7 +25,7 @@ namespace CastReporting.Reporting.Block.Text
     public class LastSnapshotVersionNumber : TextBlock
     {
         #region METHODS
-        public override string Content(ReportData reportData, Dictionary<string, string> options)
+        public override string Content(ImagingData reportData, Dictionary<string, string> options)
         {
             return reportData?.CurrentSnapshot != null ? SnapshotUtility.GetSnapshotVersionNumber(reportData.CurrentSnapshot) ?? Domain.Constants.No_Value : Domain.Constants.No_Value;
         }

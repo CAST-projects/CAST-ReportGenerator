@@ -18,7 +18,7 @@ namespace CastReporting.UnitTest.Reporting.Text
         [TestMethod]
         public void TestContent()
         {
-            ReportData reportData = TestUtility.PrepaEmptyPortfolioReportData();
+            ImagingData reportData = TestUtility.PrepaEmptyPortfolioReportData();
             reportData.Tag = "UnitTests";
 
             var component = new PortfolioTagName();
@@ -30,7 +30,7 @@ namespace CastReporting.UnitTest.Reporting.Text
         [TestMethod]
         public void TestNoCategory()
         {
-            ReportData reportData = TestUtility.PrepaEmptyPortfolioReportData();
+            ImagingData reportData = TestUtility.PrepaEmptyPortfolioReportData();
 
             var component = new PortfolioTagName();
             Dictionary<string, string> config = new Dictionary<string, string>();

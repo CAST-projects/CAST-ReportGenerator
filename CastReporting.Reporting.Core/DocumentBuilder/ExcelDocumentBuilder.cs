@@ -108,12 +108,8 @@ namespace CastReporting.Reporting.Builder
         protected override List<BlockItem> GetBlocks(OpenXmlPartContainer container)
         {
             // TODO : Finalize Excel alimentation
-
-
             throw new NotImplementedException();
-
         }
-
 
         public override void BuildDocument()
         {
@@ -129,7 +125,6 @@ namespace CastReporting.Reporting.Builder
                 throw new InvalidOperationException("Unable to file the Workbook");
             }
         }
-
 
         private static void SetCellValue(CellType cell, string value)
         {
@@ -211,7 +206,7 @@ namespace CastReporting.Reporting.Builder
                                     TextBlock instance = BlockHelper.GetAssociatedBlockInstance<TextBlock>(config.Name);
                                     if (instance != null)
                                     {
-                                        SetCellValue(cell, instance.GetContent(reportData, config.Options));
+                                        SetCellValue(cell, instance.Content(reportData.ImagingData, config.Options));
                                     }
                                 }
                                 else if (TableBlock.IsMatching(config.Type))
@@ -222,7 +217,7 @@ namespace CastReporting.Reporting.Builder
                                         tableTargets.Add(new TableInfo
                                         {
                                             cell = cell,
-                                            table = instance.GetContent(reportData, config.Options)
+                                            table = instance.Content(reportData.ImagingData, config.Options)
                                         });
                                     }
                                 }

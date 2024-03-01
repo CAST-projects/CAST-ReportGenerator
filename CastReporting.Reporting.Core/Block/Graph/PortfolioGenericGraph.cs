@@ -10,7 +10,7 @@ namespace CastReporting.Reporting.Block.Graph
     [Block("PF_GENERIC_GRAPH")]
     public class PortfolioGenericGraph : GraphBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             // false for graph component
             return PortfolioGenericContent.Content(reportData, options, false);

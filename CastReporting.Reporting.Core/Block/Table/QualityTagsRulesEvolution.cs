@@ -30,7 +30,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("QUALITY_TAGS_RULES_EVOLUTION")]
     public class QualityTagsRulesEvolution : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             string standard = options.GetOption("STD");
             bool vulnerability = options.GetOption("LBL", "vulnerabilities").ToLower().Equals("vulnerabilities");
@@ -195,7 +195,7 @@ namespace CastReporting.Reporting.Block.Table
             return cellidx;
         }
 
-        private static int AddRowsForRules(ReportData reportData, string indicatorName, string lbltotal, string lbladded, string lblremoved, bool showDescription, List<CellAttributes> cellProps, int cellidx, HeaderDefinition headers, List<string> data, List<ApplicationResult> rulesResults)
+        private static int AddRowsForRules(ImagingData reportData, string indicatorName, string lbltotal, string lbladded, string lblremoved, bool showDescription, List<CellAttributes> cellProps, int cellidx, HeaderDefinition headers, List<string> data, List<ApplicationResult> rulesResults)
         {
             if (rulesResults?.Count > 0)
             {

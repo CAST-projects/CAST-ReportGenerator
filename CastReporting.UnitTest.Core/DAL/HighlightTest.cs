@@ -20,8 +20,8 @@ namespace CastReporting.UnitTest.Repositories
         private readonly WSConnection _connection = new WSConnection
         {
             Url = "https://demo.casthighlight.com/",
-            Login = "trials+Green@casthighlight.com",
-            Password = "GreenC4STDemo",
+            Login = "***",
+            Password = "***",
             IsActive = true,
             Name = "Default"
         };

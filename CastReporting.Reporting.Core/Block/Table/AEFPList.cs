@@ -14,7 +14,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("AEFP_LIST")]
     public class AEFPList : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             int nbLimitTop;
             int nbColumns = 0;
@@ -123,7 +123,8 @@ namespace CastReporting.Reporting.Block.Table
                 }
                 if (!displayZero)
                 {
-                    exportedList = exportedList.Where(f => {
+                    exportedList = exportedList.Where(f =>
+                    {
                         if (f.NoOfFPs != null) return int.Parse(f.NoOfFPs) > 0;
                         if (f.Aeps != null) return int.Parse(f.Aeps) > 0;
                         return false;

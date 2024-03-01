@@ -12,7 +12,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("ACTION_PLAN_VIOLATIONS")]
     public class ActionPlanViolations : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             List<string> rowData = new List<string>();
 
@@ -45,7 +45,7 @@ namespace CastReporting.Reporting.Block.Table
                         results = results.Where(_ => _.RemedialAction.Status.Equals("solved"));
                         break;
                 }
-                
+
                 if (nbLimitTop != -1)
                 {
                     results = results.Take(nbLimitTop);
@@ -62,7 +62,8 @@ namespace CastReporting.Reporting.Block.Table
                         if (tag)
                         {
                             rowData.Add(_violation.RemedialAction.Tag ?? Constants.No_Value);
-                        } else
+                        }
+                        else
                         {
                             rowData.Add(_violation.RemedialAction.Priority ?? Constants.No_Value);
                         }

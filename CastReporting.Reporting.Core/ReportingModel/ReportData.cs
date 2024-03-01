@@ -15,8 +15,7 @@
  */
 
 using CastReporting.Domain;
-using CastReporting.Domain.Interfaces;
-using System;
+using CastReporting.Reporting.Highlight.ReportingModel;
 using System.IO;
 
 namespace CastReporting.Reporting.ReportingModel
@@ -24,7 +23,7 @@ namespace CastReporting.Reporting.ReportingModel
     /// <summary>
     /// 
     /// </summary>
-    public class ReportData : IDisposable
+    public class ReportData
     {
 
 
@@ -40,7 +39,7 @@ namespace CastReporting.Reporting.ReportingModel
         {
             get
             {
-                switch (Path.GetExtension(FileName))
+                switch (Path.GetExtension(FileName).ToLowerInvariant())
                 {
                     case ".docx":
                         return FormatType.Word;
@@ -52,112 +51,15 @@ namespace CastReporting.Reporting.ReportingModel
                         return FormatType.PowerPoint;
 
                     default:
-                        return 0;
+                        return 0; // WARNING(DMA): I believe this is the same as FormatType.Word since the enum definition does not assign a value to its fields.
+                                  // WARNING(DMA): Is this the expected behavior?
                 }
             }
 
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public Application Application
-        {
-            get;
-            set;
-        }
+        public ImagingData ImagingData { get; set; }
 
-        public string Category
-        {
-            get;
-            set;
-        }
-
-        public string Tag
-        {
-            get;
-            set;
-        }
-
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Snapshot CurrentSnapshot
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Snapshot PreviousSnapshot
-        {
-            get;
-            set;
-        }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public ReportingParameter Parameter { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public IRuleExplorer RuleExplorer { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public ISnapshotExplorer SnapshotExplorer { get; set; }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string CurrencySymbol { get; set; }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Application[] Applications
-        {
-            get;
-            set;
-        }
-
-        // ReSharper disable once InconsistentNaming
-        public Snapshot[] Snapshots
-        {
-            get;
-            set;
-        }
-
-        public string[] IgnoresApplications
-        {
-            get;
-            set;
-        }
-
-        public string[] IgnoresSnapshots
-        {
-            get;
-            set;
-        }
-
-        public void Dispose()
-        {
-            RuleExplorer?.Dispose();
-            SnapshotExplorer?.Dispose();
-
-            GC.SuppressFinalize(this);
-        }
-
-        public string ServerVersion { get; set; }
+        public HighlightData HighlightData { get; set; }
     }
 }

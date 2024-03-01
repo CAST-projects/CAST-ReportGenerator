@@ -60,12 +60,14 @@ namespace CastReporting.Reporting.Builder
         /// Construct the current document.
         /// </summary>
         public abstract void BuildDocument();
+
         /// <summary>
         /// Returns the block configuration of the block item given in parameter.
         /// </summary>
         /// <param name="block">Block where the block configuration parameters will be found.</param>
         /// <returns>The block configuration of the block item given in parameter.</returns>
         protected abstract BlockConfiguration GetBlockConfiguration(BlockItem block);
+
         /// <summary>
         /// Returns all block contained into the container given in argument.
         /// </summary>
@@ -133,6 +135,7 @@ namespace CastReporting.Reporting.Builder
         {
             return GetBlockConfiguration(description, null);
         }
+
         /// <summary>
         /// Return the block configuration of the given alias and tag.
         /// </summary>
@@ -168,6 +171,7 @@ namespace CastReporting.Reporting.Builder
             back.Options = string.IsNullOrWhiteSpace(blockOptionStr) ? new Dictionary<string, string>() : ParseOptions(blockOptionStr);
             return back;
         }
+
         /// <summary>
         /// Parse the options into the value given in argument.
         /// </summary>
@@ -187,7 +191,6 @@ namespace CastReporting.Reporting.Builder
             }
             return options;
         }
-
 
         /// <summary>
         /// Get Package

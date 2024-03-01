@@ -28,7 +28,7 @@ namespace CastReporting.Reporting.Block.Text
     public class ApplicationRule : TextBlock
     {
         #region METHODS
-        public override string Content(ReportData reportData, Dictionary<string, string> options)
+        public override string Content(ImagingData reportData, Dictionary<string, string> options)
         {
 
             string metricId = options.GetOption("ID") ?? options.GetOption("SZID") ?? options.GetOption("BFID") ?? null;

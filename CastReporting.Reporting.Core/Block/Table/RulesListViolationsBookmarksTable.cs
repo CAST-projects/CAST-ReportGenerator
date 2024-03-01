@@ -14,7 +14,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("LIST_RULES_VIOLATIONS_BOOKMARKS_TABLE")]
     public class RulesListViolationsBookmarksTable : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             List<string> rowData = new List<string>();
             var headers = new HeaderDefinition();
@@ -61,7 +61,7 @@ namespace CastReporting.Reporting.Block.Table
 
                 foreach (string _metric in qualityRules)
                 {
-                if (!int.TryParse(_metric, out int metricId)) continue;
+                    if (!int.TryParse(_metric, out int metricId)) continue;
                     List<Violation> results = reportData.SnapshotExplorer.GetViolationsListIDbyBC(reportData.CurrentSnapshot.Href, _metric, bcId, nbLimitTop, "$all").ToList();
                     if (results == null || results.Count < 1) continue;
                     rowData.AddRange(MetricsUtility.PopulateViolationsBookmarksRow(reportData, results, headers, _metric));

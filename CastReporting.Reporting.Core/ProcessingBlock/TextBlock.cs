@@ -27,11 +27,12 @@ using System.Linq;
 using OXD = DocumentFormat.OpenXml.Drawing;
 using OXP = DocumentFormat.OpenXml.Presentation;
 using OXW = DocumentFormat.OpenXml.Wordprocessing;
+using HL = CastReporting.Reporting.Highlight.Builder.BlockProcessing;
 
 namespace CastReporting.Reporting.Builder.BlockProcessing
 {
     [BlockType("TEXT")]
-    public abstract class TextBlock
+    public abstract class GenericTextBlock<D> where D : IAppData
     {
         #region ABSTRACT - To be implemented by Inherited children
         /// <summary>
@@ -40,7 +41,7 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
         /// <param name="client"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public abstract string Content(ReportData client, Dictionary<string, string> options);
+        public abstract string Content(D client, Dictionary<string, string> options);
         #endregion ABSTRACT - To be implemented by Inherited children
 
         #region PROPERTIES
@@ -58,38 +59,56 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
             return BlockTypeName.Equals(blockType);
         }
 
-        public string GetContent(ReportData client, Dictionary<string, string> options)
-        {
-            return Content(client, options);
-        }
-
         public static void BuildContent(ReportData client, OpenXmlPartContainer container, BlockItem block, string blockName, Dictionary<string, string> options)
         {
-            TextBlock instance = BlockHelper.GetAssociatedBlockInstance<TextBlock>(blockName);
-            if (null == instance) return;
-            LogHelper.LogDebugFormat("Start TextBlock generation : Type {0}", blockName);
-            Stopwatch treatmentWatch = Stopwatch.StartNew();
-            string content = instance.Content(client, options);
-            ApplyContent(client, container, block, content);
-            treatmentWatch.Stop();
-            LogHelper.LogDebugFormat
-            ("End TextBlock generation ({0}) in {1} ms"
-                , blockName
-                , treatmentWatch.ElapsedMilliseconds.ToString()
-            );
-        }
-        public static void ApplyContent(ReportData client, OpenXmlPartContainer container, BlockItem block, string content)
-        {
-            var contentblock = GetTextContentBlock(client, block);
-            if (null != contentblock)
+            TextBlock imgInstance = BlockHelper.GetAssociatedBlockInstance<TextBlock>(blockName);
+            if (imgInstance != null)
             {
-                UpdateBlock(client, container, contentblock, content);
+                LogHelper.LogDebugFormat("Start TextBlock generation : Type {0}", blockName);
+                Stopwatch treatmentWatch = Stopwatch.StartNew();
+                string content = imgInstance.Content(client.ImagingData, options);
+                ApplyContent(client.ReportType, container, block, content);
+                treatmentWatch.Stop();
+                LogHelper.LogDebugFormat
+                ("End TextBlock generation ({0}) in {1} ms"
+                    , blockName
+                    , treatmentWatch.ElapsedMilliseconds.ToString()
+                );
+                return;
+            }
+
+            if (client.HighlightData != null)
+            {
+                HL.TextBlock hlInstance = BlockHelper.GetAssociatedBlockInstance<HL.TextBlock>(blockName);
+                if (hlInstance != null)
+                {
+                    LogHelper.LogDebugFormat("Start HL.TextBlock generation : Type {0}", blockName);
+                    Stopwatch treatmentWatch = Stopwatch.StartNew();
+                    string content = hlInstance.Content(client.HighlightData, options);
+                    ApplyContent(client.ReportType, container, block, content);
+                    treatmentWatch.Stop();
+                    LogHelper.LogDebugFormat
+                    ("End HL.TextBlock generation ({0}) in {1} ms"
+                        , blockName
+                        , treatmentWatch.ElapsedMilliseconds.ToString()
+                    );
+                    return;
+                }
             }
         }
 
-        private static void UpdateBlock(ReportData client, OpenXmlPartContainer container, OpenXmlElement block, string content)
+        public static void ApplyContent(FormatType reportType, OpenXmlPartContainer container, BlockItem block, string content)
         {
-            switch (client.ReportType)
+            var contentblock = GetTextContentBlock(reportType, block);
+            if (null != contentblock)
+            {
+                UpdateBlock(reportType, container, contentblock, content);
+            }
+        }
+
+        private static void UpdateBlock(FormatType reportType, OpenXmlPartContainer container, OpenXmlElement block, string content)
+        {
+            switch (reportType)
             {
                 case FormatType.Word: { UpdateWordBlock(container, block, content); } break;
                 case FormatType.PowerPoint: { UpdatePowerPointBlock(container, block, content); } break;
@@ -152,9 +171,9 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
             // TODO : Finalize Excel alimentation
             throw new NotImplementedException();
         }
-        private static OpenXmlElement GetTextContentBlock(ReportData client, BlockItem block)
+        private static OpenXmlElement GetTextContentBlock(FormatType reportType, BlockItem block)
         {
-            switch (client.ReportType)
+            switch (reportType)
             {
                 case FormatType.Word:
                     var txtContent = block.OxpBlock.Descendants<OXW.SdtContentRun>().FirstOrDefault();
@@ -168,4 +187,6 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
         }
         #endregion METHODS
     }
+
+    public abstract class TextBlock : GenericTextBlock<ImagingData> { }
 }

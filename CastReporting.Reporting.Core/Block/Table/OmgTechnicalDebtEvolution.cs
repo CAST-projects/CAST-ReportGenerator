@@ -31,9 +31,9 @@ namespace CastReporting.Reporting.Block.Table
     [Block("OMG_TECHNICAL_DEBT_EVOLUTION")]
     public class OmgTechnicalDebtEvolution : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
-            string index = options.GetOption("ID","ISO");
+            string index = options.GetOption("ID", "ISO");
             bool detail = options.GetOption("MORE", "false").ToLower().Equals("true");
             string displayAddedRemoved = reportData.PreviousSnapshot != null ? "true" : "false";
             bool displayEvolution = options.GetOption("EVOLUTION", displayAddedRemoved).ToLower().Equals("true");
@@ -48,7 +48,7 @@ namespace CastReporting.Reporting.Block.Table
 
             if (indicatorName == null)
             {
-                 return new TableDefinition
+                return new TableDefinition
                 {
                     HasRowHeaders = false,
                     HasColumnHeaders = displayHeader,

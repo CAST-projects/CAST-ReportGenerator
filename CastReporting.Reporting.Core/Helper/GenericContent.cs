@@ -47,7 +47,7 @@ namespace CastReporting.Reporting.Helper
             }
         }
 
-        public static string GetItemName(string type, string item, ReportData reportData)
+        public static string GetItemName(string type, string item, ImagingData reportData)
         {
             switch (type)
             {
@@ -116,7 +116,7 @@ namespace CastReporting.Reporting.Helper
         /*
          * the bool format parameter is true for table component, and false for graph component
          */
-        public static TableDefinition Content(ReportData reportData, Dictionary<string, string> options, bool format)
+        public static TableDefinition Content(ImagingData reportData, Dictionary<string, string> options, bool format)
         {
             var rowData = new List<string>();
             ObjConfig[] _posConfig = new ObjConfig[4];
@@ -444,7 +444,7 @@ namespace CastReporting.Reporting.Helper
                                     break;
                                 case "PREVIOUS":
                                     string prevValueP = reportData.PreviousSnapshot != null ? format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, null, string.Empty)
-                                        : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, "graph", null, string.Empty) 
+                                        : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, "graph", null, string.Empty)
                                         : format ? Labels.NoData : "0";
                                     if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.PreviousSnapshot);
                                     results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), prevValueP);
@@ -988,7 +988,7 @@ namespace CastReporting.Reporting.Helper
                                         break;
                                     case "PREVIOUS":
                                         string prevValueP = reportData.PreviousSnapshot != null ? format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, null, techno)
-                                            : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, "graph", null, techno) 
+                                            : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, "graph", null, techno)
                                             : format ? Labels.NoData : "0";
                                         if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.PreviousSnapshot);
                                         results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), prevValueP);
@@ -1277,9 +1277,9 @@ namespace CastReporting.Reporting.Helper
                                             results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), curValueC);
                                             break;
                                         case "PREVIOUS":
-                                            string prevValueP = reportData.PreviousSnapshot != null ? format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, module, techno) 
-                                                : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, "graph", module, techno) 
-                                                :  format ? Labels.NoData : "0";
+                                            string prevValueP = reportData.PreviousSnapshot != null ? format ? MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, _metricFormat, module, techno)
+                                                : MetricsUtility.CustomExpressionEvaluation(reportData, options, lstParams, reportData.PreviousSnapshot, expr, "graph", module, techno)
+                                                : format ? Labels.NoData : "0";
                                             if (positionSnapshots != -1) _posResults[positionSnapshots] = SnapshotUtility.GetSnapshotNameVersion(reportData.PreviousSnapshot);
                                             results.Add(Tuple.Create(_posResults[0], _posResults[1], _posResults[2], _posResults[3]), prevValueP);
                                             break;
@@ -1665,7 +1665,7 @@ namespace CastReporting.Reporting.Helper
 
         }
 
-        public static List<string> BuildMetricsList(ReportData reportData, List<string> metrics)
+        public static List<string> BuildMetricsList(ImagingData reportData, List<string> metrics)
         {
             if (metrics.Contains("HEALTH_FACTOR"))
             {

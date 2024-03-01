@@ -32,7 +32,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("TOP_COMPONENTS_BY_PROPERTIES")]
     public class TopComponentsByProperties : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             string prop1 = options.GetOption("PROP1", "cyclomaticComplexity");
             string prop2 = options.GetOption("PROP2", "cyclomaticComplexity");

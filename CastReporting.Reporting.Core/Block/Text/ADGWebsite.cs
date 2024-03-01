@@ -24,7 +24,7 @@ namespace CastReporting.Reporting.Block.Text
     public class ADGWebsite : TextBlock
     {
         #region METHODS
-        public override string Content(ReportData reportData, Dictionary<string, string> options)
+        public override string Content(ImagingData reportData, Dictionary<string, string> options)
         {
             return reportData != null ? (reportData.Application.AdgWebSite ?? Domain.Constants.No_Value) : Domain.Constants.No_Value;
         }

@@ -9,7 +9,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("PF_GENERIC_TABLE")]
     public class PortfolioGenericTable : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             // true for table component
             return PortfolioGenericContent.Content(reportData, options, true);

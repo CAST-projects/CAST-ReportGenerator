@@ -30,7 +30,7 @@ namespace CastReporting.Reporting.Block.Table
         private const string MetricFormat = "N0";
 
 
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             TableDefinition back = new TableDefinition();
             List<string> rowData = new List<string>();

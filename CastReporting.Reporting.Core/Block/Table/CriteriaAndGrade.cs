@@ -29,7 +29,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("CRITERIA_GRADE")]
     public class CriteriaAndGrade : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             List<string> rowData = new List<string>();
             int count = -1, nbRows = 0, nbColumns = 0, nb;

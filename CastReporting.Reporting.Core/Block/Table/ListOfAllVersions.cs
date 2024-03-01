@@ -11,7 +11,7 @@ namespace CastReporting.Reporting.Block.Table
     [Block("LIST_OF_ALL_VERSIONS")]
     public class ListOfAllVersions : TableBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             int rowCount = 0;
             if (options == null || !options.ContainsKey("COUNT") || !int.TryParse(options["COUNT"], out int nbLimitTop))

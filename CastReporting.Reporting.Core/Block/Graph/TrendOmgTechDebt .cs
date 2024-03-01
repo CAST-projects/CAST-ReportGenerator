@@ -33,7 +33,7 @@ namespace CastReporting.Reporting.Block.Graph
 
         #region METHODS
 
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             string index = options.GetOption("ID", "ISO");
             int indexId = OmgTechnicalDebtUtility.GetOmgIndex(index);
@@ -54,7 +54,7 @@ namespace CastReporting.Reporting.Block.Graph
                 if (_snapshots != null)
                 {
                     List<string> listIds = _snapshots.Select(s => s.GetId()).ToList();
-                    
+
                     foreach (Snapshot snapshot in _snapshots)
                     {
                         double? snapshotDate = snapshot.Annotation.Date.DateSnapShot?.ToOADate() ?? 0;
@@ -69,7 +69,7 @@ namespace CastReporting.Reporting.Block.Graph
                             rowData.Add(omgTechDebtRemoved.GetValueOrDefault().ToString("N1"));
                             rowData.Add(omgTechDebtAdded.GetValueOrDefault().ToString("N1"));
                             rowData.Add(omgTechDebtValue.GetValueOrDefault().ToString("N1"));
-                        } 
+                        }
                         else
                         {
                             rowData.Add("0");

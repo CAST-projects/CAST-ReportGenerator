@@ -28,7 +28,7 @@ namespace CastReporting.Reporting.Block.Text
     public class OMGTechnicalDebtMetric : TextBlock
     {
         #region METHODS
-        public override string Content(ReportData reportData, Dictionary<string, string> options)
+        public override string Content(ImagingData reportData, Dictionary<string, string> options)
         {
             string index = options.GetOption("ID", "ISO");
             Snapshot snapshot = options.GetOption("SNAPSHOT", "CURRENT").ToUpper().Equals("PREVIOUS") ? reportData.PreviousSnapshot ?? null : reportData.CurrentSnapshot ?? null;

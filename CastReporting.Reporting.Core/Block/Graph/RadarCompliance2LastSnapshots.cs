@@ -27,7 +27,7 @@ namespace CastReporting.Reporting.Block.Graph
     [Block("RADAR_COMPLIANCE_2_LAST_SNAPSHOTS")]
     public class RadarCompliance2LastSnapshots : GraphBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
             string prevSnapshotLabel = string.Empty;
             BusinessCriteriaDTO prevSnapshotBCResult = null;

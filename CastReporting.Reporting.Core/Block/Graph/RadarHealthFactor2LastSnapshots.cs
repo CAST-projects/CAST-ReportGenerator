@@ -28,7 +28,7 @@ namespace CastReporting.Reporting.Block.Graph
     [Block("RADAR_HEALTH_FACTOR_2_LAST_SNAPSHOTS"), Block("RADAR_HEALTH_FACTOR_2_SNAPSHOTS")]
     public class RadarHealthFactor2LastSnapshots : GraphBlock
     {
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
 
             string prevSnapshotLabel = string.Empty;

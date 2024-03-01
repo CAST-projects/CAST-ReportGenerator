@@ -84,12 +84,12 @@ namespace CastReporting.UnitTest.Reporting
         /// <param name="previousHref">href for the previous snapshot</param>
         /// <param name="previousName">name for the previous snapshot</param>
         /// <param name="previousVersion">version for the previous snapshot</param>
-        /// <returns>ReportData with modules and current and previous snapshots</returns>
-        public static ReportData PrepaReportData(string appliName,
+        /// <returns>ImagingData with modules and current and previous snapshots</returns>
+        public static ImagingData PrepaReportData(string appliName,
             string moduleJson, string currentJson, string currentHref, string currentName, string currentVersion,
             string modulePrevJson, string previousJson, string previousHref, string previousName, string previousVersion)
         {
-            ReportData reportData = new ReportData
+            ImagingData reportData = new ImagingData
             {
                 Parameter = new ReportingParameter(),
                 CurrencySymbol = "$",
@@ -192,11 +192,11 @@ namespace CastReporting.UnitTest.Reporting
             }
         }
 
-        public static ReportData PrepareApplicationReportData(string appliName,
+        public static ImagingData PrepareApplicationReportData(string appliName,
             string moduleJson, string currentJson, string currentHref, string currentName, string currentVersion, CastDate currentDate,
             string modulePrevJson, string previousJson, string previousHref, string previousName, string previousVersion, CastDate previousDate)
         {
-            ReportData reportData = PrepaReportData(appliName,
+            ImagingData reportData = PrepaReportData(appliName,
                 moduleJson, currentJson, currentHref, currentName, currentVersion,
                 modulePrevJson, previousJson, previousHref, previousName, previousVersion);
 
@@ -224,18 +224,18 @@ namespace CastReporting.UnitTest.Reporting
 
         }
 
-        public static ReportData AddPortfolioComplexity(ReportData reportData, string currentJsonComplexity) 
+        public static ImagingData AddPortfolioComplexity(ImagingData reportData, string currentJsonComplexity)
         {
             var currentComplexityResultsList = new List<ApplicationResult>();
             currentComplexityResultsList.AddRange(GetSampleResult<Result>(currentJsonComplexity).SelectMany(_ => _.ApplicationResults));
-            foreach(Snapshot snapshot in reportData.Snapshots)
+            foreach (Snapshot snapshot in reportData.Snapshots)
             {
                 snapshot.CostComplexityResults = currentComplexityResultsList;
             }
             return reportData;
         }
 
-        public static ReportData AddApplicationComplexity(ReportData reportData, string currentJsonComplexity, string previousJsonComplexity)
+        public static ImagingData AddApplicationComplexity(ImagingData reportData, string currentJsonComplexity, string previousJsonComplexity)
         {
             if (currentJsonComplexity != null)
             {
@@ -252,7 +252,7 @@ namespace CastReporting.UnitTest.Reporting
             return reportData;
         }
 
-        public static ReportData AddApplicationActionPlan(ReportData reportData, string currentJsonActionPlan, string previousJsonActionPlan)
+        public static ImagingData AddApplicationActionPlan(ImagingData reportData, string currentJsonActionPlan, string previousJsonActionPlan)
         {
             if (currentJsonActionPlan != null)
             {
@@ -267,7 +267,7 @@ namespace CastReporting.UnitTest.Reporting
             return reportData;
         }
 
-        public static ReportData AddCriticalRuleViolations(ReportData reportData, int bcid, string currentJsonCriticalRuleViolations, string previousJsonCriticalRuleViolations)
+        public static ImagingData AddCriticalRuleViolations(ImagingData reportData, int bcid, string currentJsonCriticalRuleViolations, string previousJsonCriticalRuleViolations)
         {
             if (currentJsonCriticalRuleViolations != null)
             {
@@ -295,7 +295,7 @@ namespace CastReporting.UnitTest.Reporting
             return reportData;
         }
 
-        public static ReportData AddSameCriticalRuleViolationsForAllBC(ReportData reportData, string currentJsonCriticalRuleViolations, string previousJsonCriticalRuleViolations)
+        public static ImagingData AddSameCriticalRuleViolationsForAllBC(ImagingData reportData, string currentJsonCriticalRuleViolations, string previousJsonCriticalRuleViolations)
         {
             int[] bizCrit = { 60011, 60012, 60013, 60014, 60015, 60016, 60017, 66031, 66032, 66033, 1061000, 1062100 };
             foreach (int bizId in bizCrit)
@@ -305,7 +305,7 @@ namespace CastReporting.UnitTest.Reporting
             return reportData;
         }
 
-        public static ReportData AddNonCriticalRuleViolations(ReportData reportData, int bcid, string currentJsonNonCriticalRuleViolations, string previousJsonNonCriticalRuleViolations)
+        public static ImagingData AddNonCriticalRuleViolations(ImagingData reportData, int bcid, string currentJsonNonCriticalRuleViolations, string previousJsonNonCriticalRuleViolations)
         {
             if (currentJsonNonCriticalRuleViolations != null)
             {
@@ -333,7 +333,7 @@ namespace CastReporting.UnitTest.Reporting
             return reportData;
         }
 
-        public static ReportData AddSameNonCriticalRuleViolationsForAllBC(ReportData reportData, string currentJsonNonCriticalRuleViolations, string previousJsonNonCriticalRuleViolations)
+        public static ImagingData AddSameNonCriticalRuleViolationsForAllBC(ImagingData reportData, string currentJsonNonCriticalRuleViolations, string previousJsonNonCriticalRuleViolations)
         {
             int[] bizCrit = { 60011, 60012, 60013, 60014, 60015, 60016, 60017, 66031, 66032, 66033 };
             foreach (int bizId in bizCrit)
@@ -343,7 +343,7 @@ namespace CastReporting.UnitTest.Reporting
             return reportData;
         }
 
-        public static ReportData AddSizingResults(ReportData reportData, string currentJsonSizingResults, string previousJsonSizingResults)
+        public static ImagingData AddSizingResults(ImagingData reportData, string currentJsonSizingResults, string previousJsonSizingResults)
         {
             if (currentJsonSizingResults != null)
             {
@@ -379,7 +379,7 @@ namespace CastReporting.UnitTest.Reporting
             return reportData;
         }
 
-        public static ReportData AddQIBusinessCriteriaConfiguration(ReportData reportData, string qiBusinessCriteriaConfJSON)
+        public static ImagingData AddQIBusinessCriteriaConfiguration(ImagingData reportData, string qiBusinessCriteriaConfJSON)
         {
             if (qiBusinessCriteriaConfJSON == null) return reportData;
             List<QIBusinessCriteria> _qiBizCrit = new List<QIBusinessCriteria>();
@@ -408,16 +408,16 @@ namespace CastReporting.UnitTest.Reporting
             return snapshot;
         }
 
-        public static ReportData AddStandardTags(ReportData reportData, string stdTagsJsonFile)
+        public static ImagingData AddStandardTags(ImagingData reportData, string stdTagsJsonFile)
         {
             reportData.Application.StandardTags = GetSampleResult<StandardTag>(stdTagsJsonFile).ToList();
             return reportData;
         }
 
 
-        public static ReportData PrepaPortfolioReportData(string applicationsJSON, List<string> snapshotsJSON, List<string> snapshotsResultsJSON)
+        public static ImagingData PrepaPortfolioReportData(string applicationsJSON, List<string> snapshotsJSON, List<string> snapshotsResultsJSON)
         {
-            ReportData reportData = new ReportData
+            ImagingData reportData = new ImagingData
             {
                 Applications = GetSampleResult<Application>(applicationsJSON).ToArray(),
                 IgnoresApplications = new string[0],
@@ -472,9 +472,9 @@ namespace CastReporting.UnitTest.Reporting
             return reportData;
         }
 
-        public static ReportData PrepaEmptyPortfolioReportData()
+        public static ImagingData PrepaEmptyPortfolioReportData()
         {
-            ReportData reportData = new ReportData
+            ImagingData reportData = new ImagingData
             {
                 Applications = new Application[0],
                 IgnoresApplications = new[] { "Appli Ignor 1", "Appli 2 Ignore" },
@@ -484,7 +484,7 @@ namespace CastReporting.UnitTest.Reporting
             return reportData;
         }
 
-        public static void PreparePortfSnapshots(ReportData reportData)
+        public static void PreparePortfSnapshots(ImagingData reportData)
         {
             DateTime date = new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Utc);
             Snapshot _snap0 = reportData.Applications[0].Snapshots.FirstOrDefault();

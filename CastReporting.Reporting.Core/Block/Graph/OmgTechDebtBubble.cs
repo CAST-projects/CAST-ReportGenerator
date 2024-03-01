@@ -32,7 +32,7 @@ namespace CastReporting.Reporting.Block.Graph
     {
         #region METHODS
 
-        public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
+        public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
 
 
@@ -51,7 +51,7 @@ namespace CastReporting.Reporting.Block.Graph
                 double? _idxValue = 0;
                 double? _omgTechDebtValue = 0;
                 double? _locValue = 0;
-                
+
                 if (moduleId > 0)
                 {
                     Module module = snapshot.Modules.FirstOrDefault(m => m.Id.Equals(moduleId));
@@ -81,7 +81,7 @@ namespace CastReporting.Reporting.Block.Graph
                 rowData.Add(_idxValue.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));
                 rowData.Add(_omgTechDebtValue.GetValueOrDefault().ToString("N1"));
                 rowData.Add(_locValue.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));
-                
+
             }
             else
             {
