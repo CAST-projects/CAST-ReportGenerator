@@ -122,7 +122,7 @@ namespace CastReporting.Reporting.Block.Table
                 // so if MORE=true, we do not get the results for CISQ, but we search for all CISQ-xxx BCs
                 if (detail)
                 {
-                    List<ApplicationResult> bcresults = reportData.CurrentSnapshot.BusinessCriteriaResults.Where(_ => _.Reference.ShortName.Contains(indicatorName + "-")).OrderByDescending(_ => _.DetailResult.OmgTechnicalDebt?.Total).ToList();
+                    List<ApplicationResult> bcresults = reportData.CurrentSnapshot.BusinessCriteriaResults.Where(_ => _.Reference.ShortName != null && _.Reference.ShortName.Contains(indicatorName + "-")).OrderByDescending(_ => _.DetailResult.OmgTechnicalDebt?.Total).ToList();
                     foreach (ApplicationResult bcres in bcresults)
                     {
                         OmgTechnicalDebtIdDTO omgTechnicalDebt = OmgTechnicalDebtUtility.GetOmgTechDebt(reportData.CurrentSnapshot, bcres.Reference.Key);
