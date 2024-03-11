@@ -6,13 +6,13 @@
 #define MyAppExeName "CastReporting.UI.WPF.Core.exe"
 #define MyAppExe "../CastReporting.UI.WPF.V2/bin/Release/netcoreapp3.0/"+MyAppExeName
 #define MyAppCopyright GetFileCopyright(MyAppExe)
-#define App1250Id "{{5C7FE067-CAC9-4878-B3FA-0E5C195941D2}"
+#define App1260Id "{{0FAC31E8-DAEB-4515-BE94-C7C9A0563101}"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={#App1250Id}
+AppId={#App1260Id}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppVerName={#MyAppName} {#MyAppVersion}
@@ -261,8 +261,8 @@ end;
 function InitializeSetup(): Boolean;
 begin
     result := false;
-    result := UninstallOldVersion('{#App1250Id}', '1.25.0');
-    result := UninstallOldVersion('{#App1250Id}', '{#MyAppVersion}');
+    result := UninstallOldVersion('{#App1260Id}', '1.26.0');
+    result := UninstallOldVersion('{#App1260Id}', '{#MyAppVersion}');
 end;
 
 procedure InitializeWizard;
