@@ -43,10 +43,10 @@ namespace CastReporting.BLL.Computing
                          .ToList();
 
             //Get result by technical criterias
-            List<RuleViolationResultDTO> reslutByTechnicalCriterias = new List<RuleViolationResultDTO>();
+            List<RuleViolationResultDTO> resultByTechnicalCriterias = new List<RuleViolationResultDTO>();
             foreach (var rule in rules)
             {
-                // ruleViolationResult instanciation can not be out outside the loop, because the Add in reslutByTechnicalCriterias is by reference and list is corrupted
+                // ruleViolationResult instanciation can not be out outside the loop, because the Add in resultByTechnicalCriterias is by reference and list is corrupted
                 RuleViolationResultDTO ruleViolationResult = new RuleViolationResultDTO();
                 var technicalCriterias = snapshot.TechnicalCriteriaResults
                                                  .FirstOrDefault(_ => _.RulesViolation != null && _.RulesViolation.Any(p => rule.Key.HasValue && p.Reference.Key == rule.Key.Value));
@@ -54,22 +54,21 @@ namespace CastReporting.BLL.Computing
                 if (technicalCriterias == null) continue;
 
                 ruleViolationResult.Rule = new RuleDetailsDTO { Key = rule.Key ?? 0, Name = rule.Name, Critical = rule.Critical, CompoundedWeight = rule.CompoundedWeight ?? 0 };
-                ruleViolationResult.Grade = technicalCriterias.DetailResult.Grade;
-                ruleViolationResult.TechnicalCriteraiName = technicalCriterias.Reference.Name;
+                ruleViolationResult.TechnicalCriteriaName = technicalCriterias.Reference.Name;
 
-                var violationRatio = technicalCriterias.RulesViolation.Where(_ => rule.Key.HasValue && _.Reference.Key == rule.Key.Value)
-                    .Select(_ => _.DetailResult?.ViolationRatio)
-                    .FirstOrDefault();
+                var ruleViolation = technicalCriterias.RulesViolation.Where(_ => rule.Key.HasValue && _.Reference.Key == rule.Key.Value).FirstOrDefault();
+                ruleViolationResult.Grade = ruleViolation.DetailResult.Grade;
+                var violationRatio = ruleViolation.DetailResult?.ViolationRatio;
                 if (violationRatio != null)
                 {
                     ruleViolationResult.TotalFailed = violationRatio.FailedChecks;
                     ruleViolationResult.TotalChecks = violationRatio.TotalChecks;
                 }
 
-                reslutByTechnicalCriterias.Add(ruleViolationResult);
+                resultByTechnicalCriterias.Add(ruleViolationResult);
             }
 
-            return count == -1 ? reslutByTechnicalCriterias.OrderBy(_ => _.Rule.Name).ToList() : reslutByTechnicalCriterias.OrderBy(_ => _.Rule.Name).Take(count).ToList();
+            return count == -1 ? resultByTechnicalCriterias.OrderBy(_ => _.Rule.Name).ToList() : resultByTechnicalCriterias.OrderBy(_ => _.Rule.Name).Take(count).ToList();
         }
 
 

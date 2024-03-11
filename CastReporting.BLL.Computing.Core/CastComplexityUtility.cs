@@ -150,7 +150,7 @@ namespace CastReporting.BLL.Computing
         /// <returns></returns>
         public static string GetCostComplexityName(Snapshot snapshot, int categorieId)
         {
-            var result = snapshot.CostComplexityResults.FirstOrDefault(_ => _.Reference.Key == categorieId);
+            var result = snapshot.CostComplexityResults?.FirstOrDefault(_ => _.Reference.Key == categorieId);
             return result?.Reference?.Name;
         }
 
@@ -158,7 +158,7 @@ namespace CastReporting.BLL.Computing
         public static double? GetCategoryValue(Snapshot snapshot, int categorieId)
         {
             double? value = null;
-            List<Category[]> categories = snapshot?.CostComplexityResults.Select(_ => _.DetailResult.Categories).ToList();
+            List<Category[]> categories = snapshot?.CostComplexityResults?.Select(_ => _.DetailResult.Categories).ToList();
             foreach (Category[] distrib in categories)
             {
                 if (distrib == null) continue;

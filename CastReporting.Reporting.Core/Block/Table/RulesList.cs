@@ -65,10 +65,10 @@ namespace CastReporting.Reporting.Block.Table
             foreach (var item in results)
             {
 
-                rowData.Add(item.Rule.Critical ? "µ" : string.Empty);
+                rowData.Add(item.Rule.Critical ? "y" : string.Empty);
                 rowData.Add(item.Rule.CompoundedWeight.ToString());
                 rowData.Add(item.Grade?.ToString("N2"));
-                rowData.Add(item.TechnicalCriteraiName);
+                rowData.Add(item.TechnicalCriteriaName);
                 rowData.Add(item.Rule.Name);
 
                 rowData.Add(item.TotalFailed?.ToString("N0") ?? Constants.No_Value);

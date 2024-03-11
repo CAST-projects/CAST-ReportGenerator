@@ -6,15 +6,13 @@
 #define MyAppExeName "CastReporting.UI.WPF.Core.exe"
 #define MyAppExe "../CastReporting.UI.WPF.V2/bin/Release/netcoreapp3.0/"+MyAppExeName
 #define MyAppCopyright GetFileCopyright(MyAppExe)
-#define App1240Id "{{63B0C2BF-F4A5-43BA-AE1A-B30C88E3E369}"
-#define App1241Id "{{B6666179-BB8B-4521-94A5-63A2372EF8E3}"
-#define App1242Id "{{77BD0877-2C3E-4EAA-8C1F-DFDA45FF47A4}"
+#define App1250Id "{{5C7FE067-CAC9-4878-B3FA-0E5C195941D2}"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={#App1242Id}
+AppId={#App1250Id}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppVerName={#MyAppName} {#MyAppVersion}
@@ -25,18 +23,21 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 VersionInfoCompany={#MyAppPublisher}
 VersionInfoVersion={#MyAppVersion}
-DefaultDirName={commonpf32}\CAST\{#MyAppShortName} {#MyAppVersion}
+DefaultDirName={autopf}\CAST\{#MyAppShortName} {#MyAppVersion}
 DefaultGroupName={#MyAppName} {#MyAppVersion}
 OutputBaseFilename=ReportGeneratorSetup
 OutputDir=../Setup
 SetupIconFile=../CastReporting.UI.WPF.V2/Resources/Images/cast.ico
-Compression=lzma
+Compression=lzma2/max
 SolidCompression=yes
 AlwaysShowDirOnReadyPage=true
 ;DirExistsWarning=No
 UninstallDisplayIcon={app}\{#MyAppExeName}
 InfoBeforeFile=readme.txt
-
+PrivilegesRequired=admin
+WizardStyle=modern
+ArchitecturesInstallIn64BitMode=x64
+ArchitecturesAllowed=x64
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl" ; LicenseFile: "../Setup/License.rtf"
@@ -84,7 +85,7 @@ Name: "{code:GetSettingsPath}"; Permissions: users-full
 Name: "{code:GetReportsPath}"; Permissions: users-full
 
 [Run]
-Filename: "{app}\install_dotnet_core.bat"; Description: "Install dotnet sdk 6.0 (mandatory for running CAST-ReportGenerator)"; Flags: postinstall
+Filename: "{app}\install_dotnet_core.bat"; Description: "Install dotnet sdk 6.0 (mandatory for running CAST-ReportGenerator)"; Flags: postinstall unchecked
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppShortName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 
 [Code]
@@ -107,7 +108,7 @@ begin
 	PageParam.Add('');
 	
 	// Initialiser les valeurs par defaut (optional)
-	PageParam.Values[0] := ExpandConstant('{commonappdata}')+'\CAST\ReportGenerator\' + '{#MyAppVersion}';
+	PageParam.Values[0] := ExpandConstant('{autoappdata}')+'\CAST\ReportGenerator\' + '{#MyAppVersion}';
     
 end;
 
@@ -124,7 +125,7 @@ begin
 	PageParam2.Add('');
 	
 	// Initialiser les valeurs par defaut (optional)
-	PageParam2.Values[0] := ExpandConstant('{commonappdata}')+'\CAST\ReportGenerator\' + '{#MyAppVersion}' + '\Reports';
+	PageParam2.Values[0] := ExpandConstant('{autoappdata}')+'\CAST\ReportGenerator\' + '{#MyAppVersion}' + '\Reports';
 
 end;
 
@@ -187,7 +188,7 @@ end;
 function GetSettingsPath(Param: String): String;
 begin
     //Settings dir name as used in C# report generator program
-    Result := ExpandConstant('{commonappdata}') + '\CAST\ReportGenerator\' + '{#MyAppVersion}';
+    Result := ExpandConstant('{autoappdata}') + '\CAST\ReportGenerator\' + '{#MyAppVersion}';
 end;
 
 procedure SaveSettings();
@@ -260,9 +261,8 @@ end;
 function InitializeSetup(): Boolean;
 begin
     result := false;
-    result := UninstallOldVersion('{#App1240Id}', '1.24.0');
-    result := UninstallOldVersion('{#App1241Id}', '1.24.1');
-    result := UninstallOldVersion('{#App1242Id}', '{#MyAppVersion}');
+    result := UninstallOldVersion('{#App1250Id}', '1.25.0');
+    result := UninstallOldVersion('{#App1250Id}', '{#MyAppVersion}');
 end;
 
 procedure InitializeWizard;
