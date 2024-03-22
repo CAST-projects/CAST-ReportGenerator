@@ -25,7 +25,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("CRITICAL_VIOL_BY_MODULE")]
-    public class CriticalViolationByModule : TableBlock<ImagingData>
+    public class CriticalViolationByModule : ImagingTableBlock
     {
         private const string MetricFormat = "N0";
 

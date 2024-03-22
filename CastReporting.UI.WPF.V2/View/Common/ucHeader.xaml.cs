@@ -26,14 +26,5 @@ namespace CastReporting.UI.WPF.Core.Common
         {
             InitializeComponent();
         }
-
-        /// <summary>
-        ///  Refresh all the bindings on controls
-        /// </summary>
-        public void Refresh()
-        {
-            UcMenu.Refersh();
-        }
-
     }
 }

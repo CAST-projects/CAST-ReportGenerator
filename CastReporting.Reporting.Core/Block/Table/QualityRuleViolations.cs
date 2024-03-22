@@ -11,7 +11,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("QUALITY_RULE_VIOLATIONS")]
-    public class QualityRuleViolations : TableBlock<ImagingData>
+    public class QualityRuleViolations : ImagingTableBlock
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

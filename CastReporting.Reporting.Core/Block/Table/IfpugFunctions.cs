@@ -10,7 +10,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("IFPUG_FUNCTIONS")]
-    public class IfpugFunctions : TableBlock<ImagingData>
+    public class IfpugFunctions : ImagingTableBlock
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

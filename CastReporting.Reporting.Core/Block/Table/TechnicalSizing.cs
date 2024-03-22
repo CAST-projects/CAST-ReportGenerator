@@ -24,7 +24,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("TECHNICAL_SIZING")]
-    public class TechnicalSizing : TableBlock<ImagingData>
+    public class TechnicalSizing : ImagingTableBlock
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

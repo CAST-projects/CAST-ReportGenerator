@@ -33,17 +33,59 @@ namespace CastReporting.BLL
         {
             // Avoid instanciation of the class
         }
+
+        public static DirNode LoadTemplatesForApplication(ReportingParameter reportParams) {
+            var rootDir = new DirectoryInfo(reportParams.TemplatePath+ reportParams.ApplicationFolderNamePath);
+            if (!rootDir.Exists) return null;
+            return LoadDirNode(rootDir, SettingsRepository.TemplateExtensions.Split(','));
+        }
+
+        public static DirNode LoadTemplatesForPortfolio(ReportingParameter reportParams) {
+            var rootDir = new DirectoryInfo(reportParams.TemplatePath+ reportParams.PortfolioFolderNamePath);
+            if (!rootDir.Exists) return null;
+            return LoadDirNode(rootDir, SettingsRepository.TemplateExtensions.Split(','));
+        }
+
+        private static DirNode LoadDirNode(DirectoryInfo dir, string[] extensions) {
+            var node = new DirNode(dir);
+            foreach (var subDir in dir.EnumerateDirectories()) {
+                node.Children.Add(LoadDirNode(subDir, extensions));
+            }
+            foreach (var file in dir.EnumerateFiles().Where(f => extensions.Contains(f.Extension.ToLowerInvariant()))) {
+                node.Children.Add(new FileLeaf(file));
+            }
+            return node;
+        }
+
+        public static bool GetCertificateValidationStrategy() {
+            using (ISettingRepository setttingRepository = new SettingsRepository()) {
+                string certificateValidation = setttingRepository.GetSeting().ReportingParameter.ServerCertificateValidation;
+                if (certificateValidation == null) return true;
+                return !certificateValidation.Equals("disable");
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public static List<FileSystemInfo> GetTemplateFileList()
+        public static List<FileSystemInfo> GetTemplatesForApplication(Setting settings)
         {
             using (ISettingRepository setttingRepository = new SettingsRepository())
             {
-                string templateFilePath = setttingRepository.GetSeting().ReportingParameter.TemplatePath;
-                ReportingParameter rp = new ReportingParameter();
-                return setttingRepository.GetTemplateFileList(templateFilePath + rp.ApplicationFolderNamePath);
+                string path = Path.Combine(settings.ReportingParameter.TemplatePath, settings.ReportingParameter.ApplicationFolderNamePath);
+                return setttingRepository.GetTemplateFileList(path);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static List<FileSystemInfo> GetTemplatesForPortfolio(Setting settings) {
+            using (ISettingRepository setttingRepository = new SettingsRepository()) {
+                string path = Path.Combine(settings.ReportingParameter.TemplatePath, settings.ReportingParameter.PortfolioFolderNamePath);
+                return setttingRepository.GetTemplateFileList(path);
             }
         }
 
@@ -67,35 +109,11 @@ namespace CastReporting.BLL
             }
         }
 
-        public static bool GetCertificateValidationStrategy()
-        {
-            using (ISettingRepository setttingRepository = new SettingsRepository())
-            {
-                string certificateValidation = setttingRepository.GetSeting().ReportingParameter.ServerCertificateValidation;
-                if (certificateValidation == null) return true;
-                return !certificateValidation.Equals("disable");
-            }
-        }
-
         public static string GetExtendUrl()
         {
             using (ISettingRepository setttingRepository = new SettingsRepository())
             {
                 return setttingRepository.GetSeting().ReportingParameter.ExtendUrl;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public static List<FileSystemInfo> GetTemplateFileListPortfolio()
-        {
-            using (ISettingRepository setttingRepository = new SettingsRepository())
-            {
-                ReportingParameter rp = new ReportingParameter();
-                string templateFilePath = setttingRepository.GetSeting().ReportingParameter.TemplatePath;
-                return setttingRepository.GetTemplateFileList(templateFilePath + rp.PortfolioFolderNamePath);
             }
         }
 

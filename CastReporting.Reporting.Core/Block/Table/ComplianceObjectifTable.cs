@@ -24,7 +24,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("COMPLIANCE_TO_OBJ_TABLE")]
-    public class ComplianceObjectifTable : TableBlock<ImagingData>
+    public class ComplianceObjectifTable : ImagingTableBlock
     {
 
         private const string MetricFormat = "N0";

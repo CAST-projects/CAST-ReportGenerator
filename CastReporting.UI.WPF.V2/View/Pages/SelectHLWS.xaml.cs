@@ -34,12 +34,12 @@ namespace CastReporting.UI.WPF.Core.View
         public SelectHLWS()
         {
             InitializeComponent();
-
             DataContext = new SelectHLWSVM();
-
         }
 
-        private void ActivateWebService_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        public SelectHLWSVM SelectHLWSContext => DataContext as SelectHLWSVM;
+
+        private void ActivateHLWebService_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
         {
             var list = e.Parameter as List<object>;
             if (list != null)
@@ -49,11 +49,12 @@ namespace CastReporting.UI.WPF.Core.View
                     Url = (string)list[0],
                     Login = (string)list[1],
                     Password = (string)list[2],
-                    ApiKey = (bool)list[3],
+                    CompanyId = (string)list[3],
+                    ApiKey = (bool)list[4],
                     ServerCertificateValidation = SettingsBLL.GetCertificateValidationStrategy()
                 };
 
-                (DataContext as SelectHLWSVM)?.ExecuteAddCommand(connection);
+                SelectHLWSContext.ExecuteAddCommand(connection);
             }
             e.Handled = true;
         }

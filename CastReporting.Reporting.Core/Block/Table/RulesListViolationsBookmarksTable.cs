@@ -12,7 +12,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("LIST_RULES_VIOLATIONS_BOOKMARKS_TABLE")]
-    public class RulesListViolationsBookmarksTable : TableBlock<ImagingData>
+    public class RulesListViolationsBookmarksTable : ImagingTableBlock
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

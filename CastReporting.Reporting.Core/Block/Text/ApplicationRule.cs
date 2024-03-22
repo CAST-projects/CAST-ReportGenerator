@@ -25,7 +25,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Text
 {
     [Block("APPLICATION_RULE"), Block("APPLICATION_METRIC")]
-    public class ApplicationRule : TextBlock<ImagingData>
+    public class ApplicationRule: ImagingTextBlock
     {
         #region METHODS
         public override string Content(ImagingData reportData, Dictionary<string, string> options)

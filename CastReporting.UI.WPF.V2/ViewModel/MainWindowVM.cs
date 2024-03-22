@@ -186,6 +186,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// <param name="exception"></param>
         public void OnErrorOccured(Exception exception)
         {
+            System.Diagnostics.Trace.WriteLine(exception.ToString());
             if (exception is WebException)
                 MessagesList.Add(new MessageItem { Message = Messages.msgWSError });
             else

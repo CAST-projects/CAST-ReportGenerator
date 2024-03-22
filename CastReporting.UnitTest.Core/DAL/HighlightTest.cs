@@ -23,10 +23,9 @@ namespace CastReporting.UnitTest.Repositories
             Login = "***",
             Password = "***",
             IsActive = true,
-            Name = "Default"
+            Name = "Default",
+            CompanyId = "22400",
         };
-
-        private const string companyId = "22400";
 
         [TestMethod()]
         public void IsServiceValidTest()
@@ -42,7 +41,7 @@ namespace CastReporting.UnitTest.Repositories
             IHighlightRepository context = new HighlightRepository(_connection, null);
             try
             {
-                var result = context.GetCompany(companyId);
+                var result = context.GetCompany();
                 Assert.IsNotNull(result);
             }
             catch (WebException ex)
@@ -57,7 +56,7 @@ namespace CastReporting.UnitTest.Repositories
         {
             IHighlightRepository context = new HighlightRepository(_connection, null);
             // but the demo account is allowed to get the domain info :)
-            var result = context.GetDomain(companyId);
+            var result = context.GetDomain(_connection.CompanyId);
             Assert.IsNotNull(result);
         }
 
@@ -65,7 +64,7 @@ namespace CastReporting.UnitTest.Repositories
         public void GetDomainAppInfo()
         {
             IHighlightRepository context = new HighlightRepository(_connection, null);
-            var result = context.GetDomainAppIds(companyId);
+            var result = context.GetDomainAppIds();
             Assert.IsNotNull(result);
         }
     }

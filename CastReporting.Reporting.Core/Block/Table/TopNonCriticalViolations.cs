@@ -29,7 +29,7 @@ namespace CastReporting.Reporting.Block.Table
     /// TopNonCriticalViolations Class
     /// </summary>
     [Block("TOP_NON_CRITICAL_VIOLATIONS")]
-    public class TopNonCriticalViolations : TableBlock<ImagingData>
+    public class TopNonCriticalViolations : ImagingTableBlock
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

@@ -36,17 +36,24 @@ public class HLWSConnection
     /// <param name="login"></param>
     /// <param name="password"></param>
     /// /// <param name="name"></param>
-    public HLWSConnection(string url, string login, string password, string name)
+    public HLWSConnection(string url, string login, string password, string companyId, string name)
     {
         Url = ValidateUrl(url);
         Login = login;
         Password = password;
+        CompanyId = companyId;
         Name = name;
         ApiKey = false;
         ServerCertificateValidation = true;
     }
 
     public string Name
+    {
+        get;
+        set;
+    } = string.Empty;
+
+    public string CompanyId
     {
         get;
         set;
@@ -157,7 +164,7 @@ public class HLWSConnection
     public override bool Equals(object? obj)
     {
         var connection = obj as HLWSConnection;
-        return (connection != null) && (Uri?.Equals(connection.Uri) ?? (connection.Uri == null)) && (Login?.Equals(connection.Login) ?? (connection.Login == null));
+        return (connection != null) && (Uri?.Equals(connection.Uri) ?? (connection.Uri == null)) && (Login?.Equals(connection.Login) ?? (connection.Login == null)) && (CompanyId == connection.CompanyId);
     }
 
 

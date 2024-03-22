@@ -25,7 +25,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("METRIC_TOP_ARTEFACT")]
-    public class MetricTopArtifact : TableBlock<ImagingData>
+    public class MetricTopArtifact : ImagingTableBlock
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

@@ -25,7 +25,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("ACTION_PLANS")]
-    public class ActionPlans : TableBlock<ImagingData>
+    public class ActionPlans : ImagingTableBlock
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

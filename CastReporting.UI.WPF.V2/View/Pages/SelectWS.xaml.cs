@@ -39,6 +39,8 @@ namespace CastReporting.UI.WPF.Core.View
 
         }
 
+        public SelectWSVM SelectWSContext => DataContext as SelectWSVM;
+        
         private void ActivateWebService_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
         {
             var list = e.Parameter as List<object>;
@@ -53,7 +55,7 @@ namespace CastReporting.UI.WPF.Core.View
                     ServerCertificateValidation = SettingsBLL.GetCertificateValidationStrategy()
                 };
 
-                (DataContext as SelectWSVM)?.ExecuteAddCommand(connection);
+                SelectWSContext.ExecuteAddCommand(connection);
             }
             e.Handled = true;
         }

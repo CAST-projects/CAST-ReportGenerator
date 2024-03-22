@@ -28,7 +28,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("OMG_TECHNICAL_DEBT_DETAILS_TABLE")]
-    public class OmgTechnicalDebtDetailsTable : TableBlock<ImagingData>
+    public class OmgTechnicalDebtDetailsTable : ImagingTableBlock
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

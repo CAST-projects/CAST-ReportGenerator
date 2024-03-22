@@ -168,11 +168,14 @@
   <data name="lblFieldWSPassword" xml:space="preserve">
     <value>Password</value>
   </data>
+  <data name="lblFieldWSCompanyId" xml:space="preserve">
+    <value>CompanyId</value>
+  </data>
   <data name="lblFieldUrlWS" xml:space="preserve">
     <value>Web Service</value>
   </data>
-  <data name="lblFieldLoginWS" xml:space="preserve">
-    <value>Login</value>
+  <data name="lblFieldCompanyIdWS" xml:space="preserve">
+    <value>Company ID</value>
   </data>
   <data name="btnAddWS" xml:space="preserve">
     <value>Validate</value>

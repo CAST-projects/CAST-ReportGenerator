@@ -27,7 +27,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("CAST_DISTRIBUTION")]
-    public class CastDistribution : TableBlock<ImagingData>
+    public class CastDistribution : ImagingTableBlock
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

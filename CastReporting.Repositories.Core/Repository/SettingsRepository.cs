@@ -61,6 +61,8 @@ namespace CastReporting.Repositories
             return setting;
         }
 
+        public static string TemplateExtensions => Settings.Default.TemplateExtensions;
+
         /// <summary>
         /// 
         /// </summary>
@@ -74,7 +76,7 @@ namespace CastReporting.Repositories
 
             DirectoryInfo di = new DirectoryInfo(templatePath);
             if (!di.Exists) return result;
-            var extensions = Settings.Default.TemplateExtensions.Split(',');
+            var extensions = TemplateExtensions.Split(',');
             result.AddRange(di.GetFiles().Where(f => extensions.Contains(Path.GetExtension(f.FullName).ToLower())).ToList());
             result.AddRange(di.GetDirectories().ToList());
 

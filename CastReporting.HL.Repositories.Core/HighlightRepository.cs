@@ -34,6 +34,8 @@ namespace CastReporting.HL.Repositories
 
         public readonly string CurrentConnection;
 
+        protected readonly string _CompanyId;
+
         protected readonly bool CurrentApiKey;
 
         /// <summary>
@@ -44,6 +46,7 @@ namespace CastReporting.HL.Repositories
         public HighlightRepository(HLWSConnection connection, IHighlightProxy? client)
         {
             _Client = client ?? new HighlightProxy(connection.Login, connection.Password, connection.ApiKey, connection.ServerCertificateValidation);
+            _CompanyId = connection.CompanyId;
             CurrentConnection = connection.Url;
             if (!CurrentConnection.EndsWith('/'))
             {
@@ -88,9 +91,9 @@ namespace CastReporting.HL.Repositories
             }
         }
 
-        Company? IHighlightRepository.GetCompany(string companyId)
+        Company? IHighlightRepository.GetCompany()
         {
-            var json = GetResource($"companies/{companyId}");
+            var json = GetResource($"companies/{_CompanyId}");
             return JsonConvert.DeserializeObject<Company>(json);
         }
 
@@ -100,8 +103,12 @@ namespace CastReporting.HL.Repositories
             return JsonConvert.DeserializeObject<HLDomain>(json);
         }
 
-        IList<AppId> IHighlightRepository.GetDomainAppIds(string domainId)
+        IList<AppId> IHighlightRepository.GetDomainAppIds(string? domainId)
         {
+            if (string.IsNullOrEmpty(domainId))
+            {
+                domainId = _CompanyId;
+            }
             var json = GetResource($"domains/{domainId}/applications");
             return JsonConvert.DeserializeObject<IList<AppId>>(json) ?? [];
         }

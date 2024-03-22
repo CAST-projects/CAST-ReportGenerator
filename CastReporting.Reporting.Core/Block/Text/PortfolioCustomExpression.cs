@@ -10,7 +10,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Text
 {
     [Block("PF_CUSTOM_EXPRESSION")]
-    public class PortfolioCustomExpression : TextBlock<ImagingData>
+    public class PortfolioCustomExpression: ImagingTextBlock
     {
         #region METHODS
 

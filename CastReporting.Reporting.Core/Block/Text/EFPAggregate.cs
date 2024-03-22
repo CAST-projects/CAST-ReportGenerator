@@ -22,7 +22,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Text
 {
     [Block("METRIC_EFP")]
-    public class EFPAggregate : TextBlock<ImagingData>
+    public class EFPAggregate: ImagingTextBlock
     {
         #region METHODS
         public override string Content(ImagingData reportData, Dictionary<string, string> options)

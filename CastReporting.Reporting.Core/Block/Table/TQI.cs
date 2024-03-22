@@ -24,7 +24,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("TQI")]
-    public class TQI : TableBlock<ImagingData>
+    public class TQI : ImagingTableBlock
     {
         /// <summary>
         /// 

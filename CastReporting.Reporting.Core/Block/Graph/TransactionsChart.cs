@@ -29,7 +29,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Graph
 {
     [Block("TRANSACTIONS_CHART")]
-    public class TransactionsChart : GraphBlock<ImagingData>
+    public class TransactionsChart : ImagingGraphBlock
     {
 
         #region METHODS

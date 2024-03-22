@@ -33,10 +33,12 @@ namespace CastReporting.Reporting.Helper
         /// <returns></returns>
         public static string GetMetricName(ImagingData reportData, Snapshot snapshot, string metricId)
         {
-            string name = ((snapshot.BusinessCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault() ??
+            string name = ((((snapshot.BusinessCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault() ??
                             snapshot.TechnicalCriteriaResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault()) ??
                            snapshot.QualityRulesResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault()) ??
-                          snapshot.SizingMeasuresResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault();
+                          snapshot.SizingMeasuresResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault()) ??
+                          CastComplexityUtility.GetCostComplexityName(snapshot, int.Parse(metricId))) ??
+                          CastComplexityUtility.GetCategoryName(snapshot, int.Parse(metricId));
             if (snapshot.QualityRulesResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault() != null)
             {
                 name = name + " (" + metricId + ")";
@@ -50,7 +52,7 @@ namespace CastReporting.Reporting.Helper
 
         /// <summary>
         /// This method return the name, type and result (grade or value) of the metric from getting it in the results of the snapshot
-        /// The metric id can be a BC, TC, QR, sizing or background fact measure
+        /// The metric id can be a BC, TC, QR, sizing or background fact measure, or distribution and category
         /// </summary>
         /// <param name="reportData"></param>
         /// <param name="snapshot"></param>
@@ -88,7 +90,13 @@ namespace CastReporting.Reporting.Helper
                     name = snapshot.SizingMeasuresResults?.Where(_ => _.Reference.Key == int.Parse(metricId)).Select(_ => _.Reference.Name).FirstOrDefault();
                     if (name != null) type = MetricType.SizingMeasure;
                 }
-                // if metricId is not a sizing measure, perhaps a category
+                // if metricId is not a sizing measure, perhaps a distribution
+                if (name == null)
+                {
+                    name = CastComplexityUtility.GetCostComplexityName(snapshot, int.Parse(metricId));
+                    if (name != null) type = MetricType.Distribution;
+                }
+                // if metricId is not a distribution, perhaps a category
                 if (name == null)
                 {
                     name = CastComplexityUtility.GetCategoryName(snapshot, int.Parse(metricId));
@@ -216,6 +224,33 @@ namespace CastReporting.Reporting.Helper
                         }
                         resStr = format ? result?.ToString("N0") ?? Constants.No_Value : result?.ToString() ?? "0";
                         break;
+                    case MetricType.Distribution:
+                        if (module == null && string.IsNullOrEmpty(technology))
+                        {
+                            result = snapshot.CostComplexityResults?.Where(_ => _.Reference.Key == int.Parse(metricId))
+                                .Select(_ => _.DetailResult.Grade).FirstOrDefault();
+                        }
+                        else if (module != null && string.IsNullOrEmpty(technology))
+                        {
+                            result = snapshot.CostComplexityResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.ModulesResult != null)
+                                .SelectMany(_ => _.ModulesResult)
+                                .FirstOrDefault(_ => _.Module.Id == module.Id && _.DetailResult != null)?.DetailResult.Grade;
+                        }
+                        else if (module == null && !string.IsNullOrEmpty(technology))
+                        {
+                            result = snapshot.CostComplexityResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.TechnologyResult != null)
+                                .SelectMany(_ => _.TechnologyResult)
+                                .FirstOrDefault(_ => _.Technology == technology && _.DetailResult != null)?.DetailResult.Grade;
+                        }
+                        else if (module != null && !string.IsNullOrEmpty(technology))
+                        {
+                            result = snapshot.CostComplexityResults?.Where(_ => _.Reference.Key == int.Parse(metricId) && _.ModulesResult != null)
+                                .SelectMany(_ => _.ModulesResult)
+                                .FirstOrDefault(_ => _.Module.Id == module.Id && _.TechnologyResults != null)?.TechnologyResults
+                                .FirstOrDefault(_ => _.Technology == technology && _.DetailResult != null)?.DetailResult.Grade;
+                        }
+                        resStr = result?.ToString("N2") ?? (format ? Constants.No_Value : "0");
+                        break;
                     case MetricType.Category:
                         if (module == null && string.IsNullOrEmpty(technology))
                         {
@@ -314,6 +349,7 @@ namespace CastReporting.Reporting.Helper
                     case MetricType.BusinessCriteria:
                     case MetricType.TechnicalCriteria:
                     case MetricType.QualityRule:
+                    case MetricType.Distribution:
                         curRes = curResult?.result?.ToString("N2") ?? (format ? Constants.No_Value : "0");
                         prevRes = prevResult?.result?.ToString("N2") ?? (format ? Constants.No_Value : "0");
                         break;
@@ -359,6 +395,7 @@ namespace CastReporting.Reporting.Helper
                     case MetricType.BusinessCriteria:
                     case MetricType.TechnicalCriteria:
                     case MetricType.QualityRule:
+                    case MetricType.Distribution:
                         curRes = curResult?.result?.ToString("N2") ?? (format ? Constants.No_Value : "0");
                         prevRes = prevResult?.result?.ToString("N2") ?? (format ? Constants.No_Value : "0");
                         break;
@@ -404,6 +441,7 @@ namespace CastReporting.Reporting.Helper
                 case MetricType.BusinessCriteria:
                 case MetricType.TechnicalCriteria:
                 case MetricType.QualityRule:
+                case MetricType.Distribution:
                     if (curResult.result != null && prevResult.result != null)
                     {
                         finalCurRes = curResult.result.Value.ToString("N2");
@@ -509,6 +547,7 @@ namespace CastReporting.Reporting.Helper
                     case MetricType.QualityRule:
                     case MetricType.TechnicalCriteria:
                     case MetricType.BusinessCriteria:
+                    case MetricType.Distribution:
                         aggregator = "AVERAGE";
                         break;
                     case MetricType.SizingMeasure:
@@ -545,6 +584,7 @@ namespace CastReporting.Reporting.Helper
                 case MetricType.BusinessCriteria:
                 case MetricType.TechnicalCriteria:
                 case MetricType.QualityRule:
+                case MetricType.Distribution:
                     res = curResult?.ToString("N2") ?? (format ? Constants.No_Value : "0");
                     break;
                 case MetricType.SizingMeasure:

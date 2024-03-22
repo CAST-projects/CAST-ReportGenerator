@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:converter="clr-namespace:CastReporting.UI.WPF.Core.Converter"       
              xmlns:commands="clr-namespace:CastReporting.UI.WPF.Core.Commands"
+             xmlns:vm="clr-namespace:CastReporting.UI.WPF.Core.ViewModel"
+             d:DataContext="{d:DesignInstance vm:ReportingVM, IsDesignTimeCreatable=False}"
              mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -26,16 +28,15 @@
     
     </UserControl.Resources>
 
-
-    <Grid>
-        <Button  Style="{StaticResource MenuButtonStyle}" Height="70" HorizontalAlignment="Left" Name="BtnMenu" VerticalAlignment="Top" Width="60" Click="OnButtonClick">            
+    <ContentControl>
+        <Button Style="{StaticResource MenuButtonStyle}" Height="70" HorizontalAlignment="Left" VerticalAlignment="Top" Width="60" Click="OnButtonClick">
             <Button.Content>
-                <Image  Name="Button1Img" Source="/CastReporting.UI.WPF.Core;component/Resources/Images/menu.png" VerticalAlignment="Center" HorizontalAlignment="Right" RenderOptions.EdgeMode="Aliased"  Width="26" Height="24" Margin="0,0,0,0"/>                                
+                <Image Source="/CastReporting.UI.WPF.Core;component/Resources/Images/menu.png" VerticalAlignment="Center" HorizontalAlignment="Right" RenderOptions.EdgeMode="Aliased"  Width="26" Height="24" Margin="0,0,0,0"/>
             </Button.Content>
-            
+
             <Button.ContextMenu>
                 <ContextMenu >
-                    <MenuItem Foreground="Snow" Header="{Binding  Converter={StaticResource MessageConverter}, ConverterParameter=mnuReporting}"          Command="{x:Static commands:MenuCommand.OpenReporting}"                  CommandParameter="Reporting.xaml"/>
+                    <MenuItem Foreground="Snow" Header="{Binding  Converter={StaticResource MessageConverter}, ConverterParameter=mnuReporting}"          Command="{x:Static commands:MenuCommand.OpenReporting}"                  CommandParameter="ReportingTabs.xaml"/>
                     <MenuItem Foreground="Snow" Header="{Binding  Converter={StaticResource MessageConverter}, ConverterParameter=mnuWSConfiguration}"    Command="{x:Static commands:MenuCommand.OpenWebServiceConfiguration}"    CommandParameter="SelectWS.xaml"/>
                     <MenuItem Foreground="Snow" Header="{Binding  Converter={StaticResource MessageConverter}, ConverterParameter=mnuHLWSConfiguration}"  Command="{x:Static commands:MenuCommand.OpenHLWebServiceConfiguration}"  CommandParameter="SelectHLWS.xaml"/>
                     <MenuItem Foreground="Snow" Header="{Binding  Converter={StaticResource MessageConverter}, ConverterParameter=mnuSettings}"           Command="{x:Static commands:MenuCommand.OpenSettings}"                   CommandParameter="Settings.xaml"/>
@@ -43,8 +44,6 @@
                     <MenuItem Foreground="Snow" Header="{Binding  Converter={StaticResource MessageConverter}, ConverterParameter=mnuQuit}"               Command="{x:Static commands:MenuCommand.Quit}" />
                 </ContextMenu>
             </Button.ContextMenu>
-            
-            
         </Button>
-    </Grid>
+    </ContentControl>
 </UserControl>

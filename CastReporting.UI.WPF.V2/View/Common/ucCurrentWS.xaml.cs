@@ -25,7 +25,17 @@ namespace CastReporting.UI.WPF.Core.Common
     /// </summary>
     public partial class UcCurrentWS : UserControl
     {
+        public UcCurrentWS() {
+            InitializeComponent();
+            LayoutRoot.DataContext = this;
+            CbApiKey.DataContext = this;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
+
+        // Using a DependencyProperty as the backing store for Login.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty LoginProperty =
+            DependencyProperty.Register("Login", typeof(string), typeof(UcCurrentWS), new PropertyMetadata(string.Empty));
 
         public string Login
         {
@@ -33,9 +43,9 @@ namespace CastReporting.UI.WPF.Core.Common
             set { SetValue(LoginProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Login.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty LoginProperty =
-            DependencyProperty.Register("Login", typeof(string), typeof(UcCurrentWS), new PropertyMetadata(string.Empty));
+        // Using a DependencyProperty as the backing store for Url.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty UrlProperty =
+            DependencyProperty.Register("Url", typeof(string), typeof(UcCurrentWS), new PropertyMetadata(string.Empty));
 
         public string Url
         {
@@ -43,9 +53,9 @@ namespace CastReporting.UI.WPF.Core.Common
             set { SetValue(UrlProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Url.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty UrlProperty =
-            DependencyProperty.Register("Url", typeof(string), typeof(UcCurrentWS), new PropertyMetadata(string.Empty));
+        // Using a DependencyProperty as the backing store for Password.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PasswordProperty =
+            DependencyProperty.Register("Password", typeof(string), typeof(UcCurrentWS), new PropertyMetadata(string.Empty));
 
         public string Password
         {
@@ -53,9 +63,8 @@ namespace CastReporting.UI.WPF.Core.Common
             set { SetValue(PasswordProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Password.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty PasswordProperty =
-            DependencyProperty.Register("Password", typeof(string), typeof(UcCurrentWS), new PropertyMetadata(string.Empty));
+        public static readonly DependencyProperty ApiKeyProperty =
+            DependencyProperty.Register("ApiKey", typeof(bool), typeof(UcCurrentWS), new PropertyMetadata(false));
 
         private bool _isApiKey;
         public bool ApiKey
@@ -69,23 +78,10 @@ namespace CastReporting.UI.WPF.Core.Common
             }
         }
 
-        public static readonly DependencyProperty ApiKeyProperty =
-            DependencyProperty.Register("ApiKey", typeof(bool), typeof(UcCurrentWS), new PropertyMetadata(false));
 
         private void CbApiKey_CheckedChanged(object sender, RoutedEventArgs e)
         {
             ApiKey = CbApiKey.IsChecked ?? false;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public UcCurrentWS()
-        {
-            InitializeComponent();
-
-            LayoutRoot.DataContext = this;
-            CbApiKey.DataContext = this;
         }
     }
 }

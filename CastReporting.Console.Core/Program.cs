@@ -305,7 +305,8 @@ namespace CastReporting.Console
                                         IgnoresApplications = _appsToIgnorePortfolioResult,
                                         IgnoresSnapshots = _snapsToIgnore,
                                         Parameter = settings.ReportingParameter
-                                    }
+                                    },
+                                    HighlightData=null,// not supported yet
                                 };
                             }
                             else if (arguments.Category != null && arguments.Tag == null)
@@ -328,7 +329,8 @@ namespace CastReporting.Console
                                         IgnoresApplications = _appsToIgnorePortfolioResult,
                                         IgnoresSnapshots = _snapsToIgnore,
                                         Parameter = settings.ReportingParameter
-                                    }
+                                    },
+                                    HighlightData = null,// not supported yet
                                 };
                             }
                             else if (arguments.Category == null && arguments.Tag != null)
@@ -351,7 +353,8 @@ namespace CastReporting.Console
                                         IgnoresApplications = _appsToIgnorePortfolioResult,
                                         IgnoresSnapshots = _snapsToIgnore,
                                         Parameter = settings.ReportingParameter
-                                    }
+                                    },
+                                    HighlightData = null,// not supported yet
                                 };
                             }
                             else
@@ -374,7 +377,8 @@ namespace CastReporting.Console
                                         IgnoresApplications = _appsToIgnorePortfolioResult,
                                         IgnoresSnapshots = _snapsToIgnore,
                                         Parameter = settings.ReportingParameter
-                                    }
+                                    },
+                                    HighlightData = null,// not supported yet
                                 };
                             }
 
@@ -552,7 +556,8 @@ namespace CastReporting.Console
                             SnapshotExplorer = new SnapshotBLL(connection, currentSnapshot),
                             CurrencySymbol = "$",
                             ServerVersion = CommonBLL.GetServiceVersion(connection)
-                        }
+                        },
+                                    HighlightData = null,// not supported yet
                     };
 
                     using (IDocumentBuilder docBuilder = BuilderFactory.CreateBuilder(reportData, tmpReportFileFlexi))

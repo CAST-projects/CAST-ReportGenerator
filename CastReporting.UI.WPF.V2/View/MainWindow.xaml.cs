@@ -45,7 +45,7 @@ namespace CastReporting.UI.WPF.Core
             InitializeComponent();
 
             DataContext = new MainWindowVM();
-            MainFrame.Navigate(new Uri(string.Format(NavigationPath, "reporting.xaml"), UriKind.RelativeOrAbsolute));
+            MainFrame.Navigate(new Uri(string.Format(NavigationPath, "ReportingTabs.xaml"), UriKind.RelativeOrAbsolute));
             MainFrame.Navigated += OnFrameNavigated;
 
             Version ver = Assembly.GetExecutingAssembly().GetName().Version;
@@ -128,9 +128,7 @@ namespace CastReporting.UI.WPF.Core
         private void OnLanguageChanged(object sender, RoutedEventArgs e)
         {
             UcMessages.Refresh();
-            UcHeader.Refresh();
             MainFrame.NavigationService.Refresh();
-
         }
 
         /// <summary>

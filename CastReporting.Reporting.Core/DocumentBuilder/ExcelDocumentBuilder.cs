@@ -15,6 +15,7 @@
  */
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Helper;
+using CastReporting.Reporting.Highlight.ReportingModel;
 using CastReporting.Reporting.ReportingModel;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
@@ -201,23 +202,19 @@ namespace CastReporting.Reporting.Builder
 
                                 BlockConfiguration config = GetBlockConfiguration(strBlockTypeAndName);
 
-                                if (TextBlock<ImagingData>.IsMatching(config.Type))
-                                {
-                                    TextBlock<ImagingData> instance = BlockHelper.GetAssociatedBlockInstance<TextBlock<ImagingData>>(config.Name);
-                                    if (instance != null)
-                                    {
-                                        SetCellValue(cell, instance.Content(reportData.ImagingData, config.Options));
+                                if (TextBlock<IReportData>.IsMatching(config.Type)) {
+                                    TextBlock<IReportData> instance = BlockHelper.GetAssociatedBlockInstance<TextBlock<IReportData>>(config.Name);
+                                    if (instance != null) {
+                                        var data = instance.GetActualData(reportData);
+                                        SetCellValue(cell, instance.Content(data, config.Options));
                                     }
-                                }
-                                else if (TableBlock<ImagingData>.IsMatching(config.Type))
-                                {
-                                    TableBlock<ImagingData> instance = BlockHelper.GetAssociatedBlockInstance<TableBlock<ImagingData>>(config.Name);
-                                    if (instance != null)
-                                    {
-                                        tableTargets.Add(new TableInfo
-                                        {
+                                } else if (TableBlock<IReportData>.IsMatching(config.Type)) {
+                                    TableBlock<IReportData> instance = BlockHelper.GetAssociatedBlockInstance<TableBlock<IReportData>>(config.Name);
+                                    if (instance != null) {
+                                        var data = instance.GetActualData(reportData);
+                                        tableTargets.Add(new TableInfo {
                                             cell = cell,
-                                            table = instance.Content(reportData.ImagingData, config.Options)
+                                            table = instance.Content(data, config.Options)
                                         });
                                     }
                                 }

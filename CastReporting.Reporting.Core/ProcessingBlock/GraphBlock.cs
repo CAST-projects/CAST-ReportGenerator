@@ -46,11 +46,37 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
         #endregion PROPERTIES
 
         #region METHODS
+        public abstract D GetActualData(ReportData reportData);
+
         public abstract TableDefinition Content(D data, Dictionary<string, string> options);
 
         public static bool IsMatching(string blockType)
         {
             return BlockTypeName.Equals(blockType);
+        }
+
+        private static bool TryBuildContent<X>(X data, FormatType reportType,OpenXmlPackage pPackage, BlockItem block, string blockName, Dictionary<string, string> options) where X : IReportData {
+            if (data != null){
+                GraphBlock<X> instance = BlockHelper.GetAssociatedBlockInstance<GraphBlock<X>>(blockName);
+                if (instance != null) {
+                    LogHelper.LogDebugFormat("Start GraphBlock<{0}> generation : Type {1}", typeof(X), blockName);
+                    Stopwatch treatmentWatch = Stopwatch.StartNew();
+                    TableDefinition content = instance.Content(data, options);
+                    try {
+                        if (null != content) {
+                            ApplyContent(reportType, pPackage, block, content, options);
+                        }
+                    } finally {
+                        treatmentWatch.Stop();
+                        LogHelper.LogDebugFormat(
+                            "End GraphBlock<{0}> generation ({1}) in {2} ms",
+                            typeof(X), blockName, treatmentWatch.ElapsedMilliseconds
+                        );
+                    }
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>
@@ -64,65 +90,18 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
         public static void BuildContent(ReportData client, OpenXmlPackage pPackage, BlockItem block, string blockName, Dictionary<string, string> options)
         {
             var previousCulture = Thread.CurrentThread.CurrentCulture;
-            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-
-            GraphBlock<ImagingData> imgInstance = BlockHelper.GetAssociatedBlockInstance<GraphBlock<ImagingData>>(blockName);
-            if (imgInstance != null)
-            {
-                LogHelper.LogDebugFormat("Start GraphBlock<ImagingData> generation : Type {0}", blockName);
-                Stopwatch treatmentWatch = Stopwatch.StartNew();
-                TableDefinition content = imgInstance.Content(client.ImagingData, options);
-                try
-                {
-                    if (null != content)
-                    {
-                        ApplyContent(client.ReportType, pPackage, block, content, options);
-                    }
+            try {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+                if (TryBuildContent(client, client.ReportType, pPackage, block, blockName, options)) {
+                    // OK, it was a generic block
+                } else if (TryBuildContent(client.ImagingData, client.ReportType, pPackage, block, blockName, options)) {
+                    // OK, it was a Imaging block and client.ImagingData != null
+                } else if (TryBuildContent(client.HighlightData, client.ReportType, pPackage, block, blockName, options)) {
+                    // OK, it was an Highlight block and client.HighlightData != null
                 }
-                finally
-                {
-                    Thread.CurrentThread.CurrentCulture = previousCulture;
-
-                    treatmentWatch.Stop();
-                    LogHelper.LogDebugFormat
-                    ("End GraphBlock<ImagingData> generation ({0}) in {1} millisecond{2}"
-                        , blockName
-                        , treatmentWatch.ElapsedMilliseconds
-                        , treatmentWatch.ElapsedMilliseconds > 1 ? "s" : string.Empty
-                    );
-                }
-                return;
-            }
-
-            if (client.HighlightData != null)
-            {
-                GraphBlock<HighlightData> hlInstance = BlockHelper.GetAssociatedBlockInstance<GraphBlock<HighlightData>>(blockName);
-                if (hlInstance != null)
-                {
-                    LogHelper.LogDebugFormat("Start GraphBlock<HighlightData> generation : Type {0}", blockName);
-                    Stopwatch treatmentWatch = Stopwatch.StartNew();
-                    TableDefinition content = hlInstance.Content(client.HighlightData, options);
-                    try
-                    {
-                        if (null != content)
-                        {
-                            ApplyContent(client.ReportType, pPackage, block, content, options);
-                        }
-                    }
-                    finally
-                    {
-                        Thread.CurrentThread.CurrentCulture = previousCulture;
-
-                        treatmentWatch.Stop();
-                        LogHelper.LogDebugFormat
-                        ("End GraphBlock<HighlightData> generation ({0}) in {1} millisecond{2}"
-                            , blockName
-                            , treatmentWatch.ElapsedMilliseconds
-                            , treatmentWatch.ElapsedMilliseconds > 1 ? "s" : string.Empty
-                        );
-                    }
-                    return;
-                }
+            } finally {
+                // restore current culture
+                Thread.CurrentThread.CurrentCulture = previousCulture;
             }
         }
 
@@ -755,5 +734,20 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
             }
         }
         #endregion METHODS
+    }
+
+    public abstract class ReportGraphBlock : GraphBlock<ReportData>
+    {
+        public override ReportData GetActualData(ReportData reportData) => reportData;
+    }
+
+    public abstract class ImagingGraphBlock : GraphBlock<ImagingData>
+    {
+        public override ImagingData GetActualData(ReportData reportData) => reportData.ImagingData;
+    }
+
+    public abstract class HighlightGraphBlock : GraphBlock<HighlightData>
+    {
+        public override HighlightData GetActualData(ReportData reportData) => reportData.HighlightData;
     }
 }

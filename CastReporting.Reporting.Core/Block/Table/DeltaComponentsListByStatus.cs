@@ -12,7 +12,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("DELTA_COMPONENTS_LIST_BY_STATUS")]
-    public class DeltaComponentsListByStatus : TableBlock<ImagingData>
+    public class DeltaComponentsListByStatus : ImagingTableBlock
     {
         private int _nbRows;
         private int _nbLimit;

@@ -68,5 +68,7 @@ namespace CastReporting.Domain
         /// 
         /// </summary>
         public string Version { get; set; }
+
+        public override string ToString() => $"{DomainId} / {Name}";
     }
 }

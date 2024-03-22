@@ -132,7 +132,6 @@ namespace CastReporting.UI.WPF.Core.ViewModel
             set
             {
                 Setting.ReportingParameter.ApplicationQualityVeryLow = value;
-
                 OnPropertyChanged("ApplicationQualityVeryLow");
             }
         }

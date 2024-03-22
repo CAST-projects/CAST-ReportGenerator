@@ -14,7 +14,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("AETP_LIST")]
-    public class AETPList : TableBlock<ImagingData>
+    public class AETPList : ImagingTableBlock
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

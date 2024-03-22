@@ -23,7 +23,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Text
 {
     [Block("PF_#APPLICATIONS")]
-    public class PortfolioNumberOfApplications : TextBlock<ImagingData>
+    public class PortfolioNumberOfApplications: ImagingTextBlock
     {
         #region METHODS
         public override string Content(ImagingData reportData, Dictionary<string, string> options)

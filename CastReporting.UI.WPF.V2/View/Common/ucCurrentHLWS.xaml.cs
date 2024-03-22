@@ -1,5 +1,5 @@
 ﻿/*
- *   Copyright (c) 2019 CAST
+ *   Copyright (c) 2024 CAST
  *
  * Licensed under a custom license, Version 1.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,17 @@ namespace CastReporting.UI.WPF.Core.Common
     /// </summary>
     public partial class UcCurrentHLWS : UserControl
     {
+        public UcCurrentHLWS() {
+            InitializeComponent();
+            LayoutRoot.DataContext = this;
+            CbApiKey.DataContext = this;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
+
+        // Using a DependencyProperty as the backing store for Login.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty LoginProperty =
+            DependencyProperty.Register("Login", typeof(string), typeof(UcCurrentHLWS), new PropertyMetadata(string.Empty));
 
         public string Login
         {
@@ -33,9 +43,9 @@ namespace CastReporting.UI.WPF.Core.Common
             set { SetValue(LoginProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Login.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty LoginProperty =
-            DependencyProperty.Register("Login", typeof(string), typeof(UcCurrentHLWS), new PropertyMetadata(string.Empty));
+        // Using a DependencyProperty as the backing store for Url.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty UrlProperty =
+            DependencyProperty.Register("Url", typeof(string), typeof(UcCurrentHLWS), new PropertyMetadata(string.Empty));
 
         public string Url
         {
@@ -43,9 +53,9 @@ namespace CastReporting.UI.WPF.Core.Common
             set { SetValue(UrlProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Url.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty UrlProperty =
-            DependencyProperty.Register("Url", typeof(string), typeof(UcCurrentHLWS), new PropertyMetadata(string.Empty));
+        // Using a DependencyProperty as the backing store for Password.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PasswordProperty =
+            DependencyProperty.Register("Password", typeof(string), typeof(UcCurrentHLWS), new PropertyMetadata(string.Empty));
 
         public string Password
         {
@@ -53,39 +63,33 @@ namespace CastReporting.UI.WPF.Core.Common
             set { SetValue(PasswordProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Password.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty PasswordProperty =
-            DependencyProperty.Register("Password", typeof(string), typeof(UcCurrentHLWS), new PropertyMetadata(string.Empty));
+        public static readonly DependencyProperty ApiKeyProperty =
+            DependencyProperty.Register("ApiKey", typeof(bool), typeof(UcCurrentHLWS), new PropertyMetadata(false));
 
         private bool _isApiKey;
         public bool ApiKey
         {
             get { return _isApiKey; }
-            set
+            set 
             {
-                if (_isApiKey == value) return;
+            	if (_isApiKey == value) return;
                 _isApiKey = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("_isApiKey"));
-            }
+			}
         }
 
-        public static readonly DependencyProperty ApiKeyProperty =
-            DependencyProperty.Register("ApiKey", typeof(bool), typeof(UcCurrentHLWS), new PropertyMetadata(false));
+        public static readonly DependencyProperty CompanyIdProperty =
+            DependencyProperty.Register("CompanyId", typeof(string), typeof(UcCurrentHLWS), new PropertyMetadata(string.Empty));
+
+        public string CompanyId
+        {
+            get { return (string)GetValue(CompanyIdProperty); }
+            set { SetValue(CompanyIdProperty, value); }
+        }
 
         private void CbApiKey_CheckedChanged(object sender, RoutedEventArgs e)
         {
             ApiKey = CbApiKey.IsChecked ?? false;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public UcCurrentHLWS()
-        {
-            InitializeComponent();
-
-            LayoutRoot.DataContext = this;
-            CbApiKey.DataContext = this;
         }
     }
 }

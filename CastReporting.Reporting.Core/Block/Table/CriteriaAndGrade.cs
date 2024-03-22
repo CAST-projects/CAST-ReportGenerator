@@ -27,7 +27,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("CRITERIA_GRADE")]
-    public class CriteriaAndGrade : TableBlock<ImagingData>
+    public class CriteriaAndGrade : ImagingTableBlock
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

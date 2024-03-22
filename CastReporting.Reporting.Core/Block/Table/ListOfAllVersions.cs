@@ -9,7 +9,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("LIST_OF_ALL_VERSIONS")]
-    public class ListOfAllVersions : TableBlock<ImagingData>
+    public class ListOfAllVersions : ImagingTableBlock
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

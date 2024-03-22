@@ -29,7 +29,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Graph
 {
     [Block("PF_TREND_CRIT_VIOL")]
-    public class PortfolioCritViolPerformance : GraphBlock<ImagingData>
+    public class PortfolioCritViolPerformance : ImagingGraphBlock
     {
         #region METHODS
 

@@ -26,7 +26,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("VIOLATION_SUMMARY")]
-    public class ViolationSummary : TableBlock<ImagingData>
+    public class ViolationSummary : ImagingTableBlock
     {
         private static ResultDetail GetModuleResult(ApplicationResult ar, Module module)
         {

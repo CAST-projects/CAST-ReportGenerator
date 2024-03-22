@@ -37,9 +37,9 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
             var expectedData = new List<string>();
             expectedData.AddRange(new List<string> { "Criticality", "Weight", "Grade", "Technical Criterion", "Rule Name", "# Viol.", "Total Checks" });
-            expectedData.AddRange(new List<string> { "µ", "9", "3.56", "Complexity - Algorithmic and Control Structure Complexity", "Action Mappings should have few forwards", "58", "3,117" });
-            expectedData.AddRange(new List<string> { "", "45", "3.56", "Complexity - Algorithmic and Control Structure Complexity", "Avoid accessing data by using the position and length", "123", "1,234" });
-            expectedData.AddRange(new List<string> { "", "72", "3.56", "Complexity - Algorithmic and Control Structure Complexity", "Avoid artifacts having recursive calls", "26", "4,767" });
+            expectedData.AddRange(new List<string> { "y", "9", "3.78", "Complexity - Algorithmic and Control Structure Complexity", "Action Mappings should have few forwards", "58", "3,117" });
+            expectedData.AddRange(new List<string> { "", "45", "3.15", "Complexity - Algorithmic and Control Structure Complexity", "Avoid accessing data by using the position and length", "123", "1,234" });
+            expectedData.AddRange(new List<string> { "", "72", "4.00", "Complexity - Algorithmic and Control Structure Complexity", "Avoid artifacts having recursive calls", "26", "4,767" });
             TestUtility.AssertTableContent(table, expectedData, 7, 4);
         }
 
@@ -66,8 +66,8 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
             var expectedData = new List<string>();
             expectedData.AddRange(new List<string> { "Criticality", "Weight", "Grade", "Technical Criterion", "Rule Name", "# Viol.", "Total Checks" });
-            expectedData.AddRange(new List<string> { "µ", "9", "3.56", "Complexity - Algorithmic and Control Structure Complexity", "Action Mappings should have few forwards", "58", "3,117" });
-            expectedData.AddRange(new List<string> { "", "45", "3.56", "Complexity - Algorithmic and Control Structure Complexity", "Avoid accessing data by using the position and length", "123", "1,234" });
+            expectedData.AddRange(new List<string> { "y", "9", "3.78", "Complexity - Algorithmic and Control Structure Complexity", "Action Mappings should have few forwards", "58", "3,117" });
+            expectedData.AddRange(new List<string> { "", "45", "3.15", "Complexity - Algorithmic and Control Structure Complexity", "Avoid accessing data by using the position and length", "123", "1,234" });
             TestUtility.AssertTableContent(table, expectedData, 7, 3);
         }
     }

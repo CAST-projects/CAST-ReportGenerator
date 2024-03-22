@@ -28,7 +28,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Text
 {
     [Block("PF_OMG_TECHDEBT_VS_KLOC")]
-    public class OmgTechDebtVsKlocPortfolio : TextBlock<ImagingData>
+    public class OmgTechDebtVsKlocPortfolio: ImagingTextBlock
     {
         #region METHODS
         public override string Content(ImagingData reportData, Dictionary<string, string> options)

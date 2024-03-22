@@ -28,7 +28,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Graph
 {
     [Block("MODULES_ARTIFACTS")]
-    public class PieModuleArtifact : GraphBlock<ImagingData>
+    public class PieModuleArtifact : ImagingGraphBlock
     {
 
 

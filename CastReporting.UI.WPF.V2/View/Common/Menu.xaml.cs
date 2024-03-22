@@ -30,18 +30,6 @@ namespace CastReporting.UI.WPF.Core.Common
                 button.ContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
                 button.ContextMenu.IsOpen = true;
             }
-
-            DataContext = this;
-        }
-
-
-        /// <summary>
-        /// Refresh all the bindings on controls
-        /// </summary>
-        public void Refersh()
-        {
-            DataContext = null;
-            DataContext = this;
         }
     }
 }

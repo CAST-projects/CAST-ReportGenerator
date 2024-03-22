@@ -21,7 +21,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Text
 {
     [Block("PF_CATEGORY_NAME")]
-    public class PortfolioCategoryName : TextBlock<ImagingData>
+    public class PortfolioCategoryName: ImagingTextBlock
     {
         #region METHODS
         public override string Content(ImagingData reportData, Dictionary<string, string> options)

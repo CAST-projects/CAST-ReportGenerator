@@ -30,7 +30,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("PF_TOP_RISKIEST_APPS")]
-    public class PortfolioTopRiskiestApps : TableBlock<ImagingData>
+    public class PortfolioTopRiskiestApps : ImagingTableBlock
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

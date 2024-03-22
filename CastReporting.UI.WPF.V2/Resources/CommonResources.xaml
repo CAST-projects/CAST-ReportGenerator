@@ -250,82 +250,58 @@
     
     <!-- ============================= STANDARD BUTTON IN PURE FLAT STYLE ==============================-->
     <Style x:Key="StdButtonStyle" TargetType="{x:Type Button}">
-        <Setter Property="Cursor"
-            Value="Hand" />
-        <Setter Property="SnapsToDevicePixels"
-            Value="true" />
-        <Setter Property="OverridesDefaultStyle"
-            Value="true" />
-        <Setter Property="FontFamily"
-            Value="Open Sans Bold" />
-        <Setter Property="FontSize"
-            Value="12" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="FontFamily" Value="Open Sans Bold" />
+        <Setter Property="FontSize" Value="12" />
 
-        <Setter Property="MinHeight"
-            Value="23" />
-        <Setter Property="Height"
-            Value="34" />
-        <Setter Property="MinWidth"
-            Value="75" />
+        <Setter Property="MinHeight" Value="23" />
+        <Setter Property="Height" Value="34" />
+        <Setter Property="MinWidth" Value="75" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border TextBlock.Foreground="White" Opacity="1"
-                  x:Name="Border"
-                  CornerRadius="2"
-                  BorderThickness="2">
+                    <Border x:Name="Border" TextBlock.Foreground="White" Opacity="1" CornerRadius="2" BorderThickness="2">
                         <Border.BorderBrush>
                             <SolidColorBrush x:Name="BTNBDR" Color="White" Opacity="0.5" />
                         </Border.BorderBrush>
-                        
                         <Border.Background>
                             <SolidColorBrush x:Name="BTNBG" Color="White" Opacity="0" />
                         </Border.Background>
-                        
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
-
                                 <VisualState x:Name="Normal" />
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="BTNBG" Storyboard.TargetProperty="Opacity" From="0" To="0.5" Duration="0:0:0.1"/>
+                                        <DoubleAnimation Storyboard.TargetName="BTNBG"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         From="0" To="0.5" Duration="0:0:0.1" />
                                     </Storyboard>
                                 </VisualState>
-
-
                                 <VisualState x:Name="Disabled">
                                     <Storyboard>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="Border" Storyboard.TargetProperty="Opacity" From="0" To="0.2" Duration="0:0:0.1"/>
+                                        <DoubleAnimation Storyboard.TargetName="Border"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         From="0" To="0.2" Duration="0:0:0.1"/>
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <ContentPresenter Margin="2"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
-                              RecognizesAccessKey="True" />
+                        <ContentPresenter Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsDefault"
-                     Value="true">
-
-                            <Setter TargetName="Border"
-                      Property="BorderBrush">
+                        <Trigger Property="IsDefault" Value="true">
+                            <Setter TargetName="Border" Property="BorderBrush">
                                 <Setter.Value>
-                                    <LinearGradientBrush StartPoint="0,0"
-                                       EndPoint="0,1">
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                         <GradientBrush.GradientStops>
                                             <GradientStopCollection>
-                                                <GradientStop Color="{DynamicResource DefaultBorderBrushLightBrush}"
-                                      Offset="0.0" />
-                                                <GradientStop Color="{DynamicResource DefaultBorderBrushDarkColor}"
-                                      Offset="1.0" />
+                                                <GradientStop Color="{DynamicResource DefaultBorderBrushLightBrush}" Offset="0.0" />
+                                                <GradientStop Color="{DynamicResource DefaultBorderBrushDarkColor}" Offset="1.0" />
                                             </GradientStopCollection>
                                         </GradientBrush.GradientStops>
                                     </LinearGradientBrush>
-
                                 </Setter.Value>
                             </Setter>
                         </Trigger>

@@ -28,6 +28,7 @@ using OXD = DocumentFormat.OpenXml.Drawing;
 using OXP = DocumentFormat.OpenXml.Presentation;
 using OXW = DocumentFormat.OpenXml.Wordprocessing;
 using CastReporting.Reporting.Highlight.ReportingModel;
+using System.Reflection.Metadata;
 
 namespace CastReporting.Reporting.Builder.BlockProcessing
 {
@@ -54,46 +55,45 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
         #endregion PROPERTIES
 
         #region METHODS
+        public abstract D GetActualData(ReportData reportData);
+
         public static bool IsMatching(string blockType)
         {
             return BlockTypeName.Equals(blockType);
         }
 
+        private static bool TryBuildContent<X>(X data, FormatType reportType ,OpenXmlPartContainer container, BlockItem block, string blockName, Dictionary<string, string> options) where X : IReportData {
+            if (data != null) {
+                TextBlock<X> instance = BlockHelper.GetAssociatedBlockInstance<TextBlock<X>>(blockName);
+                if (instance != null) {
+                    LogHelper.LogDebugFormat("Start TextBlock<{0}> generation : Type {1}", typeof(X), blockName);
+                    Stopwatch treatmentWatch = Stopwatch.StartNew();
+                    string content = instance.Content(data, options);
+                    try {
+                        if (null != content) {
+                            ApplyContent(reportType, container, block, content);
+                        }
+                    } finally {
+                        treatmentWatch.Stop();
+                        LogHelper.LogDebugFormat(
+                            "End TextBlock<{0}> generation ({1}) in {2} ms",
+                            typeof(X), blockName, treatmentWatch.ElapsedMilliseconds.ToString()
+                        );
+                    }
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public static void BuildContent(ReportData client, OpenXmlPartContainer container, BlockItem block, string blockName, Dictionary<string, string> options)
         {
-            TextBlock<ImagingData> imgInstance = BlockHelper.GetAssociatedBlockInstance<TextBlock<ImagingData>>(blockName);
-            if (imgInstance != null)
-            {
-                LogHelper.LogDebugFormat("Start TextBlock<ImagingData> generation : Type {0}", blockName);
-                Stopwatch treatmentWatch = Stopwatch.StartNew();
-                string content = imgInstance.Content(client.ImagingData, options);
-                ApplyContent(client.ReportType, container, block, content);
-                treatmentWatch.Stop();
-                LogHelper.LogDebugFormat
-                ("End TextBlock<ImagingData> generation ({0}) in {1} ms"
-                    , blockName
-                    , treatmentWatch.ElapsedMilliseconds.ToString()
-                );
-                return;
-            }
-
-            if (client.HighlightData != null)
-            {
-                TextBlock<HighlightData> hlInstance = BlockHelper.GetAssociatedBlockInstance<TextBlock<HighlightData>>(blockName);
-                if (hlInstance != null)
-                {
-                    LogHelper.LogDebugFormat("Start TextBlock<HighlightData> generation : Type {0}", blockName);
-                    Stopwatch treatmentWatch = Stopwatch.StartNew();
-                    string content = hlInstance.Content(client.HighlightData, options);
-                    ApplyContent(client.ReportType, container, block, content);
-                    treatmentWatch.Stop();
-                    LogHelper.LogDebugFormat
-                    ("End TextBlock<HighlightData> generation ({0}) in {1} ms"
-                        , blockName
-                        , treatmentWatch.ElapsedMilliseconds.ToString()
-                    );
-                    return;
-                }
+            if (TryBuildContent(client, client.ReportType, container, block, blockName, options)) {
+                // OK, it was a generic block
+            } else if (TryBuildContent(client.ImagingData, client.ReportType, container, block, blockName, options)) {
+                // OK, it was a Imaging block and client.ImagingData != null
+            } else if (TryBuildContent(client.HighlightData, client.ReportType, container, block, blockName, options)) {
+                // OK, it was a Highlight block and client.HighlightData != null
             }
         }
 
@@ -165,12 +165,14 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
             }
             docPart?.Document.Save();
         }
+
         [SuppressMessage("ReSharper", "UnusedParameter.Local")]
         private static void UpdateExcelBlock(OpenXmlPartContainer container, OpenXmlElement block, string content)
         {
             // TODO : Finalize Excel alimentation
             throw new NotImplementedException();
         }
+
         private static OpenXmlElement GetTextContentBlock(FormatType reportType, BlockItem block)
         {
             switch (reportType)
@@ -186,5 +188,17 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
             }
         }
         #endregion METHODS
+    }
+
+    public abstract class ReportTextBlock : TextBlock<ReportData> {
+        public override ReportData GetActualData(ReportData reportData) => reportData;
+    }
+
+    public abstract class ImagingTextBlock : TextBlock<ImagingData> {
+        public override ImagingData GetActualData(ReportData reportData) => reportData.ImagingData;
+    }
+
+    public abstract class HighlightTextBlock : TextBlock<HighlightData> {
+        public override HighlightData GetActualData(ReportData reportData) => reportData.HighlightData;
     }
 }

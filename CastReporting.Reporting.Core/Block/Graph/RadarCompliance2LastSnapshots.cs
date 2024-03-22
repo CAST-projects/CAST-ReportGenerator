@@ -25,7 +25,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Graph
 {
     [Block("RADAR_COMPLIANCE_2_LAST_SNAPSHOTS")]
-    public class RadarCompliance2LastSnapshots : GraphBlock<ImagingData>
+    public class RadarCompliance2LastSnapshots : ImagingGraphBlock
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

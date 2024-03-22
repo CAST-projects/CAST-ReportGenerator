@@ -27,18 +27,18 @@ namespace CastReporting.UI.WPF.Core.ViewModel
     /// </summary>
     public abstract class ViewModelBase : NotifyPropertyChangedHelper
     {
-
-
         /// <summary>
         /// 
         /// </summary>
+        // mauvaise bonne idée: propriété statique initialisée dans le constructeur statique de la classe
+        // cette instance ne sera pas mise à jour si l'utilisateur modifie les settings
+        // en cas de modif, il faut penser à mettre à jour les infos de cette instance
         public static Setting Setting { get; protected set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public IMessageManager MessageManager { set; get; }
-
+        public virtual IMessageManager MessageManager { get; set; }
 
         /// <summary>
         /// 

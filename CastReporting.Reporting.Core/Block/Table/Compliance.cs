@@ -24,7 +24,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("COMPLIANCE")]
-    public class Compliance : TableBlock<ImagingData>
+    public class Compliance : ImagingTableBlock
     {
 
         #region METHODS

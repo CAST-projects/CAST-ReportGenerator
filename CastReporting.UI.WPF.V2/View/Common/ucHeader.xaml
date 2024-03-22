@@ -4,22 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:common="clr-namespace:CastReporting.UI.WPF.Core.Common"
+             xmlns:vm="clr-namespace:CastReporting.UI.WPF.Core.ViewModel"
+             d:DataContext="{d:DesignInstance vm:ReportingVM, IsDesignTimeCreatable=False}"
              mc:Ignorable="d" Width="auto" Height="70">
 
 
-    <Grid Background="#FF343434" Width="auto" >
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-        </Grid.ColumnDefinitions>
-        <DockPanel>
-            <common:Menu x:Name="UcMenu" />
-            <Label Content="" Foreground="#4C000000" FontSize="32" Margin="0,22,10,23" FontFamily="Open Sans Extrabold" Height="25" Width="308" HorizontalAlignment="Left">
-                <Label.Background>
-                    <ImageBrush ImageSource="/CastReporting.UI.WPF.Core;component/Resources/Images/rg-title.png"
+    <DockPanel Background="#FF343434">
+        <common:Menu />
+        <Label Foreground="#4C000000" FontSize="32" Margin="0,22,10,23" Height="25" Width="308" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Label.Background>
+                <ImageBrush ImageSource="/CastReporting.UI.WPF.Core;component/Resources/Images/rg-title.png"
 					RenderOptions.BitmapScalingMode="NearestNeighbor"
 					RenderOptions.EdgeMode="Aliased"/>
-                </Label.Background>
-            </Label>
-        </DockPanel>
-    </Grid>
+            </Label.Background>
+        </Label>
+    </DockPanel>
 </UserControl>

@@ -1,0 +1,78 @@
+﻿/*
+ *   Copyright (c) 2019 CAST
+ *
+ * Licensed under a custom license, Version 1.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License, accessible in the main project
+ * source code: Empowerment.
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+using CastReporting.BLL;
+using CastReporting.HL.Domain;
+using CastReporting.UI.WPF.Core.ViewModel;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Controls;
+
+namespace CastReporting.UI.WPF.Core.Common
+{
+    /// <summary>
+    /// </summary>
+    public partial class UcHighlight : UserControl, INotifyPropertyChanged {
+        public UcHighlight() {
+            InitializeComponent();
+        }
+
+        public new System.Windows.Input.CommandBindingCollection CommandBindings { get; set; }
+
+        private ReportingVM ReportingContext => DataContext as ReportingVM;
+
+        public event PropertyChangedEventHandler PropertyChanged {
+            add {
+                ((INotifyPropertyChanged)ReportingContext).PropertyChanged += value;
+            }
+
+            remove {
+                ((INotifyPropertyChanged)ReportingContext).PropertyChanged -= value;
+            }
+        }
+
+        private void ActivateWebService_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+            e.Handled = true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ActivateWebService_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            var list = e.Parameter as List<object>;
+            if (list != null)
+            {
+                var connection = new HLWSConnection
+                {
+                    Url = (string)list[0],
+                    Login = (string)list[1],
+                    Password = (string)list[2],
+                    CompanyId = (string)list[3],
+                    ApiKey = (bool)list[4],
+                    ServerCertificateValidation = SettingsBLL.GetCertificateValidationStrategy()
+                };
+
+                ReportingContext?.HighlightContext.ActiveCurrentWebService(connection);
+            }
+            ReportingContext?.HighlightContext.InitializeFromWS();
+            e.Handled = true;
+        }
+    }
+}

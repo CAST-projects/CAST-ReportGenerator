@@ -28,7 +28,7 @@ namespace CastReporting.Reporting.Block.Table
     /// Rule Improvement Opportunity Class
     /// </summary>
     [Block("RULES_LIST_LARGEST_VARIATION")]
-    public class RulesListLargestVariation : TableBlock<ImagingData>
+    public class RulesListLargestVariation : ImagingTableBlock
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

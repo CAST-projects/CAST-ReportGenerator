@@ -15,6 +15,7 @@
  */
 using Cast.Util.Log;
 using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Highlight.ReportingModel;
 using CastReporting.Reporting.ReportingModel;
 using DocumentFormat.OpenXml.Packaging;
 using System;
@@ -86,6 +87,8 @@ namespace CastReporting.Reporting.Builder
             ParseDocument(Package);
         }
 
+
+
         /// <summary>
         /// Parse the document in order to proceed to the alimentation of all blocks into the given container.
         /// </summary>
@@ -98,24 +101,16 @@ namespace CastReporting.Reporting.Builder
                 BlockConfiguration config = GetBlockConfiguration(block);
                 try
                 {
-                    if (TextBlock<ImagingData>.IsMatching(config.Type))
-                    {
-                        TextBlock<ImagingData>.BuildContent(ReportData, container, block, config.Name, config.Options);
-                    }
-                    else if (TableBlock<ImagingData>.IsMatching(config.Type))
-                    {
-                        TableBlock<ImagingData>.BuildContent(ReportData, container, block, config.Name, config.Options);
-                    }
-                    else if (GraphBlock<ImagingData>.IsMatching(config.Type))
-                    {
-                        GraphBlock<ImagingData>.BuildContent(ReportData, Package, block, config.Name, config.Options);
-                    }
-                    else
-                    {
+                    if (TextBlock<IReportData>.IsMatching(config.Type)) {
+                        TextBlock<IReportData>.BuildContent(ReportData, container, block, config.Name, config.Options);
+                    } else if (TableBlock<IReportData>.IsMatching(config.Type)) {
+                        TableBlock<IReportData>.BuildContent(ReportData, container, block, config.Name, config.Options);
+                    } else if (GraphBlock<IReportData>.IsMatching(config.Type)) {
+                        GraphBlock<IReportData>.BuildContent(ReportData, Package, block, config.Name, config.Options);
+                    } else {
                         LogHelper.LogWarnFormat("Block type '{0}' not found.", config.Type);
                     }
-                }
-                catch (Exception exception)
+                } catch (Exception exception)
                 {
                     string logMessage = $"Exception thrown during document parsing (BlockType : {(null != config ? config.Type : string.Empty)}, BlockName : {(null != config ? config.Name : string.Empty)})";
                     LogHelper.LogError(logMessage, exception);
@@ -208,17 +203,11 @@ namespace CastReporting.Reporting.Builder
                 switch (reportType)
                 {
                     case FormatType.Word:
-                        {
-                            return WordprocessingDocument.Open(pPath, true);
-                        }
+                        return WordprocessingDocument.Open(pPath, true);
                     case FormatType.PowerPoint:
-                        {
-                            return PresentationDocument.Open(pPath, true);
-                        }
+                        return PresentationDocument.Open(pPath, true);
                     case FormatType.Excel:
-                        {
-                            return SpreadsheetDocument.Open(pPath, true);
-                        }
+                        return SpreadsheetDocument.Open(pPath, true);
                 }
             }
             catch (OpenXmlPackageException e)
@@ -249,17 +238,11 @@ namespace CastReporting.Reporting.Builder
                     switch (reportType)
                     {
                         case FormatType.Word:
-                            {
-                                return WordprocessingDocument.Open(pPath, true);
-                            }
+                            return WordprocessingDocument.Open(pPath, true);
                         case FormatType.PowerPoint:
-                            {
-                                return PresentationDocument.Open(pPath, true);
-                            }
+                            return PresentationDocument.Open(pPath, true);
                         case FormatType.Excel:
-                            {
-                                return SpreadsheetDocument.Open(pPath, true);
-                            }
+                            return SpreadsheetDocument.Open(pPath, true);
                     }
                 }
             }

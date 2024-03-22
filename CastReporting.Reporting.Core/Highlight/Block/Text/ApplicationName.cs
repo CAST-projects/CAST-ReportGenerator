@@ -21,12 +21,12 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Highlight.Block.Text
 {
     [Block("HL_APPLICATION_NAME")]
-    public class ApplicationName : TextBlock<HighlightData>
+    public class ApplicationName : HighlightTextBlock
     {
         #region METHODS
         public override string Content(HighlightData data, Dictionary<string, string> options)
         {
-            return (data != null) ? /* do something with HL reportData ??*/ Domain.Constants.No_Value : Domain.Constants.No_Value;
+            return (data != null) ? /* TODO */ Domain.Constants.No_Value : Domain.Constants.No_Value;
         }
         #endregion METHODS
     }

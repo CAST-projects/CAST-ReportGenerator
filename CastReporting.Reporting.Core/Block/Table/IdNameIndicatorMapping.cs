@@ -24,7 +24,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("ID_NAME_INDICATOR_MAPPING")]
-    public class IdNameIndicatorMapping : TableBlock<ImagingData>
+    public class IdNameIndicatorMapping : ImagingTableBlock
     {
 
         #region METHODS

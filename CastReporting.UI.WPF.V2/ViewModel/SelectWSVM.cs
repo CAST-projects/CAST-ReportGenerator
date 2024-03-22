@@ -201,7 +201,6 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         private void ExecuteRemoveCommand(object prameter)
         {
             if (SelectedWSConnection == null) return;
-            string tmpUrl = SelectedWSConnection.Url;
 
             Setting = SettingsBLL.RemoveConnection(SelectedWSConnection);
             WSConnections = new ObservableCollection<WSConnection>(Setting.WSConnections);

@@ -27,7 +27,7 @@ namespace CastReporting.Reporting.Block.Text
 {
 
     [Block("RULE_FAILED_CHECKS")]
-    public class FailedChecksByRule : TextBlock<ImagingData>
+    public class FailedChecksByRule: ImagingTextBlock
     {
         #region METHODS
         public override string Content(ImagingData reportData, Dictionary<string, string> options)

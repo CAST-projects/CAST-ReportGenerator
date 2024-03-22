@@ -27,7 +27,7 @@ using System.Globalization;
 namespace CastReporting.Reporting.Block.Graph
 {
     [Block("CAST_DISTRIBUTION")]
-    public class CastDistribution : GraphBlock<ImagingData>
+    public class CastDistribution : ImagingGraphBlock
     {
 
 

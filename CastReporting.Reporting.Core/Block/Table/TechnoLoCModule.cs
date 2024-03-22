@@ -25,7 +25,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("TECHNO_LOC_BY_MODULE")]
-    public class TechnoLoCModule : TableBlock<ImagingData>
+    public class TechnoLoCModule : ImagingTableBlock
     {
         /// <summary>
         /// 

@@ -28,7 +28,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("OMG_TECHNICAL_DEBT_TABLE")]
-    public class OmgTechnicalDebtTable : TableBlock<ImagingData>
+    public class OmgTechnicalDebtTable : ImagingTableBlock
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

@@ -6,6 +6,8 @@
       xmlns:label="clr-namespace:CastReporting.UI.WPF.Core.Resources.Languages"
       xmlns:commands="clr-namespace:CastReporting.UI.WPF.Core.Commands"
       xmlns:common="clr-namespace:CastReporting.UI.WPF.Core.Common"
+      xmlns:vm="clr-namespace:CastReporting.UI.WPF.Core.ViewModel"
+      d:DataContext="{d:DesignInstance vm:SelectWSVM, IsDesignTimeCreatable=False}"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="600">
 

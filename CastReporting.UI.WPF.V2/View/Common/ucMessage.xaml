@@ -28,7 +28,7 @@
         <Button  ToolTip="{x:Static label:Messages.toolTipClearMsg}"
                  Grid.Row="0" 
                  Grid.Column="0" Style="{StaticResource IcoButtonStyle}"
-                 IsEnabled="{Binding SelectedTemplateFile, Converter={StaticResource IsEnabledConverter}}" Margin="24,10,0,0"
+                 Margin="24,10,0,0"
                  Command="{Binding ClearCommand, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type control:UcMessage}}}">
             <Button.Content>
                 <Image Source="/CastReporting.UI.WPF.Core;component/Resources/Images/clear.png" VerticalAlignment="Center" HorizontalAlignment="Center" RenderOptions.EdgeMode="Aliased"  Width="24" Height="24" Margin="0,0,2,0"/>

@@ -21,7 +21,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Text
 {
     [Block("DASHBOARD_SERVICE_URL"), Block("MEASUREMENT_ADG_WEBSITE")]
-    public class ADGWebsite : TextBlock<ImagingData>
+    public class ADGWebsite: ImagingTextBlock
     {
         #region METHODS
         public override string Content(ImagingData reportData, Dictionary<string, string> options)

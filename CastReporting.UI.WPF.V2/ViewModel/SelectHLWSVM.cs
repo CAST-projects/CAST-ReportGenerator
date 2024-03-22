@@ -118,6 +118,22 @@ namespace CastReporting.UI.WPF.Core.ViewModel
 
         /// <summary>
         /// 
+        /// </summary>
+        private string _newConnectionCompanyId;
+        public string NewConnectionCompanyId {
+            get {
+                return _newConnectionCompanyId;
+            }
+            set {
+                _newConnectionCompanyId = value;
+
+                OnPropertyChanged("NewConnectionCompanyId");
+            }
+
+        }
+
+        /// <summary>
+        /// 
         /// </summary>       
         private ObservableCollection<HLWSConnection> _wsHLConnections;
         public ObservableCollection<HLWSConnection> HLWSConnections
@@ -130,7 +146,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
             {
                 _wsHLConnections = value;
 
-                OnPropertyChanged("WSConnections");
+                OnPropertyChanged("HLWSConnections");
             }
 
         }
@@ -149,7 +165,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
             {
                 _selectedHLWSConnection = value;
 
-                OnPropertyChanged("SelectedWSConnection");
+                OnPropertyChanged("SelectedHLWSConnection");
             }
 
         }
@@ -177,7 +193,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                 if (state == StatesEnum.ConnectionAddedAndActivated || state == StatesEnum.ConnectionAddedSuccessfully)
                 {
                     HLWSConnections = new ObservableCollection<HLWSConnection>(Setting.HLWSConnections);
-                    NewConnectionUrl = NewConnectionLogin = NewConnectionPassword = string.Empty;
+                    NewConnectionUrl = NewConnectionLogin = NewConnectionPassword = NewConnectionCompanyId = string.Empty;
                 }
 
                 MessageManager.OnServiceAdded(state);

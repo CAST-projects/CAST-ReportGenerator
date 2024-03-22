@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using CastReporting.HL.Domain;
 
 namespace CastReporting.HL.Repositories.Interfaces
@@ -19,8 +20,8 @@ namespace CastReporting.HL.Repositories.Interfaces
 
         string GetServerVersion();
 
-        Company? GetCompany(string companyId);
+        Company? GetCompany();
         HLDomain? GetDomain(string domainId);
-        IList<AppId> GetDomainAppIds(string domainId);
+        IList<AppId> GetDomainAppIds(string? domainId = null);
     }
 }

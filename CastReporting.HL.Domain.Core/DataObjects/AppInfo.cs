@@ -7,6 +7,8 @@ public class AppInfo
 
     public string Id { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
+    public IList<HLDomain> Domains { get; set; } = [];
+
     public IList<Metric> Metrics { get; set; } = [];
 
     public Metric? CurrentMetrics => (Metrics.Count > 0) ? Metrics[0] : null;

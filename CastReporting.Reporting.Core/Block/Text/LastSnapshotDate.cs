@@ -24,7 +24,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Text
 {
     [Block("LAST_SNAPSHOT_DATE"), Block("TO_SNAPSHOT_DATE")]
-    public class CurrentSnapshotDate : TextBlock<ImagingData>
+    public class CurrentSnapshotDate: ImagingTextBlock
     {
         #region METHODS
         public override string Content(ImagingData reportData, Dictionary<string, string> options)

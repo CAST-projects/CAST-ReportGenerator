@@ -14,7 +14,7 @@ using System.Linq;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("LIST_RULES_VIOLATIONS_BOOKMARKS")]
-    public class RulesListViolationsBookmarks : TableBlock<ImagingData>
+    public class RulesListViolationsBookmarks : ImagingTableBlock
     {
         private const string ColorWhite = "White";
         private const string ColorGray = "Gray";

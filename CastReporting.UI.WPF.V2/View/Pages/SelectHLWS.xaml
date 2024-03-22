@@ -6,11 +6,13 @@
       xmlns:label="clr-namespace:CastReporting.UI.WPF.Core.Resources.Languages"
       xmlns:commands="clr-namespace:CastReporting.UI.WPF.Core.Commands"
       xmlns:common="clr-namespace:CastReporting.UI.WPF.Core.Common"
+      xmlns:vm="clr-namespace:CastReporting.UI.WPF.Core.ViewModel"
+      d:DataContext="{d:DesignInstance vm:SelectHLWSVM, IsDesignTimeCreatable=False}"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="600">
 
     <Page.CommandBindings>
-        <CommandBinding Command="commands:WebServiceCommand.ActivateWebService" Executed="ActivateWebService_Executed" />
+        <CommandBinding Command="commands:WebServiceCommand.ActivateHLWebService" Executed="ActivateHLWebService_Executed" />
     </Page.CommandBindings>
 
     <Grid Margin="0,0" Background="#FF202020" Width="Auto" HorizontalAlignment="Stretch">
@@ -31,7 +33,7 @@
 						RenderOptions.BitmapScalingMode="NearestNeighbor"
 						RenderOptions.EdgeMode="Aliased" />
             </Border.Background>
-            <common:UcCurrentHLWS Login="{Binding NewConnectionLogin}" Password="{Binding NewConnectionPassword}" Url="{Binding NewConnectionUrl}" ApiKey="{Binding NewConnectionApiKey}"  DockPanel.Dock="Right" Margin="10,0,20,10"  HorizontalAlignment="Stretch"/>
+            <common:UcCurrentHLWS Login="{Binding NewConnectionLogin}" Password="{Binding NewConnectionPassword}" Url="{Binding NewConnectionUrl}" ApiKey="{Binding NewConnectionApiKey}" CompanyId="{Binding NewConnectionCompanyId}"  DockPanel.Dock="Right" Margin="10,0,20,10"  HorizontalAlignment="Stretch"/>
         </Border>
 
         <Border Grid.Row="2" Height="Auto" HorizontalAlignment="Stretch" Width="60" Margin="-1,-1,-1,-1">
@@ -95,8 +97,8 @@
                             </Style>
                         </DataGrid.Resources>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Url}" Header="{x:Static label:Messages.lblFieldUrlWS}" Width="4*"/>
-                            <DataGridTextColumn Binding="{Binding Login}" Header="{x:Static label:Messages.lblFieldLoginWS}" Width="4*"/>
+                            <DataGridTextColumn Binding="{Binding Url}" Header="{x:Static label:Messages.lblFieldUrlWS}" Width="3*"/>
+                            <DataGridTextColumn Binding="{Binding CompanyId}" Header="{x:Static label:Messages.lblFieldCompanyIdWS}" Width="1*"/>
                             <DataGridTextColumn Binding="{Binding IsActive}" Header="{x:Static label:Messages.lblFieldActiveWS}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>

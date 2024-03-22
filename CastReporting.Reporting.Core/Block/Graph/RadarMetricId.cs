@@ -15,7 +15,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Graph
 {
     [Block("RADAR_METRIC_ID")]
-    public class RadarMetricId : GraphBlock<ImagingData>
+    public class RadarMetricId : ImagingGraphBlock
     {
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {

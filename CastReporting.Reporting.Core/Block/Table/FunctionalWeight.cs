@@ -23,7 +23,7 @@ using System.Collections.Generic;
 namespace CastReporting.Reporting.Block.Table
 {
     [Block("FUNCTIONAL_WEIGHT")]
-    public class FunctionalWeight : TableBlock<ImagingData>
+    public class FunctionalWeight : ImagingTableBlock
     {
         #region METHODS
 

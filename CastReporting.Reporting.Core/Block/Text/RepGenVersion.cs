@@ -23,10 +23,10 @@ using System.Reflection;
 namespace CastReporting.Reporting.Block.Text
 {
     [Block("REPGEN_VERSION"), Block("EMP_VERSION")]
-    public class RepGenVersion : TextBlock<ImagingData>
+    public class RepGenVersion : ReportTextBlock
     {
         #region METHODS
-        public override string Content(ImagingData reportData, Dictionary<string, string> options)
+        public override string Content(ReportData reportData, Dictionary<string, string> options)
         {
             var ver = VersionUtil.GetRGVersion(Assembly.GetExecutingAssembly());
             if (string.IsNullOrEmpty(ver))
