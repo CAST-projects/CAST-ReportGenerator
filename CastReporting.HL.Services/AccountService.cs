@@ -19,4 +19,9 @@ public class AccountService
         IHighlightRepository repo = new HighlightRepository(_connection, null);
         return repo.GetDomainAppIds();
     }
+
+    public IList<Snapshot> GetAvailableSnapshots(AppId app) {
+        IHighlightRepository repo = new HighlightRepository(_connection, null);
+        return repo.GetAppSnapshots(app.Id);
+    }
 }

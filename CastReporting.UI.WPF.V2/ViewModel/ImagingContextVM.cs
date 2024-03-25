@@ -59,8 +59,8 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// <summary>
         /// 
         /// </summary>
-        private IEnumerable<ApplicationItem<Application>> _Applications;
-        public IEnumerable<ApplicationItem<Application>> Applications
+        private IEnumerable<ApplicationItem> _Applications;
+        public IEnumerable<ApplicationItem> Applications
         {
             get { return _Applications; }
             set {
@@ -145,8 +145,8 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// <summary>
         /// 
         /// </summary>
-        private ApplicationItem<Application> _SelectedApplication;
-        public ApplicationItem<Application> SelectedApplication
+        private ApplicationItem _SelectedApplication;
+        public ApplicationItem SelectedApplication
         {
             get { return _SelectedApplication; }
             set
@@ -322,7 +322,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                 try
                 {
                     using CastDomainBLL castDomainBLL = new CastDomainBLL(ActiveConnection);
-                    Applications = castDomainBLL.GetAdgApplications()?.Select(app => new ApplicationItem<Application>(app));
+                    Applications = castDomainBLL.GetAdgApplications()?.Select(app => new ApplicationItem(app));
                     IEnumerable<CastDomain> domains = castDomainBLL.GetDomains().Where(domain => domain.DBType.Equals("AAD"));
                     Categories = domains.Any() ? castDomainBLL.GetCategories() : new List<string>();
                 }

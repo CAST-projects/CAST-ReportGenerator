@@ -17,19 +17,18 @@ using CastReporting.Domain;
 
 namespace CastReporting.UI.WPF.Core
 {
-    public class ApplicationItem<T>
+    public class ApplicationItem
     {
-        public ApplicationItem(T app)
+        public ApplicationItem(Application app)
         {
-            var imgApp = app as Application;
-            if (imgApp != null) {
-                if (imgApp.AdgVersion == null && imgApp.Version != null)
-                    imgApp.AdgVersion = imgApp.Version;
+            if (app != null) {
+                if (app.AdgVersion == null && app.Version != null)
+                    app.AdgVersion = app.Version;
             }
             Application = app;
         }
 
-        public T Application { get; protected set; }
+        public Application Application { get; protected set; }
 
         public override string ToString() => Application.ToString();
     }

@@ -193,7 +193,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                                 }
                             }
 
-                            if (HighlightContext.SelectedApplication.Application != null) {
+                            if (HighlightContext.SelectedApplication != null) {
                                 // get results from Highlight
                             }
 

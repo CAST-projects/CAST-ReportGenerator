@@ -16,7 +16,7 @@
 
 
 using CastReporting.BLL;
-using CastReporting.Domain;
+//using CastReporting.Domain;
 using CastReporting.HL.Domain;
 using CastReporting.HL.Services;
 using CastReporting.UI.WPF.Core.Common;
@@ -61,15 +61,15 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// <summary>
         /// 
         /// </summary>
-        private IEnumerable<ApplicationItem<AppId>> _Applications;
-        public IEnumerable<ApplicationItem<AppId>> Applications
+        private IEnumerable<AppId> _Applications;
+        public IEnumerable<AppId> Applications
         {
             get { return _Applications; }
             set
             {
                 _Applications = value;
                 OnPropertyChanged("Applications");
-                Snaphosts=null;
+                Snapshots=null;
                 SelectedSnapshot = null;
             }
         }
@@ -107,14 +107,14 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// <summary>
         /// 
         /// </summary>
-        private IEnumerable<Snapshot> _Snaphosts;
-        public IEnumerable<Snapshot> Snaphosts
+        private IEnumerable<Snapshot> _Snapshots;
+        public IEnumerable<Snapshot> Snapshots
         {
-            get { return _Snaphosts; }
+            get { return _Snapshots; }
             set
             {
-                _Snaphosts = value;
-                OnPropertyChanged("Snaphosts");
+                _Snapshots = value;
+                OnPropertyChanged("Snapshots");
             }
         }
 
@@ -123,13 +123,13 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// 
         /// </summary>
         private IEnumerable<Snapshot> _PreviousSnapshosts { get; set; }
-        public IEnumerable<Snapshot> PreviousSnaphosts
+        public IEnumerable<Snapshot> PreviousSnapshots
         {
             get { return _PreviousSnapshosts; }
             set
             {
                 _PreviousSnapshosts = value;
-                OnPropertyChanged("PreviousSnaphosts");
+                OnPropertyChanged("PreviousSnapshots");
             }
         }
 
@@ -137,25 +137,8 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// <summary>
         /// 
         /// </summary>
-        private CastDomain _SelectedDomain;
-        public CastDomain SelectedDomain
-        {
-            get => _SelectedDomain;
-            set
-            {
-                if (Equals(value, _SelectedDomain))
-                    return;
-                _SelectedDomain = value;
-                OnPropertyChanged("SelectedDomain");
-            }
-        }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private ApplicationItem <AppId>_SelectedApplication;
-        public ApplicationItem <AppId>SelectedApplication
+        private AppId _SelectedApplication;
+        public AppId SelectedApplication
         {
             get { return _SelectedApplication; }
             set
@@ -261,29 +244,8 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// </summary>
         private void ExecuteLoadTagsCommand(object parameter)
         {
-            if (SelectedCategory != null)
-            {
-                //GetActive Connection           
-                ActiveConnection = Setting?.GetActiveHLConnection();
-
-                //Get list of domains
-                if (_ActiveConnection == null) return;
-                try
-                {
-                    //using (CastDomainBLL castDomainBLL = new CastDomainBLL(ActiveConnection))
-                    //{
-                    //    List<Tag> _tags = castDomainBLL.GetTags(SelectedCategory);
-                    //    Tags = _tags.Select(t => t.Label).ToList();
-                    //}
-                }
-                catch (Exception ex)
-                {
-                    MessageManager.OnErrorOccured(ex);
-                }
-            }
-            else
-
-                Tags = null;
+            // portfolio reports not supported yet
+            Tags = null;
         }
 
         /// <summary>
@@ -291,16 +253,13 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// </summary>
         private void ExecuteLoadSnapshotsCommand(object parameter)
         {
-            if (SelectedApplication != null)
-            {
-                //using (ApplicationBLL applicationBLL = new ApplicationBLL(ActiveConnection, SelectedApplication.Application))
-                //{
-                //    applicationBLL.SetSnapshots();
-                //    Snaphosts = SelectedApplication.Application.Snapshots.OrderByDescending(_ => _.Annotation.Date.DateSnapShot).ToList();
-                //}
+            if (SelectedApplication != null) {
+                var accountService = new AccountService(ActiveConnection);
+                Snapshots = accountService.GetAvailableSnapshots(SelectedApplication)
+                    .OrderByDescending(_ => _.SnapshotDate);
+            } else {
+                Snapshots = null;
             }
-            else
-                Snaphosts = null;
         }
 
 
@@ -309,10 +268,12 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// </summary>
         private void ExecuteLoadPreviousSnapshotsCommand(object parameter)
         {
-            if (SelectedSnapshot != null && Snaphosts != null)
-                PreviousSnaphosts = Snaphosts.Where(_ => _.Annotation.Date.CompareTo(SelectedSnapshot.Annotation.Date) < 0).ToList();
-            else
-                PreviousSnaphosts = null;
+            if (SelectedSnapshot != null && Snapshots != null) {
+                PreviousSnapshots = Snapshots.Where(_ => _.SnapshotDate.CompareTo(SelectedSnapshot.SnapshotDate) < 0)
+                    .OrderByDescending(_ => _.SnapshotDate);
+            } else {
+                PreviousSnapshots = null;
+            }
         }
 
 
@@ -328,15 +289,11 @@ namespace CastReporting.UI.WPF.Core.ViewModel
             if (ActiveConnection == null) return;
 
             //Get list of domains
-            if (ActiveConnection.Password != null && ActiveConnection.Login != null && ActiveConnection.CompanyId != null)
-            {
-                try
-                {
+            if (ActiveConnection.Password != null && ActiveConnection.Login != null && ActiveConnection.CompanyId != null) {
+                try {
                     var accountService = new AccountService(ActiveConnection);
-                    Applications = accountService.GetAvailableApplications()?.Select(app => new ApplicationItem<AppId>(app));
-                }
-                catch (Exception ex)
-                {
+                    Applications = accountService.GetAvailableApplications().OrderBy(_ => _.Name);
+                } catch (Exception ex) {
                     MessageManager.OnErrorOccured(ex);
                 }
             }

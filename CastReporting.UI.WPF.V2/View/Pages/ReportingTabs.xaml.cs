@@ -76,7 +76,7 @@ namespace CastReporting.UI.WPF.Core.View.Pages
             switch (ReportingContext.ReportingMode) {
                 case ReportingMode.Application:
                     name = ReportingContext.ImagingContext.SelectedApplication?.Application.Name
-                        ?? ReportingContext.HighlightContext.SelectedApplication?.Application.Name
+                        ?? ReportingContext.HighlightContext.SelectedApplication?.Name
                         ?? "Missing name";
                     break;
                 case ReportingMode.Portfolio:

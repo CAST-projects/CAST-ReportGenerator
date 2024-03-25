@@ -23,5 +23,6 @@ namespace CastReporting.HL.Repositories.Interfaces
         Company? GetCompany();
         HLDomain? GetDomain(string domainId);
         IList<AppId> GetDomainAppIds(string? domainId = null);
+        IList<Snapshot> GetAppSnapshots(string? appId);
     }
 }

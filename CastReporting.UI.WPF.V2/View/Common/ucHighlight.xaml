@@ -123,7 +123,7 @@
 
                         <Grid Grid.Row="2" Margin="20,0,20,0">
                             <ComboBox x:Name="CbSnapshots"
-                                      ItemsSource="{Binding HighlightContext.Snaphosts, Mode=OneWay}"
+                                      ItemsSource="{Binding HighlightContext.Snapshots, Mode=OneWay}"
                                       SelectedValue="{Binding HighlightContext.SelectedSnapshot, Mode=TwoWay}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectionChanged">
@@ -137,12 +137,12 @@
                         </Grid>
 
                         <Grid Grid.Row="3" Margin="20,0,20,0">
-                            <ComboBox x:Name="CbPreviousSnaphots"
-                                      ItemsSource="{Binding HighlightContext.PreviousSnaphosts, Mode=OneWay}"
+                            <ComboBox x:Name="CbPreviousSnapshots"
+                                      ItemsSource="{Binding HighlightContext.PreviousSnapshots, Mode=OneWay}"
                                       SelectedValue="{Binding HighlightContext.PreviousSnapshot, Mode=TwoWay}"/>
                             <Label IsHitTestVisible="False" Style="{StaticResource ComboNoSelection}"
                                    Content="{x:Static label:Messages.lblSelectPreviousSnapshot}"
-                                   Visibility="{Binding SelectedItem, ElementName=CbPreviousSnaphots, Converter={StaticResource NullToVisibilityConverter}}" />
+                                   Visibility="{Binding SelectedItem, ElementName=CbPreviousSnapshots, Converter={StaticResource NullToVisibilityConverter}}" />
                         </Grid>
                     </Grid>
                 </TabItem>

@@ -26,7 +26,6 @@ namespace CastReporting.UI.WPF.Core.Common
     /// Interaction logic for Reporting1.xaml
     /// </summary>
     public partial class UcImaging : UserControl,INotifyPropertyChanged {
-        private static readonly List<string> ExtensionList = new List<string> { ".xlsx", ".docx", ".pptx" };
 
         public UcImaging() {
             InitializeComponent();
