@@ -15,6 +15,7 @@
  *
  */
 using CastReporting.Domain;
+using CastReporting.Domain.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -38,44 +39,42 @@ namespace CastReporting.Reporting.Block.Table
             rowData.AddRange(
                 new[]
                 {
-
-                    Constants.BusinessCriteria.TechnicalQualityIndex.ToString(),
-                    Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode().ToString(),
-                    Constants.BusinessCriteria.Security.ToString(),
-                    Constants.BusinessCriteria.Security.GetHashCode().ToString(),
-                    Constants.BusinessCriteria.Robustness.ToString(),
-                    Constants.BusinessCriteria.Robustness.GetHashCode().ToString(),
-                    Constants.BusinessCriteria.Performance.ToString(),
-                    Constants.BusinessCriteria.Performance.GetHashCode().ToString(),
-                    Constants.BusinessCriteria.Changeability.ToString(),
-                    Constants.BusinessCriteria.Changeability.GetHashCode().ToString(),
-                    Constants.BusinessCriteria.Transferability.ToString(),
-                    Constants.BusinessCriteria.Transferability.GetHashCode().ToString(),
-                    Constants.BusinessCriteria.ProgrammingPractices.ToString(),
-                    Constants.BusinessCriteria.ProgrammingPractices.GetHashCode().ToString(),
-                    Constants.BusinessCriteria.ArchitecturalDesign.ToString(),
-                    Constants.BusinessCriteria.ArchitecturalDesign.GetHashCode().ToString(),
-                    Constants.BusinessCriteria.Documentation.ToString(),
-                    Constants.BusinessCriteria.Documentation.GetHashCode().ToString(),
-                    Constants.BusinessCriteria.SEIMaintainability.ToString(),
-                    Constants.BusinessCriteria.SEIMaintainability.GetHashCode().ToString(),
-                    Constants.QualityDistribution.CostComplexityDistribution.ToString(),
-                    Constants.QualityDistribution.CostComplexityDistribution.GetHashCode().ToString(),
-                    Constants.QualityDistribution.CyclomaticComplexityDistribution.ToString(),
-                    Constants.QualityDistribution.CyclomaticComplexityDistribution.GetHashCode().ToString(),
-                    Constants.QualityDistribution.OOComplexityDistribution.ToString(),
-                    Constants.QualityDistribution.OOComplexityDistribution.GetHashCode().ToString(),
-                    Constants.QualityDistribution.SQLComplexityDistribution.ToString(),
-                    Constants.QualityDistribution.SQLComplexityDistribution.GetHashCode().ToString(),
-                    Constants.QualityDistribution.CouplingDistribution.ToString(),
-                    Constants.QualityDistribution.CouplingDistribution.GetHashCode().ToString(),
-                    Constants.QualityDistribution.ClassFanOutDistribution.ToString(),
-                    Constants.QualityDistribution.ClassFanOutDistribution.GetHashCode().ToString(),
-                    Constants.QualityDistribution.ClassFanInDistribution.ToString(),
-                    Constants.QualityDistribution.ClassFanInDistribution.GetHashCode().ToString(),
-                    Constants.QualityDistribution.SizeDistribution.ToString(),
-                    Constants.QualityDistribution.SizeDistribution.GetHashCode().ToString()
-
+                    BusinessCriteria.TechnicalQualityIndex.ToString(),
+                    ((int)BusinessCriteria.TechnicalQualityIndex).ToString(),
+                    BusinessCriteria.Security.ToString(),
+                    ((int)BusinessCriteria.Security).ToString(),
+                    BusinessCriteria.Robustness.ToString(),
+                    ((int)BusinessCriteria.Robustness).ToString(),
+                    BusinessCriteria.Performance.ToString(),
+                    ((int)BusinessCriteria.Performance).ToString(),
+                    BusinessCriteria.Changeability.ToString(),
+                    ((int)BusinessCriteria.Changeability).ToString(),
+                    BusinessCriteria.Transferability.ToString(),
+                    ((int)BusinessCriteria.Transferability).ToString(),
+                    BusinessCriteria.ProgrammingPractices.ToString(),
+                    ((int)BusinessCriteria.ProgrammingPractices).ToString(),
+                    BusinessCriteria.ArchitecturalDesign.ToString(),
+                    ((int)BusinessCriteria.ArchitecturalDesign).ToString(),
+                    BusinessCriteria.Documentation.ToString(),
+                    ((int)BusinessCriteria.Documentation).ToString(),
+                    BusinessCriteria.SEIMaintainability.ToString(),
+                    ((int)BusinessCriteria.SEIMaintainability).ToString(),
+                    QualityDistribution.CostComplexityDistribution.ToString(),
+                    ((int)QualityDistribution.CostComplexityDistribution).ToString(),
+                    QualityDistribution.CyclomaticComplexityDistribution.ToString(),
+                    ((int)QualityDistribution.CyclomaticComplexityDistribution).ToString(),
+                    QualityDistribution.OOComplexityDistribution.ToString(),
+                    ((int)QualityDistribution.OOComplexityDistribution).ToString(),
+                    QualityDistribution.SQLComplexityDistribution.ToString(),
+                    ((int)QualityDistribution.SQLComplexityDistribution).ToString(),
+                    QualityDistribution.CouplingDistribution.ToString(),
+                    ((int)QualityDistribution.CouplingDistribution).ToString(),
+                    QualityDistribution.ClassFanOutDistribution.ToString(),
+                    ((int)QualityDistribution.ClassFanOutDistribution).ToString(),
+                    QualityDistribution.ClassFanInDistribution.ToString(),
+                    ((int)QualityDistribution.ClassFanInDistribution).ToString(),
+                    QualityDistribution.SizeDistribution.ToString(),
+                    ((int)QualityDistribution.SizeDistribution).ToString()
                 });
 
 

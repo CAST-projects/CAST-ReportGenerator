@@ -16,6 +16,7 @@
 using Cast.Util.Log;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Domain.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -34,10 +35,10 @@ namespace CastReporting.Reporting.Block.Text
         public override string Content(ImagingData reportData, Dictionary<string, string> options)
         {
             #region Item BCID
-            int metricId = options.GetIntOption("BCID", (int)Constants.BusinessCriteria.TechnicalQualityIndex);
+            int metricId = options.GetIntOption("BCID", (int)BusinessCriteria.TechnicalQualityIndex);
             #endregion Item BCID
 
-            if (reportData?.Applications == null || null == reportData.Snapshots) return Constants.No_Value;
+            if (reportData?.Applications == null || null == reportData.Snapshots) return FormatHelper.No_Value;
             double? _cv = 0;
 
             Application[] _allApps = reportData.Applications;
@@ -47,7 +48,7 @@ namespace CastReporting.Reporting.Block.Text
                 {
                     Snapshot _snapshot = _app.Snapshots.OrderByDescending(_ => _.Annotation.Date.DateSnapShot).First();
                     if (_snapshot == null) continue;
-                    int? _snapCv = RulesViolationUtility.GetBCEvolutionSummary(_snapshot, metricId).FirstOrDefault()?.TotalCriticalViolations;
+                    int? _snapCv = RulesViolationUtility.GetBCEvolutionSummary(_snapshot, (BusinessCriteria)metricId).FirstOrDefault()?.TotalCriticalViolations;
                     if (_snapCv != null) _cv = _cv + _snapCv;
                 }
                 catch (Exception ex)

@@ -17,6 +17,7 @@
 using Cast.Util.Log;
 using Cast.Util.Version;
 using CastReporting.Domain;
+using CastReporting.Domain.Constants;
 using CastReporting.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -166,7 +167,7 @@ namespace CastReporting.BLL
         /// </summary>
         public void SetComplexity()
         {
-            var values = (int[])Enum.GetValues(typeof(Constants.QualityDistribution));
+            var values = (int[])Enum.GetValues(typeof(QualityDistribution));
 
             List<ApplicationResult> results = new List<ApplicationResult>();
 

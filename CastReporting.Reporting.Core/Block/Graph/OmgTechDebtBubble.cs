@@ -16,6 +16,7 @@
  */
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Domain.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -63,7 +64,7 @@ namespace CastReporting.Reporting.Block.Graph
                         {
                             _idxValue = BusinessCriteriaUtility.GetBusinessCriteriaModuleGrade(snapshot, moduleId, idxId, true);
                             _omgTechDebtValue = omgTechDebt.Total ?? 0;
-                            _locValue = MeasureUtility.GetSizingMeasureModule(snapshot, moduleId, Constants.SizingInformations.CodeLineNumber.GetHashCode());
+                            _locValue = MeasureUtility.GetSizingMeasureModule(snapshot, moduleId, (int)SizingInformations.CodeLineNumber);
                         }
                     }
                 }
@@ -74,7 +75,7 @@ namespace CastReporting.Reporting.Block.Graph
                     {
                         _idxValue = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(snapshot, idxId, true);
                         _omgTechDebtValue = omgTechDebt.Total ?? 0;
-                        _locValue = MeasureUtility.GetSizingMeasure(snapshot, Constants.SizingInformations.CodeLineNumber);
+                        _locValue = MeasureUtility.GetSizingMeasure(snapshot, SizingInformations.CodeLineNumber);
                     }
                 }
 

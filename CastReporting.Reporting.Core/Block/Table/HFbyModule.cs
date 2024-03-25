@@ -58,12 +58,12 @@ namespace CastReporting.Reporting.Block.Table
             {
                 rowData.AddRange(new[] {
                             result.Name,
-                            result.TQI?.ToString(metricFormat) ?? Constants.No_Value,
-                            result.Robustness?.ToString(metricFormat) ?? Constants.No_Value,
-                            result.Performance?.ToString(metricFormat) ?? Constants.No_Value,
-                            result.Security?.ToString(metricFormat) ?? Constants.No_Value,
-                            result.Transferability?.ToString(metricFormat) ?? Constants.No_Value,
-                            result.Changeability?.ToString(metricFormat) ?? Constants.No_Value
+                            result.TQI?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                            result.Robustness?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                            result.Performance?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                            result.Security?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                            result.Transferability?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                            result.Changeability?.ToString(metricFormat) ?? FormatHelper.No_Value
                         });
             }
 
@@ -81,12 +81,12 @@ namespace CastReporting.Reporting.Block.Table
                 {
                     rowData.AddRange(new[] {
                                 result.Name,
-                            result.TQI?.ToString(metricFormat) ?? Constants.No_Value,
-                            result.Robustness?.ToString(metricFormat) ?? Constants.No_Value,
-                            result.Performance?.ToString(metricFormat) ?? Constants.No_Value,
-                            result.Security?.ToString(metricFormat) ?? Constants.No_Value,
-                            result.Transferability?.ToString(metricFormat) ?? Constants.No_Value,
-                            result.Changeability?.ToString(metricFormat) ?? Constants.No_Value
+                            result.TQI?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                            result.Robustness?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                            result.Performance?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                            result.Security?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                            result.Transferability?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                            result.Changeability?.ToString(metricFormat) ?? FormatHelper.No_Value
                             });
                 }
 

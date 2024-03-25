@@ -14,6 +14,7 @@
  *
  */
 using CastReporting.BLL.Computing;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -30,11 +31,11 @@ namespace CastReporting.Reporting.Block.Text
         public override string Content(ImagingData reportData, Dictionary<string, string> options)
         {
             string res = string.Empty;
-            if (reportData?.PreviousSnapshot == null) return string.IsNullOrEmpty(res) ? Domain.Constants.No_Value : res;
+            if (reportData?.PreviousSnapshot == null) return string.IsNullOrEmpty(res) ? FormatHelper.No_Value : res;
             DateTime? d = SnapshotUtility.GetSnapshotDate(reportData.PreviousSnapshot);
             if (d.HasValue) res = d.Value.ToString(Labels.FORMAT_LONG_DATE);
 
-            return string.IsNullOrEmpty(res) ? Domain.Constants.No_Value : res;
+            return string.IsNullOrEmpty(res) ? FormatHelper.No_Value : res;
         }
         #endregion METHODS
     }

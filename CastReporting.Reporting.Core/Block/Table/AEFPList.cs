@@ -138,16 +138,16 @@ namespace CastReporting.Reporting.Block.Table
                 {
                     if (type.Equals(string.Empty))
                     {
-                        rowData.Add(string.IsNullOrEmpty(omgFunction.ElementType) ? Constants.No_Data : GetType(omgFunction.ElementType));
+                        rowData.Add(string.IsNullOrEmpty(omgFunction.ElementType) ? FormatHelper.No_Data : GetType(omgFunction.ElementType));
                     }
 
-                    rowData.Add(string.IsNullOrEmpty(omgFunction.FunctionName) ? Constants.No_Data : omgFunction.FunctionName);
-                    rowData.Add(string.IsNullOrEmpty(omgFunction.ObjectType) ? Constants.No_Data : omgFunction.ObjectType);
-                    rowData.Add(string.IsNullOrEmpty(omgFunction.Technology) ? Constants.No_Data : omgFunction.Technology);
-                    rowData.Add(string.IsNullOrEmpty(omgFunction.ModuleName) ? Constants.No_Data : omgFunction.ModuleName);
-                    rowData.Add(string.IsNullOrEmpty(omgFunction.ObjectName) ? Constants.No_Data : omgFunction.ObjectName);
+                    rowData.Add(string.IsNullOrEmpty(omgFunction.FunctionName) ? FormatHelper.No_Data : omgFunction.FunctionName);
+                    rowData.Add(string.IsNullOrEmpty(omgFunction.ObjectType) ? FormatHelper.No_Data : omgFunction.ObjectType);
+                    rowData.Add(string.IsNullOrEmpty(omgFunction.Technology) ? FormatHelper.No_Data : omgFunction.Technology);
+                    rowData.Add(string.IsNullOrEmpty(omgFunction.ModuleName) ? FormatHelper.No_Data : omgFunction.ModuleName);
+                    rowData.Add(string.IsNullOrEmpty(omgFunction.ObjectName) ? FormatHelper.No_Data : omgFunction.ObjectName);
                     rowData.Add(string.IsNullOrEmpty(omgFunction.Aeps) ?
-                            string.IsNullOrEmpty(omgFunction.NoOfFPs) ? Constants.No_Data : omgFunction.NoOfFPs
+                            string.IsNullOrEmpty(omgFunction.NoOfFPs) ? FormatHelper.No_Data : omgFunction.NoOfFPs
                             : omgFunction.Aeps);
                     if (previous)
                     {
@@ -155,7 +155,7 @@ namespace CastReporting.Reporting.Block.Table
                         if (prevFunction != null)
                         {
                             rowData.Add(string.IsNullOrEmpty(prevFunction.Aeps) ?
-                                string.IsNullOrEmpty(prevFunction.NoOfFPs) ? Constants.No_Data : prevFunction.NoOfFPs
+                                string.IsNullOrEmpty(prevFunction.NoOfFPs) ? FormatHelper.No_Data : prevFunction.NoOfFPs
                                 : prevFunction.Aeps);
                         }
                         else
@@ -167,9 +167,9 @@ namespace CastReporting.Reporting.Block.Table
                     {
                         rowData.Add(" ");
                     }
-                    rowData.Add(string.IsNullOrEmpty(omgFunction.ElementType) ? Constants.No_Data : GetStatus(omgFunction.ElementType));
-                    rowData.Add(string.IsNullOrEmpty(omgFunction.ComplexityFactor) ? Constants.No_Data : omgFunction.ComplexityFactor);
-                    rowData.Add(string.IsNullOrEmpty(omgFunction.UpdatedArtifacts) ? Constants.No_Data : omgFunction.UpdatedArtifacts);
+                    rowData.Add(string.IsNullOrEmpty(omgFunction.ElementType) ? FormatHelper.No_Data : GetStatus(omgFunction.ElementType));
+                    rowData.Add(string.IsNullOrEmpty(omgFunction.ComplexityFactor) ? FormatHelper.No_Data : omgFunction.ComplexityFactor);
+                    rowData.Add(string.IsNullOrEmpty(omgFunction.UpdatedArtifacts) ? FormatHelper.No_Data : omgFunction.UpdatedArtifacts);
                     nbRows += 1;
                 }
             }

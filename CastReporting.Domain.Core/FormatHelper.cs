@@ -5,16 +5,20 @@ namespace CastReporting.Domain
 {
     public static class FormatHelper
     {
+        public const string No_Value = "n/a";
+        public const string No_Data = "-";
+        public const string Zero = "0";
+
         public static string NAIfEmpty(this object data)
         {
             var s = data?.ToString();
-            return string.IsNullOrWhiteSpace(s) ? Constants.No_Value : s;
+            return string.IsNullOrWhiteSpace(s) ? No_Value : s;
         }
 
         public static string NAIfEmpty(this int? data, string format)
         {
-            var s = data?.ToString(format) ?? Constants.No_Value;
-            return string.IsNullOrWhiteSpace(s) ? Constants.No_Value : s;
+            var s = data?.ToString(format) ?? No_Value;
+            return string.IsNullOrWhiteSpace(s) ? No_Value : s;
         }
 
         /// <summary>
@@ -83,7 +87,7 @@ namespace CastReporting.Domain
             // this is an inconsistent behaviour compared to other "FormatXxxx" APIs
             // original code was in TableBlock.FormatEvolution() before refactoring
             // the behaviour has not been changed for compatibility with previous versions
-            return pValue.HasValue ? pValue.Value.FormatEvolution() : Constants.No_Value;
+            return pValue.HasValue ? pValue.Value.FormatEvolution() : No_Value;
         }
 
         /// <summary>

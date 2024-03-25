@@ -52,13 +52,13 @@ namespace CastReporting.Reporting.Block.Table
                     List<string> row = new List<string>();
                     try
                     {
-                        row.Add(string.IsNullOrEmpty(omgFunction.ObjectName) ? Constants.No_Data : omgFunction.ObjectName);
-                        row.Add(string.IsNullOrEmpty(omgFunction.ObjectFullName) ? Constants.No_Data : omgFunction.ObjectFullName);
-                        row.Add(string.IsNullOrEmpty(omgFunction.ObjectType) ? Constants.No_Data : omgFunction.ObjectType);
-                        row.Add(string.IsNullOrEmpty(omgFunction.ObjectStatus) ? Constants.No_Data : omgFunction.ObjectStatus);
-                        row.Add(string.IsNullOrEmpty(omgFunction.EffortComplexity) ? Constants.No_Data : FormatDouble(omgFunction.EffortComplexity, _metricFormat));
-                        row.Add(string.IsNullOrEmpty(omgFunction.EquivalenceRatio) ? Constants.No_Data : FormatDouble(omgFunction.EquivalenceRatio, _metricFormat));
-                        row.Add(string.IsNullOrEmpty(omgFunction.AepCount) ? Constants.No_Data : FormatDouble(omgFunction.AepCount, _metricFormat));
+                        row.Add(string.IsNullOrEmpty(omgFunction.ObjectName) ? FormatHelper.No_Data : omgFunction.ObjectName);
+                        row.Add(string.IsNullOrEmpty(omgFunction.ObjectFullName) ? FormatHelper.No_Data : omgFunction.ObjectFullName);
+                        row.Add(string.IsNullOrEmpty(omgFunction.ObjectType) ? FormatHelper.No_Data : omgFunction.ObjectType);
+                        row.Add(string.IsNullOrEmpty(omgFunction.ObjectStatus) ? FormatHelper.No_Data : omgFunction.ObjectStatus);
+                        row.Add(string.IsNullOrEmpty(omgFunction.EffortComplexity) ? FormatHelper.No_Data : FormatDouble(omgFunction.EffortComplexity, _metricFormat));
+                        row.Add(string.IsNullOrEmpty(omgFunction.EquivalenceRatio) ? FormatHelper.No_Data : FormatDouble(omgFunction.EquivalenceRatio, _metricFormat));
+                        row.Add(string.IsNullOrEmpty(omgFunction.AepCount) ? FormatHelper.No_Data : FormatDouble(omgFunction.AepCount, _metricFormat));
                         rowData.AddRange(row);
                         nbRows += 1;
                     }
@@ -87,7 +87,7 @@ namespace CastReporting.Reporting.Block.Table
 
         private string FormatDouble(string doubleToFormat, string optFormat)
         {
-            if (doubleToFormat == null) return Constants.No_Value;
+            if (doubleToFormat == null) return FormatHelper.No_Value;
             try
             {
                 double var = double.Parse(doubleToFormat, new CultureInfo("en-US"));

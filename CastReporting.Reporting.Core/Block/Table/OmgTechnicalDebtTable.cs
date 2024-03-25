@@ -49,7 +49,7 @@ namespace CastReporting.Reporting.Block.Table
                 double? technicalDebtBuild = omgTechnicalDebt?.Total ?? null;
                 rowData.AddRange(new[] {
                     displayShortHeader ? Labels.Debt : Labels.TechnicalDebt  + " (" + Labels.Days + ")",
-                   technicalDebtBuild?.ToString(numberFormat) ?? Constants.No_Value
+                   technicalDebtBuild?.ToString(numberFormat) ?? FormatHelper.No_Value
                 });
 
 
@@ -57,21 +57,21 @@ namespace CastReporting.Reporting.Block.Table
                 double? technicalDebtadded = omgTechnicalDebt?.Added ?? null;
                 rowData.AddRange(new[] {
                      displayShortHeader ? Labels.DebtAdded : Labels.TechnicalDebtAdded + " (" + Labels.Days + ")",
-                   technicalDebtadded?.ToString(numberFormat) ?? Constants.No_Value
+                   technicalDebtadded?.ToString(numberFormat) ?? FormatHelper.No_Value
                 });
 
                 //Build Debt removed row            
                 double? technicalDebtremoved = omgTechnicalDebt?.Removed ?? null;
                 rowData.AddRange(new[] {
                      displayShortHeader ? Labels.DebtRemoved : Labels.TechnicalDebtRemoved + " (" + Labels.Days + ")",
-                   technicalDebtremoved?.ToString(numberFormat) ?? Constants.No_Value
+                   technicalDebtremoved?.ToString(numberFormat) ?? FormatHelper.No_Value
                 });
             }
             if (rowData.Count == 2)
             {
-                rowData.AddRange(new[] { displayShortHeader ? Labels.Debt : Labels.TechnicalDebt + " (" + Labels.Days + ")", Constants.No_Value });
-                rowData.AddRange(new[] { displayShortHeader ? Labels.DebtAdded : Labels.TechnicalDebtAdded + " (" + Labels.Days + ")", Constants.No_Value });
-                rowData.AddRange(new[] { displayShortHeader ? Labels.DebtRemoved : Labels.TechnicalDebtRemoved + " (" + Labels.Days + ")", Constants.No_Value });
+                rowData.AddRange(new[] { displayShortHeader ? Labels.Debt : Labels.TechnicalDebt + " (" + Labels.Days + ")", FormatHelper.No_Value });
+                rowData.AddRange(new[] { displayShortHeader ? Labels.DebtAdded : Labels.TechnicalDebtAdded + " (" + Labels.Days + ")", FormatHelper.No_Value });
+                rowData.AddRange(new[] { displayShortHeader ? Labels.DebtRemoved : Labels.TechnicalDebtRemoved + " (" + Labels.Days + ")", FormatHelper.No_Value });
 
             }
 

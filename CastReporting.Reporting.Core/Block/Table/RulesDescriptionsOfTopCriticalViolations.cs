@@ -14,6 +14,7 @@
  *
  */
 using CastReporting.Domain;
+using CastReporting.Domain.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -56,7 +57,7 @@ namespace CastReporting.Reporting.Block.Table
             }
             if (bcId.Count == 0)
             {
-                bcId.Add(Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode());
+                bcId.Add((int)BusinessCriteria.TechnicalQualityIndex);
             }
 
             ApplicationResult bc = reportData.CurrentSnapshot.BusinessCriteriaResults.FirstOrDefault(_ => bcId.Contains(_.Reference.Key));
@@ -77,7 +78,7 @@ namespace CastReporting.Reporting.Block.Table
                         Labels.RuleName, violation.Reference.Name,
                         Labels.Rationale, ruleDescription.Rationale,
                         Labels.Description, ruleDescription.Description,
-                        Labels.Remediation, string.IsNullOrWhiteSpace(ruleDescription.Remediation) ? Constants.No_Value : ruleDescription.Remediation,
+                        Labels.Remediation, string.IsNullOrWhiteSpace(ruleDescription.Remediation) ? FormatHelper.No_Value : ruleDescription.Remediation,
                         Labels.ViolationsCount, violation.DetailResult.ViolationRatio.FailedChecks.ToString(),
                         " "," "
                     });

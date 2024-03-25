@@ -15,6 +15,7 @@
  */
 using CastReporting.BLL.Computing;
 using CastReporting.BLL.Computing.DTO;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -125,11 +126,11 @@ namespace CastReporting.Reporting.Block.Table
                 {
                     rowData.AddRange(new[] {
                                 item.name
-                                , item.curValue?.ToString("N0") ?? Domain.Constants.No_Value
-                                , item.preValue?.ToString("N0") ?? Domain.Constants.No_Value
-                                , item.evolValue.HasValue? FormatEvolution((int)item.evolValue.Value) : Domain.Constants.No_Value
+                                , item.curValue?.ToString("N0") ?? FormatHelper.No_Value
+                                , item.preValue?.ToString("N0") ?? FormatHelper.No_Value
+                                , item.evolValue.HasValue? FormatEvolution((int)item.evolValue.Value) : FormatHelper.No_Value
                                 , item.evolValue.HasValue && item.preValue.HasValue && Math.Abs(item.preValue.Value) > 0 ? FormatPercent(item.evolValue.Value/item.preValue.Value)
-                                                                                                                 : Domain.Constants.No_Value
+                                                                                                                 : FormatHelper.No_Value
                     });
                     nbRows++;
                 }

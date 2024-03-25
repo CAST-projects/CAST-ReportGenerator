@@ -56,7 +56,7 @@ namespace CastReporting.Reporting.Block.Table
             #endregion  currSnapshot
 
             #region prevSnapshot
-            string prevSnapshotLabel = hasPreviousSnapshot ? SnapshotUtility.GetSnapshotVersionNumber(reportData.PreviousSnapshot) : Constants.No_Value;
+            string prevSnapshotLabel = hasPreviousSnapshot ? SnapshotUtility.GetSnapshotVersionNumber(reportData.PreviousSnapshot) : FormatHelper.No_Value;
             BusinessCriteriaDTO prevSnapshotBisCriDTO = hasPreviousSnapshot ? BusinessCriteriaUtility.GetBusinessCriteriaGradesSnapshot(reportData.PreviousSnapshot, false) : null;
             #endregion  prevSnapshot
 
@@ -67,12 +67,12 @@ namespace CastReporting.Reporting.Block.Table
             rowData.AddRange(
                 new[] {
                     currSnapshotLabel,
-                    currSnapshotBisCriDTO.TQI?.ToString(metricFormat) ?? Constants.No_Value,
-                    currSnapshotBisCriDTO.Robustness?.ToString(metricFormat) ?? Constants.No_Value,
-                    currSnapshotBisCriDTO.Performance?.ToString(metricFormat) ?? Constants.No_Value,
-                    currSnapshotBisCriDTO.Security?.ToString(metricFormat) ?? Constants.No_Value,
-                    currSnapshotBisCriDTO.Transferability?.ToString(metricFormat) ?? Constants.No_Value,
-                    currSnapshotBisCriDTO.Changeability?.ToString(metricFormat) ?? Constants.No_Value
+                    currSnapshotBisCriDTO.TQI?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                    currSnapshotBisCriDTO.Robustness?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                    currSnapshotBisCriDTO.Performance?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                    currSnapshotBisCriDTO.Security?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                    currSnapshotBisCriDTO.Transferability?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                    currSnapshotBisCriDTO.Changeability?.ToString(metricFormat) ?? FormatHelper.No_Value
                 });
 
             if (hasPreviousSnapshot)
@@ -85,12 +85,12 @@ namespace CastReporting.Reporting.Block.Table
                 rowData.AddRange(
                     new[] {
                         prevSnapshotLabel,
-                        prevSnapshotBisCriDTO.TQI?.ToString(metricFormat) ?? Constants.No_Value,
-                        prevSnapshotBisCriDTO.Robustness?.ToString(metricFormat) ?? Constants.No_Value,
-                        prevSnapshotBisCriDTO.Performance?.ToString(metricFormat) ?? Constants.No_Value,
-                        prevSnapshotBisCriDTO.Security?.ToString(metricFormat) ?? Constants.No_Value,
-                        prevSnapshotBisCriDTO.Transferability?.ToString(metricFormat) ?? Constants.No_Value,
-                        prevSnapshotBisCriDTO.Changeability?.ToString(metricFormat) ?? Constants.No_Value
+                        prevSnapshotBisCriDTO.TQI?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                        prevSnapshotBisCriDTO.Robustness?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                        prevSnapshotBisCriDTO.Performance?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                        prevSnapshotBisCriDTO.Security?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                        prevSnapshotBisCriDTO.Transferability?.ToString(metricFormat) ?? FormatHelper.No_Value,
+                        prevSnapshotBisCriDTO.Changeability?.ToString(metricFormat) ?? FormatHelper.No_Value
                     });
 
                 if (showEvol)
@@ -98,12 +98,12 @@ namespace CastReporting.Reporting.Block.Table
                     rowData.AddRange(
                         new[] {
                             Labels.Evol,
-                            _businessCriteriaGradesEvol.TQI.HasValue ? FormatEvolution(_businessCriteriaGradesEvol.TQI.Value) : Constants.No_Value,
-                            _businessCriteriaGradesEvol.Robustness.HasValue ? FormatEvolution(_businessCriteriaGradesEvol.Robustness.Value) : Constants.No_Value,
-                            _businessCriteriaGradesEvol.Performance.HasValue ? FormatEvolution(_businessCriteriaGradesEvol.Performance.Value) : Constants.No_Value,
-                            _businessCriteriaGradesEvol.Security.HasValue ? FormatEvolution(_businessCriteriaGradesEvol.Security.Value) : Constants.No_Value,
-                            _businessCriteriaGradesEvol.Transferability.HasValue ? FormatEvolution(_businessCriteriaGradesEvol.Transferability.Value) : Constants.No_Value,
-                            _businessCriteriaGradesEvol.Changeability.HasValue ? FormatEvolution(_businessCriteriaGradesEvol.Changeability.Value) : Constants.No_Value
+                            _businessCriteriaGradesEvol.TQI.HasValue ? FormatEvolution(_businessCriteriaGradesEvol.TQI.Value) : FormatHelper.No_Value,
+                            _businessCriteriaGradesEvol.Robustness.HasValue ? FormatEvolution(_businessCriteriaGradesEvol.Robustness.Value) : FormatHelper.No_Value,
+                            _businessCriteriaGradesEvol.Performance.HasValue ? FormatEvolution(_businessCriteriaGradesEvol.Performance.Value) : FormatHelper.No_Value,
+                            _businessCriteriaGradesEvol.Security.HasValue ? FormatEvolution(_businessCriteriaGradesEvol.Security.Value) : FormatHelper.No_Value,
+                            _businessCriteriaGradesEvol.Transferability.HasValue ? FormatEvolution(_businessCriteriaGradesEvol.Transferability.Value) : FormatHelper.No_Value,
+                            _businessCriteriaGradesEvol.Changeability.HasValue ? FormatEvolution(_businessCriteriaGradesEvol.Changeability.Value) : FormatHelper.No_Value
                         });
                 }
 
@@ -112,12 +112,12 @@ namespace CastReporting.Reporting.Block.Table
                     rowData.AddRange(
                         new[] {
                             Labels.EvolPercent,
-                            _businessCriteriaGradesEvolPercent.TQI.HasValue ? FormatPercent(_businessCriteriaGradesEvolPercent.TQI.Value) : Constants.No_Value,
-                            _businessCriteriaGradesEvolPercent.Robustness.HasValue ? FormatPercent(_businessCriteriaGradesEvolPercent.Robustness.Value) : Constants.No_Value,
-                            _businessCriteriaGradesEvolPercent.Performance.HasValue ? FormatPercent(_businessCriteriaGradesEvolPercent.Performance.Value) : Constants.No_Value,
-                            _businessCriteriaGradesEvolPercent.Security.HasValue ? FormatPercent(_businessCriteriaGradesEvolPercent.Security.Value) : Constants.No_Value,
-                            _businessCriteriaGradesEvolPercent.Transferability.HasValue ? FormatPercent(_businessCriteriaGradesEvolPercent.Transferability.Value) : Constants.No_Value,
-                            _businessCriteriaGradesEvolPercent.Changeability.HasValue ? FormatPercent(_businessCriteriaGradesEvolPercent.Changeability.Value) : Constants.No_Value
+                            _businessCriteriaGradesEvolPercent.TQI.HasValue ? FormatPercent(_businessCriteriaGradesEvolPercent.TQI.Value) : FormatHelper.No_Value,
+                            _businessCriteriaGradesEvolPercent.Robustness.HasValue ? FormatPercent(_businessCriteriaGradesEvolPercent.Robustness.Value) : FormatHelper.No_Value,
+                            _businessCriteriaGradesEvolPercent.Performance.HasValue ? FormatPercent(_businessCriteriaGradesEvolPercent.Performance.Value) : FormatHelper.No_Value,
+                            _businessCriteriaGradesEvolPercent.Security.HasValue ? FormatPercent(_businessCriteriaGradesEvolPercent.Security.Value) : FormatHelper.No_Value,
+                            _businessCriteriaGradesEvolPercent.Transferability.HasValue ? FormatPercent(_businessCriteriaGradesEvolPercent.Transferability.Value) : FormatHelper.No_Value,
+                            _businessCriteriaGradesEvolPercent.Changeability.HasValue ? FormatPercent(_businessCriteriaGradesEvolPercent.Changeability.Value) : FormatHelper.No_Value
                         });
                 }
             }

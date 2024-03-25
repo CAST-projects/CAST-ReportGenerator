@@ -55,7 +55,7 @@ namespace CastReporting.Reporting.Block.Graph
 
 
             var rowData = new List<string> { null, currSnapshotLabel };
-            if (prevSnapshotBCResult != null) { rowData.Add(prevSnapshotLabel ?? Constants.No_Value); }
+            if (prevSnapshotBCResult != null) { rowData.Add(prevSnapshotLabel ?? FormatHelper.No_Value); }
 
 
             #region Transferability

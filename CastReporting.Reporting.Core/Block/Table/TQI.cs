@@ -14,6 +14,8 @@
  *
  */
 using CastReporting.BLL.Computing;
+using CastReporting.Domain;
+using CastReporting.Domain.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -44,12 +46,12 @@ namespace CastReporting.Reporting.Block.Table
             rowData.AddRange(new[] { Labels.Statistics, Labels.CurrentScore, Labels.PreviousScore });
 
 
-            double? currentTqi = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(reportData.CurrentSnapshot, Domain.Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode(), true);
-            double? previousTqi = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(reportData.PreviousSnapshot, Domain.Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode(), true);
+            double? currentTqi = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(reportData.CurrentSnapshot, (int)BusinessCriteria.TechnicalQualityIndex, true);
+            double? previousTqi = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(reportData.PreviousSnapshot, (int)BusinessCriteria.TechnicalQualityIndex, true);
 
             rowData.AddRange(new[] { Labels.TQI,
                                        currentTqi?.ToString(MetricFormat) ?? string.Empty,
-                                       previousTqi?.ToString(MetricFormat) ?? Domain.Constants.No_Value});
+                                       previousTqi?.ToString(MetricFormat) ?? FormatHelper.No_Value});
 
             var resultTable = new TableDefinition
             {

@@ -32,7 +32,7 @@ namespace CastReporting.Reporting.Block.Text
         #region METHODS
         public override string Content(ImagingData reportData, Dictionary<string, string> options)
         {
-            if (reportData?.Applications == null) return Constants.No_Value;
+            if (reportData?.Applications == null) return FormatHelper.No_Value;
             Application[] _allApps = reportData.Applications;
             double? _allTechDebt = 0;
             double? _allLoc = 0;

@@ -15,6 +15,7 @@
  */
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Domain.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -50,7 +51,7 @@ namespace CastReporting.Reporting.Block.Table
 
 
             var technicalCriticalViolation = RulesViolationUtility.GetTechnicalCriteriaViolations(reportData.CurrentSnapshot,
-                                                                                                     (Constants.BusinessCriteria)bcCriteriaId,
+                                                                                                     (BusinessCriteria)bcCriteriaId,
                                                                                                      nbLimitTop);
             if (technicalCriticalViolation != null)
             {
@@ -59,9 +60,9 @@ namespace CastReporting.Reporting.Block.Table
                     rowData.AddRange(new[]
                                     {
                                           item.Name
-                                        , item.TotalFailed?.ToString("N0") ?? Constants.No_Value
-                                        , item.TotalChecks?.ToString("N0") ?? Constants.No_Value
-                                        , item.Grade?.ToString("N2") ?? Constants.No_Value
+                                        , item.TotalFailed?.ToString("N0") ?? FormatHelper.No_Value
+                                        , item.TotalChecks?.ToString("N0") ?? FormatHelper.No_Value
+                                        , item.Grade?.ToString("N2") ?? FormatHelper.No_Value
                                    }
                                    );
                 }

@@ -16,6 +16,7 @@
  */
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Domain.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -45,7 +46,7 @@ namespace CastReporting.Reporting.Block.Graph
 
 
             if (reportData.CurrentSnapshot == null) return null;
-            var moduleArtifacts = MeasureUtility.GetModulesMeasure(reportData.CurrentSnapshot, nbResult, Constants.SizingInformations.ArtifactNumber);
+            var moduleArtifacts = MeasureUtility.GetModulesMeasure(reportData.CurrentSnapshot, nbResult, SizingInformations.ArtifactNumber);
 
             List<string> rowData = new List<string>();
             rowData.AddRange(new[] { Labels.Name, Labels.Artifacts });

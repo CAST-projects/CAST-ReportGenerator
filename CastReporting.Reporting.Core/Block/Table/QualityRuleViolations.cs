@@ -56,7 +56,7 @@ namespace CastReporting.Reporting.Block.Table
 
             if (previous && !hasPreviousSnapshot)
             {
-                rowData.Add(Constants.No_Data);
+                rowData.Add(FormatHelper.No_Data);
             }
             else
             {

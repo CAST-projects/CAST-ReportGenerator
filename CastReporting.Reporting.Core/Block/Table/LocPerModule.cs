@@ -14,6 +14,7 @@
  *
  */
 using CastReporting.Domain;
+using CastReporting.Domain.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -51,7 +52,7 @@ namespace CastReporting.Reporting.Block.Table
 
             if (reportData?.CurrentSnapshot?.Modules != null)
             {
-                var result = reportData.CurrentSnapshot.SizingMeasuresResults.FirstOrDefault(v => v.Reference.Key == (int)Constants.SizingInformations.CodeLineNumber);
+                var result = reportData.CurrentSnapshot.SizingMeasuresResults.FirstOrDefault(v => v.Reference.Key == (int)SizingInformations.CodeLineNumber);
 
                 if (result != null)
                 {

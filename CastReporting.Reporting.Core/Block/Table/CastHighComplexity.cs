@@ -15,6 +15,7 @@
  */
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Domain.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -40,17 +41,17 @@ namespace CastReporting.Reporting.Block.Table
 
             #region Selected Snapshot
             double? selectedLowVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                Constants.CostComplexity.CostComplexityArtifacts_Low.GetHashCode());
+                (int)QualityDistribution.CostComplexityDistribution,
+                (int)CostComplexity.CostComplexityArtifacts_Low);
             double? selectedAveVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                Constants.CostComplexity.CostComplexityArtifacts_Average.GetHashCode());
+                (int)QualityDistribution.CostComplexityDistribution,
+                (int)CostComplexity.CostComplexityArtifacts_Average);
             double? selectedHigVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                Constants.CostComplexity.CostComplexityArtifacts_High.GetHashCode());
+                (int)QualityDistribution.CostComplexityDistribution,
+                (int)CostComplexity.CostComplexityArtifacts_High);
             double? selectedVhiVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                Constants.CostComplexity.CostComplexityArtifacts_VeryHigh.GetHashCode());
+                (int)QualityDistribution.CostComplexityDistribution,
+                (int)CostComplexity.CostComplexityArtifacts_VeryHigh);
 
             double? selectedTotal = selectedLowVal.HasValue && selectedAveVal.HasValue && selectedHigVal.HasValue && selectedVhiVal.HasValue ? selectedLowVal.Value + selectedAveVal.Value + selectedHigVal.Value + selectedVhiVal.Value : (double?)null;
             double? selectedHttVal = selectedHigVal.HasValue && selectedVhiVal.HasValue ? selectedHigVal.Value + selectedVhiVal.Value : (double?)null;
@@ -62,11 +63,11 @@ namespace CastReporting.Reporting.Block.Table
             if (reportData.PreviousSnapshot != null)
             {
                 var previousHigVal = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
-                    Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                    Constants.CostComplexity.CostComplexityArtifacts_High.GetHashCode());
+                    (int)QualityDistribution.CostComplexityDistribution,
+                    (int)CostComplexity.CostComplexityArtifacts_High);
                 var previousVhiVal = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
-                    Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                    Constants.CostComplexity.CostComplexityArtifacts_VeryHigh.GetHashCode());
+                    (int)QualityDistribution.CostComplexityDistribution,
+                    (int)CostComplexity.CostComplexityArtifacts_VeryHigh);
                 previousHttVal = previousHigVal.HasValue && previousVhiVal.HasValue ? previousHigVal.Value + previousVhiVal.Value : (double?)null;
             }
             #endregion Previous Snapshot
@@ -79,10 +80,10 @@ namespace CastReporting.Reporting.Block.Table
 
             rowData.AddRange(new[]
             { Labels.ComplexityHighAndVeryHigh
-                , selectedHttVal?.ToString(MetricFormat) ?? Constants.No_Value
-                , previousHttVal?.ToString(MetricFormat) ?? Constants.No_Value
-                , variation.HasValue? FormatEvolution(variation.Value): Constants.No_Value
-                , selectedHttVal.HasValue && selectedTotal.HasValue && selectedTotal.Value>0? FormatPercent(selectedHttVal.Value / selectedTotal.Value, false): Constants.No_Value
+                , selectedHttVal?.ToString(MetricFormat) ?? FormatHelper.No_Value
+                , previousHttVal?.ToString(MetricFormat) ?? FormatHelper.No_Value
+                , variation.HasValue? FormatEvolution(variation.Value): FormatHelper.No_Value
+                , selectedHttVal.HasValue && selectedTotal.HasValue && selectedTotal.Value>0? FormatPercent(selectedHttVal.Value / selectedTotal.Value, false): FormatHelper.No_Value
             });
             #endregion Data
 

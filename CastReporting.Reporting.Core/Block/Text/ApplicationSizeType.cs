@@ -14,6 +14,7 @@
  *
  */
 using CastReporting.BLL.Computing;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -30,10 +31,10 @@ namespace CastReporting.Reporting.Block.Text
         #region METHODS
         public override string Content(ImagingData reportData, Dictionary<string, string> options)
         {
-            if (reportData?.CurrentSnapshot == null) return Domain.Constants.No_Value;
+            if (reportData?.CurrentSnapshot == null) return FormatHelper.No_Value;
             double? codeLineNumber = MeasureUtility.GetCodeLineNumber(reportData.CurrentSnapshot);
 
-            return codeLineNumber.HasValue ? GetApplicationQualification(reportData, codeLineNumber.Value) : Domain.Constants.No_Value;
+            return codeLineNumber.HasValue ? GetApplicationQualification(reportData, codeLineNumber.Value) : FormatHelper.No_Value;
         }
 
 

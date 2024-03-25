@@ -15,6 +15,7 @@
  */
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Domain.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -38,30 +39,30 @@ namespace CastReporting.Reporting.Block.Table
 
 
             double? nbArtifactLow = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                Constants.CostComplexity.CostComplexityArtifacts_Low.GetHashCode());
+                (int)QualityDistribution.CostComplexityDistribution,
+                (int)CostComplexity.CostComplexityArtifacts_Low);
             double? nbArtifactAve = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                Constants.CostComplexity.CostComplexityArtifacts_Average.GetHashCode());
+                (int)QualityDistribution.CostComplexityDistribution,
+                (int)CostComplexity.CostComplexityArtifacts_Average);
             double? nbArtifactHigh = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                Constants.CostComplexity.CostComplexityArtifacts_High.GetHashCode());
+                (int)QualityDistribution.CostComplexityDistribution,
+                (int)CostComplexity.CostComplexityArtifacts_High);
             double? nbArtifactVeryHigh = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                Constants.QualityDistribution.CostComplexityDistribution.GetHashCode(),
-                Constants.CostComplexity.CostComplexityArtifacts_VeryHigh.GetHashCode());
+                (int)QualityDistribution.CostComplexityDistribution,
+                (int)CostComplexity.CostComplexityArtifacts_VeryHigh);
 
             double? nbViolationLow = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                Constants.QualityDistribution.DistributionOfDefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.GetHashCode(),
-                Constants.DefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.CostComplexityDefects_Low.GetHashCode());
+                (int)QualityDistribution.DistributionOfDefectsToCriticalDiagnosticBasedMetricsPerCostComplexity,
+                (int)DefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.CostComplexityDefects_Low);
             double? nbViolationAve = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                Constants.QualityDistribution.DistributionOfDefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.GetHashCode(),
-                Constants.DefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.CostComplexityDefects_Average.GetHashCode());
+                (int)QualityDistribution.DistributionOfDefectsToCriticalDiagnosticBasedMetricsPerCostComplexity,
+                (int)DefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.CostComplexityDefects_Average);
             double? nbViolationHigh = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                Constants.QualityDistribution.DistributionOfDefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.GetHashCode(),
-                Constants.DefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.CostComplexityDefects_High.GetHashCode());
+                (int)QualityDistribution.DistributionOfDefectsToCriticalDiagnosticBasedMetricsPerCostComplexity,
+                (int)DefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.CostComplexityDefects_High);
             double? nbViolationVeryHigh = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                Constants.QualityDistribution.DistributionOfDefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.GetHashCode(),
-                Constants.DefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.CostComplexityDefects_VeryHigh.GetHashCode());
+                (int)QualityDistribution.DistributionOfDefectsToCriticalDiagnosticBasedMetricsPerCostComplexity,
+                (int)DefectsToCriticalDiagnosticBasedMetricsPerCostComplexity.CostComplexityDefects_VeryHigh);
 
             #endregion Selected Snapshot
 
@@ -69,10 +70,10 @@ namespace CastReporting.Reporting.Block.Table
 
 
             rowData.AddRange(new[] { Labels.Complexity, Labels.Artifacts, Labels.WithViolations });
-            rowData.AddRange(new[] { Labels.CplxExtreme, nbArtifactVeryHigh?.ToString(numberFormat) ?? Constants.No_Value, nbViolationVeryHigh?.ToString(numberFormat) ?? Constants.No_Value });
-            rowData.AddRange(new[] { Labels.CplxHigh, nbArtifactHigh?.ToString(numberFormat) ?? Constants.No_Value, nbViolationHigh?.ToString(numberFormat) ?? Constants.No_Value });
-            rowData.AddRange(new[] { Labels.CplxAverage, nbArtifactAve?.ToString(numberFormat) ?? Constants.No_Value, nbViolationAve?.ToString(numberFormat) ?? Constants.No_Value });
-            rowData.AddRange(new[] { Labels.CplxLow, nbArtifactLow?.ToString(numberFormat) ?? Constants.No_Value, nbViolationLow?.ToString(numberFormat) ?? Constants.No_Value });
+            rowData.AddRange(new[] { Labels.CplxExtreme, nbArtifactVeryHigh?.ToString(numberFormat) ?? FormatHelper.No_Value, nbViolationVeryHigh?.ToString(numberFormat) ?? FormatHelper.No_Value });
+            rowData.AddRange(new[] { Labels.CplxHigh, nbArtifactHigh?.ToString(numberFormat) ?? FormatHelper.No_Value, nbViolationHigh?.ToString(numberFormat) ?? FormatHelper.No_Value });
+            rowData.AddRange(new[] { Labels.CplxAverage, nbArtifactAve?.ToString(numberFormat) ?? FormatHelper.No_Value, nbViolationAve?.ToString(numberFormat) ?? FormatHelper.No_Value });
+            rowData.AddRange(new[] { Labels.CplxLow, nbArtifactLow?.ToString(numberFormat) ?? FormatHelper.No_Value, nbViolationLow?.ToString(numberFormat) ?? FormatHelper.No_Value });
 
             #endregion Data
 

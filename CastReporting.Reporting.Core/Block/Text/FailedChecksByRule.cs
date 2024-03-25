@@ -35,7 +35,7 @@ namespace CastReporting.Reporting.Block.Text
             string strRuleId = options.GetOption("RULID", string.Empty);
             string _snapshot = options.GetOption("SNAPSHOT", "CURRENT");
 
-            if (reportData?.CurrentSnapshot == null || string.IsNullOrEmpty(strRuleId)) return Constants.No_Value;
+            if (reportData?.CurrentSnapshot == null || string.IsNullOrEmpty(strRuleId)) return FormatHelper.No_Value;
             Result violations;
             int? failedChecks = null;
 
@@ -53,7 +53,7 @@ namespace CastReporting.Reporting.Block.Text
                 failedChecks = RulesViolationUtility.GetFailedChecks(violations);
             }
 
-            return failedChecks?.ToString("N0") ?? Constants.No_Value;
+            return failedChecks?.ToString("N0") ?? FormatHelper.No_Value;
         }
         #endregion METHODS
     }

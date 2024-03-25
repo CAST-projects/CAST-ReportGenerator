@@ -1,5 +1,6 @@
 ﻿using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Domain.Constants;
 using CastReporting.UnitTest.Reporting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -27,10 +28,10 @@ namespace CastReporting.UnitTest
                 BusinessCriteriaResults = TestUtility.GetSampleResult<ApplicationResult>(@".\Data\ComputingTest1.json")
             };
 
-            var result = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(selectedSnapshot, Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode(), true);
+            var result = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(selectedSnapshot, (int)BusinessCriteria.TechnicalQualityIndex, true);
             if (result == null) Assert.Fail();
             Assert.AreEqual(3.4, result.Value);
-            result = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(selectedSnapshot, Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode(), false);
+            result = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(selectedSnapshot, (int)BusinessCriteria.TechnicalQualityIndex, false);
             Assert.AreEqual("3.40", result?.ToString("N2"));
         }
 

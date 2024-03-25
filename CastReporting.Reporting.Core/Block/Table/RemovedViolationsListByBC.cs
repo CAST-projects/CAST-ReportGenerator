@@ -55,13 +55,13 @@ namespace CastReporting.Reporting.Block.Table
                     int key = int.Parse(fragments[fragments.Length - 1]);
                     string weight = rulesDetails.FirstOrDefault(_ => _.Key == key)?.CompoundedWeight.ToString();
 
-                    rowData.Add(_violation.Diagnosis?.Status ?? Constants.No_Value);
-                    rowData.Add(_violation.ExclusionRequest?.Status ?? Constants.No_Value);
-                    rowData.Add(_violation.RemedialAction?.Status ?? Constants.No_Value);
-                    rowData.Add(_violation.RulePattern?.Name ?? Constants.No_Value);
+                    rowData.Add(_violation.Diagnosis?.Status ?? FormatHelper.No_Value);
+                    rowData.Add(_violation.ExclusionRequest?.Status ?? FormatHelper.No_Value);
+                    rowData.Add(_violation.RemedialAction?.Status ?? FormatHelper.No_Value);
+                    rowData.Add(_violation.RulePattern?.Name ?? FormatHelper.No_Value);
                     rowData.Add(weight);
-                    rowData.Add(_violation.Component?.Name ?? Constants.No_Value);
-                    rowData.Add(_violation.Component?.Status ?? Constants.No_Value);
+                    rowData.Add(_violation.Component?.Name ?? FormatHelper.No_Value);
+                    rowData.Add(_violation.Component?.Status ?? FormatHelper.No_Value);
                 }
                 nbRows = removedViolations.Count + 1;
             }

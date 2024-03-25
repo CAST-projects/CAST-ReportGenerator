@@ -16,6 +16,7 @@
 using Cast.Util.Date;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Domain.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -35,7 +36,7 @@ namespace CastReporting.Reporting.Block.Graph
 
         public override TableDefinition Content(ImagingData reportData, Dictionary<string, string> options)
         {
-            int metricId = options.GetIntOption("BCID", 60017);
+            int metricId = options.GetIntOption("BCID", (int)BusinessCriteria.TechnicalQualityIndex);
 
             var rowData = new List<string>();
             rowData.AddRange(new[] {
@@ -93,7 +94,7 @@ namespace CastReporting.Reporting.Block.Graph
                             int intSnapshotYear = _snapshotDate.Year;
 
                             if (intQuarter != intSnapshotQuarter || intYear != intSnapshotYear) continue;
-                            ViolationsStatisticsDTO results = RulesViolationUtility.GetBCEvolutionSummary(snapshot, metricId).First();
+                            ViolationsStatisticsDTO results = RulesViolationUtility.GetBCEvolutionSummary(snapshot, (BusinessCriteria)metricId).First();
                             if (results == null) continue;
                             _removedCritViol = _removedCritViol + results.RemovedCriticalViolations;
                             _addedCritViol = _addedCritViol + results.AddedCriticalViolations;

@@ -35,7 +35,7 @@ namespace CastReporting.Reporting.Block.Text
         {
             string index = options.GetOption("ID", "ISO");
 
-            if (reportData?.Applications == null) return Constants.No_Value;
+            if (reportData?.Applications == null) return FormatHelper.No_Value;
             Application[] _allApps = reportData.Applications;
             double? _allTechDebt = 0;
             double? _allLoc = 0;

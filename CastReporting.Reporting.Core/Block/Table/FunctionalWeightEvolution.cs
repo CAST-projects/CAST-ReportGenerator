@@ -61,7 +61,7 @@ namespace CastReporting.Reporting.Block.Table
 
             #endregion
 
-            const string noData = Constants.No_Value;
+            const string noData = FormatHelper.No_Value;
             const string metricFormat = "N0";
 
             var rowData = new List<string>

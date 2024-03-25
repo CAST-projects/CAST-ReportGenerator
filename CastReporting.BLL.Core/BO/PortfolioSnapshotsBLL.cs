@@ -17,6 +17,7 @@
 using Cast.Util.Log;
 using Cast.Util.Version;
 using CastReporting.Domain;
+using CastReporting.Domain.Constants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -192,7 +193,7 @@ namespace CastReporting.BLL
         public List<string> SetComplexity()
         {
             List<string> _ignoreSnaps = new List<string>();
-            var values = (int[])Enum.GetValues(typeof(Constants.QualityDistribution));
+            var values = (int[])Enum.GetValues(typeof(QualityDistribution));
 
             List<ApplicationResult> results = new List<ApplicationResult>();
 

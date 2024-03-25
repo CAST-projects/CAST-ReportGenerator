@@ -14,6 +14,7 @@
  *
  */
 using CastReporting.BLL.Computing;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.ReportingModel;
@@ -27,7 +28,7 @@ namespace CastReporting.Reporting.Block.Text
         #region METHODS
         public override string Content(ImagingData reportData, Dictionary<string, string> options)
         {
-            return reportData?.CurrentSnapshot != null ? SnapshotUtility.GetSnapshotVersionNumber(reportData.CurrentSnapshot) ?? Domain.Constants.No_Value : Domain.Constants.No_Value;
+            return reportData?.CurrentSnapshot != null ? SnapshotUtility.GetSnapshotVersionNumber(reportData.CurrentSnapshot) ?? FormatHelper.No_Value : FormatHelper.No_Value;
         }
         #endregion METHODS
     }

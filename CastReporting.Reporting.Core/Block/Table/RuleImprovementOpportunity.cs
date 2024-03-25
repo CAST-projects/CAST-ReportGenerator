@@ -15,6 +15,7 @@
  */
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Domain.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -62,14 +63,14 @@ namespace CastReporting.Reporting.Block.Table
             if (reportData?.CurrentSnapshot != null && metricId.HasValue)
             {
                 var currentCriticalRulesViolation = RulesViolationUtility.GetAllRuleViolations(reportData.CurrentSnapshot,
-                                                                                            Constants.RulesViolation.All,
-                                                                                            (Constants.BusinessCriteria)metricId,
+                                                                                            RulesViolation.All,
+                                                                                            (BusinessCriteria)metricId,
                                                                                             true);
 
 
                 var previousCriticalRulesViolation = reportData.PreviousSnapshot != null ? RulesViolationUtility.GetAllRuleViolations(reportData.PreviousSnapshot,
-                                                                                                                                     Constants.RulesViolation.All,
-                                                                                                                                    (Constants.BusinessCriteria)metricId,
+                                                                                                                                     RulesViolation.All,
+                                                                                                                                    (BusinessCriteria)metricId,
                                                                                                                                      false)
                                                                                            : null;
 
@@ -121,11 +122,11 @@ namespace CastReporting.Reporting.Block.Table
                                 {
                                       varRule.Rule.Name
                                     , varRule.Rule.Critical ? "Y" : "N"
-                                    , varRule.CurrentNbViolations.HasValue && varRule.CurrentNbViolations.Value != -1? varRule.CurrentNbViolations.Value.ToString("N0"): Constants.No_Value
-                                    , varRule.PreviousNbViolations.HasValue && varRule.PreviousNbViolations.Value != -1? varRule.PreviousNbViolations.Value.ToString("N0"): Constants.No_Value
-                                    , varRule.Evolution.HasValue && !double.IsNaN(varRule.Evolution.Value) ? FormatPercent(varRule.Evolution.Value) : Constants.No_Value
-                                    , varRule.Grade.HasValue && !double.IsNaN(varRule.Grade.Value) ? varRule.Grade.Value.ToString("N2"):Constants.No_Value
-                                    , varRule.GradeEvolution.HasValue && !double.IsNaN(varRule.GradeEvolution.Value) ? FormatPercent(varRule.GradeEvolution.Value) : Constants.No_Value
+                                    , varRule.CurrentNbViolations.HasValue && varRule.CurrentNbViolations.Value != -1? varRule.CurrentNbViolations.Value.ToString("N0"): FormatHelper.No_Value
+                                    , varRule.PreviousNbViolations.HasValue && varRule.PreviousNbViolations.Value != -1? varRule.PreviousNbViolations.Value.ToString("N0"): FormatHelper.No_Value
+                                    , varRule.Evolution.HasValue && !double.IsNaN(varRule.Evolution.Value) ? FormatPercent(varRule.Evolution.Value) : FormatHelper.No_Value
+                                    , varRule.Grade.HasValue && !double.IsNaN(varRule.Grade.Value) ? varRule.Grade.Value.ToString("N2"):FormatHelper.No_Value
+                                    , varRule.GradeEvolution.HasValue && !double.IsNaN(varRule.GradeEvolution.Value) ? FormatPercent(varRule.GradeEvolution.Value) : FormatHelper.No_Value
                                }
                             );
                         rowCount++;

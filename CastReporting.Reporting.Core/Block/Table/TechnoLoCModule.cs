@@ -15,6 +15,7 @@
  */
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Domain.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.ReportingModel;
@@ -49,11 +50,11 @@ namespace CastReporting.Reporting.Block.Table
             //Set the result by module
             foreach (var mod in reportData.CurrentSnapshot.Modules)
             {
-                var technologyLoc = MeasureUtility.GetSizingMeasureTechnologies(reportData.CurrentSnapshot, mod.Href, Constants.SizingInformations.CodeLineNumber.GetHashCode());
+                var technologyLoc = MeasureUtility.GetSizingMeasureTechnologies(reportData.CurrentSnapshot, mod.Href, (int)SizingInformations.CodeLineNumber);
 
                 rowData.Add(mod.Name);
 
-                rowData.AddRange(reportData.CurrentSnapshot.Technologies.Select(techName => technologyLoc.FirstOrDefault(_ => _.Name == techName)).Select(result => result != null ? result.Value?.ToString(MetricFormat) : Constants.No_Value));
+                rowData.AddRange(reportData.CurrentSnapshot.Technologies.Select(techName => technologyLoc.FirstOrDefault(_ => _.Name == techName)).Select(result => result != null ? result.Value?.ToString(MetricFormat) : FormatHelper.No_Value));
             }
 
             var resultTable = new TableDefinition

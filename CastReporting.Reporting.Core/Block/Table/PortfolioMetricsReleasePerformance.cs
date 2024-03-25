@@ -119,7 +119,7 @@ namespace CastReporting.Reporting.Block.Table
                     }
                     rowData.AddRange(new[] {
                         currentRes.name,
-                        previousRes != null ? previousRes.resultStr : Constants.No_Data,
+                        previousRes != null ? previousRes.resultStr : FormatHelper.No_Data,
                         target.ToString("N2"),
                         currentRes.resultStr,
                         metricSla });

@@ -14,6 +14,7 @@
  *
  */
 using CastReporting.Domain;
+using CastReporting.Domain.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -65,20 +66,20 @@ namespace CastReporting.Reporting.Block.Table
 
             if (reportData.CurrentSnapshot == null) return null;
             rowData.AddRange(new[] { Labels.ArtifactName, Labels.PRI });
-            Constants.BusinessCriteria bizCrit;
+            BusinessCriteria bizCrit;
             switch (dataSource)
             {
-                case "ARCH": { bizCrit = Constants.BusinessCriteria.ArchitecturalDesign; } break;
-                case "CHAN": { bizCrit = Constants.BusinessCriteria.Changeability; } break;
-                case "DOC": { bizCrit = Constants.BusinessCriteria.Documentation; } break;
-                case "PERF": { bizCrit = Constants.BusinessCriteria.Performance; } break;
-                case "PROG": { bizCrit = Constants.BusinessCriteria.ProgrammingPractices; } break;
-                case "ROB": { bizCrit = Constants.BusinessCriteria.Robustness; } break;
-                case "SEC": { bizCrit = Constants.BusinessCriteria.Security; } break;
-                case "MAIN": { bizCrit = Constants.BusinessCriteria.SEIMaintainability; } break;
-                case "TQI": { bizCrit = Constants.BusinessCriteria.TechnicalQualityIndex; } break;
-                case "TRAN": { bizCrit = Constants.BusinessCriteria.Transferability; } break;
-                default: { bizCrit = Constants.BusinessCriteria.Transferability; } break;
+                case "ARCH": { bizCrit = BusinessCriteria.ArchitecturalDesign; } break;
+                case "CHAN": { bizCrit = BusinessCriteria.Changeability; } break;
+                case "DOC": { bizCrit = BusinessCriteria.Documentation; } break;
+                case "PERF": { bizCrit = BusinessCriteria.Performance; } break;
+                case "PROG": { bizCrit = BusinessCriteria.ProgrammingPractices; } break;
+                case "ROB": { bizCrit = BusinessCriteria.Robustness; } break;
+                case "SEC": { bizCrit = BusinessCriteria.Security; } break;
+                case "MAIN": { bizCrit = BusinessCriteria.SEIMaintainability; } break;
+                case "TQI": { bizCrit = BusinessCriteria.TechnicalQualityIndex; } break;
+                case "TRAN": { bizCrit = BusinessCriteria.Transferability; } break;
+                default: { bizCrit = BusinessCriteria.Transferability; } break;
             }
 
 

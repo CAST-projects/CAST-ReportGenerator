@@ -14,6 +14,7 @@
  *
  */
 using Cast.Util.Version;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.ReportingModel;
@@ -29,8 +30,7 @@ namespace CastReporting.Reporting.Block.Text
         public override string Content(ReportData reportData, Dictionary<string, string> options)
         {
             var ver = VersionUtil.GetRGVersion(Assembly.GetExecutingAssembly());
-            if (string.IsNullOrEmpty(ver))
-                ver = Domain.Constants.No_Value;
+            if (string.IsNullOrEmpty(ver)) ver = FormatHelper.No_Value;
 
             return ver;
         }

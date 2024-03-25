@@ -119,7 +119,7 @@ namespace CastReporting.Reporting.Block.Table
                         cellProps.Add(new CellAttributes(cellidx, colorBeige));
                     }
                     cellidx++;
-                    dataRow.Set(lbltotal, detailResult.ViolationRatio.FailedChecks.HasValue ? detailResult.ViolationRatio?.FailedChecks.Value.ToString("N0") : Constants.No_Value);
+                    dataRow.Set(lbltotal, detailResult.ViolationRatio.FailedChecks.HasValue ? detailResult.ViolationRatio?.FailedChecks.Value.ToString("N0") : FormatHelper.No_Value);
                     if (nbViolations > 0)
                     {
                         cellProps.Add(new CellAttributes(cellidx, colorBeige));

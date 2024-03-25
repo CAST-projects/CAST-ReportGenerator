@@ -195,15 +195,15 @@ namespace CastReporting.Reporting.Block.Table
             int total = omgTechDebt.Total > 0.0 ? 1 : 0;
             FormatTableHelper.AddGrayOrBold(detail, cellProps, cellidx, total);
             cellidx++;
-            dataRow.Set(lbltotal, omgTechDebt.Total != null ? omgTechDebt.Total.Value.ToString("N1") : Constants.No_Value);
+            dataRow.Set(lbltotal, omgTechDebt.Total != null ? omgTechDebt.Total.Value.ToString("N1") : FormatHelper.No_Value);
             FormatTableHelper.AddGrayOrBold(detail, cellProps, cellidx, total);
             cellidx++;
             if (displayEvolution)
             {
-                dataRow.Set(lbladded, omgTechDebt.Added != null ? omgTechDebt.Added.Value.ToString("N1") : Constants.No_Value);
+                dataRow.Set(lbladded, omgTechDebt.Added != null ? omgTechDebt.Added.Value.ToString("N1") : FormatHelper.No_Value);
                 FormatTableHelper.AddGrayOrBold(detail, cellProps, cellidx, total);
                 cellidx++;
-                dataRow.Set(lblremoved, omgTechDebt.Removed != null ? omgTechDebt.Removed.Value.ToString("N1") : Constants.No_Value);
+                dataRow.Set(lblremoved, omgTechDebt.Removed != null ? omgTechDebt.Removed.Value.ToString("N1") : FormatHelper.No_Value);
                 FormatTableHelper.AddGrayOrBold(detail, cellProps, cellidx, total);
                 cellidx++;
             }

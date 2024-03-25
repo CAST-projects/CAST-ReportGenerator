@@ -64,18 +64,18 @@ namespace CastReporting.Reporting.Block.Table
                     foreach (var grade in technicalCriteriasResults)
                     {
                         rowData.Add(grade.Name);
-                        rowData.Add(grade.Grade?.ToString("N2") ?? Constants.No_Value);
+                        rowData.Add(grade.Grade?.ToString("N2") ?? FormatHelper.No_Value);
 
 
                         var prevGrade = (from pgrade in prevTechnicalCriteriasResults
                                          where pgrade.Key == grade.Key
                                          select pgrade).FirstOrDefault();
 
-                        string evol = Constants.No_Value;
+                        string evol = FormatHelper.No_Value;
                         if (prevGrade != null)
                         {
                             double? variation = MathUtility.GetVariationPercent(grade.Grade, prevGrade.Grade);
-                            evol = variation.HasValue ? FormatPercent(variation) : Constants.No_Value;
+                            evol = variation.HasValue ? FormatPercent(variation) : FormatHelper.No_Value;
                         }
 
                         rowData.Add(evol);
@@ -94,7 +94,7 @@ namespace CastReporting.Reporting.Block.Table
                     foreach (var grade in technicalCriteriasResults)
                     {
                         rowData.Add(grade.Name);
-                        rowData.Add(grade.Grade?.ToString("N2") ?? Constants.No_Value);
+                        rowData.Add(grade.Grade?.ToString("N2") ?? FormatHelper.No_Value);
                         nbRows++;
                     }
                 }

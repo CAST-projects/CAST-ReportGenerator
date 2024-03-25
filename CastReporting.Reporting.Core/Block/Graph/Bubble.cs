@@ -16,6 +16,7 @@
  */
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Domain.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -57,15 +58,15 @@ namespace CastReporting.Reporting.Block.Graph
                 if (moduleId > 0)
                 {
 
-                    _tqiValue = BusinessCriteriaUtility.GetBusinessCriteriaModuleGrade(reportData.CurrentSnapshot, moduleId, Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode(), true);
-                    _techDebtValue = MeasureUtility.GetSizingMeasureModule(reportData.CurrentSnapshot, moduleId, Constants.SizingInformations.TechnicalDebt.GetHashCode());
-                    _colValue = MeasureUtility.GetSizingMeasureModule(reportData.CurrentSnapshot, moduleId, Constants.SizingInformations.CodeLineNumber.GetHashCode());
+                    _tqiValue = BusinessCriteriaUtility.GetBusinessCriteriaModuleGrade(reportData.CurrentSnapshot, moduleId, (int)BusinessCriteria.TechnicalQualityIndex, true);
+                    _techDebtValue = MeasureUtility.GetSizingMeasureModule(reportData.CurrentSnapshot, moduleId, (int)SizingInformations.TechnicalDebt);
+                    _colValue = MeasureUtility.GetSizingMeasureModule(reportData.CurrentSnapshot, moduleId, (int)SizingInformations.CodeLineNumber);
                 }
                 else
                 {
-                    _tqiValue = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(reportData.CurrentSnapshot, Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode(), true);
-                    _techDebtValue = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, Constants.SizingInformations.TechnicalDebt);
-                    _colValue = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, Constants.SizingInformations.CodeLineNumber);
+                    _tqiValue = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(reportData.CurrentSnapshot, (int)BusinessCriteria.TechnicalQualityIndex, true);
+                    _techDebtValue = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, SizingInformations.TechnicalDebt);
+                    _colValue = MeasureUtility.GetSizingMeasure(reportData.CurrentSnapshot, SizingInformations.CodeLineNumber);
                 }
 
                 rowData.Add(_tqiValue.GetValueOrDefault().ToString(CultureInfo.CurrentCulture));

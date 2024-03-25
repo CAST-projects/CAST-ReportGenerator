@@ -15,9 +15,9 @@
  */
 
 using CastReporting.Domain;
+using CastReporting.Domain.Constants;
 using System.Collections.Generic;
 using System.Linq;
-using static CastReporting.Domain.Constants;
 
 namespace CastReporting.BLL.Computing
 {
@@ -46,12 +46,12 @@ namespace CastReporting.BLL.Computing
             var result = modules.Select(module => new BusinessCriteriaDTO
             {
                 Name = module.Name,
-                TQI = GetBusinessCriteriaModuleGrade(snapshot, module.Href, Constants.BusinessCriteria.TechnicalQualityIndex.GetHashCode(), round),
-                Robustness = GetBusinessCriteriaModuleGrade(snapshot, module.Href, Constants.BusinessCriteria.Robustness.GetHashCode(), round),
-                Performance = GetBusinessCriteriaModuleGrade(snapshot, module.Href, Constants.BusinessCriteria.Performance.GetHashCode(), round),
-                Security = GetBusinessCriteriaModuleGrade(snapshot, module.Href, Constants.BusinessCriteria.Security.GetHashCode(), round),
-                Changeability = GetBusinessCriteriaModuleGrade(snapshot, module.Href, Constants.BusinessCriteria.Changeability.GetHashCode(), round),
-                Transferability = GetBusinessCriteriaModuleGrade(snapshot, module.Href, Constants.BusinessCriteria.Transferability.GetHashCode(), round)
+                TQI = GetBusinessCriteriaModuleGrade(snapshot, module.Href, (int)BusinessCriteria.TechnicalQualityIndex, round),
+                Robustness = GetBusinessCriteriaModuleGrade(snapshot, module.Href, (int)BusinessCriteria.Robustness, round),
+                Performance = GetBusinessCriteriaModuleGrade(snapshot, module.Href, (int)BusinessCriteria.Performance, round),
+                Security = GetBusinessCriteriaModuleGrade(snapshot, module.Href, (int)BusinessCriteria.Security, round),
+                Changeability = GetBusinessCriteriaModuleGrade(snapshot, module.Href, (int)BusinessCriteria.Changeability, round),
+                Transferability = GetBusinessCriteriaModuleGrade(snapshot, module.Href, (int)BusinessCriteria.Transferability, round)
             })
                 .ToList();
 
@@ -71,16 +71,16 @@ namespace CastReporting.BLL.Computing
             if (null == snapshot) return null;
             BusinessCriteriaDTO result = new BusinessCriteriaDTO
             {
-                TQI = GetSnapshotBusinessCriteriaGrade(snapshot, BusinessCriteria.TechnicalQualityIndex.GetHashCode(), round),
-                Robustness = GetSnapshotBusinessCriteriaGrade(snapshot, Constants.BusinessCriteria.Robustness.GetHashCode(), round),
-                Performance = GetSnapshotBusinessCriteriaGrade(snapshot, Constants.BusinessCriteria.Performance.GetHashCode(), round),
-                Security = GetSnapshotBusinessCriteriaGrade(snapshot, Constants.BusinessCriteria.Security.GetHashCode(), round),
-                Transferability = GetSnapshotBusinessCriteriaGrade(snapshot, Constants.BusinessCriteria.Transferability.GetHashCode(), round),
-                Changeability = GetSnapshotBusinessCriteriaGrade(snapshot, Constants.BusinessCriteria.Changeability.GetHashCode(), round),
-                ProgrammingPractices = GetSnapshotBusinessCriteriaGrade(snapshot, Constants.BusinessCriteria.ProgrammingPractices.GetHashCode(), round),
-                ArchitecturalDesign = GetSnapshotBusinessCriteriaGrade(snapshot, Constants.BusinessCriteria.ArchitecturalDesign.GetHashCode(), round),
-                Documentation = GetSnapshotBusinessCriteriaGrade(snapshot, Constants.BusinessCriteria.Documentation.GetHashCode(), round),
-                SEIMaintainability = GetSnapshotBusinessCriteriaGrade(snapshot, Constants.BusinessCriteria.SEIMaintainability.GetHashCode(), round)
+                TQI = GetSnapshotBusinessCriteriaGrade(snapshot, (int)BusinessCriteria.TechnicalQualityIndex, round),
+                Robustness = GetSnapshotBusinessCriteriaGrade(snapshot, (int)BusinessCriteria.Robustness, round),
+                Performance = GetSnapshotBusinessCriteriaGrade(snapshot, (int)BusinessCriteria.Performance, round),
+                Security = GetSnapshotBusinessCriteriaGrade(snapshot, (int)BusinessCriteria.Security, round),
+                Transferability = GetSnapshotBusinessCriteriaGrade(snapshot, (int)BusinessCriteria.Transferability, round),
+                Changeability = GetSnapshotBusinessCriteriaGrade(snapshot, (int)BusinessCriteria.Changeability, round),
+                ProgrammingPractices = GetSnapshotBusinessCriteriaGrade(snapshot, (int)BusinessCriteria.ProgrammingPractices, round),
+                ArchitecturalDesign = GetSnapshotBusinessCriteriaGrade(snapshot, (int)BusinessCriteria.ArchitecturalDesign, round),
+                Documentation = GetSnapshotBusinessCriteriaGrade(snapshot, (int)BusinessCriteria.Documentation, round),
+                SEIMaintainability = GetSnapshotBusinessCriteriaGrade(snapshot, (int)BusinessCriteria.SEIMaintainability, round)
             };
 
             return result;

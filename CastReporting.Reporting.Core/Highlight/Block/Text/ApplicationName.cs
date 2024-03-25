@@ -13,6 +13,7 @@
  * limitations under the License.
  *
  */
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Highlight.ReportingModel;
@@ -26,7 +27,7 @@ namespace CastReporting.Reporting.Highlight.Block.Text
         #region METHODS
         public override string Content(HighlightData data, Dictionary<string, string> options)
         {
-            return (data != null) ? /* TODO */ Domain.Constants.No_Value : Domain.Constants.No_Value;
+            return (data != null) ? /* TODO */ FormatHelper.No_Value : FormatHelper.No_Value;
         }
         #endregion METHODS
     }

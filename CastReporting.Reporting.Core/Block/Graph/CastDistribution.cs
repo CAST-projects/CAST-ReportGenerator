@@ -16,6 +16,7 @@
  */
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Domain.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -38,7 +39,7 @@ namespace CastReporting.Reporting.Block.Graph
         {
             List<string> rowData = new List<string>();
             int parId;
-            Constants.QualityDistribution distributionId;
+            QualityDistribution distributionId;
 
             double? previousLowVal = null;
             double? previousAveVal = null;
@@ -49,13 +50,11 @@ namespace CastReporting.Reporting.Block.Graph
             string previousName = string.Empty;
 
 
-            if (null != options && options.ContainsKey("PAR") && int.TryParse(options["PAR"], out parId) && Enum.IsDefined(typeof(Constants.QualityDistribution), parId))
-            {
-                distributionId = (Constants.QualityDistribution)parId;
+            if (null != options && options.ContainsKey("PAR") && int.TryParse(options["PAR"], out parId) && Enum.IsDefined(typeof(QualityDistribution), parId)) {
+                distributionId = (QualityDistribution)parId;
+            } else {
+                distributionId = QualityDistribution.CostComplexityDistribution;
             }
-            else
-                distributionId = Constants.QualityDistribution.CostComplexityDistribution;
-
 
 
             if (reportData.CurrentSnapshot != null)
@@ -65,13 +64,13 @@ namespace CastReporting.Reporting.Block.Graph
                 #region Selected Snapshot
 
                 var selectedLowVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                    distributionId.GetHashCode(), "low");
+                    (int)distributionId, "low");
                 var selectedAveVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                    distributionId.GetHashCode(), "average");
+                    (int)distributionId, "average");
                 var selectedHigVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                    distributionId.GetHashCode(), "high");
+                    (int)distributionId, "high");
                 var selectedVhiVal = CastComplexityUtility.GetCostComplexityGrade(reportData.CurrentSnapshot,
-                    distributionId.GetHashCode(), "very_high");
+                    (int)distributionId, "very_high");
 
 
 
@@ -85,19 +84,13 @@ namespace CastReporting.Reporting.Block.Graph
                     previousName = reportData.PreviousSnapshot.Annotation.Version;
 
                     previousLowVal = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
-                                                                               distributionId.GetHashCode(),
-                                                                               "low");
+                                            (int)distributionId, "low");
                     previousAveVal = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
-                                                                                   distributionId.GetHashCode(),
-                                                                                  "average");
+                                            (int)distributionId, "average");
                     previousHigVal = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
-                                                                                    distributionId.GetHashCode(),
-                                                                                    "high");
+                                            (int)distributionId, "high");
                     previousVhiVal = CastComplexityUtility.GetCostComplexityGrade(reportData.PreviousSnapshot,
-                                                                                    distributionId.GetHashCode(),
-                                                                                    "very_high");
-
-
+                                            (int)distributionId, "very_high");
                 }
 
                 #endregion Previous Snapshot

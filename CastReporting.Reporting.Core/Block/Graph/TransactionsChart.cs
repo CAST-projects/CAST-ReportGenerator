@@ -17,6 +17,7 @@
 using Cast.Util.Log;
 using CastReporting.BLL.Computing;
 using CastReporting.Domain;
+using CastReporting.Domain.Constants;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
@@ -60,26 +61,26 @@ namespace CastReporting.Reporting.Block.Graph
                 switch (filteringBc)
                 {
                     case "SECU":
-                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Security.GetHashCode().ToString(), transactionsDetails, snapshot);
-                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Performance.GetHashCode().ToString(), transactionsDetails, snapshot);
-                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Robustness.GetHashCode().ToString(), transactionsDetails, snapshot);
+                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, (int)BusinessCriteria.Security, transactionsDetails, snapshot);
+                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, (int)BusinessCriteria.Performance, transactionsDetails, snapshot);
+                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, (int)BusinessCriteria.Robustness, transactionsDetails, snapshot);
                         transactionsDetails = nbLimitTop != -1 ?
                             transactionsDetails.OrderByDescending(_ => _.TriSecurity).Take(nbLimitTop).ToList()
                             : transactionsDetails.OrderByDescending(_ => _.TriSecurity).ToList();
                         break;
                     case "EFF":
                     case "PERF":
-                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Performance.GetHashCode().ToString(), transactionsDetails, snapshot);
-                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Robustness.GetHashCode().ToString(), transactionsDetails, snapshot);
-                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Security.GetHashCode().ToString(), transactionsDetails, snapshot);
+                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, (int)BusinessCriteria.Performance, transactionsDetails, snapshot);
+                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, (int)BusinessCriteria.Robustness, transactionsDetails, snapshot);
+                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, (int)BusinessCriteria.Security, transactionsDetails, snapshot);
                         transactionsDetails = nbLimitTop != -1 ?
                             transactionsDetails.OrderByDescending(_ => _.TriEfficiency).Take(nbLimitTop).ToList()
                             : transactionsDetails.OrderByDescending(_ => _.TriEfficiency).ToList();
                         break;
                     default:
-                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Robustness.GetHashCode().ToString(), transactionsDetails, snapshot);
-                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Security.GetHashCode().ToString(), transactionsDetails, snapshot);
-                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, Constants.BusinessCriteria.Performance.GetHashCode().ToString(), transactionsDetails, snapshot);
+                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, (int)BusinessCriteria.Robustness, transactionsDetails, snapshot);
+                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, (int)BusinessCriteria.Security, transactionsDetails, snapshot);
+                        transactionsDetails = getTransactionsDetails(reportData, nbLimitTop, (int)BusinessCriteria.Performance, transactionsDetails, snapshot);
                         transactionsDetails = nbLimitTop != -1 ?
                             transactionsDetails.OrderByDescending(_ => _.TriRobustness).Take(nbLimitTop).ToList()
                             : transactionsDetails.OrderByDescending(_ => _.TriRobustness).ToList();
@@ -110,10 +111,10 @@ namespace CastReporting.Reporting.Block.Graph
             return resultTable;
         }
 
-        private List<TransactionDetailsDTO> getTransactionsDetails(ImagingData reportData, int nbLimitTop, string bc, List<TransactionDetailsDTO> transactionsDetails, Snapshot snapshot)
+        private List<TransactionDetailsDTO> getTransactionsDetails(ImagingData reportData, int nbLimitTop, int bc, List<TransactionDetailsDTO> transactionsDetails, Snapshot snapshot)
         {
             // Get the transactions list
-            List<Transaction> transactions = reportData.SnapshotExplorer.GetTransactions(snapshot.Href, bc, nbLimitTop)?.ToList();
+            List<Transaction> transactions = reportData.SnapshotExplorer.GetTransactions(snapshot.Href, bc.ToString(), nbLimitTop)?.ToList();
             if (transactions != null && transactions.Any())
             {
                 if (!transactionsDetails.Any())
@@ -131,10 +132,10 @@ namespace CastReporting.Reporting.Block.Graph
                         };
                         switch (bc)
                         {
-                            case "60016":
+                            case (int)BusinessCriteria.Security:
                                 trDetails.TriSecurity = tr.TransactionRiskIndex;
                                 break;
-                            case "60014":
+                            case (int)BusinessCriteria.Performance:
                                 trDetails.TriEfficiency = tr.TransactionRiskIndex;
                                 break;
                             default:
@@ -164,10 +165,10 @@ namespace CastReporting.Reporting.Block.Graph
                         }
                         switch (bc)
                         {
-                            case "60016":
+                            case (int)BusinessCriteria.Security:
                                 transactionsDetails.Where(_ => _.HRef.Equals(tr.HRef)).FirstOrDefault().TriSecurity = tr.TransactionRiskIndex;
                                 break;
-                            case "60014":
+                            case (int)BusinessCriteria.Performance:
                                 transactionsDetails.Where(_ => _.HRef.Equals(tr.HRef)).FirstOrDefault().TriEfficiency = tr.TransactionRiskIndex;
                                 break;
                             default:

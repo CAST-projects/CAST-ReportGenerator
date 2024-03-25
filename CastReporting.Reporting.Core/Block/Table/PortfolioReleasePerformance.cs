@@ -190,14 +190,14 @@ namespace CastReporting.Reporting.Block.Table
                     }
                     else
                     {
-                        rowData.AddRange(new[] { Labels.Robustness, Constants.No_Data, _tagIds[0].ToString("N2"), strCurrentRobuAll.Value.ToString("N2"), _robustnessSlaViol });
-                        rowData.AddRange(new[] { Labels.Security, Constants.No_Data, _tagIds[1].ToString("N2"), strCurrentSecuAll.Value.ToString("N2"), _securitySlaViol });
-                        rowData.AddRange(new[] { Labels.Efficiency, Constants.No_Data, _tagIds[2].ToString("N2"), strCurrentPerformanceAll.Value.ToString("N2"), _performanceSlaViol });
-                        rowData.AddRange(new[] { Labels.Changeability, Constants.No_Data, _tagIds[3].ToString("N2"), strCurrentChangeAll.Value.ToString("N2"), _changeabilitySlaViol });
-                        rowData.AddRange(new[] { Labels.Transferability, Constants.No_Data, _tagIds[4].ToString("N2"), strCurrentTransferAll.Value.ToString("N2"), _transferabilitySlaViol });
-                        rowData.AddRange(new[] { Labels.ProgrammingPractices, Constants.No_Data, _tagIds[5].ToString("N2"), strCurrentProgrammingAll.Value.ToString("N2"), _programmingPracticeSlaViol });
-                        rowData.AddRange(new[] { Labels.Documentation, Constants.No_Data, _tagIds[6].ToString("N2"), strCurrentDocumentAll.Value.ToString("N2"), _documentationSlaViol });
-                        rowData.AddRange(new[] { Labels.ArchitecturalDesign, Constants.No_Data, _tagIds[7].ToString("N2"), strCurrentArchDesignAll.Value.ToString("N2"), _architectureSlaViol });
+                        rowData.AddRange(new[] { Labels.Robustness, FormatHelper.No_Data, _tagIds[0].ToString("N2"), strCurrentRobuAll.Value.ToString("N2"), _robustnessSlaViol });
+                        rowData.AddRange(new[] { Labels.Security, FormatHelper.No_Data, _tagIds[1].ToString("N2"), strCurrentSecuAll.Value.ToString("N2"), _securitySlaViol });
+                        rowData.AddRange(new[] { Labels.Efficiency, FormatHelper.No_Data, _tagIds[2].ToString("N2"), strCurrentPerformanceAll.Value.ToString("N2"), _performanceSlaViol });
+                        rowData.AddRange(new[] { Labels.Changeability, FormatHelper.No_Data, _tagIds[3].ToString("N2"), strCurrentChangeAll.Value.ToString("N2"), _changeabilitySlaViol });
+                        rowData.AddRange(new[] { Labels.Transferability, FormatHelper.No_Data, _tagIds[4].ToString("N2"), strCurrentTransferAll.Value.ToString("N2"), _transferabilitySlaViol });
+                        rowData.AddRange(new[] { Labels.ProgrammingPractices, FormatHelper.No_Data, _tagIds[5].ToString("N2"), strCurrentProgrammingAll.Value.ToString("N2"), _programmingPracticeSlaViol });
+                        rowData.AddRange(new[] { Labels.Documentation, FormatHelper.No_Data, _tagIds[6].ToString("N2"), strCurrentDocumentAll.Value.ToString("N2"), _documentationSlaViol });
+                        rowData.AddRange(new[] { Labels.ArchitecturalDesign, FormatHelper.No_Data, _tagIds[7].ToString("N2"), strCurrentArchDesignAll.Value.ToString("N2"), _architectureSlaViol });
                     }
                 }
 

@@ -14,6 +14,7 @@
  *
  */
 using CastReporting.BLL.Computing;
+using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.ReportingModel;
@@ -27,9 +28,9 @@ namespace CastReporting.Reporting.Block.Text
         #region METHODS
         public override string Content(ImagingData reportData, Dictionary<string, string> options)
         {
-            if (reportData?.CurrentSnapshot == null) return Domain.Constants.No_Value;
+            if (reportData?.CurrentSnapshot == null) return FormatHelper.No_Value;
             double? result = MeasureUtility.GetTechnicalDebtMetric(reportData.CurrentSnapshot);
-            return result.HasValue ? $"{result.Value:N0} {reportData.CurrencySymbol}" : Domain.Constants.No_Value;
+            return result.HasValue ? $"{result.Value:N0} {reportData.CurrencySymbol}" : FormatHelper.No_Value;
         }
         #endregion METHODS
     }
