@@ -228,4 +228,4 @@ Setup/ReportGeneratorSetup.exe
 /.vs/Cast-Reporting/DesignTimeBuild/.dtbcache.v2
 /.vs/Cast-Reporting
 /.vs/ProjectEvaluation
-hl.secret
+*.secret

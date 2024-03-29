@@ -140,18 +140,23 @@ namespace CastReporting.Reporting.Builder
         {
             BlockConfiguration back = new BlockConfiguration();
 
+            alias = alias?.Replace("\r", string.Empty).Replace("\n", string.Empty).Replace("\t", string.Empty) ?? string.Empty;
+            tag = tag?.Replace("\r", string.Empty).Replace("\n", string.Empty).Replace("\t", string.Empty) ?? string.Empty;
+
             string[] optionList = null;
-            string blockOptionStr = "";
+            string blockOptionStr = string.Empty;
             if (!string.IsNullOrWhiteSpace(alias))
             {
-                optionList = alias.Replace(@"\r\n", string.Empty).Split(';');
-                blockOptionStr = !string.IsNullOrWhiteSpace(tag) ? tag.Replace(@"\r\n", string.Empty) : string.Empty;
+                optionList = alias.Split(';');
+                blockOptionStr = tag;
             }
             else if (!string.IsNullOrWhiteSpace(tag))
             {
-                optionList = tag.Replace(@"\r\n", string.Empty).Split(';');
+                optionList = tag.Split(';');
                 if (optionList.Length >= 3)
                 {
+                    // REMARQUE DMA: si tag contenait plus de 3 parties, seule la 3ème est conservée et
+                    // les éventuelles options des parties >= 4 sont ignorées
                     blockOptionStr = optionList[2];
                 }
             }
@@ -160,6 +165,7 @@ namespace CastReporting.Reporting.Builder
             back.Name = optionList[1];
             if (optionList.Length > 2 && string.IsNullOrWhiteSpace(blockOptionStr))
             {
+                // REMARQUE DMA: pourquoi += alors qu'on vient de tester que la chaine est vide ?
                 blockOptionStr += $",{optionList.Skip(2).Aggregate((current, next) => $"{current},{next}")}";
             }
             back.Options = string.IsNullOrWhiteSpace(blockOptionStr) ? new Dictionary<string, string>() : ParseOptions(blockOptionStr);

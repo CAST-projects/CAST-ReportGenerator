@@ -70,20 +70,26 @@ namespace CastReporting.Reporting.Builder
         }
 
 
+        // REMARQUE DMA: cette implémentation est un copié/collé de DocumentBuilder,
+        // pourquoi avoir redéfini cette méthode ?
+        // TODO: vérifier si Excel échappe ou non les caractères spéciaux
         protected new static BlockConfiguration GetBlockConfiguration(string alias, string tag)
         {
             BlockConfiguration back = new BlockConfiguration();
 
+            alias = alias?.Replace(@"\r", string.Empty).Replace(@"\n", string.Empty).Replace(@"\t", string.Empty) ?? string.Empty;
+            tag = tag?.Replace(@"\r", string.Empty).Replace(@"\n", string.Empty).Replace(@"\t", string.Empty) ?? string.Empty;
+
             string[] optionList = null;
-            string blockOptionStr = "";
+            string blockOptionStr = string.Empty;
             if (!string.IsNullOrWhiteSpace(alias))
             {
-                optionList = alias.Replace(@"\r\n", string.Empty).Split(';');
-                blockOptionStr = !string.IsNullOrWhiteSpace(tag) ? tag.Replace(@"\r\n", string.Empty) : string.Empty;
+                optionList = alias.Split(';');
+                blockOptionStr = tag;
             }
             else if (!string.IsNullOrWhiteSpace(tag))
             {
-                optionList = tag.Replace(@"\r\n", string.Empty).Split(';');
+                optionList = tag.Split(';');
                 if (optionList.Length >= 3)
                 {
                     blockOptionStr = optionList[2];

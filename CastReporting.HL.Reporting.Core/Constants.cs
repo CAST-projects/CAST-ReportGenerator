@@ -13,6 +13,7 @@ namespace CastReporting.Reporting.Core.Highlight.Constants
     public enum Snapshot
     {
         Current,
+        Last, // alias for "Current"
         Previous,
     }
 

@@ -13,19 +13,36 @@
  * limitations under the License.
  *
  */
+
 using CastReporting.Domain;
+using CastReporting.HL.Domain;
 using CastReporting.HL.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Core.ReportingModel;
+using CastReporting.Reporting.Helper;
+using Snapshot = CastReporting.Reporting.Core.Highlight.Constants.Snapshot;
 
 namespace CastReporting.Reporting.Highlight.Block.Text
 {
-    [Block("HL.CURRENT_SNAPSHOT_LABEL")]
-    public class CurrentSnapshotLabel: HighlightTextBlock
+    [Block("HL.SNAPSHOT_LABEL")]
+    public class SnapshotLabel: HighlightTextBlock
     {
         public override string Content(HighlightData reportData, Dictionary<string, string> options)
         {
-            var label = reportData?.Results.CurrentMetrics?.SnapshotLabel?.Trim() ?? "";
+            SnapshotResults? snapshot;
+            var targetSnapshot = options.GetOption("SNAPSHOT", Snapshot.Current);
+            switch (targetSnapshot) {
+                case Snapshot.Previous:
+                    snapshot = reportData.Results.PreviousMetrics;
+                    break;
+                case Snapshot.Current:
+                case Snapshot.Last:
+                default:
+                    snapshot = reportData.Results.CurrentMetrics;
+                    break;
+            }
+            if (snapshot == null) return FormatHelper.No_Data;
+            var label = snapshot.SnapshotLabel?.Trim() ?? string.Empty;
             return string.IsNullOrEmpty(label) ? FormatHelper.No_Value: label;
         }
     }

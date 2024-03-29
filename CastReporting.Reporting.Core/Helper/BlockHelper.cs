@@ -14,7 +14,10 @@
  *
  */
 using CastReporting.Reporting.Atrributes;
+using CastReporting.Reporting.Core.Attributes;
 using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -31,39 +34,49 @@ namespace CastReporting.Reporting.Helper
         /// <typeparam name="T"></typeparam>
         /// <param name="blockName"></param>
         /// <returns></returns>
-        public static T GetAssociatedBlockInstance<T>(string blockName) where T : class
-        {
-            return GetAssociatedBlockInstance<T>(Assembly.GetExecutingAssembly(), blockName);
+        public static T GetAssociatedBlockInstance<T>(string blockName) where T : class {
+            // ensure cache is ready
+            EnsureBlockCacheIsLoaded();
+            // lookup a list of types for blockName
+            if (!_blocks.TryGetValue(blockName, out List<Type> candidates)) return null;
+            // find the first type that derives from T
+            var candidate = candidates.Where(t => t.IsSubclassOf(typeof(T))).FirstOrDefault();
+            if (candidate == null) return null;
+            // return a new instance of the requested type
+            return Activator.CreateInstance(candidate) as T;
         }
 
+        private static readonly ConcurrentDictionary<string, List<Type>> _blocks = new ConcurrentDictionary<string, List<Type>>();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="assembly"></param>
-        /// <param name="blockName"></param>
-        /// <returns></returns>
-        public static T GetAssociatedBlockInstance<T>(Assembly assembly, string blockName) where T : class
-        {
-            Type type = assembly.GetTypes()
-                                .FirstOrDefault(_ => !_.IsAbstract &&
-                                                      _.IsSubclassOf(typeof(T)) &&
-                                                      _.GetCustomAttributes(typeof(BlockAttribute), true)
-                                                       .Cast<BlockAttribute>()
-                                                       .Any(a => a.Name.Equals(blockName)));
+        private static void EnsureBlockCacheIsLoaded() {
+            if (_blocks.Count == 0) {
+                // the cache is empty, acquire exclusive lock to the cache
+                lock (_blocks) {
+                    if (_blocks.Count > 0) {
+                        // the cache has been initialized in the meantime
+                        // it is ready
+                        return;
+                    }
 
+                    // inspect all loaded assemblies decorated with a BlockLibraryAttribute
+                    foreach (var asm in AppDomain.CurrentDomain.GetAssemblies().Where(a => a.GetCustomAttribute<BlockLibraryAttribute>() != null)) {
+                        // inspect non-abstract types
+                        foreach (var blockType in asm.GetTypes().Where(t => !t.IsAbstract)) {
+                            // handle types decorated with one or more BlockAttributes
+                            foreach (var blockAttr in blockType.GetCustomAttributes<BlockAttribute>()) {
+                                _blocks.AddOrUpdate(
+                                    blockAttr.Name,
+                                    // first time this name is mentioned: create a new list and add blockType
+                                    name => { var list = new List<Type> { blockType }; return list; },
+                                    // the name is also used by another type: append blockType to the list
+                                    (name, list) => { list.Add(blockType); return list; }
+                                 );
+                            }
+                        }
+                    }
 
-            if (null != type)
-            {
-                return Activator.CreateInstance(type) as T;
+                }
             }
-
-            return null;
         }
-
-
-
-
     }
 }

@@ -1,5 +1,9 @@
-﻿using System.Reflection;
+﻿using CastReporting.Reporting.Core.Attributes;
+using System.Reflection;
 using System.Runtime.InteropServices;
+
+// Marks this library as a block library
+[assembly: BlockLibrary]
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information

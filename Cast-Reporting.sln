@@ -61,6 +61,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CastReporting.HL.Services",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CastReporting.HL.Reporting.Core", "CastReporting.HL.Reporting.Core\CastReporting.HL.Reporting.Core.csproj", "{3D649426-C98D-4AC4-B821-675A89757772}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CastReporting.HL.UnitTest.Core", "CastReporting.HL.UnitTest.Core\CastReporting.HL.UnitTest.Core.csproj", "{6C358467-91B3-4C8C-967B-EF0B0E2C42EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -143,6 +145,10 @@ Global
 		{3D649426-C98D-4AC4-B821-675A89757772}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D649426-C98D-4AC4-B821-675A89757772}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D649426-C98D-4AC4-B821-675A89757772}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C358467-91B3-4C8C-967B-EF0B0E2C42EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C358467-91B3-4C8C-967B-EF0B0E2C42EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C358467-91B3-4C8C-967B-EF0B0E2C42EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C358467-91B3-4C8C-967B-EF0B0E2C42EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -167,6 +173,7 @@ Global
 		{2F234F6C-7922-49E4-87ED-E6892D71515E} = {9D27CABD-3305-4BB0-BFBF-3B69EFC0CB0D}
 		{6116A8F1-4131-4AA0-84CE-D9BE0D6FBCEF} = {9A9ED381-A45B-475B-83D0-39F8FCBE2494}
 		{3D649426-C98D-4AC4-B821-675A89757772} = {EBE93F10-1F78-426D-93D7-8E6F52361729}
+		{6C358467-91B3-4C8C-967B-EF0B0E2C42EA} = {9E207B3E-5CF1-49B9-9B3C-597085370375}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D20A8B3C-5F85-4F7D-B4C6-AAC565B14879}

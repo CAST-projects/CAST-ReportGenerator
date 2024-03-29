@@ -14,18 +14,34 @@
  *
  */
 using CastReporting.Domain;
+using CastReporting.HL.Domain;
 using CastReporting.HL.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Core.Languages;
 using CastReporting.Reporting.Core.ReportingModel;
+using CastReporting.Reporting.Helper;
+using Snapshot = CastReporting.Reporting.Core.Highlight.Constants.Snapshot;
 
 namespace CastReporting.Reporting.Highlight.Block.Text
 {
-    [Block("HL.CURRENT_SNAPSHOT_DATE")]
-    public class CurrentSnapshotDate: HighlightTextBlock
+    [Block("HL.SNAPSHOT_DATE")]
+    public class SnapshotDate: HighlightTextBlock
     {
         public override string Content(HighlightData reportData, Dictionary<string, string> options) {
-            DateTime? d = reportData?.Results.CurrentMetrics?.SnapshotDate;
+            SnapshotResults? snapshot;
+            var targetSnapshot = options.GetOption("SNAPSHOT", Snapshot.Current);
+            switch (targetSnapshot) {
+                case Snapshot.Previous:
+                    snapshot = reportData.Results.PreviousMetrics;
+                    break;
+                case Snapshot.Current:
+                case Snapshot.Last:
+                default:
+                    snapshot = reportData.Results.CurrentMetrics;
+                    break;
+            }
+            if (snapshot == null) return FormatHelper.No_Data;
+            DateTime? d = snapshot.SnapshotDate;
             return d.HasValue
                 ? d.Value.ToString(Labels.FORMAT_LONG_DATE)
                 : FormatHelper.No_Value;

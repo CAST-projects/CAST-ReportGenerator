@@ -21,71 +21,55 @@ namespace CastReporting.Reporting.Helper
 {
     public static class OptionsHelper
     {
-        public static string GetOption(this Dictionary<string, string> options, string key, string defaultValue = default(string))
-        {
+        public static string GetOption(this Dictionary<string, string> options, string key, string defaultValue = default(string)) {
             string value;
-            if (options == null || !options.TryGetValue(key, out value))
-            {
+            if (options == null || !options.TryGetValue(key, out value)) {
                 value = defaultValue;
             }
             return value?.Replace("\t", "").Replace("\n", "").Replace("\r", "");
         }
 
-        public static T GetOption<T>(this Dictionary<string, string> options, string key, T defaultValue = default) where T: struct{
+        public static T GetOption<T>(this Dictionary<string, string> options, string key, T defaultValue = default) where T : struct {
             string value = options.GetOption(key) ?? string.Empty;
-            if (!Enum.TryParse<T>(value, out T result)) {
+            if (!Enum.TryParse<T>(value, ignoreCase: true, out T result)) {
                 result = defaultValue;
             }
             return result;
         }
 
-        public static int GetIntOption(this Dictionary<string, string> options, string key, int defaultValue = default)
-        {
+        public static int GetIntOption(this Dictionary<string, string> options, string key, int defaultValue = default) {
             int value;
             var s = options.GetOption(key);
-            if (string.IsNullOrWhiteSpace(s) || !int.TryParse(s, out value))
-            {
+            if (string.IsNullOrWhiteSpace(s) || !int.TryParse(s, out value)) {
                 value = defaultValue;
             }
             return value;
         }
 
-        public static double? GetDoubleOption(this Dictionary<string, string> options, string key, double? defaultValue = default(double?))
-        {
+        public static double? GetDoubleOption(this Dictionary<string, string> options, string key, double? defaultValue = default(double?)) {
             var s = options.GetOption(key);
             if (string.IsNullOrWhiteSpace(s)) return defaultValue;
             double var;
-            try
-            {
+            try {
                 var = double.Parse(s, CultureInfo.CurrentCulture);
-            }
-            catch (FormatException)
-            {
+            } catch (FormatException) {
                 var = double.Parse(s, new CultureInfo("en-US"));
             }
             return var;
         }
 
-        public static bool GetBoolOption(this Dictionary<string, string> options, string key, bool defaultValue = default(bool))
-        {
+        public static bool GetBoolOption(this Dictionary<string, string> options, string key, bool defaultValue = default(bool)) {
             bool value;
             var s = options.GetOption(key);
-            if (string.IsNullOrWhiteSpace(s))
-            {
+            if (string.IsNullOrWhiteSpace(s)) {
                 value = defaultValue;
-            }
-            else
-            {
+            } else {
                 int v;
-                if (int.TryParse(s, out v))
-                {
+                if (int.TryParse(s, out v)) {
                     value = v != 0;
-                }
-                else
-                {
+                } else {
                     s = s.ToLower();
-                    switch (s)
-                    {
+                    switch (s) {
                         case "1":
                         case "y":
                         case "yes":

@@ -14,6 +14,7 @@
  *
  */
 using CastReporting.Domain;
+using CastReporting.HL.Domain;
 using CastReporting.HL.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Core.Highlight.Constants;
@@ -28,9 +29,18 @@ namespace CastReporting.Reporting.Highlight.Block.Text
     {
         public override string Content(HighlightData reportData, Dictionary<string, string> options)
         {
-            var snapshot = (options.GetOption("SNAPSHOT", Snapshot.Current) == Snapshot.Current)
-                ? reportData.Results.CurrentMetrics
-                : reportData.Results.PreviousMetrics;
+            SnapshotResults? snapshot;
+            var targetSnapshot = options.GetOption("SNAPSHOT", Snapshot.Current);
+            switch (targetSnapshot) {
+                case Snapshot.Previous:
+                    snapshot = reportData.Results.PreviousMetrics;
+                    break;
+                case Snapshot.Current:
+                case Snapshot.Last:
+                default:
+                    snapshot = reportData.Results.CurrentMetrics;
+                    break;
+            }
             if (snapshot == null) return FormatHelper.No_Data;
             double? kpi = null;
             var indicator = options.GetOption("KPI", SoftwareKpi.Health);
