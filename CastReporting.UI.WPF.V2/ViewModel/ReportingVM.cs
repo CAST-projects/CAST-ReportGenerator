@@ -20,7 +20,7 @@ using Cast.Util.Log;
 using CastReporting.BLL;
 using CastReporting.Domain;
 using CastReporting.Reporting.Builder;
-using CastReporting.Reporting.Highlight.ReportingModel;
+using CastReporting.Reporting.Core.ReportingModel;
 using CastReporting.Reporting.ReportingModel;
 using CastReporting.UI.WPF.Core.Common;
 using CastReporting.UI.WPF.Core.Resources.Languages;
@@ -83,34 +83,13 @@ namespace CastReporting.UI.WPF.Core.ViewModel
             }
         }
 
-        private ReportingMode _ReportingMode=ReportingMode.Application;
+        private ReportingMode _ReportingMode = ReportingMode.Application;
         public ReportingMode ReportingMode {
             get => _ReportingMode;
             set {
                 if (value == _ReportingMode) return;
                 _ReportingMode = value;
                 OnPropertyChanged(nameof(ReportingMode));
-                OnPropertyChanged(nameof(SelectedTab));
-                Templates.RefreshTemplates(_ReportingMode);
-                OnPropertyChanged(nameof(IsDataFilledIn));
-            }
-        }
-
-        /// <summary>
-        /// Selected tab
-        /// </summary>
-        public int SelectedTab {
-            get => (int)ReportingMode;
-            set {
-                switch(value) {
-                    case 0:
-                        ReportingMode = ReportingMode.Application;
-                        break;
-                    case 1:
-                        ReportingMode = ReportingMode.Portfolio;
-                        break;
-                    // other values should never happen
-                }
             }
         }
 
@@ -120,14 +99,13 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                 bool result = false;
                 switch(ReportingMode) {
                     case ReportingMode.Application:
-                        result=((ImagingContext.SelectedApplication != null && ImagingContext.SelectedSnapshot != null)
-                            || HighlightContext.SelectedApplication != null);
+                        result = (ImagingContext.SelectedApplication != null && ImagingContext.SelectedSnapshot != null)
+                            || (HighlightContext.SelectedApplication != null && HighlightContext.SelectedSnapshot != null);
                         break;
                     case ReportingMode.Portfolio:
-                        result=(ImagingContext.SelectedTag != null);
+                        result = (ImagingContext.SelectedTag != null);
                         break;
                 }
-                    Debug.WriteLine($"{nameof(IsDataFilledIn)} = {result}");
                 return result;
             }
             set { /* ignored */ }
@@ -148,84 +126,50 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         }
 
         private void BackgroundWorkerDoWork(object sender, DoWorkEventArgs e) {
-            System.Windows.Application repGen = System.Windows.Application.Current;
+            Dispatcher dispatcher = System.Windows.Application.Current.Dispatcher;
+
+            // Set culture for the new thread
+            if (!string.IsNullOrEmpty(Setting?.ReportingParameter.CultureName)) {
+                var culture = new CultureInfo(Setting.ReportingParameter.CultureName);
+                Thread.CurrentThread.CurrentCulture = culture;
+                Thread.CurrentThread.CurrentUICulture = culture;
+            }
 
             const double progressStep = 25; // 100 / 4
-            Stopwatch stopWatchStep = new Stopwatch();
-            Stopwatch stopWatchGlobal = new Stopwatch();
 
             switch (ReportingMode) {
                 case ReportingMode.Application: {
+                        Stopwatch stopWatchStep = new Stopwatch();
+                        Stopwatch stopWatchGlobal = new Stopwatch();
 
                         try {
                             stopWatchGlobal.Start();
-                            repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<bool>(MessageManager.SetBusyMode), true);
+                            dispatcher?.Invoke(DispatcherPriority.Normal, MessageManager.SetBusyMode, true);
 
-                            //Set culture for the new thread
-                            if (!string.IsNullOrEmpty(Setting.ReportingParameter.CultureName)) {
-                                var culture = new CultureInfo(Setting.ReportingParameter.CultureName);
-                                Thread.CurrentThread.CurrentCulture = culture;
-                                Thread.CurrentThread.CurrentUICulture = culture;
-                            }
+                            // Populate app data from Imaging
+                            ImagingContext.LoadApplicationData(progressStep);
 
-                            if (ImagingContext.SelectedApplication?.Application != null) {
-                                //Get result for the Application               
-                                stopWatchStep.Restart();
-                                ApplicationBLL.BuildApplicationResult(ImagingContext.ActiveConnection, ImagingContext.SelectedApplication.Application);
-                                stopWatchStep.Stop();
-                                repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep, Messages.msgBuildApplicationResult, stopWatchStep.Elapsed);
-
-
-                                //Get result for the selected snapshot                
-                                stopWatchStep.Restart();
-                                SnapshotBLL.BuildSnapshotResult(ImagingContext.ActiveConnection, ImagingContext.SelectedSnapshot, true);
-                                stopWatchStep.Stop();
-                                repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep, Messages.msgBuildSnapshotResult, stopWatchStep.Elapsed);
-
-
-                                //Get result for the previous snapshot                
-                                if (ImagingContext.PreviousSnapshot != null) {
-                                    stopWatchStep.Restart();
-                                    SnapshotBLL.BuildSnapshotResult(ImagingContext.ActiveConnection, ImagingContext.PreviousSnapshot, false);
-                                    stopWatchStep.Stop();
-
-                                    repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep, Messages.msgBuildPreviousSnapshotResult, stopWatchStep.Elapsed);
-                                }
-                            }
-
-                            if (HighlightContext.SelectedApplication != null) {
-                                // get results from Highlight
-                            }
-
-                            //Launch generaion               
+                            // Launch generation               
                             stopWatchStep.Restart();
                             GenerateApplicationReport();
                             stopWatchStep.Stop();
+                            dispatcher?.Invoke(DispatcherPriority.Normal, MessageManager.OnStepDone, progressStep, Messages.msgReportGenerated, stopWatchStep.Elapsed);
 
-                            repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep, Messages.msgReportGenerated, stopWatchStep.Elapsed);
+                            // Show final message
+                            dispatcher?.Invoke(DispatcherPriority.Normal, MessageManager.OnReportGenerated, ReportFileName, stopWatchGlobal.Elapsed);
 
-
-                            //Show final message and unlock the screen   
-                            stopWatchGlobal.Stop();
-                            repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<string, TimeSpan>(MessageManager.OnReportGenerated), ReportFileName, stopWatchGlobal.Elapsed);
-                            repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<bool>(MessageManager.SetBusyMode), false);
                         } catch (System.Net.WebException webEx) {
-                            LogHelper.LogErrorFormat
-                            ("Request URL '{0}' - Error execution :  {1}"
-                                , ""
-                                , webEx.Message
-                            );
-
-                            repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep,
-                                Messages.msgErrorGeneratingReport + " - " + webEx.Message + " - " + Messages.msgReportErrorNoRestAPI, stopWatchStep.Elapsed);
-                            stopWatchGlobal.Stop();
-                            repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<bool>(MessageManager.SetBusyMode), false);
-                            repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<CastReportingException>(WorkerThreadException), new CastReportingException(webEx.Message, webEx.InnerException));
+                            LogHelper.LogErrorFormat($"Execution error: {webEx.Message}");
+                            dispatcher?.Invoke(DispatcherPriority.Normal, MessageManager.OnStepDone, progressStep,
+                                $"{Messages.msgErrorGeneratingReport} - {webEx.Message} - {Messages.msgReportErrorNoRestAPI}", stopWatchStep.Elapsed);
+                            dispatcher?.Invoke(DispatcherPriority.Normal, WorkerThreadException, new CastReportingException(webEx.Message, webEx.InnerException));
                         } catch (Exception ex) {
-                            repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep,
-                                Messages.msgErrorGeneratingReport + " - " + ex.Message, stopWatchStep.Elapsed);
+                            dispatcher?.Invoke(DispatcherPriority.Normal, MessageManager.OnStepDone, progressStep,
+                                $"{Messages.msgErrorGeneratingReport} - {ex.Message}", stopWatchStep.Elapsed);
+                        } finally {
                             stopWatchGlobal.Stop();
-                            repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<bool>(MessageManager.SetBusyMode), false);
+                            // Unlock the screen   
+                            dispatcher?.Invoke(DispatcherPriority.Normal, MessageManager.SetBusyMode, false);
                         }
                     }
                     break;
@@ -234,15 +178,17 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                         List<Domain.Application> Apps = new List<Domain.Application>();
                         List<Snapshot> Snapshots = new List<Snapshot>();
 
+                        Stopwatch stopWatchStep = new Stopwatch();
+                        Stopwatch stopWatchGlobal = new Stopwatch();
+
                         try {
                             stopWatchGlobal.Start();
-                            repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<bool>(MessageManager.SetBusyMode), true);
+                            dispatcher?.Invoke(DispatcherPriority.Normal, new Action<bool>(MessageManager.SetBusyMode), true);
 
+                            // GetActive Connection           
+                            ImagingContext.ActiveConnection = Setting?.GetActiveConnection(); // DMA: why is this not using the ActiveConnection from this ViewModel?
 
-                            //GetActive Connection           
-                            ImagingContext.ActiveConnection = Setting?.GetActiveConnection();
-
-                            //Get list of domains
+                            // Get list of domains
                             if (ImagingContext.ActiveConnection != null) {
                                 try {
                                     using (CastDomainBLL castDomainBLL = new CastDomainBLL(ImagingContext.ActiveConnection)) {
@@ -255,77 +201,40 @@ namespace CastReporting.UI.WPF.Core.ViewModel
 
                             if (Apps == null) return;
 
-
                             if (Apps.Count > 0) {
                                 Domain.Application[] SelectedApps = Apps.ToArray<Domain.Application>();
 
-                                //Set culture for the new thread
-                                if (!string.IsNullOrEmpty(Setting?.ReportingParameter.CultureName)) {
-                                    var culture = new CultureInfo(Setting.ReportingParameter.CultureName);
-                                    Thread.CurrentThread.CurrentCulture = culture;
-                                    Thread.CurrentThread.CurrentUICulture = culture;
-                                }
                                 string[] SnapsToIgnore = null;
                                 //Get result for the Portfolio               
                                 stopWatchStep.Restart();
-                                string[] AppsToIgnorePortfolioResult = PortfolioBLL.BuildPortfolioResult(   ImagingContext. ActiveConnection, SelectedApps);
+                                string[] AppsToIgnorePortfolioResult = PortfolioBLL.BuildPortfolioResult(ImagingContext.ActiveConnection, SelectedApps);
                                 stopWatchStep.Stop();
-                                repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep, Messages.msgBuildPortfolioResults, stopWatchStep.Elapsed);
+                                dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep, Messages.msgBuildPortfolioResults, stopWatchStep.Elapsed);
 
-                                List<Domain.Application> N_Apps = new List<Domain.Application>();
-                                //Remove from Array the Ignored Apps
-                                foreach (Domain.Application app in SelectedApps) {
-                                    int intAppYes = 0;
-                                    foreach (string s in AppsToIgnorePortfolioResult) {
-                                        if (s == app.Name) {
-                                            intAppYes = 1;
-                                            break;
-                                        }
-                                        intAppYes = 0;
-                                    }
+                                Domain.Application[] N_SelectedApps = SelectedApps
+                                    .Where(app => !AppsToIgnorePortfolioResult.Contains(app.Name))
+                                    .ToArray();
 
-                                    if (intAppYes == 0) {
-                                        N_Apps.Add(app);
-                                    }
-                                }
-
-                                Domain.Application[] N_SelectedApps = N_Apps.ToArray();
-
-                                List<Snapshot> N_Snaps = new List<Snapshot>();
-                                //Get result for each app's latest snapshot
+                                // Get result for each app's latest snapshot
                                 if (Snapshots != null) {
                                     Snapshot[] SelectedApps_Snapshots = Snapshots.ToArray<Snapshot>();
 
-                                    //Get result for all snapshots in Portfolio               
+                                    // Get result for all snapshots in Portfolio               
                                     stopWatchStep.Restart();
                                     SnapsToIgnore = PortfolioSnapshotsBLL.BuildSnapshotResult(ImagingContext.ActiveConnection, SelectedApps_Snapshots, true);
                                     stopWatchStep.Stop();
-                                    repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep, Messages.msgBuildPortfSnapshotsResults,
+                                    dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep, Messages.msgBuildPortfSnapshotsResults,
                                         stopWatchStep.Elapsed);
 
-                                    foreach (Snapshot snap in SelectedApps_Snapshots) {
-                                        int intRemoveYes = 0;
-                                        foreach (string s in SnapsToIgnore) {
-                                            if (s == snap.Href) {
-                                                intRemoveYes = 1;
-                                                break;
-                                            }
-                                            intRemoveYes = 0;
-                                        }
-                                        if (intRemoveYes == 0) {
-                                            N_Snaps.Add(snap);
-                                        }
-                                    }
+                                    Snapshot[] N_SelectedApps_Snapshots = SelectedApps_Snapshots
+                                        .Where(snap => !SnapsToIgnore.Contains(snap.Href))
+                                        .ToArray();
 
-                                    Snapshot[] N_SelectedApps_Snapshots = N_Snaps.ToArray();
-
-
-                                    //Launch generaion               
+                                    // Launch generaion               
                                     stopWatchStep.Restart();
                                     GeneratePortfolioReport(N_SelectedApps, N_SelectedApps_Snapshots, AppsToIgnorePortfolioResult, SnapsToIgnore);
                                     stopWatchStep.Stop();
                                 }
-
 
                                 StringBuilder sb = new StringBuilder();
 
@@ -334,59 +243,45 @@ namespace CastReporting.UI.WPF.Core.ViewModel
 
                                     if (AppsToIgnorePortfolioResult.Length > 0) {
                                         AppsToIgnorePortfolioResult = AppsToIgnorePortfolioResult.Distinct().ToArray();
+                                        sb.Append(' ');
                                         sb.Append(Messages.msgIgnoredApplications);
                                         sb.Append(' ');
-                                        for (int i = 0; i < AppsToIgnorePortfolioResult.Length; i++) {
-                                            if (i > 0) {
-                                                sb.Append(',');
-                                            }
-                                            sb.Append(AppsToIgnorePortfolioResult[i]);
-                                        }
+                                        sb.Append(string.Join(", ", AppsToIgnorePortfolioResult));
+                                        sb.Append('.');
                                     }
 
                                     if (SnapsToIgnore?.Length > 0) {
                                         SnapsToIgnore = SnapsToIgnore.Distinct().ToArray();
+                                        sb.Append(' ');
                                         sb.Append(Messages.msgIgnoredSnapshots);
                                         sb.Append(' ');
-                                        for (int i = 0; i < SnapsToIgnore.Length; i++) {
-                                            if (i > 0) {
-                                                sb.Append(',');
-                                            }
-                                            sb.Append(ImagingContext.ActiveConnection?.Url);
-                                            sb.Append('/');
-                                            sb.Append(SnapsToIgnore[i]);
-                                        }
+                                        sb.Append(string.Join(", ", SnapsToIgnore.Select(s => $"{ImagingContext.ActiveConnection?.Url}/{s}")));
+                                        sb.Append('.');
                                     }
-                                    repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep, sb + "", null);
+                                    dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep, sb + "", null);
                                 }
 
+                                dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep, Messages.msgReportGenerated, stopWatchStep.Elapsed);
 
-                                repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep, Messages.msgReportGenerated, stopWatchStep.Elapsed);
 
-
-                                //Show final message and unlock the screen   
-                                stopWatchGlobal.Stop();
-                                repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<string, TimeSpan>(MessageManager.OnReportGenerated), ReportFileName, stopWatchGlobal.Elapsed);
+                                //Show final message
+                                dispatcher?.Invoke(DispatcherPriority.Normal, new Action<string, TimeSpan>(MessageManager.OnReportGenerated), ReportFileName, stopWatchGlobal.Elapsed);
                             } else {
                                 //Show final message and unlock the screen   
-                                stopWatchGlobal.Stop();
-                                repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep, Messages.msgErrorGeneratingReport + " - " + Messages.msgReportErrorNoAAD, stopWatchGlobal.Elapsed);
+                                dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep, Messages.msgErrorGeneratingReport + " - " + Messages.msgReportErrorNoAAD, stopWatchGlobal.Elapsed);
                             }
-
-                            repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<bool>(MessageManager.SetBusyMode), false);
                         } catch (System.Net.WebException webEx) {
                             LogHelper.LogErrorFormat($"Request URL '' - Error execution : {webEx.Message}");
-
-                            repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep,
+                            dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep,
                                 Messages.msgErrorGeneratingReport + " - " + webEx.Message + " - " + Messages.msgReportErrorNoRestAPI, stopWatchStep.Elapsed);
-                            stopWatchGlobal.Stop();
-                            repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<bool>(MessageManager.SetBusyMode), false);
-                            repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<CastReportingException>(WorkerThreadException), new CastReportingException(webEx.Message, webEx.InnerException));
+                            dispatcher?.Invoke(DispatcherPriority.Normal, new Action<CastReportingException>(WorkerThreadException), new CastReportingException(webEx.Message, webEx.InnerException));
                         } catch (Exception ex) {
-                            repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep,
+                            dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep,
                                 Messages.msgErrorGeneratingReport + " - " + ex.Message, stopWatchStep.Elapsed);
+                        } finally {
                             stopWatchGlobal.Stop();
-                            repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<bool>(MessageManager.SetBusyMode), false);
+                            // Unlock the screen   
+                            dispatcher?.Invoke(DispatcherPriority.Normal, new Action<bool>(MessageManager.SetBusyMode), false);
                         }
                     }
                     break;
@@ -422,9 +317,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
 
                 HighlightData hlData=null;
                 if (HighlightContext.ActiveConnection!=null && HighlightContext.SelectedApplication!=null) {
-                    hlData = new HighlightData { 
-                        // TODO
-                    };
+                    hlData = HighlightContext.LoadApplicationData();
                 }
 
                 //Build report

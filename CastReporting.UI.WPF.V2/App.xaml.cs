@@ -16,6 +16,7 @@
  */
 using Cast.Util.Log;
 using CastReporting.BLL;
+using CastReporting.HL.Reporting.Core;
 using CastReporting.UI.WPF.Core.Common;
 using CastReporting.UI.WPF.Core.Resources.Languages;
 using CastReporting.UI.WPF.Core.ViewModel;
@@ -43,6 +44,7 @@ namespace CastReporting.UI.WPF.Core
             DispatcherUnhandledException += OnDispatcherUnhandledException;         
 #endif            
             LogHelper.SetPathLog(Path.Combine(SettingsBLL.GetApplicationPath(), "Logs"));
+            HLReporting.ForceAssemblyToLoad();
 
             if (string.IsNullOrEmpty(ViewModelBase.Setting.ReportingParameter.CultureName)) return;
             CultureInfo cultureInfo = CultureInfo.GetCultureInfo(ViewModelBase.Setting.ReportingParameter.CultureName);

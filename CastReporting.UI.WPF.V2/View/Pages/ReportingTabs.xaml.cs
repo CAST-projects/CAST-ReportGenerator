@@ -112,8 +112,7 @@ namespace CastReporting.UI.WPF.Core.View.Pages
             }
         }
 
-        private void ActivateWebService_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
-        {
+        private void ActivateWebService_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
             e.CanExecute = true;
             e.Handled = true;
         }
@@ -130,12 +129,11 @@ namespace CastReporting.UI.WPF.Core.View.Pages
                 };
                 ReportingContext.ImagingContext.ActiveCurrentWebService(connection);
             }
-			ReportingContext.ImagingContext.InitializeFromWS();
+            ReportingContext.ImagingContext.InitializeFromWS();
             e.Handled = true;
         }
 
-        private void ActivateHLWebService_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
-        {
+        private void ActivateHLWebService_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
             e.CanExecute = true;
             e.Handled = true;
         }
@@ -153,7 +151,7 @@ namespace CastReporting.UI.WPF.Core.View.Pages
                 };
                 ReportingContext.HighlightContext.ActiveCurrentWebService(connection);
             }
-			ReportingContext.HighlightContext.InitializeFromWS();
+            ReportingContext.HighlightContext.InitializeFromWS();
             e.Handled = true;
         }
     }

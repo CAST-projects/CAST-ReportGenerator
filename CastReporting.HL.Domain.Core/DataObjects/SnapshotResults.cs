@@ -2,14 +2,8 @@ namespace CastReporting.HL.Domain;
 
 
 // Modèle de l'entité HL correspondant à un snapshot d'analyse (contient les KPI HL) 
-public class Metric
+public class SnapshotResults :Snapshot
 {
-    static readonly DateTime EPOCH = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-
-    public long snapshotDate { get; set; }
-    public DateTime SnapshotDate => EPOCH + new TimeSpan(0, 0, (int)(snapshotDate / 1000));
-
-    public string SnapshotLabel { get; set; } = string.Empty;
     public double SoftwareAgility { get; set; }
     public double SoftwareElegance { get; set; }
     public double SoftwareResiliency { get; set; }
@@ -81,32 +75,28 @@ public class Metric
         set { cveCritical = value; }
     }
 
-    public Metric? ComputeTrend(Metric? previous)
-    {
-        return (previous == null) ? null : new Metric
-        {
-            SnapshotLabel = SnapshotLabel,
-            snapshotDate = snapshotDate,
-            SoftwareAgility = SoftwareAgility - previous.SoftwareAgility,
-            SoftwareElegance = SoftwareElegance - previous.SoftwareElegance,
-            SoftwareResiliency = SoftwareResiliency - previous.SoftwareResiliency,
-            OpenSourceSafety = OpenSourceSafety - previous.OpenSourceSafety,
-            CloudReady = CloudReady - previous.CloudReady,
-            CloudReadyScan = CloudReadyScan - previous.CloudReadyScan,
-            BusinessImpact = BusinessImpact - previous.BusinessImpact,
-            RoarIndex = RoarIndex - previous.RoarIndex,
-            Roadblocks = Roadblocks - previous.Roadblocks,
-            TotalLinesOfCode = TotalLinesOfCode - previous.TotalLinesOfCode,
-            TotalFiles = TotalFiles - previous.TotalFiles,
-            BackFiredFP = BackFiredFP - previous.BackFiredFP,
-            TechnicalDebt = TechnicalDebt - previous.TechnicalDebt,
-            TechnicalDebtDensity = TechnicalDebtDensity - previous.TechnicalDebtDensity,
-            CveAdvisory = CveAdvisory - previous.CveAdvisory,
-            CveLow = CveLow - previous.CveLow,
-            CveMedium = CveMedium - previous.CveMedium,
-            CveHigh = CveHigh - previous.CveHigh,
-            CveCritical = CveCritical - previous.CveCritical,
-        };
-    }
+    public SnapshotResults ComputeTrend(SnapshotResults previous) => new SnapshotResults {
+        SnapshotLabel = SnapshotLabel,
+        snapshotDate = snapshotDate,
+        SoftwareAgility = SoftwareAgility - previous.SoftwareAgility,
+        SoftwareElegance = SoftwareElegance - previous.SoftwareElegance,
+        SoftwareResiliency = SoftwareResiliency - previous.SoftwareResiliency,
+        OpenSourceSafety = OpenSourceSafety - previous.OpenSourceSafety,
+        CloudReady = CloudReady - previous.CloudReady,
+        CloudReadyScan = CloudReadyScan - previous.CloudReadyScan,
+        BusinessImpact = BusinessImpact - previous.BusinessImpact,
+        RoarIndex = RoarIndex - previous.RoarIndex,
+        Roadblocks = Roadblocks - previous.Roadblocks,
+        TotalLinesOfCode = TotalLinesOfCode - previous.TotalLinesOfCode,
+        TotalFiles = TotalFiles - previous.TotalFiles,
+        BackFiredFP = BackFiredFP - previous.BackFiredFP,
+        TechnicalDebt = TechnicalDebt - previous.TechnicalDebt,
+        TechnicalDebtDensity = TechnicalDebtDensity - previous.TechnicalDebtDensity,
+        CveAdvisory = CveAdvisory - previous.CveAdvisory,
+        CveLow = CveLow - previous.CveLow,
+        CveMedium = CveMedium - previous.CveMedium,
+        CveHigh = CveHigh - previous.CveHigh,
+        CveCritical = CveCritical - previous.CveCritical,
+    };
 }
 

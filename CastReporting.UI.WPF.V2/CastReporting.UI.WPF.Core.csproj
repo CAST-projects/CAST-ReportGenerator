@@ -59,6 +59,9 @@
     <ProjectReference Include="..\CastReporting.BLL.Core\CastReporting.BLL.Core.csproj" />
     <ProjectReference Include="..\CastReporting.Domain.Core\CastReporting.Domain.Core.csproj" />
     <ProjectReference Include="..\CastReporting.HL.Domain.Core\CastReporting.HL.Domain.Core.csproj" />
+    <ProjectReference Include="..\CastReporting.HL.Reporting.Core\CastReporting.HL.Reporting.Core.csproj">
+      <Private></Private>
+    </ProjectReference>
     <ProjectReference Include="..\CastReporting.HL.Services\CastReporting.HL.Services.csproj" />
     <ProjectReference Include="..\CastReporting.Reporting.Core\CastReporting.Reporting.Core.csproj" />
   </ItemGroup>

@@ -67,6 +67,7 @@ namespace CastReporting.Mediation
             string result;
             try
             {
+                Headers.Remove(HttpRequestHeader.Accept);
                 Headers.Add(HttpRequestHeader.Accept, mimeType);
                 var culture = Thread.CurrentThread.CurrentCulture;
                 Headers.Remove(HttpRequestHeader.AcceptLanguage);

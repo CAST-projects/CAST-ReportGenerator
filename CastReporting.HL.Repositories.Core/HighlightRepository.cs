@@ -117,5 +117,10 @@ namespace CastReporting.HL.Repositories
             var json = GetResource($"domains/{_CompanyId}/applications/{appId}/results");
             return JsonConvert.DeserializeObject<IList<Snapshot>>(json) ?? [];
         }
+
+        AppInfo IHighlightRepository.GetAppResults(string appId) {
+            var json = GetResource($"/domains/{_CompanyId}/applications/{appId}/?maxEntryPerPage=30&pageOffset=0");
+            return JsonConvert.DeserializeObject<AppInfo>(json)!;
+        }
     }
 }

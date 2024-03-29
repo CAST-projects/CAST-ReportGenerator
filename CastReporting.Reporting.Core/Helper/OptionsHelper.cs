@@ -31,7 +31,15 @@ namespace CastReporting.Reporting.Helper
             return value?.Replace("\t", "").Replace("\n", "").Replace("\r", "");
         }
 
-        public static int GetIntOption(this Dictionary<string, string> options, string key, int defaultValue = default(int))
+        public static T GetOption<T>(this Dictionary<string, string> options, string key, T defaultValue = default) where T: struct{
+            string value = options.GetOption(key) ?? string.Empty;
+            if (!Enum.TryParse<T>(value, out T result)) {
+                result = defaultValue;
+            }
+            return result;
+        }
+
+        public static int GetIntOption(this Dictionary<string, string> options, string key, int defaultValue = default)
         {
             int value;
             var s = options.GetOption(key);

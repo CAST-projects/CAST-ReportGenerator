@@ -25,7 +25,7 @@ namespace CastReporting.UI.WPF.Core.Common
     /// <summary>
     /// Interaction logic for Reporting1.xaml
     /// </summary>
-    public partial class UcImaging : UserControl,INotifyPropertyChanged {
+    public partial class UcImaging : UserControl, INotifyPropertyChanged {
 
         public UcImaging() {
             InitializeComponent();
@@ -43,37 +43,6 @@ namespace CastReporting.UI.WPF.Core.Common
             remove {
                 ((INotifyPropertyChanged)ReportingContext).PropertyChanged -= value;
             }
-        }
-
-        private void ActivateWebService_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-            e.Handled = true;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ActivateWebService_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
-        {
-            var list = e.Parameter as List<object>;
-            if (list != null)
-            {
-                var connection = new WSConnection
-                {
-                    Url = (string)list[0],
-                    Login = (string)list[1],
-                    Password = (string)list[2],
-                    ApiKey = (bool)list[3],
-                    ServerCertificateValidation = SettingsBLL.GetCertificateValidationStrategy()
-                };
-
-                ReportingContext?.ImagingContext.ActiveCurrentWebService(connection);
-            }
-            ReportingContext?.ImagingContext.InitializeFromWS();
-            e.Handled = true;
         }
     }
 }

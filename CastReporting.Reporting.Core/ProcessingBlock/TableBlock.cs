@@ -29,7 +29,6 @@ using System.Linq;
 using OXD = DocumentFormat.OpenXml.Drawing;
 using OXP = DocumentFormat.OpenXml.Presentation;
 using OXW = DocumentFormat.OpenXml.Wordprocessing;
-using CastReporting.Reporting.Highlight.ReportingModel;
 // ReSharper disable PossiblyMistakenUseOfParamsMethod
 
 namespace CastReporting.Reporting.Builder.BlockProcessing
@@ -666,10 +665,5 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
     public abstract class ImagingTableBlock : TableBlock<ImagingData>
     {
         public override ImagingData GetActualData(ReportData reportData) => reportData.ImagingData;
-    }
-
-    public abstract class HighlightTableBlock : TableBlock<HighlightData>
-    {
-        public override HighlightData GetActualData(ReportData reportData) => reportData.HighlightData;
     }
 }

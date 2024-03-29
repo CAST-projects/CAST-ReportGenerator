@@ -18,10 +18,14 @@
 using CastReporting.BLL;
 using CastReporting.Domain;
 using CastReporting.UI.WPF.Core.Common;
+using CastReporting.UI.WPF.Core.Resources.Languages;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 // ReSharper disable InconsistentNaming
 
@@ -65,7 +69,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
             get { return _Applications; }
             set {
                 _Applications = value;
-                OnPropertyChanged("Applications");
+                OnPropertyChanged(nameof(Applications));
             }
         }
 
@@ -76,10 +80,9 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         public IList<string> Categories
         {
             get { return _Categories; }
-            set
-            {
+            set {
                 _Categories = value;
-                OnPropertyChanged("Categories");
+                OnPropertyChanged(nameof(Categories));
             }
         }
 
@@ -90,10 +93,9 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         public IEnumerable<string> Tags
         {
             get { return _Tags; }
-            set
-            {
+            set {
                 _Tags = value;
-                OnPropertyChanged("Tags");
+                OnPropertyChanged(nameof(Tags));
             }
         }
 
@@ -104,10 +106,9 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         public IEnumerable<Snapshot> Snaphosts
         {
             get { return _Snaphosts; }
-            set
-            {
+            set {
                 _Snaphosts = value;
-                OnPropertyChanged("Snaphosts");
+                OnPropertyChanged(nameof(Snaphosts));
             }
         }
 
@@ -118,10 +119,9 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         public IEnumerable<Snapshot> PreviousSnaphosts
         {
             get { return _PreviousSnapshosts; }
-            set
-            {
+            set {
                 _PreviousSnapshosts = value;
-                OnPropertyChanged("PreviousSnaphosts");
+                OnPropertyChanged(nameof(PreviousSnaphosts));
             }
         }
 
@@ -132,13 +132,10 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         public CastDomain SelectedDomain
         {
             get => _SelectedDomain;
-            set
-            {
-                if (Equals(value, _SelectedDomain))
-                    return;
+            set {
+                if (Equals(value, _SelectedDomain)) return;
                 _SelectedDomain = value;
-                OnPropertyChanged("SelectedDomain");
-                OnPropertyChanged("IsDataFilledIn");
+                OnPropertyChanged(nameof(SelectedDomain));
             }
         }
 
@@ -149,14 +146,10 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         public ApplicationItem SelectedApplication
         {
             get { return _SelectedApplication; }
-            set
-            {
-                if (value == _SelectedApplication)
-                    return;
+            set {
+                if (value == _SelectedApplication) return;
                 _SelectedApplication = value;
-
-                OnPropertyChanged("SelectedApplication");
-                OnPropertyChanged("IsDataFilledIn");
+                OnPropertyChanged(nameof(SelectedApplication));
             }
         }
 
@@ -167,14 +160,10 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         public string SelectedCategory
         {
             get { return _SelectedCategory; }
-            set
-            {
-                if (value == _SelectedCategory)
-                    return;
+            set {
+                if (value == _SelectedCategory) return;
                 _SelectedCategory = value;
-
-                OnPropertyChanged("SelectedCategory");
-                OnPropertyChanged("IsDataFilledIn");
+                OnPropertyChanged(nameof(SelectedCategory));
             }
         }
 
@@ -185,14 +174,10 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         public Snapshot SelectedSnapshot
         {
             get { return _SelectedSnapshot; }
-            set
-            {
-                if (Equals(value, _SelectedSnapshot))
-                    return;
+            set {
+                if (Equals(value, _SelectedSnapshot)) return;
                 _SelectedSnapshot = value;
-
-                OnPropertyChanged("SelectedSnapshot");
-                OnPropertyChanged("IsDataFilledIn");
+                OnPropertyChanged(nameof(SelectedSnapshot));
             }
         }
 
@@ -203,14 +188,10 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         public string SelectedTag
         {
             get { return _SelectedTag; }
-            set
-            {
-                if (value == _SelectedTag)
-                    return;
+            set {
+                if (value == _SelectedTag) return;
                 _SelectedTag = value;
-
-                OnPropertyChanged("SelectedTag");
-                OnPropertyChanged("IsDataFilledIn");
+                OnPropertyChanged(nameof(SelectedTag));
             }
         }
 
@@ -221,14 +202,10 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         public Snapshot PreviousSnapshot
         {
             get { return _PreviousSnapshot; }
-            set
-            {
-                if (Equals(value, _PreviousSnapshot))
-                    return;
+            set {
+                if (Equals(value, _PreviousSnapshot)) return;
                 _PreviousSnapshot = value;
-
-                OnPropertyChanged("PreviousSnapshot");
-                OnPropertyChanged("IsDataFilledIn");
+                OnPropertyChanged(nameof(PreviousSnapshot));
             }
         }
 
@@ -238,14 +215,10 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         private WSConnection _ActiveConnection;
         public WSConnection ActiveConnection
         {
-            get
-            {
-                return _ActiveConnection;
-            }
-            set
-            {
+            get { return _ActiveConnection; }
+            set {
                 _ActiveConnection = value;
-                OnPropertyChanged("ActiveConnection");
+                OnPropertyChanged(nameof(ActiveConnection));
             }
 
         }
@@ -342,6 +315,36 @@ namespace CastReporting.UI.WPF.Core.ViewModel
             StatesEnum state;
             Setting = SettingsBLL.AddConnection(connection, true, out state);
             MessageManager.OnServiceAdded(state);
+        }
+
+        public void LoadApplicationData(double progressStep) {
+            if (SelectedApplication?.Application != null) {
+                System.Windows.Application repGen = System.Windows.Application.Current;
+                Stopwatch stopWatchStep = new Stopwatch();
+
+                //Get result for the Application               
+                stopWatchStep.Restart();
+                ApplicationBLL.BuildApplicationResult(ActiveConnection, SelectedApplication.Application);
+                stopWatchStep.Stop();
+                repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep, Messages.msgBuildApplicationResult, stopWatchStep.Elapsed);
+
+
+                //Get result for the selected snapshot                
+                stopWatchStep.Restart();
+                SnapshotBLL.BuildSnapshotResult(ActiveConnection, SelectedSnapshot, true);
+                stopWatchStep.Stop();
+                repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep, Messages.msgBuildSnapshotResult, stopWatchStep.Elapsed);
+
+
+                //Get result for the previous snapshot                
+                if (PreviousSnapshot != null) {
+                    stopWatchStep.Restart();
+                    SnapshotBLL.BuildSnapshotResult(ActiveConnection, PreviousSnapshot, false);
+                    stopWatchStep.Stop();
+
+                    repGen.Dispatcher?.Invoke(DispatcherPriority.Normal, new Action<double, string, TimeSpan>(MessageManager.OnStepDone), progressStep, Messages.msgBuildPreviousSnapshotResult, stopWatchStep.Elapsed);
+                }
+            }
         }
     }
 }

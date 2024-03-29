@@ -3,7 +3,6 @@ using CastReporting.Domain;
 using CastReporting.UI.WPF.Core.Common;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Input;
@@ -13,8 +12,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
     public class TemplatesVM : ViewModelBase
     {
         public TemplatesVM() {
-            _ReportingMode = ReportingMode.Application;
-            RefreshTemplatesCommand = new CommandHandler(_ => RefreshTemplates(_ReportingMode), null);
+            RefreshTemplatesCommand = new CommandHandler(_ => RefreshTemplates((ReportingMode)(_ ?? _ReportingMode ?? ReportingMode.Application)), null);
         }
 
         public ICommand RefreshTemplatesCommand { get; init; }
@@ -25,9 +23,8 @@ namespace CastReporting.UI.WPF.Core.ViewModel
             set {
                 if (value != _TemplateDirAndFiles) {
                     _TemplateDirAndFiles = value;
-                    _SelectedTemplateFile = null;
-                    OnPropertyChanged("TemplateDirAndFiles");
-                    OnPropertyChanged("SelectedTemplateFile");
+                    SelectedTemplateFile = null;
+                    OnPropertyChanged(nameof(TemplateDirAndFiles));
                 }
             }
         }
@@ -38,12 +35,12 @@ namespace CastReporting.UI.WPF.Core.ViewModel
             set {
                 if (value != _SelectedTemplateFile) {
                     _SelectedTemplateFile = value;
-                    OnPropertyChanged("SelectedTemplateFile");
+                    OnPropertyChanged(nameof(SelectedTemplateFile));
                 }
             }
         }
 
-        private ReportingMode _ReportingMode;
+        private ReportingMode? _ReportingMode = null;
 
         public void RefreshTemplates(ReportingMode reportingMode) {
             _ReportingMode = reportingMode;
@@ -58,9 +55,7 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                 default:
                     throw new InvalidEnumArgumentException(nameof(ReportingMode), (int)reportingMode, typeof(ReportingMode));
             }
-            SelectedTemplateFile = null;
             TemplateDirAndFiles = root?.Children.ToList() ?? [];
-            Debug.WriteLine($"Found {TemplateDirAndFiles.Count} templates");
         }
     }
 }

@@ -6,15 +6,9 @@
              xmlns:i="clr-namespace:Microsoft.Xaml.Behaviors;assembly=Microsoft.Xaml.Behaviors"
              xmlns:label="clr-namespace:CastReporting.UI.WPF.Core.Resources.Languages"
              xmlns:converter="clr-namespace:CastReporting.UI.WPF.Core.Converter"       
-             xmlns:control="clr-namespace:CastReporting.UI.WPF.Core.Common" 
-             xmlns:commands="clr-namespace:CastReporting.UI.WPF.Core.Commands"
              xmlns:vm="clr-namespace:CastReporting.UI.WPF.Core.ViewModel"
              d:DataContext="{d:DesignInstance vm:ReportingVM, IsDesignTimeCreatable=False}"
              mc:Ignorable="d" Width="377" Height="400">
-
-    <UserControl.CommandBindings>
-        <CommandBinding Command="commands:WebServiceCommand.ActivateWebService" CanExecute="ActivateWebService_CanExecute" Executed="ActivateWebService_Executed" />
-    </UserControl.CommandBindings>
 
     <UserControl.Resources>
         <Style TargetType="{x:Type StackPanel}">
@@ -22,6 +16,7 @@
         </Style>
 
         <converter:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+        <converter:ReportingModeConverter x:Key="ReportingModeConverter" />
 
         <ControlTemplate x:Key="SimpleTemplate">
             <DockPanel>
@@ -48,7 +43,7 @@
     <DockPanel>
 
             <TabControl Padding="5" Margin="0,0,0,0" Background="Transparent"
-                    SelectedIndex="{Binding SelectedTab}"  
+                    SelectedIndex="{Binding ReportingMode, Converter={StaticResource ReportingModeConverter}}"  
                     BorderThickness="0">
                 <TabControl.Resources>
                     <Style TargetType="TabItem">
@@ -88,7 +83,7 @@
                 </TabControl.Resources>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding Templates.RefreshTemplatesCommand}" />
+                        <i:InvokeCommandAction Command="{Binding Templates.RefreshTemplatesCommand}" CommandParameter="{Binding ReportingMode}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <TabItem Cursor="Hand">

@@ -1,5 +1,5 @@
 ﻿/*
- *   Copyright (c) 2019 CAST
+ *   Copyright (c) 2024 CAST
  *
  * Licensed under a custom license, Version 1.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,22 +13,15 @@
  * limitations under the License.
  *
  */
-using CastReporting.Domain;
-using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
-using CastReporting.Reporting.Highlight.ReportingModel;
-using System.Collections.Generic;
+using CastReporting.Reporting.Core.ReportingModel;
+using CastReporting.Reporting.ReportingModel;
+// ReSharper disable PossiblyMistakenUseOfParamsMethod
 
-namespace CastReporting.Reporting.Highlight.Block.Text
+namespace CastReporting.HL.Reporting.Builder.BlockProcessing
 {
-    [Block("HL_APPLICATION_NAME")]
-    public class ApplicationName : HighlightTextBlock
+    public abstract class HighlightTableBlock : TableBlock<HighlightData>
     {
-        #region METHODS
-        public override string Content(HighlightData data, Dictionary<string, string> options)
-        {
-            return (data != null) ? /* TODO */ FormatHelper.No_Value : FormatHelper.No_Value;
-        }
-        #endregion METHODS
+        public override HighlightData GetActualData(ReportData reportData) => reportData.HighlightData;
     }
 }

@@ -27,8 +27,6 @@ using System.Linq;
 using OXD = DocumentFormat.OpenXml.Drawing;
 using OXP = DocumentFormat.OpenXml.Presentation;
 using OXW = DocumentFormat.OpenXml.Wordprocessing;
-using CastReporting.Reporting.Highlight.ReportingModel;
-using System.Reflection.Metadata;
 
 namespace CastReporting.Reporting.Builder.BlockProcessing
 {
@@ -196,9 +194,5 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
 
     public abstract class ImagingTextBlock : TextBlock<ImagingData> {
         public override ImagingData GetActualData(ReportData reportData) => reportData.ImagingData;
-    }
-
-    public abstract class HighlightTextBlock : TextBlock<HighlightData> {
-        public override HighlightData GetActualData(ReportData reportData) => reportData.HighlightData;
     }
 }

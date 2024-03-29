@@ -1,4 +1,4 @@
-/*
+﻿/*
  *   Copyright (c) 2024 CAST
  *
  * Licensed under a custom license, Version 1.0 (the "License");
@@ -13,13 +13,13 @@
  * limitations under the License.
  *
  */
-
-
+using CastReporting.Reporting.Builder.BlockProcessing;
+using CastReporting.Reporting.Core.ReportingModel;
 using CastReporting.Reporting.ReportingModel;
 
-namespace CastReporting.Reporting.Highlight.ReportingModel
+namespace CastReporting.HL.Reporting.Builder.BlockProcessing
 {
-    public class HighlightData : IReportData
-    {
+    public abstract class HighlightTextBlock : TextBlock<HighlightData> {
+        public override HighlightData GetActualData(ReportData reportData) => reportData.HighlightData;
     }
 }

@@ -32,7 +32,6 @@ using System.Threading;
 using System.Xml.Linq;
 using OXS = DocumentFormat.OpenXml.Spreadsheet;
 using OXW = DocumentFormat.OpenXml.Wordprocessing;
-using CastReporting.Reporting.Highlight.ReportingModel;
 // ReSharper disable UnusedParameter.Local
 
 namespace CastReporting.Reporting.Builder.BlockProcessing
@@ -744,10 +743,5 @@ namespace CastReporting.Reporting.Builder.BlockProcessing
     public abstract class ImagingGraphBlock : GraphBlock<ImagingData>
     {
         public override ImagingData GetActualData(ReportData reportData) => reportData.ImagingData;
-    }
-
-    public abstract class HighlightGraphBlock : GraphBlock<HighlightData>
-    {
-        public override HighlightData GetActualData(ReportData reportData) => reportData.HighlightData;
     }
 }

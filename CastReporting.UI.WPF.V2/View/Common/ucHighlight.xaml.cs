@@ -42,37 +42,5 @@ namespace CastReporting.UI.WPF.Core.Common
                 ((INotifyPropertyChanged)ReportingContext).PropertyChanged -= value;
             }
         }
-
-        private void ActivateWebService_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-            e.Handled = true;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ActivateWebService_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
-        {
-            var list = e.Parameter as List<object>;
-            if (list != null)
-            {
-                var connection = new HLWSConnection
-                {
-                    Url = (string)list[0],
-                    Login = (string)list[1],
-                    Password = (string)list[2],
-                    CompanyId = (string)list[3],
-                    ApiKey = (bool)list[4],
-                    ServerCertificateValidation = SettingsBLL.GetCertificateValidationStrategy()
-                };
-
-                ReportingContext?.HighlightContext.ActiveCurrentWebService(connection);
-            }
-            ReportingContext?.HighlightContext.InitializeFromWS();
-            e.Handled = true;
-        }
     }
 }

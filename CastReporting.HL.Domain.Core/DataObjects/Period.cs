@@ -11,6 +11,8 @@ public class Period(int days = 0, int months = 0)
     public static readonly Period ThreeWeeks = new(days: 3 * 7);
     public static readonly Period OneMonth = new(months: 1);
     public static readonly Period ThreeMonths = new(months: 3);
+    public static readonly Period SixMonths = new(months: 6);
+    public static readonly Period OneYear= new(months: 12);
 
     public DateTime GetStartDateFrom(DateTime date) => date.AddMonths(-Months).AddDays(-Days);
 }

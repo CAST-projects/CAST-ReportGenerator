@@ -15,7 +15,6 @@
  */
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Helper;
-using CastReporting.Reporting.Highlight.ReportingModel;
 using CastReporting.Reporting.ReportingModel;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;

@@ -15,7 +15,7 @@
  */
 
 using CastReporting.Domain;
-using CastReporting.Reporting.Highlight.ReportingModel;
+using CastReporting.Reporting.Core.ReportingModel;
 using System.IO;
 
 namespace CastReporting.Reporting.ReportingModel

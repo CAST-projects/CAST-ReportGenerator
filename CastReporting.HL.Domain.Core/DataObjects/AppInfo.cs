@@ -9,26 +9,28 @@ public class AppInfo
     public string Name { get; set; } = string.Empty;
     public IList<HLDomain> Domains { get; set; } = [];
 
-    public IList<Metric> Metrics { get; set; } = [];
+    public IList<SnapshotResults> Metrics { get; set; } = [];
 
-    public Metric? CurrentMetrics => (Metrics.Count > 0) ? Metrics[0] : null;
-    public Metric? PreviousMetrics => (Metrics.Count > 1) ? Metrics[1] : null;
+    public SnapshotResults? CurrentMetrics => (Metrics.Count > 0) ? Metrics[0] : null;
+    public SnapshotResults? PreviousMetrics => (Metrics.Count > 1) ? Metrics[1] : null;
 
     // Calcul des évolutions par rapport à l'analyse précédente 
-    public Metric? Trend => CurrentMetrics?.ComputeTrend(PreviousMetrics);
+    public SnapshotResults? Trend => (PreviousMetrics == null) ? null : CurrentMetrics?.ComputeTrend(PreviousMetrics);
 
     // Calcul des évolutions sur une période donnée
-    public Metric? TrendOneWeek => GetTrendForPeriod(Period.OneWeek);
-    public Metric? TrendTwoWeeks => GetTrendForPeriod(Period.TwoWeeks);
-    public Metric? TrendThreeWeeks => GetTrendForPeriod(Period.ThreeWeeks);
-    public Metric? TrendOneMonth => GetTrendForPeriod(Period.OneMonth);
-    public Metric? TrendThreeMonths => GetTrendForPeriod(Period.ThreeMonths);
+    public SnapshotResults? TrendOneWeek => GetTrendForPeriod(Period.OneWeek);
+    public SnapshotResults? TrendTwoWeeks => GetTrendForPeriod(Period.TwoWeeks);
+    public SnapshotResults? TrendThreeWeeks => GetTrendForPeriod(Period.ThreeWeeks);
+    public SnapshotResults? TrendOneMonth => GetTrendForPeriod(Period.OneMonth);
+    public SnapshotResults? TrendThreeMonths => GetTrendForPeriod(Period.ThreeMonths);
+    public SnapshotResults? TrendSixMonths => GetTrendForPeriod(Period.SixMonths);
+    public SnapshotResults? TrendOneYear => GetTrendForPeriod(Period.OneYear);
 
-    private Metric? GetTrendForPeriod(Period period)
-    {
+    private SnapshotResults? GetTrendForPeriod(Period period) {
         if (CurrentMetrics == null) return null;
         var prevDate = period.GetStartDateFrom(CurrentMetrics.SnapshotDate);
         var previous = Metrics.Where(_ => _.SnapshotDate <= prevDate).OrderByDescending(_ => _.SnapshotDate).FirstOrDefault();
+        if (previous == null) return null;
         return CurrentMetrics.ComputeTrend(previous);
     }
 }
