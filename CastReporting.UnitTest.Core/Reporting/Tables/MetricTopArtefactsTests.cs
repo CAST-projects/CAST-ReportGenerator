@@ -15,16 +15,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\cc60017.json", "Data")]
-        [DeploymentItem(@".\Data\topArtefacts7212.csv", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/cc60017.json", "Data")]
+        [DeploymentItem(@"Data/topArtefacts7212.csv", "Data")]
         public void TestOneRule()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-               null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+               null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                null, null, null, null, null, null);
-            reportData = TestUtility.AddSameCriticalRuleViolationsForAllBC(reportData, @".\Data\cc60017.json", null);
+            reportData = TestUtility.AddSameCriticalRuleViolationsForAllBC(reportData, @"Data/cc60017.json", null);
             WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
@@ -57,17 +57,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\cc60017extract.json", "Data")]
-        [DeploymentItem(@".\Data\topArtefacts7212.csv", "Data")]
-        [DeploymentItem(@".\Data\topArtefacts3576.csv", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/cc60017extract.json", "Data")]
+        [DeploymentItem(@"Data/topArtefacts7212.csv", "Data")]
+        [DeploymentItem(@"Data/topArtefacts3576.csv", "Data")]
         public void TestAllRules()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
-            reportData = TestUtility.AddSameCriticalRuleViolationsForAllBC(reportData, @".\Data\cc60017extract.json", null);
+            reportData = TestUtility.AddSameCriticalRuleViolationsForAllBC(reportData, @"Data/cc60017extract.json", null);
             WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
@@ -102,16 +102,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\cc60017.json", "Data")]
-        [DeploymentItem(@".\Data\topArtefacts7212.csv", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/cc60017.json", "Data")]
+        [DeploymentItem(@"Data/topArtefacts7212.csv", "Data")]
         public void TestLimitCount()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
-            reportData = TestUtility.AddSameCriticalRuleViolationsForAllBC(reportData, @".\Data\cc60017.json", null);
+            reportData = TestUtility.AddSameCriticalRuleViolationsForAllBC(reportData, @"Data/cc60017.json", null);
             WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
@@ -140,16 +140,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\cc60017.json", "Data")]
-        [DeploymentItem(@".\Data\topArtefacts3576.csv", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/cc60017.json", "Data")]
+        [DeploymentItem(@"Data/topArtefacts3576.csv", "Data")]
         public void TestIdx()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
-            reportData = TestUtility.AddSameCriticalRuleViolationsForAllBC(reportData, @".\Data\cc60017.json", null);
+            reportData = TestUtility.AddSameCriticalRuleViolationsForAllBC(reportData, @"Data/cc60017.json", null);
             WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",

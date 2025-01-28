@@ -15,16 +15,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DeltaComponents.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\PreviousBCresults.json", "Data")]
+        [DeploymentItem(@"Data/DeltaComponents.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/PreviousBCresults.json", "Data")]
         public void TestNoConfig()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484866800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-               null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "1.5.0", "V-1.5.0", currentDate,
-               null, @".\Data\PreviousBCresults.json", "AED/applications/3/snapshots/5", "1.4.0", "V-1.4.0", previousDate);
+               null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "1.5.0", "V-1.5.0", currentDate,
+               null, @"Data/PreviousBCresults.json", "AED/applications/3/snapshots/5", "1.4.0", "V-1.4.0", previousDate);
             reportData.RuleExplorer = new RuleBLLStub();
 
             var component = new CastReporting.Reporting.Block.Table.DeltaComponentsListByStatus();
@@ -41,13 +41,13 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DeltaComponents.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/DeltaComponents.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
         public void TestNoConfigNoPrevious()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             reportData.RuleExplorer = new RuleBLLStub();
 
@@ -63,16 +63,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DeltaComponents.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\PreviousBCresults.json", "Data")]
+        [DeploymentItem(@"Data/DeltaComponents.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/PreviousBCresults.json", "Data")]
         public void TestLowComplexityDeleted()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484866800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "1.5.0", "V-1.5.0", currentDate,
-                null, @".\Data\PreviousBCresults.json", "AED/applications/3/snapshots/5", "1.4.0", "V-1.4.0", previousDate);
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "1.5.0", "V-1.5.0", currentDate,
+                null, @"Data/PreviousBCresults.json", "AED/applications/3/snapshots/5", "1.4.0", "V-1.4.0", previousDate);
             reportData.RuleExplorer = new RuleBLLStub();
 
             var component = new CastReporting.Reporting.Block.Table.DeltaComponentsListByStatus();
@@ -90,16 +90,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DeltaComponents.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\PreviousBCresults.json", "Data")]
+        [DeploymentItem(@"Data/DeltaComponents.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/PreviousBCresults.json", "Data")]
         public void TestBadStatus()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484866800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "1.5.0", "V-1.5.0", currentDate,
-                null, @".\Data\PreviousBCresults.json", "AED/applications/3/snapshots/5", "1.4.0", "V-1.4.0", previousDate);
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "1.5.0", "V-1.5.0", currentDate,
+                null, @"Data/PreviousBCresults.json", "AED/applications/3/snapshots/5", "1.4.0", "V-1.4.0", previousDate);
             reportData.RuleExplorer = new RuleBLLStub();
 
             var component = new CastReporting.Reporting.Block.Table.DeltaComponentsListByStatus();
@@ -117,16 +117,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DeltaComponents.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\PreviousBCresults.json", "Data")]
+        [DeploymentItem(@"Data/DeltaComponents.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/PreviousBCresults.json", "Data")]
         public void TestBadComplexity()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484866800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "1.5.0", "V-1.5.0", currentDate,
-                null, @".\Data\PreviousBCresults.json", "AED/applications/3/snapshots/5", "1.4.0", "V-1.4.0", previousDate);
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "1.5.0", "V-1.5.0", currentDate,
+                null, @"Data/PreviousBCresults.json", "AED/applications/3/snapshots/5", "1.4.0", "V-1.4.0", previousDate);
             reportData.RuleExplorer = new RuleBLLStub();
 
             var component = new CastReporting.Reporting.Block.Table.DeltaComponentsListByStatus();
@@ -146,17 +146,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\DeltaComponents.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\PreviousBCresults.json", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/DeltaComponents.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/PreviousBCresults.json", "Data")]
         public void TestModule()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484866800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "1.5.0", "V-1.5.0", currentDate,
-                @".\Data\ModulesCoCRA.json", @".\Data\PreviousBCresults.json", "AED/applications/3/snapshots/5", "1.4.0", "V-1.4.0", previousDate);
+                @"Data/ModulesCoCRA.json", @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "1.5.0", "V-1.5.0", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/PreviousBCresults.json", "AED/applications/3/snapshots/5", "1.4.0", "V-1.4.0", previousDate);
             reportData.RuleExplorer = new RuleBLLStub();
 
             var component = new CastReporting.Reporting.Block.Table.DeltaComponentsListByStatus();
@@ -176,17 +176,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\DeltaComponents.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\PreviousBCresults.json", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/DeltaComponents.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/PreviousBCresults.json", "Data")]
         public void TestBadModule()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484866800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "1.5.0", "V-1.5.0", currentDate,
-                @".\Data\ModulesCoCRA.json", @".\Data\PreviousBCresults.json", "AED/applications/3/snapshots/5", "1.4.0", "V-1.4.0", previousDate);
+                @"Data/ModulesCoCRA.json", @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "1.5.0", "V-1.5.0", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/PreviousBCresults.json", "AED/applications/3/snapshots/5", "1.4.0", "V-1.4.0", previousDate);
             reportData.RuleExplorer = new RuleBLLStub();
 
             var component = new CastReporting.Reporting.Block.Table.DeltaComponentsListByStatus();
@@ -203,16 +203,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DeltaComponents.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\PreviousBCresults.json", "Data")]
+        [DeploymentItem(@"Data/DeltaComponents.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/PreviousBCresults.json", "Data")]
         public void TestTechnology()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484866800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "1.5.0", "V-1.5.0", currentDate,
-                null, @".\Data\PreviousBCresults.json", "AED/applications/3/snapshots/5", "1.4.0", "V-1.4.0", previousDate);
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "1.5.0", "V-1.5.0", currentDate,
+                null, @"Data/PreviousBCresults.json", "AED/applications/3/snapshots/5", "1.4.0", "V-1.4.0", previousDate);
             reportData.RuleExplorer = new RuleBLLStub();
             reportData.Application.Technologies = new[] { "JEE" };
 
@@ -233,16 +233,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DeltaComponents.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\PreviousBCresults.json", "Data")]
+        [DeploymentItem(@"Data/DeltaComponents.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/PreviousBCresults.json", "Data")]
         public void TestBadTechnology()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484866800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "1.5.0", "V-1.5.0", currentDate,
-                null, @".\Data\PreviousBCresults.json", "AED/applications/3/snapshots/5", "1.4.0", "V-1.4.0", previousDate);
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "1.5.0", "V-1.5.0", currentDate,
+                null, @"Data/PreviousBCresults.json", "AED/applications/3/snapshots/5", "1.4.0", "V-1.4.0", previousDate);
             reportData.RuleExplorer = new RuleBLLStub();
             reportData.Application.Technologies = new[] { "JEE" };
 
@@ -260,16 +260,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DeltaComponents.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\PreviousBCresults.json", "Data")]
+        [DeploymentItem(@"Data/DeltaComponents.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/PreviousBCresults.json", "Data")]
         public void TestLimitResults()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484866800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "1.5.0", "V-1.5.0", currentDate,
-                null, @".\Data\PreviousBCresults.json", "AED/applications/3/snapshots/5", "1.4.0", "V-1.4.0", previousDate);
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "1.5.0", "V-1.5.0", currentDate,
+                null, @"Data/PreviousBCresults.json", "AED/applications/3/snapshots/5", "1.4.0", "V-1.4.0", previousDate);
             reportData.RuleExplorer = new RuleBLLStub();
 
             var component = new CastReporting.Reporting.Block.Table.DeltaComponentsListByStatus();
@@ -287,16 +287,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DeltaComponents.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\PreviousBCresults.json", "Data")]
+        [DeploymentItem(@"Data/DeltaComponents.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/PreviousBCresults.json", "Data")]
         public void TestBadServerVersion()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484866800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "1.5.0", "V-1.5.0", currentDate,
-                null, @".\Data\PreviousBCresults.json", "AED/applications/3/snapshots/5", "1.4.0", "V-1.4.0", previousDate);
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "1.5.0", "V-1.5.0", currentDate,
+                null, @"Data/PreviousBCresults.json", "AED/applications/3/snapshots/5", "1.4.0", "V-1.4.0", previousDate);
             reportData.RuleExplorer = new RuleBLLStub();
             reportData.ServerVersion = "1.8.0.772";
 

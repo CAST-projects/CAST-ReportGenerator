@@ -16,15 +16,15 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CurrentBCTC.json", "Data")]
-        [DeploymentItem(@".\Data\QIBusinessCriteriaConf.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCTC.json", "Data")]
+        [DeploymentItem(@"Data/QIBusinessCriteriaConf.json", "Data")]
         public void TestOneSnapshot()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-               null, @".\Data\CurrentBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+               null, @"Data/CurrentBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                null, null, null, null, null, null);
-            reportData = TestUtility.AddQIBusinessCriteriaConfiguration(reportData, @".\Data\QIBusinessCriteriaConf.json");
+            reportData = TestUtility.AddQIBusinessCriteriaConfiguration(reportData, @"Data/QIBusinessCriteriaConf.json");
 
             var component = new CriteriaAndGrade();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -43,17 +43,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CurrentBCTC.json", "Data")]
-        [DeploymentItem(@".\Data\PreviousBCTC.json", "Data")]
-        [DeploymentItem(@".\Data\QIBusinessCriteriaConf.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCTC.json", "Data")]
+        [DeploymentItem(@"Data/PreviousBCTC.json", "Data")]
+        [DeploymentItem(@"Data/QIBusinessCriteriaConf.json", "Data")]
         public void TestTwoSnapshot()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484866800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
-                null, @".\Data\PreviousBCTC.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1", previousDate);
-            reportData = TestUtility.AddQIBusinessCriteriaConfiguration(reportData, @".\Data\QIBusinessCriteriaConf.json");
+                null, @"Data/CurrentBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/PreviousBCTC.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1", previousDate);
+            reportData = TestUtility.AddQIBusinessCriteriaConfiguration(reportData, @"Data/QIBusinessCriteriaConf.json");
 
             var component = new CriteriaAndGrade();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -73,17 +73,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CurrentBCTC.json", "Data")]
-        [DeploymentItem(@".\Data\PreviousBCTC.json", "Data")]
-        [DeploymentItem(@".\Data\QIBusinessCriteriaConf.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCTC.json", "Data")]
+        [DeploymentItem(@"Data/PreviousBCTC.json", "Data")]
+        [DeploymentItem(@"Data/QIBusinessCriteriaConf.json", "Data")]
         public void TestNoCount()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484866800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
-                null, @".\Data\PreviousBCTC.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1", previousDate);
-            reportData = TestUtility.AddQIBusinessCriteriaConfiguration(reportData, @".\Data\QIBusinessCriteriaConf.json");
+                null, @"Data/CurrentBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/PreviousBCTC.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1", previousDate);
+            reportData = TestUtility.AddQIBusinessCriteriaConfiguration(reportData, @"Data/QIBusinessCriteriaConf.json");
 
             var component = new CriteriaAndGrade();
             Dictionary<string, string> config = new Dictionary<string, string>

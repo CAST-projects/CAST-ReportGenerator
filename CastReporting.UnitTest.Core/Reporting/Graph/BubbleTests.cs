@@ -15,7 +15,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DreamTeamSnap4Metrics2.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap4Metrics2.json", "Data")]
         public void TestContentSnapshot()
         {
             /*
@@ -24,7 +24,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
             */
 
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-                null, @".\Data\DreamTeamSnap4Metrics2.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+                null, @"Data/DreamTeamSnap4Metrics2.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 null, null, null, null, null);
 
             var component = new Bubble();
@@ -38,7 +38,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Snapshot_QIresults1_Extended.json", "Data")]
+        [DeploymentItem(@"Data/Snapshot_QIresults1_Extended.json", "Data")]
         public void TestContentSnapshotModule()
         {
             /*
@@ -47,7 +47,7 @@ namespace CastReporting.UnitTest.Reporting.Graph
             */
 
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-                null, @".\Data\Snapshot_QIresults1_Extended.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+                null, @"Data/Snapshot_QIresults1_Extended.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 null, null, null, null, null);
 
             var component = new Bubble();

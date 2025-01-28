@@ -15,20 +15,20 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\current.json", "Data")]
-        [DeploymentItem(@".\Data\previous.json", "Data")]
-        [DeploymentItem(@".\Data\BaseQI60017.json", "Data")]
+        [DeploymentItem(@"Data/current.json", "Data")]
+        [DeploymentItem(@"Data/previous.json", "Data")]
+        [DeploymentItem(@"Data/BaseQI60017.json", "Data")]
         public void TestIncreasePercent()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484866800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
-                null, @".\Data\previous.json", "AED/applications/3/snapshots/5", "PreVersion 1.4.0 sprint 1 shot 2", "V-1.4.0_Sprint 1_2", previousDate);
+                null, @"Data/current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/previous.json", "AED/applications/3/snapshots/5", "PreVersion 1.4.0 sprint 1 shot 2", "V-1.4.0_Sprint 1_2", previousDate);
             reportData.RuleExplorer = new RuleBLLStub();
 
-            TestUtility.AddSameTechCritRulesViolations(reportData.CurrentSnapshot, @".\Data\current.json");
-            TestUtility.AddSameTechCritRulesViolations(reportData.PreviousSnapshot, @".\Data\previous.json");
+            TestUtility.AddSameTechCritRulesViolations(reportData.CurrentSnapshot, @"Data/current.json");
+            TestUtility.AddSameTechCritRulesViolations(reportData.PreviousSnapshot, @"Data/previous.json");
 
             var component = new CastReporting.Reporting.Block.Table.RulesListLargestVariation();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -48,20 +48,20 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\current.json", "Data")]
-        [DeploymentItem(@".\Data\previous.json", "Data")]
-        [DeploymentItem(@".\Data\BaseQI60017.json", "Data")]
+        [DeploymentItem(@"Data/current.json", "Data")]
+        [DeploymentItem(@"Data/previous.json", "Data")]
+        [DeploymentItem(@"Data/BaseQI60017.json", "Data")]
         public void TestIncreaseNumber()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484866800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
-                null, @".\Data\previous.json", "AED/applications/3/snapshots/5", "PreVersion 1.4.0 sprint 1 shot 2", "V-1.4.0_Sprint 1_2", previousDate);
+                null, @"Data/current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/previous.json", "AED/applications/3/snapshots/5", "PreVersion 1.4.0 sprint 1 shot 2", "V-1.4.0_Sprint 1_2", previousDate);
             reportData.RuleExplorer = new RuleBLLStub();
 
-            TestUtility.AddSameTechCritRulesViolations(reportData.CurrentSnapshot, @".\Data\current.json");
-            TestUtility.AddSameTechCritRulesViolations(reportData.PreviousSnapshot, @".\Data\previous.json");
+            TestUtility.AddSameTechCritRulesViolations(reportData.CurrentSnapshot, @"Data/current.json");
+            TestUtility.AddSameTechCritRulesViolations(reportData.PreviousSnapshot, @"Data/previous.json");
 
             var component = new CastReporting.Reporting.Block.Table.RulesListLargestVariation();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -82,20 +82,20 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\current.json", "Data")]
-        [DeploymentItem(@".\Data\previous.json", "Data")]
-        [DeploymentItem(@".\Data\BaseQI60017.json", "Data")]
+        [DeploymentItem(@"Data/current.json", "Data")]
+        [DeploymentItem(@"Data/previous.json", "Data")]
+        [DeploymentItem(@"Data/BaseQI60017.json", "Data")]
         public void TestDecreasePercent()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484866800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
-                null, @".\Data\previous.json", "AED/applications/3/snapshots/5", "PreVersion 1.4.0 sprint 1 shot 2", "V-1.4.0_Sprint 1_2", previousDate);
+                null, @"Data/current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/previous.json", "AED/applications/3/snapshots/5", "PreVersion 1.4.0 sprint 1 shot 2", "V-1.4.0_Sprint 1_2", previousDate);
             reportData.RuleExplorer = new RuleBLLStub();
 
-            TestUtility.AddSameTechCritRulesViolations(reportData.CurrentSnapshot, @".\Data\current.json");
-            TestUtility.AddSameTechCritRulesViolations(reportData.PreviousSnapshot, @".\Data\previous.json");
+            TestUtility.AddSameTechCritRulesViolations(reportData.CurrentSnapshot, @"Data/current.json");
+            TestUtility.AddSameTechCritRulesViolations(reportData.PreviousSnapshot, @"Data/previous.json");
 
             var component = new CastReporting.Reporting.Block.Table.RulesListLargestVariation();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -116,20 +116,20 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\current.json", "Data")]
-        [DeploymentItem(@".\Data\previous.json", "Data")]
-        [DeploymentItem(@".\Data\BaseQI60017.json", "Data")]
+        [DeploymentItem(@"Data/current.json", "Data")]
+        [DeploymentItem(@"Data/previous.json", "Data")]
+        [DeploymentItem(@"Data/BaseQI60017.json", "Data")]
         public void TestDecreaseNumber()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484866800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
-                null, @".\Data\previous.json", "AED/applications/3/snapshots/5", "PreVersion 1.4.0 sprint 1 shot 2", "V-1.4.0_Sprint 1_2", previousDate);
+                null, @"Data/current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/previous.json", "AED/applications/3/snapshots/5", "PreVersion 1.4.0 sprint 1 shot 2", "V-1.4.0_Sprint 1_2", previousDate);
             reportData.RuleExplorer = new RuleBLLStub();
 
-            TestUtility.AddSameTechCritRulesViolations(reportData.CurrentSnapshot, @".\Data\current.json");
-            TestUtility.AddSameTechCritRulesViolations(reportData.PreviousSnapshot, @".\Data\previous.json");
+            TestUtility.AddSameTechCritRulesViolations(reportData.CurrentSnapshot, @"Data/current.json");
+            TestUtility.AddSameTechCritRulesViolations(reportData.PreviousSnapshot, @"Data/previous.json");
 
             var component = new CastReporting.Reporting.Block.Table.RulesListLargestVariation();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -149,18 +149,18 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\current.json", "Data")]
-        [DeploymentItem(@".\Data\previous.json", "Data")]
-        [DeploymentItem(@".\Data\BaseQI60017.json", "Data")]
+        [DeploymentItem(@"Data/current.json", "Data")]
+        [DeploymentItem(@"Data/previous.json", "Data")]
+        [DeploymentItem(@"Data/BaseQI60017.json", "Data")]
         public void TestDecreaseNumberNoPrevious()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             reportData.RuleExplorer = new RuleBLLStub();
 
-            TestUtility.AddSameTechCritRulesViolations(reportData.CurrentSnapshot, @".\Data\current.json");
+            TestUtility.AddSameTechCritRulesViolations(reportData.CurrentSnapshot, @"Data/current.json");
 
             var component = new CastReporting.Reporting.Block.Table.RulesListLargestVariation();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -179,20 +179,20 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\current.json", "Data")]
-        [DeploymentItem(@".\Data\previous.json", "Data")]
-        [DeploymentItem(@".\Data\BaseQI60017.json", "Data")]
+        [DeploymentItem(@"Data/current.json", "Data")]
+        [DeploymentItem(@"Data/previous.json", "Data")]
+        [DeploymentItem(@"Data/BaseQI60017.json", "Data")]
         public void TestNoConfig()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484866800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
-                null, @".\Data\previous.json", "AED/applications/3/snapshots/5", "PreVersion 1.4.0 sprint 1 shot 2", "V-1.4.0_Sprint 1_2", previousDate);
+                null, @"Data/current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/previous.json", "AED/applications/3/snapshots/5", "PreVersion 1.4.0 sprint 1 shot 2", "V-1.4.0_Sprint 1_2", previousDate);
             reportData.RuleExplorer = new RuleBLLStub();
 
-            TestUtility.AddSameTechCritRulesViolations(reportData.CurrentSnapshot, @".\Data\current.json");
-            TestUtility.AddSameTechCritRulesViolations(reportData.PreviousSnapshot, @".\Data\previous.json");
+            TestUtility.AddSameTechCritRulesViolations(reportData.CurrentSnapshot, @"Data/current.json");
+            TestUtility.AddSameTechCritRulesViolations(reportData.PreviousSnapshot, @"Data/previous.json");
 
             var component = new CastReporting.Reporting.Block.Table.RulesListLargestVariation();
             var table = component.Content(reportData, null);

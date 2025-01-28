@@ -15,14 +15,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Sample1Current.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Current.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapCurrent.json", "Data")]
         public void TestCastComplexityNoPar()
         {
             ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
-                null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
+                null, @"Data/Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
                 null, null, null, null, null);
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", null);
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/ComplexitySnapCurrent.json", null);
 
             var component = new CastDistribution();
             Dictionary<string, string> config = new Dictionary<string, string>();
@@ -40,14 +40,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Sample1Current.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Current.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapCurrent.json", "Data")]
         public void TestCastComplexityOneSnapshot()
         {
             ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
-                null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
+                null, @"Data/Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
                 null, null, null, null, null);
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", null);
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/ComplexitySnapCurrent.json", null);
 
             var component = new CastDistribution();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -67,16 +67,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Sample1Current.json", "Data")]
-        [DeploymentItem(@".\Data\Sample1Previous.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapPrevious.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Current.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Previous.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapPrevious.json", "Data")]
         public void TestCastComplexityTwoSnapshots()
         {
             ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
-                null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
-                null, @".\Data\Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", @".\Data\ComplexitySnapPrevious.json");
+                null, @"Data/Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
+                null, @"Data/Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/ComplexitySnapCurrent.json", @"Data/ComplexitySnapPrevious.json");
 
             var component = new CastDistribution();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -96,16 +96,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Sample1Current.json", "Data")]
-        [DeploymentItem(@".\Data\Sample1Previous.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapPrevious.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Current.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Previous.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapPrevious.json", "Data")]
         public void TestCyclomaticComplexityTwoSnapshots()
         {
             ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
-                null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
-                null, @".\Data\Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", @".\Data\ComplexitySnapPrevious.json");
+                null, @"Data/Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
+                null, @"Data/Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/ComplexitySnapCurrent.json", @"Data/ComplexitySnapPrevious.json");
 
             var component = new CastDistribution();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -125,16 +125,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Sample1Current.json", "Data")]
-        [DeploymentItem(@".\Data\Sample1Previous.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapPrevious.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Current.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Previous.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapPrevious.json", "Data")]
         public void TestFourGLComplexityTwoSnapshots()
         {
             ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
-                null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
-                null, @".\Data\Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", @".\Data\ComplexitySnapPrevious.json");
+                null, @"Data/Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
+                null, @"Data/Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/ComplexitySnapCurrent.json", @"Data/ComplexitySnapPrevious.json");
 
             var component = new CastDistribution();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -154,16 +154,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Sample1Current.json", "Data")]
-        [DeploymentItem(@".\Data\Sample1Previous.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapPrevious.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Current.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Previous.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapPrevious.json", "Data")]
         public void TestClassComplexityTwoSnapshots()
         {
             ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
-                null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
-                null, @".\Data\Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", @".\Data\ComplexitySnapPrevious.json");
+                null, @"Data/Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
+                null, @"Data/Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/ComplexitySnapCurrent.json", @"Data/ComplexitySnapPrevious.json");
 
             var component = new CastDistribution();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -183,16 +183,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Sample1Current.json", "Data")]
-        [DeploymentItem(@".\Data\Sample1Previous.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapPrevious.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Current.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Previous.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapPrevious.json", "Data")]
         public void TestOOComplexityTwoSnapshots()
         {
             ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
-                null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
-                null, @".\Data\Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", @".\Data\ComplexitySnapPrevious.json");
+                null, @"Data/Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
+                null, @"Data/Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/ComplexitySnapCurrent.json", @"Data/ComplexitySnapPrevious.json");
 
             var component = new CastDistribution();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -212,16 +212,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Sample1Current.json", "Data")]
-        [DeploymentItem(@".\Data\Sample1Previous.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapPrevious.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Current.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Previous.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapPrevious.json", "Data")]
         public void TestSQLComplexityTwoSnapshots()
         {
             ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
-                null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
-                null, @".\Data\Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", @".\Data\ComplexitySnapPrevious.json");
+                null, @"Data/Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
+                null, @"Data/Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/ComplexitySnapCurrent.json", @"Data/ComplexitySnapPrevious.json");
 
             var component = new CastDistribution();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -241,16 +241,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Sample1Current.json", "Data")]
-        [DeploymentItem(@".\Data\Sample1Previous.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapPrevious.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Current.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Previous.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapPrevious.json", "Data")]
         public void TestCouplingComplexityTwoSnapshots()
         {
             ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
-                null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
-                null, @".\Data\Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", @".\Data\ComplexitySnapPrevious.json");
+                null, @"Data/Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
+                null, @"Data/Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/ComplexitySnapCurrent.json", @"Data/ComplexitySnapPrevious.json");
 
             var component = new CastDistribution();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -270,16 +270,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Sample1Current.json", "Data")]
-        [DeploymentItem(@".\Data\Sample1Previous.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapPrevious.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Current.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Previous.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapPrevious.json", "Data")]
         public void TestClassFanOutComplexityTwoSnapshots()
         {
             ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
-                null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
-                null, @".\Data\Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", @".\Data\ComplexitySnapPrevious.json");
+                null, @"Data/Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
+                null, @"Data/Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/ComplexitySnapCurrent.json", @"Data/ComplexitySnapPrevious.json");
 
             var component = new CastDistribution();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -299,16 +299,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Sample1Current.json", "Data")]
-        [DeploymentItem(@".\Data\Sample1Previous.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapPrevious.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Current.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Previous.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapPrevious.json", "Data")]
         public void TestClassFanInComplexityTwoSnapshots()
         {
             ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
-                null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
-                null, @".\Data\Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", @".\Data\ComplexitySnapPrevious.json");
+                null, @"Data/Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
+                null, @"Data/Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/ComplexitySnapCurrent.json", @"Data/ComplexitySnapPrevious.json");
 
             var component = new CastDistribution();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -328,16 +328,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Sample1Current.json", "Data")]
-        [DeploymentItem(@".\Data\Sample1Previous.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapPrevious.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Current.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Previous.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapPrevious.json", "Data")]
         public void TestSizeDistributionTwoSnapshots()
         {
             ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
-                null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
-                null, @".\Data\Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", @".\Data\ComplexitySnapPrevious.json");
+                null, @"Data/Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
+                null, @"Data/Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/ComplexitySnapCurrent.json", @"Data/ComplexitySnapPrevious.json");
 
             var component = new CastDistribution();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -357,16 +357,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Sample1Current.json", "Data")]
-        [DeploymentItem(@".\Data\Sample1Previous.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapPrevious.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Current.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Previous.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapPrevious.json", "Data")]
         public void TestReusebyCallDistributionTwoSnapshots()
         {
             ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
-                null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
-                null, @".\Data\Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", @".\Data\ComplexitySnapPrevious.json");
+                null, @"Data/Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
+                null, @"Data/Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/ComplexitySnapCurrent.json", @"Data/ComplexitySnapPrevious.json");
 
             var component = new CastDistribution();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -386,16 +386,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Sample1Current.json", "Data")]
-        [DeploymentItem(@".\Data\Sample1Previous.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapPrevious.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Current.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Previous.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapPrevious.json", "Data")]
         public void TestViolationsToCriticalDistributionTwoSnapshots()
         {
             ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
-                null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
-                null, @".\Data\Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", @".\Data\ComplexitySnapPrevious.json");
+                null, @"Data/Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
+                null, @"Data/Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/ComplexitySnapCurrent.json", @"Data/ComplexitySnapPrevious.json");
 
             var component = new CastDistribution();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -415,16 +415,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Sample1Current.json", "Data")]
-        [DeploymentItem(@".\Data\Sample1Previous.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapPrevious.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Current.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Previous.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapPrevious.json", "Data")]
         public void TestDefectsToCriticalDistributionTwoSnapshots()
         {
             ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
-                null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
-                null, @".\Data\Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", @".\Data\ComplexitySnapPrevious.json");
+                null, @"Data/Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
+                null, @"Data/Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/ComplexitySnapCurrent.json", @"Data/ComplexitySnapPrevious.json");
 
             var component = new CastDistribution();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -444,17 +444,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\WebGoatMultiCurrentResults.json", "Data")]
-        [DeploymentItem(@".\Data\WebGoatMultiPreviousResults.json", "Data")]
-        [DeploymentItem(@".\Data\WebGoatMultiModules.json", "Data")]
-        [DeploymentItem(@".\Data\WebGoatMultiCurrentComplexity.json", "Data")]
-        [DeploymentItem(@".\Data\WebGoatMultiPreviousComplexity.json", "Data")]
+        [DeploymentItem(@"Data/WebGoatMultiCurrentResults.json", "Data")]
+        [DeploymentItem(@"Data/WebGoatMultiPreviousResults.json", "Data")]
+        [DeploymentItem(@"Data/WebGoatMultiModules.json", "Data")]
+        [DeploymentItem(@"Data/WebGoatMultiCurrentComplexity.json", "Data")]
+        [DeploymentItem(@"Data/WebGoatMultiPreviousComplexity.json", "Data")]
         public void TestModules()
         {
             ReportData reportData = TestUtility.PrepaReportData("WebGoatMulti",
-                @".\Data\WebGoatMultiModules.json", @".\Data\WebGoatMultiCurrentResults.json", "69f58395-7dd6-4509-98d2-6501028e7150/applications/3/snapshots/2", "Snapshot-2020-03-02T15-55-00", "Version-2",
-                @".\Data\WebGoatMultiModules.json", @".\Data\WebGoatMultiPreviousResults.json", "69f58395-7dd6-4509-98d2-6501028e7150/applications/3/snapshots/1", "Snapshot-v1", "Version-1");
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\WebGoatMultiCurrentComplexity.json", @".\Data\WebGoatMultiPreviousComplexity.json");
+                @"Data/WebGoatMultiModules.json", @"Data/WebGoatMultiCurrentResults.json", "69f58395-7dd6-4509-98d2-6501028e7150/applications/3/snapshots/2", "Snapshot-2020-03-02T15-55-00", "Version-2",
+                @"Data/WebGoatMultiModules.json", @"Data/WebGoatMultiPreviousResults.json", "69f58395-7dd6-4509-98d2-6501028e7150/applications/3/snapshots/1", "Snapshot-v1", "Version-1");
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/WebGoatMultiCurrentComplexity.json", @"Data/WebGoatMultiPreviousComplexity.json");
 
             var component = new CastDistribution();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -507,17 +507,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\WebGoatMultiCurrentResults.json", "Data")]
-        [DeploymentItem(@".\Data\WebGoatMultiPreviousResults.json", "Data")]
-        [DeploymentItem(@".\Data\WebGoatMultiModules.json", "Data")]
-        [DeploymentItem(@".\Data\WebGoatMultiCurrentComplexity.json", "Data")]
-        [DeploymentItem(@".\Data\WebGoatMultiPreviousComplexity.json", "Data")]
+        [DeploymentItem(@"Data/WebGoatMultiCurrentResults.json", "Data")]
+        [DeploymentItem(@"Data/WebGoatMultiPreviousResults.json", "Data")]
+        [DeploymentItem(@"Data/WebGoatMultiModules.json", "Data")]
+        [DeploymentItem(@"Data/WebGoatMultiCurrentComplexity.json", "Data")]
+        [DeploymentItem(@"Data/WebGoatMultiPreviousComplexity.json", "Data")]
         public void TestTechnologies()
         {
             ReportData reportData = TestUtility.PrepaReportData("WebGoatMulti",
-                @".\Data\WebGoatMultiModules.json", @".\Data\WebGoatMultiCurrentResults.json", "69f58395-7dd6-4509-98d2-6501028e7150/applications/3/snapshots/2", "Snapshot-2020-03-02T15-55-00", "Version-2",
-                @".\Data\WebGoatMultiModules.json", @".\Data\WebGoatMultiPreviousResults.json", "69f58395-7dd6-4509-98d2-6501028e7150/applications/3/snapshots/1", "Snapshot-v1", "Version-1");
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\WebGoatMultiCurrentComplexity.json", @".\Data\WebGoatMultiPreviousComplexity.json");
+                @"Data/WebGoatMultiModules.json", @"Data/WebGoatMultiCurrentResults.json", "69f58395-7dd6-4509-98d2-6501028e7150/applications/3/snapshots/2", "Snapshot-2020-03-02T15-55-00", "Version-2",
+                @"Data/WebGoatMultiModules.json", @"Data/WebGoatMultiPreviousResults.json", "69f58395-7dd6-4509-98d2-6501028e7150/applications/3/snapshots/1", "Snapshot-v1", "Version-1");
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/WebGoatMultiCurrentComplexity.json", @"Data/WebGoatMultiPreviousComplexity.json");
             reportData.CurrentSnapshot.Technologies = new[] { "JEE", ".NET", "HTML5", "PHP", "SHELL", "SQL" };
             reportData.PreviousSnapshot.Technologies = new[] { "JEE", ".NET", "HTML5", "PHP", "SHELL", "SQL" };
             var component = new CastDistribution();
@@ -571,17 +571,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\WebGoatMultiCurrentResults.json", "Data")]
-        [DeploymentItem(@".\Data\WebGoatMultiPreviousResults.json", "Data")]
-        [DeploymentItem(@".\Data\WebGoatMultiModules.json", "Data")]
-        [DeploymentItem(@".\Data\WebGoatMultiCurrentComplexity.json", "Data")]
-        [DeploymentItem(@".\Data\WebGoatMultiPreviousComplexity.json", "Data")]
+        [DeploymentItem(@"Data/WebGoatMultiCurrentResults.json", "Data")]
+        [DeploymentItem(@"Data/WebGoatMultiPreviousResults.json", "Data")]
+        [DeploymentItem(@"Data/WebGoatMultiModules.json", "Data")]
+        [DeploymentItem(@"Data/WebGoatMultiCurrentComplexity.json", "Data")]
+        [DeploymentItem(@"Data/WebGoatMultiPreviousComplexity.json", "Data")]
         public void TestModulesTechnologies()
         {
             ReportData reportData = TestUtility.PrepaReportData("WebGoatMulti",
-                @".\Data\WebGoatMultiModules.json", @".\Data\WebGoatMultiCurrentResults.json", "69f58395-7dd6-4509-98d2-6501028e7150/applications/3/snapshots/2", "Snapshot-2020-03-02T15-55-00", "Version-2",
-                @".\Data\WebGoatMultiModules.json", @".\Data\WebGoatMultiPreviousResults.json", "69f58395-7dd6-4509-98d2-6501028e7150/applications/3/snapshots/1", "Snapshot-v1", "Version-1");
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\WebGoatMultiCurrentComplexity.json", @".\Data\WebGoatMultiPreviousComplexity.json");
+                @"Data/WebGoatMultiModules.json", @"Data/WebGoatMultiCurrentResults.json", "69f58395-7dd6-4509-98d2-6501028e7150/applications/3/snapshots/2", "Snapshot-2020-03-02T15-55-00", "Version-2",
+                @"Data/WebGoatMultiModules.json", @"Data/WebGoatMultiPreviousResults.json", "69f58395-7dd6-4509-98d2-6501028e7150/applications/3/snapshots/1", "Snapshot-v1", "Version-1");
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/WebGoatMultiCurrentComplexity.json", @"Data/WebGoatMultiPreviousComplexity.json");
             reportData.CurrentSnapshot.Technologies = new[] { "JEE", ".NET", "HTML5", "PHP", "SHELL", "SQL" };
             reportData.PreviousSnapshot.Technologies = new[] { "JEE", ".NET", "HTML5", "PHP", "SHELL", "SQL" };
             var component = new CastDistribution();

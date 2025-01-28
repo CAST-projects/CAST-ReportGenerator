@@ -16,13 +16,13 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCTCmodules.json", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCTCmodules.json", "Data")]
         public void TestOneSnapshot()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                null, null, null, null, null, null);
 
             var component = new TQIbyModule();
@@ -39,16 +39,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCTCmodules.json", "Data")]
-        [DeploymentItem(@".\Data\PreviousBCTCmodules.json", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCTCmodules.json", "Data")]
+        [DeploymentItem(@"Data/PreviousBCTCmodules.json", "Data")]
         public void TestTwoSnapshot()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             CastDate previousDate = new CastDate { Time = 1492380000000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
-               @".\Data\ModulesCoCRA.json", @".\Data\PreviousBCTCmodules.json", "AED/applications/3/snapshots/3", "Snap3_CAIP-8.2.4_RG-1.4.1", "8.2.4", previousDate);
+                @"Data/ModulesCoCRA.json", @"Data/CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+               @"Data/ModulesCoCRA.json", @"Data/PreviousBCTCmodules.json", "AED/applications/3/snapshots/3", "Snap3_CAIP-8.2.4_RG-1.4.1", "8.2.4", previousDate);
 
             var component = new TQIbyModule();
             Dictionary<string, string> config = new Dictionary<string, string>();
@@ -64,13 +64,13 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCTCmodules.json", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCTCmodules.json", "Data")]
         public void TestShortHeader()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                null, null, null, null, null, null);
 
             var component = new TQIbyModule();

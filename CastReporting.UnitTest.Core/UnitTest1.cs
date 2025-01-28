@@ -39,7 +39,7 @@ namespace CastReporting.UnitTest
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Templates.zip", "Data")]
+        [DeploymentItem(@"Data/Templates.zip", "Data")]
         public void TestUnzipAndCopy()
         {
             string tempDirectory = Path.Combine(Path.GetTempPath(), "RGtests_" + DateTime.Today.ToString("yyyyMMdd"));
@@ -50,7 +50,7 @@ namespace CastReporting.UnitTest
             }
             Directory.CreateDirectory(tempDirectory);
             File.SetAttributes(tempDirectory, FileAttributes.Normal);
-            PathUtil.UnzipAndCopy(@".\Data\Templates.zip", tempDirectory);
+            PathUtil.UnzipAndCopy(@"Data/Templates.zip", tempDirectory);
             Assert.IsTrue(Directory.Exists(Path.Combine(tempDirectory, "Templates", "Portfolio")));
         }
 

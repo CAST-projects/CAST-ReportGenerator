@@ -19,14 +19,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADcocraApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADcocraSnapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADcocraSnapshotsBCResults.json", "Data")]
+        [DeploymentItem(@"Data/AADcocraApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADcocraSnapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADcocraSnapshotsBCResults.json", "Data")]
         public void TestExample()
         {
-            List<string> snapList = new List<string> { @".\Data\AADcocraSnapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADcocraSnapshotsBCResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADcocraApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADcocraSnapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADcocraSnapshotsBCResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADcocraApplications.json", snapList, snapResultsList);
 
             DateTime date = new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Utc);
             Snapshot _snap0 = reportData.Applications[0].Snapshots.FirstOrDefault();
@@ -70,14 +70,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADcocraApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADcocraSnapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADcocraSnapshotsBCResults.json", "Data")]
+        [DeploymentItem(@"Data/AADcocraApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADcocraSnapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADcocraSnapshotsBCResults.json", "Data")]
         public void TestSLA()
         {
-            List<string> snapList = new List<string> { @".\Data\AADcocraSnapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADcocraSnapshotsBCResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADcocraApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADcocraSnapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADcocraSnapshotsBCResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADcocraApplications.json", snapList, snapResultsList);
 
             DateTime date = new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Utc);
             Snapshot _snap0 = reportData.Applications[0].Snapshots.FirstOrDefault();
@@ -121,14 +121,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADcocraApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADcocraSnapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADcocraSnapshotsBCResults.json", "Data")]
+        [DeploymentItem(@"Data/AADcocraApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADcocraSnapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADcocraSnapshotsBCResults.json", "Data")]
         public void TestTargets()
         {
-            List<string> snapList = new List<string> { @".\Data\AADcocraSnapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADcocraSnapshotsBCResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADcocraApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADcocraSnapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADcocraSnapshotsBCResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADcocraApplications.json", snapList, snapResultsList);
 
             DateTime date = new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Utc);
             Snapshot _snap0 = reportData.Applications[0].Snapshots.FirstOrDefault();
@@ -172,14 +172,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADcocraApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADcocraSnapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADcocraSnapshotsBCResults.json", "Data")]
+        [DeploymentItem(@"Data/AADcocraApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADcocraSnapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADcocraSnapshotsBCResults.json", "Data")]
         public void TestNoPrevious()
         {
-            List<string> snapList = new List<string> { @".\Data\AADcocraSnapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADcocraSnapshotsBCResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADcocraApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADcocraSnapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADcocraSnapshotsBCResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADcocraApplications.json", snapList, snapResultsList);
 
             DateTime date = new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Utc);
             Snapshot _snap0 = reportData.Applications[0].Snapshots.FirstOrDefault();
@@ -216,14 +216,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADcocraApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADcocraSnapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADcocraSnapshotsBCResults.json", "Data")]
+        [DeploymentItem(@"Data/AADcocraApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADcocraSnapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADcocraSnapshotsBCResults.json", "Data")]
         public void TestNoCurrent()
         {
-            List<string> snapList = new List<string> { @".\Data\AADcocraSnapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADcocraSnapshotsBCResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADcocraApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADcocraSnapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADcocraSnapshotsBCResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADcocraApplications.json", snapList, snapResultsList);
 
             DateTime date = new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Utc);
             Snapshot _snap0 = reportData.Applications[0].Snapshots.FirstOrDefault();
@@ -260,14 +260,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADcocraApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADcocraSnapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADcocraSnapshotsBCResults.json", "Data")]
+        [DeploymentItem(@"Data/AADcocraApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADcocraSnapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADcocraSnapshotsBCResults.json", "Data")]
         public void TestVeryOldCurrent()
         {
-            List<string> snapList = new List<string> { @".\Data\AADcocraSnapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADcocraSnapshotsBCResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADcocraApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADcocraSnapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADcocraSnapshotsBCResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADcocraApplications.json", snapList, snapResultsList);
 
             DateTime date = new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Utc);
             Snapshot _snap0 = reportData.Applications[0].Snapshots.FirstOrDefault();
@@ -304,14 +304,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADcocraApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADcocraSnapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADcocraSnapshotsBCResults.json", "Data")]
+        [DeploymentItem(@"Data/AADcocraApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADcocraSnapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADcocraSnapshotsBCResults.json", "Data")]
         public void TestOldPrevious()
         {
-            List<string> snapList = new List<string> { @".\Data\AADcocraSnapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADcocraSnapshotsBCResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADcocraApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADcocraSnapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADcocraSnapshotsBCResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADcocraApplications.json", snapList, snapResultsList);
 
             DateTime date = new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Utc);
             Snapshot _snap0 = reportData.Applications[0].Snapshots.FirstOrDefault();
@@ -355,14 +355,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADcocraApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADcocraSnapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADcocraSnapshotsBCResults.json", "Data")]
+        [DeploymentItem(@"Data/AADcocraApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADcocraSnapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADcocraSnapshotsBCResults.json", "Data")]
         public void Test2Current()
         {
-            List<string> snapList = new List<string> { @".\Data\AADcocraSnapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADcocraSnapshotsBCResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADcocraApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADcocraSnapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADcocraSnapshotsBCResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADcocraApplications.json", snapList, snapResultsList);
 
             DateTime date = new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Utc);
             Snapshot _snap0 = reportData.Applications[0].Snapshots.FirstOrDefault();

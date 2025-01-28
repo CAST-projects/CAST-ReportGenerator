@@ -16,12 +16,12 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CurrentBCtechno.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCtechno.json", "Data")]
         public void TestOneSnapshot()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-               null, @".\Data\CurrentBCtechno.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+               null, @"Data/CurrentBCtechno.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                null, null, null, null, null, null);
             reportData.CurrentSnapshot.Technologies = new[] { ".NET", "JEE", "SQL Analyzer" };
             var component = new TQIbyTechno();
@@ -38,12 +38,12 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CurrentBCtechno.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCtechno.json", "Data")]
         public void TestAnotherBC()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                null, @".\Data\CurrentBCtechno.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+                null, @"Data/CurrentBCtechno.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                 null, null, null, null, null, null);
             reportData.CurrentSnapshot.Technologies = new[] { ".NET", "JEE", "SQL Analyzer" };
 

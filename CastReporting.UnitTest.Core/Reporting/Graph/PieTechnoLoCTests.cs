@@ -16,16 +16,16 @@ namespace CastReporting.UnitTest.Reporting.Graph
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\TechSizeModTechnoCurrent.json", "Data")]
+        [DeploymentItem(@"Data/TechSizeModTechnoCurrent.json", "Data")]
         public void TestContent()
         {
             /*
              * Configuration : TABLE;GENERIC_GRAPH;COL1=METRICS,ROW1=SNAPSHOTS,METRICS=60014|60017|60013,SNAPSHOTS=CURRENT
-             * @".\Data\TechSizeModTechnoCurrent.json" => http://localhost:7070/CAST-RESTAPI/rest/AED/applications/3/snapshots/4/results?sizing-measures=(10151,10152)&modules=($all)&technologies=($all)
+             * @"Data/TechSizeModTechnoCurrent.json" => http://localhost:7070/CAST-RESTAPI/rest/AED/applications/3/snapshots/4/results?sizing-measures=(10151,10152)&modules=($all)&technologies=($all)
              */
 
             ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
-                null, @".\Data\TechSizeModTechnoCurrent.json", "AED/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
+                null, @"Data/TechSizeModTechnoCurrent.json", "AED/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
                 null, null, null, null, null);
             reportData.CurrentSnapshot.Technologies = new[] { "JEE", "PL/SQL" };
             ReportingParameter repParam = new ReportingParameter { NbResultDefault = 5 };
@@ -42,16 +42,16 @@ namespace CastReporting.UnitTest.Reporting.Graph
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\TechSizeModTechnoCurrent.json", "Data")]
+        [DeploymentItem(@"Data/TechSizeModTechnoCurrent.json", "Data")]
         public void TestContentWithCount()
         {
             /*
              * Configuration : TABLE;GENERIC_GRAPH;COL1=METRICS,ROW1=SNAPSHOTS,METRICS=60014|60017|60013,SNAPSHOTS=CURRENT
-             * @".\Data\TechSizeModTechnoCurrent.json" => http://localhost:7070/CAST-RESTAPI/rest/AED/applications/3/snapshots/4/results?sizing-measures=(10151,10152)&modules=($all)&technologies=($all)
+             * @"Data/TechSizeModTechnoCurrent.json" => http://localhost:7070/CAST-RESTAPI/rest/AED/applications/3/snapshots/4/results?sizing-measures=(10151,10152)&modules=($all)&technologies=($all)
              */
 
             ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
-                null, @".\Data\TechSizeModTechnoCurrent.json", "AED/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
+                null, @"Data/TechSizeModTechnoCurrent.json", "AED/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
                 null, null, null, null, null);
             reportData.CurrentSnapshot.Technologies = new[] { "JEE", "PL/SQL" };
             ReportingParameter repParam = new ReportingParameter { NbResultDefault = 5 };

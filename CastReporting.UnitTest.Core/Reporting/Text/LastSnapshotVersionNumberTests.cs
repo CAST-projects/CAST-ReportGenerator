@@ -17,12 +17,12 @@ namespace CastReporting.UnitTest.Reporting.Text
 
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
         public void TestContent()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
 
             var component = new LastSnapshotVersionNumber();
@@ -32,11 +32,11 @@ namespace CastReporting.UnitTest.Reporting.Text
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
         public void TestNoResult()
         {
             ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", null,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", null,
                 null, null, null, null, null);
 
             var component = new LastSnapshotVersionNumber();

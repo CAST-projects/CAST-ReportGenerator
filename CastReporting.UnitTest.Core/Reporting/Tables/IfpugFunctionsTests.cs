@@ -16,14 +16,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCTCmodules.json", "Data")]
-        [DeploymentItem(@".\Data\IfpugFunctions.csv", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCTCmodules.json", "Data")]
+        [DeploymentItem(@"Data/IfpugFunctions.csv", "Data")]
         public void TestAllIfpugFunctions()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -53,14 +53,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCTCmodules.json", "Data")]
-        [DeploymentItem(@".\Data\IfpugFunctionsNew.csv", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCTCmodules.json", "Data")]
+        [DeploymentItem(@"Data/IfpugFunctionsNew.csv", "Data")]
         public void TestIfpugDataFunctions()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                 null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -89,14 +89,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCTCmodules.json", "Data")]
-        [DeploymentItem(@".\Data\IfpugFunctionsNew.csv", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCTCmodules.json", "Data")]
+        [DeploymentItem(@"Data/IfpugFunctionsNew.csv", "Data")]
         public void TestIfpugTransactionsFunctions()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                 null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -126,14 +126,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCTCmodules.json", "Data")]
-        [DeploymentItem(@".\Data\IfpugFunctionsNew.csv", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCTCmodules.json", "Data")]
+        [DeploymentItem(@"Data/IfpugFunctionsNew.csv", "Data")]
         public void TestCountIfpugFunctions()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                 null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -163,14 +163,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCTCmodules.json", "Data")]
-        [DeploymentItem(@".\Data\IfpugFunctions.csv", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCTCmodules.json", "Data")]
+        [DeploymentItem(@"Data/IfpugFunctions.csv", "Data")]
         public void TestNoHeaderIfpugFunctions()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                 null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -202,16 +202,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCTCmodules.json", "Data")]
-        [DeploymentItem(@".\Data\IfpugFunctions.csv", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCTCmodules.json", "Data")]
+        [DeploymentItem(@"Data/IfpugFunctions.csv", "Data")]
         public void TestPreviousIfpugFunctions()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             CastDate previousDate = new CastDate { Time = 1492984700000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
-                @".\Data\ModulesCoCRA.json", @".\Data\PreviousBCTCmodules.json", "AED/applications/3/snapshots/3", "Snap3_CAIP-8.3ra_RG-1.5.a", "8.3.ra", previousDate);
+                @"Data/ModulesCoCRA.json", @"Data/CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/PreviousBCTCmodules.json", "AED/applications/3/snapshots/3", "Snap3_CAIP-8.3ra_RG-1.5.a", "8.3.ra", previousDate);
             WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
@@ -243,14 +243,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCTCmodules.json", "Data")]
-        [DeploymentItem(@".\Data\IfpugFunctions.csv", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCTCmodules.json", "Data")]
+        [DeploymentItem(@"Data/IfpugFunctions.csv", "Data")]
         public void TestNoZeroIfpugFunctions()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -282,16 +282,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCTCmodules.json", "Data")]
-        [DeploymentItem(@".\Data\IfpugFunctions2.csv", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCTCmodules.json", "Data")]
+        [DeploymentItem(@"Data/IfpugFunctions2.csv", "Data")]
         public void TestPreviousSameNameIfpugFunctions()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             CastDate previousDate = new CastDate { Time = 1492984700000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "current", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
-                @".\Data\ModulesCoCRA.json", @".\Data\PreviousBCTCmodules.json", "previous", "Snap3_CAIP-8.3ra_RG-1.5.a", "8.3.ra", previousDate);
+                @"Data/ModulesCoCRA.json", @"Data/CurrentBCTCmodules.json", "current", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/PreviousBCTCmodules.json", "previous", "Snap3_CAIP-8.3ra_RG-1.5.a", "8.3.ra", previousDate);
             WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",

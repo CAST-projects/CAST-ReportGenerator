@@ -16,24 +16,24 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\RuleListBCTC.json", "Data")]
-        [DeploymentItem(@".\Data\BaseQI60011.json", "Data")]
-        [DeploymentItem(@".\Data\TechCrit61009Violations.json", "Data")]
-        [DeploymentItem(@".\Data\cc60011.json", "Data")]
-        [DeploymentItem(@".\Data\nc60011.json", "Data")]
-        [DeploymentItem(@".\Data\RulePattern1634.json", "Data")]
-        [DeploymentItem(@".\Data\RulePattern4592.json", "Data")]
-        [DeploymentItem(@".\Data\RulePatterns.json", "Data")]
+        [DeploymentItem(@"Data/RuleListBCTC.json", "Data")]
+        [DeploymentItem(@"Data/BaseQI60011.json", "Data")]
+        [DeploymentItem(@"Data/TechCrit61009Violations.json", "Data")]
+        [DeploymentItem(@"Data/cc60011.json", "Data")]
+        [DeploymentItem(@"Data/nc60011.json", "Data")]
+        [DeploymentItem(@"Data/RulePattern1634.json", "Data")]
+        [DeploymentItem(@"Data/RulePattern4592.json", "Data")]
+        [DeploymentItem(@"Data/RulePatterns.json", "Data")]
         public void TestContent()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-               null, @".\Data\RuleListBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+               null, @"Data/RuleListBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                null, null, null, null, null, null);
             reportData.RuleExplorer = new RuleBLLStub();
-            reportData.CurrentSnapshot = TestUtility.AddSameTechCritRulesViolations(reportData.CurrentSnapshot, @".\Data\TechCrit61009Violations.json");
-            reportData = TestUtility.AddCriticalRuleViolations(reportData, 60011, @".\Data\cc60011.json", null);
-            reportData = TestUtility.AddNonCriticalRuleViolations(reportData, 60011, @".\Data\nc60011.json", null);
+            reportData.CurrentSnapshot = TestUtility.AddSameTechCritRulesViolations(reportData.CurrentSnapshot, @"Data/TechCrit61009Violations.json");
+            reportData = TestUtility.AddCriticalRuleViolations(reportData, 60011, @"Data/cc60011.json", null);
+            reportData = TestUtility.AddNonCriticalRuleViolations(reportData, 60011, @"Data/nc60011.json", null);
 
 
             var component = new TechnicalCriteriaRules();
@@ -55,24 +55,24 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\RuleListBCTC.json", "Data")]
-        [DeploymentItem(@".\Data\BaseQI60011.json", "Data")]
-        [DeploymentItem(@".\Data\TechCrit61009Violations.json", "Data")]
-        [DeploymentItem(@".\Data\cc60011.json", "Data")]
-        [DeploymentItem(@".\Data\nc60011.json", "Data")]
-        [DeploymentItem(@".\Data\RulePattern1634.json", "Data")]
-        [DeploymentItem(@".\Data\RulePattern4592.json", "Data")]
-        [DeploymentItem(@".\Data\RulePatterns.json", "Data")]
+        [DeploymentItem(@"Data/RuleListBCTC.json", "Data")]
+        [DeploymentItem(@"Data/BaseQI60011.json", "Data")]
+        [DeploymentItem(@"Data/TechCrit61009Violations.json", "Data")]
+        [DeploymentItem(@"Data/cc60011.json", "Data")]
+        [DeploymentItem(@"Data/nc60011.json", "Data")]
+        [DeploymentItem(@"Data/RulePattern1634.json", "Data")]
+        [DeploymentItem(@"Data/RulePattern4592.json", "Data")]
+        [DeploymentItem(@"Data/RulePatterns.json", "Data")]
         public void TestLimitCount()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\RuleListBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/RuleListBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             reportData.RuleExplorer = new RuleBLLStub();
-            reportData.CurrentSnapshot = TestUtility.AddSameTechCritRulesViolations(reportData.CurrentSnapshot, @".\Data\TechCrit61009Violations.json");
-            reportData = TestUtility.AddCriticalRuleViolations(reportData, 60011, @".\Data\cc60011.json", null);
-            reportData = TestUtility.AddNonCriticalRuleViolations(reportData, 60011, @".\Data\nc60011.json", null);
+            reportData.CurrentSnapshot = TestUtility.AddSameTechCritRulesViolations(reportData.CurrentSnapshot, @"Data/TechCrit61009Violations.json");
+            reportData = TestUtility.AddCriticalRuleViolations(reportData, 60011, @"Data/cc60011.json", null);
+            reportData = TestUtility.AddNonCriticalRuleViolations(reportData, 60011, @"Data/nc60011.json", null);
 
             var component = new TechnicalCriteriaRules();
             Dictionary<string, string> config = new Dictionary<string, string>
