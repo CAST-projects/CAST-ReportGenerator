@@ -17,6 +17,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
         [TestMethod]
         [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
+        [DeploymentItem(@".\Data\OmgTechDebtDetails.json", "Data")]
         public void TestContent()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };

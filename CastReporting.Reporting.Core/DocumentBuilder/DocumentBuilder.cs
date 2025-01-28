@@ -273,7 +273,6 @@ namespace CastReporting.Reporting.Builder
         public virtual void Dispose()
         {
             if (Package == null) return;
-            Package.Close();
             Package.Dispose();
         }
 

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <LangVersion>7.3</LangVersion>
     <StartupObject>CastReporting.Console.Program</StartupObject>
@@ -21,8 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="log4net" Version="2.0.10" />
-    <PackageReference Include="System.IO.Packaging" Version="4.6.0" />
+    <PackageReference Include="log4net" Version="3.0.3" />
+    <PackageReference Include="System.IO.Packaging" Version="9.0.1" />
   </ItemGroup>
 
   <ItemGroup>

@@ -525,6 +525,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
         [TestMethod]
         [DeploymentItem(@".\Data\CurrentBCTCindex.json", "Data")]
+        [DeploymentItem(@".\Data\BaseQICISQSecurityIndex.json", "Data")]
         public void TestBCIndexMetrics()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
