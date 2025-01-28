@@ -85,7 +85,7 @@ Name: "{code:GetSettingsPath}"; Permissions: users-full
 Name: "{code:GetReportsPath}"; Permissions: users-full
 
 [Run]
-Filename: "{app}\install_dotnet_core.bat"; Description: "Install dotnet sdk 6.0 (mandatory for running CAST-ReportGenerator)"; Flags: postinstall unchecked
+Filename: "{app}\install_dotnet_core.bat"; Description: "Install dotnet sdk 8.0 (mandatory for running CAST-ReportGenerator)"; Flags: postinstall unchecked
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppShortName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 
 [Code]
