@@ -214,7 +214,7 @@ echo Preparing package for Report Generator for Dashboard ...
 echo ==============================================
 pushd %WORKSPACE%
 set REPORTINGDIR=%SRCDIR%/CastReporting.Reporting.Core
-set CONSOLEDIR=%SRCDIR%/CastReporting.Console.Core/bin/Release/net6.0
+set CONSOLEDIR=%SRCDIR%/CastReporting.Console.Core/bin/Release/net8.0
 
 robocopy /njh /s %CONSOLEDIR% %WORK% *.dll
 if errorlevel 8 exit /b 1
