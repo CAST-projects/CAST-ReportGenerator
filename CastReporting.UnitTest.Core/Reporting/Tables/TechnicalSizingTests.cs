@@ -16,12 +16,12 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CurrentTechSizeResultsModTechno.json", "Data")]
+        [DeploymentItem(@"Data/CurrentTechSizeResultsModTechno.json", "Data")]
         public void TestContent()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                null, @".\Data\CurrentTechSizeResultsModTechno.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+                null, @"Data/CurrentTechSizeResultsModTechno.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                null, null, null, null, null, null);
 
             var component = new TechnicalSizing();
@@ -40,12 +40,12 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CurrentTechSizeResultsModTechno.json", "Data")]
+        [DeploymentItem(@"Data/CurrentTechSizeResultsModTechno.json", "Data")]
         public void TestNoHeader()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                null, @".\Data\CurrentTechSizeResultsModTechno.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+                null, @"Data/CurrentTechSizeResultsModTechno.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                null, null, null, null, null, null);
 
             var component = new TechnicalSizing();

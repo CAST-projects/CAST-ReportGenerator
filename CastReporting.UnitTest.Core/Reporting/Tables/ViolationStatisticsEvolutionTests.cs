@@ -16,18 +16,18 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\critViolStats.json", "Data")]
-        [DeploymentItem(@".\Data\critViolStatsPrevious.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapPrevious.json", "Data")]
+        [DeploymentItem(@"Data/critViolStats.json", "Data")]
+        [DeploymentItem(@"Data/critViolStatsPrevious.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapPrevious.json", "Data")]
         public void TestContent()
         {
             CastDate currentDate = new CastDate { Time = 1496959200000 };
             CastDate previousDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                null, @".\Data\critViolStats.json", "AED/applications/3/snapshots/5", "Snap5_CAIP-8.3ra2_RG-1.6a", "8.3.ra2", currentDate,
-                null, @".\Data\critViolStatsPrevious.json", "AED/applications/3/snapshots/4", "Snap5_CAIP-8.3ra_RG-1.5.0", "8.3.ra", previousDate);
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", @".\Data\ComplexitySnapPrevious.json");
+                null, @"Data/critViolStats.json", "AED/applications/3/snapshots/5", "Snap5_CAIP-8.3ra2_RG-1.6a", "8.3.ra2", currentDate,
+                null, @"Data/critViolStatsPrevious.json", "AED/applications/3/snapshots/4", "Snap5_CAIP-8.3ra_RG-1.5.0", "8.3.ra", previousDate);
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/ComplexitySnapCurrent.json", @"Data/ComplexitySnapPrevious.json");
 
             var component = new ViolationStatisticsEvolution();
             var table = component.Content(reportData, null);
@@ -46,18 +46,18 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
         // test case numCritPerFile == -1
         [TestMethod]
-        [DeploymentItem(@".\Data\cocraCritViolStats.json", "Data")]
-        [DeploymentItem(@".\Data\cocraCritViolStatsPrevious.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapPrevious.json", "Data")]
+        [DeploymentItem(@"Data/cocraCritViolStats.json", "Data")]
+        [DeploymentItem(@"Data/cocraCritViolStatsPrevious.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapPrevious.json", "Data")]
         public void TestNegativePerFile()
         {
             CastDate currentDate = new CastDate { Time = 1496959200000 };
             CastDate previousDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                null, @".\Data\cocraCritViolStats.json", "AED/applications/3/snapshots/5", "Snap5_CAIP-8.3ra2_RG-1.6a", "8.3.ra2", currentDate,
-                null, @".\Data\cocraCritViolStatsPrevious.json", "AED/applications/3/snapshots/4", "Snap5_CAIP-8.3ra_RG-1.5.0", "8.3.ra", previousDate);
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", @".\Data\ComplexitySnapPrevious.json");
+                null, @"Data/cocraCritViolStats.json", "AED/applications/3/snapshots/5", "Snap5_CAIP-8.3ra2_RG-1.6a", "8.3.ra2", currentDate,
+                null, @"Data/cocraCritViolStatsPrevious.json", "AED/applications/3/snapshots/4", "Snap5_CAIP-8.3ra_RG-1.5.0", "8.3.ra", previousDate);
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/ComplexitySnapCurrent.json", @"Data/ComplexitySnapPrevious.json");
 
             var component = new ViolationStatisticsEvolution();
             var table = component.Content(reportData, null);
@@ -75,15 +75,15 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\critViolStats.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/critViolStats.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapCurrent.json", "Data")]
         public void TestOneSnapshot()
         {
             CastDate currentDate = new CastDate { Time = 1496959200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                null, @".\Data\critViolStats.json", "AED/applications/3/snapshots/5", "Snap5_CAIP-8.3ra2_RG-1.6a", "8.3.ra2", currentDate,
+                null, @"Data/critViolStats.json", "AED/applications/3/snapshots/5", "Snap5_CAIP-8.3ra2_RG-1.6a", "8.3.ra2", currentDate,
                 null, null, null, null, null, null);
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", null);
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/ComplexitySnapCurrent.json", null);
 
             var component = new ViolationStatisticsEvolution();
             var table = component.Content(reportData, null);
@@ -101,19 +101,19 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\critViolStats.json", "Data")]
-        [DeploymentItem(@".\Data\critViolStatsPrevious.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapPrevious.json", "Data")]
+        [DeploymentItem(@"Data/critViolStats.json", "Data")]
+        [DeploymentItem(@"Data/critViolStatsPrevious.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapPrevious.json", "Data")]
         public void TestContentInChinese()
         {
             TestUtility.SetCulture("zh-Hans");
             CastDate currentDate = new CastDate { Time = 1496959200000 };
             CastDate previousDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                null, @".\Data\critViolStats.json", "AED/applications/3/snapshots/5", "Snap5_CAIP-8.3ra2_RG-1.6a", "8.3.ra2", currentDate,
-                null, @".\Data\critViolStatsPrevious.json", "AED/applications/3/snapshots/4", "Snap5_CAIP-8.3ra_RG-1.5.0", "8.3.ra", previousDate);
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", @".\Data\ComplexitySnapPrevious.json");
+                null, @"Data/critViolStats.json", "AED/applications/3/snapshots/5", "Snap5_CAIP-8.3ra2_RG-1.6a", "8.3.ra2", currentDate,
+                null, @"Data/critViolStatsPrevious.json", "AED/applications/3/snapshots/4", "Snap5_CAIP-8.3ra_RG-1.5.0", "8.3.ra", previousDate);
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/ComplexitySnapCurrent.json", @"Data/ComplexitySnapPrevious.json");
 
             var component = new ViolationStatisticsEvolution();
             var table = component.Content(reportData, null);

@@ -17,16 +17,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Sample1Current.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Current.json", "Data")]
         public void TestSample1()
         {
             /*
              * Configuration : TABLE;GENERIC_TABLE;COL1=METRICS,ROW1=SNAPSHOTS,METRICS=60014|60017|60013,SNAPSHOTS=CURRENT
-             * @".\Data\Sample1Current.json" => http://localhost:7070/CAST-AAD-AED/rest/AED/applications/3/snapshots/6/results?quality-indicators=(60013,60014,60017)
+             * @"Data/Sample1Current.json" => http://localhost:7070/CAST-AAD-AED/rest/AED/applications/3/snapshots/6/results?quality-indicators=(60013,60014,60017)
              */
 
             ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
-                null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
+                null, @"Data/Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
                 null, null, null, null, null);
             var component = new GenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -44,18 +44,18 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Sample1Current.json", "Data")]
-        [DeploymentItem(@".\Data\Sample1Previous.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Current.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Previous.json", "Data")]
         public void TestSample2()
         {
             /*
             * Configuration : TABLE;GENERIC_TABLE;COL1=METRICS,ROW1=SNAPSHOTS,METRICS=60014|60017|60013,SNAPSHOTS=CURRENT|PREVIOUS
-            * @".\Data\Sample1Current.json" => http://localhost:7070/CAST-AAD-AED/rest/AED/applications/3/snapshots/6/results?quality-indicators=(60013,60014,60017)
-            * @".\Data\Sample1Previous.json" => http://localhost:7070/CAST-AAD-AED/rest/AED/applications/3/snapshots/3/results?quality-indicators=(60013,60014,60017)
+            * @"Data/Sample1Current.json" => http://localhost:7070/CAST-AAD-AED/rest/AED/applications/3/snapshots/6/results?quality-indicators=(60013,60014,60017)
+            * @"Data/Sample1Previous.json" => http://localhost:7070/CAST-AAD-AED/rest/AED/applications/3/snapshots/3/results?quality-indicators=(60013,60014,60017)
             */
             ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
-                null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
-                null, @".\Data\Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
+                null, @"Data/Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
+                null, @"Data/Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
 
             var component = new GenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -74,18 +74,18 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Snapshot_QIresults1.json", "Data")]
-        [DeploymentItem(@".\Data\Snapshot_QIresults2.json", "Data")]
+        [DeploymentItem(@"Data/Snapshot_QIresults1.json", "Data")]
+        [DeploymentItem(@"Data/Snapshot_QIresults2.json", "Data")]
         public void TestSample3()
         {
             /*
              * Configuration : TABLE;GENERIC_TABLE;COL1=METRICS,ROW1=SNAPSHOTS,METRICS=HEALTH_FACTOR,SNAPSHOTS=CURRENT|PREVIOUS
-             * @".\Data\Snapshot_QIresults1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/4/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
-             * @".\Data\Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
+             * @"Data/Snapshot_QIresults1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/4/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
+             * @"Data/Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
              */
             ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
-                null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
-                null, @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
+                null, @"Data/Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
+                null, @"Data/Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
             var component = new GenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
             {
@@ -103,16 +103,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Snapshot_QIresults1.json", "Data")]
+        [DeploymentItem(@"Data/Snapshot_QIresults1.json", "Data")]
         public void TestSample3OneSnapshot()
         {
             /*
              * Configuration : TABLE;GENERIC_TABLE;COL1=METRICS,ROW1=SNAPSHOTS,METRICS=HEALTH_FACTOR,SNAPSHOTS=CURRENT|PREVIOUS
-             * @".\Data\Snapshot_QIresults1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/4/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
-             * @".\Data\Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
+             * @"Data/Snapshot_QIresults1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/4/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
+             * @"Data/Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
              */
             ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
-                null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
+                null, @"Data/Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
                 null, null, null, null, null);
             var component = new GenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -130,20 +130,20 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Modules1.json", "Data")]
-        [DeploymentItem(@".\Data\Snapshot_QIresults1.json", "Data")]
-        [DeploymentItem(@".\Data\Snapshot_QIresults2.json", "Data")]
+        [DeploymentItem(@"Data/Modules1.json", "Data")]
+        [DeploymentItem(@"Data/Snapshot_QIresults1.json", "Data")]
+        [DeploymentItem(@"Data/Snapshot_QIresults2.json", "Data")]
         public void TestSample4()
         {
             /*
              * Configuration = TABLE;GENERIC_TABLE;COL1=METRICS,ROW1=SNAPSHOTS,ROW11=MODULES,METRICS=HEALTH_FACTOR,SNAPSHOTS=CURRENT|PREVIOUS,MODULES=ALL
-             * @".\Data\Modules1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/modules
-             * @".\Data\Snapshot_QIresults1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/4/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
-             * @".\Data\Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
+             * @"Data/Modules1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/modules
+             * @"Data/Snapshot_QIresults1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/4/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
+             * @"Data/Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
              */
             ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
-                @".\Data\Modules1.json", @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
-                @".\Data\Modules1.json", @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
+                @"Data/Modules1.json", @"Data/Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
+                @"Data/Modules1.json", @"Data/Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
             var component = new GenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
             {
@@ -171,21 +171,21 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Modules1.json", "Data")]
-        [DeploymentItem(@".\Data\Snapshot_QIresults1.json", "Data")]
-        [DeploymentItem(@".\Data\Snapshot_QIresults2.json", "Data")]
+        [DeploymentItem(@"Data/Modules1.json", "Data")]
+        [DeploymentItem(@"Data/Snapshot_QIresults1.json", "Data")]
+        [DeploymentItem(@"Data/Snapshot_QIresults2.json", "Data")]
         public void TestSample5()
         {
             /*
              * Configuration : TABLE;GENERIC_TABLE;COL1=METRICS,ROW1=MODULES,ROW11=SNAPSHOTS,METRICS=HEALTH_FACTOR,SNAPSHOTS=CURRENT|PREVIOUS,MODULES=ALL
-             * @".\Data\Modules1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/modules
-             * @".\Data\Snapshot_QIresults1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/4/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
-             * @".\Data\Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
+             * @"Data/Modules1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/modules
+             * @"Data/Snapshot_QIresults1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/4/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
+             * @"Data/Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
              */
 
             ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
-                @".\Data\Modules1.json", @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
-                @".\Data\Modules1.json", @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
+                @"Data/Modules1.json", @"Data/Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
+                @"Data/Modules1.json", @"Data/Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
             var component = new GenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
             {
@@ -215,21 +215,21 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Modules1.json", "Data")]
-        [DeploymentItem(@".\Data\Snapshot_QIresults1.json", "Data")]
-        [DeploymentItem(@".\Data\Snapshot_QIresults2.json", "Data")]
+        [DeploymentItem(@"Data/Modules1.json", "Data")]
+        [DeploymentItem(@"Data/Snapshot_QIresults1.json", "Data")]
+        [DeploymentItem(@"Data/Snapshot_QIresults2.json", "Data")]
         public void TestSample6()
         {
             /*
              * Configuration : TABLE;GENERIC_TABLE;COL1=METRICS,COL11=MODULES,ROW1=SNAPSHOTS,METRICS=60017|60014,SNAPSHOTS=CURRENT|PREVIOUS,MODULES=ALL
-             * @".\Data\Modules1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/modules
-             * @".\Data\Snapshot_QIresults1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/4/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
-             * @".\Data\Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
+             * @"Data/Modules1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/modules
+             * @"Data/Snapshot_QIresults1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/4/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
+             * @"Data/Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
              */
 
             ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
-                @".\Data\Modules1.json", @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
-                @".\Data\Modules1.json", @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
+                @"Data/Modules1.json", @"Data/Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
+                @"Data/Modules1.json", @"Data/Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
             var component = new GenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
             {
@@ -258,9 +258,9 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesDreamTeam.json", "Data")]
-        [DeploymentItem(@".\Data\DreamTeamSnap4Sample7.json", "Data")]
-        [DeploymentItem(@".\Data\DreamTeamSnap1Sample7.json", "Data")]
+        [DeploymentItem(@"Data/ModulesDreamTeam.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap4Sample7.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap1Sample7.json", "Data")]
         public void TestSample7()
         {
             /*
@@ -270,8 +270,8 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * DreamTeamSnap1Sample7.json : AED3/applications/7/snapshots/3/results?quality-indicators=(60017,60014)&modules=$all&technologies=$all
              */
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-               @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap4Sample7.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
-               @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap1Sample7.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
+               @"Data/ModulesDreamTeam.json", @"Data/DreamTeamSnap4Sample7.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+               @"Data/ModulesDreamTeam.json", @"Data/DreamTeamSnap1Sample7.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
             var component = new GenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
             {
@@ -295,9 +295,9 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesDreamTeam.json", "Data")]
-        [DeploymentItem(@".\Data\DreamTeamSnap4Sample7.json", "Data")]
-        [DeploymentItem(@".\Data\DreamTeamSnap1Sample7.json", "Data")]
+        [DeploymentItem(@"Data/ModulesDreamTeam.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap4Sample7.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap1Sample7.json", "Data")]
         public void TestSample8()
         {
             /*
@@ -308,8 +308,8 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * DreamTeamSnap1Sample7.json : AED3/applications/7/snapshots/3/results?quality-indicators=(60017,60014)&modules=$all&technologies=$all
              */
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-               @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap4Sample7.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
-               @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap1Sample7.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
+               @"Data/ModulesDreamTeam.json", @"Data/DreamTeamSnap4Sample7.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+               @"Data/ModulesDreamTeam.json", @"Data/DreamTeamSnap1Sample7.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
             reportData.CurrentSnapshot.Technologies = new[] { "JEE", "PL/SQL", "C++", ".NET" };
             reportData.PreviousSnapshot.Technologies = new[] { "JEE", "PL/SQL", "C++", ".NET" };
             var component = new GenericTable();
@@ -345,7 +345,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DreamTeamSnap4Sample9.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap4Sample9.json", "Data")]
         public void TestSample9()
         {
             /*
@@ -353,7 +353,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * DreamTeamSnap4Sample9.json : AED3/applications/7/snapshots/15/results?quality-indicators=(business-criteria)&select=(evolutionSummary)
              */
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-              null, @".\Data\DreamTeamSnap4Sample9.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+              null, @"Data/DreamTeamSnap4Sample9.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
               null, null, null, null, null);
 
             var component = new GenericTable();
@@ -383,8 +383,8 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesDreamTeam.json", "Data")]
-        [DeploymentItem(@".\Data\DreamTeamSnap4Sample10.json", "Data")]
+        [DeploymentItem(@"Data/ModulesDreamTeam.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap4Sample10.json", "Data")]
         public void TestSample10()
         {
             /*
@@ -394,7 +394,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * DreamTeamSnap4Sample10.json : AED3/applications/7/snapshots/15/results?quality-indicators=(business-criteria)&select=(evolutionSummary)&modules=$all
              */
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-             @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap4Sample10.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+             @"Data/ModulesDreamTeam.json", @"Data/DreamTeamSnap4Sample10.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
              null, null, null, null, null);
 
             var component = new GenericTable();
@@ -431,7 +431,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DreamTeamSnap4Sample11.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap4Sample11.json", "Data")]
         public void TestSample11()
         {
             /*
@@ -440,7 +440,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * DreamTeamSnap4Sample11.json : AED3/applications/7/snapshots/15/results?quality-indicators=(business-criteria)&select=(evolutionSummary)&technologies=$all
              */
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-            null, @".\Data\DreamTeamSnap4Sample11.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+            null, @"Data/DreamTeamSnap4Sample11.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
             null, null, null, null, null);
             reportData.CurrentSnapshot.Technologies = new[] { "JEE", "PL/SQL", "C++", ".NET" };
 
@@ -477,8 +477,8 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DreamTeamSnap4Sample12.json", "Data")]
-        [DeploymentItem(@".\Data\DreamTeamSnap1Sample12.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap4Sample12.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap1Sample12.json", "Data")]
         public void TestSample12()
         {
             /*
@@ -487,8 +487,8 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * DreamTeamSnap1Sample12.json : AED3/applications/7/snapshots/15/results?sizing-measures=(10151,10107,10152,10154,10161)
              */
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-                null, @".\Data\DreamTeamSnap4Sample12.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
-                null, @".\Data\DreamTeamSnap1Sample12.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
+                null, @"Data/DreamTeamSnap4Sample12.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+                null, @"Data/DreamTeamSnap1Sample12.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
 
             var component = new GenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -511,7 +511,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DreamTeamSnap4Metrics.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap4Metrics.json", "Data")]
         public void TestTechnicalDebtType()
         {
             /*
@@ -520,7 +520,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              */
 
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-                null, @".\Data\DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+                null, @"Data/DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 null, null, null, null, null);
 
             var component = new GenericTable();
@@ -549,7 +549,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DreamTeamSnap4Metrics.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap4Metrics.json", "Data")]
         public void TestTechnicalSizingType()
         {
             /*
@@ -558,7 +558,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              */
 
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-                null, @".\Data\DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+                null, @"Data/DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 null, null, null, null, null);
 
             var component = new GenericTable();
@@ -587,7 +587,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DreamTeamSnap4Metrics.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap4Metrics.json", "Data")]
         public void TestFunctionalWeightType()
         {
             /*
@@ -596,7 +596,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              */
 
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-                null, @".\Data\DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+                null, @"Data/DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 null, null, null, null, null);
 
             var component = new GenericTable();
@@ -625,7 +625,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DreamTeamSnap4Metrics.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap4Metrics.json", "Data")]
         public void TestViolationType()
         {
             /*
@@ -634,7 +634,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              */
 
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-                null, @".\Data\DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+                null, @"Data/DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 null, null, null, null, null);
 
             var component = new GenericTable();
@@ -663,7 +663,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DreamTeamSnap4Metrics.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap4Metrics.json", "Data")]
         public void TestCriticalViolationType()
         {
             /*
@@ -672,7 +672,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              */
 
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-                null, @".\Data\DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+                null, @"Data/DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 null, null, null, null, null);
 
             var component = new GenericTable();
@@ -701,7 +701,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DreamTeamSnap4Metrics.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap4Metrics.json", "Data")]
         public void TestBusinessCriteriaType()
         {
             /*
@@ -710,7 +710,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              */
 
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-                null, @".\Data\DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+                null, @"Data/DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 null, null, null, null, null);
 
             var component = new GenericTable();
@@ -739,7 +739,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DreamTeamSnap4Metrics.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap4Metrics.json", "Data")]
         public void TestTechnicalCriteriaType()
         {
             /*
@@ -748,7 +748,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              */
 
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-                null, @".\Data\DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+                null, @"Data/DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 null, null, null, null, null);
 
             var component = new GenericTable();
@@ -777,7 +777,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DreamTeamSnap4Metrics.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap4Metrics.json", "Data")]
         public void TestQualityRuleType()
         {
             /*
@@ -786,7 +786,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              */
 
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-                null, @".\Data\DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+                null, @"Data/DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 null, null, null, null, null);
 
             var component = new GenericTable();
@@ -816,8 +816,8 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DreamTeamSnap4Metrics.json", "Data")]
-        [DeploymentItem(@".\Data\BusinessValue.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap4Metrics.json", "Data")]
+        [DeploymentItem(@"Data/BusinessValue.json", "Data")]
         public void TestBackgroundFactType()
         {
             /*
@@ -826,7 +826,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              */
 
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-                null, @".\Data\DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+                null, @"Data/DreamTeamSnap4Metrics.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
                 null, null, null, null, null);
 
             var component = new GenericTable();
@@ -857,21 +857,21 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Modules1.json", "Data")]
-        [DeploymentItem(@".\Data\Snapshot_QIresults1.json", "Data")]
-        [DeploymentItem(@".\Data\Snapshot_QIresults2.json", "Data")]
+        [DeploymentItem(@"Data/Modules1.json", "Data")]
+        [DeploymentItem(@"Data/Snapshot_QIresults1.json", "Data")]
+        [DeploymentItem(@"Data/Snapshot_QIresults2.json", "Data")]
         public void TestStandardTag()
         {
             /*
              * Configuration : TABLE;GENERIC_TABLE;COL1=METRICS,ROW1=MODULES,ROW11=SNAPSHOTS,METRICS=HEALTH_FACTOR,SNAPSHOTS=CURRENT|PREVIOUS,MODULES=ALL
-             * @".\Data\Modules1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/modules
-             * @".\Data\Snapshot_QIresults1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/4/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
-             * @".\Data\Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
+             * @"Data/Modules1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/modules
+             * @"Data/Snapshot_QIresults1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/4/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
+             * @"Data/Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
              */
 
             ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
-                @".\Data\Modules1.json", @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
-                @".\Data\Modules1.json", @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
+                @"Data/Modules1.json", @"Data/Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
+                @"Data/Modules1.json", @"Data/Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
             var component = new GenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
             {
@@ -910,13 +910,13 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DreamTeamSnap4Metrics2.json", "Data")]
-        [DeploymentItem(@".\Data\DreamTeamSnap4Metrics2Previous.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap4Metrics2.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap4Metrics2Previous.json", "Data")]
         public void TestCustomExpressionsForApplication()
         {
             ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
-                null, @".\Data\DreamTeamSnap4Metrics2.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
-                null, @".\Data\DreamTeamSnap4Metrics2Previous.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
+                null, @"Data/DreamTeamSnap4Metrics2.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
+                null, @"Data/DreamTeamSnap4Metrics2Previous.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
             var component = new GenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
             {
@@ -949,16 +949,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DreamTeamSnap4Metrics2.json", "Data")]
-        [DeploymentItem(@".\Data\DreamTeamSnap4Metrics2Previous.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapPrevious.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap4Metrics2.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap4Metrics2Previous.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapPrevious.json", "Data")]
         public void TestCustomExpressionsForApplicationWithCategories()
         {
             ReportData reportData = TestUtility.PrepaReportData("AppliAEP",
-                null, @".\Data\DreamTeamSnap4Metrics2.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
-                null, @".\Data\DreamTeamSnap4Metrics2Previous.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", @".\Data\ComplexitySnapPrevious.json");
+                null, @"Data/DreamTeamSnap4Metrics2.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
+                null, @"Data/DreamTeamSnap4Metrics2Previous.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/ComplexitySnapCurrent.json", @"Data/ComplexitySnapPrevious.json");
             var component = new GenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
             {
@@ -990,14 +990,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesDreamTeam.json", "Data")]
-        [DeploymentItem(@".\Data\DreamTeamSnap15MetricsCustom.json", "Data")]
-        [DeploymentItem(@".\Data\DreamTeamSnap3MetricsCustom.json", "Data")]
+        [DeploymentItem(@"Data/ModulesDreamTeam.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap15MetricsCustom.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap3MetricsCustom.json", "Data")]
         public void TestCustomExpressionsForModules()
         {
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-                @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap15MetricsCustom.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
-                @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap3MetricsCustom.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
+                @"Data/ModulesDreamTeam.json", @"Data/DreamTeamSnap15MetricsCustom.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+                @"Data/ModulesDreamTeam.json", @"Data/DreamTeamSnap3MetricsCustom.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
             var component = new GenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
             {
@@ -1033,16 +1033,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesDreamTeam.json", "Data")]
-        [DeploymentItem(@".\Data\DreamTeamSnap15MetricsCustom.json", "Data")]
-        [DeploymentItem(@".\Data\DreamTeamSnap3MetricsCustom.json", "Data")]
-        [DeploymentItem(@".\Data\SizeDistributionSnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/ModulesDreamTeam.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap15MetricsCustom.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap3MetricsCustom.json", "Data")]
+        [DeploymentItem(@"Data/SizeDistributionSnapCurrent.json", "Data")]
         public void TestCustomExpressionsForModulesWithCategories()
         {
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-                @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap15MetricsCustom.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
-                @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap3MetricsCustom.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\SizeDistributionSnapCurrent.json", null);
+                @"Data/ModulesDreamTeam.json", @"Data/DreamTeamSnap15MetricsCustom.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+                @"Data/ModulesDreamTeam.json", @"Data/DreamTeamSnap3MetricsCustom.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/SizeDistributionSnapCurrent.json", null);
 
             var component = new GenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -1078,14 +1078,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesDreamTeam.json", "Data")]
-        [DeploymentItem(@".\Data\DreamTeamSnap15MetricsCustom.json", "Data")]
-        [DeploymentItem(@".\Data\DreamTeamSnap3MetricsCustom.json", "Data")]
+        [DeploymentItem(@"Data/ModulesDreamTeam.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap15MetricsCustom.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap3MetricsCustom.json", "Data")]
         public void TestCustomExpressionsForTechnologies()
         {
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-                @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap15MetricsCustom.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
-                @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap3MetricsCustom.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
+                @"Data/ModulesDreamTeam.json", @"Data/DreamTeamSnap15MetricsCustom.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+                @"Data/ModulesDreamTeam.json", @"Data/DreamTeamSnap3MetricsCustom.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
             reportData.CurrentSnapshot.Technologies = new[] { "JEE", "PL/SQL", "C++", ".NET" };
             var component = new GenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -1122,17 +1122,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesDreamTeam.json", "Data")]
-        [DeploymentItem(@".\Data\DreamTeamSnap15MetricsCustom.json", "Data")]
-        [DeploymentItem(@".\Data\DreamTeamSnap3MetricsCustom.json", "Data")]
-        [DeploymentItem(@".\Data\SizeDistributionSnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/ModulesDreamTeam.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap15MetricsCustom.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap3MetricsCustom.json", "Data")]
+        [DeploymentItem(@"Data/SizeDistributionSnapCurrent.json", "Data")]
         public void TestCustomExpressionsForTechnologiesWithCategory()
         {
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-                @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap15MetricsCustom.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
-                @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap3MetricsCustom.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
+                @"Data/ModulesDreamTeam.json", @"Data/DreamTeamSnap15MetricsCustom.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+                @"Data/ModulesDreamTeam.json", @"Data/DreamTeamSnap3MetricsCustom.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
             reportData.CurrentSnapshot.Technologies = new[] { "JEE", "PL/SQL", "C++", ".NET" };
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\SizeDistributionSnapCurrent.json", null);
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/SizeDistributionSnapCurrent.json", null);
             var component = new GenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
             {
@@ -1167,14 +1167,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesDreamTeam.json", "Data")]
-        [DeploymentItem(@".\Data\DreamTeamSnap15MetricsCustom.json", "Data")]
-        [DeploymentItem(@".\Data\DreamTeamSnap3MetricsCustom.json", "Data")]
+        [DeploymentItem(@"Data/ModulesDreamTeam.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap15MetricsCustom.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap3MetricsCustom.json", "Data")]
         public void TestCustomExpressionsForModulesAndTechnologies()
         {
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-                @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap15MetricsCustom.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
-                @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap3MetricsCustom.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
+                @"Data/ModulesDreamTeam.json", @"Data/DreamTeamSnap15MetricsCustom.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+                @"Data/ModulesDreamTeam.json", @"Data/DreamTeamSnap3MetricsCustom.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
             reportData.CurrentSnapshot.Technologies = new[] { "JEE", "PL/SQL", "C++", ".NET" };
             reportData.PreviousSnapshot.Technologies = new[] { "JEE", "PL/SQL", "C++", ".NET" };
             var component = new GenericTable();
@@ -1230,18 +1230,18 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesDreamTeam.json", "Data")]
-        [DeploymentItem(@".\Data\DreamTeamSnap15MetricsCustom.json", "Data")]
-        [DeploymentItem(@".\Data\DreamTeamSnap3MetricsCustom.json", "Data")]
-        [DeploymentItem(@".\Data\SizeDistributionSnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/ModulesDreamTeam.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap15MetricsCustom.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap3MetricsCustom.json", "Data")]
+        [DeploymentItem(@"Data/SizeDistributionSnapCurrent.json", "Data")]
         public void TestCustomExpressionsForModulesAndTechnologiesWithCategory()
         {
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-                @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap15MetricsCustom.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
-                @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap3MetricsCustom.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
+                @"Data/ModulesDreamTeam.json", @"Data/DreamTeamSnap15MetricsCustom.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+                @"Data/ModulesDreamTeam.json", @"Data/DreamTeamSnap3MetricsCustom.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
             reportData.CurrentSnapshot.Technologies = new[] { "JEE", "PL/SQL", "C++", ".NET" };
             reportData.PreviousSnapshot.Technologies = new[] { "JEE", "PL/SQL", "C++", ".NET" };
-            reportData = TestUtility.AddApplicationComplexity(reportData, null, @".\Data\SizeDistributionSnapCurrent.json");
+            reportData = TestUtility.AddApplicationComplexity(reportData, null, @"Data/SizeDistributionSnapCurrent.json");
             var component = new GenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
                 {
@@ -1294,7 +1294,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DreamTeamSnap4Sample11.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap4Sample11.json", "Data")]
         public void TestTechDebtTechnoAddedRemoved()
         {
             /*
@@ -1303,7 +1303,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
              * DreamTeamSnap4Sample11.json : AED3/applications/7/snapshots/15/results?quality-indicators=(business-criteria)&select=(evolutionSummary)&technologies=$all
              */
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-            null, @".\Data\DreamTeamSnap4Sample11.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+            null, @"Data/DreamTeamSnap4Sample11.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
             null, null, null, null, null);
             reportData.CurrentSnapshot.Technologies = new[] { "JEE", "PL/SQL", "C++", ".NET" };
 
@@ -1338,12 +1338,12 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesDreamTeam.json", "Data")]
-        [DeploymentItem(@".\Data\DreamTeamSnap4Sample10.json", "Data")]
+        [DeploymentItem(@"Data/ModulesDreamTeam.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap4Sample10.json", "Data")]
         public void TestTechDebtModules()
         {
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-             @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap4Sample10.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+             @"Data/ModulesDreamTeam.json", @"Data/DreamTeamSnap4Sample10.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
              null, null, null, null, null);
 
             var component = new GenericTable();
@@ -1366,14 +1366,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesDreamTeam.json", "Data")]
-        [DeploymentItem(@".\Data\DreamTeamSnap4Sample7.json", "Data")]
-        [DeploymentItem(@".\Data\DreamTeamSnap1Sample7.json", "Data")]
+        [DeploymentItem(@"Data/ModulesDreamTeam.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap4Sample7.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap1Sample7.json", "Data")]
         public void TestOmgTechDebtModulesTechnos()
         {
             ReportData reportData = TestUtility.PrepaReportData("Dream Team",
-               @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap4Sample7.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
-               @".\Data\ModulesDreamTeam.json", @".\Data\DreamTeamSnap1Sample7.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
+               @"Data/ModulesDreamTeam.json", @"Data/DreamTeamSnap4Sample7.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4",
+               @"Data/ModulesDreamTeam.json", @"Data/DreamTeamSnap1Sample7.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1");
             reportData.CurrentSnapshot.Technologies = new[] { "JEE", "PL/SQL", "C++", ".NET" };
             reportData.PreviousSnapshot.Technologies = new[] { "JEE", "PL/SQL", "C++", ".NET" };
             var component = new GenericTable();
@@ -1405,11 +1405,11 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Sample1Current.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Current.json", "Data")]
         public void TestTechDebt()
         {
             ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
-                null, @".\Data\Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
+                null, @"Data/Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
                 null, null, null, null, null);
             var component = new GenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>

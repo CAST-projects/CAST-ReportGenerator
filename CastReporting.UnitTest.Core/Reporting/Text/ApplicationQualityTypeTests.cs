@@ -18,12 +18,12 @@ namespace CastReporting.UnitTest.Reporting.Text
 
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
         public void TestVeryLowContent()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             reportData.Parameter.ApplicationQualityGood = 3.7;
             reportData.Parameter.ApplicationQualityLow = 2.3;
@@ -41,12 +41,12 @@ namespace CastReporting.UnitTest.Reporting.Text
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
         public void TestLowContent()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             reportData.Parameter.ApplicationQualityGood = 3.7;
             reportData.Parameter.ApplicationQualityLow = 2.3;
@@ -64,12 +64,12 @@ namespace CastReporting.UnitTest.Reporting.Text
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
         public void TestMediumContent()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             reportData.Parameter.ApplicationQualityGood = 3.7;
             reportData.Parameter.ApplicationQualityLow = 2.3;
@@ -87,12 +87,12 @@ namespace CastReporting.UnitTest.Reporting.Text
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
         public void TestGoodContent()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             reportData.Parameter.ApplicationQualityGood = 3.7;
             reportData.Parameter.ApplicationQualityLow = 2.3;
@@ -110,12 +110,12 @@ namespace CastReporting.UnitTest.Reporting.Text
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
         public void TestVeryGoodContent()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             reportData.Parameter.ApplicationQualityGood = 3.7;
             reportData.Parameter.ApplicationQualityLow = 2.3;
@@ -133,12 +133,12 @@ namespace CastReporting.UnitTest.Reporting.Text
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
         public void TestNoResult()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             reportData.Parameter.ApplicationQualityGood = 3.7;
             reportData.Parameter.ApplicationQualityLow = 2.3;

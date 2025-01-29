@@ -16,7 +16,7 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADApplications.json", "Data")]
         public void TestIgnoredSnapshots()
         {
             ReportData reportData = TestUtility.PrepaEmptyPortfolioReportData();
@@ -34,16 +34,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication1Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication1SnapResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication2Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication2SnapResults.json", "Data")]
+        [DeploymentItem(@"Data/AADApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication1Snap.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication1SnapResults.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication2Snap.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication2SnapResults.json", "Data")]
         public void TestNoIgnoredSnapshots()
         {
-            List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json", @".\Data\AADApplication2Snap.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADApplication1SnapResults.json", @".\Data\AADApplication2SnapResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADApplication1Snap.json", @"Data/AADApplication2Snap.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADApplication1SnapResults.json", @"Data/AADApplication2SnapResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADApplications.json", snapList, snapResultsList);
 
             var component = new PF_IgnoredSnapshots();
             Dictionary<string, string> config = new Dictionary<string, string>();

@@ -16,15 +16,15 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\critViolStats.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/critViolStats.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapCurrent.json", "Data")]
         public void TestContent()
         {
             CastDate currentDate = new CastDate { Time = 1496959200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                null, @".\Data\critViolStats.json", "AED/applications/3/snapshots/5", "Snap5_CAIP-8.3ra2_RG-1.6a", "8.3.ra2", currentDate,
+                null, @"Data/critViolStats.json", "AED/applications/3/snapshots/5", "Snap5_CAIP-8.3ra2_RG-1.6a", "8.3.ra2", currentDate,
                 null, null, null, null, null, null);
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", null);
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/ComplexitySnapCurrent.json", null);
 
             var component = new ViolationStatistics();
             var table = component.Content(reportData, null);
@@ -43,15 +43,15 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
         // test case numCritPerFile == -1
         [TestMethod]
-        [DeploymentItem(@".\Data\cocraCritViolStats.json", "Data")]
-        [DeploymentItem(@".\Data\ComplexitySnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/cocraCritViolStats.json", "Data")]
+        [DeploymentItem(@"Data/ComplexitySnapCurrent.json", "Data")]
         public void TestNegativePerFile()
         {
             CastDate currentDate = new CastDate { Time = 1496959200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                null, @".\Data\cocraCritViolStats.json", "AED/applications/3/snapshots/5", "Snap5_CAIP-8.3ra2_RG-1.6a", "8.3.ra2", currentDate,
+                null, @"Data/cocraCritViolStats.json", "AED/applications/3/snapshots/5", "Snap5_CAIP-8.3ra2_RG-1.6a", "8.3.ra2", currentDate,
                 null, null, null, null, null, null);
-            reportData = TestUtility.AddApplicationComplexity(reportData, @".\Data\ComplexitySnapCurrent.json", null);
+            reportData = TestUtility.AddApplicationComplexity(reportData, @"Data/ComplexitySnapCurrent.json", null);
 
             var component = new ViolationStatistics();
             var table = component.Content(reportData, null);

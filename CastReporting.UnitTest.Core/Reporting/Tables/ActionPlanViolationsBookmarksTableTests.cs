@@ -15,16 +15,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ActionPlanViolations1.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\PreviousBCresults.json", "Data")]
+        [DeploymentItem(@"Data/ActionPlanViolations1.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/PreviousBCresults.json", "Data")]
         public void TestContent()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484953100000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-               null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
-               null, @".\Data\PreviousBCresults.json", "AED/applications/3/snapshots/5", "PreVersion 1.5.0 sprint 2 shot 1", "V-1.5.0_Sprint 2_1", previousDate);
+               null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+               null, @"Data/PreviousBCresults.json", "AED/applications/3/snapshots/5", "PreVersion 1.5.0 sprint 2 shot 1", "V-1.5.0_Sprint 2_1", previousDate);
             WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
@@ -70,16 +70,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ActionPlanViolations1.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\PreviousBCresults.json", "Data")]
+        [DeploymentItem(@"Data/ActionPlanViolations1.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/PreviousBCresults.json", "Data")]
         public void TestFilter()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484953100000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-               null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
-               null, @".\Data\PreviousBCresults.json", "AED/applications/3/snapshots/5", "PreVersion 1.5.0 sprint 2 shot 1", "V-1.5.0_Sprint 2_1", previousDate);
+               null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+               null, @"Data/PreviousBCresults.json", "AED/applications/3/snapshots/5", "PreVersion 1.5.0 sprint 2 shot 1", "V-1.5.0_Sprint 2_1", previousDate);
             WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
@@ -114,16 +114,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ActionPlanViolations1.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\PreviousBCresults.json", "Data")]
+        [DeploymentItem(@"Data/ActionPlanViolations1.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/PreviousBCresults.json", "Data")]
         public void TestNoHeader()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484953100000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-               null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
-               null, @".\Data\PreviousBCresults.json", "AED/applications/3/snapshots/5", "PreVersion 1.5.0 sprint 2 shot 1", "V-1.5.0_Sprint 2_1", previousDate);
+               null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+               null, @"Data/PreviousBCresults.json", "AED/applications/3/snapshots/5", "PreVersion 1.5.0 sprint 2 shot 1", "V-1.5.0_Sprint 2_1", previousDate);
             WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",

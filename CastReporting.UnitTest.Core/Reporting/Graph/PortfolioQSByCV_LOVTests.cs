@@ -16,16 +16,16 @@ namespace CastReporting.UnitTest.Reporting.Graph
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication1Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AAD2App3Snap4Results.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication2Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AAD2App24Snap12Results.json", "Data")]
+        [DeploymentItem(@"Data/AADApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication1Snap.json", "Data")]
+        [DeploymentItem(@"Data/AAD2App3Snap4Results.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication2Snap.json", "Data")]
+        [DeploymentItem(@"Data/AAD2App24Snap12Results.json", "Data")]
         public void TestContentTwoApps()
         {
-            List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json", @".\Data\AADApplication2Snap.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AAD2App3Snap4Results.json", @".\Data\AAD2App24Snap12Results.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADApplication1Snap.json", @"Data/AADApplication2Snap.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AAD2App3Snap4Results.json", @"Data/AAD2App24Snap12Results.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioQsbyCvLov();
             var table = component.Content(reportData, null);
@@ -38,14 +38,14 @@ namespace CastReporting.UnitTest.Reporting.Graph
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADOneApplication.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication1Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AAD2App3Snap4Results.json", "Data")]
+        [DeploymentItem(@"Data/AADOneApplication.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication1Snap.json", "Data")]
+        [DeploymentItem(@"Data/AAD2App3Snap4Results.json", "Data")]
         public void TestContentOneApp()
         {
-            List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AAD2App3Snap4Results.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADOneApplication.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADApplication1Snap.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AAD2App3Snap4Results.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADOneApplication.json", snapList, snapResultsList);
 
             var component = new PortfolioQsbyCvLov();
             var table = component.Content(reportData, null);

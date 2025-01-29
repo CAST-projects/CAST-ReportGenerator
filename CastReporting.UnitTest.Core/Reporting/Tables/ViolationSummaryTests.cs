@@ -16,14 +16,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\QRviolRatioModules.json", "Data")]
-        [DeploymentItem(@".\Data\BaseQI60017.json", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/QRviolRatioModules.json", "Data")]
+        [DeploymentItem(@"Data/BaseQI60017.json", "Data")]
         public void TestContent()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                @".\Data\ModulesCoCRA.json", @".\Data\QRviolRatioModules.json", "AED/applications/3/snapshots/5", "Snap4_CAIP-8.3ra2_RG-1.6.a", "8.3.ra2", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/QRviolRatioModules.json", "AED/applications/3/snapshots/5", "Snap4_CAIP-8.3ra2_RG-1.6.a", "8.3.ra2", currentDate,
                null, null, null, null, null, null);
             reportData.RuleExplorer = new RuleBLLStub();
 
@@ -43,14 +43,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\QRviolRatioModules.json", "Data")]
-        [DeploymentItem(@".\Data\BaseQI60017.json", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/QRviolRatioModules.json", "Data")]
+        [DeploymentItem(@"Data/BaseQI60017.json", "Data")]
         public void TestModuleContent()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                @".\Data\ModulesCoCRA.json", @".\Data\QRviolRatioModules.json", "AED/applications/3/snapshots/5", "Snap4_CAIP-8.3ra2_RG-1.6.a", "8.3.ra2", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/QRviolRatioModules.json", "AED/applications/3/snapshots/5", "Snap4_CAIP-8.3ra2_RG-1.6.a", "8.3.ra2", currentDate,
                 null, null, null, null, null, null);
             reportData.RuleExplorer = new RuleBLLStub();
 
@@ -72,14 +72,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\QRviolRatioModules.json", "Data")]
-        [DeploymentItem(@".\Data\BaseQI60017.json", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/QRviolRatioModules.json", "Data")]
+        [DeploymentItem(@"Data/BaseQI60017.json", "Data")]
         public void TestLimitCount()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                @".\Data\ModulesCoCRA.json", @".\Data\QRviolRatioModules.json", "AED/applications/3/snapshots/5", "Snap4_CAIP-8.3ra2_RG-1.6.a", "8.3.ra2", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/QRviolRatioModules.json", "AED/applications/3/snapshots/5", "Snap4_CAIP-8.3ra2_RG-1.6.a", "8.3.ra2", currentDate,
                 null, null, null, null, null, null);
             reportData.RuleExplorer = new RuleBLLStub();
 
@@ -99,14 +99,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\QRviolRatioModules.json", "Data")]
-        [DeploymentItem(@".\Data\BaseQI60017.json", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/QRviolRatioModules.json", "Data")]
+        [DeploymentItem(@"Data/BaseQI60017.json", "Data")]
         public void TestNoGradeNoCritical()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                @".\Data\ModulesCoCRA.json", @".\Data\QRviolRatioModules.json", "AED/applications/3/snapshots/5", "Snap4_CAIP-8.3ra2_RG-1.6.a", "8.3.ra2", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/QRviolRatioModules.json", "AED/applications/3/snapshots/5", "Snap4_CAIP-8.3ra2_RG-1.6.a", "8.3.ra2", currentDate,
                 null, null, null, null, null, null);
             reportData.RuleExplorer = new RuleBLLStub();
 
@@ -131,14 +131,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\QRviolRatioModules.json", "Data")]
-        [DeploymentItem(@".\Data\BaseQI60017.json", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/QRviolRatioModules.json", "Data")]
+        [DeploymentItem(@"Data/BaseQI60017.json", "Data")]
         public void TestFailedChecks()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                @".\Data\ModulesCoCRA.json", @".\Data\QRviolRatioModules.json", "AED/applications/3/snapshots/5", "Snap4_CAIP-8.3ra2_RG-1.6.a", "8.3.ra2", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/QRviolRatioModules.json", "AED/applications/3/snapshots/5", "Snap4_CAIP-8.3ra2_RG-1.6.a", "8.3.ra2", currentDate,
                 null, null, null, null, null, null);
             reportData.RuleExplorer = new RuleBLLStub();
 
@@ -164,14 +164,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\QRviolRatioModules.json", "Data")]
-        [DeploymentItem(@".\Data\BaseQI60017.json", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/QRviolRatioModules.json", "Data")]
+        [DeploymentItem(@"Data/BaseQI60017.json", "Data")]
         public void TestModuleComplianceContent()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                @".\Data\ModulesCoCRA.json", @".\Data\QRviolRatioModules.json", "AED/applications/3/snapshots/5", "Snap4_CAIP-8.3ra2_RG-1.6.a", "8.3.ra2", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/QRviolRatioModules.json", "AED/applications/3/snapshots/5", "Snap4_CAIP-8.3ra2_RG-1.6.a", "8.3.ra2", currentDate,
                 null, null, null, null, null, null);
             reportData.RuleExplorer = new RuleBLLStub();
 

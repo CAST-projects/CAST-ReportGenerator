@@ -16,14 +16,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCTCmodules.json", "Data")]
-        [DeploymentItem(@".\Data\OmgFunctionsEvolutions.csv", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCTCmodules.json", "Data")]
+        [DeploymentItem(@"Data/OmgFunctionsEvolutions.csv", "Data")]
         public void TestAEFPDefaultConfig()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -55,14 +55,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCTCmodules.json", "Data")]
-        [DeploymentItem(@".\Data\OmgFunctionsEvolutions.csv", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCTCmodules.json", "Data")]
+        [DeploymentItem(@"Data/OmgFunctionsEvolutions.csv", "Data")]
         public void TestAEFPAddedDataFunction()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                 null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -91,14 +91,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCTCmodules.json", "Data")]
-        [DeploymentItem(@".\Data\OmgFunctionsEvolutions.csv", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCTCmodules.json", "Data")]
+        [DeploymentItem(@"Data/OmgFunctionsEvolutions.csv", "Data")]
         public void TestAEFPModifiedTransactional()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                 null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -127,16 +127,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCTCmodules.json", "Data")]
-        [DeploymentItem(@".\Data\OmgFunctionsEvolutions.csv", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCTCmodules.json", "Data")]
+        [DeploymentItem(@"Data/OmgFunctionsEvolutions.csv", "Data")]
         public void TestAEFPPreviousTransactional()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             CastDate previousDate = new CastDate { Time = 1492984700000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
-                @".\Data\ModulesCoCRA.json", @".\Data\PreviousBCTCmodules.json", "AED/applications/3/snapshots/3", "Snap3_CAIP-8.3ra_RG-1.5.a", "8.3.ra", previousDate);
+                @"Data/ModulesCoCRA.json", @"Data/CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/PreviousBCTCmodules.json", "AED/applications/3/snapshots/3", "Snap3_CAIP-8.3ra_RG-1.5.a", "8.3.ra", previousDate);
             WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
@@ -165,14 +165,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCTCmodules.json", "Data")]
-        [DeploymentItem(@".\Data\OmgFunctionsEvolutions.csv", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCTCmodules.json", "Data")]
+        [DeploymentItem(@"Data/OmgFunctionsEvolutions.csv", "Data")]
         public void TestAEFPAllDeleted()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                 null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -204,14 +204,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCTCmodules.json", "Data")]
-        [DeploymentItem(@".\Data\OmgFunctionsEvolutions.csv", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCTCmodules.json", "Data")]
+        [DeploymentItem(@"Data/OmgFunctionsEvolutions.csv", "Data")]
         public void TestAEFPBadVersion()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/CurrentBCTCmodules.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                 null, null, null, null, null, null);
             reportData.ServerVersion = "1.8.0.456";
             WSConnection connection = new WSConnection
@@ -238,14 +238,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCTCmodules.json", "Data")]
-        [DeploymentItem(@".\Data\OmgFunctionsEvolutionsZero.csv", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCTCmodules.json", "Data")]
+        [DeploymentItem(@"Data/OmgFunctionsEvolutionsZero.csv", "Data")]
         public void TestAEFPWithZeroConfig()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/33", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/CurrentBCTCmodules.json", "AED/applications/3/snapshots/33", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -277,14 +277,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\ModulesCoCRA.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCTCmodules.json", "Data")]
-        [DeploymentItem(@".\Data\OmgFunctionsEvolutionsZero.csv", "Data")]
+        [DeploymentItem(@"Data/ModulesCoCRA.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCTCmodules.json", "Data")]
+        [DeploymentItem(@"Data/OmgFunctionsEvolutionsZero.csv", "Data")]
         public void TestAEFPNoZeroConfig()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                @".\Data\ModulesCoCRA.json", @".\Data\CurrentBCTCmodules.json", "AED/applications/3/snapshots/33", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+                @"Data/ModulesCoCRA.json", @"Data/CurrentBCTCmodules.json", "AED/applications/3/snapshots/33", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {

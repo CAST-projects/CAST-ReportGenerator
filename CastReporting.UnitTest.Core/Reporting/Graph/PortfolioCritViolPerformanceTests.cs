@@ -20,20 +20,20 @@ namespace CastReporting.UnitTest.Reporting.Graph
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication1Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AAD2App3Snap4Results.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication2Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AAD2App24Snap12Results.json", "Data")]
+        [DeploymentItem(@"Data/AADApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication1Snap.json", "Data")]
+        [DeploymentItem(@"Data/AAD2App3Snap4Results.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication2Snap.json", "Data")]
+        [DeploymentItem(@"Data/AAD2App24Snap12Results.json", "Data")]
         public void TestContentTQI()
         {
             /*
              * AAD2App3Snap4Results : AAD2/applications/3/snapshots/4/results?quality-indicators=(60017,60014)&sizing-measures=(10151,67013,10202,68901,68902,68001)&select=(evolutionSummary,violationRatio)
              * AAD2App24Snap12Results : AAD2/applications/24/snapshots/12/results?quality-indicators=(60017,60014)&sizing-measures=(10151,67013,10202,68901,68902,68001)&select=(evolutionSummary,violationRatio)
              */
-            List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json", @".\Data\AADApplication2Snap.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AAD2App3Snap4Results.json", @".\Data\AAD2App24Snap12Results.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADApplication1Snap.json", @"Data/AADApplication2Snap.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AAD2App3Snap4Results.json", @"Data/AAD2App24Snap12Results.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADApplications.json", snapList, snapResultsList);
 
             DateTime date = new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Utc);
             Snapshot _snap0 = reportData.Applications[0].Snapshots.FirstOrDefault();
@@ -81,20 +81,20 @@ namespace CastReporting.UnitTest.Reporting.Graph
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication1Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AAD2App3Snap4Results.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication2Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AAD2App24Snap12Results.json", "Data")]
+        [DeploymentItem(@"Data/AADApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication1Snap.json", "Data")]
+        [DeploymentItem(@"Data/AAD2App3Snap4Results.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication2Snap.json", "Data")]
+        [DeploymentItem(@"Data/AAD2App24Snap12Results.json", "Data")]
         public void TestContentEfficiency()
         {
             /*
              * AAD2App3Snap4Results : AAD2/applications/3/snapshots/4/results?quality-indicators=(60017,60014)&sizing-measures=(10151,67013,10202,68901,68902,68001)&select=(evolutionSummary,violationRatio)
              * AAD2App24Snap12Results : AAD2/applications/24/snapshots/12/results?quality-indicators=(60017,60014)&sizing-measures=(10151,67013,10202,68901,68902,68001)&select=(evolutionSummary,violationRatio)
              */
-            List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json", @".\Data\AADApplication2Snap.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AAD2App3Snap4Results.json", @".\Data\AAD2App24Snap12Results.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADApplication1Snap.json", @"Data/AADApplication2Snap.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AAD2App3Snap4Results.json", @"Data/AAD2App24Snap12Results.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADApplications.json", snapList, snapResultsList);
 
             DateTime date = new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Utc);
             Snapshot _snap0 = reportData.Applications[0].Snapshots.FirstOrDefault();
@@ -147,20 +147,20 @@ namespace CastReporting.UnitTest.Reporting.Graph
 
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication1Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AAD2App3Snap4Results.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication2Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AAD2App24Snap12Results.json", "Data")]
+        [DeploymentItem(@"Data/AADApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication1Snap.json", "Data")]
+        [DeploymentItem(@"Data/AAD2App3Snap4Results.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication2Snap.json", "Data")]
+        [DeploymentItem(@"Data/AAD2App24Snap12Results.json", "Data")]
         public void TestContentSameQuarter()
         {
             /*
              * AAD2App3Snap4Results : AAD2/applications/3/snapshots/4/results?quality-indicators=(60017,60014)&sizing-measures=(10151,67013,10202,68901,68902,68001)&select=(evolutionSummary,violationRatio)
              * AAD2App24Snap12Results : AAD2/applications/24/snapshots/12/results?quality-indicators=(60017,60014)&sizing-measures=(10151,67013,10202,68901,68902,68001)&select=(evolutionSummary,violationRatio)
              */
-            List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json", @".\Data\AADApplication2Snap.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AAD2App3Snap4Results.json", @".\Data\AAD2App24Snap12Results.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADApplication1Snap.json", @"Data/AADApplication2Snap.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AAD2App3Snap4Results.json", @"Data/AAD2App24Snap12Results.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADApplications.json", snapList, snapResultsList);
 
             DateTime date = new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Utc);
             Snapshot _snap0 = reportData.Applications[0].Snapshots.FirstOrDefault();
@@ -209,11 +209,11 @@ namespace CastReporting.UnitTest.Reporting.Graph
 
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AAD2App3AllSnap.json", "Data")]
-        [DeploymentItem(@".\Data\AAD2App3AllSnapResults.json", "Data")]
-        [DeploymentItem(@".\Data\AAD2App24AllSnap.json", "Data")]
-        [DeploymentItem(@".\Data\AAD2App24AllSnapResults.json", "Data")]
+        [DeploymentItem(@"Data/AADApplications.json", "Data")]
+        [DeploymentItem(@"Data/AAD2App3AllSnap.json", "Data")]
+        [DeploymentItem(@"Data/AAD2App3AllSnapResults.json", "Data")]
+        [DeploymentItem(@"Data/AAD2App24AllSnap.json", "Data")]
+        [DeploymentItem(@"Data/AAD2App24AllSnapResults.json", "Data")]
         public void TestContentAllQuarters()
         {
             /*
@@ -222,9 +222,9 @@ namespace CastReporting.UnitTest.Reporting.Graph
              * AAD2App24AllSnap : AAD2/applications/24/snapshots
              * AAD2App24AllSnapResults : AAD2/applications/24/results?quality-indicators=(60017,60014)&sizing-measures=(10151,67013,10202,68901,68902,68001)&select=(evolutionSummary,violationRatio)&snapshots=($all)
              */
-            List<string> snapList = new List<string> { @".\Data\AAD2App3AllSnap.json", @".\Data\AAD2App24AllSnap.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AAD2App3AllSnapResults.json", @".\Data\AAD2App24AllSnapResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AAD2App3AllSnap.json", @"Data/AAD2App24AllSnap.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AAD2App3AllSnapResults.json", @"Data/AAD2App24AllSnapResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADApplications.json", snapList, snapResultsList);
 
             DateTime date = new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Utc);
             Snapshot _snap0 = reportData.Applications[0].Snapshots.ElementAt(0);

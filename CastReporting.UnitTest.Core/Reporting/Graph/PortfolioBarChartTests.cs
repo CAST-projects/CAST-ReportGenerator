@@ -16,11 +16,11 @@ namespace CastReporting.UnitTest.Reporting.Graph
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication1Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication1SnapResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication2Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication2SnapResults.json", "Data")]
+        [DeploymentItem(@"Data/AADApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication1Snap.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication1SnapResults.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication2Snap.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication2SnapResults.json", "Data")]
         public void TestContentBusinessCriteria()
         {
             /*
@@ -31,9 +31,9 @@ namespace CastReporting.UnitTest.Reporting.Graph
              * AADApplication2Snap.json : AAD2/applications/24/snapshots/12
              * AADApplication2SnapResults.json : AAD2/applications/24/snapshots/12/results?quality-indicators=(60014,61004,550,7654,7856)&sizing-measures=(10151,68001,10202,67210,67011)
              */
-            List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json", @".\Data\AADApplication2Snap.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADApplication1SnapResults.json", @".\Data\AADApplication2SnapResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADApplication1Snap.json", @"Data/AADApplication2Snap.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADApplication1SnapResults.json", @"Data/AADApplication2SnapResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioBarChart();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -50,11 +50,11 @@ namespace CastReporting.UnitTest.Reporting.Graph
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication1Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication1SnapResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication2Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication2SnapResults.json", "Data")]
+        [DeploymentItem(@"Data/AADApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication1Snap.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication1SnapResults.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication2Snap.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication2SnapResults.json", "Data")]
         public void TestContentTechnicalCriteria()
         {
             /*
@@ -65,9 +65,9 @@ namespace CastReporting.UnitTest.Reporting.Graph
              * AADApplication2Snap.json : AAD2/applications/24/snapshots/12
              * AADApplication2SnapResults.json : AAD2/applications/24/snapshots/12/results?quality-indicators=(60014,61004,550,7654,7856)&sizing-measures=(10151,68001,10202,67210,67011)
              */
-            List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json", @".\Data\AADApplication2Snap.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADApplication1SnapResults.json", @".\Data\AADApplication2SnapResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADApplication1Snap.json", @"Data/AADApplication2Snap.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADApplication1SnapResults.json", @"Data/AADApplication2SnapResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioBarChart();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -84,11 +84,11 @@ namespace CastReporting.UnitTest.Reporting.Graph
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication1Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication1SnapResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication2Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication2SnapResults.json", "Data")]
+        [DeploymentItem(@"Data/AADApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication1Snap.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication1SnapResults.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication2Snap.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication2SnapResults.json", "Data")]
         public void TestContentQualityRule()
         {
             /*
@@ -99,9 +99,9 @@ namespace CastReporting.UnitTest.Reporting.Graph
              * AADApplication2Snap.json : AAD2/applications/24/snapshots/12
              * AADApplication2SnapResults.json : AAD2/applications/24/snapshots/12/results?quality-indicators=(60014,61004,550,7654,7856)&sizing-measures=(10151,68001,10202,67210,67011)
              */
-            List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json", @".\Data\AADApplication2Snap.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADApplication1SnapResults.json", @".\Data\AADApplication2SnapResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADApplication1Snap.json", @"Data/AADApplication2Snap.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADApplication1SnapResults.json", @"Data/AADApplication2SnapResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioBarChart();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -117,11 +117,11 @@ namespace CastReporting.UnitTest.Reporting.Graph
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication1Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication1SnapResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication2Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication2SnapResults.json", "Data")]
+        [DeploymentItem(@"Data/AADApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication1Snap.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication1SnapResults.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication2Snap.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication2SnapResults.json", "Data")]
         public void TestContentSizingMeasure()
         {
             /*
@@ -132,9 +132,9 @@ namespace CastReporting.UnitTest.Reporting.Graph
              * AADApplication2Snap.json : AAD2/applications/24/snapshots/12
              * AADApplication2SnapResults.json : AAD2/applications/24/snapshots/12/results?quality-indicators=(60014,61004,550,7654,7856)&sizing-measures=(10151,68001,10202,67210,67011)
              */
-            List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json", @".\Data\AADApplication2Snap.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADApplication1SnapResults.json", @".\Data\AADApplication2SnapResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADApplication1Snap.json", @"Data/AADApplication2Snap.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADApplication1SnapResults.json", @"Data/AADApplication2SnapResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioBarChart();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -151,12 +151,12 @@ namespace CastReporting.UnitTest.Reporting.Graph
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication1Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication1SnapResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication2Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication2SnapResults.json", "Data")]
-        [DeploymentItem(@".\Data\BusinessValue.json", "Data")]
+        [DeploymentItem(@"Data/AADApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication1Snap.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication1SnapResults.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication2Snap.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication2SnapResults.json", "Data")]
+        [DeploymentItem(@"Data/BusinessValue.json", "Data")]
         public void TestContentBackgroundFact()
         {
             /*
@@ -167,9 +167,9 @@ namespace CastReporting.UnitTest.Reporting.Graph
              * AADApplication2Snap.json : AAD2/applications/24/snapshots/12
              * AADApplication2SnapResults.json : AAD2/applications/24/snapshots/12/results?quality-indicators=(60014,61004,550,7654,7856)&sizing-measures=(10151,68001,10202,67210,67011)
              */
-            List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json", @".\Data\AADApplication2Snap.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADApplication1SnapResults.json", @".\Data\AADApplication2SnapResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADApplication1Snap.json", @"Data/AADApplication2Snap.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADApplication1SnapResults.json", @"Data/AADApplication2SnapResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioBarChart();
             Dictionary<string, string> config = new Dictionary<string, string>

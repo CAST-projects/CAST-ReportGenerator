@@ -22,16 +22,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Violations7424_60017.json", "Data")]
-        [DeploymentItem(@".\Data\Violations7846_60016.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\findings7392.json", "Data")]
-        [DeploymentItem(@".\Data\RulePattern7424.json", "Data")]
+        [DeploymentItem(@"Data/Violations7424_60017.json", "Data")]
+        [DeploymentItem(@"Data/Violations7846_60016.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/findings7392.json", "Data")]
+        [DeploymentItem(@"Data/RulePattern7424.json", "Data")]
         public void TestOneSnapshot()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -93,19 +93,19 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Violations7424_60017.json", "Data")]
-        [DeploymentItem(@".\Data\Violations7846_60016.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\findings7392.json", "Data")]
-        [DeploymentItem(@".\Data\PreviousBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\RulePattern7424.json", "Data")]
+        [DeploymentItem(@"Data/Violations7424_60017.json", "Data")]
+        [DeploymentItem(@"Data/Violations7846_60016.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/findings7392.json", "Data")]
+        [DeploymentItem(@"Data/PreviousBCresults.json", "Data")]
+        [DeploymentItem(@"Data/RulePattern7424.json", "Data")]
         public void TestTwoSnapshotNoCount()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             CastDate previousDate = new CastDate { Time = 1484866800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
-                null, @".\Data\PreviousBCresults.json", "AED/applications/3/snapshots/5", "Version 1.4.1", "V-1.4.1", previousDate);
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/PreviousBCresults.json", "AED/applications/3/snapshots/5", "Version 1.4.1", "V-1.4.1", previousDate);
             WSConnection connection = new WSConnection
             {
                 Url = "http://tests/CAST-RESTAPI/rest/",
@@ -141,16 +141,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Violations7424_60017.json", "Data")]
-        [DeploymentItem(@".\Data\Violations7846_60016.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\findings7392.json", "Data")]
-        [DeploymentItem(@".\Data\RulePattern7424.json", "Data")]
+        [DeploymentItem(@"Data/Violations7424_60017.json", "Data")]
+        [DeploymentItem(@"Data/Violations7846_60016.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/findings7392.json", "Data")]
+        [DeploymentItem(@"Data/RulePattern7424.json", "Data")]
         public void TestAllViolations()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -188,17 +188,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Violations7424_60017.json", "Data")]
-        [DeploymentItem(@".\Data\Violations7846_60016.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\findings7392.json", "Data")]
-        [DeploymentItem(@".\Data\findings_bookmarks.json", "Data")]
-        [DeploymentItem(@".\Data\RulePattern7424.json", "Data")]
+        [DeploymentItem(@"Data/Violations7424_60017.json", "Data")]
+        [DeploymentItem(@"Data/Violations7846_60016.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/findings7392.json", "Data")]
+        [DeploymentItem(@"Data/findings_bookmarks.json", "Data")]
+        [DeploymentItem(@"Data/RulePattern7424.json", "Data")]
         public void TestBookmark()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -260,16 +260,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Violations7424_60017.json", "Data")]
-        [DeploymentItem(@".\Data\Violations7846_60016.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\findings_integer.json", "Data")]
-        [DeploymentItem(@".\Data\RulePatterns.json", "Data")]
+        [DeploymentItem(@"Data/Violations7424_60017.json", "Data")]
+        [DeploymentItem(@"Data/Violations7846_60016.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/findings_integer.json", "Data")]
+        [DeploymentItem(@"Data/RulePatterns.json", "Data")]
         public void TestTypeIntegerNull()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -314,16 +314,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Violations7424_60017.json", "Data")]
-        [DeploymentItem(@".\Data\Violations7846_60016.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\findings_groups.json", "Data")]
-        [DeploymentItem(@".\Data\RulePatterns.json", "Data")]
+        [DeploymentItem(@"Data/Violations7424_60017.json", "Data")]
+        [DeploymentItem(@"Data/Violations7846_60016.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/findings_groups.json", "Data")]
+        [DeploymentItem(@"Data/RulePatterns.json", "Data")]
         public void TestTypeGroup()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -363,16 +363,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Violations7424_60017.json", "Data")]
-        [DeploymentItem(@".\Data\Violations7846_60016.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\findings_null.json", "Data")]
-        [DeploymentItem(@".\Data\RulePatterns.json", "Data")]
+        [DeploymentItem(@"Data/Violations7424_60017.json", "Data")]
+        [DeploymentItem(@"Data/Violations7846_60016.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/findings_null.json", "Data")]
+        [DeploymentItem(@"Data/RulePatterns.json", "Data")]
         public void TestTypeNull()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -425,16 +425,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Violations7424_60017.json", "Data")]
-        [DeploymentItem(@".\Data\Violations7846_60016.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\findings_objects.json", "Data")]
-        [DeploymentItem(@".\Data\RulePatterns.json", "Data")]
+        [DeploymentItem(@"Data/Violations7424_60017.json", "Data")]
+        [DeploymentItem(@"Data/Violations7846_60016.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/findings_objects.json", "Data")]
+        [DeploymentItem(@"Data/RulePatterns.json", "Data")]
         public void TestTypeObject()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -478,16 +478,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Violations7424_60017.json", "Data")]
-        [DeploymentItem(@".\Data\Violations7846_60016.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\findings_path.json", "Data")]
-        [DeploymentItem(@".\Data\RulePatterns.json", "Data")]
+        [DeploymentItem(@"Data/Violations7424_60017.json", "Data")]
+        [DeploymentItem(@"Data/Violations7846_60016.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/findings_path.json", "Data")]
+        [DeploymentItem(@"Data/RulePatterns.json", "Data")]
         public void TestTypePath()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -542,16 +542,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Violations7424_60017.json", "Data")]
-        [DeploymentItem(@".\Data\Violations7846_60016.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\findings_text.json", "Data")]
-        [DeploymentItem(@".\Data\RulePatterns.json", "Data")]
+        [DeploymentItem(@"Data/Violations7424_60017.json", "Data")]
+        [DeploymentItem(@"Data/Violations7846_60016.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/findings_text.json", "Data")]
+        [DeploymentItem(@"Data/RulePatterns.json", "Data")]
         public void TestTypeText()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -595,16 +595,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Violations7424_60017.json", "Data")]
-        [DeploymentItem(@".\Data\Violations7846_60016.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\findings_percentage.json", "Data")]
-        [DeploymentItem(@".\Data\RulePattern7846.json", "Data")]
+        [DeploymentItem(@"Data/Violations7424_60017.json", "Data")]
+        [DeploymentItem(@"Data/Violations7846_60016.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/findings_percentage.json", "Data")]
+        [DeploymentItem(@"Data/RulePattern7846.json", "Data")]
         public void TestTypePercentage()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -648,16 +648,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Violations7424_60017.json", "Data")]
-        [DeploymentItem(@".\Data\Violations7846_60016.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\findings7392.json", "Data")]
-        [DeploymentItem(@".\Data\RulePattern7424.json", "Data")]
+        [DeploymentItem(@"Data/Violations7424_60017.json", "Data")]
+        [DeploymentItem(@"Data/Violations7846_60016.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/findings7392.json", "Data")]
+        [DeploymentItem(@"Data/RulePattern7424.json", "Data")]
         public void TestSimpleDescription()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -728,16 +728,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Violations7424_60017.json", "Data")]
-        [DeploymentItem(@".\Data\Violations7846_60016.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
-        [DeploymentItem(@".\Data\findings7392.json", "Data")]
-        [DeploymentItem(@".\Data\RulePattern7424.json", "Data")]
+        [DeploymentItem(@"Data/Violations7424_60017.json", "Data")]
+        [DeploymentItem(@"Data/Violations7846_60016.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/findings7392.json", "Data")]
+        [DeploymentItem(@"Data/RulePattern7424.json", "Data")]
         public void TestFullDescription()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {

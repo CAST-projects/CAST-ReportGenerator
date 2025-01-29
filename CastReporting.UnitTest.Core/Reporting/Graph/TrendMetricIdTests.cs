@@ -17,23 +17,23 @@ namespace CastReporting.UnitTest.Reporting.Graph
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Snapshot_QIresults1.json", "Data")]
-        [DeploymentItem(@".\Data\Snapshot_QIresults2.json", "Data")]
-        [DeploymentItem(@".\Data\BusinessValue.json", "Data")]
-        [DeploymentItem(@".\Data\BackFacts.json", "Data")]
+        [DeploymentItem(@"Data/Snapshot_QIresults1.json", "Data")]
+        [DeploymentItem(@"Data/Snapshot_QIresults2.json", "Data")]
+        [DeploymentItem(@"Data/BusinessValue.json", "Data")]
+        [DeploymentItem(@"Data/BackFacts.json", "Data")]
         public void TestContent()
         {
             /*
              * Configuration : TABLE;TREND_METRIC_ID;QID=60017|61007|4556,SID=10151,BID=66061
-             * @".\Data\Snapshot_QIresults1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/4/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
-             * @".\Data\Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
+             * @"Data/Snapshot_QIresults1.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/4/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
+             * @"Data/Snapshot_QIresults2.json" is the result of http://localhost:7070/CAST-AAD-AED/rest/AED2/applications/3/snapshots/3/results?quality-indicators=(60011,60012,60013,60014,60016,60017,61001,61003,61007,1576,1596,4656,7254)&modules=$all&technologies=$all&categories=$all
              */
             CastDate currentDate = new CastDate { Time = 1468360800000 };
             CastDate previousDate = new CastDate { Time = 1463090400000 };
 
             ReportData reportData = TestUtility.PrepareApplicationReportData("AppliAEP",
-                null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4", currentDate,
-                null, @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3", previousDate);
+                null, @"Data/Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4", currentDate,
+                null, @"Data/Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3", previousDate);
 
             var component = new TrendMetricId();
 
@@ -63,8 +63,8 @@ namespace CastReporting.UnitTest.Reporting.Graph
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\DreamTeamSnap4Sample12.json", "Data")]
-        [DeploymentItem(@".\Data\DreamTeamSnap1Sample12.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap4Sample12.json", "Data")]
+        [DeploymentItem(@"Data/DreamTeamSnap1Sample12.json", "Data")]
         public void TestSizingMeasure()
         {
             /*
@@ -75,8 +75,8 @@ namespace CastReporting.UnitTest.Reporting.Graph
             CastDate previousDate = new CastDate { Time = 1463090400000 };
 
             ReportData reportData = TestUtility.PrepareApplicationReportData("AppliAEP",
-                null, @".\Data\DreamTeamSnap4Sample12.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4", currentDate,
-                null, @".\Data\DreamTeamSnap1Sample12.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1", previousDate);
+                null, @"Data/DreamTeamSnap4Sample12.json", "AED3/applications/7/snapshots/15", "ADGAutoSnap_Dream Team_4", "4", currentDate,
+                null, @"Data/DreamTeamSnap1Sample12.json", "AED3/applications/7/snapshots/3", "ADGAutoSnap_Dream Team_1", "1", previousDate);
 
             var component = new TrendMetricId();
 

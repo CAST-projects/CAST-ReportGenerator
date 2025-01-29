@@ -15,17 +15,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60012.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60013.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60014.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60016.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60017.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60012.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60013.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60014.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60016.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60017.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
         public void TestShortNamesLimit()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-               null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+               null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -55,17 +55,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60012.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60013.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60014.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60016.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60017.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60012.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60013.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60014.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60016.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60017.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
         public void TestAdded2BC()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -96,17 +96,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60012.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60013.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60014.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60016.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60017.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60012.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60013.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60014.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60016.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60017.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
         public void TestUnchanged3BC()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -141,17 +141,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60012.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60013.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60014.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60016.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60017.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60012.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60013.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60014.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60016.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60017.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
         public void TestTQI()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -186,17 +186,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60012.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60013.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60014.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60016.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60017.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60012.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60013.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60014.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60016.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60017.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
         public void TestNonCriticalAdded()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -226,17 +226,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60012.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60013.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60014.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60016.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60017.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60012.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60013.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60014.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60016.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60017.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
         public void TestCriticalUnchangedModule()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {
@@ -275,17 +275,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60012.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60013.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60014.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60016.json", "Data")]
-        [DeploymentItem(@".\Data\CriticalViolationsList_60017.json", "Data")]
-        [DeploymentItem(@".\Data\CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60012.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60013.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60014.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60016.json", "Data")]
+        [DeploymentItem(@"Data/CriticalViolationsList_60017.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
         public void TestNonCriticalAddedUpdated()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
             WSConnection connection = new WSConnection
             {

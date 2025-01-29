@@ -28,16 +28,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
          */
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
         public void TestMetricsBCPortfolio()
         {
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioGenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -56,16 +56,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
         public void TestMetricsSeveralBCEachApp()
         {
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioGenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -86,16 +86,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
         public void TestMetricsSZBCPortfolio()
         {
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioGenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -115,16 +115,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
         public void TestMetricsHFPortfolio()
         {
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioGenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -142,16 +142,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
         public void TestMetricsFuncWeightTechDebtEachApp()
         {
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioGenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -171,16 +171,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
         public void TestMetricsViolStats()
         {
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioGenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -200,16 +200,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
         public void TestViolAppli()
         {
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioGenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -229,17 +229,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
         public void TestSample1()
         {
             // ROW1= APPLICATIONS,COL1=METRICS,METRICS=HEALTH_FACTOR, APPLICATIONS=EACH
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioGenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -259,17 +259,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
         public void TestSample2()
         {
             // ROW1=APPLICATIONS, COL1=CRITICAL_VIOLATIONS,CRITICAL_VIOLATIONS =ALL,APPLICATIONS=EACH
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioGenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -289,17 +289,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
         public void TestSample3()
         {
             // COL1=METRICS,ROW1=CRITICAL_VIOLATIONS,ROW11=APPLICATIONS,METRICS=HEALTH_FACTOR,CRITICAL_VIOLATIONS =ADDED,APPLICATIONS=EACH
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioGenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -322,17 +322,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
         public void TestSample4()
         {
             // COL1=APPLICATIONS,ROW1=METRICS,METRICS=TECHNICAL_SIZING, APPLICATIONS=ALL,AGGREGATORS=SUM
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioGenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -352,18 +352,18 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\BusinessValue.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/BusinessValue.json", "Data")]
         public void TestSample5()
         {
             // COL1=TECHNOLOGIES,ROW1=METRICS,METRICS=10151|10107|10152|10154|10161,AGGREGATORS=SUM,TECHNOLOGIES=EACH
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
             reportData.Applications[0].Technologies = new[] { ".NET" };
             reportData.Applications[1].Technologies = new[] { "JEE", "SQL Analyzer" };
 
@@ -395,17 +395,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
         public void TestSample6()
         {
             // COL1=METRICS,ROW1=TECHNOLOGIES,METRICS=HEALTH_FACTORS,TECHNOLOGIES=EACH
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
             reportData.Applications[0].Technologies = new[] { ".NET" };
             reportData.Applications[1].Technologies = new[] { "JEE", "SQL Analyzer" };
 
@@ -427,17 +427,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
         public void TestSample7()
         {
             // COL1=TECHNOLOGIES,ROW1=APPLICATIONS,TECHNOLOGIES=EACH,APPLICATIONS=EACH,METRICS=10151
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
             reportData.Applications[0].Technologies = new[] { ".NET" };
             reportData.Applications[1].Technologies = new[] { "JEE", "SQL Analyzer" };
 
@@ -460,17 +460,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
         public void TestAppTechnosViolations()
         {
             // COL1=TECHNOLOGIES,ROW1=APPLICATIONS,TECHNOLOGIES=EACH,APPLICATIONS=EACH,METRICS=10151
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
             reportData.Applications[0].Technologies = new[] { ".NET" };
             reportData.Applications[1].Technologies = new[] { "JEE", "SQL Analyzer" };
 
@@ -495,17 +495,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
         public void TestTechnosViolations()
         {
             // COL1=TECHNOLOGIES,ROW1=APPLICATIONS,TECHNOLOGIES=EACH,APPLICATIONS=EACH,METRICS=10151
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
             reportData.Applications[0].Technologies = new[] { ".NET" };
             reportData.Applications[1].Technologies = new[] { "JEE", "SQL Analyzer" };
 
@@ -528,17 +528,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
         public void TestCustomExpressionPortfolioLevel()
         {
             // COL1=APPLICATIONS,ROW1=METRICS,METRICS=TECHNICAL_SIZING, APPLICATIONS=ALL,AGGREGATORS=SUM
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioGenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -562,17 +562,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
         public void TestCustomExpressionEachApplications()
         {
             // COL1=APPLICATIONS,ROW1=METRICS,METRICS=TECHNICAL_SIZING, APPLICATIONS=ALL,AGGREGATORS=SUM
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioGenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -594,19 +594,19 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\SizeDistributionSnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/SizeDistributionSnapCurrent.json", "Data")]
         public void TestCustomExpressionEachApplicationsWithCategory()
         {
             // COL1=APPLICATIONS,ROW1=METRICS,METRICS=TECHNICAL_SIZING, APPLICATIONS=ALL,AGGREGATORS=SUM
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
-            reportData = TestUtility.AddPortfolioComplexity(reportData, @".\Data\SizeDistributionSnapCurrent.json");
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
+            reportData = TestUtility.AddPortfolioComplexity(reportData, @"Data/SizeDistributionSnapCurrent.json");
 
             var component = new PortfolioGenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -629,17 +629,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
         public void TestCustomExpressionEachTechnologies()
         {
             // COL1=APPLICATIONS,ROW1=METRICS,METRICS=TECHNICAL_SIZING, APPLICATIONS=ALL,AGGREGATORS=SUM
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
             reportData.Applications[0].Technologies = new[] { ".NET" };
             reportData.Applications[1].Technologies = new[] { "JEE", "SQL Analyzer" };
 
@@ -666,21 +666,21 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\SizeDistributionSnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/SizeDistributionSnapCurrent.json", "Data")]
         public void TestCustomExpressionEachTechnologiesWithCategory()
         {
             // COL1=APPLICATIONS,ROW1=METRICS,METRICS=TECHNICAL_SIZING, APPLICATIONS=ALL,AGGREGATORS=SUM
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
             reportData.Applications[0].Technologies = new[] { ".NET" };
             reportData.Applications[1].Technologies = new[] { "JEE", "SQL Analyzer" };
-            reportData = TestUtility.AddPortfolioComplexity(reportData, @".\Data\SizeDistributionSnapCurrent.json");
+            reportData = TestUtility.AddPortfolioComplexity(reportData, @"Data/SizeDistributionSnapCurrent.json");
 
             var component = new PortfolioGenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -705,17 +705,17 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
         public void TestCustomExpressionEachApplicationEachTechnologies()
         {
             // COL1=APPLICATIONS,ROW1=METRICS,METRICS=TECHNICAL_SIZING, APPLICATIONS=ALL,AGGREGATORS=SUM
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
             reportData.Applications[0].Technologies = new[] { ".NET" };
             reportData.Applications[1].Technologies = new[] { "JEE", "SQL Analyzer" };
 
@@ -750,21 +750,21 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\SizeDistributionSnapCurrent.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/SizeDistributionSnapCurrent.json", "Data")]
         public void TestCustomExpressionEachApplicationEachTechnologiesWithCategory()
         {
             // COL1=APPLICATIONS,ROW1=METRICS,METRICS=TECHNICAL_SIZING, APPLICATIONS=ALL,AGGREGATORS=SUM
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
             reportData.Applications[0].Technologies = new[] { ".NET" };
             reportData.Applications[1].Technologies = new[] { "JEE", "SQL Analyzer" };
-            reportData = TestUtility.AddPortfolioComplexity(reportData, @".\Data\SizeDistributionSnapCurrent.json");
+            reportData = TestUtility.AddPortfolioComplexity(reportData, @"Data/SizeDistributionSnapCurrent.json");
 
             var component = new PortfolioGenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -797,16 +797,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
         public void TestOmgTechDebtSample1()
         {
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioGenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -824,16 +824,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
         public void TestOmgTechDebtApp()
         {
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioGenericTable();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -854,16 +854,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
         public void TestTechnoOmgTechDebt()
         {
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
 
             reportData.Applications[0].Technologies = new[] { ".NET" };
             reportData.Applications[1].Technologies = new[] { "JEE", "SQL Analyzer" };
@@ -887,16 +887,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADMultiCocApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37Snapshots.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp3SnapshotsResults.json", "Data")]
-        [DeploymentItem(@".\Data\AADMultiCocApp37SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37Snapshots.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp3SnapshotsResults.json", "Data")]
+        [DeploymentItem(@"Data/AADMultiCocApp37SnapshotsResults.json", "Data")]
         public void TestAppTechnoOmgTechDebt()
         {
-            List<string> snapList = new List<string> { @".\Data\AADMultiCocApp3Snapshots.json", @".\Data\AADMultiCocApp37Snapshots.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AADMultiCocApp3SnapshotsResults.json", @".\Data\AADMultiCocApp37SnapshotsResults.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADMultiCocApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADMultiCocApp3Snapshots.json", @"Data/AADMultiCocApp37Snapshots.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AADMultiCocApp3SnapshotsResults.json", @"Data/AADMultiCocApp37SnapshotsResults.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADMultiCocApplications.json", snapList, snapResultsList);
 
             reportData.Applications[0].Technologies = new[] { ".NET" };
             reportData.Applications[1].Technologies = new[] { "JEE", "SQL Analyzer" };

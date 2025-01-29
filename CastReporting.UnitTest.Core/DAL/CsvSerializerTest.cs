@@ -13,10 +13,10 @@ namespace CastReporting.UnitTest.Repositories
         ///
         ///</summary>
         [TestMethod()]
-        [DeploymentItem(@".\Data\OmgFunctionsTechnicalEscaped.csv", "Data")]
+        [DeploymentItem(@"Data/OmgFunctionsTechnicalEscaped.csv", "Data")]
         public void DoubleQuotedEscapedTest()
         {
-            var csvString = File.ReadAllText(@".\Data\OmgFunctionsTechnicalEscaped.csv");
+            var csvString = File.ReadAllText(@"Data/OmgFunctionsTechnicalEscaped.csv");
             var serializer = new CsvSerializer<OmgFunctionTechnical>();
             OmgFunctionTechnical[] functions = serializer.ReadObjects(csvString, -1, null).ToArray();
             Assert.AreEqual(functions.Count(), 3);

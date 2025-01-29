@@ -6,13 +6,13 @@
 #define MyAppExeName "CastReporting.UI.WPF.Core.exe"
 #define MyAppExe "../CastReporting.UI.WPF.V2/bin/Release/netcoreapp3.0/"+MyAppExeName
 #define MyAppCopyright GetFileCopyright(MyAppExe)
-#define App1250Id "{{5C7FE067-CAC9-4878-B3FA-0E5C195941D2}"
+#define App1260Id "{{0FAC31E8-DAEB-4515-BE94-C7C9A0563101}"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={#App1250Id}
+AppId={#App1260Id}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppVerName={#MyAppName} {#MyAppVersion}
@@ -59,16 +59,16 @@ Source: "../packages/repositories.config"; DestDir: "{app}"; Flags: ignoreversio
 ; NOTE:CastReporting.UI.WPF.V2/Images
 Source: "../CastReporting.UI.WPF.V2/Resources/Images/*"; DestDir: "{app}\Resources\Images"; Flags: ignoreversion
 ; NOTE: Value from CastReporting.UI.WPF\bin\Release
-source: "../CastReporting.Console.Core/bin/Release/net6.0/*.exe";DestDir: "{app}"; Flags: ignoreversion
-source: "../CastReporting.Console.Core/bin/Release/net6.0/*.dll";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
-source: "../CastReporting.Console.Core/bin/Release/net6.0/CastReporting.Console.Core.runtimeconfig.json";DestDir: "{app}"; Flags: ignoreversion
-source: "../CastReporting.Console.Core/bin/Release/net6.0/CastReporting.Console.Core.deps.json";DestDir: "{app}"; Flags: ignoreversion
-source: "../CastReporting.UI.WPF.V2/bin/Release/net6.0-windows/*.dll";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
-source: "../CastReporting.UI.WPF.V2/bin/Release/net6.0-windows/*.exe";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
-source: "../CastReporting.UI.WPF.V2/bin/Release/net6.0-windows/*.config";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
-source: "../CastReporting.UI.WPF.V2/bin/Release/net6.0-windows/CastReporting.UI.WPF.Core.runtimeconfig.json";DestDir: "{app}"; Flags: ignoreversion
-source: "../CastReporting.UI.WPF.V2/bin/Release/net6.0-windows/CastReporting.UI.WPF.Core.deps.json";DestDir: "{app}"; Flags: ignoreversion
-source: "../CastReporting.Console.Core/bin/Release/net6.0/Parameters/*.xml";DestDir: "{app}"; Flags: ignoreversion
+source: "../CastReporting.Console.Core/bin/Release/net8.0/*.exe";DestDir: "{app}"; Flags: ignoreversion
+source: "../CastReporting.Console.Core/bin/Release/net8.0/*.dll";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+source: "../CastReporting.Console.Core/bin/Release/net8.0/CastReporting.Console.Core.runtimeconfig.json";DestDir: "{app}"; Flags: ignoreversion
+source: "../CastReporting.Console.Core/bin/Release/net8.0/CastReporting.Console.Core.deps.json";DestDir: "{app}"; Flags: ignoreversion
+source: "../CastReporting.UI.WPF.V2/bin/Release/net8.0-windows7.0/*.dll";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+source: "../CastReporting.UI.WPF.V2/bin/Release/net8.0-windows7.0/*.exe";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+source: "../CastReporting.UI.WPF.V2/bin/Release/net8.0-windows7.0/*.config";DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+source: "../CastReporting.UI.WPF.V2/bin/Release/net8.0-windows7.0/CastReporting.UI.WPF.Core.runtimeconfig.json";DestDir: "{app}"; Flags: ignoreversion
+source: "../CastReporting.UI.WPF.V2/bin/Release/net8.0-windows7.0/CastReporting.UI.WPF.Core.deps.json";DestDir: "{app}"; Flags: ignoreversion
+source: "../CastReporting.Console.Core/bin/Release/net8.0/Parameters/*.xml";DestDir: "{app}"; Flags: ignoreversion
 Source: "../CastReporting.Reporting.Core/Templates/*"; DestDir: "{code:GetTempPath}\Templates"; Flags: ignoreversion recursesubdirs
 source: "../CastReporting.Repositories.Core/CastReportingSetting.xml"; DestDir: "{code:GetSettingsPath}"; Flags: ignoreversion; AfterInstall:SaveSettings()
 ; NOTE:License
@@ -85,7 +85,7 @@ Name: "{code:GetSettingsPath}"; Permissions: users-full
 Name: "{code:GetReportsPath}"; Permissions: users-full
 
 [Run]
-Filename: "{app}\install_dotnet_core.bat"; Description: "Install dotnet sdk 6.0 (mandatory for running CAST-ReportGenerator)"; Flags: postinstall unchecked
+Filename: "{app}\install_dotnet_core.bat"; Description: "Install dotnet sdk 8.0 (mandatory for running CAST-ReportGenerator)"; Flags: postinstall unchecked
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppShortName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 
 [Code]
@@ -261,8 +261,8 @@ end;
 function InitializeSetup(): Boolean;
 begin
     result := false;
-    result := UninstallOldVersion('{#App1250Id}', '1.25.0');
-    result := UninstallOldVersion('{#App1250Id}', '{#MyAppVersion}');
+    result := UninstallOldVersion('{#App1260Id}', '1.26.0');
+    result := UninstallOldVersion('{#App1260Id}', '{#MyAppVersion}');
 end;
 
 procedure InitializeWizard;

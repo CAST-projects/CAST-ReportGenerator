@@ -16,16 +16,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication1Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AAD2App3Snap4Results.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication2Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AAD2App24Snap12Results.json", "Data")]
+        [DeploymentItem(@"Data/AADApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication1Snap.json", "Data")]
+        [DeploymentItem(@"Data/AAD2App3Snap4Results.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication2Snap.json", "Data")]
+        [DeploymentItem(@"Data/AAD2App24Snap12Results.json", "Data")]
         public void TestContentEfficiency()
         {
-            List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json", @".\Data\AADApplication2Snap.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AAD2App3Snap4Results.json", @".\Data\AAD2App24Snap12Results.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADApplication1Snap.json", @"Data/AADApplication2Snap.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AAD2App3Snap4Results.json", @"Data/AAD2App24Snap12Results.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioTopRiskiestApps();
             Dictionary<string, string> config = new Dictionary<string, string>
@@ -43,16 +43,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication1Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AAD2App3Snap4Results.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication2Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AAD2App24Snap12Results.json", "Data")]
+        [DeploymentItem(@"Data/AADApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication1Snap.json", "Data")]
+        [DeploymentItem(@"Data/AAD2App3Snap4Results.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication2Snap.json", "Data")]
+        [DeploymentItem(@"Data/AAD2App24Snap12Results.json", "Data")]
         public void TestContentNoBcid()
         {
-            List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json", @".\Data\AADApplication2Snap.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AAD2App3Snap4Results.json", @".\Data\AAD2App24Snap12Results.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADApplication1Snap.json", @"Data/AADApplication2Snap.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AAD2App3Snap4Results.json", @"Data/AAD2App24Snap12Results.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioTopRiskiestApps();
             Dictionary<string, string> config = new Dictionary<string, string>();
@@ -67,16 +67,16 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\AADApplications.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication1Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AAD2App3Snap4Results.json", "Data")]
-        [DeploymentItem(@".\Data\AADApplication2Snap.json", "Data")]
-        [DeploymentItem(@".\Data\AAD2App24Snap12Results.json", "Data")]
+        [DeploymentItem(@"Data/AADApplications.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication1Snap.json", "Data")]
+        [DeploymentItem(@"Data/AAD2App3Snap4Results.json", "Data")]
+        [DeploymentItem(@"Data/AADApplication2Snap.json", "Data")]
+        [DeploymentItem(@"Data/AAD2App24Snap12Results.json", "Data")]
         public void TestContentLimitCount()
         {
-            List<string> snapList = new List<string> { @".\Data\AADApplication1Snap.json", @".\Data\AADApplication2Snap.json" };
-            List<string> snapResultsList = new List<string> { @".\Data\AAD2App3Snap4Results.json", @".\Data\AAD2App24Snap12Results.json" };
-            ReportData reportData = TestUtility.PrepaPortfolioReportData(@".\Data\AADApplications.json", snapList, snapResultsList);
+            List<string> snapList = new List<string> { @"Data/AADApplication1Snap.json", @"Data/AADApplication2Snap.json" };
+            List<string> snapResultsList = new List<string> { @"Data/AAD2App3Snap4Results.json", @"Data/AAD2App24Snap12Results.json" };
+            ReportData reportData = TestUtility.PrepaPortfolioReportData(@"Data/AADApplications.json", snapList, snapResultsList);
 
             var component = new PortfolioTopRiskiestApps();
             Dictionary<string, string> config = new Dictionary<string, string>

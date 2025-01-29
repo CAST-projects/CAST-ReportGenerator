@@ -18,12 +18,12 @@ namespace CastReporting.UnitTest.Reporting.Text
 
 
         [TestMethod]
-        [DeploymentItem(@".\Data\cocraFuncWeight.json", "Data")]
+        [DeploymentItem(@"Data/cocraFuncWeight.json", "Data")]
         public void TestContent()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\cocraFuncWeight.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/cocraFuncWeight.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
 
             var component = new AfpMetricDF();
@@ -33,12 +33,12 @@ namespace CastReporting.UnitTest.Reporting.Text
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\cocraFuncWeight.json", "Data")]
+        [DeploymentItem(@"Data/cocraFuncWeight.json", "Data")]
         public void TestNoResult()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-                null, @".\Data\cocraFuncWeight.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, @"Data/cocraFuncWeight.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
                 null, null, null, null, null, null);
 
             Snapshot snap = reportData.Application.Snapshots.FirstOrDefault();

@@ -16,13 +16,13 @@ namespace CastReporting.UnitTest.Reporting.Graph
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Snapshot_QIresults1.json", "Data")]
-        [DeploymentItem(@".\Data\Transactions60013WebGoat.json", "Data")]
+        [DeploymentItem(@"Data/Snapshot_QIresults1.json", "Data")]
+        [DeploymentItem(@"Data/Transactions60013WebGoat.json", "Data")]
         public void TestContent()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-               null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4", currentDate,
+               null, @"Data/Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4", currentDate,
                null, null, null, null, null, null);
 
             WSConnection connection = new WSConnection
@@ -52,13 +52,13 @@ namespace CastReporting.UnitTest.Reporting.Graph
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Snapshot_QIresults1.json", "Data")]
-        [DeploymentItem(@".\Data\Transactions60013WebGoat.json", "Data")]
+        [DeploymentItem(@"Data/Snapshot_QIresults1.json", "Data")]
+        [DeploymentItem(@"Data/Transactions60013WebGoat.json", "Data")]
         public void TestFullNames()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-               null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4", currentDate,
+               null, @"Data/Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4", currentDate,
                null, null, null, null, null, null);
 
             WSConnection connection = new WSConnection
@@ -89,13 +89,13 @@ namespace CastReporting.UnitTest.Reporting.Graph
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Snapshot_QIresults1.json", "Data")]
-        [DeploymentItem(@".\Data\Transactions60016WebGoat.json", "Data")]
+        [DeploymentItem(@"Data/Snapshot_QIresults1.json", "Data")]
+        [DeploymentItem(@"Data/Transactions60016WebGoat.json", "Data")]
         public void TestSecurity()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-               null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4", currentDate,
+               null, @"Data/Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4", currentDate,
                null, null, null, null, null, null);
 
             WSConnection connection = new WSConnection
@@ -126,13 +126,13 @@ namespace CastReporting.UnitTest.Reporting.Graph
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Snapshot_QIresults1.json", "Data")]
-        [DeploymentItem(@".\Data\Transactions60014WebGoat.json", "Data")]
+        [DeploymentItem(@"Data/Snapshot_QIresults1.json", "Data")]
+        [DeploymentItem(@"Data/Transactions60014WebGoat.json", "Data")]
         public void TestEfficiency()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-               null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4", currentDate,
+               null, @"Data/Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4", currentDate,
                null, null, null, null, null, null);
 
             WSConnection connection = new WSConnection
@@ -163,13 +163,13 @@ namespace CastReporting.UnitTest.Reporting.Graph
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Snapshot_QIresults1.json", "Data")]
-        [DeploymentItem(@".\Data\Transactions60013WebGoat.json", "Data")]
+        [DeploymentItem(@"Data/Snapshot_QIresults1.json", "Data")]
+        [DeploymentItem(@"Data/Transactions60013WebGoat.json", "Data")]
         public void TestNoSnapshot()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
-               null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4", currentDate,
+               null, @"Data/Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4", currentDate,
                null, null, null, null, null, null);
 
             WSConnection connection = new WSConnection
@@ -200,14 +200,14 @@ namespace CastReporting.UnitTest.Reporting.Graph
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\Snapshot_QIresults1.json", "Data")]
-        [DeploymentItem(@".\Data\Snapshot_QIresults2.json", "Data")]
-        [DeploymentItem(@".\Data\Transactions60013WebGoat.json", "Data")]
+        [DeploymentItem(@"Data/Snapshot_QIresults1.json", "Data")]
+        [DeploymentItem(@"Data/Snapshot_QIresults2.json", "Data")]
+        [DeploymentItem(@"Data/Transactions60013WebGoat.json", "Data")]
         public void TestPreviousRobustness()
         {
             ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
-               null, @".\Data\Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
-               null, @".\Data\Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
+               null, @"Data/Snapshot_QIresults1.json", "AED3/applications/3/snapshots/4", "Snap_v1.1.4", "v1.1.4",
+               null, @"Data/Snapshot_QIresults2.json", "AED3/applications/3/snapshots/3", "Snap_v1.1.3", "v1.1.3");
 
             WSConnection connection = new WSConnection
             {

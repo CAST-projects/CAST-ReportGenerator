@@ -16,15 +16,15 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CurrentTechSizeResultsModTechno.json", "Data")]
-        [DeploymentItem(@".\Data\PreviousTechSizeResultsModTechno.json", "Data")]
+        [DeploymentItem(@"Data/CurrentTechSizeResultsModTechno.json", "Data")]
+        [DeploymentItem(@"Data/PreviousTechSizeResultsModTechno.json", "Data")]
         public void TestContent()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             CastDate previousDate = new CastDate { Time = 1484953200000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                null, @".\Data\CurrentTechSizeResultsModTechno.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
-               null, @".\Data\PreviousTechSizeResultsModTechno.json", "AED/applications/3/snapshots/3", "Snap3_CAIP-8.2.4_RG-1.4.1", "8.2.4", previousDate);
+                null, @"Data/CurrentTechSizeResultsModTechno.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+               null, @"Data/PreviousTechSizeResultsModTechno.json", "AED/applications/3/snapshots/3", "Snap3_CAIP-8.2.4_RG-1.4.1", "8.2.4", previousDate);
 
             var component = new TechnicalSizingEvolution();
             Dictionary<string, string> config = new Dictionary<string, string>();
@@ -42,12 +42,12 @@ namespace CastReporting.UnitTest.Reporting.Tables
         }
 
         [TestMethod]
-        [DeploymentItem(@".\Data\CurrentTechSizeResultsModTechno.json", "Data")]
+        [DeploymentItem(@"Data/CurrentTechSizeResultsModTechno.json", "Data")]
         public void TestNoPrevious()
         {
             CastDate currentDate = new CastDate { Time = 1492984800000 };
             ReportData reportData = TestUtility.PrepareApplicationReportData("CoCRestAPI",
-                null, @".\Data\CurrentTechSizeResultsModTechno.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
+                null, @"Data/CurrentTechSizeResultsModTechno.json", "AED/applications/3/snapshots/4", "Snap4_CAIP-8.3ra_RG-1.5.a", "8.3.ra", currentDate,
                 null, null, null, null, null, null);
 
             var component = new TechnicalSizingEvolution();
