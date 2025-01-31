@@ -193,7 +193,8 @@ echo.
 echo ==============================================
 echo sign executable
 echo ==============================================
-call %SIGNDIR%\signtool.bat  %SETUPPATH% SHA256
+cd %WORKSPACE%\%SRCDIR%\Setup
+call %SIGNDIR%\signtool.bat ReportGeneratorSetup.exe SHA256
 if errorlevel 1 goto endclean
 
 echo.
