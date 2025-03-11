@@ -18,6 +18,7 @@ using CastReporting.Domain;
 using CastReporting.Reporting.Atrributes;
 using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
+using CastReporting.Reporting.Helper;
 using CastReporting.Reporting.ReportingModel;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,8 @@ namespace CastReporting.Reporting.Block.Table
         public override TableDefinition Content(ReportData reportData, Dictionary<string, string> options)
         {
             string srBusinessCriterias = options != null && options.ContainsKey("PAR") ? options["PAR"] : null;
+            bool showNoViolationRules = options.GetOption("NOVIOLATIONS", "true").Equals("true");
+
             int count;
             if (options == null || !options.ContainsKey("COUNT") || !int.TryParse(options["COUNT"], out count))
             {
@@ -64,6 +67,10 @@ namespace CastReporting.Reporting.Block.Table
             int nbRows = 0;
             foreach (var item in results)
             {
+                if (!showNoViolationRules && item.TotalFailed == 0)
+                {
+                    continue;
+                }
 
                 rowData.Add(item.Rule.Critical ? "y" : string.Empty);
                 rowData.Add(item.Rule.CompoundedWeight.ToString());

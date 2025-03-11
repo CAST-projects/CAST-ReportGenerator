@@ -188,6 +188,9 @@
     <None Update="Data\OmgFunctionsTechnicalEscaped.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\TechCrit61009Violations.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\WebGoatMultiPreviousResults.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -452,7 +455,7 @@
     <None Update="Data\StandardTagsSTIG.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Data\TechCrit61009Violations.json">
+    <None Update="Data\TechCrit61009NoViolations.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Data\TechSizeModTechnoCurrent.json">
