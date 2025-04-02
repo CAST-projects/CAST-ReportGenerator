@@ -461,19 +461,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
                 "Violation #1    Track Classes referencing Database objects",
                 "Object Name: aedtst_exclusions_central.adg_central_grades_std",
                 "Object Type: MyObjType",
-                "File path: C:\\jenkins6_slave\\workspace\\CAIP_8.3.3_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Dream Team\\DssAdmin\\DssAdmin\\MetricTree.cpp",
-                "4904 :      m_bGridModified = FALSE;",
-                "4905 :  }",
-                "4906 : ",
-                "4907 :  void CMetricTreePageDet::Validate()",
-                "4908 :  {",
-                "4909 :      int i, index, nAggregate, nAggregateCentral, nType, nLastLine;"
+                "O11JNK.LINDBERGH_CENTRAL.VIEWER_ACTIONS",
+                "O11JNK.LINDBERGH_CENTRAL.VIEWER_DATA_PERSISTERS"
             };
 
-            TestUtility.AssertTableContent(table, expectedData, 1, 12);
+            TestUtility.AssertTableContent(table, expectedData, 1, 7);
 
             var cellsProperties = table.CellsAttributes;
-            Assert.AreEqual(10, cellsProperties.Count);
+            Assert.AreEqual(5, cellsProperties.Count);
 
         }
 

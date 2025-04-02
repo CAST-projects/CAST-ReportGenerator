@@ -920,12 +920,30 @@ namespace CastReporting.Reporting.Helper
                         }
                     }
                 }
-                if (associatedValue.Type != null && (associatedValue.Type.Equals("object") || associatedValue.Type.Equals("text") || associatedValue.Type.Equals("percentage")))
+                if (associatedValue.Type != null && (associatedValue.Type.Equals("object")))
                 {
-                    // manage case when type="object", "text" or "percentage"
+                    // manage case when type="object"
+                    AssociatedValueObject associatedValueEx = reportData.SnapshotExplorer.GetAssociatedValueObject(domainId, _violation.Component.GetComponentId(), snapshotId, key);
+                    ComponentWrapper[] values = associatedValueEx?.Values;
+                    if (values == null || values.Length == 0)
+                    {
+                        cellidx = AddSourceCode(reportData, rowData, cellidx, cellProps, domainId, snapshotId, _violation, withCodeLines);
+                    }
+                    else
+                    {
+                        foreach (ComponentWrapper _component in values)
+                        {
+                            rowData.Add(_component.Component.Name);
+                            cellProps.Add(new CellAttributes(cellidx, ColorWhite));
+                            cellidx++;
+                        }
+                    }
+                }
+                if (associatedValue.Type != null && (associatedValue.Type.Equals("text") || associatedValue.Type.Equals("percentage")))
+                {
+                    // manage case when type="text" or "percentage"
                     cellidx = AddSourceCode(reportData, rowData, cellidx, cellProps, domainId, snapshotId, _violation, withCodeLines);
                 }
-
             }
             return cellidx;
         }
