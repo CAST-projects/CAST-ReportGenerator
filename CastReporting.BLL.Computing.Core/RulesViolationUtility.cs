@@ -57,7 +57,7 @@ namespace CastReporting.BLL.Computing
                 ruleViolationResult.TechnicalCriteriaName = technicalCriterias.Reference.Name;
 
                 var ruleViolation = technicalCriterias.RulesViolation.Where(_ => rule.Key.HasValue && _.Reference.Key == rule.Key.Value).FirstOrDefault();
-                ruleViolationResult.Grade = ruleViolation.DetailResult.Grade;
+                ruleViolationResult.Grade = ruleViolation.DetailResult?.Grade;
                 var violationRatio = ruleViolation.DetailResult?.ViolationRatio;
                 if (violationRatio != null)
                 {

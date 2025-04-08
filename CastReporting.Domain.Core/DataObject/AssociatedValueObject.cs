@@ -12,7 +12,13 @@ namespace CastReporting.Domain
         public string Type { get; set; }
 
         [DataMember(Name = "values")]
-        public Component[] Values { get; set; }
+        public ComponentWrapper[] Values { get; set; }
+    }
 
+    [DataContract(Name = "componentWrapper")]
+    public class ComponentWrapper
+    {
+        [DataMember(Name = "component")]
+        public Component Component { get; set; }
     }
 }
