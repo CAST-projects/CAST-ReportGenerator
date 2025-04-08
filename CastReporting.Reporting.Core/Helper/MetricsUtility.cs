@@ -920,12 +920,30 @@ namespace CastReporting.Reporting.Helper
                         }
                     }
                 }
-                if (associatedValue.Type != null && (associatedValue.Type.Equals("object") || associatedValue.Type.Equals("text") || associatedValue.Type.Equals("percentage")))
+                if (associatedValue.Type != null && (associatedValue.Type.Equals("object")))
                 {
-                    // manage case when type="object", "text" or "percentage"
+                    // manage case when type="object"
+                    AssociatedValueObject associatedValueEx = reportData.SnapshotExplorer.GetAssociatedValueObject(domainId, _violation.Component.GetComponentId(), snapshotId, key);
+                    ComponentWrapper[] values = associatedValueEx?.Values;
+                    if (values == null || values.Length == 0)
+                    {
+                        cellidx = AddSourceCode(reportData, rowData, cellidx, cellProps, domainId, snapshotId, _violation, withCodeLines);
+                    }
+                    else
+                    {
+                        foreach (ComponentWrapper _component in values)
+                        {
+                            rowData.Add(_component.Component.Name);
+                            cellProps.Add(new CellAttributes(cellidx, ColorWhite));
+                            cellidx++;
+                        }
+                    }
+                }
+                if (associatedValue.Type != null && (associatedValue.Type.Equals("text") || associatedValue.Type.Equals("percentage")))
+                {
+                    // manage case when type="text" or "percentage"
                     cellidx = AddSourceCode(reportData, rowData, cellidx, cellProps, domainId, snapshotId, _violation, withCodeLines);
                 }
-
             }
             return cellidx;
         }
@@ -1367,6 +1385,25 @@ namespace CastReporting.Reporting.Helper
                     {
                         // manage case when type="object", "text"
                         List<Tuple<string, int, int>> paths = reportData.SnapshotExplorer.GetComponentFilePath(domainId, _violation.Component.GetComponentId(), snapshotId);
+                        if (paths.Count == 0)
+                        {
+                            var _row = headers.CreateDataRow();
+                            _row.Set(Labels.RuleName, ruleName);
+                            _row.Set(Labels.ObjectName, _violation.Component.Name);
+                            _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
+                            _row.Set(Labels.Status, st);
+                            if (ruleId == "actionPlan")
+                            {
+                                _row.Set(Labels.Priority, _violation.RemedialAction.Tag);
+                            }
+                            else if (ruleId == ("actionPlanPriority"))
+                            {
+                                _row.Set(Labels.Priority, _violation.RemedialAction.Priority);
+                            }
+                            _row.Set(Labels.AssociatedValue, associatedValue.Values == null ? " " : string.Join(',', associatedValue.Values));
+                            _row.Set(Labels.FilePath, "No associated path");
+                            rowData.AddRange(_row);
+                        }
                         paths.ForEach(_ =>
                         {
                             var _row = headers.CreateDataRow();
@@ -1394,6 +1431,25 @@ namespace CastReporting.Reporting.Helper
                         decimal? value = (decimal?)associatedValue.Values?.GetValue(0);
                         // manage case when type= "percentage"
                         List<Tuple<string, int, int>> paths = reportData.SnapshotExplorer.GetComponentFilePath(domainId, _violation.Component.GetComponentId(), snapshotId);
+                        if (paths.Count == 0)
+                        {
+                            var _row = headers.CreateDataRow();
+                            _row.Set(Labels.RuleName, ruleName);
+                            _row.Set(Labels.ObjectName, _violation.Component.Name);
+                            _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
+                            _row.Set(Labels.Status, st);
+                            if (ruleId == "actionPlan")
+                            {
+                                _row.Set(Labels.Priority, _violation.RemedialAction.Tag);
+                            }
+                            else if (ruleId == ("actionPlanPriority"))
+                            {
+                                _row.Set(Labels.Priority, _violation.RemedialAction.Priority);
+                            }
+                            _row.Set(Labels.AssociatedValue, value?.ToString("N2"));
+                            _row.Set(Labels.FilePath, "No associated path");
+                            rowData.AddRange(_row);
+                        }
                         paths.ForEach(_ =>
                         {
                             var _row = headers.CreateDataRow();
