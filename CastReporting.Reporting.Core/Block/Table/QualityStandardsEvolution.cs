@@ -38,6 +38,7 @@ namespace CastReporting.Reporting.Block.Table
             string displayAddedRemoved = reportData.PreviousSnapshot != null ? "true" : "false";
             bool displayEvolution = options.GetOption("EVOLUTION", displayAddedRemoved).ToLower().Equals("true");
             bool displayHeader = !options.GetOption("HEADER", "YES").ToUpper().Equals("NO");
+            bool showNoViolationRules = options.GetOption("NOVIOLATIONS", "true").Equals("true");
 
             string lbltotal = vulnerability ? Labels.TotalVulnerabilities : Labels.TotalViolations;
             string lbladded = vulnerability ? Labels.AddedVulnerabilities : Labels.AddedViolations;
@@ -111,7 +112,7 @@ namespace CastReporting.Reporting.Block.Table
                     {
                         string bcName = bcres.Reference.Name;
                         int? nbbcViolations = bcres.DetailResult?.EvolutionSummary?.TotalViolations;
-                        cellidx = AddDataRow(true, displayEvolution, lbltotal, lbladded, lblremoved, indicatorName, cellProps, cellidx, headers, data, bcres.DetailResult, nbbcViolations, bcName);
+                        cellidx = AddDataRow(true, displayEvolution, lbltotal, lbladded, lblremoved, indicatorName, cellProps, cellidx, headers, data, bcres.DetailResult, nbbcViolations, bcName, showNoViolationRules);
 
                         List<int?> technicalCriterionIds = reportData.RuleExplorer.GetCriteriaContributors(reportData.CurrentSnapshot.DomainId, bcres.Reference.Key.ToString(), reportData.CurrentSnapshot.Id).Select(_ => _.Key).ToList();
                         List<ApplicationResult> tcResults = technicalCriterionIds.Count > 0 ?
@@ -123,7 +124,7 @@ namespace CastReporting.Reporting.Block.Table
                             {
                                 string tcName = "    " + tcres.Reference?.Name;
                                 int? nbtcViolations = tcres.DetailResult?.EvolutionSummary?.TotalViolations;
-                                cellidx = AddDataRow(false, displayEvolution, lbltotal, lbladded, lblremoved, indicatorName, cellProps, cellidx, headers, data, tcres.DetailResult, nbtcViolations, tcName);
+                                cellidx = AddDataRow(false, displayEvolution, lbltotal, lbladded, lblremoved, indicatorName, cellProps, cellidx, headers, data, tcres.DetailResult, nbtcViolations, tcName, showNoViolationRules);
                             }
                         }
                     }
@@ -140,7 +141,7 @@ namespace CastReporting.Reporting.Block.Table
                         {
                             string tcName = tcres.Reference?.Name;
                             int? nbtcViolations = tcres.DetailResult?.EvolutionSummary?.TotalViolations;
-                            cellidx = AddDataRow(false, displayEvolution, lbltotal, lbladded, lblremoved, indicatorName, cellProps, cellidx, headers, data, tcres.DetailResult, nbtcViolations, tcName);
+                            cellidx = AddDataRow(false, displayEvolution, lbltotal, lbladded, lblremoved, indicatorName, cellProps, cellidx, headers, data, tcres.DetailResult, nbtcViolations, tcName, showNoViolationRules);
                         }
                     }
                 }
@@ -160,7 +161,7 @@ namespace CastReporting.Reporting.Block.Table
                         // usefull when the STD is a tag. when STD is a category it is not in the standardTags list for application, so only STD name is displayed
                         string stdTagName = result.Reference?.Name + " " + reportData.Application.StandardTags?.Where(_ => _.Key == result.Reference?.Name).FirstOrDefault()?.Name;
 
-                        cellidx = AddDataRow(detail, displayEvolution, lbltotal, lbladded, lblremoved, indicatorName, cellProps, cellidx, headers, data, detailResult, nbViolations, stdTagName);
+                        cellidx = AddDataRow(detail, displayEvolution, lbltotal, lbladded, lblremoved, indicatorName, cellProps, cellidx, headers, data, detailResult, nbViolations, stdTagName, showNoViolationRules);
 
                         // add lines for all sub tags if detail version (case of an upper category that should list all tags contains in the sub category
                         if (!detail) continue;
@@ -173,7 +174,7 @@ namespace CastReporting.Reporting.Block.Table
                                 if (detailStdResult == null) continue;
                                 int? nbStdViolations = detailStdResult.EvolutionSummary?.TotalViolations;
                                 string stdresTagName = "    " + stdres.Reference?.Name + " " + reportData.Application.StandardTags?.Where(_ => _.Key == stdres.Reference?.Name).FirstOrDefault()?.Name;
-                                cellidx = AddDataRow(false, displayEvolution, lbltotal, lbladded, lblremoved, indicatorName, cellProps, cellidx, headers, data, detailStdResult, nbStdViolations, stdresTagName);
+                                cellidx = AddDataRow(false, displayEvolution, lbltotal, lbladded, lblremoved, indicatorName, cellProps, cellidx, headers, data, detailStdResult, nbStdViolations, stdresTagName, showNoViolationRules);
                             }
                         }
                     }
@@ -206,8 +207,12 @@ namespace CastReporting.Reporting.Block.Table
             };
         }
 
-        private static int AddDataRow(bool detail, bool displayEvolution, string lbltotal, string lbladded, string lblremoved, string indicatorName, List<CellAttributes> cellProps, int cellidx, HeaderDefinition headers, List<string> data, ResultDetail detailResult, int? nbViolations, string stdTagName)
+        private static int AddDataRow(bool detail, bool displayEvolution, string lbltotal, string lbladded, string lblremoved, string indicatorName, List<CellAttributes> cellProps, int cellidx, HeaderDefinition headers, List<string> data, ResultDetail detailResult, int? nbViolations, string stdTagName, bool showWhenNoViolation)
         {
+            if (!showWhenNoViolation && (nbViolations == null || nbViolations == 0))
+            {
+                return cellidx; // do not add a row if no violation
+            }
             var dataRow = headers.CreateDataRow();
             dataRow.Set(indicatorName, stdTagName);
             FormatTableHelper.AddGrayOrBold(detail, cellProps, cellidx, nbViolations);
