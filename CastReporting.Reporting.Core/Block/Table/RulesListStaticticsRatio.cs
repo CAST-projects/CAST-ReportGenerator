@@ -48,6 +48,7 @@ namespace CastReporting.Reporting.Block.Table
 
             bool showDescription = options.GetOption("DESC", "false").Equals("true");
             bool displayHeader = !options.GetOption("HEADER", "YES").ToUpper().Equals("NO");
+            bool showNoViolationRules = options.GetOption("NOVIOLATIONS", "true").Equals("true");
 
             // cellProps will contains the properties of the cell (background color) linked to the data by position in the list stored with cellidx.
             List<CellAttributes> cellProps = new List<CellAttributes>();
@@ -112,6 +113,11 @@ namespace CastReporting.Reporting.Block.Table
                     var detailResult = result.DetailResult;
                     if (detailResult == null) continue;
                     int nbViolations = detailResult.ViolationRatio.FailedChecks ?? 0;
+
+                    if (!showNoViolationRules && nbViolations == 0)
+                    {
+                        continue; // skip rules with no violations
+                    }
 
                     dataRow.Set(Labels.CASTRules, (result.Reference?.Name + " (" + result.Reference?.Key + ")").NAIfEmpty());
                     if (nbViolations > 0)

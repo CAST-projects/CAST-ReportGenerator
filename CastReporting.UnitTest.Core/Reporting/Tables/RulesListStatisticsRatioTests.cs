@@ -1,5 +1,6 @@
 ﻿using CastReporting.Domain;
 using CastReporting.Reporting.ReportingModel;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
@@ -598,6 +599,82 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
         }
 
+        [TestMethod]
+        [DeploymentItem(@"Data/CurrentBCTCWithNoViolations.json", "Data")]
+        [DeploymentItem(@"Data/BaseQI60011.json", "Data")]
+        public void TestWithNoViolations()
+        {
+            CastDate currentDate = new CastDate { Time = 1484953200000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+                null, @"Data/CurrentBCTCWithNoViolations.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, null, null, null, null, null);
+            WSConnection connection = new WSConnection
+            {
+                Url = "http://tests/CAST-RESTAPI/rest/",
+                Login = "admin",
+                Password = "cast",
+                IsActive = true,
+                Name = "Default"
+            };
+            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
+            reportData.RuleExplorer = new RuleBLLStub();
+
+            var component = new CastReporting.Reporting.Block.Table.RulesListStatisticsRatio();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"METRICS","60011" },
+                {"NOVIOLATIONS", "true" }
+            };
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>
+            {
+                "CAST Rules","Total Vulnerabilities",
+                "Action Mappings should have few forwards (7132)","77",
+                "Avoid accessing data by using the position and length (7558)", "6",
+                "Avoid artifacts having recursive calls (7388)", "0"
+            };
+
+            TestUtility.AssertTableContent(table, expectedData, 2, 4);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@"Data/CurrentBCTCWithNoViolations.json", "Data")]
+        [DeploymentItem(@"Data/BaseQI60011.json", "Data")]
+        public void TestWithoutNoViolations()
+        {
+            CastDate currentDate = new CastDate { Time = 1484953200000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+                null, @"Data/CurrentBCTCWithNoViolations.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, null, null, null, null, null);
+            WSConnection connection = new WSConnection
+            {
+                Url = "http://tests/CAST-RESTAPI/rest/",
+                Login = "admin",
+                Password = "cast",
+                IsActive = true,
+                Name = "Default"
+            };
+            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
+            reportData.RuleExplorer = new RuleBLLStub();
+
+            var component = new CastReporting.Reporting.Block.Table.RulesListStatisticsRatio();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"METRICS","60011" },
+                {"NOVIOLATIONS", "false" }
+            };
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>
+            {
+                "CAST Rules","Total Vulnerabilities",
+                "Action Mappings should have few forwards (7132)","77",
+                "Avoid accessing data by using the position and length (7558)", "6"
+            };
+
+            TestUtility.AssertTableContent(table, expectedData, 2, 3);
+        }
+
     }
 }
-

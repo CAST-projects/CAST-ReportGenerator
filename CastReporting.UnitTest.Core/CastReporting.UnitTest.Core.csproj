@@ -167,6 +167,9 @@
     <None Update="Data\cocraFuncWeightPrevious.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\CurrentBCTCWithNoViolations.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\OmgFunctionsEvolutions - Copy.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
