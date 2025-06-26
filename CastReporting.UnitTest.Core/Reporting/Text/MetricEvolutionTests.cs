@@ -41,6 +41,30 @@ namespace CastReporting.UnitTest.Reporting.Text
         }
 
         [TestMethod]
+        [DeploymentItem(@"Data/Sample1Current.json", "Data")]
+        [DeploymentItem(@"Data/Sample1Previous.json", "Data")]
+        public void TestBCcompliance()
+        {
+            /*
+             * Configuration : TEXT;APPLICATION_METRIC;SNAPSHOT=CURRENT,ID=60014,FORMAT=N2
+            * @"Data/Sample1Current.json" => http://localhost:7070/CAST-AAD-AED/rest/AED/applications/3/snapshots/6/results?quality-indicators=(60013,60014,60017)
+            * @"Data/Sample1Previous.json" => http://localhost:7070/CAST-AAD-AED/rest/AED/applications/3/snapshots/3/results?quality-indicators=(60013,60014,60017)
+             */
+            ReportData reportData = TestUtility.PrepaReportData("ReportGenerator",
+                null, @"Data/Sample1Current.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2",
+                null, @"Data/Sample1Previous.json", "AED/applications/3/snapshots/3", "PreVersion 1.4.1 before release", "V-1.4.1");
+
+            var component = new MetricEvolution();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"ID", "60014"},
+                {"COMPLIANCE", "true"}
+            };
+            var str = component.Content(reportData, config);
+            Assert.AreEqual("-0.42 %", str);
+        }
+
+        [TestMethod]
         [DeploymentItem(@"Data/Snapshot_QIresults1.json", "Data")]
         [DeploymentItem(@"Data/Snapshot_QIresults2.json", "Data")]
         public void TestTCabsolute()

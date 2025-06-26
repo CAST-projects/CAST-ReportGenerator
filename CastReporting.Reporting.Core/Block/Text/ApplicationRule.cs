@@ -44,6 +44,8 @@ namespace CastReporting.Reporting.Block.Text
             string[] lstParams = options.GetOption("PARAMS", string.Empty).Split(' ');
             string _expr = options.GetOption("EXPR", string.Empty);
 
+            bool compliance = options.GetBoolOption("COMPLIANCE", false);
+
             Module module = null;
             if (moduleName != null)
             {
@@ -64,8 +66,12 @@ namespace CastReporting.Reporting.Block.Text
             }
             else if (string.IsNullOrEmpty(metricId)) return Constants.No_Value;
 
-            SimpleResult res = MetricsUtility.GetMetricNameAndResult(reportData, snapshot, metricId, module, techno, true);
+            SimpleResult res = MetricsUtility.GetMetricNameAndResult(reportData, snapshot, metricId, module, techno, true, compliance);
             if (res == null) return Constants.No_Value;
+            if (compliance)
+            {
+                return res.resultStr;
+            }
             return res.result.HasValue ? res.result.Value.ToString(_format) : Constants.No_Value;
 
         }

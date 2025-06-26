@@ -25,7 +25,8 @@
           "critical": "N/A"
         },
         "result": {
-          "grade": 3.1934772018853566
+          "grade": 3.1934772018853566,
+          "score": 0.8454497308966921
         },
         "technologyResults": [],
         "moduleResults": [],
@@ -41,7 +42,8 @@
           "critical": "N/A"
         },
         "result": {
-          "grade": 2.590669368680213
+          "grade": 2.590669368680213,
+          "score": 0.2596327308966921
         },
         "technologyResults": [],
         "moduleResults": [],
@@ -79,7 +81,8 @@
           "critical": "N/A"
         },
         "result": {
-          "grade": 1.92
+          "grade": 1.92,
+          "score": 0.1521
         },
         "technologyResults": [],
         "moduleResults": [],
