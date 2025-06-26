@@ -361,7 +361,41 @@ namespace CastReporting.UnitTest.Reporting.Tables
             TestUtility.AssertTableContent(table, expectedData, 1, 2);
         }
 
+        [TestMethod]
+        [DeploymentItem(@"Data/Violations4722_60017.json", "Data")]
+        [DeploymentItem(@"Data/CurrentBCresults.json", "Data")]
+        [DeploymentItem(@"Data/findings_objects.json", "Data")]
+        [DeploymentItem(@"Data/RulePatterns.json", "Data")]
+        public void TestObjectTypeMetric()
+        {
+            CastDate currentDate = new CastDate { Time = 1484953200000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+                null, @"Data/CurrentBCresults.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, null, null, null, null, null);
+            WSConnection connection = new WSConnection
+            {
+                Url = "http://tests/CAST-RESTAPI/rest/",
+                Login = "admin",
+                Password = "cast",
+                IsActive = true,
+                Name = "Default"
+            };
+            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
+            reportData.RuleExplorer = new RuleBLLStub();
+            var component = new CastReporting.Reporting.Block.Table.RulesListViolationsBookmarksTable();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"METRICS","4722" },
+                {"COUNT","1" }
+            };
+            var table = component.Content(reportData, config);
 
+            var expectedData = new List<string>
+            { "Rule Name","Object Name","Object Type","Status","Associated Value","File path","Start Line","End Line",
+                "Track Classes referencing Database objects","aedtst_exclusions_central.adg_central_grades_std","MyObjType","","O11JNK.LINDBERGH_CENTRAL.VIEWER_ACTIONS,O11JNK.LINDBERGH_CENTRAL.VIEWER_DATA_PERSISTERS","C:\\jenkins6_slave\\workspace\\CAIP_8.3.3_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Dream Team\\DssAdmin\\DssAdmin\\MetricTree.cpp","2","6"
+            };
+            TestUtility.AssertTableContent(table, expectedData, 8, 2);
+        }
     }
 }
 

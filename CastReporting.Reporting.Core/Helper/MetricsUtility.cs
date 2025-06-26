@@ -1381,9 +1381,59 @@ namespace CastReporting.Reporting.Helper
                             }
                         }
                     }
-                    if (associatedValue.Type != null && (associatedValue.Type.Equals("object") || associatedValue.Type.Equals("text")))
+                    if (associatedValue.Type != null && associatedValue.Type.Equals("object"))
                     {
-                        // manage case when type="object", "text"
+                        // manage case when type="object"
+                        List<Tuple<string, int, int>> paths = reportData.SnapshotExplorer.GetComponentFilePath(domainId, _violation.Component.GetComponentId(), snapshotId);
+                        if (paths.Count == 0)
+                        {
+                            var _row = headers.CreateDataRow();
+                            _row.Set(Labels.RuleName, ruleName);
+                            _row.Set(Labels.ObjectName, _violation.Component.Name);
+                            _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
+                            _row.Set(Labels.Status, st);
+                            if (ruleId == "actionPlan")
+                            {
+                                _row.Set(Labels.Priority, _violation.RemedialAction.Tag);
+                            }
+                            else if (ruleId == ("actionPlanPriority"))
+                            {
+                                _row.Set(Labels.Priority, _violation.RemedialAction.Priority);
+                            }
+
+                            AssociatedValueObject associatedValueEx = reportData.SnapshotExplorer.GetAssociatedValueObject(domainId, _violation.Component.GetComponentId(), snapshotId, metric);
+                            ComponentWrapper[] values = associatedValueEx?.Values;
+                            _row.Set(Labels.AssociatedValue, (values == null || values.Length == 0) ? " " : string.Join(',', values.Select(v => v.Component.Name)));
+                            _row.Set(Labels.FilePath, "No associated path");
+                            rowData.AddRange(_row);
+                        }
+                        paths.ForEach(_ =>
+                        {
+                            var _row = headers.CreateDataRow();
+                            _row.Set(Labels.RuleName, ruleName);
+                            _row.Set(Labels.ObjectName, _violation.Component.Name);
+                            _row.Set(Labels.IFPUG_ObjectType, objectComponent.Type.Label);
+                            _row.Set(Labels.Status, st);
+                            if (ruleId == "actionPlan")
+                            {
+                                _row.Set(Labels.Priority, _violation.RemedialAction.Tag);
+                            }
+                            else if (ruleId == ("actionPlanPriority"))
+                            {
+                                _row.Set(Labels.Priority, _violation.RemedialAction.Priority);
+                            }
+                            AssociatedValueObject associatedValueEx = reportData.SnapshotExplorer.GetAssociatedValueObject(domainId, _violation.Component.GetComponentId(), snapshotId, metric);
+                            ComponentWrapper[] values = associatedValueEx?.Values;
+                            _row.Set(Labels.AssociatedValue, (values == null || values.Length == 0) ? " " : string.Join(',', values.Select(v => v.Component.Name)));
+                            _row.Set(Labels.FilePath, _.Item1);
+                            _row.Set(Labels.StartLine, _.Item2.ToString());
+                            _row.Set(Labels.EndLine, _.Item3.ToString());
+                            rowData.AddRange(_row);
+                        });
+                    }
+                    if (associatedValue.Type != null && associatedValue.Type.Equals("text"))
+                    {
+                        // manage case when type="text"
                         List<Tuple<string, int, int>> paths = reportData.SnapshotExplorer.GetComponentFilePath(domainId, _violation.Component.GetComponentId(), snapshotId);
                         if (paths.Count == 0)
                         {

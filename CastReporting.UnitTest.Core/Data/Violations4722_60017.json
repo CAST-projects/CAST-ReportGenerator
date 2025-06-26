@@ -1,0 +1,30 @@
+[
+  {
+    "component": {
+      "href": "AED/components/27295/snapshots/5",
+      "name": "aedtst_exclusions_central.adg_central_grades_std",
+      "shortName": "adg_central_grades_std",
+      "status": "added",
+      "sourceCodes": {
+        "href": "AED/components/27295/snapshots/5/source-codes",
+        "name": "Source Codes"
+      },
+      "treeNodes": {
+        "href": "AED/components/27295/snapshots/5/tree-nodes",
+        "name": "Tree Nodes"
+      }
+    },
+    "diagnosis": {
+      "status": "added",
+      "findings": {
+        "href": "AED/components/27295/snapshots/5/findings/4722",
+        "name": "Database object used"
+      }
+    },
+    "rulePattern": {
+      "href": "AED/rule-patterns/4722",
+      "name": "Track Classes referencing Database objects"
+    },
+    "remedialAction": null
+  }
+]
