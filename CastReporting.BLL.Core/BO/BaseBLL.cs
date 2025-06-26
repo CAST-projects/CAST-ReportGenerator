@@ -36,7 +36,7 @@ namespace CastReporting.BLL
         /// </summary>
         protected ICastRepsitory GetRepository()
         {
-            CastRepository repo = new CastRepository(Connection, Client);
+            CastRepository repo = new CastRepository(Connection, null);
             Client = repo.GetClient();
             return repo;
         }
