@@ -79,18 +79,20 @@ namespace CastReporting.Mediation
             }
 
             _restApiKey = apiKey;
-            if (cookies?.Count > 0)
-            {
-                RemoveAuthenticationHeaders();
-                return;
-            }
             if (apiKey)
             {
+                // With dashboards v3, using cookie JSESSIONID does not work anymore
+                RemoveAuthenticationHeaders();
                 Headers.Add("X-API-KEY", password);
                 Headers.Add("X-API-USER", login);
             }
             else
             {
+                if (cookies?.Count > 0)
+                {
+                    RemoveAuthenticationHeaders();
+                    return;
+                }
                 string credentials = CreateBasicAuthenticationCredentials(login, password);
                 Headers.Add(HttpRequestHeader.Authorization, credentials);
             }
