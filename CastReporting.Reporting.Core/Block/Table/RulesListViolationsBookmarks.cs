@@ -78,7 +78,7 @@ namespace CastReporting.Reporting.Block.Table
                 foreach (string _metric in qualityRules)
                 {
                     RuleDescription rule = reportData.RuleExplorer.GetSpecificRule(reportData.Application.DomainId, _metric);
-                    string ruleName = rule.Name;
+                    string ruleName = rule?.Name;
                     if (ruleName == null) continue;
                     if (!int.TryParse(_metric, out int metricId)) continue;
                     ViolStatMetricIdDTO violStats = RulesViolationUtility.GetViolStat(reportData.CurrentSnapshot, metricId);
