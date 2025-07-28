@@ -26,7 +26,7 @@ namespace CastReporting.Reporting.Block.Table
 
             if (!VersionUtil.Is111Compatible(reportData.ServerVersion))
             {
-                LogHelper.LogError("Bad version of RestAPI. Should be 1.11 at least for component LIST_RULES_VIOLATIONS_BOOKMARKS");
+                LogHelper.LogError("Bad version of RestAPI. Should be 1.11 at least for component LIST_RULES_VIOLATIONS_BOOKMARKS_TABLE");
                 return emptyTable(Labels.NoData, displayHeader);
             }
 
@@ -62,7 +62,7 @@ namespace CastReporting.Reporting.Block.Table
                 foreach (string _metric in qualityRules)
                 {
                 if (!int.TryParse(_metric, out int metricId)) continue;
-                    List<Violation> results = reportData.SnapshotExplorer.GetViolationsListIDbyBC(reportData.CurrentSnapshot.Href, _metric, bcId, nbLimitTop, "$all").ToList();
+                    List<Violation> results = reportData.SnapshotExplorer.GetViolationsListIDbyBC(reportData.CurrentSnapshot.Href, _metric, bcId, nbLimitTop, "$all")?.ToList();
                     if (results == null || results.Count < 1) continue;
                     rowData.AddRange(MetricsUtility.PopulateViolationsBookmarksRow(reportData, results, headers, _metric));
                 }

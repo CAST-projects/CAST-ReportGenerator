@@ -25,7 +25,8 @@
 					"critical": "N/A"
 				},
 				"result": {
-					"grade": 2.8755240736725214
+					"grade": 2.8755240736725214,
+					"score": 0.6327308966921
 				},
 				"technologyResults": [],
 				"moduleResults": [],
@@ -41,7 +42,8 @@
 					"critical": "N/A"
 				},
 				"result": {
-					"grade": 2.6075400797573876
+					"grade": 2.6075400797573876,
+					"score": 0.2607327308966921
 				},
 				"technologyResults": [],
 				"moduleResults": [],
@@ -57,7 +59,8 @@
 					"critical": "N/A"
 				},
 				"result": {
-					"grade": 2.6090543843169525
+					"grade": 2.6090543843169525,
+					"score": 0.359727308966921
 				},
 				"technologyResults": [],
 				"moduleResults": [],
@@ -72,9 +75,10 @@
 				"key": "11203569",
 				"critical": "N/A"
 			},
-			"result": {
-				"grade": 2.01
-			},
+				"result": {
+					"grade": 2.01,
+					"score": 0.96327308966921
+				},
 			"technologyResults": [],
 			"moduleResults": [],
 			"transactionResults": []

@@ -286,7 +286,6 @@ namespace CastReporting.UnitTest.Reporting
                 case "7390":
                 case "7156":
                 case "7210":
-                case "4722":
                 case "7740":
                 case "1596":
                     res = count != -1 ? TestUtility.GetSampleResult<Violation>(@"Data/Violations7424_60017.json").Take(count).ToList()
@@ -299,6 +298,10 @@ namespace CastReporting.UnitTest.Reporting
                 case "7846":
                     res = count != -1 ? TestUtility.GetSampleResult<Violation>(@"Data/Violations7846_60016.json").Take(count).ToList()
                         : TestUtility.GetSampleResult<Violation>(@"Data/Violations7846_60016.json").ToList();
+                    break;
+                case "4722":
+                    res = count != -1 ? TestUtility.GetSampleResult<Violation>(@"Data/Violations4722_60017.json").Take(count).ToList()
+                        : TestUtility.GetSampleResult<Violation>(@"Data/Violations4722_60017.json").ToList();
                     break;
                 case "(critical-rules)":
                     switch (bcId)

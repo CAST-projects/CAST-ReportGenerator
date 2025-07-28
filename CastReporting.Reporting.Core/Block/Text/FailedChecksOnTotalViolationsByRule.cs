@@ -43,11 +43,11 @@ namespace CastReporting.Reporting.Block.Text
 
             if (_snapshot == "PREVIOUS" && reportData.PreviousSnapshot != null)
             {
-                violations = reportData.RuleExplorer.GetRulesViolations(reportData.PreviousSnapshot.Href, strRuleId).FirstOrDefault();
+                violations = reportData.RuleExplorer.GetRulesViolations(reportData.PreviousSnapshot.Href, strRuleId)?.FirstOrDefault();
             }
             else
             {
-                violations = reportData.RuleExplorer.GetRulesViolations(reportData.CurrentSnapshot.Href, strRuleId).FirstOrDefault();
+                violations = reportData.RuleExplorer.GetRulesViolations(reportData.CurrentSnapshot.Href, strRuleId)?.FirstOrDefault();
             }
 
             // ReSharper disable once InvertIf

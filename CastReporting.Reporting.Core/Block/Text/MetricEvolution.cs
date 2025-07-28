@@ -40,6 +40,8 @@ namespace CastReporting.Reporting.Block.Text
             string[] lstParams = options.GetOption("PARAMS", string.Empty).Split(' ');
             string _expr = options.GetOption("EXPR", string.Empty);
 
+            bool compliance = options.GetBoolOption("COMPLIANCE", false);
+
             if (reportData?.CurrentSnapshot == null || reportData?.PreviousSnapshot == null) return Constants.No_Value;
 
             Module module = null;
@@ -78,7 +80,7 @@ namespace CastReporting.Reporting.Block.Text
             }
             else if (metricId != null)
             {
-                result = MetricsUtility.GetMetricEvolution(reportData, reportData.CurrentSnapshot, reportData.PreviousSnapshot, metricId, true, module, techno, true);
+                result = MetricsUtility.GetMetricEvolution(reportData, reportData.CurrentSnapshot, reportData.PreviousSnapshot, metricId, true, module, techno, true, compliance);
             }
 
             if (result == null)

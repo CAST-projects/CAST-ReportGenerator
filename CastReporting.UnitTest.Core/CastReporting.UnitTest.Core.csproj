@@ -194,6 +194,9 @@
     <None Update="Data\TechCrit61009Violations.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\Violations4722_60017.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\WebGoatMultiPreviousResults.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
