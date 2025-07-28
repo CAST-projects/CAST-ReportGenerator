@@ -208,7 +208,7 @@ namespace CastReporting.BLL
                             var appResults = castRepsitory.GetComplexityIndicators(snap.Href, val.ToString());
                             foreach (var result in appResults)
                             {
-                                results.AddRange(result.ApplicationResults);
+                                results.AddRange(result?.ApplicationResults);
                             }
                         }
                         snap.CostComplexityResults = results;
