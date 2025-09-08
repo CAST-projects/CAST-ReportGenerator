@@ -1201,7 +1201,7 @@ namespace CastReporting.Reporting.Helper
                                     }
                                     catch (KeyNotFoundException)
                                     {
-                                        data = Constants.No_Value;
+                                        data = format ? Constants.No_Value : "0";
                                     }
                                     rowData.Add(data);
                                 }
@@ -1216,7 +1216,7 @@ namespace CastReporting.Reporting.Helper
                                 }
                                 catch (KeyNotFoundException)
                                 {
-                                    data = Constants.No_Value;
+                                    data = format ? Constants.No_Value : "0";
                                 }
                                 rowData.Add(data);
                             }
@@ -1241,7 +1241,7 @@ namespace CastReporting.Reporting.Helper
                                 }
                                 catch (KeyNotFoundException)
                                 {
-                                    data = Constants.No_Value;
+                                    data = format ? Constants.No_Value : "0";
                                 }
                                 rowData.Add(data);
                             }
@@ -1256,7 +1256,7 @@ namespace CastReporting.Reporting.Helper
                             }
                             catch (KeyNotFoundException)
                             {
-                                data = Constants.No_Value;
+                                data = format ? Constants.No_Value : "0";
                             }
                             rowData.Add(data);
                         }

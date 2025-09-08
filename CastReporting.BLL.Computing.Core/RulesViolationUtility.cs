@@ -370,6 +370,7 @@ namespace CastReporting.BLL.Computing
             foreach (Application _application in snapshotList.Keys)
             {
                 ViolStatMetricIdDTO appRes = GetViolStat(snapshotList[_application], metricId);
+                if (appRes == null) continue;
                 totalViol += appRes.TotalViolations;
                 addedViol += appRes.AddedViolations;
                 removedViol += appRes.RemovedViolations;
@@ -402,6 +403,7 @@ namespace CastReporting.BLL.Computing
             foreach (Application _application in snapshotList.Keys)
             {
                 ViolStatMetricIdDTO appRes = GetViolStatTechno(snapshotList[_application], techno, metricId);
+                if (appRes == null) continue;
                 if (appRes.TotalViolations != null) totalViol += appRes.TotalViolations;
                 if (appRes.AddedViolations != null) addedViol += appRes.AddedViolations;
                 if (appRes.RemovedViolations != null) removedViol += appRes.RemovedViolations;

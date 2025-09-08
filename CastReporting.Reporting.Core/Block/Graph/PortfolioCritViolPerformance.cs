@@ -93,6 +93,8 @@ namespace CastReporting.Reporting.Block.Graph
                             int intSnapshotYear = _snapshotDate.Year;
 
                             if (intQuarter != intSnapshotQuarter || intYear != intSnapshotYear) continue;
+                            var summary = RulesViolationUtility.GetBCEvolutionSummary(snapshot, metricId);
+                            if (summary == null || !summary.Any()) continue;
                             ViolationsStatisticsDTO results = RulesViolationUtility.GetBCEvolutionSummary(snapshot, metricId).First();
                             if (results == null) continue;
                             _removedCritViol = _removedCritViol + results.RemovedCriticalViolations;

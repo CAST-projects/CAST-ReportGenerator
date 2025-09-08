@@ -93,9 +93,10 @@ namespace CastReporting.Reporting.Block.Graph
                             int intSnapshotYear = _snapshotDate.Year;
 
                             if (intQuarter != intSnapshotQuarter || intYear != intSnapshotYear) continue;
-                            _removedTechnicalDebt = _removedTechnicalDebt + MeasureUtility.GetRemovedTechDebtMetric(snapshot);
-                            _addedTechnicalDebt = _addedTechnicalDebt + MeasureUtility.GetAddedTechDebtMetric(snapshot);
-                            _totalTechnicalDebt = _totalTechnicalDebt + MeasureUtility.GetTechnicalDebtMetric(snapshot);
+
+                            _removedTechnicalDebt += MeasureUtility.GetRemovedTechDebtMetric(snapshot) ?? 0;
+                            _addedTechnicalDebt += MeasureUtility.GetAddedTechDebtMetric(snapshot) ?? 0;
+                            _totalTechnicalDebt += MeasureUtility.GetTechnicalDebtMetric(snapshot) ?? 0;
                         }
                     }
 
