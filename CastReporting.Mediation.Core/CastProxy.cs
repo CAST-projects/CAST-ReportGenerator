@@ -19,7 +19,9 @@ using CastReporting.Mediation.Core;
 using CastReporting.Mediation.Interfaces;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 
@@ -31,16 +33,20 @@ namespace CastReporting.Mediation
     /// <summary>
     /// WebClient Class for Cast Reporting
     /// </summary>
-    public class CastProxy : WebClient, ICastProxy
+    public class CastProxy : ICastProxy
     {
         #region ATTRIBUTES
 
         /// <summary>
         /// 
         /// </summary>
+        /// 
+        private readonly HttpClient _httpClient;
+        private readonly HttpClientHandler _httpClientHandler;
+
         private RequestComplexity _currentComplexity = RequestComplexity.Standard;
 
-        private WebRequest _request;
+        private HttpRequestMessage _request;
 
         private readonly bool _restApiKey;
 
@@ -69,22 +75,25 @@ namespace CastReporting.Mediation
         /// </summary>
         public CastProxy(string login, string password, bool apiKey, bool validateCertificate, CookieContainer cookies = null, bool autoRedirect = true)
         {
-            CookieContainer = cookies ?? new CookieContainer();
-            AutoRedirect = autoRedirect;
             // to debug on https with self signed certificat, disable the certificate validation in the settings
             // add line <ServerCertificateValidation>disable</ServerCertificateValidation> in the reporting parameters
+            _httpClientHandler = new HttpClientHandler();
+            _httpClientHandler.CookieContainer = cookies ?? new CookieContainer();
+            _httpClientHandler.AllowAutoRedirect = autoRedirect;
+            _httpClientHandler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
             if (!validateCertificate)
             {
-                ServicePointManager.ServerCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
+                _httpClientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
             }
+            _httpClient = new HttpClient(_httpClientHandler);
 
             _restApiKey = apiKey;
             if (apiKey)
             {
                 // With dashboards v3, using cookie JSESSIONID does not work anymore
                 RemoveAuthenticationHeaders();
-                Headers.Add("X-API-KEY", password);
-                Headers.Add("X-API-USER", login);
+                _httpClient.DefaultRequestHeaders.Add("X-API-KEY", password);
+                _httpClient.DefaultRequestHeaders.Add("X-API-USER", login);
             }
             else
             {
@@ -94,7 +103,7 @@ namespace CastReporting.Mediation
                     return;
                 }
                 string credentials = CreateBasicAuthenticationCredentials(login, password);
-                Headers.Add(HttpRequestHeader.Authorization, credentials);
+                _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", credentials.Substring(6));
             }
         }
 
@@ -112,23 +121,25 @@ namespace CastReporting.Mediation
         /// <value>
         /// The cookie container.
         /// </value>
-        public CookieContainer CookieContainer { get; set; }
+        public void SetCookieContainer(CookieContainer cookie) {
+            this._httpClientHandler.CookieContainer = cookie;
+        }
 
         public CookieContainer GetCookieContainer()
         {
-            return CookieContainer;
+            return this._httpClientHandler.CookieContainer;
         }
 
         public void RemoveAuthenticationHeaders()
         {
             if (_restApiKey)
             {
-                Headers.Remove("X-API-KEY");
-                Headers.Remove("X-API-USER");
+                _httpClient.DefaultRequestHeaders.Remove("X-API-KEY");
+                _httpClient.DefaultRequestHeaders.Remove("X-API-USER");
             }
             else
             {
-                Headers.Remove(HttpRequestHeader.Authorization);
+                _httpClient.DefaultRequestHeaders.Authorization = null;
             }
         }
 
@@ -161,7 +172,7 @@ namespace CastReporting.Mediation
                 var result = HttpStatusCode.Gone;
 
                 if (_request == null) return result;
-                var response = GetWebResponse(_request) as HttpWebResponse;
+                var response = _httpClient.SendAsync(_request).GetAwaiter().GetResult();
 
                 if (response != null)
                 {
@@ -178,7 +189,7 @@ namespace CastReporting.Mediation
         /// <value>
         /// The setup.
         /// </value>
-        public Action<HttpWebRequest> Setup { get; set; }
+        public Action<HttpRequestMessage> Setup { get; set; }
 
         /// <summary>
         /// Gets the header value.
@@ -187,7 +198,13 @@ namespace CastReporting.Mediation
         /// <returns>The value.</returns>
         public string GetHeaderValue(string headerName)
         {
-            return _request != null ? GetWebResponse(_request)?.Headers?[headerName] : null;
+            if (_request == null) return null;
+            var response = _httpClient.SendAsync(_request).GetAwaiter().GetResult();
+            if (response.Headers.TryGetValues(headerName, out var values))
+            {
+                return values.FirstOrDefault();
+            }
+            return null;
         }
 
 
@@ -197,38 +214,42 @@ namespace CastReporting.Mediation
         {
 
             string result;
-
             try
             {
-                Headers.Add(HttpRequestHeader.Accept, mimeType);
-                var culture = Thread.CurrentThread.CurrentCulture;
-                Headers.Remove(HttpRequestHeader.AcceptLanguage);
-                Headers.Add(HttpRequestHeader.AcceptLanguage, culture.Name.Equals("zh-Hans") ? "zh" : "en");
+                using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, pUrl))
+                {
+                    request.Headers.Accept.Clear();
+                    request.Headers.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue(mimeType));
 
-                // For RestAPI audit trail 
-                Headers.Remove("X-Client");
-                Headers.Add("X-Client", "CAST-ReportGenerator");
+                    var culture = Thread.CurrentThread.CurrentCulture;
+                    request.Headers.AcceptLanguage.Clear();
+                    request.Headers.AcceptLanguage.Add(new System.Net.Http.Headers.StringWithQualityHeaderValue(culture.Name.Equals("zh-Hans") ? "zh" : "en"));
 
-                Encoding = Encoding.UTF8;
+                    // for audit trail
+                    request.Headers.Remove("X-Client");
+                    request.Headers.Add("X-Client", "CAST-ReportGenerator");
 
-                RequestComplexity previousComplexity = _currentComplexity;
-                _currentComplexity = pComplexity;
+                    RequestComplexity previousComplexity = _currentComplexity;
+                    _currentComplexity = pComplexity;
 
-                var requestWatch = new Stopwatch();
-                requestWatch.Start();
-                result = DownloadString(pUrl);
-                requestWatch.Stop();
+                    var requestWatch = new Stopwatch();
+                    requestWatch.Start();
+                    var response = _httpClient.SendAsync(request).GetAwaiter().GetResult();
+                    response.EnsureSuccessStatusCode();
+                    result = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    requestWatch.Stop();
+                    _request = request;
+                    _currentComplexity = previousComplexity;
 
-                _currentComplexity = previousComplexity;
+                    LogHelper.LogDebugFormat
+                            ("Request URL '{0}' - Time elapsed : {1} "
+                            , pUrl
+                            , requestWatch.Elapsed.ToString()
+                            );
 
-                LogHelper.LogDebugFormat
-                        ("Request URL '{0}' - Time elapsed : {1} "
-                        , pUrl
-                        , requestWatch.Elapsed.ToString()
-                        );
-
+                }
             }
-            catch (Exception ex) when (ex is ArgumentNullException || ex is WebException || ex is NotSupportedException || ex is InvalidOperationException || ex is ArgumentOutOfRangeException)
+            catch (Exception ex) when (ex is ArgumentNullException || ex is HttpRequestException || ex is NotSupportedException || ex is InvalidOperationException || ex is ArgumentOutOfRangeException)
             {
                 LogHelper.LogErrorFormat
                        ("Request URL '{0}' - Error execution :  {1}"
@@ -260,7 +281,7 @@ namespace CastReporting.Mediation
             {
                 return DownloadContent(pUrl, "text/plain", pComplexity);
             }
-            catch (WebException webEx)
+            catch (HttpRequestException webEx)
             {
                 LogHelper.LogInfo(webEx.Message);
                 return null;
@@ -291,7 +312,7 @@ namespace CastReporting.Mediation
             {
                 return DownloadContent(pUrl, "text/csv", pComplexity);
             }
-            catch (WebException webEx)
+            catch (HttpRequestException webEx)
             {
                 // AIP < 8 sends CSV data as application/vnd.ms-excel
                 LogHelper.LogInfo(webEx.Message);
@@ -308,32 +329,6 @@ namespace CastReporting.Mediation
         public string DownloadCsvString(Uri pUri, RequestComplexity pComplexity)
         {
             return DownloadCsvString(pUri.ToString(), pComplexity);
-        }
-
-        /// <summary>
-        /// Get Web Request
-        /// </summary>
-        /// <param name="pAddress"></param>
-        /// <returns></returns>
-        protected override WebRequest GetWebRequest(Uri pAddress)
-        {
-            _request = base.GetWebRequest(pAddress);
-
-            var httpRequest = _request as HttpWebRequest;
-
-            if (httpRequest == null) return _request;
-
-            httpRequest.AllowAutoRedirect = AutoRedirect;
-            httpRequest.CookieContainer = CookieContainer;
-            httpRequest.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-            httpRequest.Timeout = Timeout;
-            if (HeadOnly && httpRequest.Method == "GET")
-            {
-                httpRequest.Method = "HEAD";
-            }
-
-            Setup?.Invoke(httpRequest);
-            return httpRequest;
         }
 
         /// <summary>
@@ -376,6 +371,12 @@ namespace CastReporting.Mediation
             var returnValue = $"Basic {base64UsernamePassword}";
 
             return returnValue;
+        }
+
+        public void Dispose()
+        {
+            _httpClient?.Dispose();
+            _httpClientHandler?.Dispose();
         }
 
         #endregion METHODS
