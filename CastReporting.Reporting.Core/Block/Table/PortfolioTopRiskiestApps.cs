@@ -84,12 +84,12 @@ namespace CastReporting.Reporting.Block.Table
                     double? _cv = RulesViolationUtility.GetBCEvolutionSummary(_snapshot, metricId).FirstOrDefault()?.TotalCriticalViolations;
                     double? strCurrentBCGrade = BusinessCriteriaUtility.GetSnapshotBusinessCriteriaGrade(_snapshot, metricId, false);
 
-                    if (_snapshot.Annotation.Date.DateSnapShot != null)
+                    if (_snapshot.Annotation.Date.DateSnapShot != null && strCurrentBCGrade != null)
                     {
                         string strLastAnalysis = Convert.ToDateTime(_snapshot.Annotation.Date.DateSnapShot.Value).ToString("MMM dd yyyy");
                         dt.Rows.Add(strAppName, _cv.Value, strCurrentBCGrade, strLastAnalysis);
+                        nbRows++;
                     }
-                    nbRows++;
                 }
                 catch (Exception ex)
                 {
