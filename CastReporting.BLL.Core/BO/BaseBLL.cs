@@ -19,6 +19,7 @@ using CastReporting.Repositories;
 using CastReporting.Repositories.Core.Repository;
 using CastReporting.Repositories.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace CastReporting.BLL
 {
@@ -28,6 +29,7 @@ namespace CastReporting.BLL
         //
         // </summary>
         protected WSConnection Connection { get; set; }
+        private static readonly Dictionary<string, CastRepository> _repoCache = new Dictionary<string, CastRepository>();
 
         protected static ICastProxy Client;
 
@@ -36,15 +38,31 @@ namespace CastReporting.BLL
         /// </summary>
         protected ICastRepsitory GetRepository()
         {
-            CastRepository repo = new CastRepository(Connection, null);
-            Client = repo.GetClient();
+            var key = Connection?.GetHashCode().ToString() ?? "default";
+            if (!_repoCache.TryGetValue(key, out CastRepository repo))
+            {
+                repo = new CastRepository(Connection, null);
+                _repoCache[key] = repo;
+                Client = repo.GetClient();
+            }
             return repo;
         }
 
         protected static ICastRepsitory GetRepository(WSConnection connection, bool dropCookie = false)
         {
-            CastRepository repo = dropCookie ? new CastRepository(connection, null) : new CastRepository(connection, Client);
-            Client = repo.GetClient();
+            var key = connection?.GetHashCode().ToString() ?? "default";
+            if (!_repoCache.TryGetValue(key, out CastRepository repo))
+            {
+                if (dropCookie)
+                {
+                    repo = new CastRepository(connection, null);
+                } else
+                {
+                    repo = new CastRepository(connection, Client);
+                }
+                _repoCache[key] = repo;
+                Client = repo.GetClient();
+            }
             return repo;
         }
 

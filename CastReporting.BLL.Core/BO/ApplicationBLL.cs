@@ -54,16 +54,14 @@ namespace CastReporting.BLL
         /// <returns></returns>
         public void SetSnapshots()
         {
-            using (var castRepsitory = GetRepository())
+            var castRepsitory = GetRepository();
+            _Application.Snapshots = castRepsitory.GetSnapshotsByApplication(_Application.Href);
+            foreach (Snapshot snapshot in _Application.Snapshots)
             {
-                _Application.Snapshots = castRepsitory.GetSnapshotsByApplication(_Application.Href);
-                foreach (Snapshot snapshot in _Application.Snapshots)
-                {
-                    if (snapshot.AdgVersion == null && _Application.Version != null)
-                        snapshot.AdgVersion = _Application.Version;
-                }
-                _Application.Systems = castRepsitory.GetSystemsByApplication(_Application.Href);
+                if (snapshot.AdgVersion == null && _Application.Version != null)
+                    snapshot.AdgVersion = _Application.Version;
             }
+            _Application.Systems = castRepsitory.GetSystemsByApplication(_Application.Href);
         }
 
         /// <summary>
@@ -72,12 +70,7 @@ namespace CastReporting.BLL
         public void SetQualityIndicators()
         {
             const string strBusinessCriteria = "business-criteria";
-
-            using (var castRepsitory = GetRepository())
-            {
-                _Application.BusinessCriteriaResults = castRepsitory.GetResultsQualityIndicators(_Application.Href, strBusinessCriteria, "$all", string.Empty, string.Empty)?.ToList();
-            }
-
+            _Application.BusinessCriteriaResults = GetRepository().GetResultsQualityIndicators(_Application.Href, strBusinessCriteria, "$all", string.Empty, string.Empty)?.ToList();
             if (_Application.BusinessCriteriaResults == null) return;
             foreach (var snapshot in _Application.Snapshots)
             {
@@ -87,35 +80,30 @@ namespace CastReporting.BLL
             }
         }
 
-
         /// <summary>
         /// 
         /// </summary>
         public void SetSizingMeasure()
         {
-
-            using (var castRepsitory = GetRepository())
+            var castRepsitory = GetRepository();
+            try
             {
-                try
+                if (VersionUtil.IsAdgVersion82Compliant(_Application.Version))
                 {
-                    if (VersionUtil.IsAdgVersion82Compliant(_Application.Version))
-                    {
-                        const string strSizingMeasures = "technical-size-measures,run-time-statistics,technical-debt-statistics,functional-weight-measures,critical-violation-statistics,violation-statistics";
-                        _Application.SizingMeasuresResults = castRepsitory.GetResultsSizingMeasures(_Application.Href, strSizingMeasures, "$all", string.Empty, string.Empty)?.ToList();
-                    }
-                    else
-                    {
-                        const string strSizingMeasuresOld = "technical-size-measures,run-time-statistics,technical-debt-statistics,functional-weight-measures,critical-violation-statistics";
-                        _Application.SizingMeasuresResults = castRepsitory.GetResultsSizingMeasures(_Application.Href, strSizingMeasuresOld, "$all", string.Empty, string.Empty)?.ToList();
-                    }
+                    const string strSizingMeasures = "technical-size-measures,run-time-statistics,technical-debt-statistics,functional-weight-measures,critical-violation-statistics,violation-statistics";
+                    _Application.SizingMeasuresResults = castRepsitory.GetResultsSizingMeasures(_Application.Href, strSizingMeasures, "$all", string.Empty, string.Empty)?.ToList();
                 }
-                catch (System.Net.WebException ex)
+                else
                 {
-                    LogHelper.LogInfo(ex.Message);
                     const string strSizingMeasuresOld = "technical-size-measures,run-time-statistics,technical-debt-statistics,functional-weight-measures,critical-violation-statistics";
                     _Application.SizingMeasuresResults = castRepsitory.GetResultsSizingMeasures(_Application.Href, strSizingMeasuresOld, "$all", string.Empty, string.Empty)?.ToList();
                 }
-
+            }
+            catch (System.Net.WebException ex)
+            {
+                LogHelper.LogInfo(ex.Message);
+                const string strSizingMeasuresOld = "technical-size-measures,run-time-statistics,technical-debt-statistics,functional-weight-measures,critical-violation-statistics";
+                _Application.SizingMeasuresResults = castRepsitory.GetResultsSizingMeasures(_Application.Href, strSizingMeasuresOld, "$all", string.Empty, string.Empty)?.ToList();
             }
 
             if (_Application.SizingMeasuresResults == null) return;
@@ -127,27 +115,22 @@ namespace CastReporting.BLL
             }
         }
 
-
         /// <summary>
         /// 
         /// </summary>
         public void SetStandardTags()
         {
-
-            using (var castRepsitory = GetRepository())
+            var castRepsitory = GetRepository();
+            try
             {
-                try
+                if (VersionUtil.IsAdgVersion833Compliant(_Application.Version))
                 {
-                    if (VersionUtil.IsAdgVersion833Compliant(_Application.Version))
-                    {
-                        _Application.StandardTags = castRepsitory.GetQualityStandardsTagsDoc(_Application.Href);
-                    }
+                    _Application.StandardTags = castRepsitory.GetQualityStandardsTagsDoc(_Application.Href);
                 }
-                catch (System.Net.WebException ex)
-                {
-                    LogHelper.LogInfo(ex.Message);
-                }
-
+            }
+            catch (System.Net.WebException ex)
+            {
+                LogHelper.LogInfo(ex.Message);
             }
         }
 

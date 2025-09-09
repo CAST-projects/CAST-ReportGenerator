@@ -19,10 +19,7 @@ namespace CastReporting.BLL
         /// <returns></returns>
         public RuleDescription GetSpecificRule(string domain, string ruleId)
         {
-            using (var castRepsitory = GetRepository())
-            {
-                return castRepsitory.GetSpecificRule(domain, ruleId);
-            }
+            return GetRepository().GetSpecificRule(domain, ruleId);
         }
 
         /// <summary>
@@ -33,10 +30,7 @@ namespace CastReporting.BLL
         /// <returns></returns>
         public IEnumerable<StandardTag> GetQualityStandardTagsApplicabilityByCategory(string domain, string category)
         {
-            using (var castRepsitory = GetRepository())
-            {
-                return castRepsitory.GetQualityStandardsTagsApplicabilityByCategory(domain, category);
-            }
+            return GetRepository().GetQualityStandardsTagsApplicabilityByCategory(domain, category);
         }
 
         /// <summary>
@@ -47,10 +41,7 @@ namespace CastReporting.BLL
         /// <returns></returns>
         public IEnumerable<Result> GetRulesViolations(string snapshotHRef, string ruleId)
         {
-            using (var castRepsitory = GetRepository())
-            {
-                return castRepsitory.GetRulesViolations(snapshotHRef, string.Empty, ruleId);
-            }
+            return GetRepository().GetRulesViolations(snapshotHRef, string.Empty, ruleId);
         }
 
         /// <summary>
@@ -62,26 +53,17 @@ namespace CastReporting.BLL
         /// <returns></returns>
         public IEnumerable<RuleDetails> GetRulesDetails(string domain, int businessCriteria, long snapshotHRef)
         {
-            using (var castRepsitory = GetRepository())
-            {
-                return castRepsitory.GetRulesDetails(domain, businessCriteria, snapshotHRef);
-            }
+            return GetRepository().GetRulesDetails(domain, businessCriteria, snapshotHRef);
         }
 
         public IEnumerable<Contributor> GetCriteriaContributors(string domain, string technicalCriteria, long snapshotHRef)
         {
-            using (var castRepsitory = GetRepository())
-            {
-                return castRepsitory.GetCriteriaContributors(domain, technicalCriteria, snapshotHRef);
-            }
+            return GetRepository().GetCriteriaContributors(domain, technicalCriteria, snapshotHRef);
         }
 
         public IEnumerable<DeltaComponent> GetDeltaComponents(string href, string status, string currentSnapshotId, string previousSnapshotId, string technology)
         {
-            using (var castRepository = GetRepository())
-            {
-                return castRepository.GetDeltaComponents(href, currentSnapshotId, previousSnapshotId, status, technology);
-            }
+            return GetRepository().GetDeltaComponents(href, currentSnapshotId, previousSnapshotId, status, technology);
         }
     }
 }

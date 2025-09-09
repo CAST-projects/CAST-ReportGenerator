@@ -52,35 +52,31 @@ namespace CastReporting.BLL
             List<string> _ignore_snaps = new List<string>();
             const string qualityIndicators = "business-criteria,technical-criteria,quality-rules,quality-distributions,quality-measures";
 
-            using (var castRepsitory = GetRepository())
+            if (Snapshots.Length > 0)
             {
-                if (Snapshots.Length > 0)
+                foreach (Snapshot snap in Snapshots)
                 {
-                    foreach (Snapshot snap in Snapshots)
+                    try
                     {
-                        try
-                        {
-                            var qualityIndicatorsResults = castRepsitory.GetResultsQualityIndicators(snap.Href, qualityIndicators, string.Empty, "$all", "$all")
-                                .Where(_ => _.ApplicationResults != null)
-                                .SelectMany(_ => _.ApplicationResults)
-                                .ToList();
+                        var qualityIndicatorsResults = GetRepository().GetResultsQualityIndicators(snap.Href, qualityIndicators, string.Empty, "$all", "$all")
+                            .Where(_ => _.ApplicationResults != null)
+                            .SelectMany(_ => _.ApplicationResults)
+                            .ToList();
 
 
-                            snap.BusinessCriteriaResults = qualityIndicatorsResults.Where(_ => _.Type == "business-criteria").ToList();
-                            snap.QualityDistributionsResults = qualityIndicatorsResults.Where(_ => _.Type == "quality-distributions").ToList();
-                            snap.QualityMeasuresResults = qualityIndicatorsResults.Where(_ => _.Type == "quality-measures").ToList();
-                            snap.QualityRulesResults = qualityIndicatorsResults.Where(_ => _.Type == "quality-rules").ToList();
-                            snap.TechnicalCriteriaResults = qualityIndicatorsResults.Where(_ => _.Type == "technical-criteria").ToList();
-                        }
-                        catch (WebException ex)
-                        {
-                            LogHelper.LogInfo(ex.Message);
-                            _ignore_snaps.Add(snap.Href);
-                        }
+                        snap.BusinessCriteriaResults = qualityIndicatorsResults.Where(_ => _.Type == "business-criteria").ToList();
+                        snap.QualityDistributionsResults = qualityIndicatorsResults.Where(_ => _.Type == "quality-distributions").ToList();
+                        snap.QualityMeasuresResults = qualityIndicatorsResults.Where(_ => _.Type == "quality-measures").ToList();
+                        snap.QualityRulesResults = qualityIndicatorsResults.Where(_ => _.Type == "quality-rules").ToList();
+                        snap.TechnicalCriteriaResults = qualityIndicatorsResults.Where(_ => _.Type == "technical-criteria").ToList();
+                    }
+                    catch (WebException ex)
+                    {
+                        LogHelper.LogInfo(ex.Message);
+                        _ignore_snaps.Add(snap.Href);
                     }
                 }
             }
-
 
             IEnumerable<string> _ignore_setBusinessCriteriaCCRulesViolations = SetBusinessCriteriaCCRulesViolations();
             IEnumerable<string> _ignore_setBusinessCriteriaNCRulesViolations = SetBusinessCriteriaNCRulesViolations();
@@ -98,20 +94,17 @@ namespace CastReporting.BLL
         public List<string> SetModules()
         {
             List<string> _ignoreSnaps = new List<string>();
-            using (var castRepsitory = GetRepository())
+            if (Snapshots.Length <= 0) return _ignoreSnaps;
+            foreach (Snapshot snap in Snapshots)
             {
-                if (Snapshots.Length <= 0) return _ignoreSnaps;
-                foreach (Snapshot snap in Snapshots)
+                try
                 {
-                    try
-                    {
-                        snap.Modules = castRepsitory.GetModules(snap.Href);
-                    }
-                    catch (WebException ex)
-                    {
-                        LogHelper.LogInfo(ex.Message);
-                        _ignoreSnaps.Add(snap.Href);
-                    }
+                    snap.Modules = GetRepository().GetModules(snap.Href);
+                }
+                catch (WebException ex)
+                {
+                    LogHelper.LogInfo(ex.Message);
+                    _ignoreSnaps.Add(snap.Href);
                 }
             }
             return _ignoreSnaps;
@@ -123,31 +116,28 @@ namespace CastReporting.BLL
         public List<string> SetSizingMeasure()
         {
             List<string> _ignoreApps = new List<string>();
-
-            using (var castRepsitory = GetRepository())
+            var castRepsitory = GetRepository();
+            if (Snapshots.Length <= 0) return _ignoreApps;
+            foreach (Snapshot snap in Snapshots)
             {
-                if (Snapshots.Length <= 0) return _ignoreApps;
-                foreach (Snapshot snap in Snapshots)
+                try
                 {
-                    try
+                    if (VersionUtil.IsAdgVersion82Compliant(snap.AdgVersion))
                     {
-                        if (VersionUtil.IsAdgVersion82Compliant(snap.AdgVersion))
-                        {
-                            const string strSizingMeasures = "technical-size-measures,run-time-statistics,technical-debt-statistics,functional-weight-measures,critical-violation-statistics,violation-statistics";
-                            snap.SizingMeasuresResults = castRepsitory.GetResultsSizingMeasures(snap.Href, strSizingMeasures, string.Empty, "$all", "$all").SelectMany(_ => _.ApplicationResults);
-                        }
-                        else
-                        {
-                            const string strSizingMeasureOld = "technical-size-measures,run-time-statistics,technical-debt-statistics,functional-weight-measures,critical-violation-statistics";
-                            snap.SizingMeasuresResults = castRepsitory.GetResultsSizingMeasures(snap.Href, strSizingMeasureOld, string.Empty, "$all", "$all").SelectMany(_ => _.ApplicationResults);
-                        }
+                        const string strSizingMeasures = "technical-size-measures,run-time-statistics,technical-debt-statistics,functional-weight-measures,critical-violation-statistics,violation-statistics";
+                        snap.SizingMeasuresResults = castRepsitory.GetResultsSizingMeasures(snap.Href, strSizingMeasures, string.Empty, "$all", "$all").SelectMany(_ => _.ApplicationResults);
+                    }
+                    else
+                    {
+                        const string strSizingMeasureOld = "technical-size-measures,run-time-statistics,technical-debt-statistics,functional-weight-measures,critical-violation-statistics";
+                        snap.SizingMeasuresResults = castRepsitory.GetResultsSizingMeasures(snap.Href, strSizingMeasureOld, string.Empty, "$all", "$all").SelectMany(_ => _.ApplicationResults);
+                    }
 
-                    }
-                    catch (WebException ex)
-                    {
-                        LogHelper.LogInfo(ex.Message);
-                        _ignoreApps.Add(snap.Href);
-                    }
+                }
+                catch (WebException ex)
+                {
+                    LogHelper.LogInfo(ex.Message);
+                    _ignoreApps.Add(snap.Href);
                 }
             }
             return _ignoreApps;
@@ -161,24 +151,22 @@ namespace CastReporting.BLL
         public List<string> SetConfigurationBusinessCriterias()
         {
             List<string> _ignoreSnaps = new List<string>();
-            using (var castRepsitory = GetRepository())
+            if (Snapshots.Length <= 0) return _ignoreSnaps;
+            var castRepsitory = GetRepository();
+            foreach (Snapshot snap in Snapshots)
             {
-                if (Snapshots.Length <= 0) return _ignoreSnaps;
-                foreach (Snapshot snap in Snapshots)
+                try
                 {
-                    try
-                    {
-                        snap.QIBusinessCriterias = castRepsitory.GetConfBusinessCriteriaBySnapshot(snap.DomainId, snap.Id);
-                        List<QIBusinessCriteria> fullQibusinesCriterias = snap.QIBusinessCriterias
-                            .Select(qiBusinessCriteria => castRepsitory.GetConfBusinessCriteria(qiBusinessCriteria.HRef))
-                            .ToList();
-                        snap.QIBusinessCriterias = fullQibusinesCriterias;
-                    }
-                    catch (WebException ex)
-                    {
-                        LogHelper.LogInfo(ex.Message);
-                        _ignoreSnaps.Add(snap.Href);
-                    }
+                    snap.QIBusinessCriterias = castRepsitory.GetConfBusinessCriteriaBySnapshot(snap.DomainId, snap.Id);
+                    List<QIBusinessCriteria> fullQibusinesCriterias = snap.QIBusinessCriterias
+                        .Select(qiBusinessCriteria => castRepsitory.GetConfBusinessCriteria(qiBusinessCriteria.HRef))
+                        .ToList();
+                    snap.QIBusinessCriterias = fullQibusinesCriterias;
+                }
+                catch (WebException ex)
+                {
+                    LogHelper.LogInfo(ex.Message);
+                    _ignoreSnaps.Add(snap.Href);
                 }
             }
             return _ignoreSnaps;
@@ -195,33 +183,29 @@ namespace CastReporting.BLL
             var values = (int[])Enum.GetValues(typeof(Constants.QualityDistribution));
 
             List<ApplicationResult> results = new List<ApplicationResult>();
-
-            using (var castRepsitory = GetRepository())
+            if (Snapshots.Length <= 0) return _ignoreSnaps;
+            foreach (Snapshot snap in Snapshots)
             {
-                if (Snapshots.Length <= 0) return _ignoreSnaps;
-                foreach (Snapshot snap in Snapshots)
+                try
                 {
-                    try
+                    foreach (int val in values)
                     {
-                        foreach (int val in values)
+                        var appResults = GetRepository().GetComplexityIndicators(snap.Href, val.ToString());
+                        if (appResults == null)
                         {
-                            var appResults = castRepsitory.GetComplexityIndicators(snap.Href, val.ToString());
-                            if (appResults == null)
-                            {
-                                continue;
-                            }
-                            foreach (var result in appResults)
-                            {
-                                results.AddRange(result?.ApplicationResults);
-                            }
+                            continue;
                         }
-                        snap.CostComplexityResults = results;
+                        foreach (var result in appResults)
+                        {
+                            results.AddRange(result?.ApplicationResults);
+                        }
                     }
-                    catch (WebException ex)
-                    {
-                        LogHelper.LogInfo(ex.Message);
-                        _ignoreSnaps.Add(snap.Href);
-                    }
+                    snap.CostComplexityResults = results;
+                }
+                catch (WebException ex)
+                {
+                    LogHelper.LogInfo(ex.Message);
+                    _ignoreSnaps.Add(snap.Href);
                 }
             }
             return _ignoreSnaps;
@@ -235,25 +219,21 @@ namespace CastReporting.BLL
         private IEnumerable<string> SetBusinessCriteriaCCRulesViolations()
         {
             List<string> _ignoreSnaps = new List<string>();
-            using (var castRepsitory = GetRepository())
+            if (Snapshots.Length <= 0) return _ignoreSnaps;
+            foreach (Snapshot snap in Snapshots)
             {
-                if (Snapshots.Length <= 0) return _ignoreSnaps;
-                foreach (Snapshot snap in Snapshots)
+                try
                 {
-                    try
+                    foreach (var businessCriteria in snap.BusinessCriteriaResults)
                     {
-                        foreach (var businessCriteria in snap.BusinessCriteriaResults)
-                        {
-                            var results = castRepsitory.GetRulesViolations(snap.Href, "cc", businessCriteria.Reference.Key.ToString());
-
-                            businessCriteria.CriticalRulesViolation = results?.SelectMany(x => x.ApplicationResults).ToList();
-                        }
+                        var results = GetRepository().GetRulesViolations(snap.Href, "cc", businessCriteria.Reference.Key.ToString());
+                        businessCriteria.CriticalRulesViolation = results?.SelectMany(x => x.ApplicationResults).ToList();
                     }
-                    catch (WebException ex)
-                    {
-                        LogHelper.LogInfo(ex.Message);
-                        _ignoreSnaps.Add(snap.Href);
-                    }
+                }
+                catch (WebException ex)
+                {
+                    LogHelper.LogInfo(ex.Message);
+                    _ignoreSnaps.Add(snap.Href);
                 }
             }
             return _ignoreSnaps;
@@ -265,25 +245,21 @@ namespace CastReporting.BLL
         private IEnumerable<string> SetBusinessCriteriaNCRulesViolations()
         {
             List<string> _ignore_snaps = new List<string>();
-            using (var castRepsitory = GetRepository())
+            if (Snapshots.Length <= 0) return _ignore_snaps;
+            foreach (Snapshot snap in Snapshots)
             {
-                if (Snapshots.Length <= 0) return _ignore_snaps;
-                foreach (Snapshot snap in Snapshots)
+                try
                 {
-                    try
+                    foreach (var businessCriteria in snap.BusinessCriteriaResults)
                     {
-                        foreach (var businessCriteria in snap.BusinessCriteriaResults)
-                        {
-                            var results = castRepsitory.GetRulesViolations(snap.Href, "nc", businessCriteria.Reference.Key.ToString());
-
-                            businessCriteria.NonCriticalRulesViolation = results?.SelectMany(x => x.ApplicationResults).ToList();
-                        }
+                        var results = GetRepository().GetRulesViolations(snap.Href, "nc", businessCriteria.Reference.Key.ToString());
+                        businessCriteria.NonCriticalRulesViolation = results?.SelectMany(x => x.ApplicationResults).ToList();
                     }
-                    catch (WebException ex)
-                    {
-                        LogHelper.LogInfo(ex.Message);
-                        _ignore_snaps.Add(snap.Href);
-                    }
+                }
+                catch (WebException ex)
+                {
+                    LogHelper.LogInfo(ex.Message);
+                    _ignore_snaps.Add(snap.Href);
                 }
             }
             return _ignore_snaps;
@@ -296,25 +272,21 @@ namespace CastReporting.BLL
         private IEnumerable<string> SetTechnicalCriteriaRulesViolations()
         {
             List<string> _ignoreSnaps = new List<string>();
-            using (var castRepsitory = GetRepository())
+            if (Snapshots.Length <= 0) return _ignoreSnaps;
+            foreach (Snapshot snap in Snapshots)
             {
-                if (Snapshots.Length <= 0) return _ignoreSnaps;
-                foreach (Snapshot snap in Snapshots)
+                try
                 {
-                    try
+                    foreach (var technicalCriteria in snap.TechnicalCriteriaResults)
                     {
-                        foreach (var technicalCriteria in snap.TechnicalCriteriaResults)
-                        {
-                            var results = castRepsitory.GetRulesViolations(snap.Href, "c", technicalCriteria.Reference.Key.ToString());
-
-                            technicalCriteria.RulesViolation = results?.SelectMany(x => x.ApplicationResults).ToList();
-                        }
+                        var results = GetRepository().GetRulesViolations(snap.Href, "c", technicalCriteria.Reference.Key.ToString());
+                        technicalCriteria.RulesViolation = results?.SelectMany(x => x.ApplicationResults).ToList();
                     }
-                    catch (WebException ex)
-                    {
-                        LogHelper.LogInfo(ex.Message);
-                        _ignoreSnaps.Add(snap.Href);
-                    }
+                }
+                catch (WebException ex)
+                {
+                    LogHelper.LogInfo(ex.Message);
+                    _ignoreSnaps.Add(snap.Href);
                 }
             }
             return _ignoreSnaps;

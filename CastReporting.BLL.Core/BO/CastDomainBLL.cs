@@ -49,10 +49,7 @@ namespace CastReporting.BLL
         /// <returns></returns>
         public IEnumerable<CastDomain> GetDomains()
         {
-            using (var castRepsitory = GetRepository())
-            {
-                return castRepsitory.GetDomains();
-            }
+            return GetRepository().GetDomains();
         }
 
 
@@ -62,21 +59,16 @@ namespace CastReporting.BLL
         public List<Application> GetApplications()
         {
             List<Application> applications = new List<Application>();
-
             var domains = GetDomains();
-
-            using (var castRepsitory = GetRepository())
+            foreach (var domain in domains)
             {
-                foreach (var domain in domains)
+                List<Application> domainApps = GetRepository().GetApplicationsByDomain(domain.Href)?.ToList();
+                if (domainApps == null) continue;
+                foreach (Application application in domainApps.Where(_ => string.IsNullOrEmpty(_.Version)))
                 {
-                    List<Application> domainApps = castRepsitory.GetApplicationsByDomain(domain.Href)?.ToList();
-                    if (domainApps == null) continue;
-                    foreach (Application application in domainApps.Where(_ => string.IsNullOrEmpty(_.Version)))
-                    {
-                        application.Version = domain.Version;
-                    }
-                    applications.AddRange(domainApps);
+                    application.Version = domain.Version;
                 }
+                applications.AddRange(domainApps);
             }
 
             return applications.OrderBy(_ => _.Name).ToList();
@@ -85,19 +77,15 @@ namespace CastReporting.BLL
         public List<Application> GetAadApplications()
         {
             List<Application> applications = new List<Application>();
-
             CastDomain aad = GetDomains().Where(d => d.DBType.Equals("AAD")).First();
 
-            using (var castRepsitory = GetRepository())
+            List<Application> domainApps = GetRepository().GetApplicationsByDomain(aad.Href)?.ToList();
+            if (domainApps == null) return applications;
+            foreach (Application application in domainApps.Where(_ => string.IsNullOrEmpty(_.Version)))
             {
-                List<Application> domainApps = castRepsitory.GetApplicationsByDomain(aad.Href)?.ToList();
-                if (domainApps == null) return applications;
-                foreach (Application application in domainApps.Where(_ => string.IsNullOrEmpty(_.Version)))
-                {
-                    application.Version = aad.Version;
-                }
-                applications.AddRange(domainApps);
+                application.Version = aad.Version;
             }
+            applications.AddRange(domainApps);
 
             return applications.OrderBy(_ => _.Name).ToList();
         }
@@ -105,21 +93,17 @@ namespace CastReporting.BLL
         public List<Application> GetAdgApplications()
         {
             List<Application> applications = new List<Application>();
-
             var adgDomains = GetDomains().Where(d => d.DBType.Equals("ADG"));
 
-            using (var castRepsitory = GetRepository())
+            foreach (var domain in adgDomains)
             {
-                foreach (var domain in adgDomains)
+                List<Application> domainApps = GetRepository().GetApplicationsByDomain(domain.Href)?.ToList();
+                if (domainApps == null) continue;
+                foreach (Application application in domainApps.Where(_ => string.IsNullOrEmpty(_.Version)))
                 {
-                    List<Application> domainApps = castRepsitory.GetApplicationsByDomain(domain.Href)?.ToList();
-                    if (domainApps == null) continue;
-                    foreach (Application application in domainApps.Where(_ => string.IsNullOrEmpty(_.Version)))
-                    {
-                        application.Version = domain.Version;
-                    }
-                    applications.AddRange(domainApps);
+                    application.Version = domain.Version;
                 }
+                applications.AddRange(domainApps);
             }
 
             return applications.OrderBy(_ => _.Name).ToList();
@@ -153,24 +137,21 @@ namespace CastReporting.BLL
             else
             {
                 List<Tag> strTags = GetTags(strSelectedCategoy);
-                using (var castRepository = GetRepository())
+                List<CommonTaggedApplications> commonTaggedApplications = GetRepository().GetCommonTaggedApplications().ToList();
+                if (!strTags.Any() || !commonTaggedApplications.Any())
                 {
-                    List<CommonTaggedApplications> commonTaggedApplications = castRepository.GetCommonTaggedApplications().ToList();
-                    if (!strTags.Any() || !commonTaggedApplications.Any())
+                    return _commonTaggedApplications;
+                }
+                foreach (Tag _tag in strTags)
+                {
+                    if (_tag.Label != strSelectedTag) continue;
+                    foreach (CommonTaggedApplications taggedApplications in commonTaggedApplications)
                     {
-                        return _commonTaggedApplications;
-                    }
-                    foreach (Tag _tag in strTags)
-                    {
-                        if (_tag.Label != strSelectedTag) continue;
-                        foreach (CommonTaggedApplications taggedApplications in commonTaggedApplications)
+                        foreach(Tag t in taggedApplications.Tags)
                         {
-                            foreach(Tag t in taggedApplications.Tags)
+                            if (t.Key.Equals(_tag.Key))
                             {
-                                if (t.Key.Equals(_tag.Key))
-                                {
-                                   _commonTaggedApplications.Add(applications.Where(a => a.Href == taggedApplications.TaggedApplication.Href).First());
-                                }
+                                _commonTaggedApplications.Add(applications.Where(a => a.Href == taggedApplications.TaggedApplication.Href).First());
                             }
                         }
                     }
@@ -182,16 +163,12 @@ namespace CastReporting.BLL
         public List<Tag> GetTags(string strCategory)
         {
             List<Tag> _tags = new List<Tag>();
-
-            using (var castRepository = GetRepository())
+            List<CommonCategories> _commonCategories = GetRepository().GetCommonCategories().ToList();
+            if (_commonCategories.Count == 0) return _tags;
+            foreach(CommonCategories cat in _commonCategories)
             {
-                List<CommonCategories> _commonCategories = castRepository.GetCommonCategories().ToList();
-                if (_commonCategories.Count == 0) return _tags;
-                foreach(CommonCategories cat in _commonCategories)
-                {
-                    if (strCategory != cat.Name) continue;
-                    _tags.AddRange(cat.Tags.ToList());
-                }
+                if (strCategory != cat.Name) continue;
+                _tags.AddRange(cat.Tags.ToList());
             }
             return _tags;
         }
@@ -201,13 +178,8 @@ namespace CastReporting.BLL
             try
             {
                 List<string> _categories = new List<string>();
-
-                using (var castRepository = GetRepository())
-                {
-                    var _categoriess = castRepository.GetCommonCategories();
-
-                    _categories.AddRange(_categoriess.Select(category => string.IsNullOrEmpty(category.Name) ? " " : category.Name));
-                }
+                var _categoriess = GetRepository().GetCommonCategories();
+                _categories.AddRange(_categoriess.Select(category => string.IsNullOrEmpty(category.Name) ? " " : category.Name));
 
                 return _categories;
             }

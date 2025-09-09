@@ -59,41 +59,37 @@ namespace CastReporting.BLL
         public void SetQualityIndicators()
         {
             const string qualityIndicators = "business-criteria,technical-criteria,quality-rules,quality-distributions,quality-measures";
+            var qualityIndicatorsResults = GetRepository().GetResultsQualityIndicators(_Snapshot.Href, qualityIndicators, string.Empty, "$all", "$all")
+                                                                    .Where(_ => _.ApplicationResults != null)
+                                                                    .SelectMany(_ => _.ApplicationResults)
+                                                                    .ToList();
 
-            using (var castRepsitory = GetRepository())
+
+
+            var businessCriteriaResults = new List<ApplicationResult>();
+            var qualityDistributionsResults = new List<ApplicationResult>();
+            var qualityMeasuresResults = new List<ApplicationResult>();
+            var qualityRulesResults = new List<ApplicationResult>();
+            var technicalCriteriaResults = new List<ApplicationResult>();
+
+            foreach (var appRes in qualityIndicatorsResults)
             {
-                var qualityIndicatorsResults = castRepsitory.GetResultsQualityIndicators(_Snapshot.Href, qualityIndicators, string.Empty, "$all", "$all")
-                                                                      .Where(_ => _.ApplicationResults != null)
-                                                                      .SelectMany(_ => _.ApplicationResults)
-                                                                      .ToList();
-
-
-
-                var businessCriteriaResults = new List<ApplicationResult>();
-                var qualityDistributionsResults = new List<ApplicationResult>();
-                var qualityMeasuresResults = new List<ApplicationResult>();
-                var qualityRulesResults = new List<ApplicationResult>();
-                var technicalCriteriaResults = new List<ApplicationResult>();
-
-                foreach (var appRes in qualityIndicatorsResults)
+                switch (appRes.Type)
                 {
-                    switch (appRes.Type)
-                    {
-                        case "business-criteria": businessCriteriaResults.Add(appRes); break;
-                        case "quality-distributions": qualityDistributionsResults.Add(appRes); break;
-                        case "quality-measures": qualityMeasuresResults.Add(appRes); break;
-                        case "quality-rules": qualityRulesResults.Add(appRes); break;
-                        case "technical-criteria": technicalCriteriaResults.Add(appRes); break;
-                        default: throw new ArgumentOutOfRangeException();
-                    }
+                    case "business-criteria": businessCriteriaResults.Add(appRes); break;
+                    case "quality-distributions": qualityDistributionsResults.Add(appRes); break;
+                    case "quality-measures": qualityMeasuresResults.Add(appRes); break;
+                    case "quality-rules": qualityRulesResults.Add(appRes); break;
+                    case "technical-criteria": technicalCriteriaResults.Add(appRes); break;
+                    default: throw new ArgumentOutOfRangeException();
                 }
-
-                _Snapshot.BusinessCriteriaResults = businessCriteriaResults;
-                _Snapshot.QualityDistributionsResults = qualityDistributionsResults;
-                _Snapshot.QualityMeasuresResults = qualityMeasuresResults;
-                _Snapshot.QualityRulesResults = qualityRulesResults;
-                _Snapshot.TechnicalCriteriaResults = technicalCriteriaResults;
             }
+
+            _Snapshot.BusinessCriteriaResults = businessCriteriaResults;
+            _Snapshot.QualityDistributionsResults = qualityDistributionsResults;
+            _Snapshot.QualityMeasuresResults = qualityMeasuresResults;
+            _Snapshot.QualityRulesResults = qualityRulesResults;
+            _Snapshot.TechnicalCriteriaResults = technicalCriteriaResults;
 
             SetBusinessCriteriaCCRulesViolations();
             SetBusinessCriteriaNCRulesViolations();
@@ -106,10 +102,7 @@ namespace CastReporting.BLL
         /// </summary>
         public void SetModules()
         {
-            using (var castRepsitory = GetRepository())
-            {
-                _Snapshot.Modules = castRepsitory.GetModules(_Snapshot.Href);
-            }
+            _Snapshot.Modules = GetRepository().GetModules(_Snapshot.Href);
         }
 
         /// <summary>
@@ -117,27 +110,25 @@ namespace CastReporting.BLL
         /// </summary>
         public void SetSizingMeasure()
         {
-            using (var castRepsitory = GetRepository())
+            var castRepsitory = GetRepository();
+            try
             {
-                try
+                if (VersionUtil.IsAdgVersion82Compliant(_Snapshot.AdgVersion))
                 {
-                    if (VersionUtil.IsAdgVersion82Compliant(_Snapshot.AdgVersion))
-                    {
-                        const string strSizingMeasures = "technical-size-measures,run-time-statistics,technical-debt-statistics,functional-weight-measures,critical-violation-statistics,violation-statistics";
-                        _Snapshot.SizingMeasuresResults = castRepsitory.GetResultsSizingMeasures(_Snapshot.Href, strSizingMeasures, string.Empty, "$all", "$all").SelectMany(_ => _.ApplicationResults);
-                    }
-                    else
-                    {
-                        const string strSizingMeasuresOld = "technical-size-measures,run-time-statistics,technical-debt-statistics,functional-weight-measures,critical-violation-statistics";
-                        _Snapshot.SizingMeasuresResults = castRepsitory.GetResultsSizingMeasures(_Snapshot.Href, strSizingMeasuresOld, string.Empty, "$all", "$all").SelectMany(_ => _.ApplicationResults);
-                    }
+                    const string strSizingMeasures = "technical-size-measures,run-time-statistics,technical-debt-statistics,functional-weight-measures,critical-violation-statistics,violation-statistics";
+                    _Snapshot.SizingMeasuresResults = castRepsitory.GetResultsSizingMeasures(_Snapshot.Href, strSizingMeasures, string.Empty, "$all", "$all").SelectMany(_ => _.ApplicationResults);
                 }
-                catch (WebException ex)
+                else
                 {
-                    LogHelper.LogInfo(ex.Message);
                     const string strSizingMeasuresOld = "technical-size-measures,run-time-statistics,technical-debt-statistics,functional-weight-measures,critical-violation-statistics";
                     _Snapshot.SizingMeasuresResults = castRepsitory.GetResultsSizingMeasures(_Snapshot.Href, strSizingMeasuresOld, string.Empty, "$all", "$all").SelectMany(_ => _.ApplicationResults);
                 }
+            }
+            catch (WebException ex)
+            {
+                LogHelper.LogInfo(ex.Message);
+                const string strSizingMeasuresOld = "technical-size-measures,run-time-statistics,technical-debt-statistics,functional-weight-measures,critical-violation-statistics";
+                _Snapshot.SizingMeasuresResults = castRepsitory.GetResultsSizingMeasures(_Snapshot.Href, strSizingMeasuresOld, string.Empty, "$all", "$all").SelectMany(_ => _.ApplicationResults);
             }
         }
 
@@ -148,15 +139,10 @@ namespace CastReporting.BLL
         /// <remarks>A verifier s'il faut utiliser la conf</remarks>
         public void SetConfigurationBusinessCriterias()
         {
-            using (var castRepsitory = GetRepository())
-            {
-                _Snapshot.QIBusinessCriterias = castRepsitory.GetConfBusinessCriteriaBySnapshot(_Snapshot.DomainId, _Snapshot.Id);
-
-                List<QIBusinessCriteria> fullQibusinesCriterias = _Snapshot.QIBusinessCriterias.Select(_ => castRepsitory.GetConfBusinessCriteria(_.HRef)).ToList();
-
-                _Snapshot.QIBusinessCriterias = fullQibusinesCriterias;
-            }
-
+            var castRepsitory = GetRepository();
+            _Snapshot.QIBusinessCriterias = castRepsitory.GetConfBusinessCriteriaBySnapshot(_Snapshot.DomainId, _Snapshot.Id);
+            List<QIBusinessCriteria> fullQibusinesCriterias = _Snapshot.QIBusinessCriterias.Select(_ => castRepsitory.GetConfBusinessCriteria(_.HRef)).ToList();
+            _Snapshot.QIBusinessCriterias = fullQibusinesCriterias;
         }
 
 
@@ -167,18 +153,14 @@ namespace CastReporting.BLL
         public void SetComplexity()
         {
             var values = (int[])Enum.GetValues(typeof(Constants.QualityDistribution));
-
             List<ApplicationResult> results = new List<ApplicationResult>();
 
-            using (var castRepsitory = GetRepository())
+            foreach (int val in values)
             {
-                foreach (int val in values)
+                var appResults = GetRepository().GetComplexityIndicators(_Snapshot.Href, val.ToString());
+                foreach (var result in appResults)
                 {
-                    var appResults = castRepsitory.GetComplexityIndicators(_Snapshot.Href, val.ToString());
-                    foreach (var result in appResults)
-                    {
-                        results.AddRange(result.ApplicationResults);
-                    }
+                    results.AddRange(result.ApplicationResults);
                 }
             }
 
@@ -194,10 +176,7 @@ namespace CastReporting.BLL
         {
             try
             {
-                using (var castRepsitory = GetRepository())
-                {
-                    _Snapshot.ActionsPlan = castRepsitory.GetActionPlanBySnapshot(_Snapshot.Href);
-                }
+                _Snapshot.ActionsPlan = GetRepository().GetActionPlanBySnapshot(_Snapshot.Href);
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
             {
@@ -218,10 +197,7 @@ namespace CastReporting.BLL
         {
             try
             {
-                using (var castRepsitory = GetRepository())
-                {
-                    return castRepsitory.GetTransactions(_Snapshot.Href, businessCriteria, count);
-                }
+                return GetRepository().GetTransactions(_Snapshot.Href, businessCriteria, count);
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
             {
@@ -235,10 +211,7 @@ namespace CastReporting.BLL
         {
             try
             {
-                using (var castRepsitory = GetRepository())
-                {
-                    return castRepsitory.GetResultsBackgroundFacts(snapshotHref, backgroundFacts, string.Empty, string.Empty, string.Empty);
-                }
+                return GetRepository().GetResultsBackgroundFacts(snapshotHref, backgroundFacts, string.Empty, string.Empty, string.Empty);
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
             {
@@ -258,10 +231,7 @@ namespace CastReporting.BLL
 
             try
             {
-                using (var castRepsitory = GetRepository())
-                {
-                    return castRepsitory.GetResultsBackgroundFacts(snapshotHref, backgroundFacts, string.Empty, technoParam, modParam);
-                }
+                return GetRepository().GetResultsBackgroundFacts(snapshotHref, backgroundFacts, string.Empty, technoParam, modParam);
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
             {
@@ -275,10 +245,7 @@ namespace CastReporting.BLL
         {
             try
             {
-                using (var castRepsitory = GetRepository())
-                {
-                    return castRepsitory.GetResultsSizingMeasures(snapshotHref, sizingMeasure, string.Empty, string.Empty, string.Empty);
-                }
+                return GetRepository().GetResultsSizingMeasures(snapshotHref, sizingMeasure, string.Empty, string.Empty, string.Empty);
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
             {
@@ -292,10 +259,7 @@ namespace CastReporting.BLL
         {
             try
             {
-                using (var castRepsitory = GetRepository())
-                {
-                    return castRepsitory.GetResultsQualityIndicators(snapshotHref, qualityIndicator, string.Empty, string.Empty, string.Empty);
-                }
+                return GetRepository().GetResultsQualityIndicators(snapshotHref, qualityIndicator, string.Empty, string.Empty, string.Empty);
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
             {
@@ -310,33 +274,27 @@ namespace CastReporting.BLL
         /// </summary>
         public IEnumerable<Result> GetQualityStandardsRulesResults(string snapshotHref, string standardTag, bool evolutionSummary = false)
         {
-            using (var castRepsitory = GetRepository())
+            try
             {
-                try
-                {
-                    return VersionUtil.IsAdgVersion833Compliant(_Snapshot.AdgVersion) ? castRepsitory.GetResultsQualityStandardsRules(snapshotHref, standardTag, string.Empty, string.Empty, evolutionSummary) : null;
-                }
-                catch (WebException ex)
-                {
-                    LogHelper.LogInfo(ex.Message);
-                    return null;
-                }
+                return VersionUtil.IsAdgVersion833Compliant(_Snapshot.AdgVersion) ? GetRepository().GetResultsQualityStandardsRules(snapshotHref, standardTag, string.Empty, string.Empty, evolutionSummary) : null;
+            }
+            catch (WebException ex)
+            {
+                LogHelper.LogInfo(ex.Message);
+                return null;
             }
         }
 
         public IEnumerable<Result> GetQualityStandardsTagsResults(string snapshotHref, string standardTag)
         {
-            using (var castRepsitory = GetRepository())
+            try
             {
-                try
-                {
-                    return VersionUtil.IsAdgVersion833Compliant(_Snapshot.AdgVersion) ? castRepsitory.GetResultsQualityStandardsTags(snapshotHref, standardTag) : null;
-                }
-                catch (WebException ex)
-                {
-                    LogHelper.LogInfo(ex.Message);
-                    return null;
-                }
+                return VersionUtil.IsAdgVersion833Compliant(_Snapshot.AdgVersion) ? GetRepository().GetResultsQualityStandardsTags(snapshotHref, standardTag) : null;
+            }
+            catch (WebException ex)
+            {
+                LogHelper.LogInfo(ex.Message);
+                return null;
             }
         }
 
@@ -345,24 +303,21 @@ namespace CastReporting.BLL
         /// </summary>
         public List<string> GetQualityStandardsRulesList(string snapshotHref, string standardTag)
         {
-            using (var castRepsitory = GetRepository())
+            try
             {
-                try
+                IEnumerable<Result> results = VersionUtil.IsAdgVersion833Compliant(_Snapshot.AdgVersion) ? GetRepository().GetResultsQualityStandardsRules(snapshotHref, standardTag, string.Empty, string.Empty, false) : null;
+                if (results == null) return null;
+                List<string> metrics = new List<string>();
+                foreach (Result _result in results)
                 {
-                    IEnumerable<Result> results = VersionUtil.IsAdgVersion833Compliant(_Snapshot.AdgVersion) ? castRepsitory.GetResultsQualityStandardsRules(snapshotHref, standardTag, string.Empty, string.Empty, false) : null;
-                    if (results == null) return null;
-                    List<string> metrics = new List<string>();
-                    foreach (Result _result in results)
-                    {
-                        metrics.AddRange(_result.ApplicationResults.Select(resultApplicationResult => resultApplicationResult.Reference.Key.ToString()));
-                    }
-                    return metrics;
+                    metrics.AddRange(_result.ApplicationResults.Select(resultApplicationResult => resultApplicationResult.Reference.Key.ToString()));
                 }
-                catch (WebException ex)
-                {
-                    LogHelper.LogInfo(ex.Message);
-                    return null;
-                }
+                return metrics;
+            }
+            catch (WebException ex)
+            {
+                LogHelper.LogInfo(ex.Message);
+                return null;
             }
         }
 
@@ -376,10 +331,7 @@ namespace CastReporting.BLL
         {
             try
             {
-                using (var castRepsitory = GetRepository(connection))
-                {
-                    return castRepsitory.GetCommonCategories();
-                }
+                return GetRepository(connection).GetCommonCategories();
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
             {
@@ -399,10 +351,7 @@ namespace CastReporting.BLL
         {
             try
             {
-                using (var castRepsitory = GetRepository())
-                {
-                    return castRepsitory.GetIfpugFunctions(snapshotHref, count);
-                }
+                return GetRepository().GetIfpugFunctions(snapshotHref, count);
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
             {
@@ -416,10 +365,7 @@ namespace CastReporting.BLL
         {
             try
             {
-                using (var castRepsitory = GetRepository())
-                {
-                    return castRepsitory.GetIfpugFunctionsEvolutions(_Snapshot.Href, count);
-                }
+                return GetRepository().GetIfpugFunctionsEvolutions(_Snapshot.Href, count);
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
             {
@@ -433,10 +379,7 @@ namespace CastReporting.BLL
         {
             try
             {
-                using (var castRepsitory = GetRepository())
-                {
-                    return castRepsitory.GetOmgFunctionsEvolutions(snapshotHref, count);
-                }
+                return GetRepository().GetOmgFunctionsEvolutions(snapshotHref, count);
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
             {
@@ -450,10 +393,7 @@ namespace CastReporting.BLL
         {
             try
             {
-                using (var castRepository = GetRepository())
-                {
-                    return castRepository.GetOmgFunctionsTechnical(_Snapshot.Href, count);
-                }
+                return GetRepository().GetOmgFunctionsTechnical(_Snapshot.Href, count);
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
             {
@@ -467,10 +407,7 @@ namespace CastReporting.BLL
         {
             try
             {
-                using (var castRepository = GetRepository())
-                {
-                    return castRepository.GetOmgTechnicalDebtDetails(appHRef, indexId.ToString(), snapshotIds);
-                }
+                return GetRepository().GetOmgTechnicalDebtDetails(appHRef, indexId.ToString(), snapshotIds);
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
             {
@@ -490,10 +427,7 @@ namespace CastReporting.BLL
         {
             try
             {
-                using (var castRepsitory = GetRepository())
-                {
-                    return castRepsitory.GetMetricTopArtefact(_Snapshot.Href, ruleId, count);
-                }
+                return GetRepository().GetMetricTopArtefact(_Snapshot.Href, ruleId, count);
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
             {
@@ -516,10 +450,7 @@ namespace CastReporting.BLL
         {
             try
             {
-                using (var castRepsitory = GetRepository())
-                {
-                    return castRepsitory.GetViolationsListIDbyBC(snapshotHref, ruleId, bcId, count, technos);
-                }
+                return GetRepository().GetViolationsListIDbyBC(snapshotHref, ruleId, bcId, count, technos);
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
             {
@@ -533,10 +464,7 @@ namespace CastReporting.BLL
         {
             try
             {
-                using (var castRepository = GetRepository())
-                {
-                    return castRepository.GetRemovedViolations(snapshotHref, bcId, count, criticity);
-                }
+                return GetRepository().GetRemovedViolations(snapshotHref, bcId, count, criticity);
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
             {
@@ -549,10 +477,7 @@ namespace CastReporting.BLL
         {
             try
             {
-                using (var castRepository = GetRepository())
-                {
-                    return castRepository.GetViolationsInActionPlan(snapshotHref, count);
-                }
+                return GetRepository().GetViolationsInActionPlan(snapshotHref, count);
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
             {
@@ -566,10 +491,7 @@ namespace CastReporting.BLL
 
             try
             {
-                using (var castRepsitory = GetRepository())
-                {
-                    return castRepsitory.GetTypedComponent(domainId, componentId, snapshotId);
-                }
+                return GetRepository().GetTypedComponent(domainId, componentId, snapshotId);
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
             {
@@ -591,10 +513,7 @@ namespace CastReporting.BLL
 
             try
             {
-                using (var castRepsitory = GetRepository())
-                {
-                    return castRepsitory.GetComponents(_Snapshot.Href, businessCriteria, count);
-                }
+                return GetRepository().GetComponents(_Snapshot.Href, businessCriteria, count);
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
             {
@@ -619,10 +538,7 @@ namespace CastReporting.BLL
         {
             try
             {
-                using (var castRepsitory = GetRepository())
-                {
-                    return castRepsitory.GetComponentsWithProperties(snapshotHref, businessCriteria, prop1, prop2, order1, order2, count);
-                }
+                return GetRepository().GetComponentsWithProperties(snapshotHref, businessCriteria, prop1, prop2, order1, order2, count);
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
             {
@@ -644,10 +560,7 @@ namespace CastReporting.BLL
         {
             try
             {
-                using (var castRepsitory = GetRepository())
-                {
-                    return castRepsitory.GetComponentsByModule(domainId, moduleId, snapshotId, businessCriteria, count);
-                }
+                return GetRepository().GetComponentsByModule(domainId, moduleId, snapshotId, businessCriteria, count);
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
             {
@@ -661,14 +574,11 @@ namespace CastReporting.BLL
         /// </summary>
         private void SetBusinessCriteriaCCRulesViolations()
         {
-            using (var castRepsitory = GetRepository())
+            foreach (var businessCriteria in _Snapshot.BusinessCriteriaResults)
             {
-                foreach (var businessCriteria in _Snapshot.BusinessCriteriaResults)
-                {
-                    var results = castRepsitory.GetRulesViolations(_Snapshot.Href, "cc", businessCriteria.Reference.Key.ToString());
+                var results = GetRepository().GetRulesViolations(_Snapshot.Href, "cc", businessCriteria.Reference.Key.ToString());
 
-                    businessCriteria.CriticalRulesViolation = results?.SelectMany(x => x.ApplicationResults).ToList();
-                }
+                businessCriteria.CriticalRulesViolation = results?.SelectMany(x => x.ApplicationResults).ToList();
             }
         }
 
@@ -677,14 +587,11 @@ namespace CastReporting.BLL
         /// </summary>
         private void SetBusinessCriteriaNCRulesViolations()
         {
-            using (var castRepsitory = GetRepository())
+            foreach (var businessCriteria in _Snapshot.BusinessCriteriaResults)
             {
-                foreach (var businessCriteria in _Snapshot.BusinessCriteriaResults)
-                {
-                    var results = castRepsitory.GetRulesViolations(_Snapshot.Href, "nc", businessCriteria.Reference.Key.ToString());
+                var results = GetRepository().GetRulesViolations(_Snapshot.Href, "nc", businessCriteria.Reference.Key.ToString());
 
-                    businessCriteria.NonCriticalRulesViolation = results?.SelectMany(x => x.ApplicationResults).ToList();
-                }
+                businessCriteria.NonCriticalRulesViolation = results?.SelectMany(x => x.ApplicationResults).ToList();
             }
         }
 
@@ -694,21 +601,12 @@ namespace CastReporting.BLL
         /// </summary>
         private void SetTechnicalCriteriaRulesViolations()
         {
-            using (var castRepsitory = GetRepository())
+            foreach (var technicalCriteria in _Snapshot.TechnicalCriteriaResults)
             {
-                foreach (var technicalCriteria in _Snapshot.TechnicalCriteriaResults)
-                {
-
-                    var results = castRepsitory.GetRulesViolations(_Snapshot.Href, "c", technicalCriteria.Reference.Key.ToString());
-
-
-                    technicalCriteria.RulesViolation = results?.SelectMany(x => x.ApplicationResults).ToList();
-                }
+                var results = GetRepository().GetRulesViolations(_Snapshot.Href, "c", technicalCriteria.Reference.Key.ToString());
+                technicalCriteria.RulesViolation = results?.SelectMany(x => x.ApplicationResults).ToList();
             }
         }
-
-
-
 
         /// <summary>
         /// 
@@ -765,10 +663,7 @@ namespace CastReporting.BLL
         {
             try
             {
-                using (var castRepository = GetRepository())
-                {
-                    return castRepository.GetAssociatedValue(domainId, snapshotId, componentId, metricId);
-                }
+                return GetRepository().GetAssociatedValue(domainId, snapshotId, componentId, metricId);
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
             {
@@ -781,10 +676,7 @@ namespace CastReporting.BLL
         {
             try
             {
-                using (var castRepository = GetRepository())
-                {
-                    return castRepository.GetAssociatedValuePath(domainId, snapshotId, componentId, metricId);
-                }
+                return GetRepository().GetAssociatedValuePath(domainId, snapshotId, componentId, metricId);
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
             {
@@ -797,10 +689,7 @@ namespace CastReporting.BLL
         {
             try
             {
-                using (var castRepository = GetRepository())
-                {
-                    return castRepository.GetAssociatedValueGroup(domainId, snapshotId, componentId, metricId);
-                }
+                return GetRepository().GetAssociatedValueGroup(domainId, snapshotId, componentId, metricId);
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
             {
@@ -813,10 +702,7 @@ namespace CastReporting.BLL
         {
             try
             {
-                using (var castRepository = GetRepository())
-                {
-                    return castRepository.GetAssociatedValueObject(domainId, snapshotId, componentId, metricId);
-                }
+                return GetRepository().GetAssociatedValueObject(domainId, snapshotId, componentId, metricId);
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException)
             {
@@ -833,25 +719,22 @@ namespace CastReporting.BLL
             int endLine = bookmark.CodeFragment.EndLine;
             try
             {
-                using (var castRepository = GetRepository())
+                Dictionary<int, string> codeLines = new Dictionary<int, string>();
+                int idx = startLine - offset;
+                if (idx < 0)
                 {
-                    Dictionary<int, string> codeLines = new Dictionary<int, string>();
-                    int idx = startLine - offset;
-                    if (idx < 0)
-                    {
-                        idx = startLine;
-                    }
-
-                    List<string> lines = castRepository.GetFileContent(domainId, siteId, fileId, idx, endLine + offset);
-                    for (int i = 0; i <= 2 * offset; i++)
-                    {
-                        string line = lines[i].Replace("\u001a", "");
-                        // Max number of char in a line is 255 to avoid https://jira.castsoftware.com/browse/REPORTGEN-945
-                        codeLines.Add(idx, line.Length > 255 ? line.Substring(0, 120) + "(...)" : line);
-                        idx++;
-                    }
-                    return (codeLines.Count == 0) ? null : codeLines;
+                    idx = startLine;
                 }
+
+                List<string> lines = GetRepository().GetFileContent(domainId, siteId, fileId, idx, endLine + offset);
+                for (int i = 0; i <= 2 * offset; i++)
+                {
+                    string line = lines[i].Replace("\u001a", "");
+                    // Max number of char in a line is 255 to avoid https://jira.castsoftware.com/browse/REPORTGEN-945
+                    codeLines.Add(idx, line.Length > 255 ? line.Substring(0, 120) + "(...)" : line);
+                    idx++;
+                }
+                return (codeLines.Count == 0) ? null : codeLines;
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException || ex is ArgumentException)
             {
@@ -865,43 +748,41 @@ namespace CastReporting.BLL
             List<Tuple<string, Dictionary<int, string>>> codesAndPath = new List<Tuple<string, Dictionary<int, string>>>();
             try
             {
-                using (var castRepository = GetRepository())
+                var castRepository = GetRepository();
+                List<CodeFragment> fragments = castRepository.GetSourceCode(domainId, snapshotId, componentId).ToList();
+
+                if (!fragments.Any()) return null;
+
+                foreach (CodeFragment _fragment in fragments)
                 {
-                    List<CodeFragment> fragments = castRepository.GetSourceCode(domainId, snapshotId, componentId).ToList();
-
-                    if (!fragments.Any()) return null;
-
-                    foreach (CodeFragment _fragment in fragments)
+                    if (withCodeLines)
                     {
-                        if (withCodeLines)
-                        {
-                            string siteId = _fragment.CodeFile.GetSiteId();
-                            string fileId = _fragment.CodeFile.GetFileId();
-                            int startLine = _fragment.StartLine;
-                            int endLine = _fragment.EndLine;
-                            int idx = (startLine < 1) ? 1 : startLine;
-                            int endIdx = (endLine < 1) ? idx + offset
-                                : endLine - idx < offset ? endLine : idx + offset;
+                        string siteId = _fragment.CodeFile.GetSiteId();
+                        string fileId = _fragment.CodeFile.GetFileId();
+                        int startLine = _fragment.StartLine;
+                        int endLine = _fragment.EndLine;
+                        int idx = (startLine < 1) ? 1 : startLine;
+                        int endIdx = (endLine < 1) ? idx + offset
+                            : endLine - idx < offset ? endLine : idx + offset;
 
-                            Dictionary<int, string> codeLines = new Dictionary<int, string>();
+                        Dictionary<int, string> codeLines = new Dictionary<int, string>();
 
-                            List<string> lines = castRepository.GetFileContent(domainId, siteId, fileId, idx, endIdx);
-                            foreach (string _line in lines)
-                            {
-                                string line = _line.Replace("\u001a", "");
-                                // Max number of char in a line is 255 to avoid https://jira.castsoftware.com/browse/REPORTGEN-945
-                                codeLines.Add(idx, line.Length > 255 ? line.Substring(0, 120) + "(...)" : line);
-                                idx++;
-                            }
-                            codesAndPath.Add(new Tuple<string, Dictionary<int, string>>(_fragment.CodeFile.Name, codeLines));
-                        }
-                        else
+                        List<string> lines = castRepository.GetFileContent(domainId, siteId, fileId, idx, endIdx);
+                        foreach (string _line in lines)
                         {
-                            codesAndPath.Add(new Tuple<string, Dictionary<int, string>>(_fragment.CodeFile.Name, new Dictionary<int, string>()));
+                            string line = _line.Replace("\u001a", "");
+                            // Max number of char in a line is 255 to avoid https://jira.castsoftware.com/browse/REPORTGEN-945
+                            codeLines.Add(idx, line.Length > 255 ? line.Substring(0, 120) + "(...)" : line);
+                            idx++;
                         }
+                        codesAndPath.Add(new Tuple<string, Dictionary<int, string>>(_fragment.CodeFile.Name, codeLines));
                     }
-                    return codesAndPath.Count == 0 ? null : codesAndPath;
+                    else
+                    {
+                        codesAndPath.Add(new Tuple<string, Dictionary<int, string>>(_fragment.CodeFile.Name, new Dictionary<int, string>()));
+                    }
                 }
+                return codesAndPath.Count == 0 ? null : codesAndPath;
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException || ex is ArgumentException)
             {
@@ -915,18 +796,14 @@ namespace CastReporting.BLL
             List<Tuple<string, int, int>> codesAndLineProps = new List<Tuple<string, int, int>>();
             try
             {
-                using (var castRepository = GetRepository())
+                List<CodeFragment> fragments = GetRepository().GetSourceCode(domainId, snapshotId, componentId).ToList();
+                if (!fragments.Any()) return codesAndLineProps;
+
+                foreach (CodeFragment _fragment in fragments)
                 {
-                    List<CodeFragment> fragments = castRepository.GetSourceCode(domainId, snapshotId, componentId).ToList();
-
-                    if (!fragments.Any()) return codesAndLineProps;
-
-                    foreach (CodeFragment _fragment in fragments)
-                    {
-                        codesAndLineProps.Add(new Tuple<string, int, int>(_fragment.CodeFile.Name, _fragment.StartLine, _fragment.EndLine));
-                    }
-                    return codesAndLineProps;
+                    codesAndLineProps.Add(new Tuple<string, int, int>(_fragment.CodeFile.Name, _fragment.StartLine, _fragment.EndLine));
                 }
+                return codesAndLineProps;
             }
             catch (Exception ex) when (ex is FormatException || ex is ArgumentNullException || ex is ArgumentOutOfRangeException || ex is ArgumentException)
             {
