@@ -35,7 +35,7 @@ namespace CastReporting.Repositories
     /// <summary>
     /// Cast reporting Context Class
     /// </summary>
-    public class CastRepository : ICastRepsitory
+    public class CastRepository : ICastRepsitory, IDisposable
     {
         #region CONSTANTS
 
