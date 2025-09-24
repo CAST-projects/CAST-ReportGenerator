@@ -86,6 +86,7 @@ namespace CastReporting.Mediation
                 _httpClientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
             }
             _httpClient = new HttpClient(_httpClientHandler);
+            _httpClient.Timeout = TimeSpan.FromMilliseconds(Timeout);
 
             _restApiKey = apiKey;
             if (apiKey)
