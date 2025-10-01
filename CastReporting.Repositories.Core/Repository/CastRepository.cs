@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Runtime.Serialization.Json;
 using System.Text;
 // ReSharper disable InconsistentNaming
@@ -34,7 +35,7 @@ namespace CastReporting.Repositories
     /// <summary>
     /// Cast reporting Context Class
     /// </summary>
-    public class CastRepository : ICastRepsitory
+    public class CastRepository : ICastRepsitory, IDisposable
     {
         #region CONSTANTS
 
@@ -481,9 +482,9 @@ namespace CastReporting.Repositories
             {
                 return CallWS<IEnumerable<ActionPlan>>(requestUrl, RequestComplexity.Long);
             }
-            catch (WebException webEx)
+            catch (Exception ex)
             {
-                LogHelper.LogInfo(webEx.Message);
+                LogHelper.LogInfo(ex.Message);
                 // url for action plan has changed in API, and some old versions does not support the 2 format of the url
                 return CallWS<IEnumerable<ActionPlan>>(requestUrl2, RequestComplexity.Long);
             }
@@ -750,9 +751,9 @@ namespace CastReporting.Repositories
                     return res;
                 }
             }
-            catch (WebException e)
+            catch (Exception ex) when (ex is ArgumentNullException || ex is HttpRequestException || ex is NotSupportedException || ex is InvalidOperationException || ex is ArgumentOutOfRangeException)
             {
-                LogHelper.LogError(e.Message);
+                LogHelper.LogError(ex.Message);
                 return null;
             }
         }
@@ -767,9 +768,9 @@ namespace CastReporting.Repositories
             {
                 jsonString = _Client.DownloadString(requestUrl, pComplexity);
             }
-            catch (WebException e)
+            catch (Exception ex) when (ex is ArgumentNullException || ex is HttpRequestException || ex is NotSupportedException || ex is InvalidOperationException || ex is ArgumentOutOfRangeException)
             {
-                LogHelper.LogError(e.Message);
+                LogHelper.LogError(ex.Message);
             }
 
             return jsonString;
@@ -796,9 +797,9 @@ namespace CastReporting.Repositories
                 var serializer = new CsvSerializer<T>();
                 return serializer.ReadObjects(csvString, count, PropNames);
             }
-            catch (WebException e)
+            catch (Exception ex) when (ex is ArgumentNullException || ex is HttpRequestException || ex is NotSupportedException || ex is InvalidOperationException || ex is ArgumentOutOfRangeException)
             {
-                LogHelper.LogError(e.Message);
+                LogHelper.LogError(ex.Message);
                 return null;
             }
 
@@ -814,9 +815,9 @@ namespace CastReporting.Repositories
             {
                 return _Client.DownloadText(requestUrl, pComplexity);
             }
-            catch (WebException e)
+            catch (Exception ex) when (ex is ArgumentNullException || ex is HttpRequestException || ex is NotSupportedException || ex is InvalidOperationException || ex is ArgumentOutOfRangeException)
             {
-                LogHelper.LogError(e.Message);
+                LogHelper.LogError(ex.Message);
                 return null;
             }
 

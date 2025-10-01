@@ -39,10 +39,7 @@ namespace CastReporting.BLL
         /// <returns></returns>
         public bool CheckService()
         {
-            using (var castRepsitory = GetRepository())
-            {
-                return castRepsitory.IsServiceValid();
-            }
+            return GetRepository().IsServiceValid();
         }
 
 
@@ -52,18 +49,13 @@ namespace CastReporting.BLL
         /// <returns></returns>
         public static bool CheckService(WSConnection connection)
         {
-            using (var castRepsitory = GetRepository(connection, true))
-            {
-                return castRepsitory.IsServiceValid();
-            }
+            return GetRepository(connection, true).IsServiceValid();
+            
         }
 
         public static string GetServiceVersion(WSConnection connection)
         {
-            using (var castRepsitory = GetRepository(connection))
-            {
-                return castRepsitory.GetServerVersion();
-            }
+            return GetRepository(connection).GetServerVersion();
         }
     }
 }
