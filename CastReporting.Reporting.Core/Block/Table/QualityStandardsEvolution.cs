@@ -116,7 +116,7 @@ namespace CastReporting.Reporting.Block.Table
                     List<ApplicationResult> bcresults = reportData.CurrentSnapshot.BusinessCriteriaResults.Where(_ => _.Reference.ShortName != null && _.Reference.ShortName.Contains(indicatorName + "-")).OrderByDescending(_ => _.DetailResult.EvolutionSummary.TotalViolations).ToList();
                     foreach (ApplicationResult bcres in bcresults)
                     {
-                        if (limitReached(data.Count, headers.Count, limit) )
+                        if (FormatTableHelper.limitReached(data.Count, headers.Count, limit) )
                         {
                             break;
                         }
@@ -132,7 +132,7 @@ namespace CastReporting.Reporting.Block.Table
                         {
                             foreach (ApplicationResult tcres in tcResults)
                             {
-                                if (limitReached(data.Count, headers.Count, limit))
+                                if (FormatTableHelper.limitReached(data.Count, headers.Count, limit))
                                 {
                                     break;
                                 }
@@ -153,7 +153,7 @@ namespace CastReporting.Reporting.Block.Table
                     {
                         foreach (ApplicationResult tcres in tcResults)
                         {
-                            if (limitReached(data.Count, headers.Count, limit))
+                            if (FormatTableHelper.limitReached(data.Count, headers.Count, limit))
                             {
                                 break;
                             }
@@ -173,7 +173,7 @@ namespace CastReporting.Reporting.Block.Table
                 {
                     foreach (var result in results)
                     {
-                        if (limitReached(data.Count, headers.Count, limit))
+                        if (FormatTableHelper.limitReached(data.Count, headers.Count, limit))
                         {
                             break;
                         }
@@ -192,7 +192,7 @@ namespace CastReporting.Reporting.Block.Table
                             if (!(stdresults?.Count > 0)) continue;
                             foreach (var stdres in stdresults)
                             {
-                                if (limitReached(data.Count, headers.Count, limit))
+                                if (FormatTableHelper.limitReached(data.Count, headers.Count, limit))
                                 {
                                     break;
                                 }
@@ -231,13 +231,6 @@ namespace CastReporting.Reporting.Block.Table
                 NbRows = data.Count / headers.Count,
                 CellsAttributes = cellProps
             };
-        }
-
-        private static bool limitReached(int dataCount, int headersCount, int limit)
-        {
-            int currentRows = dataCount / headersCount;
-            return limit != -1 && currentRows >= limit;
-
         }
 
         private static int AddDataRow(bool detail, bool displayEvolution, string lbltotal, string lbladded, string lblremoved, string indicatorName, List<CellAttributes> cellProps, int cellidx, HeaderDefinition headers, List<string> data, ResultDetail detailResult, int? nbViolations, string stdTagName, bool showWhenNoViolation, bool showCompliance)

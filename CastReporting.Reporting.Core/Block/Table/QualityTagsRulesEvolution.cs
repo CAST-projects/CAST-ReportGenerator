@@ -22,6 +22,8 @@ using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
 using CastReporting.Reporting.Helper;
 using CastReporting.Reporting.ReportingModel;
+using DocumentFormat.OpenXml.Math;
+using DocumentFormat.OpenXml.Office2010.ExcelAc;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -40,6 +42,8 @@ namespace CastReporting.Reporting.Block.Table
             bool displayHeader = !options.GetOption("HEADER", "YES").ToUpper().Equals("NO");
             bool showDescription = options.GetOption("DESC", "false").Equals("true");
             bool showNoViolationRules = options.GetOption("NOVIOLATIONS", "true").Equals("true");
+            bool showCompliance = options.GetOption("COMPLIANCE", "false").Equals("true");
+            int limit = options.GetIntOption("COUNT", -1);
 
             string indicatorName = int.TryParse(standard, out int id) ?
                 reportData.CurrentSnapshot.BusinessCriteriaResults.Where(_ => _.Reference.Key == id).Select(_ => _.Reference.Name).FirstOrDefault()
@@ -78,13 +82,13 @@ namespace CastReporting.Reporting.Block.Table
             headers.Append(lblremoved);
             cellidx++;
 
-            headers.Append(Labels.Rationale, showDescription);
-            headers.Append(Labels.Description, showDescription);
-            headers.Append(Labels.Remediation, showDescription);
             if (showDescription)
             {
+                headers.Append(Labels.Rationale, showDescription);
                 cellidx++; // for Rationale
+                headers.Append(Labels.Description, showDescription);
                 cellidx++; // for Description
+                headers.Append(Labels.Remediation, showDescription);
                 cellidx++; // for Remediation
             }
 
@@ -108,15 +112,19 @@ namespace CastReporting.Reporting.Block.Table
                 {
                     foreach (ApplicationResult tcres in tcResults)
                     {
+                        if (FormatTableHelper.limitReached(data.Count, headers.Count, limit))
+                        {
+                            break;
+                        }
                         string tcName = tcres.Reference?.Name;
-                        cellidx = AddRowForTCorTag(indicatorName, lbltotal, lbladded, lblremoved, showDescription, cellProps, cellidx, headers, data, tcName, tcres, showNoViolationRules);
+                        cellidx = AddRowForTCorTag(indicatorName, lbltotal, lbladded, lblremoved, showDescription, cellProps, cellidx, headers, data, tcName, tcres, showNoViolationRules, limit);
 
                         List<int?> rulesIds = reportData.RuleExplorer.GetCriteriaContributors(reportData.CurrentSnapshot.DomainId, tcres.Reference.Key.ToString(), reportData.CurrentSnapshot.Id).Select(_ => _.Key).ToList();
                         List<ApplicationResult> rulesResults = rulesIds.Count > 0 ?
                             reportData.CurrentSnapshot.QualityRulesResults.Where(_ => rulesIds.Contains(_.Reference.Key)).OrderByDescending(_ => _.DetailResult.ViolationRatio.FailedChecks).ToList()
                             : null;
 
-                        cellidx = AddRowsForRules(reportData, indicatorName, lbltotal, lbladded, lblremoved, showDescription, cellProps, cellidx, headers, data, rulesResults, showNoViolationRules);
+                        cellidx = AddRowsForRules(reportData, indicatorName, lbltotal, lbladded, lblremoved, showDescription, cellProps, cellidx, headers, data, rulesResults, showNoViolationRules, limit);
                     }
                 }
             }
@@ -129,12 +137,17 @@ namespace CastReporting.Reporting.Block.Table
                 {
                     foreach (var result in results)
                     {
+                        if (FormatTableHelper.limitReached(data.Count, headers.Count, limit))
+                        {
+                            break;
+                        }
+
                         string stdTagName = result.Reference?.Name + " " + reportData.Application.StandardTags?.Where(_ => _.Key == result.Reference?.Name).FirstOrDefault()?.Name;
-                        cellidx = AddRowForTCorTag(indicatorName, lbltotal, lbladded, lblremoved, showDescription, cellProps, cellidx, headers, data, stdTagName, result, showNoViolationRules);
+                        cellidx = AddRowForTCorTag(indicatorName, lbltotal, lbladded, lblremoved, showDescription, cellProps, cellidx, headers, data, stdTagName, result, showNoViolationRules, limit);
 
                         // for each tag of the category add lines for all cast rules associated to this tag
                         List<ApplicationResult> stdresults = reportData.SnapshotExplorer.GetQualityStandardsRulesResults(reportData.CurrentSnapshot.Href, result.Reference?.Name, true)?.FirstOrDefault()?.ApplicationResults?.ToList();
-                        cellidx = AddRowsForRules(reportData, indicatorName, lbltotal, lbladded, lblremoved, showDescription, cellProps, cellidx, headers, data, stdresults, showNoViolationRules);
+                        cellidx = AddRowsForRules(reportData, indicatorName, lbltotal, lbladded, lblremoved, showDescription, cellProps, cellidx, headers, data, stdresults, showNoViolationRules, limit);
                     }
                 }
 
@@ -164,8 +177,13 @@ namespace CastReporting.Reporting.Block.Table
             };
         }
 
-        private static int AddRowForTCorTag(string indicatorName, string lbltotal, string lbladded, string lblremoved, bool showDescription, List<CellAttributes> cellProps, int cellidx, HeaderDefinition headers, List<string> data, string tcName, ApplicationResult tcres, bool showNoViolations)
+        private static int AddRowForTCorTag(string indicatorName, string lbltotal, string lbladded, string lblremoved, bool showDescription, List<CellAttributes> cellProps, int cellidx, HeaderDefinition headers, List<string> data, string tcName, ApplicationResult tcres, bool showNoViolations, int limit)
         {
+            if (FormatTableHelper.limitReached(data.Count, headers.Count, limit))
+            {
+                return cellidx;
+            }
+
             var detailResult = tcres.DetailResult;
             if (detailResult == null) return cellidx;
             int? _nbTagViolations = detailResult.EvolutionSummary?.TotalViolations;
@@ -197,12 +215,17 @@ namespace CastReporting.Reporting.Block.Table
             return cellidx;
         }
 
-        private static int AddRowsForRules(ReportData reportData, string indicatorName, string lbltotal, string lbladded, string lblremoved, bool showDescription, List<CellAttributes> cellProps, int cellidx, HeaderDefinition headers, List<string> data, List<ApplicationResult> rulesResults, bool showNoViolations)
+        private static int AddRowsForRules(ReportData reportData, string indicatorName, string lbltotal, string lbladded, string lblremoved, bool showDescription, List<CellAttributes> cellProps, int cellidx, HeaderDefinition headers, List<string> data, List<ApplicationResult> rulesResults, bool showNoViolations, int limit)
         {
             if (rulesResults?.Count > 0)
             {
                 foreach (ApplicationResult qres in rulesResults)
                 {
+                    if (FormatTableHelper.limitReached(data.Count, headers.Count, limit))
+                    {
+                        break;
+                    }
+
                     var _ruleDr = headers.CreateDataRow();
                     var _resultDetail = qres.DetailResult;
                     if (_resultDetail == null) continue;
