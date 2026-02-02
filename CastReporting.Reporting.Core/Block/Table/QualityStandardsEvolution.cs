@@ -39,6 +39,8 @@ namespace CastReporting.Reporting.Block.Table
             bool displayEvolution = options.GetOption("EVOLUTION", displayAddedRemoved).ToLower().Equals("true");
             bool displayHeader = !options.GetOption("HEADER", "YES").ToUpper().Equals("NO");
             bool showNoViolationRules = options.GetOption("NOVIOLATIONS", "true").Equals("true");
+            bool showCompliance = options.GetOption("COMPLIANCE", "false").Equals("true");
+            int limit = options.GetIntOption("COUNT", -1);
 
             string lbltotal = vulnerability ? Labels.TotalVulnerabilities : Labels.TotalViolations;
             string lbladded = vulnerability ? Labels.AddedVulnerabilities : Labels.AddedViolations;
@@ -62,6 +64,11 @@ namespace CastReporting.Reporting.Block.Table
                 headers.Append(lbladded);
                 cellidx++;
                 headers.Append(lblremoved);
+                cellidx++;
+            }
+            if (showCompliance)
+            {
+                headers.Append(Labels.ComplianceScorePercent);
                 cellidx++;
             }
 
@@ -89,7 +96,6 @@ namespace CastReporting.Reporting.Block.Table
                     Data = data
                 };
             }
-
             // REPORTGEN-885 : 
             // this component initially designed for standard category, should now wotk for a BC, because in new extension the standards are becoming BC
             // to avoid changing the reports, the parameter should accept : BC name or short name, BC id, category name
@@ -110,9 +116,13 @@ namespace CastReporting.Reporting.Block.Table
                     List<ApplicationResult> bcresults = reportData.CurrentSnapshot.BusinessCriteriaResults.Where(_ => _.Reference.ShortName != null && _.Reference.ShortName.Contains(indicatorName + "-")).OrderByDescending(_ => _.DetailResult.EvolutionSummary.TotalViolations).ToList();
                     foreach (ApplicationResult bcres in bcresults)
                     {
+                        if (limitReached(data.Count, headers.Count, limit) )
+                        {
+                            break;
+                        }
                         string bcName = bcres.Reference.Name;
                         int? nbbcViolations = bcres.DetailResult?.EvolutionSummary?.TotalViolations;
-                        cellidx = AddDataRow(true, displayEvolution, lbltotal, lbladded, lblremoved, indicatorName, cellProps, cellidx, headers, data, bcres.DetailResult, nbbcViolations, bcName, showNoViolationRules);
+                        cellidx = AddDataRow(true, displayEvolution, lbltotal, lbladded, lblremoved, indicatorName, cellProps, cellidx, headers, data, bcres.DetailResult, nbbcViolations, bcName, showNoViolationRules, showCompliance);
 
                         List<int?> technicalCriterionIds = reportData.RuleExplorer.GetCriteriaContributors(reportData.CurrentSnapshot.DomainId, bcres.Reference.Key.ToString(), reportData.CurrentSnapshot.Id).Select(_ => _.Key).ToList();
                         List<ApplicationResult> tcResults = technicalCriterionIds.Count > 0 ?
@@ -122,9 +132,13 @@ namespace CastReporting.Reporting.Block.Table
                         {
                             foreach (ApplicationResult tcres in tcResults)
                             {
+                                if (limitReached(data.Count, headers.Count, limit))
+                                {
+                                    break;
+                                }
                                 string tcName = "    " + tcres.Reference?.Name;
                                 int? nbtcViolations = tcres.DetailResult?.EvolutionSummary?.TotalViolations;
-                                cellidx = AddDataRow(false, displayEvolution, lbltotal, lbladded, lblremoved, indicatorName, cellProps, cellidx, headers, data, tcres.DetailResult, nbtcViolations, tcName, showNoViolationRules);
+                                cellidx = AddDataRow(false, displayEvolution, lbltotal, lbladded, lblremoved, indicatorName, cellProps, cellidx, headers, data, tcres.DetailResult, nbtcViolations, tcName, showNoViolationRules, showCompliance);
                             }
                         }
                     }
@@ -139,9 +153,13 @@ namespace CastReporting.Reporting.Block.Table
                     {
                         foreach (ApplicationResult tcres in tcResults)
                         {
+                            if (limitReached(data.Count, headers.Count, limit))
+                            {
+                                break;
+                            }
                             string tcName = tcres.Reference?.Name;
                             int? nbtcViolations = tcres.DetailResult?.EvolutionSummary?.TotalViolations;
-                            cellidx = AddDataRow(false, displayEvolution, lbltotal, lbladded, lblremoved, indicatorName, cellProps, cellidx, headers, data, tcres.DetailResult, nbtcViolations, tcName, showNoViolationRules);
+                            cellidx = AddDataRow(false, displayEvolution, lbltotal, lbladded, lblremoved, indicatorName, cellProps, cellidx, headers, data, tcres.DetailResult, nbtcViolations, tcName, showNoViolationRules, showCompliance);
                         }
                     }
                 }
@@ -155,13 +173,17 @@ namespace CastReporting.Reporting.Block.Table
                 {
                     foreach (var result in results)
                     {
+                        if (limitReached(data.Count, headers.Count, limit))
+                        {
+                            break;
+                        }
                         var detailResult = result.DetailResult;
                         if (detailResult == null) continue;
                         int? nbViolations = detailResult.EvolutionSummary?.TotalViolations;
                         // usefull when the STD is a tag. when STD is a category it is not in the standardTags list for application, so only STD name is displayed
                         string stdTagName = result.Reference?.Name + " " + reportData.Application.StandardTags?.Where(_ => _.Key == result.Reference?.Name).FirstOrDefault()?.Name;
 
-                        cellidx = AddDataRow(detail, displayEvolution, lbltotal, lbladded, lblremoved, indicatorName, cellProps, cellidx, headers, data, detailResult, nbViolations, stdTagName, showNoViolationRules);
+                        cellidx = AddDataRow(detail, displayEvolution, lbltotal, lbladded, lblremoved, indicatorName, cellProps, cellidx, headers, data, detailResult, nbViolations, stdTagName, showNoViolationRules, showCompliance);
 
                         // add lines for all sub tags if detail version (case of an upper category that should list all tags contains in the sub category
                         if (!detail) continue;
@@ -170,11 +192,15 @@ namespace CastReporting.Reporting.Block.Table
                             if (!(stdresults?.Count > 0)) continue;
                             foreach (var stdres in stdresults)
                             {
+                                if (limitReached(data.Count, headers.Count, limit))
+                                {
+                                    break;
+                                }
                                 var detailStdResult = stdres.DetailResult;
                                 if (detailStdResult == null) continue;
                                 int? nbStdViolations = detailStdResult.EvolutionSummary?.TotalViolations;
                                 string stdresTagName = "    " + stdres.Reference?.Name + " " + reportData.Application.StandardTags?.Where(_ => _.Key == stdres.Reference?.Name).FirstOrDefault()?.Name;
-                                cellidx = AddDataRow(false, displayEvolution, lbltotal, lbladded, lblremoved, indicatorName, cellProps, cellidx, headers, data, detailStdResult, nbStdViolations, stdresTagName, showNoViolationRules);
+                                cellidx = AddDataRow(false, displayEvolution, lbltotal, lbladded, lblremoved, indicatorName, cellProps, cellidx, headers, data, detailStdResult, nbStdViolations, stdresTagName, showNoViolationRules, showCompliance);
                             }
                         }
                     }
@@ -207,7 +233,14 @@ namespace CastReporting.Reporting.Block.Table
             };
         }
 
-        private static int AddDataRow(bool detail, bool displayEvolution, string lbltotal, string lbladded, string lblremoved, string indicatorName, List<CellAttributes> cellProps, int cellidx, HeaderDefinition headers, List<string> data, ResultDetail detailResult, int? nbViolations, string stdTagName, bool showWhenNoViolation)
+        private static bool limitReached(int dataCount, int headersCount, int limit)
+        {
+            int currentRows = dataCount / headersCount;
+            return limit != -1 && currentRows >= limit;
+
+        }
+
+        private static int AddDataRow(bool detail, bool displayEvolution, string lbltotal, string lbladded, string lblremoved, string indicatorName, List<CellAttributes> cellProps, int cellidx, HeaderDefinition headers, List<string> data, ResultDetail detailResult, int? nbViolations, string stdTagName, bool showWhenNoViolation, bool showCompliance)
         {
             if (!showWhenNoViolation && (nbViolations == null || nbViolations == 0))
             {
@@ -226,6 +259,13 @@ namespace CastReporting.Reporting.Block.Table
                 FormatTableHelper.AddGrayOrBold(detail, cellProps, cellidx, nbViolations);
                 cellidx++;
                 dataRow.Set(lblremoved, detailResult.EvolutionSummary?.RemovedViolations.NAIfEmpty("N0"));
+                FormatTableHelper.AddGrayOrBold(detail, cellProps, cellidx, nbViolations);
+                cellidx++;
+            }
+            if (showCompliance)
+            {
+                string value = detailResult.Score != null ? FormatHelper.FormatPercent(detailResult.Score, true) : "N/A";
+                dataRow.Set(Labels.ComplianceScorePercent, value);
                 FormatTableHelper.AddGrayOrBold(detail, cellProps, cellidx, nbViolations);
                 cellidx++;
             }
