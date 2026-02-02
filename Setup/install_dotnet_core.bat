@@ -1,7 +1,7 @@
 @echo off
 SetLocal EnableDelayedExpansion
 
-set DOTNETCORENAME=dotnet-sdk-8.0.414-win-x64
+set DOTNETCORENAME=dotnet-sdk-8.0.417-win-x64
 set PACKPATH=%TEMP%\%DOTNETCORENAME%.exe 
 set LOGPATH=%TEMP%\%DOTNETCORENAME%.log
 
@@ -11,7 +11,7 @@ echo =================================================================
 echo Downloading .NET package ...
 echo =================================================================
 echo =================================================================
-C:\Windows\System32\curl.exe -o %PACKPATH% https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.414/%DOTNETCORENAME%.exe
+C:\Windows\System32\curl.exe -o %PACKPATH% https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.417/%DOTNETCORENAME%.exe
 
 if not exist %PACKPATH% (
     echo.
