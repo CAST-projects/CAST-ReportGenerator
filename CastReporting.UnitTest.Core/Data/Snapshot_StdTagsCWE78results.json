@@ -30,7 +30,7 @@
             "totalChecks": 8989,
             "failedChecks": 5,
             "successfulChecks": 8989,
-            "ratio": 1
+            "ratio": 0.99222111
           },
           "evolutionSummary": {
             "addedCriticalViolations": 2,

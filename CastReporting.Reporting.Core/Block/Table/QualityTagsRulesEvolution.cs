@@ -22,8 +22,6 @@ using CastReporting.Reporting.Builder.BlockProcessing;
 using CastReporting.Reporting.Core.Languages;
 using CastReporting.Reporting.Helper;
 using CastReporting.Reporting.ReportingModel;
-using DocumentFormat.OpenXml.Math;
-using DocumentFormat.OpenXml.Office2010.ExcelAc;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -91,6 +89,11 @@ namespace CastReporting.Reporting.Block.Table
                 headers.Append(Labels.Remediation, showDescription);
                 cellidx++; // for Remediation
             }
+            if (showCompliance)
+            {
+                headers.Append(Labels.ComplianceScorePercent);
+                cellidx++;
+            }
 
             // REPORTGEN-877 : 
             // this component initially designed for standard category, should now wotk for a BC, because in new extension the standards are becoming BC
@@ -117,14 +120,14 @@ namespace CastReporting.Reporting.Block.Table
                             break;
                         }
                         string tcName = tcres.Reference?.Name;
-                        cellidx = AddRowForTCorTag(indicatorName, lbltotal, lbladded, lblremoved, showDescription, cellProps, cellidx, headers, data, tcName, tcres, showNoViolationRules, limit);
+                        cellidx = AddRowForTCorTag(indicatorName, lbltotal, lbladded, lblremoved, showDescription, cellProps, cellidx, headers, data, tcName, tcres, showNoViolationRules, limit, showCompliance);
 
                         List<int?> rulesIds = reportData.RuleExplorer.GetCriteriaContributors(reportData.CurrentSnapshot.DomainId, tcres.Reference.Key.ToString(), reportData.CurrentSnapshot.Id).Select(_ => _.Key).ToList();
                         List<ApplicationResult> rulesResults = rulesIds.Count > 0 ?
                             reportData.CurrentSnapshot.QualityRulesResults.Where(_ => rulesIds.Contains(_.Reference.Key)).OrderByDescending(_ => _.DetailResult.ViolationRatio.FailedChecks).ToList()
                             : null;
 
-                        cellidx = AddRowsForRules(reportData, indicatorName, lbltotal, lbladded, lblremoved, showDescription, cellProps, cellidx, headers, data, rulesResults, showNoViolationRules, limit);
+                        cellidx = AddRowsForRules(reportData, indicatorName, lbltotal, lbladded, lblremoved, showDescription, cellProps, cellidx, headers, data, rulesResults, showNoViolationRules, limit, showCompliance);
                     }
                 }
             }
@@ -143,11 +146,11 @@ namespace CastReporting.Reporting.Block.Table
                         }
 
                         string stdTagName = result.Reference?.Name + " " + reportData.Application.StandardTags?.Where(_ => _.Key == result.Reference?.Name).FirstOrDefault()?.Name;
-                        cellidx = AddRowForTCorTag(indicatorName, lbltotal, lbladded, lblremoved, showDescription, cellProps, cellidx, headers, data, stdTagName, result, showNoViolationRules, limit);
+                        cellidx = AddRowForTCorTag(indicatorName, lbltotal, lbladded, lblremoved, showDescription, cellProps, cellidx, headers, data, stdTagName, result, showNoViolationRules, limit, showCompliance);
 
                         // for each tag of the category add lines for all cast rules associated to this tag
                         List<ApplicationResult> stdresults = reportData.SnapshotExplorer.GetQualityStandardsRulesResults(reportData.CurrentSnapshot.Href, result.Reference?.Name, true)?.FirstOrDefault()?.ApplicationResults?.ToList();
-                        cellidx = AddRowsForRules(reportData, indicatorName, lbltotal, lbladded, lblremoved, showDescription, cellProps, cellidx, headers, data, stdresults, showNoViolationRules, limit);
+                        cellidx = AddRowsForRules(reportData, indicatorName, lbltotal, lbladded, lblremoved, showDescription, cellProps, cellidx, headers, data, stdresults, showNoViolationRules, limit, showCompliance);
                     }
                 }
 
@@ -177,7 +180,7 @@ namespace CastReporting.Reporting.Block.Table
             };
         }
 
-        private static int AddRowForTCorTag(string indicatorName, string lbltotal, string lbladded, string lblremoved, bool showDescription, List<CellAttributes> cellProps, int cellidx, HeaderDefinition headers, List<string> data, string tcName, ApplicationResult tcres, bool showNoViolations, int limit)
+        private static int AddRowForTCorTag(string indicatorName, string lbltotal, string lbladded, string lblremoved, bool showDescription, List<CellAttributes> cellProps, int cellidx, HeaderDefinition headers, List<string> data, string tcName, ApplicationResult tcres, bool showNoViolations, int limit, bool showCompliance)
         {
             if (FormatTableHelper.limitReached(data.Count, headers.Count, limit))
             {
@@ -205,17 +208,27 @@ namespace CastReporting.Reporting.Block.Table
             if (showDescription)
             {
                 dataRow.Set(Labels.Rationale, string.Empty);
+                FormatTableHelper.AddGrayOrBold(true, cellProps, cellidx, _nbTagViolations);
                 cellidx++;
                 dataRow.Set(Labels.Description, string.Empty);
+                FormatTableHelper.AddGrayOrBold(true, cellProps, cellidx, _nbTagViolations);
                 cellidx++;
                 dataRow.Set(Labels.Remediation, string.Empty);
+                FormatTableHelper.AddGrayOrBold(true, cellProps, cellidx, _nbTagViolations);
+                cellidx++;
+            }
+            if (showCompliance)
+            {
+                string value = detailResult.Score != null ? FormatHelper.FormatPercent(detailResult.Score, true) : "N/A";
+                dataRow.Set(Labels.ComplianceScorePercent, value);
+                FormatTableHelper.AddGrayOrBold(true, cellProps, cellidx, _nbTagViolations);
                 cellidx++;
             }
             data.AddRange(dataRow);
             return cellidx;
         }
 
-        private static int AddRowsForRules(ReportData reportData, string indicatorName, string lbltotal, string lbladded, string lblremoved, bool showDescription, List<CellAttributes> cellProps, int cellidx, HeaderDefinition headers, List<string> data, List<ApplicationResult> rulesResults, bool showNoViolations, int limit)
+        private static int AddRowsForRules(ReportData reportData, string indicatorName, string lbltotal, string lbladded, string lblremoved, bool showDescription, List<CellAttributes> cellProps, int cellidx, HeaderDefinition headers, List<string> data, List<ApplicationResult> rulesResults, bool showNoViolations, int limit, bool showCompliance)
         {
             if (rulesResults?.Count > 0)
             {
@@ -255,6 +268,7 @@ namespace CastReporting.Reporting.Block.Table
                         {
                             _ruleDr.Set(Labels.Rationale, string.Empty);
                         }
+                        FormatTableHelper.AddGrayOrBold(false, cellProps, cellidx, _nbViolations);
                         cellidx++;
                         if (!string.IsNullOrWhiteSpace(desc.Rationale))
                         {
@@ -264,6 +278,7 @@ namespace CastReporting.Reporting.Block.Table
                         {
                             _ruleDr.Set(Labels.Description, string.Empty);
                         }
+                        FormatTableHelper.AddGrayOrBold(false, cellProps, cellidx, _nbViolations);
                         cellidx++;
                         if (!string.IsNullOrWhiteSpace(desc.Rationale))
                         {
@@ -273,6 +288,14 @@ namespace CastReporting.Reporting.Block.Table
                         {
                             _ruleDr.Set(Labels.Remediation, string.Empty);
                         }
+                        FormatTableHelper.AddGrayOrBold(false, cellProps, cellidx, _nbViolations);
+                        cellidx++;
+                    }
+                    if (showCompliance)
+                    {
+                        string value = _resultDetail.ViolationRatio?.Ratio != null ? FormatHelper.FormatPercent(_resultDetail.ViolationRatio.Ratio, true) : "N/A";
+                        _ruleDr.Set(Labels.ComplianceScorePercent, value);
+                        FormatTableHelper.AddGrayOrBold(false, cellProps, cellidx, _nbViolations);
                         cellidx++;
                     }
                     data.AddRange(_ruleDr);
