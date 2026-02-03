@@ -36,6 +36,25 @@ namespace CastReporting.UnitTest.Reporting.Text
 
         [TestMethod]
         [DeploymentItem(@"Data/CurrentBCTC.json", "Data")]
+        public void TestCurrentBusinessCriteriaCritical()
+        {
+            CastDate currentDate = new CastDate { Time = 1484953200000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+                null, @"Data/CurrentBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, null, null, null, null, null);
+
+            var component = new TotalViolations();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"ID", "60011" },  // Transferability (Business Criteria)
+                {"CRITICAL", "true" }
+            };
+            var str = component.Content(reportData, config);
+            Assert.AreEqual("6", str);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@"Data/CurrentBCTC.json", "Data")]
         [DeploymentItem(@"Data/PreviousBCTC.json", "Data")]
         public void TestPreviousBusinessCriteria()
         {
@@ -76,6 +95,25 @@ namespace CastReporting.UnitTest.Reporting.Text
 
         [TestMethod]
         [DeploymentItem(@"Data/CurrentBCTC.json", "Data")]
+        public void TestCurrentTechnicalCriteriaCritical()
+        {
+            CastDate currentDate = new CastDate { Time = 1484953200000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+                null, @"Data/CurrentBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, null, null, null, null, null);
+
+            var component = new TotalViolations();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"ID", "61011" }, 
+                {"CRITICAL", "true" }
+            };
+            var str = component.Content(reportData, config);
+            Assert.AreEqual("0", str);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@"Data/CurrentBCTC.json", "Data")]
         [DeploymentItem(@"Data/PreviousBCTC.json", "Data")]
         public void TestPreviousTechnicalCriteria()
         {
@@ -109,6 +147,25 @@ namespace CastReporting.UnitTest.Reporting.Text
             Dictionary<string, string> config = new Dictionary<string, string>
             {
                 {"ID", "7424" }  // Avoid using SQL queries inside a loop (Quality Rule)
+            };
+            var str = component.Content(reportData, config);
+            Assert.AreEqual("86", str);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@"Data/CurrentBCTC.json", "Data")]
+        public void TestCurrentQualityRuleCritical()
+        {
+            CastDate currentDate = new CastDate { Time = 1484953200000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+                null, @"Data/CurrentBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, null, null, null, null, null);
+
+            var component = new TotalViolations();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"ID", "7424" },  // Avoid using SQL queries inside a loop (Quality Rule)
+                {"CRITICAL", "true" }
             };
             var str = component.Content(reportData, config);
             Assert.AreEqual("86", str);

@@ -33,7 +33,7 @@ namespace CastReporting.Reporting.Block.Text
         {
             string strId = options.GetOption("ID", string.Empty);
             string _snapshot = options.GetOption("SNAPSHOT", "CURRENT");
-            bool critical = options.GetOption("CRITICAL", "false").Equals("true");
+            bool critical = options.GetOption("CRITICAL", "false").ToLower().Equals("true");
 
             // for a QR, the total violations correspond to the number of failed checks in violationRatio
             // for TC and BC, it corresponds to the total violations of evolution summary
