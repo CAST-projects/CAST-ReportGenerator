@@ -135,14 +135,14 @@ namespace CastReporting.UnitTest.Reporting.Tables
             {
                 "CWE-2011-Top25","Total Vulnerabilities","Added Vulnerabilities","Removed Vulnerabilities","Compliance Score (%)",
                 "CWE-22 Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')","0","0","0","N/A",
-                "    Avoid using 'java.lang.Runtime.exec()'","5","2","1","+99.2%",
-                "    Avoid OS command injection vulnerabilities","0","0","0","+100%",
+                "    Avoid using 'java.lang.Runtime.exec()'","5","2","1","99.2%",
+                "    Avoid OS command injection vulnerabilities","0","0","0","100%",
                 "CWE-78 Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')","7","7","5","N/A",
-                "    Avoid using 'java.lang.Runtime.exec()'","5","2","1","+99.2%",
-                "    Avoid OS command injection vulnerabilities","0","0","0","+100%",
+                "    Avoid using 'java.lang.Runtime.exec()'","5","2","1","99.2%",
+                "    Avoid OS command injection vulnerabilities","0","0","0","100%",
                 "CWE-79 Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')","7","7","2","N/A",
-                "    Avoid using 'java.lang.Runtime.exec()'","5","2","1","+99.2%",
-                "    Avoid OS command injection vulnerabilities","0","0","0","+100%"
+                "    Avoid using 'java.lang.Runtime.exec()'","5","2","1","99.2%",
+                "    Avoid OS command injection vulnerabilities","0","0","0","100%"
             };
 
             TestUtility.AssertTableContent(table, expectedData, 5, 10);
@@ -492,11 +492,11 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var expectedData = new List<string>
             {
                 "CISQ-Security","Total Vulnerabilities","Added Vulnerabilities","Removed Vulnerabilities","Compliance Score (%)",
-                "ASCSM-CWE-78 - OS Command Injection Improper Input Neutralization","17","3","10","+84.6%",
-                "    Avoid thread injection vulnerabilities","5","5","3","+63.2%",
-                "    Avoid using eval() (Javascript)","4","3","2","+99.6%",
-                "ASCSM-CWE-22 - Path Traversal Improper Input Neutralization","15","9","6","+90.1%",
-                "    Avoid file path manipulation vulnerabilities","10","7","3","+33%"
+                "ASCSM-CWE-78 - OS Command Injection Improper Input Neutralization","17","3","10","84.6%",
+                "    Avoid thread injection vulnerabilities","5","5","3","63.2%",
+                "    Avoid using eval() (Javascript)","4","3","2","99.6%",
+                "ASCSM-CWE-22 - Path Traversal Improper Input Neutralization","15","9","6","90.1%",
+                "    Avoid file path manipulation vulnerabilities","10","7","3","33%"
             };
 
             TestUtility.AssertTableContent(table, expectedData, 5, 6);

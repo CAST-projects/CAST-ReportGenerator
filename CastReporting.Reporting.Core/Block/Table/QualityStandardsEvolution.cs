@@ -257,7 +257,7 @@ namespace CastReporting.Reporting.Block.Table
             }
             if (showCompliance)
             {
-                string value = detailResult.Score != null ? FormatHelper.FormatPercent(detailResult.Score, true) : "N/A";
+                string value = detailResult.Score != null ? FormatHelper.FormatPercent(detailResult.Score, false) : "N/A";
                 dataRow.Set(Labels.ComplianceScorePercent, value);
                 FormatTableHelper.AddGrayOrBold(detail, cellProps, cellidx, nbViolations);
                 cellidx++;

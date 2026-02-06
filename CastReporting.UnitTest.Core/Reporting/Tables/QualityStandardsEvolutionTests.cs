@@ -602,9 +602,9 @@ namespace CastReporting.UnitTest.Reporting.Tables
             var expectedData = new List<string>
             {
                 "CISQ","Total Vulnerabilities","Added Vulnerabilities","Removed Vulnerabilities","Compliance Score (%)",
-                "CISQ-Security","11","11","2","+93.5%",
-                "    ASCSM-CWE-78 - OS Command Injection Improper Input Neutralization","17","3","10","+84.6%",
-                "    ASCSM-CWE-22 - Path Traversal Improper Input Neutralization","15","9","6","+90.1%"
+                "CISQ-Security","11","11","2","93.5%",
+                "    ASCSM-CWE-78 - OS Command Injection Improper Input Neutralization","17","3","10","84.6%",
+                "    ASCSM-CWE-22 - Path Traversal Improper Input Neutralization","15","9","6","90.1%"
             };
 
             TestUtility.AssertTableContent(table, expectedData, 5, 4);

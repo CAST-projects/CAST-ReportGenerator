@@ -117,7 +117,7 @@ namespace CastReporting.UnitTest.Reporting.Text
                 {"CRITICAL", "true" }
             };
             var str = component.Content(reportData, config);
-            Assert.AreEqual("2", str);
+            Assert.AreEqual("+2", str);
         }
 
         [TestMethod]
@@ -159,7 +159,7 @@ namespace CastReporting.UnitTest.Reporting.Text
                 {"ID", "7424" }  // Avoid using SQL queries inside a loop (Quality Rule)
             };
             var str = component.Content(reportData, config);
-            Assert.AreEqual("60", str);
+            Assert.AreEqual("+60", str);
         }
 
         [TestMethod]

@@ -68,11 +68,12 @@ namespace CastReporting.Reporting.Block.Text
             {
                 return Constants.No_Value;
             }
-            string evolution = (curResult - prevResult).Value.ToString("N0");
+            double? evolution = (curResult - prevResult);
+            string strEvol = evolution > 0 ? "+" + evolution.Value.ToString("N0") : evolution.Value.ToString("N0");
             double? evp = prevResult > 0.0 ? (curResult - prevResult) / prevResult : null;
-            string evolPercent = evp != null ? FormatHelper.FormatPercent(evp) : Constants.No_Value;
+            string evolPercent = evp != null ? FormatHelper.FormatPercent(evp, true) : Constants.No_Value;
 
-            return percent ? evolPercent : evolution;
+            return percent ? evolPercent : strEvol;
         }
         #endregion METHODS
     }

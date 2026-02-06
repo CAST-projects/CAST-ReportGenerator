@@ -219,7 +219,7 @@ namespace CastReporting.Reporting.Block.Table
             }
             if (showCompliance)
             {
-                string value = detailResult.Score != null ? FormatHelper.FormatPercent(detailResult.Score, true) : "N/A";
+                string value = detailResult.Score != null ? FormatHelper.FormatPercent(detailResult.Score, false) : "N/A";
                 dataRow.Set(Labels.ComplianceScorePercent, value);
                 FormatTableHelper.AddGrayOrBold(true, cellProps, cellidx, _nbTagViolations);
                 cellidx++;
@@ -293,7 +293,7 @@ namespace CastReporting.Reporting.Block.Table
                     }
                     if (showCompliance)
                     {
-                        string value = _resultDetail.ViolationRatio?.Ratio != null ? FormatHelper.FormatPercent(_resultDetail.ViolationRatio.Ratio, true) : "N/A";
+                        string value = _resultDetail.ViolationRatio?.Ratio != null ? FormatHelper.FormatPercent(_resultDetail.ViolationRatio.Ratio, false) : "N/A";
                         _ruleDr.Set(Labels.ComplianceScorePercent, value);
                         FormatTableHelper.AddGrayOrBold(false, cellProps, cellidx, _nbViolations);
                         cellidx++;
