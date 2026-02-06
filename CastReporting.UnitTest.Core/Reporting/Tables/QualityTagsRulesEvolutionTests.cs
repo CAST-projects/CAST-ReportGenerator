@@ -427,6 +427,45 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
         [TestMethod]
         [DeploymentItem(@"Data/CurrentBCTCindex.json", "Data")]
+        public void TestIdxCISQNoEvolution()
+        {
+            CastDate currentDate = new CastDate { Time = 1484953200000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+                null, @"Data/CurrentBCTCindex.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, null, null, null, null, null);
+            WSConnection connection = new WSConnection
+            {
+                Url = "http://tests/CAST-RESTAPI/rest/",
+                Login = "admin",
+                Password = "cast",
+                IsActive = true,
+                Name = "Default"
+            };
+            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
+            reportData.RuleExplorer = new RuleBLLStub();
+            var component = new CastReporting.Reporting.Block.Table.QualityTagsRulesEvolution();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"STD","CISQ-Security" },
+                {"EVOLUTION", "false" }
+            };
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>
+            {
+                "CISQ-Security","Total Vulnerabilities",
+                "ASCSM-CWE-78 - OS Command Injection Improper Input Neutralization","17",
+                "    Avoid thread injection vulnerabilities","5",
+                "    Avoid using eval() (Javascript)","4",
+                "ASCSM-CWE-22 - Path Traversal Improper Input Neutralization","15",
+                "    Avoid file path manipulation vulnerabilities","10",
+            };
+
+            TestUtility.AssertTableContent(table, expectedData, 2, 6);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@"Data/CurrentBCTCindex.json", "Data")]
         public void TestIdxCisqId()
         {
             CastDate currentDate = new CastDate { Time = 1484953200000 };
@@ -500,6 +539,46 @@ namespace CastReporting.UnitTest.Reporting.Tables
             };
 
             TestUtility.AssertTableContent(table, expectedData, 5, 6);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@"Data/CurrentBCTCindex.json", "Data")]
+        public void TestIdxCisqIdWithComplianceNoEvolution()
+        {
+            CastDate currentDate = new CastDate { Time = 1484953200000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+                null, @"Data/CurrentBCTCindex.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, null, null, null, null, null);
+            WSConnection connection = new WSConnection
+            {
+                Url = "http://tests/CAST-RESTAPI/rest/",
+                Login = "admin",
+                Password = "cast",
+                IsActive = true,
+                Name = "Default"
+            };
+            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
+            reportData.RuleExplorer = new RuleBLLStub();
+            var component = new CastReporting.Reporting.Block.Table.QualityTagsRulesEvolution();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"STD","1062104" },
+                {"COMPLIANCE", "true" },
+                {"EVOLUTION", "false" }
+            };
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>
+            {
+                "CISQ-Security","Total Vulnerabilities","Compliance Score (%)",
+                "ASCSM-CWE-78 - OS Command Injection Improper Input Neutralization","17","84.6%",
+                "    Avoid thread injection vulnerabilities","5","63.2%",
+                "    Avoid using eval() (Javascript)","4","99.6%",
+                "ASCSM-CWE-22 - Path Traversal Improper Input Neutralization","15","90.1%",
+                "    Avoid file path manipulation vulnerabilities","10","33%"
+            };
+
+            TestUtility.AssertTableContent(table, expectedData, 3, 6);
         }
 
         [TestMethod]
