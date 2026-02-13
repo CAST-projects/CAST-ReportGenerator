@@ -133,16 +133,65 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
             var expectedData = new List<string>
             {
-                "CWE-2011-Top25","Total Vulnerabilities","Added Vulnerabilities","Removed Vulnerabilities","Compliance Score (%)",
-                "CWE-22 Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')","0","0","0","N/A",
-                "    Avoid using 'java.lang.Runtime.exec()'","5","2","1","99.2%",
-                "    Avoid OS command injection vulnerabilities","0","0","0","100%",
-                "CWE-78 Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')","7","7","5","N/A",
-                "    Avoid using 'java.lang.Runtime.exec()'","5","2","1","99.2%",
-                "    Avoid OS command injection vulnerabilities","0","0","0","100%",
-                "CWE-79 Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')","7","7","2","N/A",
-                "    Avoid using 'java.lang.Runtime.exec()'","5","2","1","99.2%",
-                "    Avoid OS command injection vulnerabilities","0","0","0","100%"
+                "CWE-2011-Top25","Compliance Score (%)","Total Vulnerabilities","Added Vulnerabilities","Removed Vulnerabilities",
+                "CWE-22 Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')","N/A","0","0","0",
+                "    Avoid using 'java.lang.Runtime.exec()'","99.2%","5","2","1",
+                "    Avoid OS command injection vulnerabilities","100%","0","0","0",
+                "CWE-78 Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')","N/A","7","7","5",
+                "    Avoid using 'java.lang.Runtime.exec()'","99.2%","5","2","1",
+                "    Avoid OS command injection vulnerabilities","100%","0","0","0",
+                "CWE-79 Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')","N/A","7","7","2",
+                "    Avoid using 'java.lang.Runtime.exec()'","99.2%","5","2","1",
+                "    Avoid OS command injection vulnerabilities","100%","0","0","0"
+            };
+
+            TestUtility.AssertTableContent(table, expectedData, 5, 10);
+
+        }
+
+        [TestMethod]
+        [DeploymentItem(@"Data/CurrentBCTC.json", "Data")]
+        [DeploymentItem(@"Data/Snapshot_StdTagResultsCWE.json", "Data")]
+        [DeploymentItem(@"Data/Snapshot_StdTagsCWE78results.json", "Data")]
+        [DeploymentItem(@"Data/StandardTags.json", "Data")]
+        public void TestStgTagCWEWithComplianceSortingNA()
+        {
+            CastDate currentDate = new CastDate { Time = 1484953200000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+                null, @"Data/CurrentBCTC.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, null, null, null, null, null);
+            reportData = TestUtility.AddStandardTags(reportData, @"Data/StandardTags.json");
+            WSConnection connection = new WSConnection
+            {
+                Url = "http://tests/CAST-RESTAPI/rest/",
+                Login = "admin",
+                Password = "cast",
+                IsActive = true,
+                Name = "Default"
+            };
+            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
+
+            var component = new CastReporting.Reporting.Block.Table.QualityTagsRulesEvolution();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"STD","CWE-2011-Top25" },
+                {"COMPLIANCE", "true" },
+                {"SORTBYCOMPLIANCE", "desc" }
+            };
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>
+            {
+                "CWE-2011-Top25","Compliance Score (%)","Total Vulnerabilities","Added Vulnerabilities","Removed Vulnerabilities",
+                "CWE-22 Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')","N/A","0","0","0",
+                "    Avoid OS command injection vulnerabilities","100%","0","0","0",
+                "    Avoid using 'java.lang.Runtime.exec()'","99.2%","5","2","1",
+                "CWE-78 Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')","N/A","7","7","5",
+                "    Avoid OS command injection vulnerabilities","100%","0","0","0",
+                "    Avoid using 'java.lang.Runtime.exec()'","99.2%","5","2","1",
+                "CWE-79 Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')","N/A","7","7","2",
+                "    Avoid OS command injection vulnerabilities","100%","0","0","0",
+                "    Avoid using 'java.lang.Runtime.exec()'","99.2%","5","2","1"
             };
 
             TestUtility.AssertTableContent(table, expectedData, 5, 10);
@@ -530,12 +579,12 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
             var expectedData = new List<string>
             {
-                "CISQ-Security","Total Vulnerabilities","Added Vulnerabilities","Removed Vulnerabilities","Compliance Score (%)",
-                "ASCSM-CWE-78 - OS Command Injection Improper Input Neutralization","17","3","10","84.6%",
-                "    Avoid thread injection vulnerabilities","5","5","3","63.2%",
-                "    Avoid using eval() (Javascript)","4","3","2","99.6%",
-                "ASCSM-CWE-22 - Path Traversal Improper Input Neutralization","15","9","6","90.1%",
-                "    Avoid file path manipulation vulnerabilities","10","7","3","33%"
+                "CISQ-Security","Compliance Score (%)","Total Vulnerabilities","Added Vulnerabilities","Removed Vulnerabilities",
+                "ASCSM-CWE-78 - OS Command Injection Improper Input Neutralization","84.6%","17","3","10",
+                "    Avoid thread injection vulnerabilities","63.2%","5","5","3",
+                "    Avoid using eval() (Javascript)","99.6%","4","3","2",
+                "ASCSM-CWE-22 - Path Traversal Improper Input Neutralization","90.1%","15","9","6",
+                "    Avoid file path manipulation vulnerabilities","33%","10","7","3"
             };
 
             TestUtility.AssertTableContent(table, expectedData, 5, 6);
@@ -570,12 +619,94 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
             var expectedData = new List<string>
             {
-                "CISQ-Security","Total Vulnerabilities","Compliance Score (%)",
-                "ASCSM-CWE-78 - OS Command Injection Improper Input Neutralization","17","84.6%",
-                "    Avoid thread injection vulnerabilities","5","63.2%",
-                "    Avoid using eval() (Javascript)","4","99.6%",
-                "ASCSM-CWE-22 - Path Traversal Improper Input Neutralization","15","90.1%",
-                "    Avoid file path manipulation vulnerabilities","10","33%"
+                "CISQ-Security","Compliance Score (%)","Total Vulnerabilities",
+                "ASCSM-CWE-78 - OS Command Injection Improper Input Neutralization","84.6%","17",
+                "    Avoid thread injection vulnerabilities","63.2%","5",
+                "    Avoid using eval() (Javascript)","99.6%","4",
+                "ASCSM-CWE-22 - Path Traversal Improper Input Neutralization","90.1%","15",
+                "    Avoid file path manipulation vulnerabilities","33%","10"
+            };
+
+            TestUtility.AssertTableContent(table, expectedData, 3, 6);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@"Data/CurrentBCTCindex.json", "Data")]
+        public void TestIdxCisqIdWithComplianceSortingDescNoEvolution()
+        {
+            CastDate currentDate = new CastDate { Time = 1484953200000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+                null, @"Data/CurrentBCTCindex.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, null, null, null, null, null);
+            WSConnection connection = new WSConnection
+            {
+                Url = "http://tests/CAST-RESTAPI/rest/",
+                Login = "admin",
+                Password = "cast",
+                IsActive = true,
+                Name = "Default"
+            };
+            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
+            reportData.RuleExplorer = new RuleBLLStub();
+            var component = new CastReporting.Reporting.Block.Table.QualityTagsRulesEvolution();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"STD","1062104" },
+                {"COMPLIANCE", "true" },
+                {"SORTBYCOMPLIANCE", "desc" },
+                {"EVOLUTION", "false" }
+            };
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>
+            {
+                "CISQ-Security","Compliance Score (%)","Total Vulnerabilities",
+                "ASCSM-CWE-22 - Path Traversal Improper Input Neutralization","90.1%","15",
+                "    Avoid file path manipulation vulnerabilities","33%","10",
+                "ASCSM-CWE-78 - OS Command Injection Improper Input Neutralization","84.6%","17",
+                "    Avoid using eval() (Javascript)","99.6%","4",
+                "    Avoid thread injection vulnerabilities","63.2%","5"
+            };
+
+            TestUtility.AssertTableContent(table, expectedData, 3, 6);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@"Data/CurrentBCTCindex.json", "Data")]
+        public void TestIdxCisqIdWithComplianceSortingAcsNoEvolution()
+        {
+            CastDate currentDate = new CastDate { Time = 1484953200000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+                null, @"Data/CurrentBCTCindex.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, null, null, null, null, null);
+            WSConnection connection = new WSConnection
+            {
+                Url = "http://tests/CAST-RESTAPI/rest/",
+                Login = "admin",
+                Password = "cast",
+                IsActive = true,
+                Name = "Default"
+            };
+            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
+            reportData.RuleExplorer = new RuleBLLStub();
+            var component = new CastReporting.Reporting.Block.Table.QualityTagsRulesEvolution();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"STD","1062104" },
+                {"COMPLIANCE", "true" },
+                {"SORTBYCOMPLIANCE", "asc" },
+                {"EVOLUTION", "false" }
+            };
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>
+            {
+                "CISQ-Security","Compliance Score (%)","Total Vulnerabilities",
+                "ASCSM-CWE-78 - OS Command Injection Improper Input Neutralization","84.6%","17",
+                "    Avoid thread injection vulnerabilities","63.2%","5",
+                "    Avoid using eval() (Javascript)","99.6%","4",
+                "ASCSM-CWE-22 - Path Traversal Improper Input Neutralization","90.1%","15",
+                "    Avoid file path manipulation vulnerabilities","33%","10",
             };
 
             TestUtility.AssertTableContent(table, expectedData, 3, 6);

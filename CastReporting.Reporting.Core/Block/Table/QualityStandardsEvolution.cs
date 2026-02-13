@@ -41,6 +41,8 @@ namespace CastReporting.Reporting.Block.Table
             bool showNoViolationRules = options.GetOption("NOVIOLATIONS", "true").Equals("true");
             bool showCompliance = options.GetOption("COMPLIANCE", "false").Equals("true");
             int limit = options.GetIntOption("COUNT", -1);
+            string complianceSorting = options.GetOption("SORTBYCOMPLIANCE", "false").ToLower(); // possible values: "ASC", "DESC", or else no sorting by compliance
+            bool sortbyCompliance = showCompliance && (complianceSorting.Equals("asc") || complianceSorting.Equals("desc"));
 
             string lbltotal = vulnerability ? Labels.TotalVulnerabilities : Labels.TotalViolations;
             string lbladded = vulnerability ? Labels.AddedVulnerabilities : Labels.AddedViolations;
@@ -57,6 +59,11 @@ namespace CastReporting.Reporting.Block.Table
             var headers = new HeaderDefinition();
             headers.Append(indicatorName);
             cellidx++;
+            if (showCompliance)
+            {
+                headers.Append(Labels.ComplianceScorePercent);
+                cellidx++;
+            }
             headers.Append(lbltotal);
             cellidx++;
             if (displayEvolution)
@@ -64,11 +71,6 @@ namespace CastReporting.Reporting.Block.Table
                 headers.Append(lbladded);
                 cellidx++;
                 headers.Append(lblremoved);
-                cellidx++;
-            }
-            if (showCompliance)
-            {
-                headers.Append(Labels.ComplianceScorePercent);
                 cellidx++;
             }
 
@@ -114,6 +116,17 @@ namespace CastReporting.Reporting.Block.Table
                 if (detail)
                 {
                     List<ApplicationResult> bcresults = reportData.CurrentSnapshot.BusinessCriteriaResults.Where(_ => _.Reference.ShortName != null && _.Reference.ShortName.Contains(indicatorName + "-")).OrderByDescending(_ => _.DetailResult.EvolutionSummary.TotalViolations).ToList();
+                    if (sortbyCompliance)
+                    {
+                        if (complianceSorting.Equals("asc"))
+                        {
+                            bcresults = bcresults.OrderBy(_ => _.DetailResult.Score).ToList();
+                        }
+                        else
+                        {
+                            bcresults = bcresults.OrderByDescending(_ => _.DetailResult.Score).ToList();
+                        }
+                    }
                     foreach (ApplicationResult bcres in bcresults)
                     {
                         if (FormatTableHelper.limitReached(data.Count, headers.Count, limit) )
@@ -130,6 +143,17 @@ namespace CastReporting.Reporting.Block.Table
                             : null;
                         if (tcResults?.Count > 0)
                         {
+                            if (sortbyCompliance)
+                            {
+                                if (complianceSorting.Equals("asc"))
+                                {
+                                    tcResults = tcResults.OrderBy(_ => _.DetailResult.Score).ToList();
+                                }
+                                else
+                                {
+                                    tcResults = tcResults.OrderByDescending(_ => _.DetailResult.Score).ToList();
+                                }
+                            }
                             foreach (ApplicationResult tcres in tcResults)
                             {
                                 if (FormatTableHelper.limitReached(data.Count, headers.Count, limit))
@@ -151,6 +175,17 @@ namespace CastReporting.Reporting.Block.Table
                         : null;
                     if (tcResults?.Count > 0)
                     {
+                        if (sortbyCompliance)
+                        {
+                            if (complianceSorting.Equals("asc"))
+                            {
+                                tcResults = tcResults.OrderBy(_ => _.DetailResult.Score).ToList();
+                            }
+                            else
+                            {
+                                tcResults = tcResults.OrderByDescending(_ => _.DetailResult.Score).ToList();
+                            }
+                        }
                         foreach (ApplicationResult tcres in tcResults)
                         {
                             if (FormatTableHelper.limitReached(data.Count, headers.Count, limit))
@@ -166,7 +201,7 @@ namespace CastReporting.Reporting.Block.Table
             }
             else
             {
-                // Case of standard
+                // Case of standard -- standard has no score so cannot be sorted by compliance
                 List<ApplicationResult> results = reportData.SnapshotExplorer.GetQualityStandardsTagsResults(reportData.CurrentSnapshot.Href, standard)?.FirstOrDefault()?.ApplicationResults?.ToList();
 
                 if (results?.Count > 0)
@@ -211,6 +246,9 @@ namespace CastReporting.Reporting.Block.Table
             {
                 var dataRow = headers.CreateDataRow();
                 dataRow.Set(indicatorName, Labels.NoRules);
+                if (showCompliance) {
+                    dataRow.Set(Labels.ComplianceScorePercent, string.Empty);
+                }
                 dataRow.Set(lbltotal, string.Empty);
                 if (displayEvolution)
                 {
@@ -243,6 +281,13 @@ namespace CastReporting.Reporting.Block.Table
             dataRow.Set(indicatorName, stdTagName);
             FormatTableHelper.AddGrayOrBold(detail, cellProps, cellidx, nbViolations);
             cellidx++;
+            if (showCompliance)
+            {
+                string value = detailResult.Score != null ? FormatHelper.FormatPercent(detailResult.Score, false) : "N/A";
+                dataRow.Set(Labels.ComplianceScorePercent, value);
+                FormatTableHelper.AddGrayOrBold(detail, cellProps, cellidx, nbViolations);
+                cellidx++;
+            }
             dataRow.Set(lbltotal, detailResult.EvolutionSummary?.TotalViolations.NAIfEmpty("N0"));
             FormatTableHelper.AddGrayOrBold(detail, cellProps, cellidx, nbViolations);
             cellidx++;
@@ -252,13 +297,6 @@ namespace CastReporting.Reporting.Block.Table
                 FormatTableHelper.AddGrayOrBold(detail, cellProps, cellidx, nbViolations);
                 cellidx++;
                 dataRow.Set(lblremoved, detailResult.EvolutionSummary?.RemovedViolations.NAIfEmpty("N0"));
-                FormatTableHelper.AddGrayOrBold(detail, cellProps, cellidx, nbViolations);
-                cellidx++;
-            }
-            if (showCompliance)
-            {
-                string value = detailResult.Score != null ? FormatHelper.FormatPercent(detailResult.Score, false) : "N/A";
-                dataRow.Set(Labels.ComplianceScorePercent, value);
                 FormatTableHelper.AddGrayOrBold(detail, cellProps, cellidx, nbViolations);
                 cellidx++;
             }

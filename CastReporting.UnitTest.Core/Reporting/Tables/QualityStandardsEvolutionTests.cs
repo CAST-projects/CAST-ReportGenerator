@@ -85,10 +85,10 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
             var expectedData = new List<string>
             {
-                "CWE-2011-Top25","Total Vulnerabilities", "Compliance Score (%)",
-                "CWE-22 Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')","0","N/A",
-                "CWE-78 Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')","7","N/A",
-                "CWE-79 Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')","7","N/A"
+                "CWE-2011-Top25", "Compliance Score (%)","Total Vulnerabilities",
+                "CWE-22 Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')","N/A","0",
+                "CWE-78 Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')","N/A","7",
+                "CWE-79 Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')","N/A","7"
             };
 
             TestUtility.AssertTableContent(table, expectedData, 3, 4);
@@ -601,10 +601,52 @@ namespace CastReporting.UnitTest.Reporting.Tables
 
             var expectedData = new List<string>
             {
-                "CISQ","Total Vulnerabilities","Added Vulnerabilities","Removed Vulnerabilities","Compliance Score (%)",
-                "CISQ-Security","11","11","2","93.5%",
-                "    ASCSM-CWE-78 - OS Command Injection Improper Input Neutralization","17","3","10","84.6%",
-                "    ASCSM-CWE-22 - Path Traversal Improper Input Neutralization","15","9","6","90.1%"
+                "CISQ","Compliance Score (%)","Total Vulnerabilities","Added Vulnerabilities","Removed Vulnerabilities",
+                "CISQ-Security","93.5%","11","11","2",
+                "    ASCSM-CWE-78 - OS Command Injection Improper Input Neutralization","84.6%","17","3","10",
+                "    ASCSM-CWE-22 - Path Traversal Improper Input Neutralization","90.1%","15","9","6"
+            };
+
+            TestUtility.AssertTableContent(table, expectedData, 5, 4);
+
+        }
+
+        [TestMethod]
+        [DeploymentItem(@"Data/CurrentBCTCindex.json", "Data")]
+        public void TestBCCISQMoreComplianceSorting()
+        {
+            CastDate currentDate = new CastDate { Time = 1484953200000 };
+            ReportData reportData = TestUtility.PrepareApplicationReportData("ReportGenerator",
+                null, @"Data/CurrentBCTCindex.json", "AED/applications/3/snapshots/6", "PreVersion 1.5.0 sprint 2 shot 2", "V-1.5.0_Sprint 2_2", currentDate,
+                null, null, null, null, null, null);
+            WSConnection connection = new WSConnection
+            {
+                Url = "http://tests/CAST-RESTAPI/rest/",
+                Login = "admin",
+                Password = "cast",
+                IsActive = true,
+                Name = "Default"
+            };
+            reportData.SnapshotExplorer = new SnapshotBLLStub(connection, reportData.CurrentSnapshot);
+            reportData.RuleExplorer = new RuleBLLStub();
+
+            var component = new CastReporting.Reporting.Block.Table.QualityStandardsEvolution();
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                {"STD","CISQ" },
+                {"MORE", "true" },
+                {"EVOLUTION", "true" },
+                {"COMPLIANCE", "true" },
+                {"SORTBYCOMPLIANCE", "desc" }
+            };
+            var table = component.Content(reportData, config);
+
+            var expectedData = new List<string>
+            {
+                "CISQ","Compliance Score (%)","Total Vulnerabilities","Added Vulnerabilities","Removed Vulnerabilities",
+                "CISQ-Security","93.5%","11","11","2",
+                "    ASCSM-CWE-22 - Path Traversal Improper Input Neutralization","90.1%","15","9","6",
+                "    ASCSM-CWE-78 - OS Command Injection Improper Input Neutralization","84.6%","17","3","10"
             };
 
             TestUtility.AssertTableContent(table, expectedData, 5, 4);
