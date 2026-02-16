@@ -61,7 +61,7 @@ namespace CastReporting.UnitTest.Reporting.Text
                 {"COMPLIANCE", "true"}
             };
             var str = component.Content(reportData, config);
-            Assert.AreEqual("+26.0%", str);
+            Assert.AreEqual("26.0%", str);
         }
 
         [TestMethod]
