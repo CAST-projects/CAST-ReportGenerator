@@ -799,8 +799,8 @@
         "result": {
           "grade": 2.3587039406095234,
           "evolutionSummary": {
-            "totalCriticalViolations": 0,
-            "addedCriticalViolations": 0,
+            "totalCriticalViolations": 12,
+            "addedCriticalViolations": 2,
             "removedCriticalViolations": 0,
             "totalViolations": 34,
             "addedViolations": 0,

@@ -57,5 +57,12 @@ namespace CastReporting.Reporting.Helper
         {
             cellProps.Add(condition ? new CellAttributes(cellidx, colorTrue) : new CellAttributes(cellidx, colorFalse));
         }
+
+        public static bool limitReached(int dataCount, int headersCount, int limit)
+        {
+            int currentRows = dataCount / headersCount;
+            return limit != -1 && currentRows >= limit;
+
+        }
     }
 }

@@ -28,7 +28,7 @@ namespace CastReporting.UnitTest.Reporting.Text
             var component = new RepGenVersion();
             Dictionary<string, string> config = new Dictionary<string, string>();
             var str = component.Content(reportData, config);
-            Assert.AreEqual("1.30.0.0", str);
+            Assert.AreEqual("1.31.0.0", str);
         }
 
     }

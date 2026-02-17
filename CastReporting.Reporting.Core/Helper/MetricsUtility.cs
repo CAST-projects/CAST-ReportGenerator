@@ -148,7 +148,7 @@ namespace CastReporting.Reporting.Helper
                                 .FirstOrDefault(_ => _.Technology == technology && _.DetailResult != null)?.DetailResult;
                             result = compliance ? detailresult.Score : detailresult?.Grade;
                         }
-                        resStr = result == null ? (format ? Constants.No_Value : "0") : compliance ? FormatHelper.FormatPercent(result) : result?.ToString("N2");
+                        resStr = result == null ? (format ? Constants.No_Value : "0") : compliance ? FormatHelper.FormatPercent(result, false) : result?.ToString("N2");
                         break;
                     case MetricType.TechnicalCriteria:
                         if (module == null && string.IsNullOrEmpty(technology))
@@ -178,7 +178,7 @@ namespace CastReporting.Reporting.Helper
                                 .FirstOrDefault(_ => _.Technology == technology && _.DetailResult != null)?.DetailResult;
                             result = compliance ? detailresult.Score : detailresult?.Grade;
                         }
-                        resStr = result == null ? (format ? Constants.No_Value : "0") : compliance ? FormatHelper.FormatPercent(result) : result?.ToString("N2");
+                        resStr = result == null ? (format ? Constants.No_Value : "0") : compliance ? FormatHelper.FormatPercent(result, false) : result?.ToString("N2");
                         break;
                     case MetricType.QualityRule:
                         if (module == null && string.IsNullOrEmpty(technology))

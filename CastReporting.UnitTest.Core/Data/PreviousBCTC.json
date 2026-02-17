@@ -799,7 +799,7 @@
 				"result": {
 					"grade": 2.3312924023331703,
 					"evolutionSummary": {
-						"totalCriticalViolations": 0,
+						"totalCriticalViolations": 10,
 						"addedCriticalViolations": 0,
 						"removedCriticalViolations": 0,
 						"totalViolations": 37,
@@ -1055,17 +1055,46 @@
 					"key": "66070",
 					"critical": false
 				},
-        "result": {
-          "grade": 2.69,
-          "evolutionSummary": {
-            "totalCriticalViolations": 0,
-            "addedCriticalViolations": 0,
-            "removedCriticalViolations": 0,
-            "totalViolations": 0,
-            "addedViolations": 0,
-            "removedViolations": 0
-          }
-        },
+				"result": {
+					"grade": 2.69,
+					"evolutionSummary": {
+						"totalCriticalViolations": 0,
+						"addedCriticalViolations": 0,
+						"removedCriticalViolations": 0,
+						"totalViolations": 0,
+						"addedViolations": 0,
+						"removedViolations": 0
+					}
+				},
+				"technologyResults": [],
+				"moduleResults": [],
+				"transactionResults": []
+			},
+			{
+				"type": "quality-rules",
+				"reference": {
+					"href": "AED/quality-indicators/7424/snapshots/6",
+					"name": "Avoid using SQL queries inside a loop",
+					"key": "7424",
+					"critical": true
+				},
+				"result": {
+					"grade": 1,
+					"evolutionSummary": {
+						"totalCriticalViolations": 6,
+						"addedCriticalViolations": 0,
+						"removedCriticalViolations": 0,
+						"totalViolations": 6,
+						"addedViolations": 0,
+						"removedViolations": 0
+					},
+					"violationRatio": {
+						"totalChecks": 250,
+						"failedChecks": 26,
+						"successfulChecks": 230,
+						"ratio": 0.456745
+					}
+				},
 				"technologyResults": [],
 				"moduleResults": [],
 				"transactionResults": []

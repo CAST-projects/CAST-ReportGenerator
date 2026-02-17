@@ -52,6 +52,7 @@
 		},
         "result": {
           "grade": 3.5470970383815184,
+          "score": 0.9350583652204645,
           "evolutionSummary": {
             "criticalViolationsInNewAndModifiedCode": 0,
             "totalCriticalViolations": 0,
@@ -1411,6 +1412,7 @@
 				},
         "result": {
           "grade": 4,
+          "score": 0.9012546,
           "evolutionSummary": {
             "totalCriticalViolations": 7,
             "addedCriticalViolations": 3,
@@ -1440,7 +1442,8 @@
 					"critical": false
 				},
 				"result": {
-					"grade": 4,
+          "grade": 4,
+          "score": 0.8456321,
 					"evolutionSummary": {
 						"totalCriticalViolations": 9,
 						"addedCriticalViolations": 8,
@@ -1464,7 +1467,8 @@
 					"critical": false
 				},
 				"result": {
-					"grade": 4,
+          "grade": 4,
+          "score": 0.9651247,
 					"evolutionSummary": {
 						"totalCriticalViolations": 0,
 						"addedCriticalViolations": 0,
