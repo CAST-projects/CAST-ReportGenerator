@@ -6,7 +6,7 @@
 #define MyAppExeName "CastReporting.UI.WPF.Core.exe"
 #define MyAppExe "../CastReporting.UI.WPF.V2/bin/Release/netcoreapp3.0/"+MyAppExeName
 #define MyAppCopyright GetFileCopyright(MyAppExe)
-#define App1320Id "{{E9C5801F-21EE-4EE9-B341-111CAF98326B}"
+#define App1320Id "{{790FC190-87FB-4420-A94C-444373060ED1}"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
