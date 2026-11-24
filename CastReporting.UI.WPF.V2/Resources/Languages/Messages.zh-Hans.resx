@@ -366,4 +366,13 @@
   <data name="lblReleaseNotes" xml:space="preserve">
     <value>发行说明</value>
   </data>
+  <data name="msgServiceApiKeyRequiresUser" xml:space="preserve">
+    <value>使用API密钥时必须提供用户名。请输入用户名。</value>
+  </data>
+  <data name="msgNoApplicationFound" xml:space="preserve">
+    <value>已连接，但该用户看不到任何应用程序。请检查用户名和API密钥的权限。</value>
+  </data>
+  <data name="toolTipLogin" xml:space="preserve">
+    <value>必填，使用API密钥时同样需要</value>
+  </data>
 </root>

@@ -366,4 +366,13 @@
   <data name="lblReleaseNotes" xml:space="preserve">
     <value>Versionshinweise</value>
   </data>
+  <data name="msgServiceApiKeyRequiresUser" xml:space="preserve">
+    <value>Bei Verwendung eines API-Schlüssels ist ein Benutzer erforderlich. Bitte geben Sie einen Benutzernamen ein.</value>
+  </data>
+  <data name="msgNoApplicationFound" xml:space="preserve">
+    <value>Verbunden, aber für diesen Benutzer ist keine Anwendung sichtbar. Bitte überprüfen Sie den Benutzernamen und die Rechte des API-Schlüssels.</value>
+  </data>
+  <data name="toolTipLogin" xml:space="preserve">
+    <value>Erforderlich, auch bei Verwendung eines API-Schlüssels</value>
+  </data>
 </root>

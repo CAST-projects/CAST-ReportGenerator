@@ -806,5 +806,32 @@ namespace CastReporting.UI.WPF.Core.Resources.Languages {
                 return ResourceManager.GetString("toolTipUrlWs", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to User is required when an API key is used. Please enter a user name..
+        /// </summary>
+        public static string msgServiceApiKeyRequiresUser {
+            get {
+                return ResourceManager.GetString("msgServiceApiKeyRequiresUser", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Connected, but no application is visible for this user. Please check the user name and the API key rights..
+        /// </summary>
+        public static string msgNoApplicationFound {
+            get {
+                return ResourceManager.GetString("msgNoApplicationFound", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Required, also when an API key is used.
+        /// </summary>
+        public static string toolTipLogin {
+            get {
+                return ResourceManager.GetString("toolTipLogin", resourceCulture);
+            }
+        }
     }
 }

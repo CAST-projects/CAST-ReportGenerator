@@ -255,7 +255,13 @@ namespace CastReporting.UI.WPF.Core.View
                     ServerCertificateValidation = SettingsBLL.GetCertificateValidationStrategy()
                 };
 
-                (DataContext as ReportingVM)?.ActiveCurrentWebService(connection);
+                var state = (DataContext as ReportingVM)?.ActiveCurrentWebService(connection);
+                if (state == StatesEnum.ApiKeyRequiresUser)
+                {
+                    // Connection refused: keep the current state, don't reload from the previous connection
+                    e.Handled = true;
+                    return;
+                }
             }
             (DataContext as ReportingVM)?.InitializeFromWS();
             e.Handled = true;

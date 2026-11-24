@@ -6,9 +6,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 CAST ReportGenerator generates Word, PowerPoint, and Excel reports from templates using data from the CAST AIP REST API. It provides both CLI automation (Console) and GUI (WPF) workflows for report generation.
 
-**Current Version:** 1.31.0
+**Current Version:** 1.33.0 (set in each project's `AssemblyInfo.cs`; `develop` is the working branch, `master` the release branch)
 **Target Framework:** .NET 8.0
-**Language Version:** C# 7.3
+**Language Version:** C# 7.3 (pinned via `<LangVersion>` in every csproj, so no records, `using var`, switch expressions, etc.)
 
 ## Build Commands
 
@@ -40,6 +40,9 @@ dotnet test CastReporting.UnitTest.Core/CastReporting.UnitTest.Core.csproj
 
 # Run a specific test class
 dotnet test --filter "FullyQualifiedName~ComputingTest"
+
+# Run a single test method
+dotnet test CastReporting.UnitTest.Core/CastReporting.UnitTest.Core.csproj --filter "FullyQualifiedName~ClassName.MethodName"
 
 # Run tests with verbose logging
 dotnet test --logger "console;verbosity=detailed"
@@ -88,6 +91,10 @@ Application Layer (CastReporting.Console.Core + CastReporting.UI.WPF.Core)
 5. `BuilderFactory` creates appropriate document builder (Word/PowerPoint/Excel)
 6. Template processing generates content blocks (tables, charts, metrics)
 7. Output saved to configured path (optional PDF conversion on Windows)
+
+### Report Block System (Reporting.Core)
+
+Templates contain placeholders that name a block; there is no central registry. `BlockHelper.GetAssociatedBlockInstance<T>` reflects over the assembly and instantiates the non-abstract subclass of `TextBlock` / `TableBlock` / `GraphBlock` (in `ProcessingBlock/`) whose `[Block("NAME")]` attribute matches the placeholder name. To add a block, create a class under `Block/Text`, `Block/Table` or `Block/Graph`, decorate it with `[Block("MY_BLOCK")]`, and override `Content(ReportData, Dictionary<string,string> options)` (text) or the equivalent table/graph method. A class may carry several `[Block]` attributes (aliases).
 
 ## Key Domain Concepts
 
@@ -230,3 +237,9 @@ The full build pipeline (`_build/build_report_generator.bat`) creates:
 
 ### Strategy Pattern
 Different document builders for different output formats
+
+## Gotchas
+
+- The WPF project folder is `CastReporting.UI.WPF.V2/` but the csproj is `CastReporting.UI.WPF.Core.csproj` and targets `net8.0-windows7.0`; all other projects target `net8.0`. `global.json` pins SDK 8.0.405 (rolls forward to the latest feature band).
+- `.github/copilot-instructions.md` only holds generic Azure tooling rules; nothing repo-specific.
+- `nul` at the repo root is a stray Windows artifact (untracked); don't commit it.

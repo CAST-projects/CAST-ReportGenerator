@@ -211,7 +211,8 @@ namespace CastReporting.Console.Argument
                 return false;
             if (string.IsNullOrEmpty(Template?.Name))
                 return false;
-            if (string.IsNullOrEmpty(Username?.Name))
+            // A user is mandatory, also when an API key is used (the REST API scopes applications per user)
+            if (string.IsNullOrWhiteSpace(Username?.Name))
                 return false;
             if (string.IsNullOrEmpty(Password?.Name))
                 return false;

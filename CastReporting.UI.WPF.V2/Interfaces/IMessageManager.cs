@@ -71,6 +71,11 @@ namespace CastReporting.UI.WPF.Core.Common
         void OnServiceChecked(string url, bool resultTest);
 
         /// <summary>
+        /// Raised when the connection works but no application is visible for the user
+        /// </summary>
+        void OnNoApplicationFound();
+
+        /// <summary>
         /// 
         /// </summary>
         void OnSettingsSaved();

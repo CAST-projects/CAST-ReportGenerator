@@ -6,6 +6,7 @@ namespace CastReporting.BLL
         ServiceInvalid,
         ConnectionAddedAndActivated,
         ConnectionAlreadyExist,
-        ConnectionAddedSuccessfully
+        ConnectionAddedSuccessfully,
+        ApiKeyRequiresUser
     }
 }

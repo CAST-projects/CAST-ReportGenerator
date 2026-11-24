@@ -36,9 +36,25 @@ namespace CastReporting.BLL
         /// <summary>
         /// 
         /// </summary>
+        /// <summary>
+        /// Cache key of a repository. WSConnection.GetHashCode() only relies on the url, so the
+        /// credentials must be part of the key: otherwise changing the user, the password or the
+        /// api key for the same url would silently keep using the previous (cached) repository.
+        /// </summary>
+        private static string GetCacheKey(WSConnection connection)
+        {
+            if (connection == null) return "default";
+            return string.Join("|",
+                connection.Uri?.ToString(),
+                connection.Login,
+                connection.Password?.GetHashCode().ToString(),
+                connection.ApiKey.ToString(),
+                connection.ServerCertificateValidation.ToString());
+        }
+
         protected ICastRepsitory GetRepository()
         {
-            var key = Connection?.GetHashCode().ToString() ?? "default";
+            var key = GetCacheKey(Connection);
             if (!_repoCache.TryGetValue(key, out CastRepository repo))
             {
                 repo = new CastRepository(Connection, null);
@@ -50,7 +66,7 @@ namespace CastReporting.BLL
 
         protected static ICastRepsitory GetRepository(WSConnection connection, bool dropCookie = false)
         {
-            var key = connection?.GetHashCode().ToString() ?? "default";
+            var key = GetCacheKey(connection);
             if (!_repoCache.TryGetValue(key, out CastRepository repo))
             {
                 if (dropCookie)

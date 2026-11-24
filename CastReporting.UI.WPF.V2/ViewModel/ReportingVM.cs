@@ -1006,6 +1006,11 @@ namespace CastReporting.UI.WPF.Core.ViewModel
             {
                 using CastDomainBLL castDomainBLL = new CastDomainBLL(ActiveConnection);
                 Applications = castDomainBLL.GetAdgApplications()?.Select(app => new ApplicationItem(app));
+                if (Applications == null || !Applications.Any())
+                {
+                    // Connected but nothing visible: typically a wrong user, as applications are scoped by user
+                    MessageManager?.OnNoApplicationFound();
+                }
                 List<CastDomain> domains = castDomainBLL.GetDomains().Where(domain => domain.DBType.Equals("AAD")).ToList();
                 Categories = domains.Count > 0 ? castDomainBLL.GetCategories() : new List<string>();
                 SelectedTab = 0;
@@ -1020,12 +1025,13 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         /// 
         /// </summary>
         /// <param name="connection"></param>
-        public void ActiveCurrentWebService(WSConnection connection)
+        public StatesEnum ActiveCurrentWebService(WSConnection connection)
         {
             StatesEnum state;
             Setting = SettingsBLL.AddConnection(connection, true, out state);
 
             MessageManager.OnServiceAdded(connection.Uri == null ? string.Empty : connection.Uri.ToString(), state);
+            return state;
         }
     }
 }

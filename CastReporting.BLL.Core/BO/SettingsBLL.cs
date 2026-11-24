@@ -135,7 +135,15 @@ namespace CastReporting.BLL
         }
 
         /// <summary>
-        /// 
+        /// True when the connection uses an API key but no user is provided.
+        /// </summary>
+        public static bool IsUserMissingForApiKey(WSConnection connection)
+        {
+            return connection != null && connection.ApiKey && string.IsNullOrWhiteSpace(connection.Login);
+        }
+
+        /// <summary>
+        ///
         /// </summary>
         /// <returns></returns>
         public static Setting AddConnection(WSConnection connection, bool isActive, out StatesEnum state)
@@ -143,6 +151,14 @@ namespace CastReporting.BLL
             using (ISettingRepository settingRepository = new SettingsRepository())
             {
                 var setting = settingRepository.GetSeting();
+
+                // The REST API scopes the visible applications to the user, so a user is mandatory
+                // even with an API key. Without it the connection looks fine but returns nothing.
+                if (IsUserMissingForApiKey(connection))
+                {
+                    state = StatesEnum.ApiKeyRequiresUser;
+                    return setting;
+                }
 
                 if (!CommonBLL.CheckService(connection))
                 {

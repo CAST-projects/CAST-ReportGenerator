@@ -128,6 +128,10 @@ namespace CastReporting.UI.WPF.Core.ViewModel
                     MessagesList.Add(new MessageItem { Message = Messages.msgServiceAddedFailed, FileName = string.Empty });
                     break;
 
+                case StatesEnum.ApiKeyRequiresUser:
+                    MessagesList.Add(new MessageItem { Message = Messages.msgServiceApiKeyRequiresUser, FileName = string.Empty });
+                    break;
+
                 case StatesEnum.ConnectionAlreadyExist:
                     MessagesList.Add(new MessageItem { Message = Messages.msgServiceAddedAlreadyExist, FileName = string.Empty });
                     break;
@@ -176,7 +180,15 @@ namespace CastReporting.UI.WPF.Core.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Handle the message display when connected but no application is visible for the user
+        /// </summary>
+        public void OnNoApplicationFound()
+        {
+            MessagesList.Add(new MessageItem { Message = Messages.msgNoApplicationFound, FileName = string.Empty });
+        }
+
+        /// <summary>
+        ///
         /// </summary>
         public void OnSettingsSaved()
         {

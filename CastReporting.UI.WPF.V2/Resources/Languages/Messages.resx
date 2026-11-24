@@ -366,4 +366,13 @@
   <data name="lblReleaseNotes" xml:space="preserve">
     <value>Release Notes</value>
   </data>
+  <data name="msgServiceApiKeyRequiresUser" xml:space="preserve">
+    <value>User is required when an API key is used. Please enter a user name.</value>
+  </data>
+  <data name="msgNoApplicationFound" xml:space="preserve">
+    <value>Connected, but no application is visible for this user. Please check the user name and the API key rights.</value>
+  </data>
+  <data name="toolTipLogin" xml:space="preserve">
+    <value>Required, also when an API key is used</value>
+  </data>
 </root>
